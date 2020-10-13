@@ -12,7 +12,7 @@ import unittest
 param = ol.Object()
 param.add = ["test@shell", "bart"]
 param.dne = ["test4", ""]
-param.edt = ["bmod.rss.Cfg", "bmod.rss.Cfg server=localhost", "bmod.rss.Cfg channel=#dunkbots"]
+param.edt = ["gmod.rss.Cfg", "gmod.rss.Cfg server=localhost", "gmod.rss.Cfg channel=#dunkbots"]
 param.rm = ["reddit", ]
 param.dpl = ["reddit title,summary,link",]
 param.log = ["test1", ""]

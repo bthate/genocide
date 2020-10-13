@@ -100,7 +100,7 @@ def boot(name, wd, md=""):
     k = get_kernel()
     ol.update(k.cfg, cfg)
     ol.wd = k.cfg.wd = wd
-    k.cfg.md = md or os.path.join(ol.wd, "bmod", "")
+    k.cfg.md = md or os.path.join(ol.wd, "gmod", "")
     if "b" in k.cfg.opts:
         print("%s started at %s" % (name.upper(), time.ctime(time.time()))) 
         print(ol.format(k.cfg))
@@ -111,13 +111,13 @@ def cmd(txt, wd=None):
         return 
     global booted
     if not booted:
-        k = boot("botlib", wd or os.path.expanduser("~/.bot"))
+        k = boot("genocide", wd or os.path.expanduser("~/.genocide"))
         booted = True
     else:
         k = get_kernel()
     ol.bus.bus.add(k)
     if ol.utl.root():
-        scandir(os.path.join(k.cfg.wd, "bmod"), "bmod")
+        scandir(os.path.join(k.cfg.wd, "gmod"), "gmod")
     e = ol.evt.Event()
     e.txt = txt
     k.dispatch(e)

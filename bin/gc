@@ -4,7 +4,7 @@
 #
 
 import os, sys ; sys.path.insert(0, os.getcwd())
-import bmod, bot, ol, os, pwd, select, sys
+import gmod, ol, os, pwd, select, sys
 
 def daemon():
     pid = os.fork()
@@ -32,7 +32,6 @@ def main():
     if "d" in k.cfg.opts:
         daemon()
         privileges("genocide")
-    k.walk("mymod")
     if k.cfg.txt:
         return ol.krn.cmd(k.cfg.txt)
     k.start()

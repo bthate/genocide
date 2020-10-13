@@ -71,7 +71,7 @@ def cor(event):
         return
     event.gets["From"] = event.args[0]
     event.args = list(ol.keys(event.gets)) + event.rest.split()
-    event.otype = "bmod.mbx.Email"
+    event.otype = "gmod.mbx.Email"
     nr = -1
     for email in ol.dbs.find_event(event):
         nr += 1
@@ -81,7 +81,7 @@ def eml(event):
     if not event.args:
         return
     nr = -1
-    for o in ol.dbs.all("bmod.mbx.Email"):
+    for o in ol.dbs.all("gmod.mbx.Email"):
         if event.rest in o.text:
             nr += 1
             event.reply("%s %s %s" % (nr, ol.format(o, ["From", "Subject"], False, event.skip), ol.tms.elapsed(time.time() - ol.tms.fntime(o.__stp__))))
@@ -89,7 +89,7 @@ def eml(event):
 def mbx(event):
     if not event.args:
         return
-    if os.path.exists(os.path.join(ol.wd, "store", "mymod.mbx.Email")):
+    if os.path.exists(os.path.join(ol.wd, "store", "gmod.mbx.Email")):
         event.reply("email is already scanned")
         return
     fn = os.path.expanduser(event.args[0])

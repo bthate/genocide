@@ -67,7 +67,7 @@ def get_exception(txt="", sep=" "):
         mod = []
         for element in plugfile[::-1]:
             mod.append(element)
-            if "ol" in element or "bmod" in element:
+            if "ol" in element or "gmod" in element or "genocide" in element:
                 break
         ownname = ".".join(mod[::-1])
         result.append("%s:%s" % (ownname, elem[1]))

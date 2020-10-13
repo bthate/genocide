@@ -3,7 +3,7 @@
 source
 ######
 
-GENOCIDE is written in pure python3, here is the code used:
+genocide is written in pure python3, here is the code used:
 
 GENOCIDE
 ========
@@ -16,6 +16,21 @@ GENOCIDE
      genocide.stats		- suicide statistics
      genocide.torture		- torture definition
      genocide.wisdom		- knowledge on trip
+
+GMOD
+====
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+    gmod.cfg	- configuration
+    gmod.cmd    - command
+    gmod.ent    - enter log and todo items
+    gmod.fnd    - find typed objects
+    gmod.irc	- internet relay chat
+    gmod.rss    - rich site syndicate
+    gmod.udp    - UDP to IRC gateway
 
 OLIB
 ====
@@ -35,26 +50,3 @@ OLIB
     ol.trm      - terminal
     ol.tsk      - tasks
     ol.utl      - utilities
-
-BMOD
-====
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    bmod.cfg	- configuration
-    bmod.cmd    - command
-    bmod.ent    - enter log and todo items
-    bmod.fnd    - find typed objects
-    bmod.rss    - rich site syndicate
-    bmod.udp    - UDP to IRC gateway
-
-BOTLIB
-======
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    bot.irc

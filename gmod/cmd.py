@@ -40,4 +40,4 @@ def upt(event):
 
 def ver(event):
     import genocide
-    event.reply("GENOCLAIN %s | BOTLIB %s | OLIB %s | %s" % (genocide.__version__, __version__, ol.__version__, genocide.__txt2__))
+    event.reply("GENOCIDE %s | %s" % (genocide.__version__, genocide.__txt2__))

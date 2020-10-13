@@ -2,4 +2,4 @@
 #
 #
 
-rm -fR genocide/*~ genocide/__pycache__ docs/*~ mymod/*~ mymod/__pycache__ docs/gmod*.rst docs/genocide*.rst docs/bot*.rst  docs/ol*.rst run run.tar.gz html env env.tar.gz gmod/*~ gmod/__pycache__ ol/*~ ol/__pycache__ .data build dist MANIFEST genocide.egg-info bot/*~ bot/__pycache__ bin/*~ *~ tests/*~ tests/__pycache__
+rm -fR files/*~ docs/*~ docs/gmod*.rst docs/ol*.rst run run.tar.gz html env env.tar.gz gmod/*~ gmod/__pycache__ ol/*~ ol/__pycache__ .data build dist MANIFEST genocide.egg-info bin/*~ *~ tests/*~ tests/__pycache__

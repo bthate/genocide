@@ -22,7 +22,6 @@ def fnd(event):
     except:
         args = []
     for otype in event.types:
-        print(otype)
         for o in ol.dbs.find(otype, event.prs.gets, event.prs.index, event.prs.timed):
             nr += 1
             if "f" in event.prs.opts:

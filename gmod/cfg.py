@@ -6,7 +6,7 @@ import ol
 
 def cfg(event):
     try:
-        from bot.irc import Cfg
+        from gmod.irc import Cfg
     except ImportError:
         from ol.krn import Cfg
     c = Cfg()

@@ -28,7 +28,11 @@ def privileges(name):
     old_umask = os.umask(0o22)
 
 def main():
-    k = ol.krn.boot("genocide", os.path.expanduser("~/.genocide"))
+    if ol.utl.root():
+        wd = "/var/lib/genocide"
+    else:
+        wd = os.path.expanduser("~/.genocide")
+    k = ol.krn.boot("genocide", wd)
     if "d" in k.cfg.opts:
         daemon()
         privileges("genocide")

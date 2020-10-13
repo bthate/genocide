@@ -43,12 +43,12 @@ class Cfg(ol.Cfg):
 
     def __init__(self):
         super().__init__()
-        self.channel = "#botlib"
-        self.nick = "botlib"
+        self.channel = "#genocide"
+        self.nick = "genocide"
         self.port = 6667
-        self.realname = "the bot library"
+        self.realname = "# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io"
         self.server = "localhost"
-        self.username = "botlib"
+        self.username = "genocide"
 
 class Event(ol.evt.Event):
 
@@ -363,7 +363,7 @@ class IRC(ol.hdl.Handler, ol.ldr.Loader):
 
     def NOTICE(self, event):
         if event.txt.startswith("VERSION"):
-            txt = "\001VERSION %s %s - %s\001" % ("BOTLIB", __version__, "framework to program bots")
+            txt = "\001VERSION %s %s - %s\001" % ("GENOCIDE", __version__, "# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io")
             self.command("NOTICE", event.channel, txt)
 
     def PRIVMSG(self, event):
@@ -420,7 +420,7 @@ class DCC(ol.hdl.Handler):
             s.connect((addr, port))
         except ConnectionError:
             return
-        s.send(bytes('Welcome to BOTLIB %s !!\n' % event.nick, "utf-8"))
+        s.send(bytes('Welcome to GENOCIDE %s !!\n' % event.nick, "utf-8"))
         s.setblocking(1)
         os.set_inheritable(s.fileno(), os.O_RDWR)
         self._sock = s
@@ -486,7 +486,7 @@ class Users(ol.Object):
 
     def get_users(self, origin=""):
         s = {"user": origin}
-        return ol.dbs.find("bot.irc.User", s)
+        return ol.dbs.find("gmod.irc.User", s)
 
     def get_user(self, origin):
         u = list(self.get_users(origin))

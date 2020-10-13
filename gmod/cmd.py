@@ -1,12 +1,8 @@
-# BOTLIB - the bot library !
+# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io
 #
 #
 
-__version__ = 1
-
-import ol
-import threading
-import time
+import gmod, ol, threading, time
 
 k = ol.krn.get_kernel()
 
@@ -39,5 +35,4 @@ def upt(event):
     event.reply(ol.tms.elapsed(time.time() - ol.krn.starttime))
 
 def ver(event):
-    import genocide
-    event.reply("GENOCIDE %s | %s" % (genocide.__version__, genocide.__txt2__))
+    event.reply("GENOCIDE %s | %s" % gmod.__version__)

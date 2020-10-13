@@ -13,7 +13,7 @@ curdir = os.getcwd()
 sys.path.insert(0, curdir + os.sep)
 sys.path.insert(0, curdir + os.sep + '..' + os.sep)
 
-from genocide import __version__
+from gmod import __version__
 
 needs_sphinx='1.1'
 nitpick_ignore=[

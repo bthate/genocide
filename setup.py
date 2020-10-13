@@ -18,7 +18,7 @@ setup(
     license='Public Domain',
     zip_safe=False,
     scripts=["bin/gc"],
-    packages=["genocide", "gmod", "ol"],
+    packages=["gmod", "ol"],
     classifiers=['Development Status :: 4 - Beta',
                  'License :: Public Domain',
                  'Operating System :: Unix',

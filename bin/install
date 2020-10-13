@@ -28,7 +28,7 @@ def main():
         ol.utl.cdir("/var/lib/genocide/store/")
     if not os.path.exists("/var/lib/genocide/gmod"):
         ol.utl.cdir("/var/lib/genocide/")
-    open("cp gmod/*.py /var/lib/genocide/")
+    open("cp gmod/*.py /var/lib/genocide/gmod")
     nopen("groupadd genocide")
     nopen("useradd genocide -d /var/lib/genocide/")
     open("chown -R genocide:genocide /var/lib/genocide/")

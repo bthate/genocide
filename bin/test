@@ -1,0 +1,36 @@
+#!/usr/bin/python3
+# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io
+#
+#
+
+import os, sys ; sys.path.insert(0, os.getcwd())
+sys.path.insert(0, sys.path.insert(0, os.path.join(os.getcwd(), "mymod")))
+
+import ol
+import os
+import sys
+import time
+import unittest
+
+def main():
+    try:
+        import bmod.rss
+        bmod.rss.debug = True
+    except: 
+        pass
+    k = ol.krn.boot("test", os.path.expanduser("~/.test"))
+    ol.update(k.cfg, ol.prs.parse_cli())
+    k.walk("genocide")
+    k.walk("mymod")
+    k.start()
+    test_path = os.getcwd() + os.sep + "tests"
+    if k.cfg.txt:
+        pat = "test_%s*" % k.cfg.txt
+    else:
+        pat = "test*"
+    suite = unittest.loader.TestLoader().discover(test_path, pattern=pat)
+    unittest.TextTestRunner(verbosity=3).run(suite)
+    k.wait()
+   
+ol.trm.execute(main)
+os._exit(0)

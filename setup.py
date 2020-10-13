@@ -12,7 +12,7 @@ setup(
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl',
-    descriptions="the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io",
+    description="the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io",
     long_description=read(),
     long_description_content_type="text/x-rst",
     license='Public Domain',

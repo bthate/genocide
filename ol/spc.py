@@ -14,4 +14,4 @@ from ol.ldr import Loader
 from ol.prs import parse, parse_cli
 from ol.tsk import launch
 from ol.trm import execute
-from ol.utl import root
+from ol.utl import privileges, root

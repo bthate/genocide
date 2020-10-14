@@ -46,7 +46,7 @@ class Cfg(ol.Cfg):
         self.channel = "#genocide"
         self.nick = "genocide"
         self.port = 6667
-        self.realname = "# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io"
+        self.realname = "OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io"
         self.server = "localhost"
         self.username = "genocide"
 

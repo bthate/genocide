@@ -35,14 +35,17 @@ def main():
     else:
         wd = os.path.expanduser("~/.genocide")
     k = boot("genocide", wd)
-    scandir(os.path.join(k.cfg.wd, "gmod"), "gmod")
+    if root():
+        sys.path.insert(0, "/var/lib/genocide/gmod/")
+        scandir(os.path.join(k.cfg.wd, "gmod"), "gmod")
     if "d" in k.cfg.opts:
         daemon()
         privileges("genocide")
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     k.start()
-    k.init(k.cfg.mods, k.cfg.exc)
+    mods = ["gmod.%s" % x for x in k.cfg.mods.split()]
+    k.init(",".join(mods), k.cfg.exc)
     if "s" in k.cfg.opts:
         c = Console()
         c.start()

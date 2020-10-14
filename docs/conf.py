@@ -61,7 +61,7 @@ html_theme = "haiku"
 #     "nosidebar": True,
 #}
 html_theme_path = []
-html_short_title = ""
+html_short_title = "GENOCIDE %s" % __version__
 html_favicon = "smile3.png"
 html_static_path = []
 html_extra_path = []

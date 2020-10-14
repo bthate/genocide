@@ -3,9 +3,7 @@
 #
 #
 
-import ol, pwd
-
-from ol.spc import Console, boot, cmd, execute, privileges, root, scandir
+from ol.spc import Console, boot, cmd, execute, ol, os, privileges, pwd, root, scandir, sys
 
 def main():
     k = boot("genocide", "/var/lib/genocide")

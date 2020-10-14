@@ -2,7 +2,9 @@
 #
 #
 
+import ol
 import os
+import pwd
 import sys
 
 from ol.bus import Bus, bus

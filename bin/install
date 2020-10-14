@@ -34,7 +34,7 @@ def main():
     open("chown -R genocide:genocide /var/lib/genocide/")
     open("chmod -R 700 /var/lib/genocide/")
     open("chmod -R 400 /var/lib/genocide/gmod/*.py")
-    nopen("python3 setup.py sdist")
+    nopen("python3 setup.py install")
     open("cp files/genocide.service /etc/systemd/system/")
     open("systemctl daemon-reload")
     open("service genocide stop")

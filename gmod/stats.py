@@ -1,10 +1,8 @@
-# GENOCLAIM - using the law to administer poison, the king commits genocide
+# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io
 #
-# OTP-CR-117/19/001 (otp.informationdesk@icc-cpi.int)
+#
 
-import random
-import time
-import ol
+import random, time, ol
 
 k = ol.krn.get_kernel()
 
@@ -48,7 +46,7 @@ class ENOSTATS(Exception):
 
 startdate = "2018-10-05 00:00:00"
 starttime = ol.tms.to_day(startdate)
-source = "https://github.com/bthate/genoclaim"
+source = "https://github.com/bthate/genocide"
 
 def seconds(nrs, period="jaar"):
     if not nrs:

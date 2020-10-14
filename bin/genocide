@@ -30,28 +30,15 @@ def privileges(name):
     old_umask = os.umask(0o22)
 
 def main():
-    if root():
-        wd = "/var/lib/genocide/"
-    else:
-        wd = os.path.expanduser("~/.genocide")
-    k = boot("genocide", wd)
-    if root():
-        sys.path.insert(0, "/var/lib/genocide/gmod/")
-        scandir(os.path.join(k.cfg.wd, "gmod"), "gmod")
-    if "d" in k.cfg.opts:
-        daemon()
-        privileges("genocide")
+    k = boot("genocide", "/var/lib/genocide")
+    sys.path.insert(0, "/var/lib/genocide/gmod/")
+    scandir(os.path.join(k.cfg.wd, "gmod"), "gmod")
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     k.start()
     mods = ["gmod.%s" % x for x in k.cfg.mods.split()]
     k.init(",".join(mods), k.cfg.exc)
-    if "s" in k.cfg.opts:
-        c = Console()
-        c.start()
-        k.wait()
-    elif "w" in k.cfg.opts or "d" in k.cfg.opts:
-        k.wait()
+    k.wait()
  
 execute(main)
 os._exit(0)

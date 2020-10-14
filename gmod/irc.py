@@ -126,6 +126,8 @@ class IRC(ol.hdl.Handler, ol.ldr.Loader):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
+        if "v" in k.cfg.opts:
+            print(rawstr)
         o = Event()
         o.rawstr = rawstr
         o.orig = repr(self)
@@ -186,6 +188,8 @@ class IRC(ol.hdl.Handler, ol.ldr.Loader):
         for t in wrapper.wrap(txt):
             if not t:
                 continue
+            if "v" in k.cfg.opts:
+                print(t)
             self.command("PRIVMSG", channel, t)
             if (time.time() - self.state.last) < 4.0:
                 time.sleep(4.0)

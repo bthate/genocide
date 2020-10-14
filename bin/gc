@@ -4,7 +4,9 @@
 #
 
 import os, sys ; sys.path.insert(0, os.getcwd())
-import gmod, ol, os, pwd, select, sys
+import ol, pwd
+
+from ol.spc import Console, boot, cmd, execute, root, scandir
 
 def daemon():
     pid = os.fork()
@@ -28,24 +30,21 @@ def privileges(name):
     old_umask = os.umask(0o22)
 
 def main():
-    if ol.utl.root():
-        wd = "/var/lib/genocide"
-    else:
-        wd = os.path.expanduser("~/.genocide")
-    k = ol.krn.boot("genocide", wd)
+    k = boot("genocide", os.path.expanduser("~/.genocide"))
     if "d" in k.cfg.opts:
         daemon()
         privileges("genocide")
     if k.cfg.txt:
-        return ol.krn.cmd(k.cfg.txt)
+        return cmd(k.cfg.otxt)
     k.start()
-    k.init(k.cfg.mods, k.cfg.exc)
+    mods = ["gmod.%s" % x for x in k.cfg.mods.split()]
+    k.init(",".join(mods), k.cfg.exc)
     if "s" in k.cfg.opts:
-        c = ol.csl.Console()
+        c = Console()
         c.start()
         k.wait()
-    elif "w" in k.cfg.opts or "d" in k.cfg.opts:
+    elif "r" in k.cfg.opts or "d" in k.cfg.opts or "w" in k.cfg.opts:
         k.wait()
  
-ol.trm.execute(main)
+execute(main)
 os._exit(0)

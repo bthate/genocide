@@ -2,16 +2,20 @@
 #
 #
 
+"basic commands (cmd)"
+
 import gmod, ol, threading, time
 
 k = ol.krn.get_kernel()
 
 def cmd(event):
+    "list commands (cmd)"
     c = sorted(ol.keys(ol.tbl.mods))
     if c:
         event.reply(",".join(c))
 
 def tsk(event):
+    "list tasks (tsk)"
     psformat = "%s %s"
     result = []
     for thr in sorted(threading.enumerate(), key=lambda x: x.getName()):
@@ -32,7 +36,9 @@ def tsk(event):
     event.reply(" | ".join(res))
 
 def upt(event):
+    "show uptime (utp)"
     event.reply(ol.tms.elapsed(time.time() - ol.krn.starttime))
 
 def ver(event):
+    "show version (ver)"
     event.reply("GENOCIDE %s | %s" % (gmod.__version__, gmod.__txt2__))

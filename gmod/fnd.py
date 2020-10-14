@@ -2,11 +2,14 @@
 #
 #
 
+"find objects (fnd)"
+
 import ol
 import os
 import time
 
 def fnd(event):
+    "locate and show objects on disk"
     if not event.args:
         wd = os.path.join(ol.wd, "store", "")
         ol.cdir(wd)

@@ -2,6 +2,8 @@
 #
 #
 
+"rich site syndicate"
+
 import datetime
 import html.parser
 import ol
@@ -15,16 +17,16 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
-debug = False
-
 try:
     import feedparser
     gotparser = True
 except ModuleNotFoundError:
     gotparser = False
 
+#:
 debug = False
 
+#;
 timestrings = [
     "%a, %d %b %Y %H:%M:%S %z",
     "%d %b %Y %H:%M:%S %z",
@@ -45,11 +47,14 @@ timestrings = [
 
 
 def init(krn):
+    "start a rss poller and return it"
     f = Fetcher()
     f.start()
     return f
 
 class Cfg(ol.Cfg):
+
+    "rss configuration"
 
     def __init__(self):
         super().__init__()
@@ -57,9 +62,11 @@ class Cfg(ol.Cfg):
 
 class Feed(ol.Default):
 
-    pass
+    "a feed item"
 
 class Rss(ol.Object):
+
+    "a rss feed url"
 
     def __init__(self):
         super().__init__()
@@ -67,13 +74,19 @@ class Rss(ol.Object):
 
 class Seen(ol.Object):
 
+    "all urls seen"
+
     def __init__(self):
         super().__init__()
         self.urls = []
 
 class Fetcher(ol.Object):
 
+    "rss feed poller"
+
+    #:
     cfg = ol.Cfg()
+    #:
     seen = Seen()
 
     def __init__(self):
@@ -81,6 +94,7 @@ class Fetcher(ol.Object):
         self._thrs = []
 
     def display(self, o):
+        "display a rss feed item"
         result = ""
         dl = []
         try:
@@ -108,6 +122,7 @@ class Fetcher(ol.Object):
         return result[:-2].rstrip()
 
     def fetch(self, rssobj):
+        "update a rss feed"
         counter = 0
         objs = []
         if not rssobj.rss:
@@ -139,12 +154,14 @@ class Fetcher(ol.Object):
         return counter
 
     def run(self):
+        "update all feeds"
         thrs = []
         for o in ol.dbs.all("gmod.rss.Rss"):
             thrs.append(ol.tsk.launch(self.fetch, o))
         return thrs
 
     def start(self, repeat=True):
+        "start the rss poller"
         ol.dbs.last(Fetcher.cfg)
         ol.dbs.last(Fetcher.seen)
         if repeat:
@@ -152,11 +169,14 @@ class Fetcher(ol.Object):
             repeater.start()
 
     def stop(self):
+        "stop the rss poller"
         ol.save(self.seen)
 
+#:
 fetcher = Fetcher()
 
 def get_feed(url):
+    "return a feed by it's url"
     if debug:
         return [ol.Object(), ol.Object()]
     try:
@@ -177,6 +197,7 @@ def file_time(timestamp):
     return s.replace(" ", os.sep) + "." + str(random.randint(111111, 999999))
 
 def get_tinyurl(url):
+    "return a corresponding timyurl"
     postarray = [
         ('submit', 'submit'),
         ('url', url),
@@ -192,6 +213,7 @@ def get_tinyurl(url):
     return []
 
 def get_url(url):
+    "return a http page"
     url = urllib.parse.urlunparse(urllib.parse.urlparse(url))
     req = urllib.request.Request(url)
     req.add_header('User-agent', useragent())
@@ -200,10 +222,12 @@ def get_url(url):
     return response
 
 def strip_html(text):
+    "strip html codes from a page"
     clean = re.compile('<.*?>')
     return re.sub(clean, '', text)
 
 def to_time(daystr):
+    "convert a timestring to unix timestamp"
     daystr = daystr.strip()
     if "," in daystr:
         daystr = " ".join(daystr.split(None)[1:7])
@@ -231,13 +255,16 @@ def to_time(daystr):
     return res
 
 def unescape(text):
+    "unescape html codes"
     txt = re.sub(r"\s+", " ", text)
     return html.parser.HTMLParser().unescape(txt)
 
 def useragent():
-    return 'Mozilla/5.0 (X11; Linux x86_64) OLIB +http://github.com/bthate/olib)'
+    "return useragent"
+    return 'Mozilla/5.0 (X11; Linux x86_64) GENOCIDE +http://github.com/bthate/genocide)'
 
 def rm(event):
+    "remove a rss feed"
     if not event.args:
         return
     selector = {"rss": event.args[0]}
@@ -252,6 +279,7 @@ def rm(event):
     event.reply("ok")
 
 def dpl(event):
+    "set keys to display"
     if len(event.args) < 2:
         return
     setter = {"display_list": event.args[1]}
@@ -261,6 +289,7 @@ def dpl(event):
     event.reply("ok")
 
 def fed(event):
+    "search through saved feed items"
     if not event.args:
         return
     match = event.args[0]
@@ -287,6 +316,7 @@ def fed(event):
         nr += 1
 
 def ftc(event):
+    "manual run a fetch batch"
     res = []
     thrs = []
     fetchr = Fetcher()
@@ -299,6 +329,7 @@ def ftc(event):
         return
 
 def rss(event):
+    "add a feed"
     if not event.args:
         return
     url = event.args[0]

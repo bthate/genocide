@@ -2,6 +2,9 @@
 #
 #
 
+"torture definition (trt)"
+
+#:
 txt = """
 § 95.1 Definitions.
 
@@ -40,4 +43,5 @@ see https://www.law.cornell.edu/cfr/text/22/95.1
 """
 
 def trt(event):
+    "show torture definition (trt)"
     event.reply(txt)

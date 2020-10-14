@@ -2,11 +2,14 @@
 #
 #
 
+"configuration (cfg)"
+
 import ol
 
 from gmod.irc import Cfg
 
 def cfg(event):
+    "configure irc."
     c = Cfg()
     ol.dbs.last(c)
     o = ol.Default()

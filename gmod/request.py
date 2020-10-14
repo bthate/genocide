@@ -2,6 +2,8 @@
 #
 #
 
+"show request send to the prosecutor"
+
 txt = """
 Information and Evidence Unit
 Office of the Prosecutor
@@ -51,4 +53,5 @@ I hope you can stop the above mentioned crimes the king of the netherlands and h
 """
 
 def req(event):
+    "show request send to the prosecutor"
     event.reply(txt)

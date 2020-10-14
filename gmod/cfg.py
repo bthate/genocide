@@ -4,11 +4,9 @@
 
 import ol
 
+from gmod.irc import Cfg
+
 def cfg(event):
-    try:
-        from gmod.irc import Cfg
-    except ImportError:
-        from ol.krn import Cfg
     c = Cfg()
     ol.dbs.last(c)
     o = ol.Default()

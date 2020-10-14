@@ -17,7 +17,7 @@ setup(
     long_description_content_type="text/x-rst",
     license='Public Domain',
     zip_safe=False,
-    scripts=["bin/gc"],
+    scripts=["bin/genocide"],
     packages=["gmod", "ol"],
     classifiers=['Development Status :: 4 - Beta',
                  'License :: Public Domain',

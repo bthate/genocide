@@ -6,16 +6,18 @@
 from ol.spc import Console, boot, cmd, execute, ol, os, privileges, pwd, root, scandir, sys
 
 def main():
-    k = boot("genocide", "/var/lib/genocide")
+    if not root():
+        print("you need root privileges")
+        return
+    k = boot("genocide", mn="gmod")
+    if k.cfg.txt: return cmd(k.cfg.otxt)
+    if "b" in k.cfg.opts:
+        print("%s started at %s" % (name.upper(), time.ctime(time.time()))) 
+        print(ol.format(k.cfg))
     privileges("genocide")
-    print(ol.format(k.cfg))
-    sys.path.insert(0, "/var/lib/genocide/gmod")
-    scandir("/var/lib/genocide/gmod", "gmod")
-    if k.cfg.txt:
-        return cmd(k.cfg.otxt, "/var/lib/genocide")
+    scandir(k.cfg.md, "gmod")
     k.start()
-    mods = ["gmod.%s" % x for x in k.cfg.mods.split()]
-    k.init(",".join(mods), k.cfg.exc)
+    k.init(k.cfg.mods, k.cfg.exc)
     k.wait()
  
 execute(main)

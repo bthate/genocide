@@ -6,7 +6,7 @@
 import os, sys ; sys.path.insert(0, os.getcwd())
 import ol, pwd
 
-from ol.spc import Console, boot, cmd, execute, root
+from ol.spc import Console, boot, cmd, execute, root, scandir
 
 def daemon():
     pid = os.fork()
@@ -35,6 +35,7 @@ def main():
     else:
         wd = os.path.expanduser("~/.genocide")
     k = boot("genocide", wd)
+    scandir(os.path.join(k.cfg.wd, "gmod"), "gmod")
     if "d" in k.cfg.opts:
         daemon()
         privileges("genocide")

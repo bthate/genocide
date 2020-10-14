@@ -1,5 +1,5 @@
 [Unit]
-Description=GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io
+Description=OTP-CR-117/19/001 - the king of the netherlands commits genocide - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io
 
 After=network-online.target
 Wants=network-online.target
@@ -7,7 +7,7 @@ Wants=network-online.target
 [Service]
 User=genocide
 Group=genocide
-ExecStart=/usr/local/bin/genocide -w
+ExecStart=/usr/local/bin/genocide mods=gmod.irc,gmod.rss -w -b
 
 [Install]
 WantedBy=multi-user.target

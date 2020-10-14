@@ -239,7 +239,7 @@ class IRC(ol.hdl.Handler, ol.ldr.Loader):
             return
 
     def connect(self, server, nick):
-       "connect to server and identify with nick"
+        "connect to server and identify with nick"
         nr = 0
         while not self.stopped:
             self.state.nrconnect += 1
@@ -281,7 +281,7 @@ class IRC(ol.hdl.Handler, ol.ldr.Loader):
             self.dispatch(e)
 
     def joinall(self):
-        'join all channels"
+        "join all channels"
         for channel in self.channels:
             self.command("JOIN", channel)
 

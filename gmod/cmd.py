@@ -35,4 +35,4 @@ def upt(event):
     event.reply(ol.tms.elapsed(time.time() - ol.krn.starttime))
 
 def ver(event):
-    event.reply("GENOCIDE %s | %s" % gmod.__version__)
+    event.reply("GENOCIDE %s | %s" % (gmod.__version__, gmod.__txt2__))

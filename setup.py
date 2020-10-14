@@ -8,11 +8,11 @@ def read():
 
 setup(
     name='genocide',
-    version='2',
+    version='3',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl',
-    description="the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io",
+    description="The king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io",
     long_description=read(),
     long_description_content_type="text/x-rst",
     license='Public Domain',

@@ -1,6 +1,8 @@
 {{ fullname }}
 {{ underline }}
 
+.. rubric:: Classes
+
 .. autoclass:: {{ objname }}
 
    {% block methods %}

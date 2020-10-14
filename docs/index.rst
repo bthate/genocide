@@ -56,6 +56,24 @@ I hope you can stop the above mentioned crimes the king of the netherlands and h
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
 
+
+letter
+======
+
+.. image:: informed.jpg
+    :width: 100%
+
+confirmed
+=========
+
+.. image:: opdehoogte.jpg
+    :width: 100%
+
+OTP1
+====
+
+.. image:: OTP1.png
+
 CHRONOLOGICAL
 #############
 
@@ -105,27 +123,15 @@ You can see the email that informed the king on http://koning.rtfd.io/
 
 Knowing that the proof that Haldol is a poison was offline when you reached your conclusion to not to proceed, could you reconsider your conclusion now this proof is back online again ?
 
-letter
-======
-
-.. image:: informed.jpg
-    :width: 100%
-
-confirmed
-=========
-
-.. image:: opdehoogte.jpg
-    :width: 100%
-
-OTP1
-====
-
-.. image:: OTP1.png
-
 OTP2
 ====
 
 .. image:: OTP2.png
+
+STATE OF AFFAIRS
+================
+
+“By adding Article 11 to the requirements, the prosecutor is actualy calling it a genocide and is missing the cooperation of the netherlands to arrest it’s own king and stop the kings genocide.” - https://genoclaim.readthedocs.io #ggz #gifpil
 
 CONTACT
 =======

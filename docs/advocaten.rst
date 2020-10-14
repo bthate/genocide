@@ -10,5 +10,5 @@ ADVOCATEN
 KAMER
 #####
 
-..literalinclude:: kamer1
-..literalinclude:: kamer2
+.. literalinclude:: kamer1
+.. literalinclude:: kamer2

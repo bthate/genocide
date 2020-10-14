@@ -17,11 +17,11 @@ GMOD
     gmod.ent    	- enter log and todo items
     gmod.fnd    	- find typed objects
     gmod.irc		- internet relay chat
-    gmod.request	- request send to the prosecutor
+    gmod.req		- request send to the prosecutor
     gmod.rss    	- rich site syndicate
-    gmod.stats		- suicide statistics
-    gmod.torture	- torture definition
-    gmod.wisdom		- knowledge on trip
+    gmod.sts		- suicide statistics
+    gmod.trt		- torture definition
+    gmod.wsd		- knowledge on trip
     gmod.udp    	- UDP to IRC gateway
 
 OLIB

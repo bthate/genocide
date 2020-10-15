@@ -12,7 +12,8 @@ def main():
         gmod.rss.debug = True
     except: 
         pass
-    k = ol.krn.boot("test", os.path.expanduser("~/.test"))
+    ol.wd = os.path.expanduser("~/.test")
+    k = ol.krn.boot("test")
     ol.update(k.cfg, ol.prs.parse_cli())
     k.start()
     test_path = os.getcwd() + os.sep + "tests"

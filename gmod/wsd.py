@@ -10,6 +10,7 @@ def wsd(event):
     "show the wisdom (wsd)"
     event.reply(random.choice(txt.split("\n")))
 
+#:
 txt="""
 OVERDRACHT
 ==========

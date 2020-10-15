@@ -13,6 +13,10 @@ curdir = os.getcwd()
 sys.path.insert(0, curdir + os.sep)
 sys.path.insert(0, curdir + os.sep + '..' + os.sep)
 
+from sphinx.ext import autodoc
+from sphinx.util import inspect
+autodoc.repr = inspect.repr = str
+
 from gmod import __version__
 
 needs_sphinx='1.1'
@@ -29,9 +33,10 @@ extensions=[
 ]
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members", 'show-inheritance']
-autodoc_member_order='alphabetical'
-autodoc_member_order='groupwise'
 autodoc_docstring_signature=True
+autodoc_inherit_docstrings=False
+autodoc_member_order='bysource'
+autodoc_typehints="description"
 autoclass_content="class"
 doctest_global_setup=""
 doctest_global_cleanup=""

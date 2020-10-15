@@ -1,10 +1,11 @@
-EVIDENCE
-========
+GENOCIDE
+########
 
-.. image:: cloza.png
+"by using the law to administer poison the king of the netherlands commits genocide"
 
 ICC
 ===
+
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -56,26 +57,8 @@ I hope you can stop the above mentioned crimes the king of the netherlands and h
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
 
-
-letter
-======
-
-.. image:: informed.jpg
-    :width: 100%
-
-confirmed
-=========
-
-.. image:: opdehoogte.jpg
-    :width: 100%
-
-OTP1
-====
-
-.. image:: OTP1.png
-
 CHRONOLOGICAL
-#############
+=============
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -123,11 +106,6 @@ You can see the email that informed the king on http://koning.rtfd.io/
 
 Knowing that the proof that Haldol is a poison was offline when you reached your conclusion to not to proceed, could you reconsider your conclusion now this proof is back online again ?
 
-OTP2
-====
-
-.. image:: OTP2.png
-
 STATE OF AFFAIRS
 ================
 
@@ -139,6 +117,38 @@ CONTACT
 i am reachable by email:
 
 Bart Thate (bthate@dds.nl/thatebart@gmail.com) - :ref:`source <source>`
+
+EVIDENCE
+########
+
+poison
+======
+
+.. image:: cloza.png
+
+letter
+======
+
+.. image:: informed.jpg
+    :width: 100%
+
+confirmed
+=========
+
+.. image:: opdehoogte.jpg
+    :width: 100%
+
+OTP1
+====
+
+.. image:: OTP1.png
+
+
+OTP2
+====
+
+.. image:: OTP2.png
+
 
 .. toctree::
     :glob:

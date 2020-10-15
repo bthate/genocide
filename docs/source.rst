@@ -5,7 +5,7 @@ source
 
 genocide is written in pure python3, here is the code used:
 
-GMOD
+gmod
 ====
 
 .. autosummary::
@@ -24,7 +24,7 @@ GMOD
     gmod.wsd		- knowledge on trip
     gmod.udp    	- UDP to IRC gateway
 
-OLIB
+olib
 ====
 
 .. autosummary::

@@ -18,20 +18,19 @@ def fnd(event):
         if fns:
             event.reply(",".join(fns))
         return
-    k = ol.krn.get_kernel()
     nr = -1
+    args = []
     try:
-        args = event.args[1:]
-    except:
-        args = []
+        args = event.prs.args[1:]
+    except IndexError:
+        args = ol.keys(o)
     for otype in event.types:
         for o in ol.dbs.find(otype, event.prs.gets, event.prs.index, event.prs.timed):
             nr += 1
+            pure = True
             if "f" in event.prs.opts:
                 pure = False
-            else:
-                pure = True
-            txt = "%s %s" % (str(nr), ol.format(o, args or ol.keys(o), False, event.prs.skip))
+            txt = "%s %s" % (str(nr), ol.format(o, args, pure, event.prs.skip))
             if "t" in event.prs.opts:
                 txt = txt + " %s" % (ol.tms.elapsed(time.time() - ol.tms.fntime(o.stp)))
             event.reply(txt)

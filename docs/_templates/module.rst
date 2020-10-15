@@ -1,6 +1,8 @@
 {{ fullname }}
 {{ underline }}
 
+.. title:: Module
+
 .. automodule:: {{ fullname }}
 
    {% block exceptions %}
@@ -36,3 +38,4 @@
    {% endif %}
    {% endblock %}
 
+   .. title:: Module

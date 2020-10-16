@@ -99,10 +99,24 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
 
 kernels = []
 
-def boot(name):
+def boot(name, pkgname="", wd="", root=False):
+    if not pkgname:
+        pkgname = name
+    if root:
+        wd = "/var/lib/%s" % name
+    else:
+        wd = os.path.expanduser("~/.%s" % name)
     cfg = ol.prs.parse_cli()
     k = get_kernel()
     ol.update(k.cfg, cfg)
+    ol.wd = k.cfg.wd or wd
+    k.cfg.wd = ol.wd
+    k.cfg.md = os.path.join(ol.wd, pkgname)
+    if "b" in k.cfg.opts:
+        print("%s started at %s" % (name.upper(), time.ctime(time.time())))
+        print(ol.format(k.cfg))
+    return k
+
     return k
 
 def cmd(txt):

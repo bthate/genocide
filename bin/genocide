@@ -3,9 +3,8 @@
 #
 #
 
-import ol, os, pwd, sys, time
-
-from ol.spc import boot, cmd, execute, privileges, root, scandir
+from ol.spc import Console, cmd, execute, ol, scandir
+from ol.spc import os, pwd, sys, time 
 
 def daemon():
     pid = os.fork()
@@ -21,24 +20,27 @@ def daemon():
     os.dup2(so.fileno(), sys.stdout.fileno())
     os.dup2(se.fileno(), sys.stderr.fileno())
 
-def main():
-    name = "genocide"
-    ol.wd = "/var/lib/%s" % name
-    k = boot(name)
+def boot(name):
+    ol.wd = os.path.expanduser("/var/lib/%s" % name)
+    wait = False
+    k = ol.krn.boot(name)
     k.cfg.wd = ol.wd
-    k.cfg.md = os.path.join(ol.wd, "gmod", "")
+    k.cfg.md = os.path.join(ol.wd, "gmod")
     if "b" in k.cfg.opts:
-        print("%s started at %s" % (name, time.ctime(time.time())))
+        print("%s started at %s" % (name.upper(), time.ctime(time.time())))
         print(ol.format(k.cfg))
+    return k
+
+def main():
+    k = boot("genocide")
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     if "d" in k.cfg.opts:
         daemon()
-    privileges(name)
+        privileges(name)
     scandir(k.cfg.md, "gmod")
     k.start()
-    k.init(k.cfg.mods, k.cfg.exc)
     k.wait()
- 
+         
 execute(main)
 os._exit(0)

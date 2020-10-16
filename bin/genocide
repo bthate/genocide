@@ -9,7 +9,7 @@ def main():
     if not root():
         print("you need root privileges")
         return
-    k = boot("genocide", mn="gmod")
+    k = boot("genocide")
     if k.cfg.txt: return cmd(k.cfg.otxt)
     if "b" in k.cfg.opts:
         print("%s started at %s" % (name.upper(), time.ctime(time.time()))) 

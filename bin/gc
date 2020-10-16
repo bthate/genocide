@@ -4,6 +4,7 @@
 #
 
 import os, sys ; sys.path.insert(0, os.getcwd())
+
 from ol.spc import Console, boot, cmd, execute, ol, scandir
 from ol.spc import os, pwd, sys, time 
 
@@ -28,9 +29,12 @@ def main():
     if "d" in k.cfg.opts:
         daemon()
         privileges(name)
-        scandir(k.cfg.md, "mod")
+        scandir(k.cfg.md, "mods")
     k.start()
-    if k.init(k.cfg.mods, k.cfg.exc):
+    k.init(k.cfg.mods, k.cfg.exc)
+    if "s" in k.cfg.opts:
+        c = Console()
+        c.start()
         k.wait()
          
 execute(main)

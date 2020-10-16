@@ -52,7 +52,7 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
             if mn in exclude:
                 continue
             if "." not in mn:
-                mn = "%s.%s" % (name or "ol", mn)                
+                mn = "mods.%s" % mn
             if mn not in self.table:
                 self.load(mn)
             if mn in self.table:

@@ -156,7 +156,7 @@ class Fetcher(ol.Object):
     def run(self):
         "update all feeds"
         thrs = []
-        for o in ol.dbs.all("gmod.rss.Rss"):
+        for o in ol.dbs.all("mods.rss.Rss"):
             thrs.append(ol.tsk.launch(self.fetch, o))
         return thrs
 
@@ -270,7 +270,7 @@ def rm(event):
     selector = {"rss": event.args[0]}
     nr = 0
     got = []
-    for o in ol.dbs.find("gmod.rss.Rss", selector):
+    for o in ol.dbs.find("mods.rss.Rss", selector):
         nr += 1
         o._deleted = True
         got.append(o)
@@ -283,7 +283,7 @@ def dpl(event):
     if len(event.args) < 2:
         return
     setter = {"display_list": event.args[1]}
-    for o in ol.dbs.find("gmod.rss.Rss", {"rss": event.args[0]}):
+    for o in ol.dbs.find("mods.rss.Rss", {"rss": event.args[0]}):
         ol.edit(o, setter)
         ol.save(o)
     event.reply("ok")
@@ -294,7 +294,7 @@ def fed(event):
         return
     match = event.args[0]
     nr = 0
-    res = list(find("gmod.rss.Feed", {"link": match}))
+    res = list(find("mods.rss.Feed", {"link": match}))
     for o in res:
         if match:
             event.reply("%s %s - %s - %s" % (nr,
@@ -304,12 +304,12 @@ def fed(event):
         nr += 1
     if nr:
         return
-    res = list(ol.dbs.find("gmod.rss.Feed", {"title": match}))
+    res = list(ol.dbs.find("mods.rss.Feed", {"title": match}))
     for o in res:
         if match:
             event.reply("%s %s - %s - %s" % (nr, o.title, o.summary, o.link))
         nr += 1
-    res = list(ol.dbs.find("gmod.rss.Feed", {"summary": match}))
+    res = list(ol.dbs.find("mods.rss.Feed", {"summary": match}))
     for o in res:
         if match:
             event.reply("%s %s - %s - %s" % (nr, o.title, o.summary, o.link))
@@ -333,7 +333,7 @@ def rss(event):
     if not event.args:
         return
     url = event.args[0]
-    res = list(ol.dbs.find("gmod.rss.Rss", {"rss": url}))
+    res = list(ol.dbs.find("mods.rss.Rss", {"rss": url}))
     if res:
         return
     o = Rss()

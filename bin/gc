@@ -28,7 +28,7 @@ def main():
     if "d" in k.cfg.opts:
         daemon()
         privileges(name)
-        scandir(k.cfg.md, "gmod")
+        scandir(k.cfg.md, "mod")
     k.start()
     if k.init(k.cfg.mods, k.cfg.exc):
         k.wait()

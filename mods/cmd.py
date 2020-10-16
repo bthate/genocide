@@ -4,7 +4,7 @@
 
 "basic commands (cmd)"
 
-import gmod, ol, threading, time
+import mods, ol, threading, time
 
 k = ol.krn.get_kernel()
 
@@ -41,4 +41,4 @@ def upt(event):
 
 def ver(event):
     "show version (ver)"
-    event.reply("GENOCIDE %s | %s" % (gmod.__version__, gmod.__txt2__))
+    event.reply("GENOCIDE %s | %s" % (mods.__version__, mods.__txt2__))

@@ -26,14 +26,14 @@ def main():
         ol.utl.cdir("/var/lib/genocide/")
     if not os.path.exists("/var/lib/genocide/store/"):
         ol.utl.cdir("/var/lib/genocide/store/")
-    if not os.path.exists("/var/lib/genocide/gmod"):
-        ol.utl.cdir("/var/lib/genocide/gmod/")
-    open("cp gmod/*.py /var/lib/genocide/gmod")
+    if not os.path.exists("/var/lib/genocide/mod"):
+        ol.utl.cdir("/var/lib/genocide/mod/")
+    open("cp mod/*.py /var/lib/genocide/mod")
     nopen("groupadd genocide")
     nopen("useradd genocide -g genocide -d /var/lib/genocide")
     open("chown -R genocide:genocide /var/lib/genocide/")
     open("chmod -R 700 /var/lib/genocide/")
-    open("chmod -R 400 /var/lib/genocide/gmod/*.py")
+    open("chmod -R 400 /var/lib/genocide/mod/*.py")
     nopen("python3 setup.py install")
     open("cp files/genocide.service /etc/systemd/system/")
     open("systemctl daemon-reload")

@@ -537,7 +537,7 @@ class Users(ol.Object):
     def get_users(self, origin=""):
         "get all users, optionaly provding an matching origin"
         s = {"user": origin}
-        return ol.dbs.find("gmod.irc.User", s)
+        return ol.dbs.find("mods.irc.User", s)
 
     def get_user(self, origin):
         "get specific user with corresponding origin"

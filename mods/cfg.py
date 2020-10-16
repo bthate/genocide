@@ -6,7 +6,7 @@
 
 import ol
 
-from gmod.irc import Cfg
+from mods.irc import Cfg
 
 def cfg(event):
     "configure irc."

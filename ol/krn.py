@@ -111,12 +111,10 @@ def boot(name, pkgname="", wd="", root=False):
     ol.update(k.cfg, cfg)
     ol.wd = k.cfg.wd or ol.wd
     k.cfg.wd = ol.wd
-    k.cfg.md = os.path.join(ol.wd, pkgname)
+    k.cfg.md = os.path.join(ol.wd, pkgname, "")
     if "b" in k.cfg.opts:
         print("%s started at %s" % (name.upper(), time.ctime(time.time())))
         print(ol.format(k.cfg))
-    return k
-
     return k
 
 def cmd(txt):

@@ -112,8 +112,9 @@ def get_kernel():
         return kernels[0]
     return Kernel()
 
-def scandir(path):
-    _path, name = os.path.split(path)
+def scandir(path, name=""):
+    if not name:
+        _path, name = os.path.split(path)
     k = get_kernel()
     mods = []
     ol.utl.cdir(path + os.sep + "")

@@ -47,6 +47,7 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
         if not mns:
             return
         exclude = exc.split(",")
+        thrs = []
         for mn in ol.utl.spl(mns):
             if mn in exclude:
                 continue
@@ -57,7 +58,8 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
             if mn in self.table:
                 func = getattr(self.table[mn], "init", None)
                 if func:
-                    ol.tsk.launch(func, self, name=ol.get_name(func))
+                    thrs.append(ol.tsk.launch(func, self, name=ol.get_name(func)))
+        return thrs
 
     def put(self, e):
         self.queue.put_nowait(e)

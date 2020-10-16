@@ -13,6 +13,11 @@ def __dir__():
 cmds = []
 resume = {}
 
+def init(k):
+    c = Console()
+    c.start()
+    return c
+
 class Console(ol.Object):
 
     def __init__(self):

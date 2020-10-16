@@ -4,33 +4,43 @@
 #
 
 import os, sys ; sys.path.insert(0, os.getcwd())
-from ol.spc import Console, boot, cmd, execute, ol, os, pwd, sys, time
+from ol.spc import Console, boot, cmd, execute, ol, scandir
+from ol.spc import os, pwd, sys, time 
+
+def daemon():
+    pid = os.fork()
+    if pid != 0:
+        ol.trm.termreset()
+        os._exit(0)
+    os.setsid()
+    os.umask(0)
+    si = open("/dev/null", 'r')
+    so = open("/dev/null", 'a+')
+    se = open("/dev/null", 'a+')
+    os.dup2(si.fileno(), sys.stdin.fileno())
+    os.dup2(so.fileno(), sys.stdout.fileno())
+    os.dup2(se.fileno(), sys.stderr.fileno())
 
 def main():
     name = "genocide"
     ol.wd = os.path.expanduser("~/.%s" % name)
     wait = False
     k = boot(name)
+    k.cfg.wd = ol.wd
+    k.cfg.md = os.path.join(ol.wd, "gmod")
     if "b" in k.cfg.opts:
         print("%s started at %s" % (name.upper(), time.ctime(time.time())))
         print(ol.format(k.cfg))
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
-    if "r" in k.cfg.opts:
+    if "d" in k.cfg.opts:
+        daemon()
         privileges(name)
-        scandir(k.cfg.md, "gmod")
-    if "w" in k.cfg.opts:
         wait = True
+    scandir(k.cfg.md, "gmod")
     k.start()
-    k.init(k.cfg.mods, k.cfg.exc)
-    if "i" in k.cfg.opts:
-        from gmod.irc import IRC
-        i = IRC()
-        i.start()
+    if k.init(k.cfg.mods, k.cfg.exc):
         wait = True
-    if "s" in k.cfg.opts and not "d" in k.cfg.opts:
-        c = Console()
-        c.start()
     if wait:
         k.wait()
          

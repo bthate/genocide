@@ -5,24 +5,24 @@ source
 
 genocide is written in pure python3, here is the code used:
 
-gmod
+mods
 ====
 
 .. autosummary::
     :toctree: 
     :template: module.rst
 
-    gmod.cfg		- configuration
-    gmod.cmd    	- command
-    gmod.ent    	- enter log and todo items
-    gmod.fnd    	- find typed objects
-    gmod.irc		- internet relay chat
-    gmod.req		- request send to the prosecutor
-    gmod.rss    	- rich site syndicate
-    gmod.sts		- suicide statistics
-    gmod.trt		- torture definition
-    gmod.wsd		- knowledge on trip
-    gmod.udp    	- UDP to IRC gateway
+    mods.cfg		- configuration
+    mods.cmd    	- command
+    mods.ent    	- enter log and todo items
+    mods.fnd    	- find typed objects
+    mods.irc		- internet relay chat
+    mods.req		- request send to the prosecutor
+    mods.rss    	- rich site syndicate
+    mods.sts		- suicide statistics
+    mods.trt		- torture definition
+    mods.wsd		- knowledge on trip
+    mods.udp    	- UDP to IRC gateway
 
 olib
 ====

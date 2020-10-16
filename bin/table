@@ -79,7 +79,7 @@ def main():
     ol.tbl.mods= ol.Object()
     ol.tbl.funcs = ol.Object()
     ol.tbl.names = ol.Object()
-    walk("ol,gmod,mymod,genocide")
+    walk("ol,mods,genocide")
     print("# OLIB - object library")
     print("#")
     print("#")

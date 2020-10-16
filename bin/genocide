@@ -3,8 +3,7 @@
 #
 #
 
-import os, sys ; sys.path.insert(0, os.getcwd())
-from ol.spc import Console, boot, cmd, execute, ol, privileges, scandir
+from ol.spc import boot, cmd, execute, ol, privileges, scandir
 from ol.spc import os, pwd, sys, time 
 
 def daemon():
@@ -28,7 +27,7 @@ def main():
     if "d" in k.cfg.opts:
         daemon()
     privileges("genocide")
-    scandir(k.cfg.md, "mod")
+    scandir(k.cfg.md, "mods")
     k.start()
     k.init(k.cfg.mods, k.cfg.exc)
     k.wait()

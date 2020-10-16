@@ -3,6 +3,7 @@
 #
 #
 
+import os, sys ; sys.path.insert(0, os.getcwd())
 from ol.spc import Console, boot, cmd, execute, ol, os, pwd, sys, time
 
 def main():

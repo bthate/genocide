@@ -103,13 +103,13 @@ def boot(name, pkgname="", wd="", root=False):
     if not pkgname:
         pkgname = name
     if root:
-        wd = "/var/lib/%s" % name
+        ol.wd = wd or "/var/lib/%s" % name
     else:
-        wd = os.path.expanduser("~/.%s" % name)
+        ol.wd = wd or os.path.expanduser("~/.%s" % name)
     cfg = ol.prs.parse_cli()
     k = get_kernel()
     ol.update(k.cfg, cfg)
-    ol.wd = k.cfg.wd or wd
+    ol.wd = k.cfg.wd or ol.wd
     k.cfg.wd = ol.wd
     k.cfg.md = os.path.join(ol.wd, pkgname)
     if "b" in k.cfg.opts:

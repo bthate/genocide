@@ -4,8 +4,7 @@ include docs/conf.py
 include docs/index.rst
 include docs/requirements.txt
 recursive-include files *
-recursive-include ol *.py
-recursive-include gmod *.py
+recursive-include mods *.py
 recursive-include docs/ *.png
 recursive-include docs/pdf *.pdf
 recursive-include docs/_templates *

@@ -3,7 +3,7 @@
 #
 #
 
-from ol.spc import boot, cmd, execute, ol, privileges, scandir
+from ol.spc import boot, cmd, execute, ol, privileges, root, scandir
 from ol.spc import os, pwd, sys, time 
 
 def daemon():
@@ -21,13 +21,15 @@ def daemon():
     os.dup2(se.fileno(), sys.stderr.fileno())
 
 def main():
+    if not root():
+        print("you need root privileges")
+        return
     k = boot("genocide", root=True)
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     if "d" in k.cfg.opts:
         daemon()
     privileges("genocide")
-    scandir(k.cfg.md, "mods")
     k.start()
     k.init(k.cfg.mods, k.cfg.exc)
     k.wait()

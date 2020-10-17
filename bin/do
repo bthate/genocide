@@ -94,8 +94,6 @@ def bmain():
     nopen('rm -fR %s/wheel-0.33.4.dist-info' % installdir)
     nopen("rm -fR %s/__pycache__" % installdir)
     nopen("rm %s/get-pip.py" % installdir)
-    nopen("mkdir %s/mods" % installdir)
-    nopen("cp -Ra mods/*.py %s/mods" % installdir)
     nopen("tar zcvf %s.tar.gz %s" % (fname.lower(), fname))
 
 ol.trm.execute(bmain)

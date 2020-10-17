@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
+
 from setuptools import setup
 
 def read():
@@ -16,9 +18,9 @@ setup(
     long_description=read(),
     long_description_content_type="text/x-rst",
     license='Public Domain',
-    zip_safe=True,
+    zip_safe=False,
     scripts=["bin/genocide", "bin/gc"],
-    packages=["ol"],
+    packages=["ol", "mods"],
     classifiers=['Development Status :: 4 - Beta',
                  'License :: Public Domain',
                  'Operating System :: Unix',

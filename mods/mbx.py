@@ -77,15 +77,6 @@ def cor(event):
         nr += 1
         event.reply("%s %s %s" % (nr, ol.format(email, event.args, True, event.skip), ol.tms.elapsed(time.time() - ol.tms.fntime(email.__stp__))))
 
-def eml(event):
-    if not event.args:
-        return
-    nr = -1
-    for o in ol.dbs.all("bmod.mbx.Email"):
-        if event.rest in o.text:
-            nr += 1
-            event.reply("%s %s %s" % (nr, ol.format(o, ["From", "Subject"], False, event.skip), ol.tms.elapsed(time.time() - ol.tms.fntime(o.__stp__))))
-
 def mbx(event):
     if not event.args:
         return

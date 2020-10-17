@@ -263,7 +263,7 @@ def useragent():
     "return useragent"
     return 'Mozilla/5.0 (X11; Linux x86_64) GENOCIDE +http://github.com/bthate/genocide)'
 
-def rm(event):
+def rem(event):
     "remove a rss feed"
     if not event.args:
         return

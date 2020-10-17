@@ -15,12 +15,6 @@ starttime = time.time()
 
 class Kernel(ol.hdl.Handler, ol.ldr.Loader):
 
-    classes = ol.Object()
-    cmds = ol.Object()
-    funcs = ol.Object()
-    mods = ol.Object()
-    names = ol.Object()
-
     def __init__(self):
         super().__init__()
         self.ready = threading.Event()
@@ -107,12 +101,11 @@ def boot(name, wd="", root=False):
     cfg = ol.prs.parse_cli()
     k = get_kernel()
     ol.update(k.cfg, cfg)
-    ol.wd = k.cfg.wd or ol.wd
     k.cfg.wd = ol.wd
-    k.cfg.md = os.path.join(ol.wd, "mods", "")
     if "b" in k.cfg.opts:
         print("%s started at %s" % (name.upper(), time.ctime(time.time())))
         print(ol.format(k.cfg))
+    sys.path.insert(0, k.cfg.wd)
     return k
 
 def cmd(txt):
@@ -124,17 +117,15 @@ def get_kernel():
         return kernels[0]
     return Kernel()
 
-def scandir(path, name=""):
-    if not name:
-        _path, name = os.path.split(path)
+def scandir(path):
     k = get_kernel()
     mods = []
     ol.utl.cdir(path + os.sep + "")
     sys.path.insert(0, path)
-    for fn in os.listdir(path):
+    for fn in os.listdir(os.path.join(path, "mods")):
         if fn.startswith("_") or not fn.endswith(".py"):
             continue
-        mn = "%s.%s" % (name, fn[:-3])
+        mn = "mods.%s" % fn[:-3]
         try:
             module = k.load(mn)
         except Exception as ex:

@@ -8,7 +8,7 @@ import unittest
 
 class Test_Object(unittest.TestCase):
 
-    def testO(self):
+    def test_object(self):
         o = ol.Object()
         self.assertEqual(type(o), ol.Object)
 

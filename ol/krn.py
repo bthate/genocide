@@ -99,9 +99,7 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
 
 kernels = []
 
-def boot(name, pkgname="", wd="", root=False):
-    if not pkgname:
-        pkgname = name
+def boot(name, wd="", root=False):
     if root:
         ol.wd = wd or "/var/lib/%s" % name
     else:
@@ -111,7 +109,7 @@ def boot(name, pkgname="", wd="", root=False):
     ol.update(k.cfg, cfg)
     ol.wd = k.cfg.wd or ol.wd
     k.cfg.wd = ol.wd
-    k.cfg.md = os.path.join(ol.wd, pkgname, "")
+    k.cfg.md = os.path.join(ol.wd, "mods", "")
     if "b" in k.cfg.opts:
         print("%s started at %s" % (name.upper(), time.ctime(time.time())))
         print(ol.format(k.cfg))

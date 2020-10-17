@@ -29,7 +29,7 @@ def main():
     if "d" in k.cfg.opts:
         daemon()
         privileges(name)
-        scandir(k.cfg.md, "mods")
+    scandir(k.cfg.md, "mods")
     k.start()
     k.init(k.cfg.mods, k.cfg.exc)
     if "s" in k.cfg.opts:

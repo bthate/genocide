@@ -24,12 +24,12 @@ def main():
     if not root():
         print("you need root privileges")
         return
+    privileges("genocide")
     k = boot("genocide", root=True)
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     if "d" in k.cfg.opts:
         daemon()
-    privileges("genocide")
     k.start()
     k.init(k.cfg.mods, k.cfg.exc)
     k.wait()

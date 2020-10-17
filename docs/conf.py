@@ -3,6 +3,8 @@
 # -*- coding: utf-8 -*-
 #
 
+__version__ = 5
+
 import unittest
 import doctest
 import sys
@@ -16,8 +18,6 @@ sys.path.insert(0, curdir + os.sep + '..' + os.sep)
 from sphinx.ext import autodoc
 from sphinx.util import inspect
 autodoc.repr = inspect.repr = str
-
-from gmod import __version__
 
 needs_sphinx='1.1'
 nitpick_ignore=[

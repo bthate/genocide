@@ -102,9 +102,6 @@ def boot(name, wd="", root=False):
     k = get_kernel()
     ol.update(k.cfg, cfg)
     k.cfg.wd = ol.wd
-    if "b" in k.cfg.opts:
-        print("%s started at %s" % (name.upper(), time.ctime(time.time())))
-        print(ol.format(k.cfg))
     sys.path.insert(0, k.cfg.wd)
     return k
 

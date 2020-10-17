@@ -7,7 +7,7 @@ Wants=network-online.target
 [Service]
 User=genocide
 Group=genocide
-ExecStart=/usr/local/bin/genocide mods=irc,rss 
+ExecStart=/usr/local/bin/genocide mods=irc,rss -s
 
 [Install]
 WantedBy=multi-user.target

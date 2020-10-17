@@ -17,7 +17,8 @@ def postinstall():
     nopen("chown -R genocide:genocide /var/lib/genocide/")
     nopen("chmod -R 700 /var/lib/genocide/")
     nopen("chmod -R 400 /var/lib/genocide/mods/*.py")
-
+    nopen("systemctl daemon-reload")
+    
 def mods():
     return ["mods/%s" % x for x in os.listdir("mods") if x.endswith(".py")]
 
@@ -26,6 +27,13 @@ def nopen(txt):
     try:
         for line in os.popen(txt).readlines():
             pass
+    except:
+        pass
+
+def bopen(txt):
+    try:
+        for line in os.popen(txt).readlines():
+            print(line.rstrip())
     except:
         pass
 

@@ -1,15 +1,36 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
+import atexit, os
 
 from setuptools import setup
+from setuptools.command.install import install
 
-def read():
-    return open("README", "r").read()
+class Install(install):
+    def __init__(self, *args, **kwargs):
+        super(Install, self).__init__(*args, **kwargs)
+        atexit.register(postinstall)
+
+def postinstall():
+    nopen("groupadd genocide")
+    nopen("useradd genocide -g genocide -d /var/lib/genocide")
+    nopen("chown -R genocide:genocide /var/lib/genocide/")
+    nopen("chmod -R 700 /var/lib/genocide/")
+    nopen("chmod -R 400 /var/lib/genocide/mods/*.py")
 
 def mods():
     return ["mods/%s" % x for x in os.listdir("mods") if x.endswith(".py")]
+
+def nopen(txt):
+    txt += " 2>&1"
+    try:
+        for line in os.popen(txt).readlines():
+            pass
+    except:
+        pass
+
+def read():
+    return open("README", "r").read()
 
 setup(
     name='genocide',
@@ -23,7 +44,9 @@ setup(
     license='Public Domain',
     zip_safe=False,
     scripts=["bin/genocide", "bin/gc"],
-    data_files=[("/var/lib/genocide/mods", mods())],
+    cmdclass={'install': Install},
+    data_files=[("/var/lib/genocide/mods", mods()),
+                ("/etc/systemd/system", ["files/genocide.service"])],
     packages=["ol"],
     classifiers=['Development Status :: 4 - Beta',
                  'License :: Public Domain',

@@ -32,7 +32,7 @@ def main():
         scandir(k.cfg.wd)
     k.start()
     k.init(k.cfg.mods, k.cfg.exc)
-    if "s" in k.cfg.opts:
+    if "s" in k.cfg.opts or k.cfg.mods:
         c = Console()
         c.start()
         k.wait()

@@ -52,7 +52,7 @@ setup(
     license='Public Domain',
     zip_safe=False,
     install_requires=["feedparser"],
-    scripts=["bin/genocide", "bin/gc"],
+    scripts=["bin/genocide", "bin/gc", "bin/gudp"],
     cmdclass={'install': Install},
     data_files=[("/var/lib/genocide/mods", mods()),
                 ("/etc/systemd/system", ["files/genocide.service"])],

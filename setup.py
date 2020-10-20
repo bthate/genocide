@@ -42,7 +42,7 @@ def read():
 
 setup(
     name='genocide',
-    version='6',
+    version='5',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl',
@@ -51,8 +51,7 @@ setup(
     long_description_content_type="text/x-rst",
     license='Public Domain',
     zip_safe=False,
-    install_requires=["feedparser"],
-    scripts=["bin/genocide", "bin/gc", "bin/gudp"],
+    scripts=["bin/genocide"],
     cmdclass={'install': Install},
     data_files=[("/var/lib/genocide/mods", mods()),
                 ("/etc/systemd/system", ["files/genocide.service"])],

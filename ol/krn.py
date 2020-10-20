@@ -118,7 +118,6 @@ def scandir(path):
     k = get_kernel()
     mods = []
     ol.utl.cdir(path + os.sep + "")
-    sys.path.insert(0, path)
     for fn in os.listdir(os.path.join(path, "mods")):
         if fn.startswith("_") or not fn.endswith(".py"):
             continue

@@ -14,28 +14,28 @@ OP" programming library where the methods are factored out into functions
 that use the object as the first argument. GENOCIDE is placed in the Public
 Domain and has no COPYRIGHT or LICENSE.
 
-It also provides information on the genocide the king of the netherlands is
+it also provides information on the genocide the king of the netherlands is
 doing. See https://pypi.org/project/genocide/ 
 
 INSTALL
 =======
 
-Installation is through pypi:
+installation is through pypi:
 
 ::
 
  > sudo pip3 install genocide
 
-If you have previous versions already installed and things fail try to force reinstall:
+if you have previous versions already installed and things fail try to force reinstall:
 
 ::
 
  > sudo pip3 install genocide --upgrade --force-reinstall
 
-If this also doesn't work you'll need to remove all installed previous
+if this also doesn't work you'll need to remove all installed previous
 versions, so you can do a clean install.
 
-You can run directly from the tarball, see https://pypi.org/project/genocide/#files
+you can run directly from the tarball, see https://pypi.org/project/genocide/#files
 
 USAGE
 =====
@@ -47,7 +47,7 @@ GENOCIDE has it's own CLI, you can run it by giving the genocide command on the 
  $ sudo genocide
  $ 
 
-You can use genocide <cmd> to run a command directly, use the cmd command to see a list of commands:
+you can use genocide <cmd> to run a command directly, use the cmd command to see a list of commands:
 
 ::
 
@@ -71,17 +71,17 @@ GENOCIDE uses mods as the namespace to distribute modules for GENOCIDE:
 
    mods.cfg	- config
    mods.cmd	- command
-   mods.ent	- enter log and todo items
-   mods.fnd	- find typed objects
-   mods.hlp	- show help
-   mods.irc	- irc bot
-   mods.mbx	- mailbox
-   mods.req	- request to the prosecutor
+   mods.ent	- entry
+   mods.fnd	- find
+   mods.hlp	- help
+   mods.irc	- irc 
+   mods.mbx	- mail
+   mods.req	- request
    mods.rss	- rich site syndicate
-   mods.sts	- suicide stats in the netherlands
-   mods.trt	- torture description
-   mods.udp	- UDP to IRC gateway
-   mods.wsd	- wisdom quotes
+   mods.sui	- suicide
+   mods.trt	- torture
+   mods.udp	- UDP to IRC
+   mods.wsd	- wisdom
 
 IRC
 ===
@@ -93,7 +93,7 @@ configuration is done with the cfg command:
  $ sudo genocide cfg
  channel=#genocide nick=genocide port=6667 server=localhost
 
-You can use setters to edit fields in a configuration:
+you can use setters to edit fields in a configuration:
 
 ::
 
@@ -116,27 +116,27 @@ python3-feedparser first:
  $ sudo apt install python3-feedparser
  $
 
-Adding rss to mods= will load the rss module and start it's poller.
+adding rss to mods= will load the rss module and start it's poller.
 
 ::
 
  $ sudo genocide mods=irc,rss
 
-To add an url use the rss command with an url:
+to add an url use the rss command with an url:
 
 ::
 
  $ sudo genocide rss https://github.com/bthate/botlib/commits/master.atom
  ok 1
 
-Run the rss command to see what urls are registered:
+run the rss command to see what urls are registered:
 
 ::
 
  $ sudo genocide fnd rss
  0 https://github.com/bthate/botlib/commits/master.atom
 
-The ftc (fetch) command can be used to poll the added feeds:
+the ftc (fetch) command can be used to poll the added feeds:
 
 ::
 
@@ -146,19 +146,19 @@ The ftc (fetch) command can be used to poll the added feeds:
 UDP
 ===
 
-BOTLIB also has the possibility to serve as a UDP to IRC relay where you
+GENOCIDE also has the possibility to serve as a UDP to IRC relay where you
 can send UDP packages to the bot and have txt displayed on the channel.
 
-Use the 'budp' command to send text via the bot to the channel on the irc server:
+use the 'genocide udp' command to send text via the bot to the channel on the irc server:
 
 ::
 
  $ tail -f /var/log/syslog | genocide udp
 
-To send the tail output to the IRC channel you can use python3 code to send a UDP packet 
+output to the IRC channel can be done with the use python3 code to send a UDP packet 
 to genocide, it's unencrypted txt send to the bot and display on the joined channels.
 
-To send a udp packet to botlib in python3:
+to send a udp packet to genocide in python3:
 
 ::
 
@@ -195,11 +195,11 @@ GENOCIDE uses the OLIB library as object library, it provides a "move all method
  >>> o.key
  'value'
 
-It's a way of programming with objects, replacing OOP. It works because the
+A way of programming with objects, replacing OOP., it works because the
 object library is 2 characters long and using the, now generic, method is
 not too much typing.
 
-It's a way of programming with objects, replacing OOP. Not object-oriented programming, but object programming. If you are used to functional programming you'll like it (or not) ;]
+it's a way of programming with objects, replacing OOP. Not object-oriented programming, but object programming. If you are used to functional programming you'll like it (or not) ;]
 
 OLIB has the following modules:
 
@@ -224,7 +224,7 @@ OLIB has the following modules:
 SERVICE
 =======
 
-genocide install a service file in /etc/systemd/system/genocide.service. To
+GENOCIDE installs a service file in /etc/systemd/system/genocide.service. To
 enable this service use enable and reload the systemd daemon:
 
 ::
@@ -233,21 +233,21 @@ enable this service use enable and reload the systemd daemon:
  $ sudo systemctl daemon-reload
 
 
-Configure genocide to connect to irc:
+configure genocide to connect to irc:
 
 ::
 
  $ sudo genocide cfg server=irc.freenode.net channel=#dunkbots nick=genocide2
 
-Then start the genocide service.
+then start the genocide service.
 
 ::
 
  $ service genocide start
 
-The bot should join your configured channel or #genocide as a default
+genocide should join your configured channel or #genocide as a default
 
-If you don't want genocide to startup at boot, you can disable it:
+if you don't want genocide to startup at boot, you can disable it:
 
 ::
 

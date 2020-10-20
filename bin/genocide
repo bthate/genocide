@@ -25,6 +25,10 @@ def main():
         print("you need root permission")
         return
     k = boot("genocide", root=True)
+    if "h" in k.cfg.opts:
+        from mods.hlp import help
+        help()
+        return
     if "b" in k.cfg.opts:
         print("GENOCIDE started at %s" % time.ctime(time.time()))
         print(ol.format(k.cfg))

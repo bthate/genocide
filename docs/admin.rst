@@ -47,7 +47,7 @@ GENOCIDE has it's own CLI, you can run it by giving the genocide command on the 
  $ sudo genocide
  $ 
 
-You can use genocude <cmd> to run a command directly, use the cmd command to see a list of commands:
+You can use genocide <cmd> to run a command directly, use the cmd command to see a list of commands:
 
 ::
 
@@ -73,6 +73,7 @@ GENOCIDE uses mods as the namespace to distribute modules for GENOCIDE:
    mods.cmd	- command
    mods.ent	- enter log and todo items
    mods.fnd	- find typed objects
+   mods.hlp	- show help
    mods.irc	- irc bot
    mods.mbx	- mailbox
    mods.req	- request to the prosecutor

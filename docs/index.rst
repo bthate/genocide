@@ -1,7 +1,7 @@
 GENOCIDE
 ########
 
-"by using the law to administer poison the king of the netherlands commits genocide"
+"By using the law to administer poison the king of the netherlands commits genocide"
 
 ICC
 ===

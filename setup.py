@@ -42,7 +42,7 @@ def read():
 
 setup(
     name='genocide',
-    version='6',
+    version='7',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl',

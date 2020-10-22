@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*-
 #
 
-__version__ = 6
+__version__ = 7
 
 import unittest
 import doctest

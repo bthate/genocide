@@ -2,6 +2,8 @@
 #
 #
 
+"manual"
+
 def help():
     print("GENOCIDE(8)                    System Administration                 GENOCIDE(8)")
     print("")

@@ -2,11 +2,17 @@
 #
 #
 
+"dispatch tables"
+
 import ol
 
+#:
 classes = ol.Object()
+#:
 mods = ol.Object()
+#:
 funcs = ol.Object()
+#:
 names = ol.Object()
 
 ol.update(classes, {"Bus": ["ol.bus"], "Cfg": ["mods.udp"], "Console": ["ol.csl"], "DCC": ["mods.irc"], "Email": ["mods.mbx"], "Event": ["mods.irc"], "Feed": ["mods.rss"], "Fetcher": ["mods.rss"], "Getter": ["ol.prs"], "Handler": ["ol.hdl"], "IRC": ["mods.irc"], "Kernel": ["ol.krn"], "Loader": ["ol.ldr"], "Log": ["mods.ent"], "Option": ["ol.prs"], "Repeater": ["ol.tms"], "Rss": ["mods.rss"], "Seen": ["mods.rss"], "Setter": ["ol.prs"], "Skip": ["ol.prs"], "Timed": ["ol.prs"], "Timer": ["ol.tms"], "Todo": ["mods.ent"], "Token": ["ol.prs"], "UDP": ["mods.udp"], "User": ["mods.irc"], "Users": ["mods.irc"]})

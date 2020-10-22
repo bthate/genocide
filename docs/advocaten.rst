@@ -1,4 +1,4 @@
-advocaten
+ADVOCATEN
 #########
 
 .. literalinclude:: advocatenemails
@@ -7,7 +7,7 @@ advocaten
 .. literalinclude:: advocatenemails.3
 .. literalinclude:: advocatenemails.4
 
-kamer
+KAMER
 #####
 
 .. literalinclude:: kamer1

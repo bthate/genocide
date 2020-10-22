@@ -1,11 +1,10 @@
 GENOCIDE
 ########
 
-"By using the law to administer poison the king of the netherlands commits genocide" - :ref:`admin <admin>`
+"By using the law to administer poison the king of the netherlands commits genocide" - :ref:`source <source>` - :ref:`admin <admin>`
 
 ICC
 ===
-
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -109,14 +108,14 @@ Knowing that the proof that Haldol is a poison was offline when you reached your
 STATE OF AFFAIRS
 ================
 
-“By adding Article 11 to the requirements, the prosecutor is actualy calling it a genocide and is missing the cooperation of the netherlands to arrest it’s own king and stop the kings genocide.” - https://genoclaim.readthedocs.io #ggz #gifpil
+“By adding Article 11 to the requirements, the prosecutor is actualy calling it a genocide and is missing the cooperation of the netherlands to arrest it’s own king and stop the kings genocide.” - https://genocide.readthedocs.io #ggz #gifpil
 
 CONTACT
 =======
 
 i am reachable by email:
 
-Bart Thate (bthate@dds.nl/thatebart@gmail.com) - :ref:`source <source>`
+Bart Thate (bthate@dds.nl/thatebart@gmail.com)
 
 EVIDENCE
 ########
@@ -155,4 +154,3 @@ OTP2
     :hidden:
 
     *
-

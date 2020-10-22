@@ -1,30 +1,9 @@
 .. _source:
 
-source
+SOURCE
 ######
 
 genocide is written in pure python3, here is the code used:
-
-mods
-====
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    mods.cfg		- configuration
-    mods.cmd    	- command
-    mods.ent    	- enter log and todo items
-    mods.fnd    	- find typed objects
-    mods.hlp		- display help
-    mods.irc		- internet relay chat
-    mods.mbx		- mailbox
-    mods.req		- request send to the prosecutor
-    mods.rss    	- rich site syndicate
-    mods.sui		- suicide statistics
-    mods.trt		- torture definition
-    mods.udp    	- UDP to IRC gateway
-    mods.wsd		- knowledge on trip
 
 olib
 ====
@@ -48,3 +27,25 @@ olib
     ol.trm      - terminal
     ol.tsk      - tasks
     ol.utl      - utilities
+
+mods
+====
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+    mods.cfg		- configuration
+    mods.cmd    	- command
+    mods.ent    	- enter log and todo items
+    mods.fnd    	- find typed objects
+    mods.hlp		- display help
+    mods.irc		- internet relay chat
+    mods.mbx		- mailbox
+    mods.req		- request send to the prosecutor
+    mods.rss    	- rich site syndicate
+    mods.sui		- suicide statistics
+    mods.trt		- torture definition
+    mods.udp    	- UDP to IRC gateway
+    mods.wsd		- knowledge on trip
+

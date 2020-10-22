@@ -8,6 +8,9 @@ class Bus(ol.Object):
 
     objs = []
 
+    def __call__(self, *args, **kwargs):
+        return objs
+
     def __iter__(self):
         return iter(Bus.objs)
 

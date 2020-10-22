@@ -2,6 +2,8 @@
 #
 #
 
+"object library"
+
 __version__ = 12
 
 import datetime
@@ -14,10 +16,14 @@ import types
 import uuid
 import _thread
 
+#:
 sl = _thread.allocate_lock()
+
+#:
 wd = ""
 
 def locked(l):
+    "lock descriptor"
     def lockeddec(func, *args, **kwargs):
         def lockedfunc(*args, **kwargs):
             l.acquire()
@@ -33,13 +39,15 @@ def locked(l):
 
 class ENOCLASS(Exception):
 
-    pass
+    "no such class"    
 
 class ENOFILENAME(Exception):
 
-    pass
+    "no proper filename"
 
 class Object:
+
+    "basic object"
 
     __slots__ = ("__dict__", "prs", "stp")
 
@@ -71,7 +79,10 @@ class Object:
 
 class Ol(Object):
 
+    "object list"
+
     def append(self, key, value):
+        "add to list at self[key]"
         if key not in self:
             self[key] = []
         if isinstance(value, type(list)):
@@ -81,10 +92,13 @@ class Ol(Object):
                 self[key].append(value)
 
     def update(self, d):
+        "update from other object list"
         for k, v in d.items():
             self.append(k, v)
 
 class Default(Object):
+
+    "uses default values"
 
     def __getattr__(self, k):
         if k not in self:
@@ -93,9 +107,10 @@ class Default(Object):
 
 class Cfg(Default):
 
-    pass
+    "configuration"
 
 def cdir(path):
+    "create directory"
     if os.path.exists(path):
         return
     res = ""
@@ -110,6 +125,7 @@ def cdir(path):
             pass
 
 def get_cls(name):
+    "return class from full qualified name"
     try:
         modname, clsname = name.rsplit(".", 1)
     except:
@@ -121,6 +137,7 @@ def get_cls(name):
     return getattr(mod, clsname)
 
 def hook(fn):
+    "construct object from filename"
     if fn.count(os.sep) > 3:
         oname = fn.split(os.sep)[-4:]
     else:
@@ -133,6 +150,7 @@ def hook(fn):
     return o
 
 def hooked(d):
+    "construct object from stamp"
     if "stp" in d:
         t = d["stp"].split(os.sep)[0]
         if not t:
@@ -142,6 +160,7 @@ def hooked(d):
     return d
 
 def default(o):
+    "return strinfified version of an object"
     if isinstance(o, Object):
         return vars(o)
     if isinstance(o, dict):
@@ -153,6 +172,7 @@ def default(o):
     return repr(o)
 
 def edit(o, setter, skip=False):
+    "update an object from a dict"
     try:
         setter = vars(setter)
     except (TypeError, ValueError):
@@ -173,6 +193,7 @@ def edit(o, setter, skip=False):
     return count
 
 def format(o, keylist=None, pure=False, skip=None, txt="", sep="\n"):
+    "return 1 line output string"
     if not keylist:
         keylist = vars(o).keys()
     res = []
@@ -198,6 +219,7 @@ def format(o, keylist=None, pure=False, skip=None, txt="", sep="\n"):
     return txt
 
 def get(o, k, d=None):
+    "return o[k]"
     try:
         res = o.get(k, d)
     except (TypeError, AttributeError):
@@ -205,6 +227,7 @@ def get(o, k, d=None):
     return res
 
 def get_name(o):
+    "return fully qualified name of an object"
     t = type(o)
     if t == types.ModuleType:
         return o.__name__
@@ -221,6 +244,7 @@ def get_name(o):
     return n
 
 def get_type(o):
+    "return type of an object"
     t = type(o)
     if t == type:
         try:
@@ -230,21 +254,25 @@ def get_type(o):
     return str(type(o)).split()[-1][1:-2]
 
 def items(o):
+    "return items (k,v) of an object"
     try:
         return o.items()
     except (TypeError, AttributeError):
         return o.__dict__.items()
 
 def ojson(o, *args, **kwargs):
+    "return jsonified string"
     return json.dumps(o, default=default, *args, **kwargs)
 
 def keys(o):
+    "return keys of an object"
     try:
         return o.keys()
     except (TypeError, AttributeError):
         return o.__dict__.keys()
 
 def load(o, path):
+    "load from disk into an object"
     assert path
     assert wd
     o.stp = os.sep.join(path.split(os.sep)[-4:])
@@ -264,10 +292,12 @@ def load(o, path):
     unstamp(o)
 
 def register(o, k, v):
+    "register key/value"
     o[k] = v
 
 @locked(sl)
 def save(o, stime=None):
+    "save object to disk"
     assert wd
     if stime:
         o.stp = os.path.join(get_type(o), str(uuid.uuid4()),
@@ -292,12 +322,14 @@ def save(o, stime=None):
     return o.stp
 
 def scan(o, txt):
+    "scan object values for txt"
     for _k, v in items(o):
         if txt in str(v):
             return True
     return False
 
 def search(o, s):
+    "search object for a key,value to match dict"
     ok = False
     for k, v in items(s):
         vv = get(o, k)
@@ -308,9 +340,11 @@ def search(o, s):
     return ok
 
 def set(o, k, v):
+    "set o[k]=v"
     setattr(o, k, v)
 
 def stamp(o):
+    "recursively add stamp to objects in an object"
     t = o.stp.split(os.sep)[0]
     oo = get_cls(t)()
     for k in xdir(o):
@@ -325,6 +359,7 @@ def stamp(o):
     return oo
 
 def unstamp(o):
+    "remove stamp from (sub) objects"
     for k in xdir(o):
         oo = getattr(o, k, None)
         if isinstance(oo, Object):
@@ -338,18 +373,21 @@ def unstamp(o):
     return o
 
 def update(o, d):
+    "update object with other object"
     if isinstance(d, Object):
         return o.__dict__.update(vars(d))
     else:
         return o.__dict__.update(d)
 
 def values(o):
+    "return values of an object"
     try:
         return o.values()
     except (TypeError, AttributeError):
         return o.__dict__.values()
 
 def xdir(o, skip=None):
+    "return a dir(o) with keys skipped"
     res = []
     for k in dir(o):
         if skip is not None and skip in k:

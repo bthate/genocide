@@ -34,8 +34,7 @@ if you have previous versions already installed and things fail try to force rei
 
  > sudo pip3 install genocide --upgrade --force-reinstall
 
-if this also doesn't work you'll need to remove all installed previous
-versions, so you can do a clean install.
+if this also doesn't work you'll need to remove all installed previous  versions, so you can do a clean install.
 
 you can run directly from the tarball, see https://pypi.org/project/genocide/#files
 
@@ -64,26 +63,6 @@ GENOCIDE also has it's own shell, use genocide -s to start a genocide shell:
   > cmd
   cfg,cmd,cor,dne,dpl,fed,fnd,ftc,log,mbx,rem,req,rss,sts,tdo,trt,tsk,upt,ver,wsd
 
-MODULES
-=======
-
-GENOCIDE uses mods as the namespace to distribute modules for GENOCIDE:
-
-::
-
-   mods.cfg	- config
-   mods.cmd	- command
-   mods.ent	- entry
-   mods.fnd	- find
-   mods.hlp	- help
-   mods.irc	- irc 
-   mods.mbx	- mail
-   mods.req	- request
-   mods.rss	- rich site syndicate
-   mods.sui	- suicide
-   mods.trt	- torture
-   mods.udp	- UDP to IRC
-   mods.wsd	- wisdom
 
 IRC
 ===
@@ -222,38 +201,72 @@ OLIB has the following modules:
     ol.tsk	- tasks
     ol.utl	- utilities
 
+MODULES
+=======
+
+GENOCIDE uses mods as the namespace to distribute modules for GENOCIDE:
+
+::
+
+   mods.cfg	- config
+   mods.cmd	- command
+   mods.ent	- entry
+   mods.fnd	- find
+   mods.hlp	- help
+   mods.irc	- irc 
+   mods.mbx	- mail
+   mods.req	- request
+   mods.rss	- rich site syndicate
+   mods.sui	- suicide
+   mods.trt	- torture
+   mods.udp	- UDP to IRC
+   mods.wsd	- wisdom
 
 SERVICE
 =======
 
-GENOCIDE installs a service file in /etc/systemd/system/genocide.service. To
-enable this service use enable and reload the systemd daemon:
+If you want to run GENOCIDE as a 24/7 service in your channel, you can run
+the genocide-install program, it will install a service file in 
+/etc/systemd/system/genocide.service and create the necesarry directories in
+/var/lib/genocide.
 
 ::
 
- $ sudo systemctl enable genocide
- $ sudo systemctl daemon-reload
+ $ sudo genocide-install
 
-
-configure genocide to connect to irc:
+after installing the service file, configure genocide to connect to irc:
 
 ::
 
  $ sudo genocide cfg server=irc.freenode.net channel=#dunkbots nick=genocide2
 
-then start the genocide service.
+then start the genocide service:
 
 ::
 
- $ service genocide start
+ $ sudo service genocide stop
+ $ sudo service genocide start
 
-genocide should join your configured channel or #genocide as a default
+check if it's running ok with:
+
+::
+
+ $ sudo systemctl status genocide
+
+
+genocide should join your configured channel or #genocide as a default.
 
 if you don't want genocide to startup at boot, you can disable it:
 
 ::
 
  $ sudo systemctl disable genocide
+
+or remove the service file:
+
+::
+
+ $ sudo rm /etc/systemd/system/genocide.service
 
 CONTACT
 =======

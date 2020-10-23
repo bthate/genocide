@@ -1,45 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import atexit, getpass, os
+import os
 
 from setuptools import setup
-from setuptools.command.install import install
-
-class Install(install):
-    def __init__(self, *args, **kwargs):
-        super(Install, self).__init__(*args, **kwargs)
-        atexit.register(postinstall)
-
-name = getpass.getuser()
-pw = os.path.expanduser("/home/%s/.genocide/mods" % name)
-print(pw)
-
-def postinstall():
-    nopen("groupadd genocide")
-    nopen("useradd genocide -g genocide -d /var/lib/genocide")
-    bopen("chown -R genocide:genocide /var/lib/genocide/")
-    bopen("chmod -R 700 /var/lib/genocide/")
-    bopen("chmod -R 400 /var/lib/genocide/mods/*.py")
-    bopen("systemctl daemon-reload")
-    
-def mods():
-    return ["mods/%s" % x for x in os.listdir("mods") if x.endswith(".py")]
-
-def nopen(txt):
-    txt += " 2>&1"
-    try:
-        for line in os.popen(txt).readlines():
-            pass
-    except:
-        pass
-
-def bopen(txt):
-    try:
-        for line in os.popen(txt).readlines():
-            print(line.rstrip())
-    except:
-        pass
 
 def read():
     return open("README", "r").read()
@@ -55,12 +19,7 @@ setup(
     long_description_content_type="text/x-rst",
     license='Public Domain',
     zip_safe=False,
-    scripts=["bin/gc", "bin/genocide"],
-    cmdclass={'install': Install},
-    data_files=[("/var/lib/genocide/mods", mods()),
-                (pw, mods()),
-                ("/etc/systemd/system", ["files/genocide.service"])],
-    include_package_data=True,
+    scripts=["bin/gc", "bin/genocide", "bin/genocide-install"],
     packages=["ol"],
     classifiers=['Development Status :: 4 - Beta',
                  'License :: Public Domain',

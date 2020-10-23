@@ -18,6 +18,7 @@ def execute(main):
     except PermissionError:
         print("you need root permission.")
     except Exception as ex:
+        print("yo")
         print(ol.utl.get_exception())
     finally:
         termreset()

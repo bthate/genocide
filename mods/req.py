@@ -19,13 +19,10 @@ i write you in the context of communications and claims under art.15 of the Rome
 
 There is proof the medication used in forced treatements in the netherlands are poison.
 
+    haloperiodol (haldol) - https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
     clozapine (leponex) - https://echa.europa.eu/substance-information/-/substanceinfo/100.024.831
     olanzapine (zyprexa) - https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
     aripriprazole (abilify) https://echa.europa.eu/substance-information/-/substanceinfo/100.112.532
-
-edited on 06-02-2019:
-
-    haloperiodol (haldol) - https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
 
 The dutch government has introduced three new forced care laws, the Wfz (wet forensische zorg) for criminals, the WvGGZ (Wet verplichte GGZ) for the disturbed and addicted and the Wzd (Wet zorg en dwang) for the handicapped.
 

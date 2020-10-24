@@ -46,8 +46,10 @@ class Console(ol.Object):
             except EOFError:
                 print("")
                 continue
+            if not event.txt:
+                continue
             event.orig = repr(self)
-            k.queue.put(event)
+            k.put(event)
             event.wait()
 
     def poll(self):

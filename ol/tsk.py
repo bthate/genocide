@@ -27,12 +27,7 @@ class Task(threading.Thread):
     def run(self):
         func, args = self._queue.get()
         self.setName(self._name)
-        try:
-            self._result = func(*args)
-        #except EOFError:
-        #    _thread.interrupt_main()
-        except Exception as _ex:
-            print(ol.utl.get_exception())
+        self._result = func(*args)
 
     def wait(self, timeout=None):
         super().join(timeout)

@@ -13,7 +13,7 @@ import threading
 booted = False
 starttime = time.time()
 
-class Kernel(ol.hdl.Handler, ol.ldr.Loader):
+class Kernel(ol.ldr.Loader, ol.hdl.Handler):
 
     classes = ol.Object()
     cmds = ol.Object()
@@ -21,16 +21,11 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
     mods = ol.Object()
     names = ol.Object()
 
-    def __init__(self, tbl=None):
+    def __init__(self):
         super().__init__()
         self.ready = threading.Event()
         self.stopped = False
         self.cfg = ol.Cfg()
-        if tbl:
-            ol.update(Kernel.classes, tbl.classes)
-            ol.update(Kernel.funcs, tbl.funcs)
-            ol.update(Kernel.mods, tbl.mods)
-            ol.update(Kernel.names, tbl.names)
         kernels.append(self)
 
     def announce(self, txt):
@@ -103,9 +98,15 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
     def say(self, channel, txt):
         self.direct(txt)
 
-    def start(self):
+    def start(self, tbl=None):
         assert ol.wd
         super().start()
+
+    def settable(self, tbl):
+        ol.update(Kernel.classes, tbl.classes)
+        ol.update(Kernel.funcs, tbl.funcs)
+        ol.update(Kernel.mods, tbl.mods)
+        ol.update(Kernel.names, tbl.names)
 
     def stop(self):
         self.stopped = True
@@ -135,13 +136,13 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
 
 kernels = []
 
-def boot(name, wd="", root=False, tbl=None):
+def boot(name, wd="", root=False):
     if root:
         ol.wd = wd or "/var/lib/%s" % name
     else:
         ol.wd = wd or os.path.expanduser("~/.%s" % name)
     cfg = ol.prs.parse_cli()
-    k = get_kernel(tbl)
+    k = get_kernel()
     ol.update(k.cfg, cfg)
     k.cfg.wd = ol.wd
     sys.path.insert(0, k.cfg.wd)
@@ -151,10 +152,10 @@ def cmd(txt):
     k = get_kernel()
     return k.cmd(txt)
 
-def get_kernel(tbl=None):
+def get_kernel():
     if kernels:
         return kernels[0]
-    return Kernel(tbl)
+    return Kernel()
 
 def scandir(path):
     k = get_kernel()

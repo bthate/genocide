@@ -9,11 +9,11 @@ def mods():
     return ["mods/%s" % x for x in os.listdir("mods") if x.endswith(".py")]
 
 def read():
-    return open("README", "r").read()
+    return open("README.rst", "r").read()
 
 setup(
     name='genocide',
-    version='7',
+    version='8',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl',

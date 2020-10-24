@@ -18,7 +18,6 @@ class Event(ol.Object):
         self.rest = ""
         self.result = []
         self.thrs = []
-        self.types = []
         self.txt = ""
 
     def direct(self, txt):

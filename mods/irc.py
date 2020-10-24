@@ -4,8 +4,6 @@
 
 "Internet Relay Chat"
 
-__version__ = 1
-
 import ol
 import os
 import queue
@@ -397,8 +395,9 @@ class IRC(ol.hdl.Handler, ol.ldr.Loader):
 
     def NOTICE(self, event):
         "handle noticed"
+        import genocide
         if event.txt.startswith("VERSION"):
-            txt = "\001VERSION %s %s - %s\001" % ("GENOCIDE", __version__, "# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io")
+            txt = "\001VERSION %s %s - %s\001" % ("GENOCIDE", genocide.__version__, "# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io")
             self.command("NOTICE", event.channel, txt)
 
     def PRIVMSG(self, event):

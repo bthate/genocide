@@ -33,7 +33,7 @@ class Handler(ol.Object):
                 if self.cfg.nothread:
                     self.dispatch(event)
                 else:
-                    ol.tsk.launch(self.dispatch, event)
+                    event.thrs.append(ol.tsk.launch(self.dispatch, event))
             else:
                 event.ready.set()
 

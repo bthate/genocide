@@ -6,7 +6,6 @@
 import importlib
 importlib.invalidate_caches()
 
-import os, sys ; sys.path.insert(0, os.getcwd())
 import ol, os, shutil, sys
 
 import urllib

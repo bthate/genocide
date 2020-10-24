@@ -22,7 +22,7 @@ def daemon():
     os.dup2(se.fileno(), sys.stderr.fileno())
 
 def main():
-    k = boot("genocide", tbl=tbl)
+    k = boot("genocide")
     if "h" in k.cfg.opts:
         from mods.hlp import help
         help()
@@ -31,9 +31,14 @@ def main():
         print("BOT started at %s" % time.ctime(time.time()))
         print(ol.format(k.cfg))
     if k.cfg.txt:
+        k.settable(tbl)
         return cmd(k.cfg.otxt)
     if "d" in k.cfg.opts:
         daemon()
+    if "t" in k.cfg.opts:
+        k.settable(tbl)
+    else:
+        k.walk("mods")
     k.start()
     k.init(k.cfg.mods)
     if "s" in k.cfg.opts or k.cfg.mods:

@@ -75,3 +75,30 @@ def toudp(host, port, txt):
     "send text over udp to the udp to irc relay server"
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(bytes(txt.strip(), "utf-8"), (host, port))
+
+def udp(event):
+    "send text over udp to the bot"
+    cfg = Cfg()
+    ol.dbs.last(cfg)
+    if len(sys.argv) > 2:
+        txt = " ".join(sys.argv[2:])
+        toudp(cfg.host, cfg.port, txt)
+        return
+    if not select.select([sys.stdin, ], [], [], 0.0)[0]:
+        return
+    while 1:
+        try:
+            (i, o, e) = select.select([sys.stdin,], [], [sys.stderr,])
+        except KeyboardInterrupt:
+            return
+        if e:
+            break
+        stop = False
+        for sock in i:
+            txt = sock.readline()
+            if not txt:
+                stop = True
+                break
+            toudp(cfg.host, cfg.port, txt)
+        if stop:
+            break

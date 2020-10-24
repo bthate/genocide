@@ -85,7 +85,7 @@ def bmain():
     get_pip(pipurl)
     nopen("python3 %s/get-pip.py -t %s" % (installdir, installdir))
     nopen("rm build")
-    nopen("rm -fR %s.egg-info" % fname)
+    nopen("rm -fR genocide.egg-info")
     nopen("python3 setup.py sdist")
     do_main()
     nopen("rm %s/pip" % installdir)

@@ -22,13 +22,18 @@ def nopen(txt):
         pass
 
 def main():
+    try:
+        pw = __import__("modules").__path__[0]
+    except:
+        pw = __import__("mods").__path__[0]
+    
     if not os.path.exists("/var/lib/genocide"):
         ol.utl.cdir("/var/lib/genocide/")
     if not os.path.exists("/var/lib/genocide/store/"):
         ol.utl.cdir("/var/lib/genocide/store/")
     if not os.path.exists("/var/lib/genocide/mods"):
         ol.utl.cdir("/var/lib/genocide/mods/")
-    open("cp mods/*.py /var/lib/genocide/mods")
+    open("cp %s/*.py /var/lib/genocide/mods" % pw)
     nopen("groupadd genocide")
     nopen("useradd genocide -g genocide -d /var/lib/genocide")
     open("chown -R genocide:genocide /var/lib/genocide/")

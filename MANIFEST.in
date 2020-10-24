@@ -1,5 +1,4 @@
 include README
-include bin/install
 include docs/conf.py
 include docs/index.rst
 include docs/requirements.txt

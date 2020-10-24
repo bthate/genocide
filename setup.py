@@ -5,6 +5,9 @@ import os
 
 from setuptools import setup
 
+def mods():
+    return ["mods/%s" % x for x in os.listdir("mods") if x.endswith(".py")]
+
 def read():
     return open("README", "r").read()
 
@@ -19,8 +22,9 @@ setup(
     long_description_content_type="text/x-rst",
     license='Public Domain',
     zip_safe=False,
-    scripts=["bin/gc", "bin/genocide", "bin/genocide-install"],
+    scripts=["bin/genocide", "bin/genocided", "bin/genocide-install"],
     packages=["ol"],
+    data_files=[("modules", mods())],
     classifiers=['Development Status :: 4 - Beta',
                  'License :: Public Domain',
                  'Operating System :: Unix',

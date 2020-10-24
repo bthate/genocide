@@ -13,9 +13,11 @@ class Loader(ol.Object):
 
     "holds modules table"
 
+    #:
     table = ol.Object()
 
     def load(self, name):
+        "load module"
         if name not in self.table:
             self.table[name] = importlib.import_module(name)
         return self.table[name]

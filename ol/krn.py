@@ -56,11 +56,8 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
                     self.load(mn)
                     func = self.get_cmd(e.cmd)
         if func:
-            try:
-                func(e)
-                e.show()
-            except Exception as ex:
-                print(ol.utl.get_exception())
+            func(e)
+            e.show()
         e.ready.set()
 
     def get_cmd(self, cmd):

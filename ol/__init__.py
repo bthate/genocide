@@ -397,8 +397,8 @@ def xdir(o, skip=None):
 
 import ol
 
-from ol import int
 from ol import ldr
+from ol import int
 from ol import evt
 from ol import csl
 from ol import dbs

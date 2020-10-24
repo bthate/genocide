@@ -56,7 +56,7 @@ def find_names(mod):
             tps.append(o.__name__.lower(), t)
     return tps
 
-def walk(names):
+def walk(k, names):
     for name in names.split(","):
         spec = importlib.util.find_spec(name)
         if not spec:
@@ -68,18 +68,14 @@ def walk(names):
         for mi in pkgutil.iter_modules(pn):
             mn = "%s.%s" % (name, mi.name)
             mod = ol.utl.direct(mn)
-            ol.update(ol.tbl.funcs, vars(find_funcs(mod)))
-            ol.update(ol.tbl.mods, vars(find_mods(mod)))
-            ol.update(ol.tbl.names, vars(find_names(mod)))
-            ol.update(ol.tbl.classes, vars(find_class(mod)))
+            ol.update(k.funcs, vars(find_funcs(mod)))
+            ol.update(k.mods, vars(find_mods(mod)))
+            ol.update(k.names, vars(find_names(mod)))
+            ol.update(k.classes, vars(find_class(mod)))
 
 def main():
-    k = ol.krn.boot("table", os.path.expanduser("~/.genocide"))
-    ol.tbl.classes = ol.Object()
-    ol.tbl.mods= ol.Object()
-    ol.tbl.funcs = ol.Object()
-    ol.tbl.names = ol.Object()
-    walk("ol,mods,genocide")
+    k = ol.krn.boot("genocide")
+    walk(k, "ol,mods")
     print("# OLIB - object library")
     print("#")
     print("#")
@@ -95,12 +91,12 @@ def main():
     print("#:")
     print("names = ol.Object()")
     print("")
-    print("ol.update(classes, %s)" % ol.tbl.classes)
+    print("ol.update(classes, %s)" % k.classes)
     print("")
-    print("ol.update(mods, %s)" % ol.tbl.mods)
+    print("ol.update(mods, %s)" % k.mods)
     print("")
-    print("ol.update(funcs, %s)" % ol.tbl.funcs)
+    print("ol.update(funcs, %s)" % k.funcs)
     print("")
-    print("ol.update(names, %s)" % ol.tbl.names)
+    print("ol.update(names, %s)" % k.names)
  
 ol.trm.execute(main)

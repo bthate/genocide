@@ -8,6 +8,8 @@ import ol
 import os
 import time
 
+k = ol.krn.get_kernel()
+
 def fnd(event):
     "locate and show objects on disk"
     if not event.args:
@@ -24,7 +26,8 @@ def fnd(event):
         args = event.prs.args[1:]
     except IndexError:
         args = ol.keys(o)
-    for otype in event.types:
+    types = ol.get(k.names, self.args[0], [self.cmd,])
+    for otype in types:
         for o in ol.dbs.find(otype, event.prs.gets, event.prs.index, event.prs.timed):
             nr += 1
             pure = True

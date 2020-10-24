@@ -34,7 +34,6 @@ class Event(ol.Object):
         if args:
             self.args = args
             self.rest = " ".join(args)
-            self.types = ol.get(ol.tbl.names, self.args[0], [self.cmd,])
 
     def reply(self, txt):
         self.result.append(txt)

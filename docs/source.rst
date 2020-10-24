@@ -22,7 +22,6 @@ olib
     ol.krn      - kernel
     ol.prs      - parser
     ol.spc	- specification
-    ol.tbl	- tables
     ol.tms      - times
     ol.trm      - terminal
     ol.tsk      - tasks

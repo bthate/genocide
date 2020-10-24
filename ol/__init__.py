@@ -397,7 +397,6 @@ def xdir(o, skip=None):
 
 import ol
 
-from ol import tbl
 from ol import int
 from ol import ldr
 from ol import evt

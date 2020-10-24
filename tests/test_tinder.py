@@ -23,7 +23,7 @@ param.tdo = ["test4", ""]
 param.mbx = ["~/Desktop/25-1-2013", ""]
 
 events = []
-ignore = ["mbx", "tbl", "rss"]
+ignore = ["mbx", "rss"]
 nrtimes = 1
 
 k = ol.krn.get_kernel()
@@ -67,7 +67,7 @@ def consume(elems):
     return res
     
 def sortedtests(b):
-    keys = sorted(ol.tbl.mods)
+    keys = sorted(k.mods)
     for cmd in keys:
         if cmd in ignore:
             continue

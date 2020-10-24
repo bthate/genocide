@@ -55,6 +55,7 @@ def find_names(mod):
     return tps
 
 def walk(names):
+    k = ol.krn.get_kernel()
     for name in names.split(","):
         spec = importlib.util.find_spec(name)
         if not spec:
@@ -66,8 +67,8 @@ def walk(names):
         for mi in pkgutil.iter_modules(pn):
             mn = "%s.%s" % (name, mi.name)
             mod = ol.utl.direct(mn)
-            ol.tbl.cmds.update(vars(find_cmds(mod)))
-            ol.tbl.funcs.update(vars(find_funcs(mod)))
-            ol.tbl.mods.update(vars(find_mods(mod)))
-            ol.tbl.names.update(vars(find_names(mod)))
-            ol.tbl.classes.update(vars(find_class(mod)))
+            k.cmds.update(vars(find_cmds(mod)))
+            k.funcs.update(vars(find_funcs(mod)))
+            k.mods.update(vars(find_mods(mod)))
+            k.names.update(vars(find_names(mod)))
+            k.classes.update(vars(find_class(mod)))

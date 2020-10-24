@@ -10,7 +10,7 @@ k = ol.krn.get_kernel()
 
 def cmd(event):
     "list commands (cmd)"
-    c = sorted(ol.keys(ol.tbl.mods))
+    c = sorted(ol.keys(k.mods))
     if c:
         event.reply(",".join(c))
 

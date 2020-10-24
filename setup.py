@@ -23,7 +23,7 @@ setup(
     license='Public Domain',
     zip_safe=True,
     scripts=["bin/genocide", "bin/genocided", "bin/genocide-install"],
-    packages=["ol"],
+    packages=["genocide", "ol"],
     data_files=[("modules", mods())],
     classifiers=['Development Status :: 4 - Beta',
                  'License :: Public Domain',

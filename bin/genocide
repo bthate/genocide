@@ -5,6 +5,8 @@ import os, sys ; sys.path.insert(0, os.getcwd())
 from ol.spc import Console, boot, cmd, execute, ol
 from ol.spc import os, sys, time 
 
+from genocide import tbl
+
 def daemon():
     pid = os.fork()
     if pid != 0:
@@ -20,8 +22,7 @@ def daemon():
     os.dup2(se.fileno(), sys.stderr.fileno())
 
 def main():
-    k = boot("genocide")
-    k.walk("mods")
+    k = boot("genocide", tbl=tbl)
     if "h" in k.cfg.opts:
         from mods.hlp import help
         help()

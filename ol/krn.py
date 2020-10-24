@@ -21,11 +21,16 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
     mods = ol.Object()
     names = ol.Object()
 
-    def __init__(self):
+    def __init__(self, tbl=None):
         super().__init__()
         self.ready = threading.Event()
         self.stopped = False
         self.cfg = ol.Cfg()
+        if tbl:
+            ol.update(Kernel.classes, tbl.classes)
+            ol.update(Kernel.funcs, tbl.funcs)
+            ol.update(Kernel.mods, tbl.mods)
+            ol.update(Kernel.names, tbl.names)
         kernels.append(self)
 
     def announce(self, txt):
@@ -130,13 +135,13 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
 
 kernels = []
 
-def boot(name, wd="", root=False):
+def boot(name, wd="", root=False, tbl=None):
     if root:
         ol.wd = wd or "/var/lib/%s" % name
     else:
         ol.wd = wd or os.path.expanduser("~/.%s" % name)
     cfg = ol.prs.parse_cli()
-    k = get_kernel()
+    k = get_kernel(tbl)
     ol.update(k.cfg, cfg)
     k.cfg.wd = ol.wd
     sys.path.insert(0, k.cfg.wd)
@@ -146,10 +151,10 @@ def cmd(txt):
     k = get_kernel()
     return k.cmd(txt)
 
-def get_kernel():
+def get_kernel(tbl=None):
     if kernels:
         return kernels[0]
-    return Kernel()
+    return Kernel(tbl)
 
 def scandir(path):
     k = get_kernel()

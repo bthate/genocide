@@ -74,8 +74,8 @@ i write you to ask you to reconsider now removed evidence has been restored onli
 In chronological order:
 
 11-12-2017 I informed the chamber of the fact that the medicine used in treatements of psychiatric illnesses are poison
-           The proof exists of a url to the European Chemical Agency, showing that Haldol is a toxic substance (toxic if swallowed accompanied by a skull en bones).
-           This link worked a the time the chamber member were informed.
+The proof exists of a url to the European Chemical Agency, showing that Haldol is a toxic substance (toxic if swallowed accompanied by a skull en bones).
+his link worked a the time the chamber member were informed.
 
 23-01-2018 The Chamber votes in favour of the Wet Forensische Zorg, Wet verplichte GGZ, Wet Zorg en Dwang knowing that the medicine used in these treatements are poison.
 

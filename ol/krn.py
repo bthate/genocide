@@ -15,6 +15,12 @@ starttime = time.time()
 
 class Kernel(ol.hdl.Handler, ol.ldr.Loader):
 
+    classes = ol.Object()
+    cmds = ol.Object()
+    funcs = ol.Object()
+    mods = ol.Object()
+    names = ol.Object()
+
     def __init__(self):
         super().__init__()
         self.ready = threading.Event()
@@ -36,6 +42,40 @@ class Kernel(ol.hdl.Handler, ol.ldr.Loader):
 
     def direct(self, txt):
         print(txt.rstrip())
+
+    def dispatch(self, e):
+        e.parse()
+        if not e.orig:
+            e.orig = repr(self)
+        func = self.get_cmd(e.cmd)
+        if not func:
+            mn = ol.get(self.mods, e.cmd, None)
+            if mn:
+                spec = importlib.util.find_spec(mn)
+                if spec:
+                    self.load(mn)
+                    func = self.get_cmd(e.cmd)
+        if func:
+            try:
+                func(e)
+                e.show()
+            except Exception as ex:
+                print(ol.utl.get_exception())
+        e.ready.set()
+
+    def get_cmd(self, cmd):
+        mn = ol.get(self.mods, cmd, None)
+        if not mn:
+             return
+        mod = None
+        if mn in sys.modules:
+            mod = sys.modules[mn]
+        else:
+            spec = importlib.util.find_spec(mn)
+            if spec:
+                mod = ol.utl.direct(mn)
+        if mod:
+            return getattr(mod, cmd, None)
 
     def init(self, mns, name=None, exc=""):
         if not mns:

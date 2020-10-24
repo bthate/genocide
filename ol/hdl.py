@@ -20,38 +20,7 @@ class Handler(ol.Object):
         self.stopped = False
 
     def dispatch(self, e):
-        e.parse()
-        if not e.orig:
-            e.orig = repr(self)
-        func = self.get_cmd(e.cmd)
-        if not func:
-            mn = ol.get(ol.tbl.mods, e.cmd, None)
-            if mn:
-                spec = importlib.util.find_spec(mn)
-                if spec:
-                    self.load(mn)
-                    func = self.get_cmd(e.cmd)
-        if func:
-            try:
-                func(e)
-                e.show()
-            except Exception as ex:
-                print(ol.utl.get_exception())
-        e.ready.set()
-
-    def get_cmd(self, cmd):
-        mn = ol.get(ol.tbl.mods, cmd, None)
-        if not mn:
-             return
-        mod = None
-        if mn in sys.modules:
-            mod = sys.modules[mn]
-        else:
-            spec = importlib.util.find_spec(mn)
-            if spec:
-                mod = ol.utl.direct(mn)
-        if mod:
-            return getattr(mod, cmd, None)
+        "overload this"
 
     def handler(self):
         while not self.stopped:

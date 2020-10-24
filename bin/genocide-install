@@ -26,7 +26,6 @@ def main():
         pw = __import__("modules").__path__[0]
     except:
         pw = __import__("mods").__path__[0]
-    
     if not os.path.exists("/var/lib/genocide"):
         ol.utl.cdir("/var/lib/genocide/")
     if not os.path.exists("/var/lib/genocide/store/"):
@@ -42,8 +41,5 @@ def main():
     nopen("python3 setup.py install")
     open("cp files/genocide.service /etc/systemd/system/")
     open("systemctl daemon-reload")
-    open("service genocide stop")
-    open("service genocide start")
-    open("systemctl status genocide")
 
 ol.trm.execute(main)

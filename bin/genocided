@@ -21,9 +21,6 @@ def daemon():
     os.dup2(se.fileno(), sys.stderr.fileno())
 
 def main():
-    if not root():
-        print("you need root permission")
-        return
     k = boot("genocide", root=True)
     if "h" in k.cfg.opts:
         from mods.hlp import help

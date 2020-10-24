@@ -21,7 +21,7 @@ setup(
     long_description=read(),
     long_description_content_type="text/x-rst",
     license='Public Domain',
-    zip_safe=False,
+    zip_safe=True,
     scripts=["bin/genocide", "bin/genocided", "bin/genocide-install"],
     packages=["ol"],
     data_files=[("modules", mods())],

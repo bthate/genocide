@@ -11,7 +11,7 @@ classes
 .. autoclass:: ol.bus.Bus
     :noindex:
 
-..autoclass:: ol.Default
+.. autoclass:: ol.Default
     :noindex:
 
 .. autoclass:: ol.csl.Console
@@ -35,43 +35,47 @@ classes
 .. autoclass:: ol.Ol
     :noindex:
 
+.. autoclass:: ol.tsk.Task
+    :noindex:
+
 functions
 =========
 
-.. automethod:: ol.krn.boot
+.. autofunction:: ol.krn.boot
     :noindex:
 
-.. automethod:: ol.bus.bus
+.. autofunction:: ol.bus.bus
     :noindex:
 
-.. automethod:: ol.krn.cmd
+.. autofunction:: ol.utl.cdir
     :noindex:
 
-.. automethod:: ol.trm.execute
+
+.. autofunction:: ol.krn.cmd
     :noindex:
 
-.. automethod:: ol.krn.get_kernel
+.. autofunction:: ol.trm.execute
     :noindex:
 
-.. automethod:: ol.tsk.launch
+.. autofunction:: ol.krn.get_kernel
     :noindex:
 
-.. automethod:: ol.prs.parse_cli
+.. autofunction:: ol.tsk.launch
     :noindex:
 
-.. automethod:: ol.utl.privileges
+.. autofunction:: ol.prs.parse_cli
     :noindex:
 
-.. automethod:: ol.utl.root
+.. autofunction:: ol.utl.privileges
     :noindex:
 
-.. automethod:: ol.krn.scandir
+.. autofunction:: ol.utl.root
+    :noindex:
+
+.. autofunction:: ol.krn.scandir
     :noindex:
 
 """
-
-def __dir__():
-    return ("Bus", "Console", "Default", "Event", "Handler", "Kernel", "Loader", "Object", "Ol", "boot", "bus", "cmd", "execute", "get_kernel", "launch", "parse_cli", "privileges", "root", "scandir")
 
 import ol
 import os
@@ -88,4 +92,4 @@ from ol.ldr import Loader
 from ol.prs import parse, parse_cli
 from ol.tsk import launch
 from ol.trm import execute
-from ol.utl import privileges, root
+from ol.utl import cdir, privileges, root

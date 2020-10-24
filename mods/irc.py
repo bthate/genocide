@@ -71,7 +71,7 @@ class TextWrap(textwrap.TextWrapper):
         self.tabsize = 4
         self.width = 450
 
-class IRC(ol.hdl.Handler, ol.ldr.Loader):
+class IRC(ol.ldr.Loader, ol.hdl.Handler):
 
     "IRC bot"
 
@@ -87,6 +87,7 @@ class IRC(ol.hdl.Handler, ol.ldr.Loader):
         self.cc = "!"
         self.cfg = Cfg()
         self.channels = []
+        self.cmds = ol.Object()
         self.speed = "slow"
         self.state = ol.Object()
         self.state.needconnect = False

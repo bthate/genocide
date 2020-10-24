@@ -3,8 +3,24 @@
 #
 #
 
-import os, sys ; sys.path.insert(0, os.getcwd())
-import ol
+import os, sys, pkg_resources, shutil, zipfile
+
+from ol.spc import cdir, ol
+
+def copydir(orig, dest):
+    for name in os.listdir(orig):
+        shutil.copyfile(os.path.join(orig, name), os.path.join(dest, name))
+
+def copyzip(orig, dest):
+    z = zipfile.ZipFile(orig)
+    with zipfile.ZipFile(orig) as zipped:
+        for name in zipped.namelist():
+            shutil.copyfile(os.path.join(orig, name), os.path.join(dest, name))
+
+def copyresource(name, dest):
+    orig = pkg_resources.resource_filename(name, "")
+    for fname in pkg_resources.resource_listdir(name, ""):
+        shutil.copyfile(os.path.join(orig, fname), os.path.join(dest, fname))
 
 def open(txt):
     try:
@@ -26,13 +42,17 @@ def main():
         pw = __import__("modules").__path__[0]
     except:
         pw = __import__("mods").__path__[0]
+    pww = os.path.dirname(pw)
     if not os.path.exists("/var/lib/genocide"):
-        ol.utl.cdir("/var/lib/genocide/")
+        cdir("/var/lib/genocide/")
     if not os.path.exists("/var/lib/genocide/store/"):
-        ol.utl.cdir("/var/lib/genocide/store/")
+        cdir("/var/lib/genocide/store/")
     if not os.path.exists("/var/lib/genocide/mods"):
-        ol.utl.cdir("/var/lib/genocide/mods/")
-    open("cp %s/*.py /var/lib/genocide/mods" % pw)
+        cdir("/var/lib/genocide/mods/")
+    try:
+        copyfile(pw, "/var/lib/genocide/mods")
+    except:
+        copyresource("modules", "/var/lib/genocide/mods")
     nopen("groupadd genocide")
     nopen("useradd genocide -g genocide -d /var/lib/genocide")
     open("chown -R genocide:genocide /var/lib/genocide/")

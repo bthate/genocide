@@ -141,6 +141,7 @@ def boot(name, wd="", root=False):
         ol.wd = wd or "/var/lib/%s" % name
     else:
         ol.wd = wd or os.path.expanduser("~/.%s" % name)
+    ol.utl.cdir(ol.wd)
     cfg = ol.prs.parse_cli()
     k = get_kernel()
     ol.update(k.cfg, cfg)

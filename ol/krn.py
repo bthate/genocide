@@ -1,6 +1,6 @@
-# OLIB - object library
+# GENOCIDE - the king of the netherlands commits genocide
 #
-#
+# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
 import importlib
 import ol
@@ -122,8 +122,7 @@ class Kernel(ol.ldr.Loader, ol.hdl.Handler):
             spec = importlib.util.find_spec(name)
             if not spec:
                 continue
-            pkg = importlib.util.module_from_spec(spec)
-            pn = getattr(pkg, "__path__", None)
+            pn = spec.submodule_search_locations
             if not pn:
                 continue
             for mi in pkgutil.iter_modules(pn):
@@ -150,7 +149,6 @@ def boot(name, wd="", root=False):
     ol.update(k.cfg, cfg)
     k.cfg.wd = ol.wd
     sys.path.insert(0, k.cfg.wd)
-    ol.utl.privileges(name)
     return k
 
 def cmd(txt):
@@ -163,6 +161,9 @@ def get_kernel():
     return Kernel()
 
 def scandir(path):
+    mods = []
+    if not os.path.exists(os.path.join(path, "mods")):
+        return mods
     k = get_kernel()
     mods = []
     ol.utl.cdir(path + os.sep + "")

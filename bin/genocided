@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io
+# GENOCIDE - the king of the netherlands commits genocide
 #
-#
+# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
 from ol.spc import Console, boot, cmd, execute, ol, privileges, root, scandir
 from ol.spc import os, pwd, sys, time 

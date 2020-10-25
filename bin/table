@@ -1,7 +1,7 @@
 #!/usr/bin/python3 -u
-# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io
+# GENOCIDE - the king of the netherlands commits genocide
 #
-#
+# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
 import os, sys ; sys.path.insert(0, os.getcwd())
 import ol
@@ -76,8 +76,9 @@ def walk(k, names):
 def main():
     k = ol.krn.boot("genocide")
     walk(k, "genocide,ol,mods")
-    print("# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io")
+    print("# GENOCIDE - the king of the netherlands commits genocide")
     print("#")
+    print("# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io")
     print("#")
     print("")
     print("import ol")

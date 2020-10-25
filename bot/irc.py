@@ -1,6 +1,6 @@
-# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io
+# GENOCIDE - the king of the netherlands commits genocide
 #
-#
+# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
 "Internet Relay Chat"
 
@@ -398,7 +398,7 @@ class IRC(ol.ldr.Loader, ol.hdl.Handler):
         "handle noticed"
         import genocide
         if event.txt.startswith("VERSION"):
-            txt = "\001VERSION %s %s - %s\001" % ("GENOCIDE", genocide.__version__, "# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io")
+            txt = "\001VERSION %s %s - %s\001" % ("GENOCIDE", genocide.__version__, "# GENOCIDE - the king of the netherlands commits genocide OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io")
             self.command("NOTICE", event.channel, txt)
 
     def PRIVMSG(self, event):

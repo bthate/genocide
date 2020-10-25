@@ -28,7 +28,7 @@ def bopen(txt):
 
 def postinstall():
     nopen("groupadd genocide")
-    bopen("useradd genocide -g genocide -d /var/lib/genocide/")
+    nopen("useradd genocide -g genocide -d /var/lib/genocide/")
     nopen("mkdir /var/lib/genocide")
     nopen("mkdir /var/lib/genocide/mods/")
     nopen("mkdir /var/lib/genocide/store/")
@@ -57,10 +57,10 @@ setup(
     long_description_content_type="text/x-rst",
     license='Public Domain',
     zip_safe=True,
-    scripts=["bin/genocide", "bin/genocided", "bin/genocide-install"],
+    scripts=["bin/genocide", "bin/genocided"],
     packages=["genocide", "bot", "ol"],
     cmdclass={'install': Install},
-    data_files=[("mods", mods())],
+    #data_files=[("mods", mods())],
     classifiers=['Development Status :: 4 - Beta',
                  'License :: Public Domain',
                  'Operating System :: Unix',

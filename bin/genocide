@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+# GENOCIDE - the king of the netherlands commits genocide
+#
+# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
 import os, sys ; sys.path.insert(0, os.getcwd())
 
@@ -28,8 +31,8 @@ def main():
     if "b" in k.cfg.opts:
         print("BOT started at %s" % time.ctime(time.time()))
         print(ol.format(k.cfg))
-    k.walk("bot,genocide")
     scandir(k.cfg.wd)
+    k.walk("bot,genocide,mods")
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     if "d" in k.cfg.opts:

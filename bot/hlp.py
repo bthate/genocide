@@ -1,14 +1,17 @@
-# GENOCIDE - the king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io
+# GENOCIDE - the king of the netherlands commits genocide
 #
-#
+# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
 "manual"
 
 def help():
-    print("GENOCIDE(8)                    System Administration                 GENOCIDE(8)")
+    print("GENOCIDE(1)                    User command                 GENOCIDE(1)")
     print("")
     print("NAME")
     print("        genocide - the king of the netherlands commits genocide")
+    print("                   OTP-CR-117/19/001")
+    print("                   otp.informationdesk@icc-cpi.int")
+    print("                   https://genocide.rtfd.io")
     print("")
     print("SYNOPSIS")
     print("""        GENOCIDE is a pure python3 IRC chat bot that can run as a background

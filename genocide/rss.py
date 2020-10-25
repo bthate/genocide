@@ -288,33 +288,6 @@ def dpl(event):
         ol.save(o)
     event.reply("ok")
 
-def fed(event):
-    "search through saved feed items"
-    if not event.args:
-        return
-    match = event.args[0]
-    nr = 0
-    res = list(find("mods.rss.Feed", {"link": match}))
-    for o in res:
-        if match:
-            event.reply("%s %s - %s - %s" % (nr,
-                                                  o.title,
-                                                  o.summary,
-                                                  o.link))
-        nr += 1
-    if nr:
-        return
-    res = list(ol.dbs.find("mods.rss.Feed", {"title": match}))
-    for o in res:
-        if match:
-            event.reply("%s %s - %s - %s" % (nr, o.title, o.summary, o.link))
-        nr += 1
-    res = list(ol.dbs.find("mods.rss.Feed", {"summary": match}))
-    for o in res:
-        if match:
-            event.reply("%s %s - %s - %s" % (nr, o.title, o.summary, o.link))
-        nr += 1
-
 def ftc(event):
     "manual run a fetch batch"
     res = []

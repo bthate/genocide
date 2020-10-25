@@ -22,8 +22,6 @@ def daemon():
 
 def main():
     k = boot("genocide", root=True)
-    if not os.path.exists(k.cfg.wd):
-        install()
     if "h" in k.cfg.opts:
         from mods.hlp import help
         help()
@@ -33,6 +31,7 @@ def main():
         print(ol.format(k.cfg))
     if "d" in k.cfg.opts:
         daemon()
+    privileges("genocide")
     k.walk("bot,genocide,mods")
     scandir(k.cfg.wd)
     if k.cfg.txt:

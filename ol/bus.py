@@ -2,9 +2,13 @@
 #
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
+"announce to listeners"
+
 import ol
 
 class Bus(ol.Object):
+
+    "bus class"
 
     objs = []
 
@@ -15,9 +19,11 @@ class Bus(ol.Object):
         return iter(Bus.objs)
 
     def add(self, obj):
+        "add listener to bus"
         Bus.objs.append(obj)
 
     def announce(self, txt, skip=None):
+        "announce to all listeners"
         for h in self.objs:
             if skip is not None and isinstance(h, skip):
                 continue
@@ -25,18 +31,22 @@ class Bus(ol.Object):
                 h.announce(txt)
 
     def dispatch(self, event):
+        "dispatch on all listeners"
         for b in Bus.objs:
             if repr(b) == event.orig:
                 b.dispatch(event)
 
     def by_orig(self, orig):
+        "fetch listener by orig"
         for o in Bus.objs:
             if repr(o) == orig:
                 return o
 
     def say(self, orig, channel, txt):
+        "say something to specific listener"
         for o in Bus.objs:
             if repr(o) == orig:
                 o.say(channel, str(txt))
 
+#:
 bus = Bus()

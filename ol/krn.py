@@ -170,11 +170,9 @@ def scandir(path):
         if fn.startswith("_") or not fn.endswith(".py"):
             continue
         mn = "mods.%s" % fn[:-3]
-        try:
+        spec = importlib.util.find_spec(mn)
+        if spec:
             module = k.load(mn)
             k.scan(module)
-        except Exception as ex:
-            print(ol.utl.get_exception())
-            continue
-        mods.append(module)
+            mods.append(module)
     return mods

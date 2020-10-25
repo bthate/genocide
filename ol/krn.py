@@ -142,10 +142,10 @@ kernels = []
 
 def boot(name, wd="", root=False):
     if root:
-        ol.wd = wd or "/var/lib/%s" % name
+        ol.wd = wd or "/var/lib/%s/" % name
         ol.utl.touch(os.path.join(ol.wd, "running"))
     else:
-        ol.wd = wd or os.path.expanduser("~/.%s" % name)
+        ol.wd = wd or os.path.expanduser("~/.%s/" % name)
     cfg = ol.prs.parse_cli()
     k = get_kernel()
     ol.update(k.cfg, cfg)

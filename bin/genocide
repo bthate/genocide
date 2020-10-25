@@ -2,7 +2,7 @@
 
 import os, sys ; sys.path.insert(0, os.getcwd())
 
-from ol.spc import Console, boot, cmd, execute, ol
+from ol.spc import Console, boot, cmd, execute, ol, scandir
 from ol.spc import os, sys, time 
 
 def daemon():
@@ -28,8 +28,8 @@ def main():
     if "b" in k.cfg.opts:
         print("BOT started at %s" % time.ctime(time.time()))
         print(ol.format(k.cfg))
-    k.walk("bot, mods")
-    ol.krn.scandir(os.path.join(k.cfg.wd))
+    k.walk("bot,genocide")
+    scandir(k.cfg.wd)
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     if "d" in k.cfg.opts:

@@ -21,6 +21,7 @@ def daemon():
     os.dup2(se.fileno(), sys.stderr.fileno())
 
 def main():
+    privileges("genocide")
     k = boot("genocide", root=True)
     if "h" in k.cfg.opts:
         from mods.hlp import help
@@ -31,8 +32,8 @@ def main():
         print(ol.format(k.cfg))
     if "d" in k.cfg.opts:
         daemon()
-    privileges("genocide")
-    k.walk("genocide,mods")
+    k.walk("bot,genocide,mods")
+    scandir(os.path.join(k.cfg.wd))
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     if "s" in k.cfg.opts:

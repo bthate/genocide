@@ -36,7 +36,7 @@ def postinstall():
     nopen("chown -R genocide:genocide /var/lib/genocide/")
     nopen("chmod -R 700 /var/lib/genocide/")
     nopen("chmod -R 400 /var/lib/genocide/mods/*.py")
-    nopen("systemctl daemon-reload")
+    #nopen("systemctl daemon-reload")
 
 def mods():
     if not os.path.exists("mods"):
@@ -57,8 +57,9 @@ setup(
     long_description_content_type="text/x-rst",
     license='Public Domain',
     zip_safe=True,
+    install_requires=["botlib"],
     scripts=["bin/genocide", "bin/genocided"],
-    packages=["genocide", "bot", "ol"],
+    packages=["genocide"],
     cmdclass={'install': Install},
     #data_files=[("mods", mods())],
     classifiers=['Development Status :: 4 - Beta',

@@ -32,7 +32,7 @@ def main():
     if "d" in k.cfg.opts:
         daemon()
     privileges("genocide")
-    k.walk("bot,genocide")
+    k.walk("bot,botmod,genocide")
     scandir(k.cfg.wd)
     if k.cfg.txt:
         return cmd(k.cfg.otxt)

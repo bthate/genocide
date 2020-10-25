@@ -3,14 +3,15 @@
 #
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-import importlib
+import importlib, os, sys
 importlib.invalidate_caches()
 
 import ol, os, shutil, sys
-
 import urllib
 import urllib.parse
 import urllib.request
+
+from ol.spc import execute
 
 from setuptools.command.easy_install import main
 
@@ -59,7 +60,7 @@ def get_pip(url):
 
 def highest():
     fns = os.listdir("dist")
-    #print(",".join(fns))
+    print(",".join(fns))
     target = fname
     highest = 0
     for fn in fns:
@@ -73,9 +74,12 @@ def highest():
         if nr > highest:
             highest = nr
             target = fn
+    return target
 
 def do_main():
-    rss = rs + " -f dist genocide feedparser"
+    rss = rs + " dist/%s" % highest()
+    main(rss.split())
+    rss = rs + " feedparser"
     main(rss.split())
 
 def bmain():
@@ -95,4 +99,4 @@ def bmain():
     nopen("rm %s/get-pip.py" % installdir)
     nopen("tar zcvf %s.tar.gz %s" % (fname.lower(), fname))
 
-ol.trm.execute(bmain)
+execute(bmain)

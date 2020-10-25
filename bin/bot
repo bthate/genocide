@@ -8,7 +8,7 @@ def main():
         print("BOT started at %s" % time.ctime(time.time()))
         print(ol.format(k.cfg))
     scandir(k.cfg.wd)
-    k.walk("bot")
+    k.walk("bot,botmod")
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     k.start()

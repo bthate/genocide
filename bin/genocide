@@ -32,7 +32,7 @@ def main():
         print("BOT started at %s" % time.ctime(time.time()))
         print(ol.format(k.cfg))
     scandir(k.cfg.wd)
-    k.walk("bot,genocide")
+    k.walk("bot,botmod,genocide")
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     if "d" in k.cfg.opts:

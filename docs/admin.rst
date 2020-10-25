@@ -83,6 +83,8 @@ you can use setters to edit fields in a configuration:
 
 to have the irc bot started use the mods=irc option at start:
 
+::
+
  $ sudo genocide mods=irc
 
 RSS

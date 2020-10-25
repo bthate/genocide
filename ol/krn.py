@@ -143,7 +143,6 @@ kernels = []
 def boot(name, wd="", root=False):
     if root:
         ol.wd = wd or "/var/lib/%s/" % name
-        ol.utl.touch(os.path.join(ol.wd, "running"))
     else:
         ol.wd = wd or os.path.expanduser("~/.%s/" % name)
     cfg = ol.prs.parse_cli()
@@ -151,6 +150,7 @@ def boot(name, wd="", root=False):
     ol.update(k.cfg, cfg)
     k.cfg.wd = ol.wd
     sys.path.insert(0, k.cfg.wd)
+    ol.utl.privileges(name)
     return k
 
 def cmd(txt):

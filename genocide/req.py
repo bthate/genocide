@@ -4,7 +4,7 @@
 
 "show request send to the prosecutor"
 
-#;
+#:
 txt = """
 Information and Evidence Unit
 Office of the Prosecutor

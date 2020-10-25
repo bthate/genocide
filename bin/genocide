@@ -25,7 +25,7 @@ def daemon():
 def main():
     k = boot("genocide")
     if "h" in k.cfg.opts:
-        from mods.hlp import help
+        from genocide.hlp import help
         help()
         return
     if "b" in k.cfg.opts:

@@ -37,8 +37,20 @@ bot
 
     bot.cfg
     bot.cmd
-    bot.fnd
     bot.irc
+
+botmod
+======
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+    botmod.ent
+    botmod.fnd
+    botmod.mbx
+    botmod.rss
+    botmod.udp
 
 genocide
 ========
@@ -47,12 +59,8 @@ genocide
     :toctree: 
     :template: module.rst
 
-    genocide.ent    	- enter log and todo items
     genocide.hlp	- display help
-    genocide.mbx	- mailbox
     genocide.req	- request send to the prosecutor
-    genocide.rss    	- rich site syndicate
-    genocice.sui	- suicide statistics
+    genocide.sui	- suicide statistics
     genocide.trt	- torture definition
-    genocide.udp	- UDP to IRC gateway
     genocide.wsd	- knowledge on trip

@@ -37,6 +37,7 @@ class Kernel(ol.ldr.Loader, ol.hdl.Handler):
         e = ol.evt.Event()
         e.txt = txt
         ol.bus.bus.add(self)
+        sys.path.insert(0, os.path.join(self.cfg.wd, "mods"))
         self.dispatch(e)
         return e
 
@@ -98,11 +99,11 @@ class Kernel(ol.ldr.Loader, ol.hdl.Handler):
     def say(self, channel, txt):
         self.direct(txt)
 
-    def start(self, tbl=None):
+    def start(self):
         assert ol.wd
         super().start()
 
-    def settable(self, tbl):
+    def table(self, tbl):
         ol.update(Kernel.classes, tbl.classes)
         ol.update(Kernel.funcs, tbl.funcs)
         ol.update(Kernel.mods, tbl.mods)

@@ -31,12 +31,13 @@ def main():
         print("BOT started at %s" % time.ctime(time.time()))
         print(ol.format(k.cfg))
     if k.cfg.txt:
-        k.settable(tbl)
+        k.table(tbl)
+        k.walk("mods")
         return cmd(k.cfg.otxt)
     if "d" in k.cfg.opts:
         daemon()
-    if "t" in k.cfg.opts:
-        k.settable(tbl)
+    if tbl:
+        k.table(tbl)
     else:
         k.walk("mods")
     k.start()

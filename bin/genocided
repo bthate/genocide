@@ -6,8 +6,6 @@
 from ol.spc import Console, boot, cmd, execute, ol, privileges, root, scandir
 from ol.spc import os, pwd, sys, time 
 
-from genocide import tbl
-
 def daemon():
     pid = os.fork()
     if pid != 0:
@@ -34,7 +32,7 @@ def main():
     if "d" in k.cfg.opts:
         daemon()
     privileges("genocide")
-    k.table(tbl)
+    k.walk("genocide,mods")
     if k.cfg.txt:
         return cmd(k.cfg.otxt)
     if "s" in k.cfg.opts:

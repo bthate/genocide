@@ -5,8 +5,6 @@ import os, sys ; sys.path.insert(0, os.getcwd())
 from ol.spc import Console, boot, cmd, execute, ol
 from ol.spc import os, sys, time 
 
-from genocide import tbl
-
 def daemon():
     pid = os.fork()
     if pid != 0:
@@ -30,16 +28,12 @@ def main():
     if "b" in k.cfg.opts:
         print("BOT started at %s" % time.ctime(time.time()))
         print(ol.format(k.cfg))
+    k.walk("bot, mods")
+    ol.krn.scandir(os.path.join(k.cfg.wd))
     if k.cfg.txt:
-        k.table(tbl)
-        k.walk("mods")
         return cmd(k.cfg.otxt)
     if "d" in k.cfg.opts:
         daemon()
-    if tbl:
-        k.table(tbl)
-    else:
-        k.walk("mods")
     k.start()
     k.init(k.cfg.mods)
     if "s" in k.cfg.opts or k.cfg.mods:

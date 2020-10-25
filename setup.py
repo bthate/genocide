@@ -6,6 +6,8 @@ import os
 from setuptools import setup
 
 def mods():
+    if not os.path.exists("mods"):
+        return []
     return ["mods/%s" % x for x in os.listdir("mods") if x.endswith(".py")]
 
 def read():
@@ -23,9 +25,8 @@ setup(
     license='Public Domain',
     zip_safe=True,
     scripts=["bin/genocide", "bin/genocided", "bin/genocide-install"],
-    packages=["genocide", "mods", "ol"],
-    namespace_packages=["mods"],
-    #data_files=[("modules", mods())],
+    packages=["genocide", "bot", "ol"],
+    data_files=[("mods", mods())],
     classifiers=['Development Status :: 4 - Beta',
                  'License :: Public Domain',
                  'Operating System :: Unix',

@@ -103,7 +103,7 @@ class Kernel(ol.ldr.Loader, ol.hdl.Handler):
         assert ol.wd
         super().start()
 
-    def table(self, tbl):
+    def tabled(self, tbl):
         ol.update(Kernel.classes, tbl.classes)
         ol.update(Kernel.funcs, tbl.funcs)
         ol.update(Kernel.mods, tbl.mods)
@@ -129,20 +129,23 @@ class Kernel(ol.ldr.Loader, ol.hdl.Handler):
             for mi in pkgutil.iter_modules(pn):
                 mn = "%s.%s" % (name, mi.name)
                 mod = ol.utl.direct(mn)
-                ol.update(self.cmds, vars(ol.int.find_cmds(mod)))
-                ol.update(self.funcs, vars(ol.int.find_funcs(mod)))
-                ol.update(self.mods, vars(ol.int.find_mods(mod)))
-                ol.update(self.names, vars(ol.int.find_names(mod)))
-                ol.update(self.classes, vars(ol.int.find_class(mod)))
+                self.scan(mod)
+
+    def scan(self, mod):
+        ol.update(self.cmds, vars(ol.int.find_cmds(mod)))
+        ol.update(self.funcs, vars(ol.int.find_funcs(mod)))
+        ol.update(self.mods, vars(ol.int.find_mods(mod)))
+        ol.update(self.names, vars(ol.int.find_names(mod)))
+        ol.update(self.classes, vars(ol.int.find_class(mod)))
 
 kernels = []
 
 def boot(name, wd="", root=False):
     if root:
         ol.wd = wd or "/var/lib/%s" % name
+        ol.utl.touch(os.path.join(ol.wd, "running"))
     else:
         ol.wd = wd or os.path.expanduser("~/.%s" % name)
-    ol.utl.cdir(ol.wd)
     cfg = ol.prs.parse_cli()
     k = get_kernel()
     ol.update(k.cfg, cfg)
@@ -169,6 +172,7 @@ def scandir(path):
         mn = "mods.%s" % fn[:-3]
         try:
             module = k.load(mn)
+            k.scan(module)
         except Exception as ex:
             print(ol.utl.get_exception())
             continue

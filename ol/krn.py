@@ -26,6 +26,7 @@ class Kernel(ol.ldr.Loader, ol.hdl.Handler):
         self.ready = threading.Event()
         self.stopped = False
         self.cfg = ol.Cfg()
+        self.packages = []
         kernels.append(self)
 
     def announce(self, txt):
@@ -83,14 +84,17 @@ class Kernel(ol.ldr.Loader, ol.hdl.Handler):
         for mn in ol.utl.spl(mns):
             if mn in exclude:
                 continue
-            if "." not in mn:
-                mn = "mods.%s" % mn
-            if mn not in self.table:
-                self.load(mn)
-            if mn in self.table:
-                func = getattr(self.table[mn], "init", None)
-                if func:
-                    thrs.append(ol.tsk.launch(func, self, name=ol.get_name(func)))
+            for pn in self.packages:
+                mnn = "%s.%s" % (pn, mn)
+                spec = importlib.util.find_spec(mnn)
+                if not spec:
+                    continue
+                if mn not in self.table:
+                    self.load(mnn)
+                if mnn in self.table:
+                    func = getattr(self.table[mnn], "init", None)
+                    if func:
+                        thrs.append(ol.tsk.launch(func, self, name=ol.get_name(func)))
         return thrs
 
     def put(self, e):
@@ -119,6 +123,7 @@ class Kernel(ol.ldr.Loader, ol.hdl.Handler):
 
     def walk(self, names):
         for name in names.split(","):
+            self.packages.append(name)
             spec = importlib.util.find_spec(name)
             if not spec:
                 continue

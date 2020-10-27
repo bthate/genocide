@@ -83,6 +83,7 @@ html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 rst_prolog = """.. image:: genocide2.png
     :width: 100%
+    :height: 2.7cm
 
 .. title:: the king of the netherlands commits genocide
 """ 

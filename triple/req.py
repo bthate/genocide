@@ -2,6 +2,8 @@
 #
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
+__Version__ = 9
+
 "show request send to the prosecutor"
 
 #:

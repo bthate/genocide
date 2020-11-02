@@ -4,9 +4,8 @@
 
 from genocide import __version__, __txt2__
 
-import ol
-import bot.cmd
+from triple import krn
 
 def ver(event):
     "show version (ver)"
-    event.reply("GENOCIDE %s | BOTLIB %s | OLIB %s | %s" % (__version__, bot.cmd.__version__, ol.__version__, __txt2__))
+    event.reply("GENOCIDE %s | TRIPLE %s | %s" % (__version__, krn.__version__, __txt2__))

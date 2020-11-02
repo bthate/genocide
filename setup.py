@@ -1,69 +1,91 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# TRIPLE - 3 letter modules
+#
+#
+
+__copyright__= "Public Domain"
 
 import atexit, os
 
 from setuptools import setup
 from setuptools.command.install import install
 
+servicetxt="""[Unit]
+Description=TRIPLED - 24/7 channel daemon
+After=network-online.target
+
+[Service]
+Group=triple
+User=triple
+StandardOutput=append:/var/log/triple/triple.log
+StandardError=append:/var/log/triple/triple.log
+ExecStart=/usr/local/bin/triple wd=/var/lib/triple mods=irc,rss,udp
+
+[Install]
+WantedBy=multi-user.target
+"""
+
 class Install(install):
     def __init__(self, *args, **kwargs):
         super(Install, self).__init__(*args, **kwargs)
         atexit.register(postinstall)
 
-def nopen(txt):
+def skipopen(txt, skip=["already"]):
     txt += " 2>&1"
     try:
         for line in os.popen(txt).readlines():
-            pass
-    except:
-        pass
-
-def bopen(txt):
-    try:
-        for line in os.popen(txt).readlines():
-            print(line.rstrip())
-    except:
-        pass
+             pass
+    except Exception as ex:
+        for rej in skip:
+           if rej in str(ex):
+               return
 
 def postinstall():
-    nopen("groupadd genocide")
-    nopen("useradd genocide -g genocide -d /var/lib/genocide/")
-    nopen("mkdir /var/lib/genocide")
-    nopen("mkdir /var/lib/genocide/mods/")
-    nopen("mkdir /var/lib/genocide/store/")
-    nopen("cp mods/*.py /var/lib/genocide/mods")
-    nopen("chown -R genocide:genocide /var/lib/genocide/")
-    nopen("chmod -R 700 /var/lib/genocide/")
-    nopen("chmod -R 400 /var/lib/genocide/mods/*.py")
-    #nopen("systemctl daemon-reload")
+    skipopen("mkdir /var/lib/triple")
+    skipopen("mkdir /var/lib/triple/mods")
+    skipopen("mkdir /var/lib/triple/store")
+    skipopen("mkdir /var/log/triple")
+    skipopen("touch /var/log/triple/triple.log")
+    skipopen("chown -R triple:triple /var/lib/triple")
+    skipopen("chown -R triple:triple /var/log/triple")
+    skipopen("chmod 700 /var/lib/triple/")
+    skipopen("chmod 700 /var/lib/triple/mods")
+    skipopen("chmod 700 /var/lib/triple/store")
+    skipopen("chmod -R 400 /var/lib/triple/mods/*.py")
+    skipopen("chmod 744 /var/log/triple/")
+    skipopen("groupadd triple")
+    skipopen("useradd triple -g triple -d /var/lib/triple")
+    writeservice()
+
+def writeservice():
+    p = "/etc/systemd/system/triple.service"
+    if not os.path.exists(p):
+        f = open(p, "w")
+        f.write(servicetxt)
+        f.close()
 
 def mods():
-    if not os.path.exists("mods"):
-        return []
-    return ["mods/%s" % x for x in os.listdir("mods") if x.endswith(".py")]
+    import os
+    return [x[:-3] for x in os.listdir("triple") if x.endswith(".py")]
 
 def read():
     return open("README.rst", "r").read()
 
 setup(
-    name='genocide',
-    version='8',
-    url='https://github.com/bthate/genocide',
+    name='triple',
+    version='2',
+    url='https://github.com/bthate/triple',
     author='Bart Thate',
-    author_email='bthate@dds.nl',
-    description="The king of the netherlands commits genocide - OTP-CR-117/19/001 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io",
+    author_email='bthate@dds.nl', 
+    description="3 letter modules",
     long_description=read(),
-    long_description_content_type="text/x-rst",
     license='Public Domain',
-    zip_safe=True,
-    install_requires=["botlib"],
-    scripts=["bin/genocide", "bin/genocided"],
-    packages=["genocide"],
+    packages=["triple"],
+    namespace_packages=["triple"],
+    zip_safe=False,
+    scripts=["bin/triple"],
     cmdclass={'install': Install},
-    #data_files=[("mods", mods())],
-    classifiers=['Development Status :: 4 - Beta',
-                 'License :: Public Domain',
+    classifiers=['Development Status :: 3 - Alpha',
+                 'License :: OSI Approved :: MIT License',
                  'Operating System :: Unix',
                  'Programming Language :: Python',
                  'Topic :: Utilities'

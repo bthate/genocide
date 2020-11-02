@@ -86,7 +86,6 @@ def main():
     if "h" in opts:
         return print(__doc__)
     k.walk("triple", ",".join(mods))
-    scandir("genocide", "genocide")
     if k.cfg.cmd:
         return k.cmd(k.cfg.otxt)
     if "d" in opts:

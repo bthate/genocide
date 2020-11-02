@@ -13,7 +13,7 @@ import random, time
 from triple.bus import bus
 from triple.evt import Event
 from triple.krn import get_kernel
-from triple.obj import Object, get, keys, values
+from triple.obj import Object, get, keys, items, values
 from triple.tms import Repeater, elapsed, to_day
 
 k = get_kernel()

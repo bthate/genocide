@@ -5,52 +5,35 @@ SOURCE
 
 genocide is written in pure python3, here is the code used:
 
-olib
-====
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    ol          - object library
-    ol.bus      - announce
-    ol.csl      - console
-    ol.dbs      - databases
-    ol.evt	- event
-    ol.hdl      - handler
-    ol.int	- introspection
-    ol.krn      - kernel
-    ol.prs      - parser
-    ol.spc	- specification
-    ol.tms      - times
-    ol.trm      - terminal
-    ol.tsk      - tasks
-    ol.utl      - utilities
-
-
-bot
-===
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    bot.cfg
-    bot.cmd
-    bot.irc
-
-botmod
+triple
 ======
 
 .. autosummary::
     :toctree: 
     :template: module.rst
 
-    botmod.ent
-    botmod.fnd
-    botmod.mbx
-    botmod.rss
-    botmod.udp
+    triple		- object programming library
+    triple.bus		- announce
+    triple.csl		- console
+    triple.dbs		- databases
+    triple.evt		- event
+    triple.hdl		- handler
+    triple.int		- introspection
+    triple.krn		- kernel
+    triple.prs		- parser
+    triple.spc		- specification
+    triple.tms		- times
+    triple.trm		- terminal
+    triple.tsk		- tasks
+    triple.utl		- utilities
+    triple.cfg		- configuration
+    triple.cms		- commands
+    triple.irc		- internet relay chat
+    triple.ent		- entry
+    triple.fnd		- find objects
+    triple.mbx		- mailbox
+    triple.rss		- rich site syndicate
+    triple.udp		- udp to irc relay
 
 genocide
 ========
@@ -59,8 +42,7 @@ genocide
     :toctree: 
     :template: module.rst
 
-    genocide.hlp	- display help
-    genocide.req	- request send to the prosecutor
-    genocide.sui	- suicide statistics
-    genocide.trt	- torture definition
-    genocide.wsd	- knowledge on trip
+    triple.req	- request send to the prosecutor
+    triple.sui	- suicide statistics
+    triple.trt	- torture definition
+    triple.wsd	- knowledge on trip

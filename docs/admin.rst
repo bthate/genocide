@@ -38,6 +38,79 @@ if this also doesn't work you'll need to remove all installed previous  versions
 
 you can run directly from the tarball, see https://pypi.org/project/genocide/#files
 
+OBJECT PROGRAMMING
+==================
+
+GENOCIDE uses the TRIPLE library as object library, it provides a "move all methods to functions" like this:
+
+::
+
+ obj.method(*args) -> method(obj, *args) 
+
+ e.g.
+
+ not:
+
+ >>> import ol
+ >>> o = ol.Object()
+ >>> o.set("key", "value")
+ >>> o.key
+ 'value'
+
+ but:
+
+ >>> import ol
+ >>> o = ol.Object()
+ >>> ol.set(o, "key", "value")
+ >>> o.key
+ 'value'
+
+A way of programming with objects, replacing OOP., it works because the
+object library is 2 characters long and using the, now generic, method is
+not too much typing.
+
+it's a way of programming with objects, replacing OOP. Not object-oriented programming, but object programming. If you are used to functional programming you'll like it (or not) ;]
+
+TRIPLE has the following modules:
+
+::
+
+    triple 	- object programming library
+    triple.bus	- announce
+   triple.cfg	- config
+    triple.csl	- console
+    triple.dbs	- databases
+    triple.evt	- event
+    triple.hdl	- handler
+    triple.int	- introspection
+    triple.krn	- kernel
+    triple.prs 	- parser
+    triple.tms	- times
+    triple.trm	- terminal
+    triple.tsk	- tasks
+    triple.utl	- utilities
+
+MODULES
+=======
+
+GENOCIDE uses mods as the namespace to distribute modules for GENOCIDE:
+
+::
+
+   triple.cmd	- command
+   triple.ent	- entry
+   triple.fnd	- find
+   triple.hlp	- help
+   triple.irc	- irc 
+   triple.mbx	- mail
+   triple.req	- request
+   triple.rss	- rich site syndicate
+   triple.sui	- suicide
+   triple.trt	- torture
+   triple.udp	- UDP to IRC
+   triple.wsd	- wisdom
+
+
 USAGE
 =====
 
@@ -151,78 +224,6 @@ to send a udp packet to genocide in python3:
      sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
      sock.sendto(bytes(txt.strip(), "utf-8"), host, port)
 
-OBJECT PROGRAMMING
-==================
-
-GENOCIDE uses the OLIB library as object library, it provides a "move all methods to functions" like this:
-
-::
-
- obj.method(*args) -> method(obj, *args) 
-
- e.g.
-
- not:
-
- >>> import ol
- >>> o = ol.Object()
- >>> o.set("key", "value")
- >>> o.key
- 'value'
-
- but:
-
- >>> import ol
- >>> o = ol.Object()
- >>> ol.set(o, "key", "value")
- >>> o.key
- 'value'
-
-A way of programming with objects, replacing OOP., it works because the
-object library is 2 characters long and using the, now generic, method is
-not too much typing.
-
-it's a way of programming with objects, replacing OOP. Not object-oriented programming, but object programming. If you are used to functional programming you'll like it (or not) ;]
-
-OLIB has the following modules:
-
-::
-
-    ol	 	- object library
-    ol.bus	- announce
-    ol.csl	- console
-    ol.dbs	- databases
-    ol.evt	- event
-    ol.hdl	- handler
-    ol.int	- introspection
-    ol.krn	- kernel
-    ol.prs 	- parser
-    ol.spc	- specification
-    ol.tms	- times
-    ol.trm	- terminal
-    ol.tsk	- tasks
-    ol.utl	- utilities
-
-MODULES
-=======
-
-GENOCIDE uses mods as the namespace to distribute modules for GENOCIDE:
-
-::
-
-   mods.cfg	- config
-   mods.cmd	- command
-   mods.ent	- entry
-   mods.fnd	- find
-   mods.hlp	- help
-   mods.irc	- irc 
-   mods.mbx	- mail
-   mods.req	- request
-   mods.rss	- rich site syndicate
-   mods.sui	- suicide
-   mods.trt	- torture
-   mods.udp	- UDP to IRC
-   mods.wsd	- wisdom
 
 SERVICE
 =======

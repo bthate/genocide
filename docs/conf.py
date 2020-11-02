@@ -3,8 +3,6 @@
 # -*- coding: utf-8 -*-
 #
 
-__version__ = 8
-
 import unittest
 import doctest
 import sys
@@ -37,7 +35,7 @@ extensions=[
 ]
 
 html_theme_options = {
-     "nosidebar": True,
+     "nosidebar": False,
      'body_max_width': '90%'
 }
 
@@ -132,7 +130,7 @@ show_authors = True
 pygments_style = 'sphinx'
 modindex_common_prefix = [""]
 keep_warnings = True
-html_short_title = "GENOCIDE %s" % __version__
+#html_short_title = "GENOCIDE %s" % __version__
 html_favicon = "smile3.png"
 html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
@@ -148,7 +146,6 @@ html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 rst_prolog = """.. image:: genocideline2.png
     :width: 100%
-    :height: 2.7cm
 
 """ 
 htmlhelp_basename = 'pydoc'

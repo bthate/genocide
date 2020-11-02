@@ -1,18 +1,32 @@
-"Using the law to administer poison the king of the netherlands commits genocide"
-
 OTP-CR-117/19/001
 #################
-
-OTP-CR-117/19/001 is the last correspondence with the prosecutor
-
-STATE OF AFFAIRS
-~~~~~~~~~~~~~~~~
 
 “By adding Article 11 to the requirements, the prosecutor is actualy calling it
 a genocide and is missing the cooperation of the netherlands to arrest it’s own
 king and stop the kings genocide.”
 
-https://genocide.readthedocs.io #ggz #gifpil
+GENOCIDE
+~~~~~~~~
+
+using the law to administer poison the king of the netherlands commits genocide
+
+CONTACT
+_______
+
+OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
+
+SUICIDE
+=======
+
+GENOCIDE is used in collecting stats about the suicide committed under the
+genocide (using the law to administer poison). See the following module to
+see how work on a suicide model would/could be implemented.
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+    triple.sui
 
 ICC-CPI
 =======
@@ -117,10 +131,9 @@ online again.
 In chronological order:
  
 11-12-2017 I informed the chamber of the fact that the medicine used in
-           treatements of psychiatric illnesses are poison. The proof 
-           exists of a url to the European Chemical Agency, showing that
-           Haldol is a toxic substance (toxic if swallowed accompanied 
-           by a skull en bones).
+treatements of psychiatric illnesses are poison. The proof exists of a
+url to the European Chemical Agency, showing that Haldol is a toxic substance 
+(toxic if swallowed accompanied  by a skull en bones).
  
 This link worked a the time the chamber member were informed.
  
@@ -167,6 +180,23 @@ your conclusion to not to proceed, could you reconsider your conclusion now
 this proof is back online again ?
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
+
+OTP-CR-117/19/001
+=================
+
+.. image:: OTP2.png
+    :width: 90%
+
+
+CONTACT
+=======
+
+"it's the code dude, smoke weed, and code code code (with music)" - :ref:`source <source>`
+
+| botfather on irc.freenode.net channel #dunkbots
+| bthate@dds.nl
+| @aesculaap1
+
 
 .. toctree::
     :glob:

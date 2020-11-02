@@ -8,6 +8,9 @@ king and stop the kings genocide.”
 .. image:: OTP2.png
     :width: 90%
 
+otp.informationdesk@icc-cpi.int
+===============================
+
 the king is informed about the fact that Zyprexa is poison. the king could
 have informed himself that other medicine are poison as well. i informed
 chamber AND king before the law took effect, the know they are using the law
@@ -36,9 +39,6 @@ in a proportion scheme.
 using the law to administer poison the king of the netherlands commits genocide
 
 "terwijl hij weet dat het gif is, OTP-CR-117/19/001"
-
-otp.informationdesk@icc-cpi.int
-===============================
 
 ICC-CPI
 =======
@@ -192,24 +192,6 @@ your conclusion to not to proceed, could you reconsider your conclusion now
 this proof is back online again ?
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
-
-GENOCIDE
-========
-
-using the law to administer poison the king of the netherlands commits genocide
-
-SUICIDE
-=======
-
-GENOCIDE is used in collecting stats about the suicide committed under the
-genocide (using the law to administer poison). See the following module to
-see how work on a suicide model would/could be implemented.
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    triple.sui
 
 CONTACT
 =======

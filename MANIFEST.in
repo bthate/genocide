@@ -2,6 +2,7 @@ include README.rst
 include docs/conf.py
 include docs/index.rst
 include docs/requirements.txt
+recursive-include triple *.py
 recursive-include files *
 recursive-include mods *.py
 recursive-include docs/ *.png

@@ -10,8 +10,8 @@ import os
 
 #curdir = os.path.abspath(".")
 curdir = os.getcwd()
-sys.path.insert(0, curdir + os.sep)
-sys.path.insert(0, curdir + os.sep + '..' + os.sep)
+
+__version__ = 10
 
 from triple.req import __version__
 
@@ -146,7 +146,6 @@ html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 rst_prolog = """.. image:: genocideline2.png
     :width: 100%
-
 """ 
 htmlhelp_basename = 'pydoc'
 intersphinx_mapping = {

@@ -5,13 +5,20 @@ OTP-CR-117/19/001
 a genocide and is missing the cooperation of the netherlands to arrest it’s own
 king and stop the kings genocide.”
 
+otp.informationdesk@icc-cpi.int
+===============================
+
+
+.. image:: OTP2.png
+    :width: 90%
+
 GENOCIDE
 ~~~~~~~~
 
 using the law to administer poison the king of the netherlands commits genocide
 
 CONTACT
-_______
+=======
 
 OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
 
@@ -180,13 +187,6 @@ your conclusion to not to proceed, could you reconsider your conclusion now
 this proof is back online again ?
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
-
-OTP-CR-117/19/001
-=================
-
-.. image:: OTP2.png
-    :width: 90%
-
 
 CONTACT
 =======

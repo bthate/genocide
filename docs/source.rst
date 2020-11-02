@@ -18,10 +18,9 @@ triple
     triple.dbs		- databases
     triple.evt		- event
     triple.hdl		- handler
-    triple.int		- introspection
+    triple.itr		- introspection
     triple.krn		- kernel
     triple.prs		- parser
-    triple.spc		- specification
     triple.tms		- times
     triple.trm		- terminal
     triple.tsk		- tasks

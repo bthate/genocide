@@ -15,6 +15,8 @@ curdir = os.getcwd()
 sys.path.insert(0, curdir + os.sep)
 sys.path.insert(0, curdir + os.sep + '..' + os.sep)
 
+from genocide.version import __version__
+
 from sphinx.ext import autodoc
 from sphinx.util import inspect
 autodoc.repr = inspect.repr = str

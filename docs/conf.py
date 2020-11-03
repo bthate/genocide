@@ -23,21 +23,7 @@ extensions=[
     'sphinx.ext.doctest',
     'sphinx.ext.viewcode',
 ]
-autosummary_generate=True
-autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
-#autodoc_member_order='alphabetical'
-autodoc_member_order='groupwise'
-autodoc_docstring_signature=True
-autoclass_content="class"
-doctest_global_setup=""
-doctest_global_cleanup=""
-doctest_test_doctest_blocks="default"
-trim_doctest_flags=True
-doctest_flags=doctest.REPORT_UDIFF
-templates_path=['_templates',]
-source_suffix = '.rst'
-source_encoding = 'utf-8-sig'
-master_doc = 'index'
+
 project = "genocide"
 version = '%s' % __version__
 release = '%s' % __version__
@@ -77,7 +63,19 @@ rst_prolog = """.. image:: genocideline2.png
 .. title:: OTP-CR-117/19 | otp.informationdesk@icc-cpi.int
 
 """
-htmlhelp_basename = 'pydoc'
-intersphinx_mapping = {'python': ('https://docs.python.org/3',
-                                  'python-inv.txt')}
-intersphinx_cache_limit=1
+
+autosummary_generate=True
+autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
+#autodoc_member_order='alphabetical'
+autodoc_member_order='groupwise'
+autodoc_docstring_signature=True
+autoclass_content="class"
+doctest_global_setup=""
+doctest_global_cleanup=""
+doctest_test_doctest_blocks="default"
+trim_doctest_flags=True
+doctest_flags=doctest.REPORT_UDIFF
+templates_path=['_templates',]
+source_suffix = '.rst'
+source_encoding = 'utf-8-sig'
+master_doc = 'index'

@@ -1,6 +1,18 @@
 G E N O C I D E
 ###############
 
+| "By adding Article 11 to the requirements, saying it has jurisdicition over genocide
+| when it is after 2002, the prosecutor is actualy saying it has jurisidition over the
+| kings genocide and is missing the cooperation of the netherlands to arrest it’s own
+| king and stop the kings genocide.”
+
+| By having the cooperation of the netherlands as the limiting working on the jurisdiction
+| of the court over the kings genocide, the court can act on it's own to excersice it's
+| acknowledge jursidiction over the kings genocide.
+
+| From the jurisdicition the court has over the kings genocide, disgarding all limiting 
+| workings on that jurdisiction, it should be able to proclaim complete jurisdiction.
+
 using the law to administer poison, the king of the netherlands commits genocide.
 
 I C C - C P I 

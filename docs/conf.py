@@ -33,9 +33,9 @@ html_theme_options = {
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
-language = None
-sphinx_style="pyramid"
-#sphinx_style="haiku"
+#language = None
+#sphinx_style="pyramid"
+sphinx_style="haiku"
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members", 'show-inheritance']
 autodoc_docstring_signature=True
@@ -65,6 +65,7 @@ show_authors = False
 pygments_style = 'sphinx'
 modindex_common_prefix = [""]
 keep_warnings = True
+html_title="OTP-CR-117/19"
 html_short_title = "GENOCIDE %s" % __version__
 html_favicon = "smile3.png"
 html_extra_path = []
@@ -80,12 +81,8 @@ html_copy_source = False
 html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 rst_prolog = """.. image:: genocideline2.png
-    :height: 3cm
+    :height: 2.7cm
     :width: 100%
-
-
-.. title:: OTP-CR-117/19
-
 """ 
 htmlhelp_basename = 'pydoc'
 intersphinx_mapping = {

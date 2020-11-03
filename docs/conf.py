@@ -18,6 +18,11 @@ today = ''
 today_fmt = '%B %d, %Y'
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 default_role = ''
+#html_theme = "haiku"
+#html_theme="p-red",
+html_theme="pyramid"
+html_theme_path = []
+needs_sphinx='1.1'
 
 extensions=[
     'sphinx.ext.autodoc',
@@ -35,16 +40,12 @@ extensions=[
     'PSphinxTheme.ext.table_styling'
 ]
 
-#html_theme = "haiku"
-#html_thene="p-red",
-#html_theme_path = []
-#needs_sphinx='1.1'
 
 # import at least "set_psphinxtheme"
 from PSphinxTheme.utils import set_psphinxtheme
 
 # set the: html_theme_path, html_theme, needs_sphinx
-html_theme_path, html_theme, needs_sphinx = set_psphinxtheme('p-red')
+#html_theme_path, html_theme, needs_sphinx = set_psphinxtheme('p-red')
 
 add_function_parentheses = True
 add_module_names = False

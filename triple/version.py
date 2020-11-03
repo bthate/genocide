@@ -2,8 +2,8 @@
 #
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-__version__ = 9
-__txt__ = "OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io"
+__version__ = 10
+__txt__ = "OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io"
 
 from triple import krn
 

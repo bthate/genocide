@@ -10,8 +10,8 @@ sys.path.insert(0, curdir + os.sep)
 #sys.path.insert(0, curdir + os.sep + '..' + os.sep)
 #sys.path.insert(0, curdir + os.sep + '..' + os.sep + ".." + os.sep)
 
-from triple.req import __version__
-
+#from triple.req import __version__
+__version__ = 10
 needs_sphinx='1.1'
 nitpick_ignore=[
                 ('py:class', 'builtins.BaseException'),
@@ -60,9 +60,6 @@ html_file_suffix = '.html'
 rst_prolog = """.. image:: genocideline2.png
     :height: 2.7cm
     :width: 95%
-    
-.. title:: OTP-CR-117/19 | otp.informationdesk@icc-cpi.int
-
 """
 rst_epilog=""".. raw:: pdf
 

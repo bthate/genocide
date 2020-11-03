@@ -117,7 +117,7 @@ sidebarlogo_perpage_dict = {
    'P-SphinxTheme180_95_bg.png': ['main_theme', 'history'],
 }
 #common_sidebars = ['quicklinks.html', 'sourcelink.html', 'searchbox.html']
-common_sidebars = ['searchbot.html', 'sourcelink.html']
+common_sidebars = ['searchbox.html', 'sourcelink.html']
 html_sidebars = {
    '**': ['localtoc.html', 'relations.html'] + common_sidebars,
    'py-modindex': common_sidebars,

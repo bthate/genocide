@@ -82,6 +82,10 @@ html_file_suffix = '.html'
 rst_prolog = """.. image:: genocideline2.png
     :height: 3cm
     :width: 100%
+
+
+.. title:: OTP-CR-117/19
+
 """ 
 htmlhelp_basename = 'pydoc'
 intersphinx_mapping = {

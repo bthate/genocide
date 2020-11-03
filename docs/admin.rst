@@ -5,19 +5,19 @@ admin
 
 Welcome to GENOCIDE,
 
-GENOCIDE is a pure python3 IRC chat bot that can run as a background daemon
-for 24/7 a day presence in a IRC channel. It installs itself as a service so
-you can get it restarted on reboot. You can use it to display RSS feeds, act as a
-UDP to IRC gateway, program your own commands for it, have it log objects on
-disk and search them and scan emails for correspondence analysis. GENOCIDE uses
-a JSON in file database with a versioned readonly storage. It reconstructs
-objects based on type information in the path and uses a "dump OOP and use
-OP" programming library where the methods are factored out into functions
-that use the object as the first argument. GENOCIDE is placed in the Public
-Domain and has no COPYRIGHT or LICENSE.
+| GENOCIDE is a pure python3 IRC chat bot that can run as a background daemon
+| for 24/7 a day presence in a IRC channel. It installs itself as a service so
+| you can get it restarted on reboot. You can use it to display RSS feeds, act as a
+| UDP to IRC gateway, program your own commands for it, have it log objects on
+| disk and search them and scan emails for correspondence analysis. GENOCIDE uses
+| a JSON in file database with a versioned readonly storage. It reconstructs
+| objects based on type information in the path and uses a "dump OOP and use
+| OP" programming library where the methods are factored out into functions
+| that use the object as the first argument. GENOCIDE is placed in the Public
+| Domain and has no COPYRIGHT or LICENSE.
 
-it also provides information on the genocide the king of the netherlands is
-doing. See https://pypi.org/project/genocide/ 
+| it also provides information on the genocide the king of the netherlands is
+| doing. See https://pypi.org/project/genocide/ 
 
 INSTALL
 =======
@@ -34,14 +34,16 @@ if you have previous versions already installed and things fail try to force rei
 
  > sudo pip3 install genocide --upgrade --force-reinstall
 
-if this also doesn't work you'll need to remove all installed previous  versions, so you can do a clean install.
+| if this also doesn't work you'll need to remove all installed previous  versions, so 
+| you can do a clean install.
 
-you can run directly from the tarball, see https://pypi.org/project/genocide/#files
+| you can run directly from the tarball, see https://pypi.org/project/genocide/#files
 
 OBJECT PROGRAMMING
 ==================
 
-GENOCIDE uses the TRIPLE library as object library, it provides a "move all methods to functions" like this:
+| GENOCIDE uses the TRIPLE library as object library, it provides 
+| a "move all methods to functions" like this:
 
 ::
 
@@ -65,11 +67,13 @@ GENOCIDE uses the TRIPLE library as object library, it provides a "move all meth
  >>> o.key
  'value'
 
-A way of programming with objects, replacing OOP., it works because the
-object library is 2 characters long and using the, now generic, method is
-not too much typing.
+| A way of programming with objects, replacing OOP., it works because the
+| object library is 2 characters long and using the, now generic, method is
+| not too much typing.
 
-it's a way of programming with objects, replacing OOP. Not object-oriented programming, but object programming. If you are used to functional programming you'll like it (or not) ;]
+| it's a way of programming with objects, replacing OOP. Not object-oriented
+| programming, but object programming. If you are used to functional programming
+| you'll like it (or not) ;]
 
 TRIPLE has the following modules:
 
@@ -77,17 +81,24 @@ TRIPLE has the following modules:
 
     triple 	- object programming library
     triple.bus	- announce
-   triple.cfg	- config
+    triple.cfg	- config
+    triple.cmd	- command
     triple.csl	- console
     triple.dbs	- databases
+    triple.ent	- entry
     triple.evt	- event
+    triple.fnd	- find
     triple.hdl	- handler
     triple.int	- introspection
+    triple.irc	- irc 
     triple.krn	- kernel
+    triple.mbx	- mail
     triple.prs 	- parser
+    triple.rss	- rich site syndicate
     triple.tms	- times
     triple.trm	- terminal
     triple.tsk	- tasks
+    triple.udp	- UDP to IRC
     triple.utl	- utilities
 
 MODULES
@@ -97,31 +108,25 @@ GENOCIDE uses mods as the namespace to distribute modules for GENOCIDE:
 
 ::
 
-   triple.cmd	- command
-   triple.ent	- entry
-   triple.fnd	- find
-   triple.hlp	- help
-   triple.irc	- irc 
-   triple.mbx	- mail
-   triple.req	- request
-   triple.rss	- rich site syndicate
-   triple.sui	- suicide
-   triple.trt	- torture
-   triple.udp	- UDP to IRC
-   triple.wsd	- wisdom
+    triple.req	- request
+    triple.sui	- suicide
+    triple.trt	- torture
+    triple.wsd	- wisdom
 
 
 USAGE
 =====
 
-GENOCIDE has it's own CLI, you can run it by giving the genocide command on the prompt, it will return with no response:
+| GENOCIDE has it's own CLI, you can run it by giving the genocide command on 
+| the prompt, it will return with no response:
 
 :: 
 
  $ sudo genocide
  $ 
 
-you can use genocide <cmd> to run a command directly, use the cmd command to see a list of commands:
+| you can use genocide <cmd> to run a command directly, use the cmd command to see
+| a list of commands:
 
 ::
 
@@ -163,9 +168,9 @@ to have the irc bot started use the mods=irc option at start:
 RSS
 ===
 
-GENOCIDE provides with the use of feedparser the possibility to server rss
-feeds in your channel. GENOCIDE itself doesn't depend, you need to install
-python3-feedparser first:
+| GENOCIDE provides with the use of feedparser the possibility to server rss
+| feeds in your channel. GENOCIDE itself doesn't depend, you need to install
+| python3-feedparser first:
 
 ::
 
@@ -202,17 +207,18 @@ the ftc (fetch) command can be used to poll the added feeds:
 UDP
 ===
 
-GENOCIDE also has the possibility to serve as a UDP to IRC relay where you
-can send UDP packages to the bot and have txt displayed on the channel.
+| GENOCIDE also has the possibility to serve as a UDP to IRC relay where you
+| can send UDP packages to the bot and have txt displayed on the channel.
 
-use the 'genocide udp' command to send text via the bot to the channel on the irc server:
+| use the 'genocide udp' command to send text via the bot to the channel on the
+|  irc server:
 
 ::
 
  $ tail -f /var/log/syslog | genocide udp
 
-output to the IRC channel can be done with the use python3 code to send a UDP packet 
-to genocide, it's unencrypted txt send to the bot and display on the joined channels.
+| output to the IRC channel can be done with the use python3 code to send a UDP packet 
+| to genocide, it's unencrypted txt send to the bot and display on the joined channels.
 
 to send a udp packet to genocide in python3:
 
@@ -225,56 +231,8 @@ to send a udp packet to genocide in python3:
      sock.sendto(bytes(txt.strip(), "utf-8"), host, port)
 
 
-SERVICE
-=======
-
-If you want to run GENOCIDE as a 24/7 service in your channel, you can run
-the genocide-install program, it will install a service file in 
-/etc/systemd/system/genocide.service and create the necesarry directories in
-/var/lib/genocide.
-
-::
-
- $ sudo genocide-install
-
-after installing the service file, configure genocide to connect to irc:
-
-::
-
- $ sudo genocide cfg server=irc.freenode.net channel=#dunkbots nick=genocide2
-
-then start the genocide service:
-
-::
-
- $ sudo service genocide stop
- $ sudo service genocide start
-
-check if it's running ok with:
-
-::
-
- $ sudo systemctl status genocide
-
-
-genocide should join your configured channel or #genocide as a default.
-
-if you don't want genocide to startup at boot, you can disable it:
-
-::
-
- $ sudo systemctl disable genocide
-
-or remove the service file:
-
-::
-
- $ sudo rm /etc/systemd/system/genocide.service
-
 CONTACT
 =======
-
-"hope you enjoy my contribution back to society."
 
 you can contact me on IRC/freenode/#dunkbots or email me at bthate@dds.nl
 

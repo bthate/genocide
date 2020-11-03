@@ -3,24 +3,16 @@
 # -*- coding: utf-8 -*-
 #
 
-import unittest
-import doctest
-import sys
-import os
+import unittest, doctest, sys, os
 
-sys.path.insert(0, os.getcwd())
-
-#curdir = os.path.abspath(".")
 curdir = os.getcwd()
-
-__version__ = 10
+sys.path.insert(0, curdir)
 
 from triple.req import __version__
 
 from sphinx.ext import autodoc
 from sphinx.util import inspect
 autodoc.repr = inspect.repr = str
-
 needs_sphinx='1.1'
 nitpick_ignore=[
                 ('py:class', 'builtins.BaseException'),
@@ -35,15 +27,15 @@ extensions=[
 
 html_theme_options = {
      "nosidebar": False,
-     'body_max_width': '90%'
+     'body_max_width': '100%'
 }
 
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
 language = None
-#html_static_path = ['_static']
 sphinx_style="pyramid"
+#sphinx_style="haiku"
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members", 'show-inheritance']
 autodoc_docstring_signature=True
@@ -88,10 +80,8 @@ html_copy_source = False
 html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 rst_prolog = """.. image:: genocideline2.png
+    :height: 3cm
     :width: 100%
-
-.. title:: OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
-
 """ 
 htmlhelp_basename = 'pydoc'
 intersphinx_mapping = {
@@ -99,21 +89,3 @@ intersphinx_mapping = {
                        'sphinx': ('http://sphinx.pocoo.org/', None),
                       }
 intersphinx_cache_limit=1
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    'papersize': 'letterpaper',
-
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    'pointsize': '10pt',
-
-    # Additional stuff for the LaTeX preamble.
-    #
-    'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    'figure_align': 'htbp',
-}
-

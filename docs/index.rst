@@ -1,5 +1,5 @@
-G E N O C I D E
-###############
+GENOCIDE
+########
 
 | "By adding Article 11 to the requirements, saying it has jurisdicition over genocide
 | when it is after 2002, the prosecutor is actualy saying it has jurisidition over the
@@ -15,8 +15,23 @@ G E N O C I D E
 
 using the law to administer poison, the king of the netherlands commits genocide.
 
-I C C - C P I 
-#############
+.. toctree::
+    :glob:
+    
+    *
+
+CONTACT
+=======
+
+for the source code of genocide, see :ref:`here <source>`
+
+
+| IRC: botfather on irc.freenode.net channel #dunkbots
+| email: bthate@dds.nl
+| twitter: @aesculaap1
+
+ICC-CPI 
+=======
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -92,9 +107,8 @@ e) .
 | I hope you can stop the above mentioned crimes the king of the netherlands
 | and his government are doing.
 
-
-R E C O N S I D E R
-###################
+RECONSIDER
+==========
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -165,26 +179,3 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
 
-
-C O N T A C T
-#############
-
-for the source code of genocide, see :ref:`here <source>`
-
-
-| IRC: botfather on irc.freenode.net channel #dunkbots
-| email: bthate@dds.nl
-| twitter: @aesculaap1
-
-
-S O U R C E
-###########
-
-here is the source
-
-
-.. toctree::
-    :glob:
-    :hidden:
-
-    *

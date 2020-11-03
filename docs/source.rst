@@ -45,3 +45,7 @@ genocide
     triple.sui	- suicide statistics
     triple.trt	- torture definition
     triple.wsd	- knowledge on trip
+
+.. raw:: pdf
+
+   PageBreak

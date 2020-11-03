@@ -91,3 +91,7 @@
 | behandelplan zodat er ook geen claims tot prestatie gemaakt kunnen worden. 
 
 | Volledig ingevulde behandelplannen zouden een vereiste moeten zijn voor behandeling.
+
+.. raw:: pdf
+
+   PageBreak

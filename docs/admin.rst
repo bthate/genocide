@@ -19,7 +19,7 @@ Welcome to GENOCIDE,
 | it also provides information on the genocide the king of the netherlands is
 | doing. See https://pypi.org/project/genocide/ 
 
-INSTALL
+install
 =======
 
 installation is through pypi:
@@ -39,7 +39,34 @@ if you have previous versions already installed and things fail try to force rei
 
 | you can run directly from the tarball, see https://pypi.org/project/genocide/#files
 
-OBJECT PROGRAMMING
+usage
+=====
+
+| GENOCIDE has it's own CLI, you can run it by giving the genocide command on 
+| the prompt, it will return with no response:
+
+:: 
+
+ $ sudo genocide
+ $ 
+
+| you can use genocide <cmd> to run a command directly, use the cmd command to see
+| a list of commands:
+
+::
+
+ $ sudo genocide cmd
+ cfg,cmd,cor,dne,dpl,fed,fnd,ftc,log,mbx,rem,req,rss,sts,tdo,trt,tsk,upt,ver,wsd
+
+GENOCIDE also has it's own shell, use genocide -s to start a genocide shell:
+
+::
+
+  $ sudo genocide -s
+  > cmd
+  cfg,cmd,cor,dne,dpl,fed,fnd,ftc,log,mbx,rem,req,rss,sts,tdo,trt,tsk,upt,ver,wsd
+
+object programming
 ==================
 
 | GENOCIDE uses the TRIPLE library as object library, it provides 
@@ -75,6 +102,9 @@ OBJECT PROGRAMMING
 | programming, but object programming. If you are used to functional programming
 | you'll like it (or not) ;]
 
+modules
+=======
+
 TRIPLE has the following modules:
 
 ::
@@ -101,10 +131,8 @@ TRIPLE has the following modules:
     triple.udp	- UDP to IRC
     triple.utl	- utilities
 
-MODULES
-=======
 
-GENOCIDE uses mods as the namespace to distribute modules for GENOCIDE:
+GENOCIDE uses triple as the namespace to distribute modules for GENOCIDE:
 
 ::
 
@@ -113,36 +141,7 @@ GENOCIDE uses mods as the namespace to distribute modules for GENOCIDE:
     triple.trt	- torture
     triple.wsd	- wisdom
 
-
-USAGE
-=====
-
-| GENOCIDE has it's own CLI, you can run it by giving the genocide command on 
-| the prompt, it will return with no response:
-
-:: 
-
- $ sudo genocide
- $ 
-
-| you can use genocide <cmd> to run a command directly, use the cmd command to see
-| a list of commands:
-
-::
-
- $ sudo genocide cmd
- cfg,cmd,cor,dne,dpl,fed,fnd,ftc,log,mbx,rem,req,rss,sts,tdo,trt,tsk,upt,ver,wsd
-
-GENOCIDE also has it's own shell, use genocide -s to start a genocide shell:
-
-::
-
-  $ sudo genocide -s
-  > cmd
-  cfg,cmd,cor,dne,dpl,fed,fnd,ftc,log,mbx,rem,req,rss,sts,tdo,trt,tsk,upt,ver,wsd
-
-
-IRC
+irc
 ===
 
 configuration is done with the cfg command:
@@ -165,7 +164,7 @@ to have the irc bot started use the mods=irc option at start:
 
  $ sudo genocide mods=irc
 
-RSS
+rss
 ===
 
 | GENOCIDE provides with the use of feedparser the possibility to server rss
@@ -204,7 +203,7 @@ the ftc (fetch) command can be used to poll the added feeds:
  $ sudo genocide ftc
  fetched 20
 
-UDP
+udp
 ===
 
 | GENOCIDE also has the possibility to serve as a UDP to IRC relay where you
@@ -230,11 +229,3 @@ to send a udp packet to genocide in python3:
      sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
      sock.sendto(bytes(txt.strip(), "utf-8"), host, port)
 
-
-CONTACT
-=======
-
-you can contact me on IRC/freenode/#dunkbots or email me at bthate@dds.nl
-
-| Bart Thate (bthate@dds.nl, thatebart@gmail.com)
-| botfather on #dunkbots irc.freenode.net

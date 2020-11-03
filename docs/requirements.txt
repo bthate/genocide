@@ -12,3 +12,4 @@ readthedocs-sphinx-ext<0.6
 botlib>=105
 triple>=3
 rst2pdf
+PSphinxtheme

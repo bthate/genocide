@@ -75,3 +75,7 @@ Miscellaneous:
 
 †Rate based on population of approximately 1700 exposed during premarket
 clinical evaluation of CLOZARIL.
+
+.. raw:: pdf
+
+   PageBreak

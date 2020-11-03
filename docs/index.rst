@@ -1,6 +1,3 @@
-GENOCIDE
-########
-
 | "By adding Article 11 to the requirements, saying it has jurisdicition over genocide
 | when it is after 2002, the prosecutor is actualy saying it has jurisidition over the
 | kings genocide and is missing the cooperation of the netherlands to arrest it’s own

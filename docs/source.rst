@@ -1,6 +1,6 @@
 .. _source:
 
-SOURCE
+source
 ######
 
 genocide is written in pure python3, here is the code used:

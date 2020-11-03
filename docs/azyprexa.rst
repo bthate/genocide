@@ -1,6 +1,6 @@
 .. _zyprexa:
 
-ZYPREXA
+zyprexa
 #######
 
 4. MOGELIJKE BIJWERKINGEN

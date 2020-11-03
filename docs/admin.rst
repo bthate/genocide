@@ -1,6 +1,6 @@
 .. _admin:
 
-ADMIN
+admin
 #####
 
 Welcome to GENOCIDE,

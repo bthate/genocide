@@ -8,6 +8,8 @@ import doctest
 import sys
 import os
 
+sys.path.insert(0, os.getcwd())
+
 #curdir = os.path.abspath(".")
 curdir = os.getcwd()
 

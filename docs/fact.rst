@@ -1,6 +1,6 @@
 .. _fact:
 
-(F)ACT
+(f)act
 ======
 
 Brengt het toedienen van gif levensgevaar, het nalaten de noodzakelijke verpleging te leveren brengt de dood:

@@ -1,6 +1,6 @@
 .. _clocapine:
 
-CLOZAPINE
+clozapine
 #########
 
 Table 10. Adverse Reactions (≥2%) Reported in CLOZARIL-treated Patients (N=842) Across all CLOZARIL Studies (excluding the 2-year InterSePTTM Study)

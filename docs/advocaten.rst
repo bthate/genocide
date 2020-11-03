@@ -1,6 +1,6 @@
 .. _advocaten:
 
-ADVOCATEN
+advocaten
 #########
 
 .. literalinclude:: advocatenemails
@@ -9,7 +9,7 @@ ADVOCATEN
 .. literalinclude:: advocatenemails.3
 .. literalinclude:: advocatenemails.4
 
-KAMER
+kamer
 #####
 
 .. literalinclude:: kamer1

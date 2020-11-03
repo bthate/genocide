@@ -9,6 +9,10 @@ import doctest, os, sys, unittest
 
 curdir = os.getcwd() ; sys.path.insert(0, curdir + os.sep)
 
+from PSphinxTheme.utils import set_psphinxtheme
+
+# -- Options for GENERIC output ---------------------------------------------
+
 project = "genocide"
 version = '%s' % __version__
 release = '%s' % __version__
@@ -16,13 +20,21 @@ copyroght = "Public Domain"
 language = ''
 today = ''
 today_fmt = '%B %d, %Y'
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', '_templates', 'Thumbs.db', '.DS_Store']
 default_role = ''
-#html_theme = "haiku"
-#html_theme="p-red",
-html_theme="pyramid"
-html_theme_path = []
 needs_sphinx='1.1'
+source_suffix = '.rst'
+source_encoding = 'utf-8-sig'
+master_doc = 'index'
+add_function_parentheses = True
+add_module_names = False
+show_authors = False
+pygments_style = 'sphinx'
+modindex_common_prefix = [""]
+keep_warnings = True
+templates_path=['_templates',]
+#pdf_breakside = "any"
+epub_copyright="Public Domain"
 
 extensions=[
     'sphinx.ext.autodoc',
@@ -37,33 +49,27 @@ extensions=[
     'PSphinxTheme.ext.issue_tracker',
     'PSphinxTheme.ext.sidebarlogo_perpag',
     'PSphinxTheme.ext.relbar_links',
-    'PSphinxTheme.ext.table_styling'
+    #'PSphinxTheme.ext.table_styling'
 ]
 
+# -- Options for HTML output -------------------------------------------------
 
-# import at least "set_psphinxtheme"
-from PSphinxTheme.utils import set_psphinxtheme
-
-# set the: html_theme_path, html_theme, needs_sphinx
+html_theme_path = []
+#html_theme = "haiku"
+#html_theme="p-red",
+html_theme="pyramid"
+#html_theme="yeen"
 #html_theme_path, html_theme, needs_sphinx = set_psphinxtheme('p-red')
-
-add_function_parentheses = True
-add_module_names = False
-show_authors = True
-pygments_style = 'sphinx'
-modindex_common_prefix = [""]
-keep_warnings = True
-html_short_title = "GENOCIDE %s | OTP-CR-117/19 | otp.informationdesk@icc-cpi.int" % __version__
-#html_short_title=""
+#html_theme="bizstyle"
+html_short_title = "OTP-CR-117/19 | otp.informationdesk@icc-cpi.int"
 html_favicon = "genocidesmile.png"
-#html_static_path = ['_static']
 html_static_path = []
 html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
 html_additional_pages = {}
 html_domain_indices = True
-html_use_index = False
-html_split_index = False
+html_use_index = True
+html_split_index = True
 html_show_sourcelink = False
 html_show_sphinx = False
 html_show_copyright = False
@@ -71,43 +77,9 @@ html_copy_source = False
 html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
-
-rst_prolog = """.. image:: genocideline2.png
-    :height: 2.7cm
-    :width: 100%
-"""
-
-rst_epilog=""".. raw:: pdf
-
-   PageBreak
-"""
-
-autosummary_generate=True
-autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
-#autodoc_member_order='alphabetical'
-autodoc_member_order='groupwise'
-autodoc_docstring_signature=True
-autoclass_content="class"
-doctest_global_setup=""
-doctest_global_cleanup=""
-doctest_test_doctest_blocks="default"
-trim_doctest_flags=True
-doctest_flags=doctest.REPORT_UDIFF
-templates_path=['_templates',]
-source_suffix = '.rst'
-source_encoding = 'utf-8-sig'
-master_doc = 'index'
-#pdf_breakside = "any"
-epub_copyright="Public Domain"
-
-nitpick_ignore=[
-                ('py:class', 'builtins.BaseException'),
-               ]
-
-
-#html_theme_options = { "lighter_decor": True }
-#html_logo = os.path.join('_static', 'P-SphinxTheme180_95_logo.png')
-#html_favicon = os.path.join('_static', 'P-Projects32_32.ico')
+html_theme_options = { "lighter_decor": True }
+html_logo = os.path.join('_static', 'P-SphinxTheme180_95_logo.png')
+html_favicon = os.path.join('_static', 'P-Projects32_32.ico')
 relbar_links_doc = [
    ('toc', 'contents'),
    ('api', 'api'),
@@ -125,6 +97,36 @@ html_sidebars = {
    'search': common_sidebars,
 }
 
+rst_prolog = """.. image:: genocideline2.png
+    :height: 2.7cm
+    :width: 100%
+"""
+
+rst_epilog=""".. raw:: pdf
+
+   PageBreak
+"""
+
+# -- Options for CODE output -------------------------------------------------
+
+autosummary_generate=True
+autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
+#autodoc_member_order='alphabetical'
+autodoc_member_order='groupwise'
+autodoc_docstring_signature=True
+autoclass_content="class"
+doctest_global_setup=""
+doctest_global_cleanup=""
+doctest_test_doctest_blocks="default"
+trim_doctest_flags=True
+doctest_flags=doctest.REPORT_UDIFF
+
+nitpick_ignore=[
+                ('py:class', 'builtins.BaseException'),
+               ]
+
+
+# -- Options for LATEX output -------------------------------------------------
 
 latex_documents = [
     (master_doc, 'genocide.tex', u'genocide',

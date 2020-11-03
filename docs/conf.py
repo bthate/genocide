@@ -26,7 +26,7 @@ extensions=[
 ]
 
 html_theme_options = {
-     "nosidebar": False,
+     "nosidebar": True,
      'body_max_width': '100%'
 }
 
@@ -57,12 +57,12 @@ release = '%s' % __version__
 language = ''
 today = ''
 today_fmt = '%B %d, %Y'
-exclude_patterns = ['txt', '_build', "_sources", "_templates"]
+#exclude_patterns = ['txt', '_build', "_sources", "_templates"]
 default_role = ''
 add_function_parentheses = True
 add_module_names = False
 show_authors = False
-pygments_style = 'sphinx'
+pygments_style = 'native'
 modindex_common_prefix = [""]
 keep_warnings = True
 html_title="OTP-CR-117/19"

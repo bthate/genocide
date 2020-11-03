@@ -22,6 +22,7 @@ extensions=[
     'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.viewcode',
+    'rst2pdf.pdfbuilder',
 ]
 
 project = "genocide"
@@ -40,8 +41,8 @@ modindex_common_prefix = [""]
 keep_warnings = True
 html_theme = "haiku"
 html_theme_path = []
-#html_short_title = "GENOCIDE %s" % __version__
-html_short_title=""
+html_short_title = "GENOCIDE %s | OTP-CR-117/19 | otp.informationdesk@icc-cpi.int" % __version__
+#html_short_title=""
 html_favicon = "genocidesmile.png"
 html_static_path = []
 html_extra_path = []
@@ -60,16 +61,6 @@ rst_prolog = """.. image:: genocideline2.png
     :height: 2.7cm
     :width: 95%
     
-.. title:: OTP-CR-117/19 | otp.informationdesk@icc-cpi.int
-
-"""
-
-rst_prelog = """ 
-
-.. raw:: html
-
-     <br><br>
-
 .. title:: OTP-CR-117/19 | otp.informationdesk@icc-cpi.int
 
 """
@@ -95,3 +86,4 @@ source_encoding = 'utf-8-sig'
 master_doc = 'index'
 pdf_break_level = 1
 epub_copyright="Public Domain"
+pdf_documents = [('index', u'genocide', u'genocide', u'Bart Thate'),]

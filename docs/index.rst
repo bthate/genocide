@@ -16,7 +16,7 @@ G E N O C I D E
 using the law to administer poison, the king of the netherlands commits genocide.
 
 I C C - C P I 
-=============
+#############
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -94,7 +94,7 @@ e) .
 
 
 R E C O N S I D E R
-===================
+###################
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -167,7 +167,7 @@ Bart Thate - bthate@dds.nl/thatebart@gmail.com
 
 
 C O N T A C T
-=============
+#############
 
 for the source code of genocide, see :ref:`here <source>`
 
@@ -175,6 +175,12 @@ for the source code of genocide, see :ref:`here <source>`
 | IRC: botfather on irc.freenode.net channel #dunkbots
 | email: bthate@dds.nl
 | twitter: @aesculaap1
+
+
+S O U R C E
+###########
+
+here is the source
 
 
 .. toctree::

@@ -90,3 +90,4 @@ source_suffix = '.rst'
 source_encoding = 'utf-8-sig'
 master_doc = 'index'
 pdf_break_level = 1
+epub_copyright="Public Domain"

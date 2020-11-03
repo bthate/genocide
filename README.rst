@@ -1,16 +1,43 @@
+OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
+
+OTP-CR-117/19/001
+#################
+
 “By adding Article 11 to the requirements, the prosecutor is actualy calling it
 a genocide and is missing the cooperation of the netherlands to arrest it’s own
 king and stop the kings genocide.”
 
-GENOCIDE
-########
+otp.informationdesk@icc-cpi.int
+===============================
+
+the king is informed about the fact that Zyprexa is poison. the king could
+have informed himself that other medicine are poison as well. i informed
+chamber AND king before the law took effect, the know they are using the law
+to administer poison. administering poison is seen as a torture crime, esp.
+if taken place under forced treatement, where these new laws of the king are
+used for. i informed the prosecutor of the ICC that the king is doing his
+genocide and the matter is at a don't persue because of lack of jurisdiction
+which involves a 1) after 2002 and 2) cooperation the the netherlands. 
+
+if you receive forced treatements or are being "treated" out of forced free
+will (to avoid force) here in the netherlands, you should be able to contact
+the prosecutor and mention the last correspondence i had with him/her/dillon 
+
+reference is OPT-CR-117/19/001
+
+the king knows it's poison so it should enable you to say that mistreatement
+by law is torture and with the kings multiple laws it's genocide.
+
+this matter is at the court and up to reconsideration at ANY time, so a
+"within the jurisdiciton" decision can be maybe at any time.
+
+I think that the king himself can also stop his law treatement genocide, he
+could know that mass poisoning by using the law todo so is a OUT OF BOUNCE
+in a proportion scheme.
 
 using the law to administer poison the king of the netherlands commits genocide
 
-CONTACT
-~~~~~~~
-
-OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
+"terwijl hij weet dat het gif is, OTP-CR-117/19/001"
 
 ICC-CPI
 =======
@@ -165,37 +192,12 @@ this proof is back online again ?
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
 
-OTP-CR-117/19/001
-=================
-
-.. image:: OTP2.png
-    :width: 90%
-
-SUICIDE
-=======
-
-GENOCIDE is used in collecting stats about the suicide committed under the
-genocide (using the law to administer poison). See the following module to
-see how work on a suicide model would/could be implemented.
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    triple.sui
-
 CONTACT
 =======
 
-"it's the code dude, smoke weed, and code code code (with music)" - :ref:`source <source>`
 
-| Bart Thate (bthate@dds.nl/thatebart@gmail.com)
+"it's the code dude, smoke weed, and code code code (with music)" 
+
 | botfather on irc.freenode.net channel #dunkbots
+| bthate@dds.nl
 | @aesculaap1
-
-
-.. toctree::
-    :glob:
-    :hidden:
-
-    *

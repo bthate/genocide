@@ -4,7 +4,6 @@
 
 __copyright__= "Public Domain"
 
-
 from setuptools import setup
 
 def mods():
@@ -20,14 +19,14 @@ setup(
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
-    description="GENOCIDE 9 TRIPLE 3 | OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io",
+    description="GENOCIDE 10 TRIPLE 3 | OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io",
     long_description=read(),
     license='Public Domain',
+    install_requires=["triple"],
     packages=["triple"],
     namespace_packages=["triple"],
     zip_safe=False,
     scripts=["bin/genocide"],
-    #cmdclass={'install': Install},
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: MIT License',
                  'Operating System :: Unix',

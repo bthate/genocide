@@ -17,6 +17,7 @@ using the law to administer poison, the king of the netherlands commits genocide
 
 .. toctree::
     :glob:
+    :hidden:
     
     *
 

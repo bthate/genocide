@@ -5,7 +5,9 @@
 
 import doctest, os, sys, unittest
 
-curdir = os.getcwd() ; sys.path.insert(0, curdir + os.sep)
+curdir = os.getcwd()
+sys.path.insert(0, curdir + os.sep)
+sys.path.insert(0, curdir + os.sep + ".." + os.sep)
 
 from triple.req import __version__
 
@@ -74,10 +76,10 @@ html_additional_pages = {}
 html_domain_indices = True
 html_use_index = True
 html_split_index = True
-html_show_sourcelink = True
-html_show_sphinx = True
+html_show_sourcelink = False
+html_show_sphinx = False
 html_show_copyright = True
-html_copy_source = True
+html_copy_source = False
 html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'

@@ -15,6 +15,7 @@ GENOCIDE
 
 using the law to administer poison, the king of the netherlands commits genocide.
 
+
 ICC-CPI 
 =======
 
@@ -164,13 +165,8 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
 
-.. toctree::
-    :hidden:
-    
-    admin
-    advocaten
-    azyprexa
-    clozapine
-    fact
-    otp
-    source
+OTP-CR-117/19/001
+=================
+
+.. image:: OTP2.png
+    :width: 90%

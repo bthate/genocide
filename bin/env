@@ -16,7 +16,6 @@ def obopen(txt):
 
 def main():
     obopen("bin/clean")
-    obopen("python3 setup.py sdist")
     try:
         shutil.rmtree("build")
     except:

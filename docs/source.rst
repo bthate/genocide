@@ -46,6 +46,3 @@ genocide
     triple.trt	- torture definition
     triple.wsd	- knowledge on trip
 
-.. raw:: pdf
-
-   PageBreak

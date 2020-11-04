@@ -1,3 +1,6 @@
+GENOCIDE
+########
+
 | "By adding Article 11 to the requirements, saying it has jurisdicition over genocide
 | when it is after 2002, the prosecutor is actualy saying it has jurisidition over the
 | kings genocide and is missing the cooperation of the netherlands to arrest it’s own
@@ -11,22 +14,6 @@
 | workings on that jurdisiction, it should be able to proclaim complete jurisdiction.
 
 using the law to administer poison, the king of the netherlands commits genocide.
-
-.. toctree::
-    :glob:
-    :hidden:
-    
-    *
-
-CONTACT
-=======
-
-for the source code of genocide, see :ref:`here <source>`
-
-
-| IRC: botfather on irc.freenode.net channel #dunkbots
-| email: bthate@dds.nl
-| twitter: @aesculaap1
 
 ICC-CPI 
 =======
@@ -177,3 +164,13 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
 
+.. toctree::
+    :hidden:
+    
+    admin
+    advocaten
+    azyprexa
+    clozapine
+    fact
+    otp
+    source

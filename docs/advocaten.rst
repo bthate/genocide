@@ -14,7 +14,3 @@ kamer
 
 .. literalinclude:: kamer1
 .. literalinclude:: kamer2
-
-.. raw:: pdf
-
-   PageBreak

@@ -92,6 +92,3 @@
 
 | Volledig ingevulde behandelplannen zouden een vereiste moeten zijn voor behandeling.
 
-.. raw:: pdf
-
-   PageBreak

@@ -14,4 +14,3 @@ sphinx-material
 alabaster>=0.7.12
 #PSphinxtheme
 #python3-sphinx-rtd-theme
-genocide>=10

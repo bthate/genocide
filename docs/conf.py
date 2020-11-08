@@ -3,13 +3,13 @@
 #
 #
 
+__version__ = 11
+
 import doctest, os, sys, unittest
 
 curdir = os.getcwd()
 sys.path.insert(0, curdir + os.sep)
 sys.path.insert(0, curdir + os.sep + ".." + os.sep)
-
-from triple.req import __version__
 
 #from PSphinxTheme.utils import set_psphinxtheme
 

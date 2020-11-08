@@ -1,39 +1,20 @@
-# TRIPLE - 3 letter modules
-#
-#
-
 "commands"
-
-__copyright__ = "Public Domain"
 
 import threading, time
 
-from .dft import Default
-from .krn import get_kernel, starttime
-from .obj import Object, get, keys, save, update
-from .ofn import format
-from .prs import parse
-from .tms import elapsed
-from .utl import get_name
+from obj import Default, Object, get, keys, save, update
+from ofn import format
+from prs import elapsed, parse
+
+starttime = time.time()
 
 def cmd(event):
     "list commands (cmd)"
-    k = get_kernel()
-    c = sorted(keys(k.cmds))
+    c = sorted(keys(event.src.cbs))
     if c:
         event.reply(",".join(c))
 
-def krn(event):
-    "configure irc."
-    k = get_kernel()
-    o = Default()
-    parse(o, event.prs.otxt)
-    if o.sets:
-        update(k.cfg, o.sets)
-        save(k.cfg)
-    event.reply(format(k.cfg))
-
-def tsk(event):
+def thr(event):
     "list tasks (tsk)"
     psformat = "%s %s"
     result = []
@@ -53,8 +34,3 @@ def tsk(event):
         res.append(txt)
     if res:
         event.reply(" | ".join(res))
-
-def ver(event):
-    "show version (ver)"
-    from triple import krn
-    event.reply("TRIPLE %s" % krn.__version__)

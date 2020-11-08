@@ -1,17 +1,9 @@
-# TRIPLE - three letter modules
-#
-#
-
 "parse (prs)"
-
-__copyright__ = "Public Domain"
 
 import sys
 import time
 
-from .dft import Default
-from .obj import Object, update
-from .tms import parse_time
+from obj import Default, Object, update
 
 class Token(Object):
 
@@ -101,6 +93,50 @@ class Timed(Object):
         if vv:
             self["to"] = time.time() - vv
 
+def elapsed(seconds, short=True):
+    "return elapsed time"
+    txt = ""
+    nsec = float(seconds)
+    year = 365*24*60*60
+    week = 7*24*60*60
+    nday = 24*60*60
+    hour = 60*60
+    minute = 60
+    years = int(nsec/year)
+    nsec -= years*year
+    weeks = int(nsec/week)
+    nsec -= weeks*week
+    nrdays = int(nsec/nday)
+    nsec -= nrdays*nday
+    hours = int(nsec/hour)
+    nsec -= hours*hour
+    minutes = int(nsec/minute)
+    sec = nsec - minutes*minute
+    if years:
+        txt += "%sy" % years
+    if weeks:
+        nrdays += weeks * 7
+    if nrdays:
+        txt += "%sd" % nrdays
+    if years and short and txt:
+        return txt
+    if hours:
+        txt += "%sh" % hours
+    if nrdays and short and txt:
+        return txt
+    if minutes:
+        txt += "%sm" % minutes
+    if hours and short and txt:
+        return txt
+    if sec == 0:
+        txt += "0s"
+    #elif sec < 1 or not short:
+    #    txt += "%.3fs" % sec
+    else:
+        txt += "%ss" % int(sec)
+    txt = txt.strip()
+    return txt
+
 def parse_cli():
     "parse commandline"
     cfg = Default()
@@ -157,3 +193,30 @@ def parse(o, txt):
     o.txt = " ".join(args)
     o.rest = " ".join(args[1:])
     return o
+
+def parse_time(daystr):
+    "elapsed time from string"
+    if not any([c.isdigit() for c in daystr]):
+        return 0
+    valstr = ""
+    val = 0
+    total = 0
+    for c in daystr:
+        try:
+            vv = int(valstr)
+        except ValueError:
+            vv = 0
+        if c == "y":
+            val = vv * 3600*24*365
+        if c == "w":
+            val = vv * 3600*24*7
+        elif c == "d":
+            val = vv * 3600*24
+        elif c == "h":
+            val = vv * 3600
+        elif c == "m":
+            val = vv * 60
+        else:
+            valstr += c
+        total += val
+    return total

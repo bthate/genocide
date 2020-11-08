@@ -1,14 +1,11 @@
-# TRIPLE - 3 letter modules
+# TRIPBOT - pure python3 IRC channel bot
 #
 #
 
 "data entry"
 
-__copyright__ = "Public Domain"
-
-from .dbs import find
-from .obj import Object, save
-from .utl import get_type
+from dbs import find
+from obj import Object, save
 
 class Log(Object):
 

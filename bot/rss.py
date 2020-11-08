@@ -1,10 +1,8 @@
-# TRIPLE - three letter modules
+# TRIPBOT - pure python3 IRC channel daemon
 #
 #
 
 "rich site syndicate"
-
-__copyright__ = "Public Domain"
 
 import datetime, os, random, re, time, urllib
 
@@ -12,14 +10,13 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
-from .bus import bus
-from .cfg import Cfg
-from .dbs import all, find, last, lastmatch
-from .dft import Default
-from .obj import O, Object, save, get, update
-from .ofn import edit
-from .tms import Repeater
-from .tsk import start
+from bus import bus
+from clk import Repeater
+from dbs import all, find, last, lastmatch
+from obj import Cfg, Default, O, Object, save, get, update
+from ofn import edit
+from hdl import debug
+from thr import launch
 
 try:
     import feedparser
@@ -27,10 +24,6 @@ try:
 except ModuleNotFoundError:
     gotparser = False
 
-#:
-debug = False
-
-#;
 timestrings = [
     "%a, %d %b %Y %H:%M:%S %z",
     "%d %b %Y %H:%M:%S %z",
@@ -161,8 +154,8 @@ class Fetcher(Object):
     def run(self):
         "update all feeds"
         thrs = []
-        for fn, o in all("triple.rss.Rss"):
-            thrs.append(start(self.fetch, o))
+        for fn, o in all("rss.Rss"):
+            thrs.append(launch(self.fetch, o))
         return thrs
 
     def start(self, repeat=True):
@@ -267,7 +260,7 @@ def unescape(text):
 
 def useragent():
     "return useragent"
-    return 'Mozilla/5.0 (X11; Linux x86_64) TRIPLE +http://github.com/bthate/triple)'
+    return 'Mozilla/5.0 (X11; Linux x86_64) TRIPBOT +http://pypi.org/bthate/tripbot)'
 
 def rem(event):
     "remove a rss feed"
@@ -276,7 +269,7 @@ def rem(event):
     selector = {"rss": event.args[0]}
     nr = 0
     got = []
-    for fn, o in find("triple.rss.Rss", selector):
+    for fn, o in find("rss.Rss", selector):
         nr += 1
         o._deleted = True
         got.append(o)
@@ -289,7 +282,7 @@ def dpl(event):
     if len(event.args) < 2:
         return
     setter = {"display_list": event.args[1]}
-    for fn, o in lastmatch("triple.rss.Rss", {"rss": event.args[0]}):
+    for fn, o in lastmatch("rss.Rss", {"rss": event.args[0]}):
         edit(o, setter)
         save(o)
         event.reply("ok")
@@ -312,7 +305,7 @@ def rss(event):
     if not event.args:
         return
     url = event.args[0]
-    res = list(find("triple.rss.Rss", {"rss": url}))
+    res = list(find("rss.Rss", {"rss": url}))
     if res:
         return
     o = Rss()

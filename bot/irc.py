@@ -1,36 +1,20 @@
-# TRIPLE - 3 letter modules
-#
-#
-
 "Internet Relay Chat"
-
-__copyright__ = "Public Domain"
-__version__ = 1
 
 import os, queue, socket, textwrap, time, threading, _thread
 
-from triple import krn
+from dbs import find, last
+from hdl import Event, Handler
+from obj import Cfg, Default, Object, register, save, update
+from ofn import format
+from prs import parse, parse_cli
+from thr import launch
 
-from .bus import bus
-from .dbs import find, last
-from .cfg import Cfg
-from .dft import Default
-from .evt import Event
-from .hdl import Handler
-from .krn import get_kernel
-from .ldr import Loader
-from .obj import Object, save, update
-from .ofn import format
-from .prs import parse
-from .tsk import start
-
-k = get_kernel()
 saylock = _thread.allocate_lock()
 
 def init(kernel):
     "create a IRC bot and return it"
     i = IRC()
-    start(i.start)
+    launch(i.start)
     return i
 
 def locked(l):
@@ -57,17 +41,19 @@ class Cfg(Cfg):
     "IRC configuration object"
 
     def __init__(self):
-        super().__init__()
-        self.channel = "#triple"
-        self.nick = "triple"
-        self.port = 6667
-        self.realname = "3 letter modules"
+        self.channel = "#bot"
+        self.nick = "bot"
         self.server = "localhost"
-        self.username = "triple"
-
+        self.username = "bot"
+        self.realname = "bot"
+         
 class Event(Event):
 
     "IRC event"
+
+    def show(self):
+        for txt in self.result:
+            self.src.say(self.channel, txt)
     
 class TextWrap(textwrap.TextWrapper):
 
@@ -82,7 +68,7 @@ class TextWrap(textwrap.TextWrapper):
         self.tabsize = 4
         self.width = 450
 
-class IRC(Loader, Handler):
+class IRC(Handler):
 
     "IRC bot"
 
@@ -97,8 +83,8 @@ class IRC(Loader, Handler):
         self._trc = ""
         self.cc = "!"
         self.cfg = Cfg()
-        self.channels = []
         self.cmds = Object()
+        self.channels = []
         self.speed = "slow"
         self.state = Object()
         self.state.needconnect = False
@@ -110,13 +96,12 @@ class IRC(Loader, Handler):
         self.state.nrsend = 0
         self.state.pongcheck = False
         self.threaded = False
-        self.register("ERROR", self.ERROR)
-        self.register("LOG", self.LOG)
-        self.register("NOTICE", self.NOTICE)
-        self.register("PRIVMSG", self.PRIVMSG)
-        self.register("QUIT", self.QUIT)
-        self.register("366", self.JOINED)
-        bus.add(self)
+        register(self.cmds, "ERROR", self.ERROR)
+        register(self.cmds, "LOG", self.LOG)
+        register(self.cmds, "NOTICE", self.NOTICE)
+        register(self.cmds, "PRIVMSG", self.PRIVMSG)
+        register(self.cmds, "QUIT", self.QUIT)
+        register(self.cmds, "366", self.JOINED)
 
     def _connect(self, server):
         "connect (blocking) to irc server"
@@ -146,8 +131,6 @@ class IRC(Loader, Handler):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
-        if "v" in k.cfg.opts:
-            print(rawstr)
         o = Event()
         o.rawstr = rawstr
         o.orig = repr(self)
@@ -258,8 +241,7 @@ class IRC(Loader, Handler):
         self._connected.wait()
         self.logon(server, nick)
 
-    def dispatch(self, event):
-        "dispatch on event.command"
+    def handle(self, event):
         if event.command in self.cmds:
             self.cmds[event.command](event)
 
@@ -269,8 +251,8 @@ class IRC(Loader, Handler):
         assert self.cfg.nick
         super().start()
         self.connect(self.cfg.server, self.cfg.nick)
-        start(self.input)
-        start(self.output)
+        launch(self.input)
+        launch(self.output)
 
     def input(self):
         "loop for input"
@@ -286,7 +268,7 @@ class IRC(Loader, Handler):
                 break
             if not e.orig:
                 e.orig = repr(self)
-            self.dispatch(e)
+            self.handle(e)
 
     def joinall(self):
         "join all channels"
@@ -346,8 +328,6 @@ class IRC(Loader, Handler):
         txt = txt[:512]
         txt = bytes(txt, "utf-8")
         self._connected.wait()
-        if "v" in k.cfg.opts:
-            print(txt)
         try:
             self._sock.send(txt)
         except (OSError, ConnectionResetError) as ex:
@@ -357,10 +337,6 @@ class IRC(Loader, Handler):
             self._connected.clear()
         self.state.last = time.time()
         self.state.nrsend += 1
-
-    def register(self, cmd, cb):
-        "register a callback"
-        self.cmds[cmd] = cb
 
     def say(self, channel, txt):
         "forward to output loop"
@@ -376,7 +352,7 @@ class IRC(Loader, Handler):
         assert self.cfg.server
         self.channels.append(self.cfg.channel)
         self._joined.clear()
-        start(self.doconnect)
+        launch(self.doconnect)
         self._joined.wait()
 
     def stop(self):
@@ -408,7 +384,7 @@ class IRC(Loader, Handler):
     def NOTICE(self, event):
         "handle noticed"
         if event.txt.startswith("VERSION"):
-            txt = "\001VERSION %s %s - %s\001" % ("TRIPLE", krn.__version__, "3 letter modules")
+            txt = "\001VERSION %s %s - %s\001" % ("TRIPBOT", obj.__version__, "pure python3 IRC channel bot")
             self.command("NOTICE", event.channel, txt)
 
     def PRIVMSG(self, event):
@@ -427,8 +403,8 @@ class IRC(Loader, Handler):
             if self.cfg.users and not users.allowed(event.origin, "USER"):
                 return
             event.txt = event.txt[1:]
-            parse(event, event.txt)
-            k.queue.put(event)
+            event.iscmd = True
+            self.put(event)
 
     def QUIT(self, event):
         "handle quit"
@@ -446,7 +422,6 @@ class DCC(Handler):
         self._fsock = None
         self.encoding = "utf-8"
         self.origin = ""
-        bus.add(self)
 
     def raw(self, txt):
         "send text on the dcc socket"
@@ -472,13 +447,13 @@ class DCC(Handler):
         except ConnectionError:
             print("failed to connect to %s:%s" % (addr, port))
             return
-        s.send(bytes('Welcome to TRIPLE\n',"utf-8"))
+        s.send(bytes('Welcome to TRIPBOT\n',"utf-8"))
         s.setblocking(1)
         os.set_inheritable(s.fileno(), os.O_RDWR)
         self._sock = s
         self._fsock = self._sock.makefile("rw")
         self.origin = event.origin
-        start(self.input)
+        launch(self.input)
         super().start()
         self._connected.set()
 
@@ -588,16 +563,17 @@ class Users(Object):
             save(user)
         return user
 
-#:
 users = Users()
 
 def cfg(event):
     "configure irc."
     c = Cfg()
     last(c)
+    if not event.args:
+        return event.reply(format(c, skip=["username", "realname"]))
     o = Object()
     parse(o, event.prs.otxt)
     if o.sets:
         update(c, o.sets)
         save(c)
-    event.reply(format(c, skip=["username", "realname"]))
+        event.reply("ok")

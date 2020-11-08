@@ -1,32 +1,16 @@
-# TRIPLE - three letter modules
-#
-#
-
 "console (csl)"
 
-__copyright__ = "Public Domain"
+import atexit, readline
 
-import atexit, readline, threading
+from hdl import Event, Handler
+from thr import launch
+from trm import termsave, termreset
 
-from .bus import bus
-from .evt import Event
-from .krn import get_kernel
-from .obj import Object
-from .tsk import start
-
-#:
 cmds = []
-#:
-resume = {}
 
-class Console(Object):
+class Console(Handler):
 
     "console class"
-
-    def __init__(self):
-        super().__init__()
-        self.ready = threading.Event()
-        bus.add(self)
 
     def announce(self, txt):
         "silence announcing"
@@ -37,19 +21,11 @@ class Console(Object):
 
     def input(self):
         "loop for input"
-        k = get_kernel()
         while 1:
-            try:
-                event = self.poll()
-            except EOFError:
-                print("")
-                continue
-            if not event.txt:
-                continue
-            event.orig = repr(self)
-            k.put(event)
+            event = self.poll()
+            self.put(event)
             event.wait()
-
+            
     def poll(self):
         "wait for input"
         e = Event()
@@ -63,9 +39,8 @@ class Console(Object):
 
     def start(self):
         "start console"
-        k = get_kernel()
-        setcompleter(k.cmds)
-        start(self.input)
+        super().start()
+        launch(self.input, name="Console.input")
 
 def complete(text, state):
     "complete matches"

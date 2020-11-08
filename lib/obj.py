@@ -1,21 +1,15 @@
-# TRIPLE - three letter modules
-#
-#
-
 "object base class (obj)"
 
-__copyright__ = "Public Domain"
+__version__ = 12
 
-import datetime, importlib, json, os, sys, uuid, _thread
-
-from triple import utl
+import datetime, importlib, json, os, sys, time, uuid, _thread
 
 sl = _thread.allocate_lock()
 wd = ""
 
 class ENOFILENAME(Exception):
 
-    "provided argument is not a tripled filename"
+    "provided argument is not a filename"
 
 class O:
 
@@ -56,27 +50,74 @@ class Object(O):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__id__ = str(uuid.uuid4())        
-        self.__type__ = utl.get_type(self)
+        self.__type__ = get_type(self)
 
-def default(o):
-    "return strinfified version of an object"
-    if isinstance(o, Object):
-        return vars(o)
-    if isinstance(o, dict):
-        return o.items()
-    if isinstance(o, list):
-        return iter(o)
-    if isinstance(o, (type(str), type(True), type(False), type(int), type(float))):
-        return o
-    return repr(o)
 
-def get(o, k, d=None):
-    "return o[k]"
+class Default(Object):
+
+    "uses default values"
+
+    def __getattr__(self, k):
+        try:
+            return super().__getattribute__(k)
+        except AttributeError:
+            return super().__getitem__(k, "")
+
+class Cfg(Default):
+
+    "base config class"
+
+class Ol(Object):
+
+    "object list"
+
+    def append(self, key, value):
+        "add to list at self[key]"
+        if key not in self:
+            self[key] = []
+        if isinstance(value, type(list)):
+            self[key].extend(value)
+        else:
+            if value not in self[key]:
+                self[key].append(value)
+
+    def update(self, d):
+        "update from other object list"
+        for k, v in d.items():
+            self.append(k, v)
+
+# utilities
+
+def cdir(path):
+    "create directory"
+    if os.path.exists(path):
+        return
+    res = ""
+    path2, _fn = os.path.split(path)
+    for p in path2.split(os.sep):
+        res += "%s%s" % (p, os.sep)
+        padje = os.path.abspath(os.path.normpath(res))
+        try:
+            os.mkdir(padje)
+            os.chmod(padje, 0o700)
+        except (IsADirectoryError, NotADirectoryError, FileExistsError):
+            pass
+
+def fntime(daystr):
+    "return time from filename"
+    daystr = daystr.replace("_", ":")
+    datestr = " ".join(daystr.split(os.sep)[-2:])
     try:
-        res = o.get(k, d)
-    except (TypeError, AttributeError):
-        res = o.__dict__.get(k, d)
-    return res
+        datestr, rest = datestr.rsplit(".", 1)
+    except ValueError:
+        rest = ""
+    try:
+        t = time.mktime(time.strptime(datestr, "%Y-%m-%d %H:%M:%S"))
+        if rest:
+            t += float("." + rest)
+    except ValueError:
+        t = 0
+    return t
 
 def get_cls(name):
     "return class from full qualified name"
@@ -107,6 +148,40 @@ def hooked(d):
     "construct object from stamp"
     return Object(d)
 
+# object functions
+
+def default(o):
+    "return strinfified version of an object"
+    if isinstance(o, Object):
+        return vars(o)
+    if isinstance(o, dict):
+        return o.items()
+    if isinstance(o, list):
+        return iter(o)
+    if isinstance(o, (type(str), type(True), type(False), type(int), type(float))):
+        return o
+    return repr(o)
+
+def get_type(o):
+    "return type of an object"
+    t = type(o)
+    if t == type:
+        try:
+            return "%s.%s" % (o.__module__, o.__name__)
+        except AttributeError:
+            pass
+    return str(type(o)).split()[-1][1:-2]
+
+
+def get(o, k, d=None):
+    "return o[k]"
+    try:
+        res = o.get(k, d)
+    except (TypeError, AttributeError):
+        res = o.__dict__.get(k, d)
+    return res
+
+
 def items(o):
     "return items (k,v) of an object"
     try:
@@ -129,7 +204,6 @@ def load(o, path):
     spl = path.split(os.sep)
     stp = os.sep.join(spl[-4:])
     lpath = os.path.join(wd, "store", stp)
-    utl.cdir(lpath)
     typ = spl[0]
     id = spl[1]
     with open(lpath, "r") as ofile:
@@ -157,7 +231,7 @@ def save(o, stime=None):
         timestamp = str(datetime.datetime.now()).split()
         stp = os.path.join(o.__type__, o.__id__, os.sep.join(timestamp))
     opath = os.path.join(wd, "store", stp)
-    utl.cdir(opath)
+    cdir(opath)
     with open(opath, "w") as ofile:
         json.dump(o, ofile, default=default)
     os.chmod(opath, 0o444)
@@ -177,3 +251,4 @@ def values(o):
         return o.values()
     except (TypeError, AttributeError):
         return o.__dict__.values()
+

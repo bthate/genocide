@@ -1,18 +1,15 @@
-# TRIPLE - three letter modules
+# TRIPBOT - pure python3 IRC channel bot
 #
 #
 
 "udp to irc relay"
 
-__copyright__ = "Public Domain"
-
 import select, socket, sys, time
 
-from .bus import bus
-from .cfg import Cfg
-from .dbs import last
-from .obj import Object
-from .tsk import start
+from bus import bus
+from dbs import last
+from obj import Cfg, Object
+from thr import launch
 
 def init(kernel):
     "start a udp to irc relay server and return it"
@@ -72,7 +69,7 @@ class UDP(Object):
     def start(self):
         "start udp to irc relay server"
         last(self.cfg)
-        start(self.server)
+        launch(self.server)
 
 def toudp(host, port, txt):
     "send text over udp to the udp to irc relay server"

@@ -1,16 +1,8 @@
-# TRIPLE - three letter modules
-#
-#
-
 "terminal (trm)"
-
-__copyright__ = "Public Domain"
 
 import atexit
 import sys
 import termios
-
-from .utl import get_exception
 
 resume = {}
 
@@ -23,8 +15,6 @@ def execute(main):
         print("")
     except PermissionError:
         print("you need root permission.")
-    except Exception as ex:
-        print(get_exception())
     finally:
         termreset()
 

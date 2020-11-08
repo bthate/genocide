@@ -1,12 +1,6 @@
-# TRIPLE - three letter modules
-#
-#
-
 "announce to listeners"
 
-__copyright__ = "Public Domain"
-
-from .obj import Object
+from obj import Object
 
 class Bus(Object):
 

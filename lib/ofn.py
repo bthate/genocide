@@ -1,13 +1,6 @@
-# TRIPLE - three letter modules
-#
-#
+"object functions (ofn)"
 
-"object base class (obj)"
-
-__copyright__ = "Public Domain"
-
-from .obj import get, items
-from .utl import get_type
+from obj import get, items, get_type
 
 def edit(o, setter, skip=False):
     "update an object from a dict"
@@ -30,13 +23,14 @@ def edit(o, setter, skip=False):
             o[key] = value
     return count
 
-def format(o, keylist=None, pure=False, skip=None, txt="", sep="\n"):
+def format(o, keys=[], skip=[]):
     "return 1 line output string"
-    if not keylist:
-        keylist = vars(o).keys()
+    if not keys:
+        keys = vars(o).keys()
     res = []
-    for key in keylist:
-        if skip and key in skip:
+    txt = ""
+    for key in keys:
+        if key in skip:
             continue
         try:
             val = o[key]
@@ -45,16 +39,12 @@ def format(o, keylist=None, pure=False, skip=None, txt="", sep="\n"):
         if not val:
             continue
         val = str(val).strip()
-        val = val.replace("\n", sep)
         res.append((key, val))
     result = []
     for k, v in res:
-        if pure:
-            result.append("%s%s" % (v, " "))
-        else:
-            result.append("%s=%s%s" % (k, v, " "))
+        result.append("%s=%s%s" % (k, v, " "))
     txt += " ".join([x.strip() for x in result])
-    return txt
+    return txt.strip()
 
 def mkstamp(o):
     timestamp = str(datetime.datetime.now()).split()

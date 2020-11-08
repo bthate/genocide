@@ -1,15 +1,8 @@
-# TRIPLE - three letter modules
-#
-#
-
 "tasks (tsk)"
 
-__copyright__ = "Public Domain"
+import queue, sys, threading, time
 
-import queue, threading, time
-
-from .obj import Object
-from .utl import get_exception, get_name
+from obj import Object
 
 class Task(threading.Thread):
 
@@ -35,19 +28,29 @@ class Task(threading.Thread):
         "run a task"
         func, args = self._queue.get()
         self.setName(self._name)
-        try:
-            self._result = func(*args)
-        except Exception as ex:
-            print(get_exception())
+        self._result = func(*args)
         
     def wait(self, timeout=None):
         "wait for task to finish"
         super().join(timeout)
         return self._result
 
-def start(func, *args, **kwargs):
+def launch(func, *args, **kwargs):
     "start a task"
-    name = kwargs.get("name", get_name(func))
+    name = kwargs.get("name", "noname")
     t = Task(func, *args, name=name, daemon=True)
     t.start()
     return t
+
+def get_exception(txt="", sep=" "):
+    "print exception trace"
+    exctype, excvalue, tb = sys.exc_info()
+    trace = traceback.extract_tb(tb)
+    result = []
+    for elem in trace:
+        if "python3" in elem[0] or "<frozen" in elem[0]:
+            continue
+        result.append("%s:%s" % (elem[0], elem[1]))
+    res = "%s %s: %s %s" % (sep.join(result), exctype, excvalue, str(txt))
+    del trace
+    return res

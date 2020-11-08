@@ -19,7 +19,6 @@ project = "genocide"
 master_doc = 'index'
 version = '%s' % __version__
 release = '%s' % __version__
-copyright = "Public Domain"
 language = ''
 today = ''
 today_fmt = '%B %d, %Y'
@@ -67,7 +66,8 @@ html_theme = "haiku"
 #html_theme="yeen"
 #html_theme_path, html_theme, needs_sphinx = set_psphinxtheme('p-red')
 #html_theme="bizstyle"
-html_short_title = "GENOCIDE %s | OTP-CR-117/19/001" % __version__
+#html_short_title = "GENOCIDE %s | OTP-CR-117/19/001" % __version__
+html_short_title = ""
 html_favicon = "genocidesmile.png"
 #html_static_path = ["_static"]
 html_extra_path = []
@@ -78,7 +78,7 @@ html_use_index = True
 html_split_index = True
 html_show_sourcelink = False
 html_show_sphinx = False
-html_show_copyright = True
+html_show_copyright = False
 html_copy_source = False
 html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
@@ -105,8 +105,11 @@ htmlhelp_basename = 'testdoc'
 
 rst_prolog = """.. image:: genocideline2.png
     :height: 2.7cm
-    :width: 100%
-"""
+    :width: 16cm
+
+.. title:: GENOCIDE %s | OTP-CR-117/19/001
+
+""" % __version__
 
 #rst_epilog=""".. raw:: pdf
 #

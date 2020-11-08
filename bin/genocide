@@ -27,25 +27,21 @@ SYNOPSIS
         GENOCIDE also provides information on the genocide the king of the
         netherlands is doing. See https://pypi.org/project/genocide/ 
 
-        GENOCIDE needs root, it lowers it's permission to the genocide user.
-        /var/lib/genocide is used as the working directory, any logging is 
-        in /var/log/syslog.
-
 USAGE
         genocide cmd [mods=mod1,mod2] [-b] [-d] [-h] [-s] [-v]
 
 OPTIONS
-        -s 		start a shell
-        -d		start a background daemon
-        -b		display a banner
-        -v		be verbose
-        -h		print this message
+        -s              start a shell
+        -d              start a background daemon
+        -b              display a banner
+        -v              be verbose
+        -h              print this message
 
         the mods= setter lets you start modules on boot, possbile modules to
         load are: irc,rss,udp
 
 EXAMPLES
-        $ sudo genocide cmd
+        $ genocide cmd
         cfg,cmd,dne,dpl,edt,fnd,ftc,krn,log,mbx,rem,req,rss,sts,tdo,trt,tsk,udp,ver,wsd
 
         $ genocide cfg server=irc.freenode.net channel=\\#dunkbots
@@ -54,49 +50,34 @@ EXAMPLES
         $ genocide mods=irc,rss,udp -d
 """
 
-__copyright__ = "Public Domain"
+__version__ = 106
 
-import os, sys ; sys.path.insert(0, os.getcwd())
+import os, sys
+sys.path.insert(0, os.getcwd())
+sys.path.insert(0, "lib")
 
-from triple.csl import Console
-from triple.krn import boot, mods, os, scandir, sys
-from triple.trm import execute, termreset
-from triple.utl import privileges, root
+import obj
 
-def daemon():
-    "switch to background"
-    pid = os.fork()
-    if pid != 0:
-        termreset()
-        os._exit(0)
-    os.setsid()
-    os.umask(0)
-    si = open("/dev/null", 'r')
-    so = open("/dev/null", 'a+')
-    se = open("/dev/null", 'a+')
-    os.dup2(si.fileno(), sys.stdin.fileno())
-    os.dup2(so.fileno(), sys.stdout.fileno())
-    os.dup2(se.fileno(), sys.stderr.fileno())
+from csl import Console
+from prs import parse_cli
+from trm import execute
+
+from bot.irc import IRC
 
 def main():
-    k = boot("genocide")
-    if root():
-        privileges("genocide")
-    opts = k.cfg.opts
-    if "h" in opts:
-        return print(__doc__)
-    k.walk("triple", ",".join(mods))
-    if k.cfg.cmd:
-        return k.cmd(k.cfg.otxt)
-    if "d" in opts:
-        daemon()
-    k.start()
-    k.init(k.cfg.mods)
-    if "d" not in opts and "s" in opts:
-        c = Console()
+    obj.wd = os.path.expanduser("~/.genocide")
+    cfg = parse_cli()
+    c = Console()
+    c.walk("bot")
+    c.walk("botmod")
+    if len(sys.argv) >= 2:
+       return c.cmd(" ".join(sys.argv[1:]))
+    if "s" in cfg.opts:
         c.start()
-    if "w" in opts or "d" in opts or "s" in opts or k.cfg.mods:
-        k.wait()    
+    i = IRC()
+    i.clone(c)
+    i.start()
+    i.wait()     
 
 execute(main)
 os._exit(0)

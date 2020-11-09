@@ -13,7 +13,7 @@ def read():
 
 setup(
     name='genocide',
-    version='11',
+    version='12',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
@@ -21,6 +21,8 @@ setup(
     long_description=read(),
     license='Public Domain',
     install_requires=["botlib>=106"],
+    packages=["genocide"],
+    namespace_packages=["genocide"],
     zip_safe=False,
     scripts=["bin/genocide"],
     classifiers=['Development Status :: 3 - Alpha',

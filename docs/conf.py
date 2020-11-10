@@ -105,11 +105,10 @@ htmlhelp_basename = 'testdoc'
 
 rst_prolog = """.. image:: genocideline2.png
     :height: 2.7cm
-    :width: 16cm
+    :width: 15.7cm
 
-.. title:: GENOCIDE %s | OTP-CR-117/19/001
-
-""" % __version__
+.. title:: OTP-CR-117/19/001
+"""
 
 #rst_epilog=""".. raw:: pdf
 #

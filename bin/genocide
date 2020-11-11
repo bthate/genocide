@@ -8,7 +8,7 @@ from trm import execute, os
 def main():
     cfg = parse_cli("genocide")
     c = Console()
-    c.scan("irc")
+    c.scan("cms")
     c.walk("genocide")
     if cfg.txt:
        return c.cmd(cfg.txt)

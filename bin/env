@@ -31,9 +31,9 @@ def main():
     for line in os.popen("python3 setup.py sdist").readlines():
         print(line.strip())
     #obopen("rm -fR ~/.cache/pip/")
-    obopen("cp dist/* eggs/")
+    obopen("cp dist/* egg/")
     obopen("python3 -mvirtualenv -p python3 env")
-    obopen("env/bin/pip3 install genocide -f eggs --upgrade --force-reinstall")
+    obopen("env/bin/pip3 install genocide -f egg --upgrade --force-reinstall")
 
 if __name__ == "__main__":
     main()

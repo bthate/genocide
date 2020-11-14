@@ -173,3 +173,20 @@ OTP-CR-117/19/001
 .. image:: OTP2.png
     :width: 16cm
 
+
+CONTACT
+=======
+
+"contributed back to society" 
+
+| Bart Thate :ref:`source <source>`
+|
+| bthate@dds.nl
+| thatebart@gmail.com
+|
+| botfather/#dunkbots/irc.freenode.net 
+
+.. toctree::
+    :hidden:
+
+    source

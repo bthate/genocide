@@ -6,7 +6,7 @@ pillow>=4.0.0
 #pillow==2.6.1
 commonmark==0.5.4
 recommonmark==0.4.0
-sphinx>=2.0
+sphinx<=1.8
 readthedocs-sphinx-ext<0.6
 #triple>=3
 rst2pdf

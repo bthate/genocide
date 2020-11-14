@@ -9,7 +9,7 @@ import doctest, os, sys, unittest
 
 curdir = os.getcwd()
 sys.path.insert(0, curdir + os.sep)
-sys.path.insert(0, curdir + os.sep + ".." + os.sep)
+sys.path.insert(0, curdir + os.sep + ".." + os.sep + "genocide")
 
 #from PSphinxTheme.utils import set_psphinxtheme
 
@@ -23,7 +23,7 @@ language = ''
 today = ''
 today_fmt = '%B %d, %Y'
 #needs_sphinx='1.1'
-needs_sphinx='2.0'
+needs_sphinx='1.8'
 exclude_patterns = ['_build', '_templates', '_source', 'Thumbs.db', '.DS_Store']
 #exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 #default_role = ''
@@ -68,7 +68,7 @@ html_theme = "haiku"
 #html_theme="bizstyle"
 #html_short_title = "GENOCIDE %s | OTP-CR-117/19/001" % __version__
 html_short_title = ""
-html_favicon = "genocidesmile.png"
+html_favicon = "genocide3smile.png"
 #html_static_path = ["_static"]
 html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'

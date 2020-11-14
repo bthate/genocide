@@ -8,6 +8,7 @@ GENOCIDE
 | jurisidition over the kings genocide and is missing the cooperation of 
 | the netherlands to arrest it’s own king and stop the kings genocide.”
 |
+|
 | The prosecutor may, at any time, reconsider a decision whether to initiate an
 | investigation or prosecution based on new facts or information AND shall not
 | preclude the prosecutor from considering further information submitted to him

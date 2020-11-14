@@ -3,15 +3,13 @@
 #
 #
 
-__version__ = 12
+__version__ = 13
 
 import doctest, os, sys, unittest
 
 curdir = os.getcwd()
 sys.path.insert(0, curdir + os.sep)
 sys.path.insert(0, curdir + os.sep + ".." + os.sep + "genocide")
-
-#from PSphinxTheme.utils import set_psphinxtheme
 
 # -- Options for GENERIC output ---------------------------------------------
 
@@ -22,11 +20,8 @@ release = '%s' % __version__
 language = ''
 today = ''
 today_fmt = '%B %d, %Y'
-#needs_sphinx='1.1'
-needs_sphinx='1.8'
+needs_sphinx='1.7'
 exclude_patterns = ['_build', '_templates', '_source', 'Thumbs.db', '.DS_Store']
-#exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-#default_role = ''
 source_suffix = '.rst'
 source_encoding = 'utf-8-sig'
 modindex_common_prefix = [""]
@@ -44,32 +39,13 @@ extensions=[
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
     'sphinx.ext.githubpages',
-    #'rst2pdf.pdfbuilder',
-    #"sphinx_rtd_theme",
-    #'PSphinxTheme.ext.psphinx_admonitions',
-    #'PSphinxTheme.ext.escaped_samp_literals',
-    #'PSphinxTheme.ext.index_styling',
-    #'PSphinxTheme.ext.issue_tracker',
-    #'PSphinxTheme.ext.sidebarlogo_perpag',
-    #'PSphinxTheme.ext.relbar_links',
-    #'PSphinxTheme.ext.table_styling'
 ]
 
 # -- Options for HTML output -------------------------------------------------
 
-#html_theme_path = []
-#html_theme= "sphinx-material"
-#html_theme = "alabaster"
 html_theme = "haiku"
-#html_theme="p-red",
-#html_theme="pyramid"
-#html_theme="yeen"
-#html_theme_path, html_theme, needs_sphinx = set_psphinxtheme('p-red')
-#html_theme="bizstyle"
-#html_short_title = "GENOCIDE %s | OTP-CR-117/19/001" % __version__
 html_short_title = ""
 html_favicon = "genocide3smile.png"
-#html_static_path = ["_static"]
 html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
 html_additional_pages = {}
@@ -83,37 +59,13 @@ html_copy_source = False
 html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
-#html_theme_options = { "lighter_decor": True }
-#html_logo = os.path.join('_static', 'P-SphinxTheme180_95_logo.png')
-#html_favicon = os.path.join('_static', 'P-Projects32_32.ico')
-#relbar_links_doc = [
-#   ('toc', 'contents'),
-#   ('api', 'api'),
-#]
-#sidebarlogo_perpage_dict = {
-#   None: ['api', 'index', 'copyright'],
-#   'P-SphinxTheme180_95_bg.png': ['main_theme', 'history'],
-#}
-#common_sidebars = ['quicklinks.html', 'sourcelink.html', 'searchbox.html']
-#common_sidebars = ['searchbox.html', 'sourcelink.html']
-#html_sidebars = {
-#   '**': ['localtoc.html', 'relations.html'] + common_sidebars,
-#   'py-modindex': common_sidebars,
-#   'genindex': common_sidebars,
-#   'search': common_sidebars,
-#}
 
 rst_prolog = """.. image:: genocide3line.png
     :height: 2.7cm
-    :width: 15.7cm
+    :width: 100%
 
 .. title:: OTP-CR-117/19/001
 """
-
-#rst_epilog=""".. raw:: pdf
-#
-#   PageBreak
-#"""
 
 intersphinx_mapping = {
                        'python': ('https://docs.python.org/3', 'objects.inv'),
@@ -139,65 +91,3 @@ doctest_flags=doctest.REPORT_UDIFF
 nitpick_ignore=[
                 ('py:class', 'builtins.BaseException'),
                ]
-
-
-# -- Options for LATEX output -------------------------------------------------
-
-latex_documents = [
-    (master_doc, 'genocide.tex', u'genocide',
-     u'Bart Thate', 'manual'),
-]
-latex_engine = 'pdflatex'
-latex_elements = {
-    'extraclassoptions': 'openany,oneside',
-    'papersize': 'letterpaper',
-    'pointsize': '10pt',
-    'figure_align': 'htbp',
-    'fontpkg': r'''
-\setmainfont{DejaVu Serif}
-\setsansfont{DejaVu Sans}
-\setmonofont{DejaVu Sans Mono}
-''',
-    'preamble': r'''
-\usepackage[titles]{tocloft}
-\cftsetpnumwidth {1.25cm}\cftsetrmarg{1.5cm}
-\setlength{\cftchapnumwidth}{0.75cm}
-\setlength{\cftsecindent}{\cftchapnumwidth}
-\setlength{\cftsecnumwidth}{1.25cm}
-''',
-    'fncychap': r'\usepackage[Bjornstrup]{fncychap}',
-    'printindex': r'\footnotesize\raggedright\printindex',
-}
-
-latex_show_urls = 'footnote'
-latex_theme = "manual"
-latex_elements = {
-}
-
-# -- Options for PDF output --------------------------------------------------
-
-pdf_documents = [('index', u'genocide', u'genocide', u'Bart Thate'),]
-#pdf_stylesheets = ['sphinx','kerning','a4']
-#pdf_style_path = ['.', '_styles']
-pdf_compressed = False
-#pdf_font_path = ['/usr/share/fonts', '/usr/share/texmf-dist/fonts/']
-pdf_language = "en_US"
-pdf_fit_mode = "shrink"
-pdf_break_level = 1
-pdf_breakside = 'any'
-pdf_inline_footnotes = True
-pdf_use_index = True
-pdf_use_modindex = True
-pdf_use_coverpage = True
-pdf_cover_template = 'sphinxcover.tmpl'
-pdf_appendices = []
-pdf_splittables = False
-pdf_default_dpi = 72
-pdf_extensions = []
-pdf_page_template = 'cutePage'
-pdf_use_toc = True
-pdf_toc_depth = 9999
-pdf_use_numbered_links = False
-pdf_fit_background_mode = 'scale'
-epub_copyright="Public Domain"
- 

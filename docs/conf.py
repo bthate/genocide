@@ -3,7 +3,7 @@
 #
 #
 
-__version__ = 11
+__version__ = 12
 
 import doctest, os, sys, unittest
 
@@ -103,7 +103,7 @@ htmlhelp_basename = 'testdoc'
 #   'search': common_sidebars,
 #}
 
-rst_prolog = """.. image:: genocideline2.png
+rst_prolog = """.. image:: genocide3line.png
     :height: 2.7cm
     :width: 15.7cm
 

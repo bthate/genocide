@@ -9,10 +9,10 @@ source = "https://github.com/bthate/genocide"
 
 import datetime, random, time
 
-from bus import bus
-from clk import Repeater
-from hdl import Event
-from obj import Object, get, keys, items, values
+from bot.bus import bus
+from bot.clk import Repeater
+from bot.hdl import Event
+from bot.obj import Object, get, keys, items, values
 
 year_formats = [
     "%b %H:%M",

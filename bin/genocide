@@ -4,6 +4,7 @@ import os, sys ; sys.path.insert(0, os.getcwd())
 
 import atexit, os, pwd, readline, sys
 
+from bot.bus import bus
 from bot.hdl import Event, Handler
 from bot.ofn import format
 from bot.prs import parse_cli
@@ -21,8 +22,13 @@ class Console(Handler):
 
     "console class"
 
+    def __init__(self):
+        super().__init__()
+        bus.add(self)
+
     def announce(self, txt):
         "silence announcing"
+        self.direct(txt)
 
     def direct(self, txt):
         "print to stdout"
@@ -100,7 +106,7 @@ def main():
     h.walk("genocide", "genocide")
     if cfg.txt:
         return h.cmd(cfg.otxt)
-    h.init(cfg.sets.mods)
+    h.init(cfg.sets.mods, "genocide")
     h.start()
     h.wait()
      

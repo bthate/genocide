@@ -13,6 +13,7 @@ from bot.bus import bus
 from bot.clk import Repeater
 from bot.hdl import Event
 from bot.obj import Object, get, keys, items, values
+from bot.prs import elapsed
 
 year_formats = [
     "%b %H:%M",
@@ -70,7 +71,7 @@ starttime = to_day(startdate)
 def init(kernel):
     "loop through all stats and start some"
     for _name, obj in items(wanted):
-        for key in ol.keys(obj):
+        for key in keys(obj):
             val = get(obj, key, None)
             if val:
                 e = Event()

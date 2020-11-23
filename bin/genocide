@@ -106,6 +106,7 @@ def main():
     h.walk("genocide", "genocide")
     if cfg.txt:
         return h.cmd(cfg.otxt)
+    h.init(cfg.sets.mods)
     h.init(cfg.sets.mods, "genocide")
     h.start()
     h.wait()

@@ -8,6 +8,11 @@ GENOCIDE uses the BOTLIB library and has some modules of it's own
 botlib
 ======
 
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+
     bot.bus          		- messaging
     bot.clk          		- clock/repeater
     bot.cmd          		- commands

@@ -1,6 +1,6 @@
 .. _source:
 
-SOURCE
+source
 ######
 
 GENOCIDE uses the BOTLIB library and has some modules of it's own

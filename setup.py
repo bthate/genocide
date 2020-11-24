@@ -13,7 +13,7 @@ def read():
 
 setup(
     name='genocide',
-    version='13',
+    version='14',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 

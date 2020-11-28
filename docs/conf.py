@@ -44,6 +44,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = "haiku"
+#html_title = "GENOCIDE %s" % __version__
 html_short_title = ""
 html_favicon = "genocide3smile.png"
 html_extra_path = []
@@ -64,8 +65,8 @@ rst_prolog = """.. image:: genocide3line.png
     :height: 3.1cm
     :width: 100%
 
-.. title:: OTP-CR-117/19/001
-"""
+.. title:: the king of the netherlands commits genocide
+""" 
 
 intersphinx_mapping = {
                        'python': ('https://docs.python.org/3', 'objects.inv'),

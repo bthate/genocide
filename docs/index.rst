@@ -1,17 +1,7 @@
-using the law to administer poison, the king of the netherlands commits genocide.
-
-GENOCIDE
-########
-
 "By adding Article 11 to the requirements, saying it has jurisdicition over
 genocide when it is after 2002, the prosecutor is actualy saying it has 
 jurisidition over the kings genocide and is missing the cooperation of 
 the netherlands to arrest it’s own king and stop the kings genocide.”
-
-The prosecutor may, at any time, reconsider a decision whether to initiate an
-investigation or prosecution based on new facts or information AND shall not
-preclude the prosecutor from considering further information submitted to him
-or her. 
 
 ICC-CPI 
 =======
@@ -27,10 +17,10 @@ Hello Office of the Prosecutor,
 i write you in the context of communications and claims under art.15 of the
 Rome Statute. I want to inform the prosecutor that the king of the 
 netherlands and his government are commiting 3 of the 5 crimes defined in
-the Rome Statute.I know the statute only provides juridistion over genocide
+the Rome Statute. I know the statute only provides juridistion over genocide
 claims concerning nationalities or crimes based on etnicity. The crimes i
-talk about are on generic parts of the population like all elderly of all
-psychiatric patients.The kingdom of the netherlands uses law to provide 
+talk about are on generic parts of the population like all elderly or all
+psychiatric patients. The kingdom of the netherlands uses law to provide 
 "care" with entails adminstering poison instead of non harmfull substances
 (what medicine should be). 
 
@@ -153,12 +143,12 @@ mentioning the he could reconsider if new evidence arises.
 25-06-2019 I talk to members of ECHA on twitter and got the link to the proof
 restored.
  
-You can see the evidence that Haldol is a poison on 
-
-https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142 
-
-You can see the email that informed the chamber of http://kamer.rtfd.io/ 
-You can see the email that informed the king on http://koning.rtfd.io/
+| You can see the evidence that Haldol is a poison on 
+|
+| https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142 
+|
+| You can see the email that informed the chamber of http://kamer.rtfd.io/ 
+| You can see the email that informed the king on http://koning.rtfd.io/
 
 Knowing that the proof that Haldol is a poison was offline when you reached 
 your conclusion to not to proceed, could you reconsider your conclusion now
@@ -176,8 +166,6 @@ OTP-CR-117/19/001
 
 CONTACT
 =======
-
-"contributed back to society" 
 
 | Bart Thate :ref:`source <source>`
 |

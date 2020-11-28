@@ -16,7 +16,6 @@ botlib
     bot.bus          		- messaging
     bot.clk          		- clock/repeater
     bot.cmd          		- commands
-    bot.csl          		- console
     bot.dbs          		- databases
     bot.hdl          		- handler
     bot.irc          		- internet relay chat

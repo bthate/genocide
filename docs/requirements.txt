@@ -8,3 +8,4 @@ recommonmark==0.4.0
 sphinx<=1.7
 readthedocs-sphinx-ext<0.6
 alabaster>=0.7.12
+sphinx_autodoc_annotation>=1.0

@@ -39,6 +39,7 @@ extensions=[
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
     'sphinx.ext.githubpages',
+    'sphinx_autodoc_annotation' 
 ]
 
 # -- Options for HTML output -------------------------------------------------

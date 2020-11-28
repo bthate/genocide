@@ -31,7 +31,7 @@ def main():
     for line in os.popen("python3 setup.py sdist").readlines():
         print(line.strip())
     #obopen("rm -fR ~/.cache/pip/")
-    obopen("cp dist/* egg/")
+    #obopen("cp dist/* egg/")
     obopen("python3 -mvirtualenv -p python3 env")
     obopen("env/bin/pip3 install genocide -f dist --upgrade --force-reinstall")
 

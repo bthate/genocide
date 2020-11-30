@@ -1,4 +1,5 @@
-the king of the netherlands commits genocide.
+GENOCIDE
+########
 
 | "By adding Article 11 to the requirements, saying it has jurisdicition over
 | genocide when it is after 2002, the prosecutor is actualy saying it has 

@@ -2,20 +2,12 @@
 #
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-""" wijsheid, wijs ! """
+"""wijsheid, wijs !
 
-import random
-
-def wsd(event):
-    "show the wisdom (wsd)"
-    event.reply(random.choice(txt.split("\n")))
-
-#:
-txt="""
 OVERDRACHT
 ==========
 
-No Voice, No Description:
+No Voice, No Description
 
  * enkelt eenlingen
  * knipperogen
@@ -191,3 +183,9 @@ No Voice, No Description:
  * duiding
  * coding
 """
+
+import random
+
+def wsd(event):
+    "show the wisdom (wsd)"
+    event.reply(random.choice(__doc__.split("\n")))

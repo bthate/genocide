@@ -169,7 +169,7 @@ otp-cr-117/19/001
 contact
 =======
 
-| Bart Thate :ref:`source <source>`
+| Bart Thate :ref:`source <source>`, :ref:`txt <txt>`
 |
 | bthate@dds.nl
 | thatebart@gmail.com

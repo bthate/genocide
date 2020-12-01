@@ -1,4 +1,4 @@
-GENOCIDE
+genocide
 ########
 
 "By adding Article 11 to the requirements, saying it has jurisdicition over
@@ -6,7 +6,7 @@ genocide when it is after 2002, the prosecutor is actualy saying it has
 jurisidition over the kings genocide and is missing the cooperation of 
 the netherlands to arrest it’s own king and stop the kings genocide.”
 
-ICC-CPI 
+icc-cpi 
 =======
 
 | Information and Evidence Unit
@@ -87,7 +87,7 @@ groups in the population.
 I hope you can stop the above mentioned crimes the king of the netherlands
 and his government are doing.
 
-RECONSIDER
+resonsider
 ==========
 
 | Information and Evidence Unit
@@ -160,14 +160,14 @@ this proof is back online again ?
 
 Bart Thate - bthate@dds.nl/thatebart@gmail.com
 
-OTP-CR-117/19/001
+otp-cr-117/19/001
 =================
 
 .. image:: OTP2.png
     :width: 16cm
 
 
-CONTACT
+contact
 =======
 
 | Bart Thate :ref:`source <source>`

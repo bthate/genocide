@@ -166,7 +166,6 @@ otp-cr-117/19/001
 .. image:: OTP2.png
     :width: 16cm
 
-
 contact
 =======
 
@@ -179,5 +178,7 @@ contact
 
 .. toctree::
     :hidden:
+    :glob:
 
-    source
+    *
+    txt/*

@@ -1,10 +1,9 @@
-genocide
-########
+END OF GENOCIDE
+===============
 
-"By adding Article 11 to the requirements, saying it has jurisdicition over
-genocide when it is after 2002, the prosecutor is actualy saying it has 
-jurisidition over the kings genocide and is missing the cooperation of 
-the netherlands to arrest it’s own king and stop the kings genocide.”
+"This is the end of genocide, to all countries employing forced treatement laws 
+onto their people, you will be prosecuted as guilty for genocide."
+
 
 .. image:: jurisdiction.png
 
@@ -13,11 +12,11 @@ jurisdiction" decision away.
 
 Considering the jurisdicition over the genocide the king is doing is already
 with the court, i think there is a different view on this matter between the
-Court that has that jurisidiction over genocide and the judgment of the
+court that has that jurisidiction over genocide and the judgment of the
 prosecutor.
 
 The limit on the jurisdiction is the non cooperation of the netherlands to
-not stop his genocide. By the netherlands blocking the jurisdiction as part
+stop the kings genocide. By the netherlands blocking the jurisdiction as part
 of the kings genocide work, the court can excercise the jurisdicition to have
 the arrest warrent to the king send immediately to europol to let the
 collegues of the netherlands ensure the "cooperation" of the netherlands to
@@ -26,7 +25,20 @@ arrest the king and thus stop his genocide.
 I bet europol and collegues have already simulators running where they can
 practise the arrest of the king and deliver him to the court.
 
-1 decision away. "Within the jurisdiction"
+1 decision away. "within the jurisdiction"
+
+So:
+
+1) within the jurisdiction
+2) arrest warrent to the king
+3) arrest of the king
+4) guilty of genocide
+5) into his cell
+6) end of genocide
+7) proclamation of the end of genocide
+
+
+This is the end of genocide. And run for your non-complicity.
 
 icc-cpi 
 =======

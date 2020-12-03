@@ -6,7 +6,7 @@ Arrest of the king is just 1 decision away, the "within the jurisdiction" decisi
 .. image:: jurisdiction.png
 
 
-Considering the jurisdicition over the genocide the king is doing is already
+Considering the jurisdiction over the genocide the king is doing is already
 with the court, i think there is a different view on this matter between the
 court that has that jurisidiction over genocide and the judgment of the
 prosecutor.

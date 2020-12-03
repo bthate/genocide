@@ -1,14 +1,10 @@
 END OF GENOCIDE
 ===============
 
-"This is the end of genocide, to all countries employing forced treatement laws 
-onto their people, you will be prosecuted as guilty for genocide."
-
+Arrest of the king is just 1 decision away, the "within the jurisdiction" decision.
 
 .. image:: jurisdiction.png
 
-Arrest of the king is just 1, i repeat 1, decision away, the "within the
-jurisdiction" decision away.
 
 Considering the jurisdicition over the genocide the king is doing is already
 with the court, i think there is a different view on this matter between the
@@ -22,23 +18,7 @@ the arrest warrent to the king send immediately to europol to let the
 collegues of the netherlands ensure the "cooperation" of the netherlands to
 arrest the king and thus stop his genocide.
 
-I bet europol and collegues have already simulators running where they can
-practise the arrest of the king and deliver him to the court.
-
 1 decision away. "within the jurisdiction"
-
-So:
-
-1) within the jurisdiction
-2) arrest warrent to the king
-3) arrest of the king
-4) guilty of genocide
-5) into his cell
-6) end of genocide
-7) proclamation of the end of genocide
-
-
-This is the end of genocide. And run for your non-complicity.
 
 icc-cpi 
 =======

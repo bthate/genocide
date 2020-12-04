@@ -22,5 +22,4 @@ arrest the king and thus stop his genocide.
     :hidden:
     :glob:
 
-    *
     txt/*

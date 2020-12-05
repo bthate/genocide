@@ -1,25 +1,53 @@
-END OF GENOCIDE
-###############
+GENOCIDE
+########
 
-Considering the jurisdiction over the genocide the king is doing is already
-with the court, i think there is a different view on this matter between the
-court that has that jurisidiction over genocide and the judgment of the
-prosecutor.
+The prosecutor may, at any time, reconsider a decision whether to initiate an 
+investigation or prosecution based on new facts or information AND  shall
+not preclude the prosecutor from considering further information submitted
+to him or her. 
+
+CLOZAPINE
+=========
+
+.. image:: ECHAclozapine.png
+
+INFORMED
+========
+
+.. image:: informed.jpg
+
+KING
+====
+
+.. image:: opdehoogte.jpg
+    
+NOT CRIMINAL
+============
+
+.. image:: OTP1.png
+
+NOT WITHIN THE JURISDICTION 
+===========================
+
+.. image:: OTP2.png
+
+COOPERATION
+===========
 
 .. image:: jurisdiction.png
 
+I read this as: "By adding Article 11 to the requirements, the prosecutor is actualy calling 
+it a genocide and is missing the cooperation of the netherlands to arrest 
+it’s own king and thus stop the kings genocide."
 
-The limit on the jurisdiction is the non cooperation of the netherlands to
-stop the kings genocide. By the netherlands blocking the jurisdiction as part
-of the kings genocide work, the court can excercise the jurisdicition to have
-the arrest warrent to the king send immediately to europol to let the
-collegues of the netherlands ensure the "cooperation" of the netherlands to
-arrest the king and thus stop his genocide.
+So this case is not closable for any further reconsideration and the arrest
+of the king, and thus the end of his genocide, is 1 decision away. 
 
-1 decision away. "within the jurisdiction" - :ref:`source <source>`
+"within the jurisdiction" - :ref:`source <source>`
 
 .. toctree::
     :hidden:
     :glob:
 
+    *
     txt/*

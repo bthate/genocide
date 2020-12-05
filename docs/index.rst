@@ -23,15 +23,6 @@ of the king, and thus the end of his genocide, is 1 decision away.
 
 "inside the jurisdiction" - :ref:`source <source>`
 
-COOPERATION
-===========
-
-.. image:: jurisdiction.png
-
-I read this as: "By adding Article 11 to the requirements, the prosecutor is actualy calling 
-it a genocide and is missing the cooperation of the netherlands to arrest 
-it’s own king and thus stop the kings genocide."
-
 CLOZAPINE
 =========
 
@@ -57,6 +48,14 @@ OUTSIDE THE JURISDICTION
 
 .. image:: OTP2.png
 
+COOPERATION
+===========
+
+.. image:: jurisdiction.png
+
+I read this as: "By adding Article 11 to the requirements, the prosecutor is actualy calling 
+it a genocide and is missing the cooperation of the netherlands to arrest 
+it’s own king and thus stop the kings genocide."
 
 .. toctree::
     :hidden:

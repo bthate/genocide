@@ -10,14 +10,8 @@ crimes mentioned in article 6:
 | *   Causing serious bodily or mental harm to members of the group
 | *   Imposing measures intended to prevent births within the group
 
-COOPERATION
-===========
-
-.. image:: jurisdiction.png
-
-I read this as: "By adding Article 11 to the requirements, the prosecutor is actualy calling 
-it a genocide and is missing the cooperation of the netherlands to arrest 
-it’s own king and thus stop the kings genocide."
+INSIDE THE JURISDICTION 
+=======================
 
 The prosecutor may, at any time, reconsider a decision whether to initiate an 
 investigation or prosecution based on new facts or information AND  shall
@@ -27,7 +21,16 @@ to him or her.
 So this case is not closable for any further reconsideration and the arrest
 of the king, and thus the end of his genocide, is 1 decision away. 
 
-"within the jurisdiction" - :ref:`source <source>`
+"inside the jurisdiction" - :ref:`source <source>`
+
+COOPERATION
+===========
+
+.. image:: jurisdiction.png
+
+I read this as: "By adding Article 11 to the requirements, the prosecutor is actualy calling 
+it a genocide and is missing the cooperation of the netherlands to arrest 
+it’s own king and thus stop the kings genocide."
 
 CLOZAPINE
 =========
@@ -49,8 +52,8 @@ NOT CRIMINAL
 
 .. image:: OTP1.png
 
-NOT WITHIN THE JURISDICTION 
-===========================
+OUTSIDE THE JURISDICTION 
+========================
 
 .. image:: OTP2.png
 

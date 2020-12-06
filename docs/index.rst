@@ -47,7 +47,20 @@ I hope you can stop the above mentioned crimes the king of the netherlands and h
 COURT
 =====
 
-.. image:: jurisdiction.png
+"The Office of the Prosecutor has carefully examined your latest
+communication. I regret to advise you that the Prosecutor has confirmed that
+the communication does not introduce new facts or evidence that would alter
+the previious determination that there is not a basis to procees under the
+Rome Statute. Under the Rome Stature, the Court may only exercise
+jurisdiction over genocide, crimes against humanity and war crimes, as
+defined in the Rome Statute (Articles 6 to 8), when commited on or after 1
+July 2002 (Article 11). In addition, the Court may only exercise
+jurisdiction over such crimes committed on the territory of a State that has
+accepted the jurisdiction of the Court or by a national of such State(
+Article 12) or  where the Security Council refers the situation to the Court
+(Atricle 13). In the light of these requirements, your communication still
+appears, after careful re-examination, to relate to matters outside the
+jurisdiction of the Court."
 
 CONCLUSION
 ==========

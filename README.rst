@@ -58,7 +58,7 @@ July 2002 (Article 11). In addition, the Court may only exercise
 jurisdiction over such crimes committed on the territory of a State that has
 accepted the jurisdiction of the Court or by a national of such State(
 Article 12) or  where the Security Council refers the situation to the Court
-(Atricle 13). In the light of these requirements, you communication still
+(Atricle 13). In the light of these requirements, your communication still
 appears, after careful re-examination, to relate to matters outside the
 jurisdiction of the Court."
 

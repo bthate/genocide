@@ -62,6 +62,14 @@ Article 12) or  where the Security Council refers the situation to the Court
 appears, after careful re-examination, to relate to matters outside the
 jurisdiction of the Court."
 
+Prosecutor may, at any time, reconsider a decision whether to initiate an
+investigation or prosecution based on new facts or information AND  shall not
+preclude the Prosecutor from considering further information submitted to him
+or her. Any time to the king until arrested !
+
+Reconsider anytime until arrested, cause you can't preclude. 
+Reconsider is 1 decision, within the juridiction, away. 
+
 CONCLUSION
 ==========
 

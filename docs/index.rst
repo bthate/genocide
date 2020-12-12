@@ -62,18 +62,21 @@ Article 12) or  where the Security Council refers the situation to the Court
 appears, after careful re-examination, to relate to matters outside the
 jurisdiction of the Court."
 
-Prosecutor may, at any time, reconsider a decision whether to initiate an
-investigation or prosecution based on new facts or information AND  shall not
-preclude the Prosecutor from considering further information submitted to him
-or her. Any time to the king until arrested !
-
-Reconsider anytime until arrested, cause you can't preclude. 
-Reconsider is 1 decision, within the juridiction, away. 
-
 CONCLUSION
 ==========
 
-Not a basis to proceed means the king is doing his genocide.
+The prosecutor concludes a "no basis to proceed" based on the information 
+provided. The provided information contains a "guilty plee" of the king, 
+saying he knows the medicine he uses in his "treatements" are poison. Knowing
+these medicine are poison makes the "treatement laws" of the king genocide laws,
+were he uses forced "treatement" to forcely adminster poison.
+
+This confession in itself is enough to have the king arrested for
+genocide, for using the law to administer poison (and not his "can't do damage"
+medicine).
+
+Not to be precluded from reconsideration, the court will pronounce it's
+"inside the jurisdiction" and arrest the king to stop his genocide.
 
 .. toctree::
     :hidden:

@@ -66,11 +66,15 @@ jurisdiction of the Court."
 CONCLUSION
 ==========
 
-Not a basis to proceed means the king is doing his genocide.
+| The prosecutor concludes a "not a basis to proceed" based on the information 
+| provided. The provided information contains a "guilty plee" of the king, 
+| saying he knows the medicine he uses in his "treatements" are poison. Knowing
+| these medicine are poison makes the "treatement laws" of the king genocide laws,
+| were he uses forced "treatement" to forcely adminster poison.
 
-.. toctree::
-    :hidden:
-    :glob:
+| This confession in itself is enough to have the king arrested for
+| genocide, for using the law to administer poison (and not his "can't do damage"
+| medicine)
 
-    *
-    txt/*
+| Not to be precluded from reconsideration, the court will pronounce it's
+| "inside the jurisdiction" and arrest the king to stop his genocide.

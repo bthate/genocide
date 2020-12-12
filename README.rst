@@ -66,13 +66,13 @@ jurisdiction of the Court."
 CONCLUSION
 ==========
 
-| The prosecutor concludes a "not a basis to proceed" based on the
-| communication received. The communication contains a "guilty plee" of the 
-| king, saying he knows the medicine he uses in his "treatements" are poison. 
+The prosecutor concludes a "not a basis to proceed" based on the
+communication received. The communication contains a "guilty plee" of the 
+king, saying he knows the medicine he uses in his "treatements" are poison. 
 
-| This guilty plee in itself is enough to have the king arrested for
-| genocide, for using the law to administer poison (and not his "can't do damage"
-| medicine)
+This guilty plee in itself is enough to have the king arrested for
+genocide, for using the law to administer poison (and not his "can't do damage"
+medicine)
 
-| Not to be precluded from reconsideration, the court will pronounce it's
-| "inside the jurisdiction" and arrest the king to stop his genocide.
+Not to be precluded from reconsideration, the court will pronounce it's
+"inside the jurisdiction" and arrest the king to stop his genocide.

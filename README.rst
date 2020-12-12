@@ -66,13 +66,11 @@ jurisdiction of the Court."
 CONCLUSION
 ==========
 
-| The prosecutor concludes a "not a basis to proceed" based on the information 
-| provided. The provided information contains a "guilty plee" of the king, 
-| saying he knows the medicine he uses in his "treatements" are poison. Knowing
-| these medicine are poison makes the "treatement laws" of the king genocide laws,
-| were he uses forced "treatement" to forcely adminster poison.
+| The prosecutor concludes a "not a basis to proceed" based on the
+| communication received. The communication contains a "guilty plee" of the 
+| king, saying he knows the medicine he uses in his "treatements" are poison. 
 
-| This confession in itself is enough to have the king arrested for
+| This guilty plee in itself is enough to have the king arrested for
 | genocide, for using the law to administer poison (and not his "can't do damage"
 | medicine)
 

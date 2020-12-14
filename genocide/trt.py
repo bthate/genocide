@@ -7,7 +7,6 @@
 § 95.1 Definitions.
 
 (a) Convention means the United NationsConvention Against Torture and Other Forms of Cruel, Inhuman or Degrading Treatment or Punishment, done at New York on December 10, 1984, entered into force for the United States on November 10, 1994. Definitions provided below in paragraphs (b) and (c) of this section reflect the language of the Convention and understandings set forth in the United States instrument of ratification to the Convention.
-
 (b) Torture means:
 
  (1) Any act by which severe pain or suffering, whether physical or mental, is intentionally inflicted on a person for such purposes as obtaining from him or a third person information or a confession, punishing him for an act he or a third person has committed or is suspected of having committed, or intimidating or coercing him or a third person, or for any reason based on discrimination of any kind, when such pain or suffering is inflicted by or at the instigation of or with the consent or acquiescence of a public official or other person acting in an official capacity. It does not include pain or suffering arising only from, inherent in or incidental to lawful sanctions.

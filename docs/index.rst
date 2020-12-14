@@ -1,6 +1,29 @@
 GENOCIDE
 ########
 
+The prosecutor concludes a "no basis to proceed" based on the communication
+received. This communication contains a "guilty plee" of the king, 
+saying he knows the medicine he uses in his "treatements" are poison. 
+"knowing it's poison" in itself is enough to have the king arrested for
+genocide, for using laws to administer poison (and not his "can't do damage"
+medicine).
+
+Not to be precluded from reconsideration, the court will pronounce it's
+"inside the jurisdiction" and arrest the king to stop his genocide.
+
+TO THE KING
+===========
+
+.. image:: informed.jpg
+
+FROM THE KING
+=============
+
+.. image:: opdehoogte.jpg
+
+TO THE PROSECUTOR
+=================
+
 | Information and Evidence Unit
 | Office of the Prosecutor
 | Post Office Box 19519
@@ -44,8 +67,8 @@ Since the members of the chamber and the king were aware that these medicine are
 
 I hope you can stop the above mentioned crimes the king of the netherlands and his government are doing.
 
-COURT
-=====
+LATEST FROM THE PROSECUTOR
+==========================
 
 "The Office of the Prosecutor has carefully examined your latest
 communication. I regret to advise you that the Prosecutor has confirmed that
@@ -61,29 +84,6 @@ Article 12) or  where the Security Council refers the situation to the Court
 (Atricle 13). In the light of these requirements, your communication still
 appears, after careful re-examination, to relate to matters outside the
 jurisdiction of the Court."
-
-The prosecutor concludes a "no basis to proceed" based on the communication
-received. The communication contains a "guilty plee" of the king, 
-saying he knows the medicine he uses in his "treatements" are poison. 
-
-TO THE KING
-
-.. image:: informed.jpg
-
-FROM THE KING
-
-.. image:: opdehoogte.jpg
-
-NEXT
-====
-
-The "knowing it's poison" in itself is enough to have the king arrested for
-genocide, for using laws to administer poison (and not his "can't do damage"
-medicine).
-
-Not to be precluded from reconsideration, the court will pronounce it's
-"inside the jurisdiction" and arrest the king to stop his genocide.
-
 
 .. toctree::
     :hidden:

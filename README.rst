@@ -1,6 +1,25 @@
 GENOCIDE
 ########
 
+The prosecutor concludes a "not a basis to proceed" based on the communication received, however the communication contains a "guilty plee" of the king, saying he knows the medicine he uses in his "treatements" are poison. 
+
+"knowing it's poison" in itself is enough to have the king arrested for genocide, for using laws to administer poison (and not his "can't do damage" medicine).
+
+Not a basis to proceed means the king is doing his genocide.
+
+TO THE KING
+===========
+
+.. image:: informed.jpg
+
+FROM THE KING
+=============
+
+.. image:: opdehoogte.jpg
+
+REQUEST
+=======
+
 | Information and Evidence Unit
 | Office of the Prosecutor
 | Post Office Box 19519
@@ -44,8 +63,62 @@ Since the members of the chamber and the king were aware that these medicine are
 
 I hope you can stop the above mentioned crimes the king of the netherlands and his government are doing.
 
-COURT
-=====
+RECONSIDER
+==========
+
+| Information and Evidence Unit
+| Office of the Prosecutor
+| Post Office Box 19519
+| 2500 CM The Hague
+| The Netherlands
+
+Dear Mister Mark P. Dillon,
+
+i received your writing to not to proceed with my request OTP-CR-117/19 on 20-05-2019.
+
+i write you to ask you to reconsider now removed evidence has been restored online again.
+
+In chronological order:
+
+11-12-2017 I informed the chamber of the fact that the medicine used in treatements of psychiatric illnesses are poison. The proof exists of a url to the European Chemical Agency, showing that Haldol is a toxic substance (toxic if swallowed accompanied by a skull en bones).
+
+This link worked a the time the chamber member were informed.
+
+23-01-2018 The Chamber votes in favour of the Wet Forensische Zorg, Wet verplichte GGZ, Wet Zorg en Dwang knowing that the medicine used in these treatements are poison.
+
+05-10-2018 I inform the King of the fact that these medicine are poison
+
+01-01-2019 The Wet Forensische Zorg is activated
+
+10-01-2019 I inform local authorities of the informednes of both the chamber member and the king.
+
+21-01-2019 I inform the Office of the Prosecutor with proof that these medicine are poison and proof of the informedness of the King and the chamber members.
+
+23-01-2019 I withdraw the request to arrest king and chamber member from the local authorities. They didn’t react at all.
+
+06-02-2019 The information on the ECHA website about Haldol being a poison is removed and a “nothing wrong with it” version is added
+
+25-02-2019 After consideration i decided to formaly ask the king and chamber members to be prosecuted.
+
+27-02-2019 I noticed that the site was updated and informed the Office of the Prosecutor about it.
+
+20-05-2019 The Prosecutor informs me of his decision to not to proceed, mentioning the he could reconsider if new evidence arises.
+
+25-06-2019 I talk to members of ECHA on twitter and got the link to the proof restored.
+
+| You can see the evidence that Haldol is a poison on
+
+https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
+
+| You can see the email that informed the chamber of http://kamer.rtfd.io/
+| You can see the email that informed the king on http://koning.rtfd.io/
+
+Knowing that the proof that Haldol is a poison was offline when you reached your conclusion to not to proceed, could you reconsider your conclusion now this proof is back online again ?
+
+Bart Thate - bthate@dds.nl/thatebart@gmail.com
+
+PROSECUTOR
+==========
 
 "The Office of the Prosecutor has carefully examined your latest
 communication. I regret to advise you that the Prosecutor has confirmed that
@@ -62,16 +135,7 @@ Article 12) or  where the Security Council refers the situation to the Court
 appears, after careful re-examination, to relate to matters outside the
 jurisdiction of the Court."
 
-
 CONCLUSION
 ==========
-
-The prosecutor concludes a "not a basis to proceed" based on the
-communication received. The communication contains a "guilty plee" of the 
-king, saying he knows the medicine he uses in his "treatements" are poison. 
-
-This guilty plee in itself is enough to have the king arrested for
-genocide, for using the law to administer poison (and not his "can't do damage"
-medicine)
 
 Not a basis to proceed means the king is doing his genocide.

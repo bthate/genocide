@@ -5,6 +5,8 @@ The prosecutor concludes a "no basis to proceed" based on the communication rece
 
 "knowing it's poison" in itself is enough to have the king arrested for genocide, for using laws to administer poison (and not his "can't do damage" medicine).
 
+No basis to proceed means the king is doing his genocide.
+
 TO THE KING
 ===========
 
@@ -136,7 +138,7 @@ jurisdiction of the Court."
 CONCLUSION
 ==========
 
-Not to be precluded from reconsideration, the court will pronounce it's "inside the jurisdiction" and arrest the king to stop his genocide.
+Not within the jurisidiction means the king is doing his genocide.
 
 .. toctree::
     :hidden:

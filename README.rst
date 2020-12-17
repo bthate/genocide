@@ -74,5 +74,4 @@ This guilty plee in itself is enough to have the king arrested for
 genocide, for using the law to administer poison (and not his "can't do damage"
 medicine)
 
-Not to be precluded from reconsideration, the court will pronounce it's
-"inside the jurisdiction" and arrest the king to stop his genocide.
+Not a basis to proceed means the king is doing his genocide.

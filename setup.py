@@ -13,11 +13,11 @@ def read():
 
 setup(
     name='genocide',
-    version='16',
+    version='17',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
-    description="GENOCIDE 16 | OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io",
+    description="No basis to proceed means the king is doing his genocide",
     long_description=read(),
     license='Public Domain',
     install_requires=["botlib"],

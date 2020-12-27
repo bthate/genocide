@@ -1,72 +1,28 @@
-# GENOCIDE - the king of the netherlands commits genocide
+# GENOCIDE - no basis to proceed means the king is doing his genocide
 #
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-"show suicide stats"
+"suicide stats in the netherlands"
 
-startdate = "2018-10-05 00:00:00"
-source = "https://github.com/bthate/genocide"
+# imports
 
-import datetime, random, time
+import datetime
+import random
+import time
 
-from bot.bus import bus
 from bot.clk import Repeater
-from bot.hdl import Event
+from bot.hdl import Bus, Event
 from bot.obj import Object, get, keys, items, values
-from bot.prs import elapsed
+from bot.prs import elapsed, parse_time
 
-year_formats = [
-    "%b %H:%M",
-    "%b %H:%M:%S",
-    "%a %H:%M %Y",
-    "%a %H:%M",
-    "%a %H:%M:%S",
-    "%Y-%m-%d",
-    "%d-%m-%Y",
-    "%d-%m",
-    "%m-%d",
-    "%Y-%m-%d %H:%M:%S",
-    "%d-%m-%Y %H:%M:%S",
-    "%d-%m %H:%M:%S",
-    "%m-%d %H:%M:%S",
-    "%Y-%m-%d %H:%M",
-    "%d-%m-%Y %H:%M",
-    "%d-%m %H:%M",
-    "%m-%d %H:%M",
-    "%H:%M:%S",
-    "%H:%M"
-]
+# defines
 
-def day():
-    "return this day"
-    return str(datetime.datetime.today()).split()[0]
+def __dir__():
+    return ("sts", "init")
 
-def get_time(daystr):
-    "extract time from string"
-    for f in year_formats:
-        try:
-            t = time.mktime(time.strptime(daystr, f))
-            return t
-        except ValueError:
-            pass
-
-def to_day(daystring):
-    "extract time from string"
-    line = ""
-    daystr = str(daystring)
-    for word in daystr.split():
-        if "-" in word:
-            line += word + " "
-        elif ":" in word:
-            line += word
-    if "-" not in line:
-        line = day() + " " + line
-    try:
-        return get_time(line.strip())
-    except ValueError:
-        pass
-
-starttime = to_day(startdate)
+source = "https://github.com/bthate/genocide"
+startdate = "2018-10-05 00:00:00"
+starttime = parse_time(startdate)
 
 def init(kernel):
     "loop through all stats and start some"
@@ -81,9 +37,13 @@ def init(kernel):
                 repeater = Repeater(sec, stat, e, name=key)
                 repeater.start()
 
+# classes
+
 class ENOSTATS(Exception):
 
     "no stats available" 
+
+# functions
 
 def seconds(nrs, period="jaar"):
     "return numner of seconds in a period of time"
@@ -100,7 +60,9 @@ def nr(name):
                 return get(obj, n)
     raise ENOSTATS(name)
 
-def sts(event, **kwargs):
+# commands
+
+def sts(event):
     "show suicide stats since informedness (sts)"
     txt = "Sinds %s\n" % time.ctime(starttime)
     delta = time.time() - starttime
@@ -113,7 +75,7 @@ def sts(event, **kwargs):
             txt += "\n%s #%s %s %s" % (key.upper(), nrtimes, get(tags, key, ""), get(zorg, random.choice(list(keys(zorg))), ""))
     event.reply(txt.strip())
 
-def stat(e, **kwargs):
+def stat(e):
     "show specific suicide stats (stat)"
     name = e.rest or "suicide"
     if "." in name:
@@ -137,7 +99,9 @@ def stat(e, **kwargs):
             txt += " %s" % get(tags, name)
         else:
             txt += " %s" % random.choice(list(values(tags)))
-        bus.announce(txt)
+        Bus.announce(txt)
+
+# defines
 
 #:
 cijfers = Object()
@@ -611,6 +575,20 @@ urls.rechter = "https://www.ggdghorkennisnet.nl/?file=43865&m=1541606110&action=
 urls.psychosestoornis = "https://www.volksgezondheidenzorg.info/echi-indicators/mortality#node-disease-specific-mortality"
 
 #:
+zorg = Object()
+zorg.interventie = "een interventie, bestaande uit een vorm van verzorging, bejegening, behandeling, begeleiding of bescherming"
+zorg.toediening = "toediening van medicatie, vocht en voeding, regelmatige medische controle of andere medische handelingen"
+zorg.maatregel = "pedagogische of therapeutische maatregelen"
+zorg.opname = "opname in een accommodatie"
+zorg.beperking = "beperking van de bewegingsvrijheid"
+zorg.seperatie = "afzondering of separatie in een daartoe geschikte verblijfsruimte"
+zorg.beperking = "beperking van het recht op het ontvangen van bezoek of het gebruik van communicatiemiddelen"
+zorg.toezicht = "toezicht op betrokkene"
+zorg.onderzoek = "onderzoek aan kleding of lichaam"
+zorg.controle = "controle op de aanwezigheid van gedrag beïnvloedende middelen"
+zorg.beperkingen = "beperkingen in de vrijheid het eigen leven in te richten, die tot gevolg hebben dat betrokkene iets moet doen of nalaten."
+
+#:
 wanted = Object()
 wanted.oorzaak = oorzaak
 wanted.pogingen = pogingen
@@ -627,436 +605,3 @@ ziekenhuis.y2014 = 8500
 poging = Object()
 poging.ziekenhuis = ziekenhuis.y2014
 poging.seh = seh.y2014
-
-#:
-zorg = Object()
-zorg.interventie = "een interventie, bestaande uit een vorm van verzorging, bejegening, behandeling, begeleiding of bescherming"
-zorg.toediening = "toediening van medicatie, vocht en voeding, regelmatige medische controle of andere medische handelingen"
-zorg.maatregel = "pedagogische of therapeutische maatregelen"
-zorg.opname = "opname in een accommodatie"
-zorg.beperking = "beperking van de bewegingsvrijheid"
-zorg.seperatie = "afzondering of separatie in een daartoe geschikte verblijfsruimte"
-zorg.beperking = "beperking van het recht op het ontvangen van bezoek of het gebruik van communicatiemiddelen"
-zorg.toezicht = "toezicht op betrokkene"
-zorg.onderzoek = "onderzoek aan kleding of lichaam"
-zorg.controle = "controle op de aanwezigheid van gedrag beïnvloedende middelen"
-zorg.beperkingen = "beperkingen in de vrijheid het eigen leven in te richten, die tot gevolg hebben dat betrokkene iets moet doen of nalaten."
-
-#:
-gemeenten = """Amsterdam
-Aa en Hunze
-Aalburg
-Aalsmeer
-Aalten
-Achtkarspelen
-Alblasserdam
-Albrandswaard
-Alkmaar
-Almelo
-Almere
-Alphen aan den Rijn
-Alphen-Chaam
-Ameland
-Amersfoort
-Amstelveen
-Amsterdam
-Apeldoorn
-Appingedam
-Arnhem
-Assen
-Asten
-Baarle-Nassau
-Baarn
-Barendrecht
-Barneveld
-Bedum
-Beek
-Beemster
-Beesel
-Bellingwedde
-Bergeijk
-Bergen (Limburg)
-Bergen (Noord-Holland)
-Bergen op Zoom
-Berkelland
-Bernheze
-Best
-Beuningen
-Beverwijk
-Binnenmaas
-Bladel
-Blaricum
-Bloemendaal
-Bodegraven-Reeuwijk
-Boekel
-Bonaire
-Borger-Odoorn
-Borne
-Borsele
-Boxmeer
-Boxtel
-Breda
-Brielle
-Bronckhorst
-Brummen
-Brunssum
-Bunnik
-Bunschoten
-Buren
-Bussum
-Capelle aan den IJssel
-Castricum
-Coevorden
-Cranendonck
-Cromstrijen
-Cuijk
-Culemborg
-Dalfsen
-Dantumadeel
-De Bilt
-De Friese Meren
-De Marne
-De Ronde Venen
-De Wolden
-Delft
-Delfzijl
-Den Haag s-Gravenhage
-Den Helder
-Deurne
-Deventer
-Diemen
-Dinkelland
-Doesburg
-Doetinchem
-Dongen
-Dongeradeel
-Dordrecht
-Drechterland
-Drimmelen
-Dronten
-Druten
-Duiven
-Echt-Susteren
-Edam-Volendam
-Ede
-Eemnes
-Eemsmond
-Eersel
-Eijsden-Margraten
-Eindhoven
-Elburg
-Emmen
-Enkhuizen
-Enschede
-Epe
-Ermelo
-Etten-Leur
-Ferwerderadeel
-Geertruidenberg
-Geldermalsen
-Geldrop-Mierlo
-Gemert-Bakel
-Gennep
-Giessenlanden
-Gilze en Rijen
-Goeree-Overflakkee
-Goes
-Goirle
-Gorinchem (Gorcum of Gorkum)
-Gouda
-Grave
-Groesbeek
-Groningen
-Grootegast
-Gulpen-Wittem
-Haaksbergen
-Haaren
-Haarlem
-Haarlemmermeer
-Halderberge
-Hardenberg
-Harderwijk
-Hardinxveld-Giessendam
-Haren
-Harlingen
-Hattem
-Heemskerk
-Heemstede
-Heerde
-Heerenveen
-Heerhugowaard
-Heerlen
-Heeze-Leende
-Heiloo
-Hellendoorn
-Hellevoetsluis
-Helmond
-Hendrik-Ido-Ambacht
-Hengelo (Overijssel)
-s-Hertogenbosch (Den Bosch)
-Het Bildt
-Heumen
-Heusden
-Hillegom
-Hilvarenbeek
-Hilversum
-Hof van Twente
-Hollands Kroon
-Hoogeveen
-Hoogezand-Sappemeer
-Hoorn
-Horst aan de Maas
-Houten
-Huizen
-Hulst
-IJsselstein
-Kaag en Braassem
-Kampen
-Kapelle
-Katwijk
-Kerkrade
-Koggenland
-Kollumerland en Nieuwkruisland
-Korendijk
-Krimpen aan den IJssel
-Krimpenerwaard
-Laarbeek
-Landerd
-Landgraaf
-Landsmeer
-Langedijk
-Lansingerland
-Laren
-Leek
-Leerdam
-Leeuwarden
-Leeuwarderadeel
-Leiden
-Leiderdorp
-Leidschendam-Voorburg
-Lelystad
-Leudal
-Leusden
-Lingewaal
-Lingewaard
-Lisse
-Littenseradeel
-Lochem
-Loon op Zand
-Lopik
-Loppersum
-Losser
-Maasdriel
-Maasgouw
-Maassluis
-Maastricht
-Marum
-Medemblik
-Meerssen
-Menaldumadeel
-Menterwolde
-Meppel
-Middelburg
-Midden-Delfland
-Midden-Drenthe
-Mill en Sint Hubert
-Moerdijk
-Molenwaard
-Montferland
-Montfoort
-Mook en Middelaar
-Muiden
-Naarden
-Neder-Betuwe
-Nederweert
-Neerijnen
-Nieuwegein
-Nieuwkoop
-Nijkerk
-Nijmegen
-Nissewaard
-Noord-Beveland
-Noordenveld
-Noordoostpolder
-Noordwijk
-Noordwijkerhout
-Nuenen, Gerwen en Nedercoreten
-Nunspeet
-Nuth
-Oegstgeest
-Oirschot
-Oisterwijk
-Oldambt
-Oldebroek
-Oldenzaal
-Olst-Wijhe
-Ommen
-Onderbanken
-Oost Gelre
-Oosterhout
-Ooststellingwerf
-Oostzaan
-Opmeer
-Opsterland
-Oss
-Oud-Beijerland
-Oude IJsselstreek
-Ouder-Amstel
-Oudewater
-Overbetuwe
-Papendrecht
-Peel en Maas
-Pekela
-Pijnacker-Nootdorp
-Purmerend
-Putten
-Raalte
-Reimerswaal
-Renkum
-Renswoude
-Reusel-De Mierden
-Rheden
-Rhenen
-Ridderkerk
-Rijnwaarden
-Rijssen-Holten
-Rijswijk
-Roerdalen
-Roermond
-Roosendaal
-Rotterdam
-Rozendaal
-Rucphen
-Saba
-Schagen
-Scherpenzeel
-Schiedam
-Schiermonnikoog
-Schijndel
-Schinnen
-Schouwen-Duiveland
-Simpelveld
-Sint Anthonis
-Sint Eustatius
-Sint-Michielsgestel
-Sint-Oedenrode
-Sittard-Geleen
-Sliedrecht
-Slochteren
-Sluis
-Smallingerland
-Soest
-Someren
-Son en Breugel
-Stadskanaal
-Staphorst
-Stede Broec
-Steenbergen
-Steenwijkerland
-Stein
-Stichtse Vecht
-Strijen
-Ten Boer
-Terneuzen
-Terschelling
-Texel
-Teylingen
-Tholen
-Tiel
-Tietjerksteradeel
-Tilburg
-Tubbergen
-Twenterand
-Tynaarlo
-Uden
-Uitgeest
-Uithoorn
-Urk
-Utrecht
-Utrechtse Heuvelrug
-Vaals
-Valkenburg aan de Geul
-Valkenswaard
-Veendam
-Veenendaal
-Veere
-Veghel
-Veldhoven
-Velsen
-Venlo
-Venray
-Vianen
-Vlaardingen
-Vlagtwedde
-Vlieland
-Vlissingen
-Voerendaal
-Voorschoten
-Voorst
-Vught
-Waalre
-Waalwijk
-Waddinxveen
-Wageningen
-Wassenaar
-Waterland
-Weert
-Weesp
-Werkendam
-West Maas en Waal
-Westerveld
-Westervoort
-Westland
-Weststellingwerf
-Westvoorne
-Wierden
-Wijchen
-Wijdemeren
-Wijk bij Duurstede
-Winsum
-Winterswijk
-Woensdrecht
-Woerden
-Wormerland
-Woudenberg
-Woudrichem
-Zaanstad
-Zaltbommel
-Zandvoort
-Zederik
-Zeevang
-Zeewolde
-Zeist
-Zevenaar
-Zoetermeer
-Zoeterwoude
-Zuidhorn
-Zuidplas
-Zundert
-Zutphen
-Zwartewaterland
-Zwijndrecht
-Zwolle""".split("\n")
-
-#:
-year_formats = [
-    "%b %H:%M",
-    "%b %H:%M:%S",
-    "%a %H:%M %Y",
-    "%a %H:%M",
-    "%a %H:%M:%S",
-    "%Y-%m-%d",
-    "%d-%m-%Y",
-    "%d-%m",
-    "%m-%d",
-    "%Y-%m-%d %H:%M:%S",
-    "%d-%m-%Y %H:%M:%S",
-    "%d-%m %H:%M:%S",
-    "%m-%d %H:%M:%S",
-    "%Y-%m-%d %H:%M",
-    "%d-%m-%Y %H:%M",
-    "%d-%m %H:%M",
-    "%m-%d %H:%M",
-    "%H:%M:%S",
-    "%H:%M"
-]

@@ -12,7 +12,7 @@ from bot.trm import execute, termsave, termreset
 
 # defines
 
-wd = os.path.expanduser("~/.botd")
+wd = os.path.expanduser("~/.genocide")
 
 # classes
 

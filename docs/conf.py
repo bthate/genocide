@@ -63,7 +63,7 @@ html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
 
 rst_prolog = """.. image:: genocide3line.png
-    :height: 3.1cm
+    :height: 2.7cm
     :width: 100%
 
 .. title:: the king of the netherlands commits genocide

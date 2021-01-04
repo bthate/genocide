@@ -17,7 +17,7 @@ setup(
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
-    description="Not a basis to proceed means the king is doing his genocide.",
+    description="One decision of a judge that it is after 2002",
     long_description=read(),
     license='Public Domain',
     install_requires=["opl"],

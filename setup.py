@@ -20,7 +20,7 @@ setup(
     description="Not a basis to proceed means the king is doing his genocide.",
     long_description=read(),
     license='Public Domain',
-    install_requires=["botlib"],
+    install_requires=["opl"],
     packages=["genocide"],
     namespace_packages=["genocide"],
     zip_safe=False,

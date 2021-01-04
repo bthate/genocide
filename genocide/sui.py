@@ -10,10 +10,10 @@ import datetime
 import random
 import time
 
-from bot.clk import Repeater
-from bot.hdl import Bus, Event
-from bot.obj import Object, get, keys, items, values
-from bot.prs import elapsed, parse_time
+from opl import Object, get, keys, items, values
+from opl.clk import Repeater
+from opl.hdl import Bus, Event
+from opl.prs import elapsed, parse_time
 
 # defines
 

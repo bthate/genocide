@@ -1,11 +1,12 @@
+# OPL - object programming library (mbx.py)
+#
+# this file is placed in the public domain
+
 "mailbox"
 
 import mailbox
+import opl
 import os
-import time
-import bot.obj
-
-from bot.obj import Object, save, update
 
 bdmonths = ['Bo', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
             'Sep', 'Oct', 'Nov', 'Dec']
@@ -25,7 +26,7 @@ monthint = {
     'Dec': 12
 }
 
-class Email(Object):
+class Email(opl.Default):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,12 +43,12 @@ def to_date(date):
             raise ValueError
         int(res[3])
         ddd = "{:4}-{:#02}-{:#02} {:6}".format(res[3], monthint[res[2]], int(res[1]), res[4])
-    except (IndexError, KeyError, ValueError):
+    except (IndexError, KeyError, ValueError) as ex:
         try:
             if "+" in res[4]:
-                raise ValueError
+                raise ValueError from ex
             if "-" in res[4]:
-                raise ValueError
+                raise ValueError from ex
             int(res[4])
             ddd = "{:4}-{:#02}-{:02} {:6}".format(res[4], monthint[res[1]], int(res[2]), res[3])
         except (IndexError, KeyError, ValueError):
@@ -69,7 +70,7 @@ def to_date(date):
 def mbx(event):
     if not event.args:
         return
-    if os.path.exists(os.path.join(bot.obj.wd, "store", "genocide.mbx.Email")):
+    if os.path.exists(os.path.join(opl.wd, "store", "opl.mbx.Email")):
         event.reply("email is already scanned")
         return
     fn = os.path.expanduser(event.args[0])
@@ -87,18 +88,17 @@ def mbx(event):
         pass
     for m in thing:
         o = Email()
-        update(o, Object(m))
-        if "Date" in o:
+        opl.update(o, opl.Object(m))
+        if "Date" in opl.keys(o):
             sdate = os.sep.join(to_date(o.Date).split())
         else:
-            print("no date %s" % o.subject)
             continue
         o.text = ""
         for payload in m.walk():
             if payload.get_content_type() == 'text/plain':
                 o.text += payload.get_payload()
         o.text = o.text.replace("\\n", "\n")
-        save(o, stime=sdate)
+        opl.save(o, stime=sdate)
         nr += 1
     if nr:
         event.reply("ok %s" % nr)

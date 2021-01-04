@@ -1,32 +1,99 @@
 #!/usr/bin/python3
-# BOTLIB - bot
+# GENOCIDE - One decision from a judge that it is after 2002 (bin/genocide)
 #
 # this file is placed in the public domain
 
-import atexit, os, pwd, readline, sys
+"""GENOCIDE(1)                    User Commands                     GENOCIDE(1)
 
-from bot.hdl import Command, Handler, cmd
-from bot.prs import parse_cli
-from bot.thr import launch
-from bot.trm import execute, termsave, termreset
+NAME
+        GENOCIDE -  One decision from a judge that it is after 2002 
+
+SYNOPSIS
+        GENOCIDE provides aa pure python3 IRC chat bot demo that can run as a
+        background daemon for 24/7 a day presence in a IRC channel. You can
+        use it to display RSS feeds, act as a UDP to IRC gateway, program your
+        own commands for it, have it log objects on disk and search them and
+        scan emails for correspondence analysis. GENOCIDE uses a JSON in file
+        database with a versioned readonly storage. It reconstructs objects
+        based on type information in the path and uses a "dump OOP and use 
+        OP" programming library where the methods are factored out into
+        functions that use the object as the first argument. 
+        
+        GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
+
+EXAMPLES
+        $ sudo genocideinst
+        genocide.service - GENOCIDE - One decision from a judge that it is after 
+                                      2002
+             Loaded: loaded (/etc/systemd/system/genocide.service; enabled;
+                             vendor preset: enabled)
+             Active: active (running) since Sun 2021-01-03 00:00:31 CET; 
+                     5ms ago
+             Main PID: 15922 ((genocide))
+             Tasks: 1 (limit: 38228)
+             Memory: 384.0K
+             CGroup: /system.slice/genocide.service
+                     └─15922 (genocide)
+
+        Jan 03 00:00:31 pop-os systemd[1]: Started GENOCIDE - One decision fro
+                                           a judge that its is after 2002
+
+        $ genocide cmd
+        cfg,cmd,dpl,edt,fnd,ftc,hlp,icfg,rem,rss,tsk,udp,ver
+
+        $ genocide cfg server=irc.freenode.net channel=\#dunkbots nick=okbot
+        ok
+
+        $ genocide mods=irc,rss,udp -s
+        >
+
+        $ genocide rss https://www.reddit.com/r/python/.rss
+        ok
+        
+        $ genocide ftc
+        fetched 20
+                        
+USAGE
+        genocide <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
+
+OPTIONS
+        -d		daemon mode
+        -s 		start a shell
+        -v		be verbose
+        -h		print this message
+        -x		enable debug
+        
+        mods= let's you starts modules on boot, possbile modules to
+        load are: irc,rss,udp
+"""
+
+import os, sys ; sys.path.insert(0, os.getcwd())
+
+import atexit
+import opl
+import os
+import readline
+import sys
+import threading
+import time
 
 # defines
 
-wd = os.path.expanduser("~/.genocide")
+wd = os.path.abspath(os.path.expanduser("~/.genocide"))
 
 # classes
 
-class Console(Handler):
+class Console(opl.hdl.Handler):
 
     "console class"
 
     def __init__(self):
         super().__init__()
-        self.register("cmd", cmd)
+        self.register("cmd", opl.hdl.cmd)
 
     def announce(self, txt):
         "silence announcing"
-        self.direct(txt)
+        #self.direct(txt)
 
     def direct(self, txt):
         print(txt)
@@ -43,7 +110,7 @@ class Console(Handler):
 
     def poll(self):
         "wait for input"
-        return Command(input("> "))
+        return opl.hdl.Command(input("> "))
 
     def say(self, channel, txt):
         "strip channel from output"
@@ -52,33 +119,20 @@ class Console(Handler):
     def start(self):
         "start console"
         super().start()
-        launch(self.input)
+        opl.thr.launch(self.input)
+
+class Mini(opl.hdl.Handler):
+
+    def direct(self, txt):
+        print(txt)
 
 # functions
 
-def complete(text, state):
-    "complete matches"
-    matches = []
-    if text:
-        matches = [s for s in cmds if s and s.startswith(text)]
-    else:
-        matches = cmds[:]
-    try:
-        return matches[state]
-    except IndexError:
-        return None
-
-def setcompleter(commands):
-    "set the completer"
-    cmds.extend(commands)
-    readline.set_completer(complete)
-    readline.parse_and_bind("tab: complete")
-    atexit.register(lambda: readline.set_completer(None))
-
 def daemon():
+    "fork to child proces"
     pid = os.fork()
     if pid != 0:
-        termreset()
+        opl.trm.termreset()
         os._exit(0)
     os.setsid()
     os.umask(0)
@@ -89,25 +143,47 @@ def daemon():
     os.dup2(so.fileno(), sys.stdout.fileno())
     os.dup2(se.fileno(), sys.stderr.fileno())
 
+def opcheck(ops, cfg):
+    for o in ops:
+        if o in cfg.opts:
+             return True    
+    return False
+
 def main():
-    import bot.obj
-    cfg = parse_cli(wd)
-    if "d" in cfg.opts:
-        daemon()
-        h = Handler()
-    else:
-        h = Console()
-    h.walk("genocide")
-    if cfg.txt:
+    "main function"
+    cfg = opl.prs.parse_cli(wd)
+    if opcheck("r", cfg):
+        opl.wd = "/var/lib/opl"
+        opl.utl.privileges("opl")
+    if opcheck("h", cfg):
+        return print(__doc__)
+    if opcheck("bx", cfg):
+        print("GENOCIDE %s - One decision from a judge that it is after 2002 started at %s" % (opl.__version__, time.ctime(time.time())))
+    if opcheck("x", cfg):
+        opl.debug = True
+    h = Mini()
+    h.walk("genocide", "genocide")
+    if cfg.txt or opcheck("n", cfg):
         return h.cmd(cfg.otxt)
-    h.init(cfg.sets.mods)
-    h.init(cfg.sets.mods, "genocide")
+    if opcheck("d", cfg):
+        daemon()
     h.start()
-    h.wait()
+    for thr in h.init(cfg.sets.mods):
+        if thr:
+            thr.join()
+    for thr in h.init(cfg.sets.mods, "genocide"):
+        if thr:
+            thr.join()
+    if opcheck("s", cfg):
+        c = Console()
+        c.clone(h)
+        c.start()
+    if opcheck("sdw", cfg):
+        h.wait()
 
 # runtime
 
 cmds = []
-     
-execute(main)
+starttime = time.time()
+opl.trm.console(main)
 os._exit(0)

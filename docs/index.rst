@@ -1,12 +1,6 @@
 GENOCIDE
 ########
 
-The prosecutor concludes a "not a basis to proceed" based on the communication received, however the communication contains a "guilty plee" of the king, saying he knows the medicine he uses in his "treatements" are poison. 
-
-"knowing it's poison" in itself is enough to have the king arrested for genocide, for using laws to administer poison (and not his "can't do damage" medicine).
-
-Not a basis to proceed means the king is doing his genocide.
-
 TO THE KING
 ===========
 
@@ -120,25 +114,40 @@ Bart Thate - bthate@dds.nl/thatebart@gmail.com
 PROSECUTOR
 ==========
 
-"The Office of the Prosecutor has carefully examined your latest
-communication. I regret to advise you that the Prosecutor has confirmed that
-the communication does not introduce new facts or evidence that would alter
-the previious determination that there is not a basis to procees under the
-Rome Statute. Under the Rome Stature, the Court may only exercise
-jurisdiction over genocide, crimes against humanity and war crimes, as
-defined in the Rome Statute (Articles 6 to 8), when commited on or after 1
-July 2002 (Article 11). In addition, the Court may only exercise
-jurisdiction over such crimes committed on the territory of a State that has
-accepted the jurisdiction of the Court or by a national of such State(
-Article 12) or  where the Security Council refers the situation to the Court
-(Atricle 13). In the light of these requirements, your communication still
-appears, after careful re-examination, to relate to matters outside the
-jurisdiction of the Court."
+requirements:
+
+"Under the Rome Stature, the Court may only exercise jurisdiction over genocide, crimes against
+humanity and war crimes, as defined in the Rome Statute (Articles 6 to 8), when commited on or 
+after 1 July 2002 (Article 11). In addition, the Court may only exercise jurisdiction over
+such crimes committed on the territory of a State that has accepted the jurisdiction of the
+Court or by a national of such State( Article 12) or where the Security Council refers the
+situation to the Court (Atricle 13)."
+
+Since it's after 2002, the netherlands does the great member dance of
+cooperating done, and the "as defined in the Rome Statute" should be
+reason not to prosecute the king of the netherlands for his genocide.
+
+For the purpose of this Statute, "genocide" means any of the following acts committed with intent
+to destroy, in whole or in part, a national, ethnical, racial or religious group, as such:
+
+ * Killing members of the group;
+ * Causing serious bodily or mental harm to members of the group;
+ * Deliberately inflicting on the group conditions of life calculated to bring about its physical
+   destruction in whole or in part;
+ * Imposing measures intended to prevent births within the group;
+ * Forcibly transferring children of the group to another group.
+
+This argument would lead to doing a genocide on a other group(s) then mentioned.
 
 CONCLUSION
 ==========
 
-Not a basis to proceed means the king is doing his genocide.
+So the king does a genocide on other then described groups.
+
+One decision from a judge to have this case called genocide and after 2002
+and call this "inside his jurisdiction over genocide" that he can give a
+arrest warrent for the king, have his arrested, pronounce guilt of
+genocide, placed into his cell and declare the END over genocide.
 
 .. toctree::
     :hidden:

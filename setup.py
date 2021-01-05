@@ -17,7 +17,7 @@ setup(
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
-    description="One decision of a judge that it is after 2002",
+    description="It’s after 2002, the International Criminal Court has jurisdiction over genocide.",
     long_description=read(),
     license='Public Domain',
     install_requires=["opl"],

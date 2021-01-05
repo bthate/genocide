@@ -9,9 +9,13 @@ on the territory of a State that has accepted the jurisdiction of the Court
 or by a national of such State( Article 12) or where the Security Council
 refers the situation to the Court (Article 13)."
 
-One decision from a judge that it's after 2002 and he has jurisiction over
-the king genocide, he can give an arrest warrent for the king, find the king
-guilty of genocide, place him into his cell and declare the END over genocide.
+It's after 2002, the court had jurisdiction over genocide, the kingdom of the
+netherlands is a cooperative state (the king has pleaded quilty).
+
+One decision of a judge at the international criminal court that he has
+jurisiction over the king's genocide, he can give an arrest warrant for the
+king, find him guilty of genocide, place him into his cell and declare the END
+over genocide.
 
 To reconsider
 =============

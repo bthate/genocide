@@ -17,7 +17,7 @@ jurisiction over the king's genocide, he can give an arrest warrant for the
 king, find him guilty of genocide, place him into his cell and declare the END
 over genocide.
 
-To reconsider
+to reconsider
 =============
 
 | Information and Evidence Unit

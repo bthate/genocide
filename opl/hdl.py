@@ -267,9 +267,9 @@ class Handler(opl.Object):
 def cmd(handler, obj):
     "dispatch to command"
     obj.parse()
-    f = getattr(opl.cmd, obj.cmd, None)
+    f = opl.get(handler.cmds, obj.cmd, None)
     if not f:
-        f = opl.get(handler.cmds, obj.cmd, None)
+        f = getattr(opl.cmd, obj.cmd, None)
     res = None
     if f:
         res = f(obj)

@@ -197,7 +197,7 @@ class Handler(opl.Object):
             if o.__code__.co_argcount == 1:
                 if o.__code__.co_varnames[0] == "obj":
                     self.register(key, o)
-                elif o.__code__.co_varnames[0] == "event":
+                elif "event" == o.__code__.co_varnames[0] == "event":
                     self.cmds[key] = o
                 self.modnames[key] = o.__module__
         for _key, o in inspect.getmembers(mod, inspect.isclass):
@@ -253,7 +253,8 @@ class Handler(opl.Object):
             name = list(opl.utl.spl(pkgnames))[0]
         for pn in opl.utl.spl(pkgnames):
             mod = self.load(pn)
-            self.fromdir(mod.__path__[0], name)
+            if mod.__path__:
+                self.fromdir(list(mod.__path__)[0], name)
 
     def wait(self):
         "wait for handler stopped status"
@@ -266,9 +267,9 @@ class Handler(opl.Object):
 def cmd(handler, obj):
     "dispatch to command"
     obj.parse()
-    f = opl.get(handler.cmds, obj.cmd, None)
+    f = getattr(opl.cmd, obj.cmd, None)
     if not f:
-        f = getattr(opl.cmd, obj.cmd, None)
+        f = opl.get(handler.cmds, obj.cmd, None)
     res = None
     if f:
         res = f(obj)

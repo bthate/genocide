@@ -13,7 +13,7 @@ One decision from a judge that it's after 2002 and he has jurisiction over
 the king genocide, he can give an arrest warrent for the king, find the king
 guilty of genocide, place him into his cell and declare the END over genocide.
 
-To reconsider
+to reconsider
 =============
 
 | Information and Evidence Unit

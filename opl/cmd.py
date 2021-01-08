@@ -42,11 +42,10 @@ class Todo(opl.Object):
 def cmd(event):
     "list commands (cmd)"
     bot = opl.hdl.Bus.by_orig(event.orig)
-    c = dir(opl.cmd)
     if bot:
-        c.extend(bot.cmds)
+        c = sorted(dir(opl.cmd))
         if c:
-            event.reply(",".join(sorted(c)))
+            event.reply(",".join(c))
 
 def dne(event):
     "flag as done (dne)"

@@ -92,17 +92,17 @@ population.
 I hope you can stop the above mentioned crimes the king of the netherlands
 and his government are doing.
 
-To the king
+to the king
 ===========
 
 .. image:: informed.jpg
 
-From the king
+from the king
 =============
 
 .. image:: opdehoogte.jpg
 
-From the prosecutor
+from the prosecutor
 ===================
 
 .. image:: OTP2.png

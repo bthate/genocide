@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# GENOCIDE - the king of the netherlands commits genocide
+# GENOCIDE - using the law to administer poison the king commits genocide
 #
 # OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
 
@@ -66,7 +66,7 @@ rst_prolog = """.. image:: genocide3line.png
     :height: 2.7cm
     :width: 100%
 
-.. title:: the king of the netherlands commits genocide
+.. title:: using the law to administer poison the king commits genocide
 """ 
 
 intersphinx_mapping = {

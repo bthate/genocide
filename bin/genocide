@@ -6,11 +6,11 @@
 """GENOCIDE(1)			   User Commands 			 GENOCIDE(1)
 
 NAME
-        GENOCIDE - it's after 2002, the court had jurisdiction over genocide. 
+        GENOCIDE - using the law to administer poison the king commits genocide.
 
 SYNOPSIS
-        GENOCIDE holds a written response where the king confirmed taking note
-        "of what i have written", proof that medicine like zyprexa, haldol, 
+        GENOCIDE holds a written response where the king of the netherlands confirmed
+        taking note "of what i have written", proof that medicine like zyprexa, haldol, 
         abilify and clozapine are poison.
         
 USAGE
@@ -120,7 +120,7 @@ def main():
     if opcheck("h", cfg):
         return print(__doc__)
     if opcheck("bx", cfg):
-        print("GENOCIDE %s - One decision from a judge that it is after 2002 started at %s" % (opl.__version__, time.ctime(time.time())))
+        print("GENOCIDE %s - using the law to administer poison the king commits genocide started at %s" % (opl.__version__, time.ctime(time.time())))
     if opcheck("x", cfg):
         opl.debug = True
     h = Mini()

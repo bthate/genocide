@@ -48,7 +48,7 @@ from op.utl import privileges
 
 # defines
 
-wd = os.path.abspath(os.path.expanduser("~/.op"))
+wd = os.path.abspath(os.path.expanduser("~/.genocide"))
 
 # classes
 

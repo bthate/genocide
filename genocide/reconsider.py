@@ -2,7 +2,7 @@
 #
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-""" request to the prosecutor
+""" to reconsider
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -48,7 +48,7 @@ I hope you can stop the above mentioned crimes the king of the netherlands and h
 
 """
 
-__version__ = 20
+__version__ = 21
 
 def req(event):
     "show request send to the prosecutor"

@@ -3,69 +3,31 @@
 #
 # this file is placed in the public domain
 
-"""GENOCIDE(1)                    User Commands                     GENOCIDE(1)
+"""GENOCIDE(1)			   User Commands 			 GENOCIDE(1)
 
 NAME
-        GENOCIDE -  One decision from a judge that it is after 2002 
+        GENOCIDE - it's after 2002, the court had jurisdiction over genocide. 
 
 SYNOPSIS
-        GENOCIDE provides aa pure python3 IRC chat bot demo that can run as a
-        background daemon for 24/7 a day presence in a IRC channel. You can
-        use it to display RSS feeds, act as a UDP to IRC gateway, program your
-        own commands for it, have it log objects on disk and search them and
-        scan emails for correspondence analysis. GENOCIDE uses a JSON in file
-        database with a versioned readonly storage. It reconstructs objects
-        based on type information in the path and uses a "dump OOP and use 
-        OP" programming library where the methods are factored out into
-        functions that use the object as the first argument. 
+        GENOCIDE holds a written response where the king confirmed taking note
+        "of what i have written", proof that medicine like zyprexa, haldol, 
+        abilify and clozapine are poison.
         
-        GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
-
-EXAMPLES
-        $ sudo genocideinst
-        genocide.service - GENOCIDE - One decision from a judge that it is after 
-                                      2002
-             Loaded: loaded (/etc/systemd/system/genocide.service; enabled;
-                             vendor preset: enabled)
-             Active: active (running) since Sun 2021-01-03 00:00:31 CET; 
-                     5ms ago
-             Main PID: 15922 ((genocide))
-             Tasks: 1 (limit: 38228)
-             Memory: 384.0K
-             CGroup: /system.slice/genocide.service
-                     └─15922 (genocide)
-
-        Jan 03 00:00:31 pop-os systemd[1]: Started GENOCIDE - One decision fro
-                                           a judge that its is after 2002
-
-        $ genocide cmd
-        cfg,cmd,dpl,edt,fnd,ftc,hlp,icfg,rem,rss,tsk,udp,ver
-
-        $ genocide cfg server=irc.freenode.net channel=\#dunkbots nick=okbot
-        ok
-
-        $ genocide mods=irc,rss,udp -s
-        >
-
-        $ genocide rss https://www.reddit.com/r/python/.rss
-        ok
-        
-        $ genocide ftc
-        fetched 20
-                        
 USAGE
-        genocide <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
+        1) genocide <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
+        2) genocide cfg server=<server> channel=<channel> nick=<nick>
+        3) genocide met <userhost>
+        4) genocide rss <url>
+        5) genocide ftc
+        6) genocide cmd
+        7) genocide mods=irc
 
 OPTIONS
-        -d		daemon mode
-        -s 		start a shell
-        -v		be verbose
-        -h		print this message
-        -x		enable debug
-        
-        mods= let's you starts modules on boot, possbile modules to
-        load are: irc,rss,udp
-"""
+        -d              daemon mode
+        -s              start a shell
+        -v              be verbose
+        -h              print this message
+        -x              enable debug"""
 
 import os, sys ; sys.path.insert(0, os.getcwd())
 

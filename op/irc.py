@@ -47,13 +47,19 @@ class Cfg(op.Cfg):
 
     "configuration object"
 
+    channel = "#objectprogramming"
+    nick = "opd"
+    server = "localhost"
+    username = "opd"
+    realname = "Object Programming (OP)"
+
     def __init__(self):
         super().__init__()
-        self.channel = "#objectprogramming"
-        self.nick = "opd"
-        self.server = "localhost"
-        self.username = "opd"
-        self.realname = "Object Programming (OP)"
+        self.channel = Cfg.channel
+        self.nick = Cfg.nick
+        self.realname = Cfg.realname
+        self.server = Cfg.server
+        self.username = Cfg.username
 
 class Event(Event):
 

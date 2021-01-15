@@ -33,6 +33,7 @@ import os, sys ; sys.path.insert(0, os.getcwd())
 
 import atexit
 import op
+import op.irc
 import op.usr
 import os
 import readline
@@ -45,6 +46,8 @@ from op.prs import parse_cli
 from op.thr import launch
 from op.trm import console, termreset
 from op.utl import privileges
+
+import genocide.ver
 
 # defines
 
@@ -120,14 +123,17 @@ def opcheck(ops, cfg):
 
 def main():
     "main function"
+    op.irc.Cfg.channel = "#genocide"
+    op.irc.Cfg.nick = "genocide"
+    op.irc.Cfg.server = "localhost"
     cfg = parse_cli(wd)
     if opcheck("r", cfg):
-        op.wd = cfg.wd = "/var/lib/genocide"
-        privileges("opd")
+        op.wd = cfg.wd = "/var/lib/genocide/"
+        privileges("genocide")
     if opcheck("h", cfg):
         return print(__doc__)
     if opcheck("bx", cfg):
-        print("GENOCIDE %s - using the law to administer poison the king commits genocide started at %s" % (opl.__version__, time.ctime(time.time())))
+        print("GENOCIDE %s - using the law to administer poison the king commits genocide started at %s" % (genocide.ver.__version__, time.ctime(time.time())))
         print(op.format(cfg))
     if opcheck("x", cfg):
         op.debug = True

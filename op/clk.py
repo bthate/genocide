@@ -1,4 +1,4 @@
-# OPL - object programming library (clk.py)
+# OP - Object Programming (clk.py)
 #
 # this file is placed in the public domain
 
@@ -6,9 +6,11 @@
 
 # imports
 
-import opl
+import op
 import threading
 import time
+
+from op.thr import launch
 
 # defines
 
@@ -17,7 +19,7 @@ def __dir__():
 
 # classes
 
-class Timer(opl.Object):
+class Timer(op.Object):
 
     "timer"
 
@@ -28,13 +30,13 @@ class Timer(opl.Object):
         self.args = args
         self.name = kwargs.get("name", "")
         self.kwargs = kwargs
-        self.state = opl.Object()
+        self.state = op.Object()
         self.timer = None
 
     def run(self, *args, **kwargs):
         "run"
         self.state.latest = time.time()
-        opl.thr.launch(self.func, *self.args, **self.kwargs)
+        launch(self.func, *self.args, **self.kwargs)
 
     def start(self):
         "clock"
@@ -63,6 +65,6 @@ class Repeater(Timer):
 
     def run(self, *args, **kwargs):
         "run repeater"
-        thr = opl.thr.launch(self.start, **kwargs)
+        thr = launch(self.start, **kwargs)
         super().run(*args, **kwargs)
         return thr

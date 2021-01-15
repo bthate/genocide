@@ -1,4 +1,4 @@
-# OPL - object programming library (dbs.py)
+# OP - Object Programming (dbs.py)
 #
 # this file is placed in the public domain
 
@@ -6,8 +6,10 @@
 
 # imports
 
-import opl
+import op
 import os
+
+from op.utl import fntime
 
 # defines
 
@@ -22,8 +24,8 @@ def all(otype, selector=None, index=None, timed=None):
     if selector is None:
         selector = {}
     for fn in fns(otype, timed):
-        o = opl.hook(fn)
-        if selector and not opl.search(o, selector):
+        o = op.hook(fn)
+        if selector and not op.search(o, selector):
             continue
         if "_deleted" in o and o._deleted:
             continue
@@ -35,7 +37,7 @@ def all(otype, selector=None, index=None, timed=None):
 def deleted(otype):
     "deleted objects"
     for fn in fns(otype):
-        o = opl.hook(fn)
+        o = op.hook(fn)
         if "_deleted" not in o or not o._deleted:
             continue
         yield fn, o
@@ -45,10 +47,10 @@ def every(selector=None, index=None, timed=None):
     nr = -1
     if selector is None:
         selector = {}
-    for otype in os.listdir(os.path.join(opl.wd, "store")):
+    for otype in os.listdir(os.path.join(op.wd, "store")):
         for fn in fns(otype, timed):
-            o = opl.hook(fn)
-            if selector and not opl.search(o, selector):
+            o = op.hook(fn)
+            if selector and not op.search(o, selector):
                 continue
             if "_deleted" in o and o._deleted:
                 continue
@@ -63,8 +65,8 @@ def find(otype, selector=None, index=None, timed=None):
     if selector is None:
         selector = {}
     for fn in fns(otype, timed):
-        o = opl.hook(fn)
-        if selector and not opl.search(o, selector):
+        o = op.hook(fn)
+        if selector and not op.search(o, selector):
             continue
         if "_deleted" in o and o._deleted:
             continue
@@ -78,8 +80,8 @@ def find_event(e):
     "objects based on event"
     nr = -1
     for fn in fns(e.otype, e.timed):
-        o = opl.hook(fn)
-        if e.gets and not opl.search(o, e.gets):
+        o = op.hook(fn)
+        if e.gets and not op.search(o, e.gets):
             continue
         if "_deleted" in o and o._deleted:
             continue
@@ -92,7 +94,7 @@ def fns(name, timed=None):
     "filenames"
     if not name:
         return []
-    p = os.path.join(opl.wd, "store", name) + os.sep
+    p = os.path.join(op.wd, "store", name) + os.sep
     res = []
     d = ""
     for rootdir, dirs, _files in os.walk(p, topdown=False):
@@ -103,18 +105,18 @@ def fns(name, timed=None):
                 fls = sorted(os.listdir(dd))
                 if fls:
                     p = os.path.join(dd, fls[-1])
-                    if timed and "from" in timed and timed["from"] and opl.utl.fntime(p) < timed["from"]:
+                    if timed and "from" in timed and timed["from"] and fntime(p) < timed["from"]:
                         continue
-                    if timed and timed.to and opl.utl.fntime(p) > timed.to:
+                    if timed and timed.to and fntime(p) > timed.to:
                         continue
                     res.append(p)
-    return sorted(res, key=opl.utl.fntime)
+    return sorted(res, key=fntime)
 
 def last(o):
     "last o"
-    path, l = last_fn(str(opl.get_type(o)))
+    path, l = last_fn(str(op.get_type(o)))
     if  l:
-        opl.update(o, l)
+        op.update(o, l)
     if path:
         spl = path.split(os.sep)
         stp = os.sep.join(spl[-4:])
@@ -130,14 +132,14 @@ def last_type(otype):
     "object of a type"
     fnn = fns(otype)
     if fnn:
-        return opl.hook(fnn[-1])
+        return op.hook(fnn[-1])
 
 def last_fn(otype):
     "filename of last object of a type"
     fn = fns(otype)
     if fn:
         fnn = fn[-1]
-        return (fnn, opl.hook(fnn))
+        return (fnn, op.hook(fnn))
     return (None, None)
 
 def list_files(wd):

@@ -1,4 +1,4 @@
-# OPL - object programming library (thr.py)
+# OP - Object Programming (thr.py)
 #
 # this file is placed in the public domain
 
@@ -6,9 +6,11 @@
 
 # imports
 
-import opl
+import op
 import queue
 import threading
+
+from op.utl import get_exception
 
 # classes
 
@@ -23,7 +25,7 @@ class Thr(threading.Thread):
         self._queue = queue.Queue()
         self._queue.put((func, args))
         self.sleep = 0
-        self.state = opl.Object()
+        self.state = op.Object()
 
     def __iter__(self):
         return self
@@ -42,12 +44,12 @@ class Thr(threading.Thread):
         func, args = self._queue.get()
         target = None
         if args:
-            target = opl.Default(vars(args[0]))
+            target = op.Default(vars(args[0]))
         self.setName((target and target.txt and target.txt.split()[0]) or self._name)
         try:
             self._result = func(*args)
         except Exception as ex:
-            print(opl.utl.get_exception())
+            print(get_exception())
 
     def wait(self, timeout=None):
         "wait for thread to finish"
@@ -58,7 +60,7 @@ class Thr(threading.Thread):
 
 def launch(func, *args, **kwargs):
     "run a function in a thread"
-    name = kwargs.get("name", opl.get_name(func))
+    name = kwargs.get("name", op.get_name(func))
     t = Thr(func, *args, name=name, daemon=True)
     t.start()
     return t

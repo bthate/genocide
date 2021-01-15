@@ -1,11 +1,11 @@
-# OPL - object programming library (mbx.py)
+# OP - Object Programming (mbx.py)
 #
 # this file is placed in the public domain
 
 "mailbox"
 
 import mailbox
-import opl
+import op
 import os
 
 bdmonths = ['Bo', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
@@ -26,13 +26,16 @@ monthint = {
     'Dec': 12
 }
 
-class Email(opl.Default):
+class Email(op.Default):
+
+    "email stored in a Object"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.text = ""
 
 def to_date(date):
+    "convert email Date to timestamp"
     date = date.replace("_", ":")
     res = date.split()
     ddd = ""
@@ -68,9 +71,10 @@ def to_date(date):
     return ddd
 
 def mbx(event):
+    "import mailbox or maildir"
     if not event.args:
         return
-    if os.path.exists(os.path.join(opl.wd, "store", "opl.mbx.Email")):
+    if os.path.exists(os.path.join(op.wd, "store", "op.mbx.Email")):
         event.reply("email is already scanned")
         return
     fn = os.path.expanduser(event.args[0])
@@ -88,8 +92,8 @@ def mbx(event):
         pass
     for m in thing:
         o = Email()
-        opl.update(o, opl.Object(m))
-        if "Date" in opl.keys(o):
+        op.update(o, op.Object(m))
+        if "Date" in op.keys(o):
             sdate = os.sep.join(to_date(o.Date).split())
         else:
             continue
@@ -98,7 +102,7 @@ def mbx(event):
             if payload.get_content_type() == 'text/plain':
                 o.text += payload.get_payload()
         o.text = o.text.replace("\\n", "\n")
-        opl.save(o, stime=sdate)
+        op.save(o, stime=sdate)
         nr += 1
     if nr:
         event.reply("ok %s" % nr)

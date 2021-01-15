@@ -1,4 +1,4 @@
-# OPL - object programming library (irc.py)
+# OP - Object Programming (irc.py)
 #
 # this file is placed in the public domain
 
@@ -6,7 +6,6 @@
 
 # imports
 
-import opl
 import os
 import queue
 import socket
@@ -14,6 +13,14 @@ import textwrap
 import time
 import threading
 import _thread
+
+import op
+from op.dbs import last
+from op.hdl import Event, Handler, cmd
+from op.prs import parse
+from op.thr import launch
+from op.usr import Users
+from op.utl import locked
 
 # defines
 
@@ -24,11 +31,11 @@ def init(hdl):
     "create a irc bot and return it"
     i = IRC()
     i.clone(hdl)
-    if opl.debug:
-        fmt = opl.format(i.cfg, opl.keys(i.cfg), ("username", "realname"))
+    if op.debug:
+        fmt = op.format(i.cfg, op.keys(i.cfg), ("username", "realname"))
         if fmt:
             print(fmt)
-    return opl.thr.launch(i.start)
+    return launch(i.start)
 
 # locks
 
@@ -36,19 +43,19 @@ saylock = _thread.allocate_lock()
 
 # classes
 
-class Cfg(opl.Cfg):
+class Cfg(op.Cfg):
 
     "configuration object"
 
     def __init__(self):
         super().__init__()
-        self.channel = "#opl"
-        self.nick = "opl"
+        self.channel = "#objectprogramming"
+        self.nick = "opd"
         self.server = "localhost"
-        self.username = "opl"
-        self.realname = "OPL - object programming library"
+        self.username = "opd"
+        self.realname = "Object Programming (OP)"
 
-class Event(opl.hdl.Event):
+class Event(Event):
 
     "irc event"
 
@@ -65,7 +72,7 @@ class TextWrap(textwrap.TextWrapper):
         self.tabsize = 4
         self.width = 450
 
-class IRC(opl.hdl.Handler):
+class IRC(Handler):
 
     "irc bot"
 
@@ -80,9 +87,9 @@ class IRC(opl.hdl.Handler):
         self._trc = ""
         self.cc = "!"
         self.cfg = Cfg()
-        self.cmds = opl.Object()
+        self.cmds = op.Object()
         self.channels = []
-        self.register("cmd", opl.hdl.cmd)
+        self.register("cmd", cmd)
         self.register("ERROR", self.ERROR)
         self.register("LOG", self.LOG)
         self.register("NOTICE", self.NOTICE)
@@ -90,7 +97,7 @@ class IRC(opl.hdl.Handler):
         self.register("QUIT", self.QUIT)
         self.register("366", self.JOINED)
         self.speed = "slow"
-        self.state = opl.Object()
+        self.state = op.Object()
         self.state.needconnect = False
         self.state.error = ""
         self.state.last = 0
@@ -101,7 +108,7 @@ class IRC(opl.hdl.Handler):
         self.state.pongcheck = False
         self.threaded = False
         self.verbose = False
-        self.users = opl.usr.Users()
+        self.users = Users()
 
     def _connect(self, server):
         "connect (blocking) to irc server"
@@ -184,7 +191,7 @@ class IRC(opl.hdl.Handler):
             o.args = spl[1:]
         return o
 
-    @opl.utl.locked(saylock)
+    @locked(saylock)
     def _say(self, channel, txt):
         "on a channel"
         wrapper = TextWrap()
@@ -254,8 +261,8 @@ class IRC(opl.hdl.Handler):
         assert self.cfg.nick
         super().start()
         self.connect(self.cfg.server, self.cfg.nick)
-        opl.thr.launch(self.input)
-        opl.thr.launch(self.output)
+        launch(self.input)
+        launch(self.output)
 
     def input(self):
         "loop for input"
@@ -263,7 +270,7 @@ class IRC(opl.hdl.Handler):
             try:
                 e = self.poll()
             except (OSError, ConnectionResetError, socket.timeout) as ex:
-                e = opl.hdl.Event()
+                e = Event()
                 e.error = str(ex)
                 self.ERROR(e)
                 break
@@ -304,7 +311,7 @@ class IRC(opl.hdl.Handler):
         if not self._buffer:
             return self._parsing("")
         e = self._parsing(self._buffer.pop(0))
-        if opl.debug and e.rawstr:
+        if op.debug and e.rawstr:
             print(e.rawstr.rstrip())
         cmd = e.command
         if cmd == "PING":
@@ -322,7 +329,7 @@ class IRC(opl.hdl.Handler):
         elif cmd == "433":
             nick = self.cfg.nick + "_"
             self.cfg.nick = nick
-            self.raw("NICK %s" % self.cfg.nick or "opl")
+            self.raw("NICK %s" % self.cfg.nick or "operbot")
         return e
 
     def raw(self, txt):
@@ -350,14 +357,14 @@ class IRC(opl.hdl.Handler):
     def start(self, cfg=None):
         "connect to server"
         if cfg is not None:
-            opl.update(self.cfg, cfg)
+            op.update(self.cfg, cfg)
         else:
-            opl.dbs.last(self.cfg)
+            last(self.cfg)
         assert self.cfg.channel
         assert self.cfg.server
         self.channels.append(self.cfg.channel)
         self._joined.clear()
-        opl.thr.launch(self.doconnect)
+        launch(self.doconnect)
         self._joined.wait()
 
     def stop(self):
@@ -385,27 +392,27 @@ class IRC(opl.hdl.Handler):
         "log to console, override this"
 
     def NOTICE(self, event):
-        "respond with version of the okbot"
-        from opl import __version__
+        "respond with version of the bot"
+        from op import __version__
         if event.txt.startswith("VERSION"):
-            txt = "\001VERSION %s %s - %s\001" % ("OPL", __version__, "object programming library")
+            txt = "\001VERSION %s %s - %s\001" % ("OP", __version__, "Object Programming")
             self.command("NOTICE", event.channel, txt)
 
     def PRIVMSG(self, event):
         "forward dcc chat and check for commands"
         if event.txt.startswith("DCC CHAT"):
-            if self.cfg.users and not self.users.allowed(event.origin, "USER"):
+            if not self.users.allowed(event.origin, "USER"):
                 return
             try:
                 dcc = DCC()
                 dcc.encoding = "utf-8"
                 dcc.clone(self)
-                opl.thr.launch(dcc.connect, event)
+                launch(dcc.connect, event)
                 return
             except ConnectionError as ex:
                 return
         if event.txt and event.txt[0] == self.cc:
-            if self.cfg.users and not self.users.allowed(event.origin, "USER"):
+            if not self.users.allowed(event.origin, "USER"):
                 return
             event.type = "cmd"
             event.txt = event.txt[1:]
@@ -416,7 +423,7 @@ class IRC(opl.hdl.Handler):
         if self.cfg.server in event.orig:
             self.stop()
 
-class DCC(opl.hdl.Handler):
+class DCC(Handler):
 
     "direct client to client (dcc)"
 
@@ -452,9 +459,9 @@ class DCC(opl.hdl.Handler):
         #os.set_inheritable(s.fileno(), os.O_RDWR)
         self._sock = s
         self._fsock = self._sock.makefile("rw")
-        self.raw('Welcome to the Object Programming Library (OPL) %s' % event.nick)
+        self.raw('Welcome to Object Programming %s' % op.__version__)
         self.origin = event.origin
-        opl.thr.launch(self.input)
+        launch(self.input)
         super().start()
         self._connected.set()
 
@@ -470,11 +477,11 @@ class DCC(opl.hdl.Handler):
     def poll(self):
         "poll (blocking) for input and create an event for it"
         self._connected.wait()
-        e = opl.hdl.Event()
+        e = Event()
         e.type = "cmd"
         txt = self._fsock.readline()
         txt = txt.rstrip()
-        opl.prs.parse(e, txt)
+        parse(e, txt)
         e._sock = self._sock
         e._fsock = self._fsock
         e.channel = self.origin

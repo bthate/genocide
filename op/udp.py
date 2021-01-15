@@ -1,19 +1,23 @@
-# OPL - object programming library (udp.py)
+# OP - Object Programming (udp.py)
 #
 # this file is placed in the public domain
 
 "udp to irc relay (udp)"
 
-import opl
+import op
 import socket
 import time
+
+from op.dbs import last
+from op.hdl import Bus
+from op.thr import launch
 
 def init(hdl):
     "udp to irc relay"
     u = UDP()
-    return opl.thr.launch(u.start)
+    return launch(u.start)
 
-class Cfg(opl.Cfg):
+class Cfg(op.Cfg):
 
     "configuration"
 
@@ -22,7 +26,7 @@ class Cfg(opl.Cfg):
         self.host = "localhost"
         self.port = 5500
 
-class UDP(opl.Object):
+class UDP(op.Object):
 
     "udp to irc relay"
 
@@ -38,7 +42,7 @@ class UDP(opl.Object):
 
     def output(self, txt, addr):
         "message on bus"
-        opl.hdl.Bus.announce(txt.replace("\00", ""))
+        Bus.announce(txt.replace("\00", ""))
 
     def server(self):
         "loop"
@@ -63,8 +67,8 @@ class UDP(opl.Object):
 
     def start(self):
         "udp to irc relay"
-        opl.dbs.last(self.cfg)
-        opl.thr.launch(self.server)
+        last(self.cfg)
+        launch(self.server)
 
 def toudp(host, port, txt):
     "send text to udp to irc relay"

@@ -1,4 +1,4 @@
-# OPL - object programming library (obj.py)
+# OP - Object Programming (obj.py)
 #
 # this file is placed in the public domain
 
@@ -16,13 +16,15 @@ import time
 import types
 import uuid
 
-from opl.utl import cdir, get_cls
-
 # defines
 
-__version__ = 6
+__version__ = 4
 
 # exceptions
+
+class ENOCLASS(Exception):
+
+    "type is not a class"
 
 class ENOFILENAME(Exception):
 
@@ -35,11 +37,6 @@ class O:
     "clear namespacce object (no methods)"
 
     __slots__ = ("__dict__",)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__()
-        if args:
-            self.__dict__.update(args[0])
 
     def __call__(self):
         pass
@@ -72,9 +69,11 @@ class Object(O):
     __slots__ = ("__id__", "__type__")
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__()
         self.__id__ = str(uuid.uuid4())
         self.__type__ = get_type(self)
+        if args:
+            self.__dict__.update(args[0])
 
 class Default(Object):
 
@@ -110,6 +109,33 @@ class Ol(Object):
             self.append(k, v)
 
 # functions
+
+def cdir(path):
+    "create directory"
+    if os.path.exists(path):
+        return
+    res = ""
+    path2, _fn = os.path.split(path)
+    for p in path2.split(os.sep):
+        res += "%s%s" % (p, os.sep)
+        padje = os.path.abspath(os.path.normpath(res))
+        try:
+            os.mkdir(padje)
+            os.chmod(padje, 0o700)
+        except (IsADirectoryError, NotADirectoryError, FileExistsError):
+            pass
+
+def get_cls(name):
+    "class"
+    try:
+        modname, clsname = name.rsplit(".", 1)
+    except Exception as ex:
+        raise ENOCLASS(name)
+    if modname in sys.modules:
+        mod = sys.modules[modname]
+    else:
+        mod = importlib.import_module(modname)
+    return getattr(mod, clsname)
 
 def hook(fn):
     "construct object from filename"
@@ -337,5 +363,4 @@ def xdir(o, skip=None):
 debug = False
 starttime = time.time()
 wd = ""
-
-import opl.all
+md = ""

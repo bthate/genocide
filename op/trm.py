@@ -1,13 +1,14 @@
-# OP - object programming (trm.py)
+# OP - Object Programming (trm.py)
 #
 # this file is placed in the public domain
 
 "terminal (trm)"
 
 import atexit
-import opl
 import sys
 import termios
+
+from op.utl import get_exception
 
 resume = {}
 
@@ -20,7 +21,7 @@ def execute(main):
     except PermissionError as ex:
         print(str(ex))
     except Exception as ex:
-        print(opl.utl.get_exception())
+        print(get_exception())
 
 def console(main):
     "provide context for funcion"
@@ -32,7 +33,7 @@ def console(main):
     except PermissionError as ex:
         print(str(ex))
     except Exception as ex:
-        print(opl.utl.get_exception())
+        print(get_exception())
     finally:
         termreset()
 

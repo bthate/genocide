@@ -1,4 +1,4 @@
-# OPL - object programming library (prs.py)
+# OP - Object Programming (prs.py)
 #
 # this file is placed in the public domain
 
@@ -6,10 +6,11 @@
 
 # imports
 
-import opl
-import os
+import op
 import sys
 import time
+
+from op.utl import day
 
 # defines
 
@@ -40,7 +41,7 @@ year_formats = [
 
 # classes
 
-class Token(opl.Object):
+class Token(op.Object):
 
     "basic token"
 
@@ -48,7 +49,7 @@ class Token(opl.Object):
         super().__init__()
         self.txt = txt
 
-class Option(opl.Default):
+class Option(op.Default):
 
     "token that starts with -- or -"
 
@@ -59,7 +60,7 @@ class Option(opl.Default):
         if txt.startswith("-"):
             self.opt = txt[1:]
 
-class Getter(opl.Object):
+class Getter(op.Object):
 
     "contains =="
 
@@ -72,7 +73,7 @@ class Getter(opl.Object):
         if pre:
             self[pre] = post
 
-class Setter(opl.Object):
+class Setter(op.Object):
 
     "contains ="
 
@@ -85,7 +86,7 @@ class Setter(opl.Object):
         if pre:
             self[pre] = post
 
-class Skip(opl.Object):
+class Skip(op.Object):
 
     "endswith -"
 
@@ -103,7 +104,7 @@ class Skip(opl.Object):
         if pre:
             self[pre] = True
 
-class Timed(opl.Object):
+class Timed(op.Object):
 
     "is a time"
 
@@ -179,28 +180,28 @@ def parse(o, txt):
     args = []
     o.txt = txt
     o.otxt = txt
-    o.gets = opl.Default()
-    o.opts = opl.Default()
-    o.sets = opl.Default()
-    o.skip = opl.Default()
+    o.gets = op.Default()
+    o.opts = op.Default()
+    o.sets = op.Default()
+    o.skip = op.Default()
     o.timed = ()
     o.index = None
     for token in [Token(txt) for txt in txt.split()]:
         s = Skip(token.txt)
         if s:
-            opl.update(o.skip, s)
+            op.update(o.skip, s)
             token.txt = token.txt[:-1]
         t = Timed(token.txt)
         if t:
-            opl.update(o.timed, t)
+            op.update(o.timed, t)
             continue
         g = Getter(token.txt)
         if g:
-            opl.update(o.gets, g)
+            op.update(o.gets, g)
             continue
         s = Setter(token.txt)
         if s:
-            opl.update(o.sets, s)
+            op.update(o.sets, s)
             continue
         opt = Option(token.txt)
         if opt:
@@ -226,11 +227,10 @@ def parse(o, txt):
 
 def parse_cli(wd=None):
     "commandline"
-    cfg = opl.Default()
+    cfg = op.Default()
     parse(cfg, " ".join(sys.argv[1:]))
-    cfg.sets.wd = opl.wd = cfg.sets.wd or opl.wd or wd
-    assert opl.wd
-    opl.hdl.md = os.path.join(opl.wd, "mod")
+    cfg.sets.wd = op.wd = cfg.sets.wd or op.wd or wd
+    assert op.wd
     return cfg
 
 def parse_time(daystring):
@@ -243,7 +243,7 @@ def parse_time(daystring):
         elif ":" in word:
             line += word
     if "-" not in line:
-        line = opl.utl.day() + " " + line
+        line = day() + " " + line
     for f in year_formats:
         try:
             t = time.mktime(time.strptime(line, f))

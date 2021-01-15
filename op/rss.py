@@ -1,4 +1,4 @@
-# OPL - object progamming library  (rss.py)
+# OP - Object Programming (rss.py)
 #
 # this file is placed in the public domain
 
@@ -6,8 +6,14 @@
 
 # imports
 
-import opl
+import op
 import urllib
+
+from op.clk import Repeater
+from op.dbs import all, last
+from op.hdl import Bus
+from op.thr import launch
+from op.utl import get_tinyurl, get_url, strip_html, unescape
 
 from urllib.error import HTTPError, URLError
 
@@ -25,11 +31,11 @@ except ModuleNotFoundError:
 def init(hdl):
     "start a rss poller"
     f = Fetcher()
-    return opl.thr.launch(f.start)
+    return launch(f.start)
 
 # classes
 
-class Cfg(opl.Cfg):
+class Cfg(op.Cfg):
 
     "rss configuration"
 
@@ -37,11 +43,11 @@ class Cfg(opl.Cfg):
         super().__init__()
         self.dosave = True
 
-class Feed(opl.Default):
+class Feed(op.Default):
 
     "feed item"
 
-class Rss(opl.Object):
+class Rss(op.Object):
 
     "rss feed url"
 
@@ -49,7 +55,7 @@ class Rss(opl.Object):
         super().__init__()
         self.rss = ""
 
-class Seen(opl.Object):
+class Seen(op.Object):
 
     "all urls seen"
 
@@ -57,7 +63,7 @@ class Seen(opl.Object):
         super().__init__()
         self.urls = []
 
-class Fetcher(opl.Object):
+class Fetcher(op.Object):
 
     "rss feed poller"
 
@@ -79,16 +85,16 @@ class Fetcher(opl.Object):
         for key in dl:
             if not key:
                 continue
-            data = opl.get(o, key, None)
+            data = op.get(o, key, None)
             if not data:
                 continue
             if key == "link" and self.cfg.tinyurl:
-                datatmp = opl.utl.get_tinyurl(data)
+                datatmp = get_tinyurl(data)
                 if datatmp:
                     data = datatmp[0]
             data = data.replace("\n", " ")
-            data = opl.utl.strip_html(data.rstrip())
-            data = opl.utl.unescape(data)
+            data = strip_html(data.rstrip())
+            data = unescape(data)
             result += data.rstrip()
             result += " - "
         return result[:-2].rstrip()
@@ -103,8 +109,8 @@ class Fetcher(opl.Object):
             if not o:
                 continue
             f = Feed()
-            opl.update(f, rssobj)
-            opl.update(f, opl.O(o))
+            op.update(f, rssobj)
+            op.update(f, op.Object(o))
             u = urllib.parse.urlparse(f.link)
             if u.path and not u.path == "/":
                 url = "%s://%s/%s" % (u.scheme, u.netloc, u.path)
@@ -116,47 +122,47 @@ class Fetcher(opl.Object):
             counter += 1
             objs.append(f)
             if self.cfg.dosave:
-                opl.save(f)
+                op.save(f)
         if objs:
-            opl.save(Fetcher.seen)
+            op.save(Fetcher.seen)
         for o in objs:
             txt = self.display(o)
-            opl.hdl.Bus.announce(txt)
+            Bus.announce(txt)
         return counter
 
     def run(self):
         "all feeds"
         thrs = []
-        for fn, o in opl.dbs.all("opl.rss.Rss"):
-            thrs.append(opl.thr.launch(self.fetch, o))
+        for fn, o in all("op.rss.Rss"):
+            thrs.append(launch(self.fetch, o))
         return thrs
 
     def start(self, repeat=True):
         "rss poller"
-        opl.dbs.last(Fetcher.cfg)
-        opl.dbs.last(Fetcher.seen)
+        last(Fetcher.cfg)
+        last(Fetcher.seen)
         if repeat:
-            repeater = opl.clk.Repeater(300.0, self.run)
+            repeater = Repeater(300.0, self.run)
             repeater.start()
 
     def stop(self):
         "rss poller"
-        opl.save(self.seen)
+        op.save(self.seen)
 
 # functions
 
 def get_feed(url):
     "feed"
-    if opl.debug:
-        return [opl.Object(), opl.Object()]
+    if op.debug:
+        return [op.Object(), op.Object()]
     try:
-        result = opl.utl.get_url(url)
+        result = get_url(url)
     except (HTTPError, URLError):
-        return [opl.Object(), opl.Object()]
+        return [op.Object(), op.Object()]
     if gotparser:
         result = feedparser.parse(result.data)
         if "entries" in result:
             for entry in result["entries"]:
                 yield entry
     else:
-        return [opl.Object(), opl.Object()]
+        return [op.Object(), op.Object()]

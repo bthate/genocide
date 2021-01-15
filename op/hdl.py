@@ -1,4 +1,4 @@
-# OPL - object programming library (hdl.py)
+# OP - Object Programming (hdl.py)
 #
 # this file is placed in the public domain
 
@@ -9,13 +9,16 @@
 import inspect
 import importlib
 import importlib.util
-import opl
-import opl.cmd
+import op
 import os
 import queue
 import sys
 import threading
 import time
+
+from op.prs import parse
+from op.thr import launch
+from op.utl import direct, spl
 
 # defines
 
@@ -24,7 +27,7 @@ def __dir__():
 
 # classes
 
-class Bus(opl.Object):
+class Bus(op.Object):
 
     "registered recipient event handler"
 
@@ -64,7 +67,7 @@ class Bus(opl.Object):
             if repr(o) == orig:
                 o.say(channel, str(txt))
 
-class Event(opl.Default):
+class Event(op.Default):
 
     "event class"
 
@@ -85,8 +88,8 @@ class Event(opl.Default):
 
     def parse(self):
         "parse an event"
-        self.prs = opl.Default()
-        opl.prs.parse(self.prs, self.otxt or self.txt)
+        self.prs = op.Default()
+        parse(self.prs, self.otxt or self.txt)
         args = self.prs.txt.split()
         if args:
             self.cmd = args.pop(0)
@@ -126,7 +129,7 @@ class Command(Event):
         if txt:
             self.txt = txt
 
-class Handler(opl.Object):
+class Handler(op.Object):
 
     "event handler"
 
@@ -134,20 +137,20 @@ class Handler(opl.Object):
 
     def __init__(self):
         super().__init__()
-        self.cbs = opl.Object()
-        self.cmds = opl.Object()
-        self.modnames = opl.Object()
-        self.names = opl.Ol()
+        self.cbs = op.Object()
+        self.cmds = op.Object()
+        self.modnames = op.Object()
+        self.names = op.Ol()
         self.queue = queue.Queue()
         self.stopped = False
         Bus.add(self)
 
     def clone(self, hdl):
         "copy callbacks"
-        opl.update(self.cmds, hdl.cmds)
-        opl.update(self.cbs, hdl.cbs)
-        opl.update(self.modnames, hdl.modnames)
-        opl.update(self.names, hdl.names)
+        op.update(self.cmds, hdl.cmds)
+        op.update(self.cbs, hdl.cbs)
+        op.update(self.modnames, hdl.modnames)
+        op.update(self.names, hdl.names)
 
     def cmd(self, txt):
         "execute command"
@@ -165,7 +168,7 @@ class Handler(opl.Object):
         if event.type and event.type in self.cbs:
             self.cbs[event.type](self, event)
 
-    def fromdir(self, path, name="opl"):
+    def fromdir(self, path, name="op"):
         "scan a modules directory"
         if not path:
             return
@@ -173,12 +176,12 @@ class Handler(opl.Object):
                    if x and x.endswith(".py")
                    and not x.startswith("__")
                    and not x == "setup.py"]:
-            self.intro(opl.utl.direct("%s.%s" % (name, mn)))
+            self.intro(direct("%s.%s" % (name, mn)))
 
-    def init(self, mns, name="opl"):
+    def init(self, mns, name="op"):
         "call init() of modules"
         thrs = []
-        for mn in opl.utl.spl(mns):
+        for mn in spl(mns):
             try:
                 spec = importlib.util.find_spec("%s.%s" % (name, mn))
             except ModuleNotFoundError:
@@ -189,7 +192,7 @@ class Handler(opl.Object):
                 func = getattr(mod, "init", None)
                 if func:
                     thrs.append(func(self))
-        return thrs
+        return [t for t in thrs if t]
 
     def intro(self, mod):
         "introspect a module"
@@ -201,7 +204,7 @@ class Handler(opl.Object):
                     self.cmds[key] = o
                 self.modnames[key] = o.__module__
         for _key, o in inspect.getmembers(mod, inspect.isclass):
-            if issubclass(o, opl.Object):
+            if issubclass(o, op.Object):
                 t = "%s.%s" % (o.__module__, o.__name__)
                 self.names.append(o.__name__.lower(), t)
         return mod
@@ -211,7 +214,7 @@ class Handler(opl.Object):
         if mn in sys.modules:
             mod = sys.modules[mn]
         else:
-            mod = opl.utl.direct(mn)
+            mod = direct(mn)
         self.intro(mod)
         return mod
 
@@ -224,7 +227,7 @@ class Handler(opl.Object):
                 break
             if not e.orig:
                 e.orig = repr(self)
-            e.thrs.append(opl.thr.launch(self.dispatch, e))
+            e.thrs.append(launch(self.dispatch, e))
 
     def put(self, e):
         "put event on queue"
@@ -240,7 +243,7 @@ class Handler(opl.Object):
 
     def start(self):
         "start handler"
-        opl.thr.launch(self.handler)
+        launch(self.handler)
 
     def stop(self):
         "stop handler"
@@ -250,11 +253,14 @@ class Handler(opl.Object):
     def walk(self, pkgnames, name=""):
         "walk over packages and load their modules"
         if not name:
-            name = list(opl.utl.spl(pkgnames))[0]
-        for pn in opl.utl.spl(pkgnames):
+            name = list(spl(pkgnames))[0]
+        for pn in spl(pkgnames):
             mod = self.load(pn)
-            if mod.__path__:
-                self.fromdir(list(mod.__path__)[0], name)
+            if "__file__" in dir(mod) and mod.__file__:
+                p = os.path.dirname(mod.__file__)
+            else:
+                p = list(mod.__path__)[0]
+            self.fromdir(p, name)
 
     def wait(self):
         "wait for handler stopped status"
@@ -267,9 +273,7 @@ class Handler(opl.Object):
 def cmd(handler, obj):
     "dispatch to command"
     obj.parse()
-    f = opl.get(handler.cmds, obj.cmd, None)
-    if not f:
-        f = getattr(opl.cmd, obj.cmd, None)
+    f = op.get(handler.cmds, obj.cmd, None)
     res = None
     if f:
         res = f(obj)

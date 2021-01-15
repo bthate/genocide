@@ -1,4 +1,4 @@
-# OPL - object programming library (utl.py)
+# OP - Object Programming (utl.py)
 #
 # this file is placed in the public domain
 
@@ -42,31 +42,12 @@ timestrings = [
     "%d, %b %Y %H:%M:%S +0000"
 ]
 
-# exceptions
-
-class ENOCLASS(Exception):
-
-    "class not found"
-
 # functions
 
 def banner():
-    return "OPL %s - object programming library started at %s" % (opl.__version__, time.ctime(time.time()))
-
-def cdir(path):
-    "create directory"
-    if os.path.exists(path):
-        return
-    res = ""
-    path2, _fn = os.path.split(path)
-    for p in path2.split(os.sep):
-        res += "%s%s" % (p, os.sep)
-        padje = os.path.abspath(os.path.normpath(res))
-        try:
-            os.mkdir(padje)
-            os.chmod(padje, 0o700)
-        except (IsADirectoryError, NotADirectoryError, FileExistsError):
-            pass
+    "show banner"
+    import op
+    return "OP %s - Object Programming started at %s" % (op.__version__, time.ctime(time.time()))
 
 def day():
     "this day"
@@ -96,18 +77,6 @@ def fntime(daystr):
     except ValueError:
         t = 0
     return t
-
-def get_cls(name):
-    "class"
-    try:
-        modname, clsname = name.rsplit(".", 1)
-    except Exception as ex:
-        raise ENOCLASS(name) from ex
-    if modname in sys.modules:
-        mod = sys.modules[modname]
-    else:
-        mod = importlib.import_module(modname)
-    return getattr(mod, clsname)
 
 def get_exception(txt="", sep=" "):
     "trace"
@@ -167,7 +136,7 @@ def locked(l):
         return lockedfunc
     return lockeddec
 
-def mods(mn, name="opl"):
+def mods(mn, name="op"):
     "modules in a package"
     mod = []
     pkg = direct(mn)
@@ -246,4 +215,4 @@ def unescape(text):
 
 def useragent():
     "useragent used when fetching http"
-    return 'Mozilla/5.0 (X11; Linux x86_64) Object Programming Library +http://pypi.org/project/opl)'
+    return 'Mozilla/5.0 (X11; Linux x86_64) OP - Object Programming  +http://pypi.org/project/op)'

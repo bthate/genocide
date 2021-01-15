@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# GENOCIDE - One decision from a judge that it is after 2002 (bin/genocide)
+# GENOCIDE - by using the law to administer poison the king commits (bin/genocide)
 #
 # this file is placed in the public domain
 
@@ -32,26 +32,33 @@ OPTIONS
 import os, sys ; sys.path.insert(0, os.getcwd())
 
 import atexit
-import opl
+import op
+import op.usr
 import os
 import readline
 import sys
 import threading
 import time
 
+from op.hdl import Command, Handler, cmd
+from op.prs import parse_cli
+from op.thr import launch
+from op.trm import console, termreset
+from op.utl import privileges
+
 # defines
 
-wd = os.path.abspath(os.path.expanduser("~/.genocide"))
+wd = os.path.abspath(os.path.expanduser("~/.op"))
 
 # classes
 
-class Console(opl.hdl.Handler):
+class Console(Handler):
 
     "console class"
 
     def __init__(self):
         super().__init__()
-        self.register("cmd", opl.hdl.cmd)
+        self.register("cmd", cmd)
 
     def announce(self, txt):
         "silence announcing"
@@ -72,7 +79,7 @@ class Console(opl.hdl.Handler):
 
     def poll(self):
         "wait for input"
-        return opl.hdl.Command(input("> "))
+        return Command(input("> "))
 
     def say(self, channel, txt):
         "strip channel from output"
@@ -81,9 +88,9 @@ class Console(opl.hdl.Handler):
     def start(self):
         "start console"
         super().start()
-        opl.thr.launch(self.input)
+        launch(self.input)
 
-class Mini(opl.hdl.Handler):
+class Mini(Handler):
 
     def direct(self, txt):
         print(txt)
@@ -94,7 +101,7 @@ def daemon():
     "fork to child proces"
     pid = os.fork()
     if pid != 0:
-        opl.trm.termreset()
+        termreset()
         os._exit(0)
     os.setsid()
     os.umask(0)
@@ -113,39 +120,39 @@ def opcheck(ops, cfg):
 
 def main():
     "main function"
-    cfg = opl.prs.parse_cli(wd)
+    cfg = parse_cli(wd)
     if opcheck("r", cfg):
-        opl.wd = "/var/lib/opl"
-        opl.utl.privileges("opl")
+        op.wd = cfg.wd = "/var/lib/genocide"
+        privileges("opd")
     if opcheck("h", cfg):
         return print(__doc__)
     if opcheck("bx", cfg):
         print("GENOCIDE %s - using the law to administer poison the king commits genocide started at %s" % (opl.__version__, time.ctime(time.time())))
+        print(op.format(cfg))
     if opcheck("x", cfg):
-        opl.debug = True
+        op.debug = True
     h = Mini()
-    h.walk("genocide", "genocide")
+    h.load("op.cmd")
+    h.walk("genocide")
     if cfg.txt or opcheck("n", cfg):
         return h.cmd(cfg.otxt)
     if opcheck("d", cfg):
         daemon()
     h.start()
     for thr in h.init(cfg.sets.mods):
-        if thr:
-            thr.join()
+        thr.join()
     for thr in h.init(cfg.sets.mods, "genocide"):
-        if thr:
-            thr.join()
+        thr.join()
     if opcheck("s", cfg):
         c = Console()
         c.clone(h)
         c.start()
-    if opcheck("sdw", cfg):
+    if opcheck("sdw", cfg) or cfg.sets.mods:
         h.wait()
 
 # runtime
 
 cmds = []
 starttime = time.time()
-opl.trm.console(main)
+console(main)
 os._exit(0)

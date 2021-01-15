@@ -2,6 +2,7 @@
 #
 # this file is placed in the public domain
 
+__version__ = 21
+
 def ver(event):
-    from genocide.req import __version__
     event.reply("GENOCIDE %s OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int http://genocide.rtfd.io" % __version__)

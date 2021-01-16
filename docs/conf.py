@@ -66,7 +66,8 @@ rst_prolog = """.. image:: genocide3line.png
     :height: 2.7cm
     :width: 100%
 
-.. title:: using the law to administer poison the king commits genocide
+.. title::  !!!! OTP-CR-117/19 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io !!!!
+
 """ 
 
 intersphinx_mapping = {

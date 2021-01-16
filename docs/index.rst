@@ -5,6 +5,11 @@ One decision from a judge that it’s after 2002 and he has jurisiction over the
 king his genocide, he can give an arrest warrant for the king, find the king
 guilty of genocide, place him into his cell and declare the END over genocide.
 
+END over GENOCIDE means every country an appointed genocide judge to take
+down the powers that use laws to administer poison. These governments commit
+genocide with these laws and will be prosecuted as such, thus eradicating
+genocide from this planet.
+
 MANPAGE
 =======
 

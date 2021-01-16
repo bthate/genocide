@@ -1,6 +1,13 @@
 GENOCIDE
 ########
 
+One decision from a judge that it’s after 2002 and he has jurisiction over the
+king his genocide, he can give an arrest warrant for the king, find the king
+guilty of genocide, place him into his cell and declare the END over genocide.
+
+MANPAGE
+=======
+
 NAME
         GENOCIDE - using the law to administer poison the king commits genocide.
 
@@ -37,16 +44,20 @@ OPTIONS
         -h              print this message
         -x              enable debug
 
-
-to the king
+TO THE KING
 ===========
 
 .. image:: informed.jpg
 
-from the king
+FROM THE KING
 =============
 
 .. image:: opdehoogte.jpg
+
+TO THE PROSECUTOR
+==================
+
+.. include:: otpcr11719.rst
 
 .. toctree::
     :hidden:

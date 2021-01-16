@@ -1,6 +1,6 @@
 OTP2
 ====
 
-.. image:: OTP.png
+.. image:: OTP2.png
     :width: 100%
  

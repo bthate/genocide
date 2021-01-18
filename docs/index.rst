@@ -35,23 +35,11 @@ FROM THE KING
 
 .. image:: opdehoogte.jpg
 
-TO THE PROSECUTOR
-==================
-
 .. include:: otpcr11719.rst
-
-FROM THE PROSECUTOR
-===================
 
 .. include:: otp1.rst
 
-TO THE PROSECUTOR 2
-===================
-
 .. include:: reconsider.rst
-
-FROM THE PROSECUTOR 2
-=====================
 
 .. include:: otp2.rst
 

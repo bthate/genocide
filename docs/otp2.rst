@@ -1,4 +1,4 @@
-FROM THE PROSECUTOR 2
+from the prosecutor 2
 =====================
 
 .. image:: OTP2.png

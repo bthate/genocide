@@ -25,12 +25,12 @@ it log objects on disk to search them.
         
 GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
 
-TO THE KING
+to the king
 ===========
 
 .. image:: informed.jpg
 
-FROM THE KING
+from the king
 =============
 
 .. image:: opdehoogte.jpg
@@ -43,7 +43,7 @@ FROM THE KING
 
 .. include:: otp2.rst
 
-TODO
+todo
 ====
 
 “Under the Rome Statute, the Court may only exercise jurisdiction over genocide,

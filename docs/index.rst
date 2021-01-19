@@ -63,7 +63,7 @@ down the powers that use laws to administer poison. These governments commit
 genocide with these laws and will be prosecuted as such, thus eradicating
 genocide from this planet.
 
-CONTACT
+contact
 =======
 
 | Bart Thate (bthate@dds.nl)

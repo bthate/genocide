@@ -6,4 +6,3 @@ recursive-include docs/ *.png
 recursive-include docs/pdf *.pdf
 recursive-include docs/txt *
 recursive-include docs/_templates *
-recursive-include op *.py

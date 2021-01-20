@@ -1,6 +1,6 @@
 # GENOCIDE - the king of the netherlands commits genocide
 #
-# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
 from setuptools import setup
 
@@ -13,14 +13,14 @@ def read():
 
 setup(
     name='genocide',
-    version='22',
+    version='24',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
-    description="using the law to adminster poison the king of the netherlands commits genocide",
+    description="Using the law to adminster poison the king of the netherlands commits genocide",
     long_description=read(),
     license='Public Domain',
-    install_requires=["objectprogramming"],
+    install_requires=["oplib"],
     packages=["genocide"],
     namespace_packages=["genocide"],
     zip_safe=False,

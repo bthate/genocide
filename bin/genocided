@@ -17,16 +17,17 @@ from op.utl import privileges
 # defines
 
 mods = "irc,rss,udp"
-wd = "/var/lib/opd"
+wd = "/var/lib/genocide"
 
 # functions
 
 def main():
     "main function"
     op.wd = wd
-    privileges("opd")
+    privileges("genocide")
     h = Handler()
     h.load("op.cmd")
+    h.walk("genocide")
     h.start()
     for thr in h.init(mods):
         thr.join()

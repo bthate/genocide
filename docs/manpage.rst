@@ -2,7 +2,8 @@ MANPAGE
 =======
 
 NAME
-        GENOCIDE - using the law to administer poison the king commits genocide.
+        GENOCIDE - using the law to administer poison the king of the
+                   netherlands commits genocide.
 
 SYNOPSIS
         1) genocide <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
@@ -14,14 +15,16 @@ SYNOPSIS
         7) genocide mods=irc
 
 DESCRIPTION
-        GENOCIDE is a python3 program that holds evidence that the king in the
+        GENOCIDE is a python3 program that holds evidence that the king of the
         netherlands is doing a genocide, a written response where the king
-        confirmed taking note "of what i have written", proof that medicine like
-        zyprexa, haldol, abilify and clozapine are poison.
+        of the netherlands confirmed taking note of "what i have written", 
+        proof that medicine like zyprexa, haldol, abilify and clozapine are
+        poison.
         
         GENOCIDE shows correspondence with the Internationnal Criminal Court
-        about this genocide of the king (using the law to adminiter poison),
-        including stats on suicide while the kings genocide is still going on.
+        about the genocide of the king of th netherlands (using the law to
+        adminiter poison), including stats on suicide while the king of
+        the netherlands genocide is still going on.
 
         GENOCIDE provides a IRC bot that can run as a background daemon for 24/7
         a day presence in a IRC channel. You can use it to display RSS feeds,
@@ -29,8 +32,6 @@ DESCRIPTION
         it log objects on disk to search them.
         
         GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
-
-USAGE
 
 OPTIONS
         -d              daemon mode

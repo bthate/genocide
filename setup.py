@@ -20,7 +20,7 @@ setup(
     description="Using the law to adminster poison the king of the netherlands commits genocide",
     long_description=read(),
     license='Public Domain',
-    install_requires=["oplib"],
+    install_requires=["oplib", "feedparser"],
     packages=["genocide"],
     namespace_packages=["genocide"],
     zip_safe=False,

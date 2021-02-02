@@ -5,4 +5,4 @@
 __version__ = 25
 
 def ver(event):
-    event.reply("GENOCIDE %s | OTP-CR-117/19 | otp.informationdesk@icc-cpi.int | http://genocide.rtfd.io" % __version__)
+    event.reply("GENOCIDE %s OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://genocide.rtfd.io" % __version__)

@@ -10,7 +10,7 @@ import datetime
 import random
 import time
 
-from op import Object, get, keys, items, values
+from op.obj import Object, get, keys, items, values
 from op.clk import Repeater
 from op.hdl import Bus, Event
 from op.prs import elapsed, parse_time

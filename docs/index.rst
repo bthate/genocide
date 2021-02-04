@@ -3,7 +3,7 @@ GENOCIDE
 
 GENOCIDE is a python3 program that holds evidence that the king in the
 netherlands is doing a genocide, a written response where the king
-confirmed taking note "of what i have written", namely proof that medicine
+confirmed taking note of "what i have written", namely proof that medicine
 he uses in treatement laws like zyprexa, haldol, abilify and clozapine are
 poison. This means that the king of the netherlands is not using laws to provide
 care for the elderly, handicapped, psychiatric patients and criminals but is

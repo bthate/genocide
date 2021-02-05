@@ -3,7 +3,7 @@
 #
 # this file is placed in the public domain
 
-from op.hdl import Handler
+from op.bsc import Core
 from op.run import cfg, execute, os
 from op.utl import privileges
 
@@ -11,10 +11,10 @@ def main():
     "main function"
     cfg.wd = "/var/lib/genocide"
     privileges("genocide")
-    h = Handler()
+    h = Core()
     h.walk("opbot,genocide")
     h.start()
-    h.init("irc,rss,genocide,sui")
+    h.init("irc,rss,sui")
     h.wait()
 
 execute(main)

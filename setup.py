@@ -24,7 +24,7 @@ setup(
     packages=["genocide"],
     namespace_packages=["genocide"],
     zip_safe=False,
-    scripts=["bin/genocide", "bin/genocidectl", "bin/genocided", "bin/genocideinst", "bin/genocideudp"],
+    scripts=["bin/genocide", "bin/genocidecmd", "bin/genocidectl", "bin/genocided", "bin/genocideudp"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: MIT License',
                  'Operating System :: Unix',

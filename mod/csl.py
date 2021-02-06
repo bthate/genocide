@@ -1,12 +1,12 @@
 # This file is placed in the Public Domain.
 
-from .hdl import Bus, Command, Handler, cmd
-from .run import cfg
-from .thr import launch
-from .trm import termsave, termreset
+from gcd.hdl import Bus, Command, Handler, cmd
+from gcd.run import cfg
+from gcd.thr import launch
+from gcd.trm import termsave, termreset
 
 def __dir__():
-    return ("CLI", "Console", "console", "init")
+    return ("CLI", "Console", "init")
 
 def init(h):
     c = Console()
@@ -48,16 +48,5 @@ class CLI(Handler):
         self.register("cmd", cmd)
 
     def direct(self, txt):
-        if cfg.verbose:
+        if self.verbose:
             print(txt)
-
-def console(main):
-    termsave()
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("")
-    except PermissionError as ex:
-        print(str(ex))
-    finally:
-        termreset()

@@ -6,10 +6,14 @@ import os, queue, sys, threading, time
 from .obj import Cfg, Default, Object, Ol, get, update
 from .prs import parse
 from .thr import launch
-from .utl import direct, spl
+from .utl import direct, locked, spl
+
+import _thread
 
 def __dir__():
     return ("Bus", "Command", "Event", "Handler", "cmd")
+
+loadlock = _thread.allocate_lock()
 
 class Bus(Object):
 
@@ -143,10 +147,9 @@ class Handler(Object):
             return
         if not os.path.exists(pkgpath):
             return
-        path = os.path.dirname(pkgpath)
+        #path = os.path.dirname(pkgpath)
         if not name:
             name = pkgpath.split(os.sep)[-1]
-        sys.path.insert(0, path)
         for mn in [x[:-3] for x in os.listdir(pkgpath)
                    if x and x.endswith(".py")
                    and not x.startswith("__")
@@ -181,6 +184,7 @@ class Handler(Object):
                 t = "%s.%s" % (o.__module__, o.__name__)
                 self.names.append(o.__name__.lower(), t)
 
+    @locked(loadlock)
     def load(self, mn):
         if mn in self.table:
             return self.table[mn]

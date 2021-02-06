@@ -72,8 +72,13 @@ def main():
     h.walk("mod")
     if cfg.txt:
         return h.cmd(cfg.otxt)
-    if cfg.op("s"):
-        h.init("csl")
-        h.wait()
+    if cfg.op("c"):
+        sys.path.insert(0, os.getcwd())
+        from mod.csl import Console
+        c = Console()
+        c.clone(h)
+        c.init(cfg.mods)
+        c.start()
+        c.wait()
 
 execute(main)

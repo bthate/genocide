@@ -81,6 +81,7 @@ def do_cmd(cmd):
         nr += 1
         txt = cmd + " " + ex
         e = Command(txt)
+        print(e)
         h.put(e)
         events.append(e)
     return events

@@ -69,17 +69,12 @@ def main():
         print(__doc__)
         return
     h = Basic()
-    h.walk("opmod")
-    h.walk("opbot")
-    h.walk("genocide")
+    h.walk("op,opbot,genocide")
     if cfg.txt:
         return h.cmd(cfg.otxt)
     if cfg.op("s"):
-        c = Console()
-        c.clone(h)
-        c.start()
-        c.init(cfg.sets.mods)
-        c.wait()
+        h.init("csl")
+        h.wait()
 
 cmds = []
 console(main)

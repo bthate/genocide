@@ -8,6 +8,15 @@ from .run import cfg
 from .thr import launch
 from .trm import termsave, termreset
 
+def __dir__():
+    return ("CLI", "Console", "console", "init")
+
+def init(h):
+    c = Console()
+    c.clone(h)
+    c.start()
+    return c
+
 class Console(Handler):
 
     def __init__(self):
@@ -57,9 +66,3 @@ def console(main):
     finally:
         termreset()
 
-def init(handler):
-    c = Console()
-    c.load("op.cmd")
-    c.walk(cfg.mods)
-    c.start()
-    return c

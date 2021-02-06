@@ -2,4 +2,4 @@
 #
 # this file is placed in the public domain
 
-systemd-run -q -t --property=DynamicUser=yes --property=StateDirectory=genocide genocidecmd  $*
+systemd-run -q -t --property=DynamicUser=yes --property=StateDirectory=genocide gccmd  $*

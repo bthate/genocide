@@ -12,7 +12,8 @@ def main():
     cfg.wd = "/var/lib/genocide"
     privileges("genocide")
     h = Core()
-    h.walk("opbot,genocide")
+    h.load("opmod.rss")
+    h.walk("op,opbot,genocide")
     h.start()
     h.init("irc,rss,sui")
     h.wait()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# GENOCIDE - using the law to administer poison (bin/genocidecmd)
+# GENOCIDE - using the law to administer poison (bin/gccmd)
 #
 # This file is placed in the Public Domain.
 
@@ -13,7 +13,7 @@ def main():
     cfg.verbose = True
     privileges("genocide")
     h = Basic()
-    h.walk("opbot,opmod,genocide")
+    h.walk("op,opbot,genocide")
     h.cmd(" ".join(sys.argv[1:]))
 
 execute(main)

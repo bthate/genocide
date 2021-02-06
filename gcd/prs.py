@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
-from .obj import Default, Object, update, time
-from .utl import day
+from .obj import Default, Object, update
+from .utl import day, time
 
 def __dir__():
     return ("elapsed", "parse", "parse_cli", "parse_time", "parse_ymd")

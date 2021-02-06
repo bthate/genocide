@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 
-import datetime, getpass, importlib, inspect, os,  pwd, random
+import datetime, getpass, importlib, inspect, os, pwd, random
 import re, socket, sys, time, traceback, types, urllib
 
 from urllib.parse import quote_plus, urlencode
@@ -147,7 +147,7 @@ def get_type(o):
 def get_url(url):
     from .run import cfg
     if cfg.debug:
-        return 
+        return
     url = urllib.parse.urlunparse(urllib.parse.urlparse(url))
     req = urllib.request.Request(url)
     req.add_header('User-agent', useragent(url))
@@ -184,7 +184,7 @@ def mods(mn):
 def opcheck(ops, cfg):
     for o in ops:
         if o in cfg.opts:
-             return True    
+            return True
     return False
 
 def privileges(name=None):

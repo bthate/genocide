@@ -1,7 +1,6 @@
 # This file is placed in the Public Domain.
 
 import datetime, importlib, json, os, random, sys, uuid
-import time
 
 class ENOCLASS(Exception):
 

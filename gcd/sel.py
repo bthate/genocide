@@ -38,9 +38,9 @@ class Select(Handler):
 
     def register_fd(self, fd):
         try:
-             fd = fd.fileno()
-        except AttibuteError:
-             fd = fd
+            fd = fd.fileno()
+        except AttributeError:
+            fd = fd
         self._select.register(fd, selectors.EVENT_READ|selectors.EVENT_WRITE)
         return fd
 

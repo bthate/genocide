@@ -10,10 +10,10 @@ class Core(Handler):
         Bus.add(self)
 
 class Basic(Core):
-         
+
     def direct(self, txt):
         print(txt)
-         
+
 class Test(Core):
 
     def direct(self, txt):

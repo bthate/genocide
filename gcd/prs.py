@@ -1,11 +1,6 @@
-# OPLIB - Object Programming Library (prs.py)
-#
-# This file is placed in the Public Domain
+# This file is placed in the Public Domain.
 
-import sys
-import time
-
-from .obj import Default, Object, update
+from .obj import Default, Object, update, time
 from .utl import day
 
 def __dir__():
@@ -109,8 +104,6 @@ class Timed(Object):
         if vv:
             self["to"] = time.time() - vv
 
-# functions
-
 def elapsed(seconds, short=True):
     txt = ""
     nsec = float(seconds)
@@ -147,8 +140,6 @@ def elapsed(seconds, short=True):
         return txt
     if sec == 0:
         txt += "0s"
-    #elif sec < 1 or not short:
-    #    txt += "%.3fs" % sec
     else:
         txt += "%ss" % int(sec)
     txt = txt.strip()

@@ -1,26 +1,15 @@
-# OP - Object Programming (test_object.py)
-#
-# this file is placed in the public domain
+# This file is placed in the Public Domain.
 
-"test object functions"
+import types, unittest
 
-# imports
-
-import types
-import unittest
-
-from op.dbs import last
-from op import O, Object, load, save
-
-# classes
+from gcd.dbs import last
+from gcd.obj  import O, Object, load, save
 
 class Obj(O):
     def test(self):
         return True
 
 class Test_Object(unittest.TestCase):
-
-    "object tests"
 
     def test_clean(self):
         o = Obj()
@@ -45,7 +34,7 @@ class Test_Object(unittest.TestCase):
 
     def test_Object(self):
         o = Object()
-        self.assertEqual(type(o), Object)
+        self.assertTrue(isinstance(o, Object))
 
     def test_intern1(self):
         o = Object()
@@ -57,7 +46,7 @@ class Test_Object(unittest.TestCase):
 
     def test_intern3(self):
         o = Object()
-        self.assertTrue("<op.Object object at" in repr(o))
+        self.assertTrue("<gcd.obj.Object object at" in repr(o))
 
     def test_intern4(self):
         o = Object()

@@ -1,13 +1,8 @@
-# OPLIB - Object Programming Library (itr.py)
-#
 # This file is placed in the Public Domain.
 
-import importlib
 import inspect
-import pkgutil
 
 from .obj import Object, Ol
-from .utl import direct
 
 def find_cmds(mod):
     cmds = Object()

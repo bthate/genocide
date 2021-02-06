@@ -1,14 +1,6 @@
-# OPLIV - Object Programming Library (trm.py)
-#
 # This file is placed in the Public Domain.
 
-import atexit
-import os
-import sys
-import termios
-import _thread
-
-from .utl import get_exception
+import atexit, sys, termios
 
 resume = {}
 

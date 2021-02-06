@@ -1,30 +1,14 @@
-# OP - Object Programming (test_tinder.py)
-#
-# this file is placed in the public domain
+# This file is placed in the Public Domain.
 
-"run all commands"
+import os, random, sys, unittest
 
-# imports
+from gcd.bsc import Test
+from gcd.hdl import Command, Handler, cmd
+from gcd.obj import Object, get
+from gcd.run import cfg, parse_cli
+from gcd.thr import launch
 
-import os
-import random
-import sys
-import unittest
-
-sys.path.insert(0, os.getcwd())
-
-import op
-from op.hdl import Command, Handler, cmd
-from op.prs import parse_cli
-from op.thr import launch
-
-# defines
-
-cfg = parse_cli()
-verbose = "v" in cfg.opts
-index = cfg.index
-
-param = op.Object()
+param = Object()
 param.add = ["test@shell", "bart"]
 param.dne = ["test4", ""]
 param.edt = ["operbot.rss.Cfg", "operbot.rss.Cfg server=localhost", "operbot.rss.Cfg channel=#dunkbots"]
@@ -41,46 +25,23 @@ events = []
 ignore = ["mbx", "rss"]
 nrtimes = 1
 
-# classes
-
-class TestHandler(Handler):
-
-    "prints to console"
-
-    def direct(self, txt):
-        if verbose:
-            print(txt)
-
-class Command(Command):
-
-    "prints to console"
-
-    def direct(self, txt):
-        if verbose:
-            print(txt)
-
 class Test_Tinder(unittest.TestCase):
-
-    "run all commands"
 
     def test_thrs(self):
         thrs = []
-        for x in range(index or 1):
+        for x in range(cfg.index or 1):
             launch(tests, h)
         consume(events)
 
     def test_neuman(self):
-        for x in range(index or 1):
+        for x in range(cfg.index or 1):
             tests(h)
 
     def test_sorted(self):
-        for x in range(index or 1):
+        for x in range(cfg.index or 1):
             sortedtests(h)
 
-# functions
-
 def consume(elems):
-    "consume elements"
     fixed = []
     res = []
     for e in elems:
@@ -96,7 +57,6 @@ def consume(elems):
     return res
 
 def sortedtests(b):
-    "sort commands"
     keys = sorted(h.cmds)
     for cmd in keys:
         if cmd in ignore:
@@ -104,7 +64,6 @@ def sortedtests(b):
         events.extend(do_cmd(cmd))
 
 def tests(b):
-    "random commands"
     keys = list(h.cmds)
     random.shuffle(keys)
     for cmd in keys:
@@ -113,8 +72,7 @@ def tests(b):
         events.extend(do_cmd(cmd))
 
 def do_cmd(cmd):
-    "execute a command"
-    exs = op.get(param, cmd, [""])
+    exs = get(param, cmd, [""])
     e = list(exs)
     random.shuffle(e)
     events = []
@@ -127,15 +85,7 @@ def do_cmd(cmd):
         events.append(e)
     return events
 
-# runtime
-
-h = TestHandler()
+h = Test()
 h.register("cmd", cmd)
-h.load("op.cmd")
+h.fromdir("mod")
 h.start()
-
-for e in do_cmd("mbx"):
-    e.wait()
-
-for e in do_cmd("rss https://www.reddit.com/r/python/.rss"):
-    e.wait()

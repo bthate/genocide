@@ -1,26 +1,15 @@
-# OPLIB - Object Programming Library (obj.py)
-#
 # This file is placed in the Public Domain.
 
-import datetime
-import importlib
-import json
-import os
-import random
-import sys
+import datetime, importlib, json, os, random, sys, uuid
 import time
-import types
-import uuid
-
-__version__ = 2
 
 class ENOCLASS(Exception):
 
-     pass
+    pass
 
 class ENOFILENAME(Exception):
 
-     pass
+    pass
 
 class O:
 
@@ -53,7 +42,7 @@ class O:
 class Object(O):
 
     __slots__ = ("__id__", "__type__", "__stp__")
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.__id__ = str(uuid.uuid4())
@@ -201,10 +190,9 @@ def format(o, keys=None, skip=None):
     return txt.strip()
 
 def get(o, k, d=None):
-    if type(o) == dict:
+    if isinstance(o, dict):
         return o.get(k, d)
-    else:
-        return o.__dict__.get(k, d)
+    return o.__dict__.get(k, d)
 
 def items(o):
     try:
@@ -306,4 +294,3 @@ def xdir(o, skip=None):
             continue
         res.append(k)
     return res
-

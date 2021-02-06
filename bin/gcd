@@ -70,6 +70,7 @@ def main():
         return
     h = Basic()
     h.walk("gcd,mod")
+    h.fromdir("mod")
     if cfg.txt:
         return h.cmd(cfg.otxt)
     if cfg.op("s"):

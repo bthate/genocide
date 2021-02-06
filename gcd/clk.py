@@ -1,5 +1,3 @@
-# OPLIB - Object Programming Library (clk.py)
-#
 # This file is placed in the Public Domain.
 
 import threading

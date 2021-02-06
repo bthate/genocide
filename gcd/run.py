@@ -1,12 +1,7 @@
-# OPLIB - Object Programming Library (run.py)
-#
 # This file is placed in the Public Domain.
 
-__version__ = 3
+import sys, time
 
-import os, sys, time
-
-from .bsc import Basic, Test
 from .obj import Cfg
 from .prs import parse
 

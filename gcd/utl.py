@@ -1,21 +1,7 @@
-# OPLIB - Object Programming Library (utl.py)
-#
 # This file is placed in the Public Domain.
 
-import datetime
-import getpass
-import importlib
-import inspect
-import os
-import pwd
-import random
-import re
-import socket
-import sys
-import time
-import traceback
-import types
-import urllib
+import datetime, getpass, importlib, inspect, os,  pwd, random
+import re, socket, sys, time, traceback, types, urllib
 
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen

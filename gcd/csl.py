@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-# OPBOT - Object Programming Bot (csl.py)
-#
 # This file is placed in the Public Domain.
 
 from .hdl import Bus, Command, Handler, cmd
@@ -64,4 +61,3 @@ def console(main):
         print(str(ex))
     finally:
         termreset()
-

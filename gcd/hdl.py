@@ -1,20 +1,12 @@
-# OPLIB - Object Programming Library (hdl.py)
-#
 # This file is placed in the Public Domain.
 
-import inspect
-import importlib
-import importlib.util
-import os
-import queue
-import sys
-import threading
-import time
+import inspect, importlib, importlib.util
+import os, queue, sys, threading, time
 
 from .obj import Cfg, Default, Object, Ol, get, update
 from .prs import parse
 from .thr import launch
-from .utl import direct, mods, spl
+from .utl import direct, spl
 
 def __dir__():
     return ("Bus", "Command", "Event", "Handler", "cmd")
@@ -141,7 +133,7 @@ class Handler(Object):
 
     def direct(self, txt):
         pass
-        
+
     def dispatch(self, event):
         if event.type and event.type in self.cbs:
             self.cbs[event.type](self, event)
@@ -164,13 +156,13 @@ class Handler(Object):
     def init(self, mns, name="op"):
         thrs = []
         for mn in spl(mns):
-            for name in self.pkgs:
+            for nm in self.pkgs:
                 try:
-                    spec = importlib.util.find_spec("%s.%s" % (name, mn))
+                    spec = importlib.util.find_spec("%s.%s" % (nm, mn))
                 except ModuleNotFoundError:
                     continue
                 if spec:
-                    mod = self.load("%s.%s" % (name, mn))
+                    mod = self.load("%s.%s" % (name, nm))
                     func = getattr(mod, "init", None)
                     if func:
                         thrs.append(func(self))

@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-# GENOCIDE - using the law to administer poison (bin/test)
-#
 # This file is placed in the Public Domain.
 
 import os, sys ; sys.path.insert(0, os.getcwd())
@@ -8,8 +6,7 @@ import os, sys ; sys.path.insert(0, os.getcwd())
 import time
 import unittest
 
-from gcd.prs import parse_cli
-from gcd.trm import execute
+from gcd.run import cfg, execute, parse_cli
 
 test_path = os.getcwd() + os.sep + "test"
 wd = os.path.expanduser("~/.test")

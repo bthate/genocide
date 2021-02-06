@@ -1,1 +1,1 @@
-rm -fR op/*~ op/__pycache__ opmod/*~ opmod/__pycache__ genocide/*~ genocide/__pycache__ opbot/*~ opbot/__pycache__ docs/txt/*~ docs/genocide*.rst docs/*~ docs/__pycache__  docs/op*.rst  run run.tar.gz html env env.tar.gz  build dist MANIFEST genocide.egg-info bin/*~ *~ tests/*~ tests/__pycache__
+rm -fR gcd/*~ gcd/__pycache__ gcdmod/*~ gcdmod/__pycache__ docs/txt/*~ docs/gcd*.rst docs/*~ docs/__pycache__  run run.tar.gz html env env.tar.gz  build dist MANIFEST genocide.egg-info bin/*~ *~ tests/*~ tests/__pycache__

@@ -1,27 +1,18 @@
 #!/usr/bin/python3
-# OPERBOT - pure python3 IRC bot (bin/test)
+# GENOCIDE - using the law to administer poison (bin/test)
 #
-# this file is placed in the public domain
-
-"operbot unittests"
-
-# imports
+# This file is placed in the Public Domain.
 
 import os, sys ; sys.path.insert(0, os.getcwd())
 
-import op
 import time
 import unittest
 
-from op.prs import parse_cli
-from op.trm import execute
-
-# defines
+from gcd.prs import parse_cli
+from gcd.trm import execute
 
 test_path = os.getcwd() + os.sep + "test"
 wd = os.path.expanduser("~/.test")
-
-# functions
 
 def open(txt):
     try:
@@ -32,8 +23,9 @@ def open(txt):
 
 def main():
     open("rm -fR ~/.test")
-    op.debug = True
-    cfg = parse_cli(wd)
+    cfg.debug = True
+    cfg.wd = wd
+    parse_cli()
     if cfg.txt:
         pat = "test_%s*" % cfg.txt
     else:
@@ -41,7 +33,4 @@ def main():
     suite = unittest.loader.TestLoader().discover(test_path, pattern=pat)
     unittest.TextTestRunner(verbosity=3).run(suite)
 
-# runtime
-
 execute(main)
-os._exit(0)

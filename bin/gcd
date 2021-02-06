@@ -11,15 +11,15 @@ NAME
                    netherlands commits genocide.
 
 SYNOPSIS
-        1) genocide <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
-        2) genocide cfg server=<server> channel=<channel> nick=<nick>
-        3) genocide met <userhost>
-        4) genocide rss <url>
-        5) genocide ftc
-        6) genocide cmd
-        7) genocide mods=irc
+        1) gcd <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
+        2) gcd cfg server=<server> channel=<channel> nick=<nick>
+        3) gcd met <userhost>
+        4) gcd rss <url>
+        5) gcd ftc
+        6) gcd cmd
+        7) gcd mods=irc
 
-DESCCRIPTION
+DESCRIPTION
         GENOCIDE is a python3 program that holds evidence that the king of the
         netherlands is doing a genocide, a written response where the king of
         the netherlands  confirmed taking note of “what i have written”, namely
@@ -69,7 +69,7 @@ def main():
         print(__doc__)
         return
     h = Basic()
-    h.walk("gcd,gcdmod")
+    h.walk("gcd,mod")
     if cfg.txt:
         return h.cmd(cfg.otxt)
     if cfg.op("s"):

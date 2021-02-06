@@ -38,10 +38,6 @@ timestrings = [
     "%d, %b %Y %H:%M:%S +0000"
 ]
 
-def banner():
-    from .run import __version__
-    return "OPLIB %s - Object Programming Library started at %s" % (__version__, time.ctime(time.time()))
-
 def cdir(path):
     if os.path.exists(path):
         return
@@ -163,7 +159,7 @@ def get_type(o):
     return str(type(o)).split()[-1][1:-2]
 
 def get_url(url):
-    import .run import cfg
+    from .run import cfg
     if cfg.debug:
         return 
     url = urllib.parse.urlunparse(urllib.parse.urlparse(url))

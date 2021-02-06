@@ -53,11 +53,13 @@ OPTIONS
         -v              be verbose
         -h              print this message
 """
+import genocide
+import genocide.op
 
-from op.csl import Console, console
-from op.run import Basic, cfg, os, parse_cli, sys
-from op.thr import launch
-from op.utl import privileges
+from genocide.op.csl import Console, console
+from genocide.op.run import Basic, cfg, os, parse_cli, sys
+from genocide.op.thr import launch
+from genocide.op.utl import privileges
 
 wd = os.path.abspath(os.path.expanduser("~/.genocide"))
 md = os.path.join(wd, "mod", "")

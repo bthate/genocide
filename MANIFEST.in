@@ -1,4 +1,5 @@
 include README.rst
+include genocide.service
 include docs/conf.py
 include docs/index.rst
 include docs/requirements.txt

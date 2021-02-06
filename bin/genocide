@@ -65,11 +65,13 @@ def main():
     cfg.wd = os.path.expanduser("~/.genocide")
     cfg.verbose = True
     parse_cli()
-    h = Basic()
-    h.walk("genocide")
     if cfg.op("h"):
         print(__doc__)
         return
+    h = Basic()
+    h.walk("opmod")
+    h.walk("opbot")
+    h.walk("genocide")
     if cfg.txt:
         return h.cmd(cfg.otxt)
     if cfg.op("s"):

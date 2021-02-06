@@ -1,9 +1,7 @@
-# OPMOD - Object Programming Modules (cmd.py)
-#
 # This file is placed in the Public Domain.
 
-from op.dbs import find
-from op.obj import Object, save
+from gcd.dbs import find
+from gcd.obj import Object, save
 
 class Log(Object):
 

@@ -54,10 +54,10 @@ OPTIONS
         -h              print this message
 """
 
-from gcd.csl import Console, console
-from gcd.run import Basic, cfg, os, parse_cli, sys
+from gcd.bsc import Basic
+from gcd.run import cfg, execute, parse_cli, sys
 from gcd.thr import launch
-from gcd.utl import privileges
+from gcd.utl import privileges, os
 
 wd = os.path.abspath(os.path.expanduser("~/.genocide"))
 
@@ -69,12 +69,11 @@ def main():
         print(__doc__)
         return
     h = Basic()
-    h.walk("gcd,mod")
-    h.fromdir("mod")
+    h.walk("mod")
     if cfg.txt:
         return h.cmd(cfg.otxt)
     if cfg.op("s"):
         h.init("csl")
         h.wait()
 
-console(main)
+execute(main)

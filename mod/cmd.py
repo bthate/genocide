@@ -1,12 +1,17 @@
-# OPLIB - Object Programming Library (cmd.py)
-#
 # This file is placed in the Public Domain.
 
-from .obj import keys
-from .hdl import Bus
+import threading
+import time
+
+from gcd.dbs import find, last, list_files, last_match
+from gcd.obj import Object, get, keys, update
+from gcd.hdl import Bus
+from gcd.prs import elapsed
+from gcd.run import cfg
+from gcd.utl import fntime, get_name
 
 def __dir__():
-    return ("cmd",)
+    return ("cmd", "flt", "thr", "upt")
 
 def cmd(event):
     bot = Bus.by_orig(event.orig)
@@ -14,22 +19,6 @@ def cmd(event):
         c = sorted(keys(bot.cmds))
         if c:
             event.reply(",".join(c))
-# OPMOD - Object Programming Modules (dbg.py)
-#
-# This file is placed in the Public Domain.
-
-import threading
-import time
-
-from op.dbs import find, last, list_files, last_match
-from op.obj import Object, get, update
-from op.hdl import Bus
-from op.prs import elapsed
-from op.run import cfg
-from op.utl import fntime, get_name
-
-def __dir__():
-    return ("flt", "thr", "upt")
 
 def flt(event):
     try:

@@ -147,7 +147,8 @@ class Handler(Object):
             return
         if not os.path.exists(pkgpath):
             return
-        #path = os.path.dirname(pkgpath)
+        path = os.path.dirname(pkgpath)
+        sys.path.insert(0, path)
         if not name:
             name = pkgpath.split(os.sep)[-1]
         for mn in [x[:-3] for x in os.listdir(pkgpath)
@@ -156,17 +157,19 @@ class Handler(Object):
                    and not x == "setup.py"]:
             self.load("%s.%s" % (name, mn))
 
-    def init(self, mns, name="op"):
+    def init(self, mns, name=""):
         thrs = []
         for mn in spl(mns):
-            for nm in self.pkgs:
+            for pn in self.pkgs:
+                fqn = "%s.%s" % (pn, mn)
                 try:
-                    spec = importlib.util.find_spec("%s.%s" % (nm, mn))
+                    spec = importlib.util.find_spec(fqn)
                 except ModuleNotFoundError:
                     continue
                 if spec:
-                    mod = self.load("%s.%s" % (name, nm))
+                    mod = self.load(fqn)
                     func = getattr(mod, "init", None)
+                    print(func)
                     if func:
                         thrs.append(func(self))
         return [t for t in thrs if t]

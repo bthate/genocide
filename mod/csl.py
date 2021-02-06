@@ -1,12 +1,15 @@
 # This file is placed in the Public Domain.
 
+import atexit, sys, termios
+
 from gcd.hdl import Bus, Command, Handler, cmd
 from gcd.run import cfg
 from gcd.thr import launch
-from gcd.trm import termsave, termreset
 
 def __dir__():
-    return ("CLI", "Console", "init")
+    return ("CLI", "Console", "init", "console")
+
+resume = {}
 
 def init(h):
     c = Console()
@@ -50,3 +53,32 @@ class CLI(Handler):
     def direct(self, txt):
         if self.verbose:
             print(txt)
+
+def termsetup(fd):
+    return termios.tcgetattr(fd)
+
+def termreset():
+    if "old" in resume:
+        try:
+            termios.tcsetattr(resume["fd"], termios.TCSADRAIN, resume["old"])
+        except termios.error:
+            pass
+
+def termsave():
+    try:
+        resume["fd"] = sys.stdin.fileno()
+        resume["old"] = termsetup(sys.stdin.fileno())
+        atexit.register(termreset)
+    except termios.error:
+        pass
+
+def console(main):
+    termsave()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("")
+    except PermissionError as ex:
+        print(str(ex))
+    finally:
+        termreset()

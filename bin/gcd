@@ -54,10 +54,16 @@ OPTIONS
         -h              print this message
 """
 
+import os, sys; sys.path.insert(0, os.getcwd())
+
+import readline
+
 from gcd.bsc import Basic
-from gcd.run import cfg, execute, parse_cli, sys
+from gcd.run import cfg, parse_cli, sys
 from gcd.thr import launch
 from gcd.utl import privileges, os
+
+from mod.csl import console
 
 wd = os.path.abspath(os.path.expanduser("~/.genocide"))
 
@@ -73,12 +79,8 @@ def main():
     if cfg.txt:
         return h.cmd(cfg.otxt)
     if cfg.op("c"):
-        sys.path.insert(0, os.getcwd())
-        from mod.csl import Console
-        c = Console()
-        c.clone(h)
-        c.init(cfg.mods)
-        c.start()
-        c.wait()
+        h.start()
+        h.init("csl")
+        h.wait()
 
-execute(main)
+console(main)

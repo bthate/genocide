@@ -22,7 +22,6 @@ class Console(Handler):
     def __init__(self):
         super().__init__()
         self.register("cmd", cmd)
-        self.load("op.cmd")
         Bus.add(self)
 
     def direct(self, txt):

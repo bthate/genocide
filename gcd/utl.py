@@ -136,8 +136,8 @@ def get_names(pkgs):
     return res
 
 def get_tinyurl(url):
-    import op
-    if op.debug:
+    from .run import cfg
+    if cfg.debug:
         return []
     postarray = [
         ('submit', 'submit'),
@@ -163,8 +163,8 @@ def get_type(o):
     return str(type(o)).split()[-1][1:-2]
 
 def get_url(url):
-    import op
-    if op.debug:
+    import .run import cfg
+    if cfg.debug:
         return 
     url = urllib.parse.urlunparse(urllib.parse.urlparse(url))
     req = urllib.request.Request(url)

@@ -197,31 +197,6 @@ def get(o, k, d=None):
     else:
         return o.__dict__.get(k, d)
 
-def get_name(o):
-    t = type(o)
-    if t == types.ModuleType:
-        return o.__name__
-    try:
-        n = "%s.%s" % (o.__self__.__class__.__name__, o.__name__)
-    except AttributeError:
-        try:
-            n = "%s.%s" % (o.__class__.__name__, o.__name__)
-        except AttributeError:
-            try:
-                n = o.__class__.__name__
-            except AttributeError:
-                n = o.__name__
-    return n
-
-def get_type(o):
-    t = type(o)
-    if t == type:
-        try:
-            return "%s.%s" % (o.__module__, o.__name__)
-        except AttributeError:
-            pass
-    return str(type(o)).split()[-1][1:-2]
-
 def items(o):
     try:
         return o.items()

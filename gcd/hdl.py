@@ -114,6 +114,7 @@ class Handler(Object):
         self.names = Ol()
         self.pkgs = []
         self.queue = queue.Queue()
+        self.started = []
         self.stopped = False
         self.table = Object()
 
@@ -171,10 +172,11 @@ class Handler(Object):
                     spec = importlib.util.find_spec(fqn)
                 except ModuleNotFoundError:
                     continue
-                if spec:
+                if spec and not mn in self.started:
                     mod = self.load(fqn)
                     func = getattr(mod, "init", None)
                     if func:
+                        self.started.append(mn)
                         thrs.append(func(self))
         return [t for t in thrs if t]
 
@@ -247,7 +249,6 @@ def cmd(handler, obj):
     f = get(handler.cmds, obj.cmd, None)
     res = None
     if f:
-        obj.done.clear()
         res = f(obj)
         obj.show()
     obj.ready()

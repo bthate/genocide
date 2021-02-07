@@ -35,7 +35,6 @@ class Console(Handler):
                 break
             self.put(e)
             e.wait()
-            print(e)
 
     def poll(self):
         return Command(input("> "))

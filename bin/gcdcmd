@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+# GENOCIDE - using the law to administer poison (bin/genocidecmd)
+#
+# This file is placed in the Public Domain.
+
+from gcd.bsc import Basic
+from gcd.run import cfg, execute, os, sys
+from gcd.utl import privileges
+
+def main():
+    if len(sys.argv) <= 1:
+        return 
+    cfg.wd = "/var/lib/genocide/"
+    cfg.md = os.path.join(cfg.wd, "mod")
+    cfg.verbose = True
+    privileges("genocide")
+    h = Basic()
+    h.fromdir(cfg.md)
+    h.cmd(" ".join(sys.argv[1:]))
+
+execute(main)

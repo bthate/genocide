@@ -48,7 +48,7 @@ DESCRIPTION
         GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
         
 OPTIONS
-        -d              debug mode
+        -r		use /var/lib/genocide/
         -s              start a shell
         -v              be verbose
         -h              print this message
@@ -59,28 +59,40 @@ import os, sys; sys.path.insert(0, os.getcwd())
 import readline
 
 from gcd.bsc import Basic
+from gcd.csl import console
+from gcd.obj import save
 from gcd.run import cfg, parse_cli, sys
 from gcd.thr import launch
 from gcd.utl import privileges, os
 
-from mod.csl import console
-
-wd = os.path.abspath(os.path.expanduser("~/.genocide"))
+def open(txt):
+    try:
+        for line in os.popen(txt).readlines():
+            print(line.rstrip())
+    except:
+        pass
 
 def main():
     cfg.wd = os.path.expanduser("~/.genocide")
-    cfg.verbose = True
+    cfg.md = os.path.join(os.getcwd(), "mod")
     parse_cli()
     if cfg.op("h"):
         print(__doc__)
         return
+    if cfg.op("r"):
+        cfg.wd = "/var/lib/genocide/"
+        cfg.md = os.path.join(cfg.wd, "mods")
+        privileges("genocide")
     h = Basic()
-    h.walk("mod")
+    h.walk("gcd")
+    h.fromdir(cfg.md)
     if cfg.txt:
-        return h.cmd(cfg.otxt)
-    if cfg.op("c"):
-        h.start()
+        return h.cmd(cfg.txt)
+    h.start()
+    if cfg.op("s"):
         h.init("csl")
+    if cfg.op("s"):
         h.wait()
 
-console(main)
+if __name__ == "__main__":
+    console(main)

@@ -192,12 +192,16 @@ def privileges(name=None):
         return
     if name is None:
         name = getpass.getuser()
-    pwnam = pwd.getpwnam(name)
+    try:
+        pwnam = pwd.getpwnam(name)
+    except KeyError:
+        return False
     os.setgroups([])
     os.setgid(pwnam.pw_gid)
     os.setuid(pwnam.pw_uid)
     old_umask = os.umask(0o22)
-
+    return True
+    
 def root():
     if os.geteuid() != 0:
         return False

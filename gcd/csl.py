@@ -2,9 +2,9 @@
 
 import atexit, sys, termios
 
-from gcd.hdl import Bus, Command, Handler, cmd
-from gcd.run import cfg
-from gcd.thr import launch
+from .hdl import Bus, Command, Handler, cmd
+from .run import cfg
+from .thr import launch
 
 def __dir__():
     return ("CLI", "Console", "init", "console")
@@ -25,8 +25,7 @@ class Console(Handler):
         Bus.add(self)
 
     def direct(self, txt):
-        if cfg.verbose:
-            print(txt)
+        print(txt)
 
     def input(self):
         while 1:
@@ -36,6 +35,7 @@ class Console(Handler):
                 break
             self.put(e)
             e.wait()
+            print(e)
 
     def poll(self):
         return Command(input("> "))
@@ -51,8 +51,7 @@ class CLI(Handler):
         self.register("cmd", cmd)
 
     def direct(self, txt):
-        if self.verbose:
-            print(txt)
+        print(txt)
 
 def termsetup(fd):
     return termios.tcgetattr(fd)

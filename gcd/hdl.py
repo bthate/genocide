@@ -147,10 +147,15 @@ class Handler(Object):
             return
         if not os.path.exists(pkgpath):
             return
-        path = os.path.dirname(pkgpath)
+        path = os.path.split(pkgpath)
         sys.path.insert(0, path)
         if not name:
             name = pkgpath.split(os.sep)[-1]
+        try:
+            mod = direct(name)
+        except ModuleNotFoundError:
+            return
+        self.pkgs.append(name)
         for mn in [x[:-3] for x in os.listdir(pkgpath)
                    if x and x.endswith(".py")
                    and not x.startswith("__")
@@ -169,7 +174,6 @@ class Handler(Object):
                 if spec:
                     mod = self.load(fqn)
                     func = getattr(mod, "init", None)
-                    print(func)
                     if func:
                         thrs.append(func(self))
         return [t for t in thrs if t]
@@ -226,7 +230,7 @@ class Handler(Object):
             try:
                 mod = direct(pn)
             except ModuleNotFoundError:
-                continue
+                return
             self.pkgs.append(pn)
             if "__file__" in dir(mod) and mod.__file__:
                 p = os.path.dirname(mod.__file__)
@@ -243,6 +247,7 @@ def cmd(handler, obj):
     f = get(handler.cmds, obj.cmd, None)
     res = None
     if f:
+        obj.done.clear()
         res = f(obj)
         obj.show()
     obj.ready()

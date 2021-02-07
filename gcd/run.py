@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 
-import sys, time
+import os, sys, time
 
 from .obj import Cfg
 from .prs import parse

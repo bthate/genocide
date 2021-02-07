@@ -1,29 +1,5 @@
-#!/usr/bin/env python3
 # OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://genocide.rtfd.io
 #
 # This file is placed in the Public Domain.
 
-from gcd.run import cfg, execute, parse_cli, os
-from gcd.utl import privileges
-
-def open(txt):
-    for line in os.popen(txt).readlines():
-        print(line.rstrip())
-
-def main():
-    cfg.wd = "/var/lib/genocide/"
-    cfg.md = os.path.join(cfg.wd, "mods")
-    parse_cli()
-    privileges("genocide")
-    if cfg.op("i"):
-        if not os.path.exists("/etc/systemd/system/genocide.service"):
-            open("cp genocide.service /etc/systemd/system")
-        if not os.path.exists("/var/lib/genocide/"):
-            open("mkdir /var/lib/genocide/")
-        if not os.path.exists("/var/lib/genocide/mod/"):
-            open("mkdir /var/lib/genocide/mod")
-            open("cp mod/*.py /var/lib/genocide/mod")
-    print(cfg.otxt)
-    open("systemd-run -q -t --property=DynamicUser=yes --property=StateDirectory=genocide gcd -r %s" % cfg.otxt)
-
-execute(main)
+systemd-run -q -t --no-ask-password --property=DynamicUser=yes --property=StateDirectory=genocide gcd $*

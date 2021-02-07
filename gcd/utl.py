@@ -42,14 +42,7 @@ def day():
     return str(datetime.datetime.today()).split()[0]
 
 def direct(name, pname=''):
-    try:
-        return sys.modules[name]
-    except KeyError:
-        pass
-    try:
-        return importlib.import_module(name, pname)
-    except ModuleNotFoundError:
-        pass
+    return importlib.import_module(name, pname)
 
 def file_time(timestamp):
     s = str(datetime.datetime.fromtimestamp(timestamp))
@@ -154,6 +147,15 @@ def get_url(url):
     response = urllib.request.urlopen(req)
     response.data = response.read()
     return response
+
+def has_mod(fqn):
+    try:
+        spec = importlib.util.find_spec(fqn)
+        if spec:
+            return True
+    except ModuleNotFoundError:
+        pass
+    return False
 
 def locked(l):
     def lockeddec(func, *args, **kwargs):

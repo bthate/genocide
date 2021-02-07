@@ -49,5 +49,3 @@ OPTIONS
         -h              print this message
 """
 
-def hlp(event):
-    print(__doc__)

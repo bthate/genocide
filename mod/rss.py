@@ -4,12 +4,13 @@
 
 import urllib
 
-from op.clk import Repeater
-from op.dbs import all, find, last, last_match
-from op.obj import Cfg, Default, Object, edit, get, save, update
-from op.hdl import Bus
-from op.thr import launch
-from op.utl import get_tinyurl, get_url, strip_html, unescape
+from gcd.clk import Repeater
+from gcd.dbs import all, find, last, last_match
+from gcd.obj import Cfg, Default, Object, edit, get, save, update
+from gcd.hdl import Bus
+from gcd.run import cfg
+from gcd.thr import launch
+from gcd.utl import get_tinyurl, get_url, strip_html, unescape
 
 from urllib.error import HTTPError, URLError
 

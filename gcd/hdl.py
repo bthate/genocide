@@ -6,7 +6,7 @@ import os, queue, sys, threading, time
 from .obj import Cfg, Default, Object, Ol, get, update
 from .prs import parse
 from .thr import launch
-from .utl import direct, locked, spl
+from .utl import direct, has_mod, locked, spl
 
 import _thread
 
@@ -152,27 +152,27 @@ class Handler(Object):
         sys.path.insert(0, path)
         if not name:
             name = pkgpath.split(os.sep)[-1]
-        try:
-            mod = direct(name)
-        except ModuleNotFoundError:
+        if not has_mod(name):
             return
+        mod = direct(name)
         self.pkgs.append(name)
         for mn in [x[:-3] for x in os.listdir(pkgpath)
                    if x and x.endswith(".py")
                    and not x.startswith("__")
                    and not x == "setup.py"]:
-            self.load("%s.%s" % (name, mn))
+            fqn = "%s.%s" % (name, mn)
+            if not has_mod(fqn):
+                continue
+            self.load(fqn)
 
     def init(self, mns, name=""):
         thrs = []
         for mn in spl(mns):
             for pn in self.pkgs:
                 fqn = "%s.%s" % (pn, mn)
-                try:
-                    spec = importlib.util.find_spec(fqn)
-                except ModuleNotFoundError:
+                if not has_mod(fqn):
                     continue
-                if spec and not mn in self.started:
+                if not mn in self.started:
                     mod = self.load(fqn)
                     func = getattr(mod, "init", None)
                     if func:
@@ -229,10 +229,9 @@ class Handler(Object):
 
     def walk(self, pkgnames):
         for pn in spl(pkgnames):
-            try:
-                mod = direct(pn)
-            except ModuleNotFoundError:
-                return
+            if not has_mod(pn):
+                continue
+            mod = direct(pn)
             self.pkgs.append(pn)
             if "__file__" in dir(mod) and mod.__file__:
                 p = os.path.dirname(mod.__file__)

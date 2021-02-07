@@ -25,4 +25,5 @@ def execute(main):
 def parse_cli():
     parse(cfg, " ".join(sys.argv[1:]))
     cfg.sets.wd = cfg.wd = cfg.sets.wd or cfg.wd
+    cfg.mods = cfg.sets.mods
     return cfg

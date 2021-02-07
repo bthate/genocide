@@ -1,24 +1,17 @@
-# OPBOT - Object Programming Bot (irc.py)
-#
 # This file is placed in the Public Domain.
 
 __version__ = 2
 
-import os
-import queue
-import socket
-import textwrap
-import time
-import threading
-import _thread
+import os, queue, socket, textwrap
+import time, threading, _thread
 
-from op.dbs import find, last
-from op.obj import Cfg, Default, Object, format, get, save, update
-from op.hdl import Bus, Event, Handler, cmd
-from op.prs import parse
-from op.run import cfg as maincfg
-from op.thr import launch
-from op.utl import locked
+from gcd.dbs import find, last
+from gcd.obj import Cfg, Default, Object, format, get, save, update
+from gcd.hdl import Bus, Event, Handler, cmd
+from gcd.prs import parse
+from gcd.run import cfg as maincfg
+from gcd.thr import launch
+from gcd.utl import locked
 
 def __dir__():
     return ("Cfg", "DCC", "Event", "IRC", "User", "Users", "init", "cfg", "dlt", "met", "ops")
@@ -36,15 +29,14 @@ class ENOUSER(Exception):
 
 class Cfg(Cfg):
 
-
     def __init__(self):
         super().__init__()
-        self.channel = "#opbot"
-        self.nick = "opbot"
+        self.channel = "#genocide"
+        self.nick = "genocide"
         self.port = 6667
         self.server = "localhost"
-        self.realname = "Object Programming Bot"
-        self.username = "opbot"
+        self.realname = "using the law to administer poison equals genocide"
+        self.username = "gcd"
 
 class Event(Event):
 
@@ -393,6 +385,7 @@ class DCC(Handler):
         self._fsock = None
         self.encoding = "utf-8"
         self.origin = ""
+        Bus.add(self)
 
     def raw(self, txt):
         self._fsock.write(str(txt).rstrip())
@@ -481,7 +474,7 @@ class Users(Object):
 
     def get_users(self, origin=""):
         s = {"user": origin}
-        return find("opbot.irc.User", s)
+        return find("mod.irc.User", s)
 
     def get_user(self, origin):
         u = list(self.get_users(origin))
@@ -532,7 +525,7 @@ def dlt(event):
     if not event.args:
         return
     selector = {"user": event.args[0]}
-    for fn, o in find("opbot.irc.User", selector):
+    for fn, o in find("mod.irc.User", selector):
         o._deleted = True
         save(o)
         event.reply("ok")

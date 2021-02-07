@@ -25,7 +25,6 @@ class Test_Object(unittest.TestCase):
     def test_attr(self):
         o = Obj()
         o.test = "bla"
-        print(dir(o))
         self.assertTrue(type(o.test) != types.MethodType)        
                 
     def test_O(self):

@@ -148,7 +148,7 @@ class Handler(Object):
             return
         if not os.path.exists(pkgpath):
             return
-        path = os.path.split(pkgpath)
+        path, _n = os.path.split(pkgpath)
         sys.path.insert(0, path)
         if not name:
             name = pkgpath.split(os.sep)[-1]

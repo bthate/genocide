@@ -193,7 +193,10 @@ def privileges(name=None):
     if os.getuid() != 0:
         return
     if name is None:
-        name = getpass.getuser()
+        try:
+            name = getpass.getuser()
+        except KeyError:
+            pass
     try:
         pwnam = pwd.getpwnam(name)
     except KeyError:

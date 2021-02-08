@@ -5,21 +5,35 @@
 
 import os, sys; sys.path.insert(0, os.getcwd())
 
-import readline
+import readline, shutil
 
 from gcd.bsc import Basic
 from gcd.csl import console
 from gcd.dbs import last
-from gcd.obj import format, load, save
+from gcd.obj import format, load, register, save
 from gcd.run import cfg, parse_cli, sys
 from gcd.thr import launch
 from gcd.utl import privileges, os
+
+def cp(event):
+    if not os.path.exists(cfg.md):
+        os.mkdir(cfg.md)
+    fns = []
+    mpath =  os.path.abspath(os.path.join(os.getcwd(),"mod"))
+    for fn in os.listdir(mpath):
+        if not fn.endswith("py"):
+             continue
+        fns.append("mod/%s" % fn)
+    for fn in fns:
+        fnn = os.path.join(cfg.wd, fn)
+        shutil.copy2(fn, fnn)
+    event.reply("ok")
 
 def main():
     cfg.wd = "/var/lib/genocide/"
     cfg.md = os.path.join(cfg.wd, "mod")
     parse_cli()
-    privileges("genocide")
+    #privileges("genocide")
     if cfg.op("s"):
         save(cfg)
     elif cfg.op("l"):
@@ -30,17 +44,18 @@ def main():
         print(format(cfg))
         return
     h = Basic()
+    h.walk("gcdmod")
     h.walk("mod")
     h.fromdir(cfg.md)
     if cfg.txt:
+        register(h.cmds, "cp", cp)
         return h.cmd(cfg.otxt)
     h.start()
-    print(cfg.mods)
     h.init(cfg.mods)
     if cfg.op("c"):
         h.walk("gcd")
         h.init("csl")
-    if cfg.op("c"):
+    if cfg.op("cw"):
         h.wait()
 
 if __name__ == "__main__":

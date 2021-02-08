@@ -10,39 +10,37 @@ import readline
 from gcd.bsc import Basic
 from gcd.csl import console
 from gcd.dbs import last
-from gcd.obj import load, save
+from gcd.obj import format, load, save
 from gcd.run import cfg, parse_cli, sys
 from gcd.thr import launch
 from gcd.utl import privileges, os
 
 def main():
+    cfg.wd = "/var/lib/genocide/"
+    cfg.md = os.path.join(cfg.wd, "mod")
     parse_cli()
-    if cfg.op("r"):
-        cfg.wd = "/var/lib/genocide/"
-        cfg.md = os.path.join(cfg.wd, "mod")
-        privileges("genocide")
-    else:
-        cfg.wd = os.path.expanduser("~/.genocide")
-        cfg.md = os.path.join(os.getcwd(), "mod")
-    if cfg.op("x"):
-        cfg.debug = True
+    privileges("genocide")
     if cfg.op("s"):
         save(cfg)
     elif cfg.op("l"):
         last(cfg)
-    h = Basic()
-    h.walk("gcd")
-    h.fromdir(cfg.md)
-    if cfg.txt:
-        return h.cmd(cfg.txt)
-    h.start()
-    h.init(cfg.mods)
     if cfg.op("h"):
         import mod.hlp
-        return print(mod.hlp.__doc__)
+        print(mod.hlp.__doc__)
+        print(format(cfg))
+        return
+    h = Basic()
+    h.walk("mod")
+    h.fromdir(cfg.md)
+    if cfg.txt:
+        return h.cmd(cfg.otxt)
+    h.start()
+    print(cfg.mods)
+    h.init(cfg.mods)
     if cfg.op("c"):
+        h.walk("gcd")
         h.init("csl")
-    if cfg.op("rc"):
+    if cfg.op("c"):
         h.wait()
 
 if __name__ == "__main__":

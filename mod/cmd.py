@@ -11,7 +11,7 @@ from gcd.run import cfg
 from gcd.utl import fntime, get_name
 
 def __dir__():
-    return ("cmd", "flt", "thr", "upt")
+    return ("cmd", "flt", "thr")
 
 def cmd(event):
     bot = Bus.by_orig(event.orig)
@@ -50,6 +50,3 @@ def thr(event):
         res.append(txt)
     if res:
         event.reply("|".join(res))
-
-def upt(event):
-    return elapsed(time.time() - cfg.starttime)

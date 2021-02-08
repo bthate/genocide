@@ -537,10 +537,3 @@ def met(event):
     u.perms = ["USER"]
     save(u)
     event.reply("ok")
-
-def ops(event):
-    if not event.args:
-        return
-    bot = Bus.by_orig(event.orig)
-    if bot.users.allowed(event.origin, "USER"):
-        bot.raw("MODE %s %s" % (bot.cfg.nick, "+o"))

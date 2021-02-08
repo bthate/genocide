@@ -6,13 +6,7 @@ NAME
         GENOCIDE - using the law to administer poison equals genocide.
 
 SYNOPSIS
-        1) gcd <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
-        2) gcd cfg server=<server> channel=<channel> nick=<nick>
-        3) gcd met <userhost>
-        4) gcd rss <url>
-        5) gcd ftc
-        6) gcd cmd
-        7) gcd mods=irc
+        gcd <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
 
 DESCRIPTION
         GENOCIDE is a python3 program that holds evidence that the king of the
@@ -37,15 +31,26 @@ DESCRIPTION
 
         GENOCIDE provides a IRC bot that can run as a background daemon for
         24/7 a day presence in a IRC channel. You can use it to display RSS
-        feeds, act as a UDP to IRC gateway, program your own commands for it
-        and have it log objects on disk to search them.
+        feeds, program your own commands for it and have it log objects on
+        disk to search them.
 
         GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
+
+EXAMPLES
+        1) gcd cfg server=<server> channel=<channel> nick=<nick>
+        2) gcd met <userhost>
+        3) gcd rss <url>
+        4) gcd ftc
+        5) gcd cmd
+        6) gcd mods=irc
         
 OPTIONS
+        -c		start console
+        -l		read config
         -r		use /var/lib/genocide/
-        -s              start a shell
-        -v              be verbose
+        -s              save config
         -h              print this message
+        -v              be verbose
+        -z		use ~/.genocide
 """
 

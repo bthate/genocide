@@ -3,6 +3,7 @@ include genocide.service
 include docs/conf.py
 include docs/index.rst
 include docs/requirements.txt
+recursive-include op/ *.py
 recursive-include docs/ *.png
 recursive-include docs/pdf *.pdf
 recursive-include docs/txt *

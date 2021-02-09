@@ -8,7 +8,8 @@ import os, readline, shutil, sys
 from op.bsc import Basic
 from op.csl import console
 from op.dbs import last
-from op.run import cfg
+from op.obj import register
+from op.run import cfg, parse_cli
 
 def cp(event):
     if not os.path.exists(cfg.md):
@@ -27,10 +28,9 @@ def cp(event):
 def main():
     cfg.wd = "/var/lib/genocide/"
     cfg.md = os.path.join(cfg.wd, "mod")
-    if os.path.exists(cfg.wd):
-        last(cfg)
+    parse_cli()
     h = Basic()
-    register(h, "cp", cp)
+    register(h.cmds, "cp", cp)
     h.walk("mod")
     h.fromdir(cfg.md)
     return h.cmd(" ".join(sys.argv[1:]))

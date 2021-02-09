@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-# GENOCIDE - using the law to administer poison equals genocide. (bin/gcd)
+# GENOCIDE - using the law to administer poison equals genocide. (bin/gcdrun)
 #
 # This file is placed in the Public Domain.
-
-import os, sys; sys.path.insert(0, os.getcwd())
 
 import readline, shutil
 
@@ -11,9 +9,8 @@ from gcd.bsc import Basic
 from gcd.csl import console
 from gcd.dbs import last
 from gcd.obj import format, load, register, save
-from gcd.run import cfg, parse_cli, sys
+from gcd.run import cfg, parse_cli, sys, os
 from gcd.thr import launch
-from gcd.utl import privileges, os
 
 def cp(event):
     if not os.path.exists(cfg.md):
@@ -33,7 +30,6 @@ def main():
     cfg.wd = "/var/lib/genocide/"
     cfg.md = os.path.join(cfg.wd, "mod")
     parse_cli()
-    #privileges("genocide")
     if cfg.op("s"):
         save(cfg)
     elif cfg.op("l"):

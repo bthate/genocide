@@ -190,7 +190,8 @@ class Handler(Object):
         for _key, o in inspect.getmembers(mod, inspect.isclass):
             if issubclass(o, Object):
                 t = "%s.%s" % (o.__module__, o.__name__)
-                self.names.append(o.__name__.lower(), t)
+                if o.__name__.lower() not in self.names:
+                    self.names.append(o.__name__.lower(), t)
 
     @locked(loadlock)
     def load(self, mn):

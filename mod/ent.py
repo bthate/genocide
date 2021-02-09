@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
-from gcd.dbs import find
-from gcd.obj import Object, save
+from op.dbs import find
+from op.obj import Object, save
 
 class Log(Object):
 

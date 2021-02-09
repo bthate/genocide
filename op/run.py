@@ -6,13 +6,14 @@ from .obj import Cfg
 from .prs import parse
 
 cfg = Cfg()
-cfg.starttime = time.time()
 cfg.debug = False
 cfg.verbose = False
 cfg.mods = ""
 cfg.opts = ""
 cfg.md = ""
 cfg.wd = ""
+
+starttime = time.time()
 
 def execute(main):
     try:

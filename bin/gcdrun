@@ -3,39 +3,15 @@
 #
 # This file is placed in the Public Domain.
 
-import readline, shutil
+import os, readline, shutil, sys
 
-from gcd.bsc import Basic
-from gcd.csl import console
-from gcd.dbs import last
-from gcd.obj import Object, format, load, register, save, update
-from gcd.prs import parse
-from gcd.run import cfg, parse_cli, sys, os
-from gcd.thr import launch
-
-def cp(event):
-    if not os.path.exists(cfg.md):
-        os.mkdir(cfg.md)
-    fns = []
-    mpath =  os.path.abspath(os.path.join(os.getcwd(),"mod"))
-    for fn in os.listdir(mpath):
-        if not fn.endswith("py"):
-             continue
-        fns.append("mod/%s" % fn)
-    for fn in fns:
-        fnn = os.path.join(cfg.wd, fn)
-        shutil.copy2(fn, fnn)
-    event.reply("ok")
-
-def sys(event):
-    p = Object()
-    parse(p, event.otxt)
-    if p.args:
-        update(cfg, p)
-        save(cfg)
-        event.reply("ok")
-        return
-    event.reply(format(cfg))
+from op.bsc import Basic
+from op.csl import console
+from op.dbs import last
+from op.obj import Object, format, load, register, save, update
+from op.prs import parse
+from op.run import cfg, parse_cli
+from op.thr import launch
 
 def main():
     cfg.wd = "/var/lib/genocide/"
@@ -45,19 +21,16 @@ def main():
         save(cfg)
     elif cfg.op("l"):
         last(cfg)
-        print(cfg)
     if cfg.op("h"):
         import mod.hlp
         print(mod.hlp.__doc__)
         print(format(cfg))
         return
     h = Basic()
-    h.walk("gcdmod")
+    h.walk("gcd")
     h.walk("mod")
     h.fromdir(cfg.md)
     if cfg.txt:
-        register(h.cmds, "cp", cp)
-        register(h.cmds, "sys", sys)
         return h.cmd(cfg.otxt)
     h.start()
     h.init(cfg.mods)
@@ -67,5 +40,4 @@ def main():
     if cfg.op("cw"):
         h.wait()
 
-if __name__ == "__main__":
-    console(main)
+console(main)

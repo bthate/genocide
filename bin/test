@@ -6,7 +6,7 @@ import os, sys ; sys.path.insert(0, os.getcwd())
 import time
 import unittest
 
-from gcd.run import cfg, execute, parse_cli
+from op.run import cfg, execute, parse_cli
 
 test_path = os.getcwd() + os.sep + "test"
 wd = os.path.expanduser("~/.test")

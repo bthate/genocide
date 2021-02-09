@@ -2,11 +2,11 @@
 
 import os, random, sys, unittest
 
-from gcd.bsc import Test
-from gcd.hdl import Command, Handler, cmd
-from gcd.obj import Object, get
-from gcd.run import cfg, parse_cli
-from gcd.thr import launch
+from op.bsc import Test
+from op.hdl import Command, Handler, cmd
+from op.obj import Object, get
+from op.run import cfg, parse_cli
+from op.thr import launch
 
 param = Object()
 param.add = ["test@shell", "bart"]

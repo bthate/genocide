@@ -2,8 +2,8 @@
 
 import types, unittest
 
-from gcd.dbs import last
-from gcd.obj  import O, Object, load, save
+from op.dbs import last
+from op.obj  import O, Object, load, save
 
 class Obj(O):
     def test(self):
@@ -45,7 +45,7 @@ class Test_Object(unittest.TestCase):
 
     def test_intern3(self):
         o = Object()
-        self.assertTrue("<gcd.obj.Object object at" in repr(o))
+        self.assertTrue("<op.obj.Object object at" in repr(o))
 
     def test_intern4(self):
         o = Object()

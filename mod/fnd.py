@@ -1,11 +1,11 @@
 # This file is in the Public Domain.
  
-from gcd.obj import Object, format, get, keys
-from gcd.dbs import find, list_files
-from gcd.hdl import Bus
-from gcd.prs import elapsed
-from gcd.run import cfg
-from gcd.utl import fntime, get_names, time
+from op.obj import Object, format, get, keys
+from op.dbs import find, list_files
+from op.hdl import Bus
+from op.prs import elapsed
+from op.run import cfg
+from op.utl import fntime, get_names, time
 
 def __dir__():
     return ("fnd",)

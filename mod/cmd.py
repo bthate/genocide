@@ -3,15 +3,15 @@
 import threading
 import time
 
-from gcd.dbs import find, last, list_files, last_match
-from gcd.obj import Object, format, get, keys, save, update
-from gcd.hdl import Bus
-from gcd.prs import elapsed, parse
-from gcd.run import cfg
-from gcd.utl import fntime, get_name
+from op.dbs import find, last, list_files, last_match
+from op.obj import Object, format, get, keys, save, update
+from op.hdl import Bus
+from op.prs import elapsed, parse
+from op.run import cfg, starttime
+from op.utl import fntime, get_name
 
 def __dir__():
-    return ("cmd", "flt", "sys", "thr")
+    return ("cmd", "flt", "thr")
 
 def cmd(event):
     bot = Bus.by_orig(event.orig)
@@ -28,15 +28,6 @@ def flt(event):
         pass
     event.reply("|".join([get_name(o) for o in Bus.objs]))
 
-def sys(event):
-    print(event)
-    if cfg.mods:
-        p = Object()
-        parse(p, event.otxt)
-        update(cfg, p)
-        save(cfg)
-    event.reply(format(cfg))
-
 def thr(event):
     psformat = "%s %s"
     result = []
@@ -48,7 +39,7 @@ def thr(event):
         if get(o, "sleep", None):
             up = o.sleep - int(time.time() - o.state.latest)
         else:
-            up = int(time.time() - cfg.starttime)
+            up = int(time.time() - starttime)
         thrname = thr.getName()
         if not thrname:
             continue

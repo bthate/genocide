@@ -5,13 +5,13 @@ __version__ = 2
 import os, queue, socket, textwrap
 import time, threading, _thread
 
-from gcd.dbs import find, last
-from gcd.obj import Cfg, Default, Object, format, get, save, update
-from gcd.hdl import Bus, Event, Handler, cmd
-from gcd.prs import parse
-from gcd.run import cfg as maincfg
-from gcd.thr import launch
-from gcd.utl import locked
+from op.dbs import find, last
+from op.obj import Cfg, Default, Object, format, get, save, update
+from op.hdl import Bus, Event, Handler, cmd
+from op.prs import parse
+from op.run import cfg as maincfg
+from op.thr import launch
+from op.utl import locked
 
 def __dir__():
     return ("Cfg", "DCC", "Event", "IRC", "User", "Users", "init", "cfg", "dlt", "met", "ops")

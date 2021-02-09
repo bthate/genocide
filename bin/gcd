@@ -27,15 +27,13 @@ def main():
         print(format(cfg))
         return
     h = Basic()
-    h.walk("gcd")
-    h.walk("mod")
+    h.walk("gcd,op,mod")
     h.fromdir(cfg.md)
     if cfg.txt:
         return h.cmd(cfg.otxt)
     h.start()
     h.init(cfg.mods)
     if cfg.op("c"):
-        h.walk("gcd")
         h.init("csl")
     if cfg.op("cw"):
         h.wait()

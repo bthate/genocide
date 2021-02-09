@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+# GENOCIDE - using the law to administer poison equals genocide. (bin/gcdrun)
+#
+# This file is placed in the Public Domain.
+
+import readline, shutil
+
+from gcd.bsc import Basic
+from gcd.csl import console
+from gcd.dbs import last
+from gcd.obj import Object, format, load, register, save, update
+from gcd.prs import parse
+from gcd.run import cfg, parse_cli, sys, os
+from gcd.thr import launch
+
+def main():
+    cfg.wd = "/var/lib/genocide/"
+    cfg.md = os.path.join(cfg.wd, "mod")
+    last(cfg)
+    h = Basic()
+    h.walk("gcdmod")
+    h.walk("mod")
+    h.fromdir(cfg.md)
+    return h.cmd(cfg.otxt)
+
+if __name__ == "__main__":
+    console(main)

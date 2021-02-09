@@ -23,7 +23,7 @@ setup(
     packages=["gcd", "gcdmod"],
     namespace_packages=["gcd", "gcdmod"],
     zip_safe=False,
-    scripts=["bin/gcd", "bin/gcdctl"],
+    scripts=["bin/gcd", "bin/gcdrun"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: MIT License',
                  'Operating System :: Unix',

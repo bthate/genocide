@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 
-import os, sys, time
+import sys, time
 
 from .obj import Cfg
 from .prs import parse
@@ -24,6 +24,8 @@ def execute(main):
 
 def parse_cli():
     parse(cfg, " ".join(sys.argv[1:]))
+    if cfg.sets:
+        cfg.changed = True
     cfg.sets.wd = cfg.wd = cfg.sets.wd or cfg.wd
     cfg.mods = cfg.sets.mods
     return cfg

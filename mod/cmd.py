@@ -4,14 +4,14 @@ import threading
 import time
 
 from gcd.dbs import find, last, list_files, last_match
-from gcd.obj import Object, get, keys, update
+from gcd.obj import Object, format, get, keys, save, update
 from gcd.hdl import Bus
-from gcd.prs import elapsed
+from gcd.prs import elapsed, parse
 from gcd.run import cfg
 from gcd.utl import fntime, get_name
 
 def __dir__():
-    return ("cmd", "flt", "thr")
+    return ("cmd", "flt", "sys", "thr")
 
 def cmd(event):
     bot = Bus.by_orig(event.orig)
@@ -27,6 +27,15 @@ def flt(event):
     except (TypeError, IndexError):
         pass
     event.reply("|".join([get_name(o) for o in Bus.objs]))
+
+def sys(event):
+    print(event)
+    if cfg.mods:
+        p = Object()
+        parse(p, event.otxt)
+        update(cfg, p)
+        save(cfg)
+    event.reply(format(cfg))
 
 def thr(event):
     psformat = "%s %s"

@@ -18,7 +18,7 @@ No Voice, No Description:
 | klappenknijperij
 | heelalknijperij
 | de afleggingen
-| dag 
+| dag
 | oordeel
 | zak door de grond (wederopwekking test, test = roep je er om)
 | passage, voorzetterij, vang maar op
@@ -58,7 +58,7 @@ No Voice, No Description:
 | tweede schuldlegging is goed gedaan op het atomaire vlak (gebied)
 | derde schuldlegging is materiaal tot enkelingen gereduceerd
 | vierde schuldlegging is de terug schuldlegging (schepping mishandelt)
-| onschuld 
+| onschuld
 | oordeel is hier het gesproken woord
 | woord gebruik
 | stil makerij
@@ -83,7 +83,7 @@ No Voice, No Description:
 | instappend beeld
 | judgement has passed
 | ring (wit/rood) als mr. evidence calling
-| na de komma als uitleg, buiten lopend reciterende 
+| na de komma als uitleg, buiten lopend reciterende
 | atlje coden
 | eigendom discussies
 | kooi houderij

@@ -43,7 +43,7 @@ EXAMPLES
         4) gcd ftc
         5) gcd cmd
         6) gcd mods=irc
-        
+
 OPTIONS
         -c		start console
         -l		read config
@@ -53,4 +53,3 @@ OPTIONS
         -v              be verbose
         -z		use ~/.genocide
 """
-

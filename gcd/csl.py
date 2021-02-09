@@ -3,7 +3,6 @@
 import atexit, sys, termios
 
 from .hdl import Bus, Command, Handler, cmd
-from .run import cfg
 from .thr import launch
 
 def __dir__():

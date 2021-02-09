@@ -1,7 +1,6 @@
 # This file is placed in the Public Domain.
 
-import inspect, importlib, importlib.util
-import os, queue, sys, threading, time
+import inspect, os, queue, sys, threading, time
 
 from .obj import Cfg, Default, Object, Ol, get, update
 from .prs import parse

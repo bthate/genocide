@@ -206,7 +206,7 @@ def privileges(name=None):
     os.setuid(pwnam.pw_uid)
     old_umask = os.umask(0o22)
     return True
-    
+
 def root():
     if os.geteuid() != 0:
         return False

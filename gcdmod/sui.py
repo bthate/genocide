@@ -1,6 +1,8 @@
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
+#
+# This file is placed in the Public Domain.
 
-import datetime, random, time
+import random, time
 
 from gcd.obj import Object, get, keys, items, values
 from gcd.clk import Repeater

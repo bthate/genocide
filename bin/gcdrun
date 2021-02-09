@@ -8,7 +8,8 @@ import readline, shutil
 from gcd.bsc import Basic
 from gcd.csl import console
 from gcd.dbs import last
-from gcd.obj import format, load, register, save
+from gcd.obj import Object, format, load, register, save, update
+from gcd.prs import parse
 from gcd.run import cfg, parse_cli, sys, os
 from gcd.thr import launch
 
@@ -26,6 +27,16 @@ def cp(event):
         shutil.copy2(fn, fnn)
     event.reply("ok")
 
+def sys(event):
+    p = Object()
+    parse(p, event.otxt)
+    if p.args:
+        update(cfg, p)
+        save(cfg)
+        event.reply("ok")
+        return
+    event.reply(format(cfg))
+
 def main():
     cfg.wd = "/var/lib/genocide/"
     cfg.md = os.path.join(cfg.wd, "mod")
@@ -34,6 +45,7 @@ def main():
         save(cfg)
     elif cfg.op("l"):
         last(cfg)
+        print(cfg)
     if cfg.op("h"):
         import mod.hlp
         print(mod.hlp.__doc__)
@@ -45,6 +57,7 @@ def main():
     h.fromdir(cfg.md)
     if cfg.txt:
         register(h.cmds, "cp", cp)
+        register(h.cmds, "sys", sys)
         return h.cmd(cfg.otxt)
     h.start()
     h.init(cfg.mods)

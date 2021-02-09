@@ -27,8 +27,8 @@ def main():
         print(format(cfg))
         return
     h = Basic()
-    h.walk("gcd,op,mod")
     h.fromdir(cfg.md)
+    h.walk("gcd,op,mod")
     if cfg.txt:
         return h.cmd(cfg.otxt)
     h.start()

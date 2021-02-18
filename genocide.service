@@ -7,7 +7,7 @@ DynamicUser=True
 StateDirectory=genocide
 LogsDirectory=genocide
 CacheDirectory=genocide
-ExecStart=/usr/local/bin/gcdrun -w -l
+ExecStart=/usr/local/bin/genocided
 CapabilityBoundingSet=CAP_NET_RAW
 
 [Install]

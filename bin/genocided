@@ -21,6 +21,7 @@ def main():
     cfg.mods += ",irc,rss"
     privileges("genocide")
     h = Core()
+    h.tablename = "gcd.tbl"
     h.fromdir(os.path.join(cfg.wd, "mod"))
     h.load_mod(cfg.mods)
     h.start()

@@ -24,6 +24,10 @@ class Console(Console):
 
 def main():
     parse_cli()
+    cfg.mods += "irc,rss"
+    if cfg.op("h"):
+        from gcd.hlp import __doc__
+        return print(__doc__)        
     h = Console()
     h.tablename = "gcd.tbl"
     h.fromdir(os.path.join(cfg.wd, "mod"))

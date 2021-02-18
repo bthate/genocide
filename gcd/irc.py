@@ -7,7 +7,6 @@
 # imports
 
 import os, queue, socket, textwrap, time, threading, _thread
-import logging
 
 from op.dbs import last
 from op.obj import Cfg, Object, format, save, update
@@ -116,7 +115,6 @@ class IRC(Handler):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
-        logging.error(rawstr)
         o = Event()
         o.rawstr = rawstr
         o.orig = repr(self)
@@ -359,7 +357,6 @@ class IRC(Handler):
             self.command("NOTICE", event.channel, txt)
 
     def PRIVMSG(self, pevent):
-        logging.error(pevent)
         if pevent.txt.startswith("DCC CHAT"):
             if not self.users.allowed(pevent.origin, "USER"):
                 return

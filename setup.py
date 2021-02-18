@@ -24,7 +24,7 @@ setup(
     packages=["gcd"],
     namespace_packages=["gcd"],
     zip_safe=False,
-    scripts=["bin/gcd", "bin/gcdctl", "gcdd", "gcdudp", "bin/genocide"],
+    scripts=["bin/gcd", "bin/gcdctl", "bin/gcdd", "bin/gcdudp", "bin/genocide"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: MIT License',
                  'Operating System :: Unix',

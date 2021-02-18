@@ -14,6 +14,8 @@ from op.run import cfg, parse_cli
 from op.trm import exec
 from op.utl import privileges
 
+import gcd.tbl
+
 # defines
 
 cfg.wd = "/var/lib/genocide/"
@@ -31,6 +33,7 @@ def main():
     parse_cli()
     privileges("genocide")
     h = Basic()
+    h.tablename = "gcd.tbl"
     h.fromdir(os.path.join(cfg.wd, "mod"))
     h.load_mod("cli,cmd,fnd,irc,rss,usr,ver")
     h.load_mod(cfg.mods)

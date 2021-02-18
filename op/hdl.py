@@ -199,10 +199,10 @@ class Handler(Object):
         if mn in self.table:
             return self.table[mn]
 
-    def get_names(self, nm, tbl="op.tbl"):
+    def get_names(self, nm):
         if not self.names:
             try:
-                mod = direct(tbl)
+                mod = direct(self.tablename)
                 update(self.names, mod.names)
             except ImportError:
                 pass

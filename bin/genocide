@@ -25,7 +25,7 @@ class Console(Console):
 def main():
     parse_cli()
     h = Console()
-    h.walk("gcd")
+    h.tablename = "gcd.tbl"
     h.fromdir(os.path.join(cfg.wd, "mod"))
     h.load_mod("cli,cmd,irc,usr,ver")
     h.load_mod(cfg.mods)

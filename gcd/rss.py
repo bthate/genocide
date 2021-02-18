@@ -1,4 +1,10 @@
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
+#
 # This file is placed in the Public Domain.
+
+"rss fetcher"
+
+# imports
 
 import urllib
 
@@ -12,19 +18,22 @@ from op.utl import get_tinyurl, get_url, strip_html, unescape
 
 from urllib.error import HTTPError, URLError
 
-def __dir__():
-    return ("Cfg", "Rss", "Feed", "Fetcher", "init", "dpl", "rem", "ftc", "rss")
-
 try:
     import feedparser
     gotparser = True
 except ModuleNotFoundError:
     gotparser = False
 
+# defines
+
+def __dir__():
+    return ("Cfg", "Rss", "Feed", "Fetcher", "init", "dpl", "rem", "ftc", "rss")
+
 def init(hdl):
-    "start a rss poller"
     f = Fetcher()
     return launch(f.start)
+
+# classes
 
 class Cfg(Cfg):
 
@@ -34,7 +43,7 @@ class Cfg(Cfg):
 
 class Feed(Default):
 
-     pass
+    pass
 
 class Rss(Object):
 
@@ -113,8 +122,9 @@ class Fetcher(Object):
 
     def run(self):
         thrs = []
-        for fn, o in all("mod.rss.Rss"):
-            thrs.append(launch(self.fetch, Default(o)))
+        for fn, o in all("opbot.rss.Rss"):
+            #d = Default(o)
+            thrs.append(launch(self.fetch, o))
         return thrs
 
     def start(self, repeat=True):
@@ -126,6 +136,8 @@ class Fetcher(Object):
 
     def stop(self):
         save(self.seen)
+
+# functions
 
 def get_feed(url):
     if cfg.debug:
@@ -142,11 +154,13 @@ def get_feed(url):
     else:
         return [Object(), Object()]
 
+# commands
+
 def dpl(event):
     if len(event.args) < 2:
         return
     setter = {"display_list": event.args[1]}
-    for fn, o in last_match("mod.rss.Rss", {"rss": event.args[0]}):
+    for fn, o in last_match("opbot.rss.Rss", {"rss": event.args[0]}):
         edit(o, setter)
         save(o)
         event.reply("ok")
@@ -169,7 +183,7 @@ def rem(event):
     selector = {"rss": event.args[0]}
     nr = 0
     got = []
-    for fn, o in find("mod.rss.Rss", selector):
+    for fn, o in find("opbot.rss.Rss", selector):
         nr += 1
         o._deleted = True
         got.append(o)
@@ -181,7 +195,7 @@ def rss(event):
     if not event.args:
         return
     url = event.args[0]
-    res = list(find("mod.rss.Rss", {"rss": url}))
+    res = list(find("opbot.rss.Rss", {"rss": url}))
     if res:
         return
     o = Rss()

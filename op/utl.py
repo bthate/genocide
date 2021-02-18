@@ -1,10 +1,19 @@
+# OPBOT - pure python3 IRC bot (op/utl.py)
+#
 # This file is placed in the Public Domain.
 
-import datetime, getpass, importlib, inspect, os, pwd, random
+"utilities"
+
+# imports
+
+import datetime, getpass, inspect, os, pwd, random
 import re, socket, sys, time, traceback, types, urllib
+import importlib, importlib.util
 
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
+
+# defines
 
 timestrings = [
     "%a, %d %b %Y %H:%M:%S %z",
@@ -24,19 +33,7 @@ timestrings = [
     "%d, %b %Y %H:%M:%S +0000"
 ]
 
-def cdir(path):
-    if os.path.exists(path):
-        return
-    res = ""
-    path2, _fn = os.path.split(path)
-    for p in path2.split(os.sep):
-        res += "%s%s" % (p, os.sep)
-        padje = os.path.abspath(os.path.normpath(res))
-        try:
-            os.mkdir(padje)
-            os.chmod(padje, 0o700)
-        except (IsADirectoryError, NotADirectoryError, FileExistsError):
-            pass
+# functions
 
 def day():
     return str(datetime.datetime.today()).split()[0]
@@ -128,15 +125,6 @@ def get_tinyurl(url):
             return i.groups()
     return []
 
-def get_type(o):
-    t = type(o)
-    if t == type:
-        try:
-            return "%s.%s" % (o.__module__, o.__name__)
-        except AttributeError:
-            pass
-    return str(type(o)).split()[-1][1:-2]
-
 def get_url(url):
     from .run import cfg
     if cfg.debug:
@@ -153,7 +141,7 @@ def has_mod(fqn):
         spec = importlib.util.find_spec(fqn)
         if spec:
             return True
-    except ModuleNotFoundError:
+    except (ValueError, ModuleNotFoundError):
         pass
     return False
 

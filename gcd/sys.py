@@ -1,24 +1,25 @@
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
+#
 # This file is placed in the Public Domain.
 
-import threading
-import time
+"system commands"
 
-from op.dbs import find, last, list_files, last_match
-from op.obj import Object, format, get, keys, save, update
+# imports
+
+import threading, time
+
+from op.obj import Object, get, update
 from op.hdl import Bus
-from op.prs import elapsed, parse
-from op.run import cfg, starttime
-from op.utl import fntime, get_name
+from op.prs import elapsed
+from op.run import starttime
+from op.utl import get_name
+
+# defines
 
 def __dir__():
-    return ("cmd", "flt", "thr")
+    return ("flt", "thr", "upt")
 
-def cmd(event):
-    bot = Bus.by_orig(event.orig)
-    if bot:
-        c = sorted(keys(bot.cmds))
-        if c:
-            event.reply(",".join(c))
+# commands
 
 def flt(event):
     try:
@@ -26,7 +27,7 @@ def flt(event):
         return
     except (TypeError, IndexError):
         pass
-    event.reply("|".join([get_name(o) for o in Bus.objs]))
+    event.reply(" | ".join([get_name(o) for o in Bus.objs]))
 
 def thr(event):
     psformat = "%s %s"
@@ -47,6 +48,9 @@ def thr(event):
             result.append((up, thrname))
     res = []
     for up, txt in sorted(result, key=lambda x: x[0]):
-        res.append(txt)
+        res.append("%s %s" % (txt, elapsed(up)))
     if res:
-        event.reply("|".join(res))
+        event.reply(" | ".join(res))
+
+def upt(event):
+    event.reply(elapsed(time.time() - starttime))

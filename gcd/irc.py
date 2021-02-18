@@ -1,20 +1,28 @@
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
+#
 # This file is placed in the Public Domain.
 
-__version__ = 2
+"irc bot"
 
-import os, queue, socket, textwrap
-import time, threading, _thread
+# imports
 
-from op.dbs import find, last
-from op.obj import Cfg, Default, Object, format, get, save, update
+import os, queue, socket, textwrap, time, threading, _thread
+import logging
+
+from op.dbs import last
+from op.obj import Cfg, Object, format, save, update
 from op.hdl import Bus, Event, Handler, cmd
 from op.prs import parse
-from op.run import cfg as maincfg
 from op.thr import launch
 from op.utl import locked
 
+from .usr import Users
+from .ver import __version__
+
+# defines
+
 def __dir__():
-    return ("Cfg", "DCC", "Event", "IRC", "User", "Users", "init", "cfg", "dlt", "met", "ops")
+    return ("Cfg", "DCC", "Event", "IRC", "cfg", "init")
 
 def init(hdl):
     i = IRC()
@@ -22,6 +30,8 @@ def init(hdl):
     return launch(i.start)
 
 saylock = _thread.allocate_lock()
+
+# classes
 
 class ENOUSER(Exception):
 
@@ -31,12 +41,12 @@ class Cfg(Cfg):
 
     def __init__(self):
         super().__init__()
-        self.channel = "#genocide"
-        self.nick = "genocide"
+        self.channel = "#opbot"
+        self.nick = "opbot"
         self.port = 6667
         self.server = "localhost"
-        self.realname = "using the law to administer poison equals genocide"
-        self.username = "gcd"
+        self.realname = "pure python3 IRC bot"
+        self.username = "opbot"
 
 class Event(Event):
 
@@ -93,8 +103,6 @@ class IRC(Handler):
     def _connect(self, server, port=6667):
         addr = socket.getaddrinfo(server, port, socket.AF_INET)[-1][-1]
         s = socket.create_connection(addr)
-        if maincfg.debug:
-            print("connected to %s" % server)
         s.setblocking(True)
         s.settimeout(1200.0)
         self._sock = s
@@ -108,6 +116,7 @@ class IRC(Handler):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
+        logging.error(rawstr)
         o = Event()
         o.rawstr = rawstr
         o.orig = repr(self)
@@ -176,8 +185,6 @@ class IRC(Handler):
     def _some(self):
         inbytes = self._sock.recv(512)
         txt = str(inbytes, "utf-8")
-        if maincfg.debug:
-            print(txt.rstrip())
         if txt == "":
             raise ConnectionResetError
         self.state.lastline += txt
@@ -270,7 +277,7 @@ class IRC(Handler):
         if not self._buffer:
             self._some()
         if not self._buffer:
-            return 
+            return
         e = self._parsing(self._buffer.pop(0))
         cmd = e.command
         if cmd == "PING":
@@ -295,8 +302,6 @@ class IRC(Handler):
         if not self._sock:
             return
         txt = txt.rstrip()
-        if maincfg.debug:
-            print(txt)
         if not txt.endswith("\r\n"):
             txt += "\r\n"
         txt = txt[:512]
@@ -354,6 +359,7 @@ class IRC(Handler):
             self.command("NOTICE", event.channel, txt)
 
     def PRIVMSG(self, pevent):
+        logging.error(pevent)
         if pevent.txt.startswith("DCC CHAT"):
             if not self.users.allowed(pevent.origin, "USER"):
                 return
@@ -420,12 +426,7 @@ class DCC(Handler):
 
     def input(self):
         self._connected.wait()
-        while not self.stopped:
-            try:
-                e = self.poll()
-            except EOFError:
-                break
-            self.put(e)
+        super().input()
 
     def poll(self):
         e = Event()
@@ -443,73 +444,6 @@ class DCC(Handler):
     def say(self, channel, txt):
         self.raw(txt)
 
-class User(Object):
-
-    def __init__(self):
-        super().__init__()
-        self.user = ""
-        self.perms = []
-
-class Users(Object):
-
-    userhosts = Object()
-
-    def allowed(self, origin, perm):
-        perm = perm.upper()
-        origin = get(self.userhosts, origin, origin)
-        user = self.get_user(origin)
-        if user:
-            if perm in user.perms:
-                return True
-        return False
-
-    def delete(self, origin, perm):
-        for user in self.get_users(origin):
-            try:
-                user.perms.remove(perm)
-                save(user)
-                return True
-            except ValueError:
-                pass
-
-    def get_users(self, origin=""):
-        s = {"user": origin}
-        return find("mod.irc.User", s)
-
-    def get_user(self, origin):
-        u = list(self.get_users(origin))
-        if u:
-            return u[-1][-1]
-
-    def meet(self, origin, perms=None):
-        user = self.get_user(origin)
-        if user:
-            return user
-        user = User()
-        user.user = origin
-        user.perms = ["USER", ]
-        save(user)
-        return user
-
-    def oper(self, origin):
-        user = self.get_user(origin)
-        if user:
-            return user
-        user = User()
-        user.user = origin
-        user.perms = ["OPER", "USER"]
-        save(user)
-        return user
-
-    def perm(self, origin, permission):
-        user = self.get_user(origin)
-        if not user:
-            raise ENOUSER(origin)
-        if permission.upper() not in user.perms:
-            user.perms.append(permission.upper())
-            save(user)
-        return user
-
 # commands
 
 def cfg(event):
@@ -519,21 +453,4 @@ def cfg(event):
         return event.reply(format(c, skip=["username", "realname"]))
     update(c, event.prs.sets)
     save(c)
-    event.reply("ok")
-
-def dlt(event):
-    if not event.args:
-        return
-    selector = {"user": event.args[0]}
-    for fn, o in find("mod.irc.User", selector):
-        o._deleted = True
-        save(o)
-        event.reply("ok")
-        break
-
-def met(event):
-    u = User()
-    u.user = event.rest
-    u.perms = ["USER"]
-    save(u)
     event.reply("ok")

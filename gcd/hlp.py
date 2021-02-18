@@ -1,4 +1,6 @@
-# This file is placed in the Public Domain
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
+#
+# This file is placed in the Public Domain.
 
 """GENOCIDE(1)			   User Commands 			 GENOCIDE(1)
 

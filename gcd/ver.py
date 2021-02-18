@@ -1,8 +1,15 @@
-# GENOCIDE - OTP-CR-117/19 | otp.informationdesk@icc-cpi.int
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
 #
 # This file is placed in the Public Domain.
 
-__version__ = 26
+"version"
+
+# defines
+
+__txt__ = "OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !"
+__version__ = 3
+
+# commands
 
 def ver(event):
-    event.reply("OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !")
+    event.reply(__txt__)

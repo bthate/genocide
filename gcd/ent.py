@@ -1,7 +1,15 @@
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
+#
 # This file is placed in the Public Domain.
+
+"entry"
+
+# imports
 
 from op.dbs import find
 from op.obj import Object, save
+
+# classes
 
 class Log(Object):
 
@@ -15,11 +23,13 @@ class Todo(Object):
         super().__init__()
         self.txt = ""
 
+# commands
+
 def dne(event):
     if not event.args:
         return
     selector = {"txt": event.args[0]}
-    for fn, o in find("mod.ent.Todo", selector):
+    for fn, o in find("opbot.ent.Todo", selector):
         o._deleted = True
         save(o)
         event.reply("ok")

@@ -1,14 +1,24 @@
-# This file is in the Public Domain.
- 
-from op.obj import Object, format, get, keys
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
+#
+# This file is placed in the Public Domain.
+
+"find"
+
+# imports
+
+from op.obj import format, keys
 from op.dbs import find, list_files
 from op.hdl import Bus
 from op.prs import elapsed
 from op.run import cfg
-from op.utl import fntime, get_names, time
+from op.utl import fntime, time
+
+# defines
 
 def __dir__():
     return ("fnd",)
+
+# commands
 
 def fnd(event):
     if not event.args:
@@ -18,7 +28,7 @@ def fnd(event):
         return
     name = event.args[0]
     bot = Bus.by_orig(event.orig)
-    t = get(bot.names, name, [name])
+    t = bot.get_names(name)
     nr = -1
     for otype in t:
         for fn, o in find(otype, event.prs.gets, event.prs.index, event.prs.timed):

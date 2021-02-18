@@ -1,41 +1,41 @@
 #!/usr/bin/env python3
-# GENOCIDE - using the law to administer poison equals genocide. (bin/gcdrun)
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
 #
 # This file is placed in the Public Domain.
 
-import os, readline, shutil, sys
+"cli"
 
-from op.bsc import Basic
-from op.csl import console
-from op.dbs import last
-from op.obj import Object, format, load, register, save, update
-from op.prs import parse
+# imports
+
+import os, readline, shutil
+
+from op.hdl import BusCore
 from op.run import cfg, parse_cli
-from op.thr import launch
+from op.trm import exec
+from op.utl import privileges
+
+# defines
+
+cfg.wd = "/var/lib/genocide/"
+
+# classes
+
+class Basic(BusCore):
+
+    def direct(self, txt):
+        print(txt)
+
+# functions
 
 def main():
-    cfg.wd = "/var/lib/genocide/"
-    cfg.md = os.path.join(cfg.wd, "mod")
     parse_cli()
-    if cfg.op("s"):
-        save(cfg)
-    elif cfg.op("l"):
-        last(cfg)
-    if cfg.op("h"):
-        import mod.hlp
-        print(mod.hlp.__doc__)
-        print(format(cfg))
-        return
+    privileges("genocide")
     h = Basic()
-    h.fromdir(cfg.md)
-    h.walk("gcd,op,mod")
-    if cfg.txt:
-        return h.cmd(cfg.otxt)
-    h.start()
-    h.init(cfg.mods)
-    if cfg.op("c"):
-        h.init("csl")
-    if cfg.op("cw"):
-        h.wait()
+    h.fromdir(os.path.join(cfg.wd, "mod"))
+    h.load_mod("cli,cmd,fnd,irc,rss,usr,ver")
+    h.load_mod(cfg.mods)
+    return h.cmd(cfg.otxt)
 
-console(main)
+# runtime
+
+exec(main)

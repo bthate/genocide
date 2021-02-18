@@ -1,6 +1,13 @@
+# OPBOT - pure python3 IRC bot (op/hdl.py)
+#
 # This file is placed in the Public Domain.
 
+"handler"
+
+# imports
+
 import inspect, os, queue, sys, threading, time
+import logging
 
 from .obj import Cfg, Default, Object, Ol, get, update
 from .prs import parse
@@ -9,10 +16,14 @@ from .utl import direct, has_mod, locked, spl
 
 import _thread
 
+# defines
+
 def __dir__():
-    return ("Bus", "Command", "Event", "Handler", "cmd")
+    return ("Bus", "Core", "CoreBus", "Console", "Command", "Event", "Handler", "cmd")
 
 loadlock = _thread.allocate_lock()
+
+# classes
 
 class Bus(Object):
 
@@ -104,6 +115,8 @@ class Handler(Object):
 
     threaded = False
 
+    pkgnames = Object()
+
     def __init__(self):
         super().__init__()
         self.cbs = Object()
@@ -116,6 +129,10 @@ class Handler(Object):
         self.started = []
         self.stopped = False
         self.table = Object()
+        self.tablename = "op.tbl"
+
+    def add(self, cmd, func):
+        self.cmds[cmd] = func
 
     def announce(self, txt):
         self.direct(txt)
@@ -125,6 +142,7 @@ class Handler(Object):
         update(self.cbs, hdl.cbs)
         update(self.modnames, hdl.modnames)
         update(self.names, hdl.names)
+        update(self.pkgnames, hdl.pkgnames)
         self.pkgs = hdl.pkgs
         self.table = hdl.table
 
@@ -154,7 +172,6 @@ class Handler(Object):
         if not has_mod(name):
             return
         mod = direct(name)
-        self.pkgs.append(name)
         for mn in [x[:-3] for x in os.listdir(pkgpath)
                    if x and x.endswith(".py")
                    and not x.startswith("__")
@@ -162,31 +179,64 @@ class Handler(Object):
             fqn = "%s.%s" % (name, mn)
             if not has_mod(fqn):
                 continue
-            self.load(fqn)
+            mod = self.load(fqn)
+            self.intro(mod)
 
-    def init(self, mns, name=""):
+    def get_cmd(self, cmd):
+        if not self.modnames:
+            try:
+                mod = direct(self.tablename)
+                update(self.modnames, mod.modnames)
+            except ImportError:
+                pass
+        if cmd not in self.cmds:
+            mn = get(self.modnames, cmd, None)
+            if mn:
+                self.load(mn)
+        return get(self.cmds, cmd, None)
+
+    def get_mod(self, mn):
+        if mn in self.table:
+            return self.table[mn]
+
+    def get_names(self, nm, tbl="op.tbl"):
+        if not self.names:
+            try:
+                mod = direct(tbl)
+                update(self.names, mod.names)
+            except ImportError:
+                pass
+        return get(self.names, nm, [nm,])
+
+    def init(self, mns):
         thrs = []
         for mn in spl(mns):
-            for pn in self.pkgs:
-                fqn = "%s.%s" % (pn, mn)
-                if not has_mod(fqn):
-                    continue
-                if not mn in self.started:
-                    mod = self.load(fqn)
-                    func = getattr(mod, "init", None)
-                    if func:
-                        self.started.append(mn)
-                        thrs.append(func(self))
-        return [t for t in thrs if t]
+            mn = get(self.pkgnames, mn, mn)
+            mod = self.get_mod(mn)
+            if mod and "init" in dir(mod):
+                thrs.append(launch(mod.init, self))
+        return thrs
+
+    def input(self):
+        while not self.stopped:
+            try:
+                e = self.poll()
+            except EOFError:
+                break
+            self.put(e)
+            e.wait()
 
     def intro(self, mod):
+        fqn = mod.__name__
+        mn = fqn.split(".")[-1]
+        self.pkgnames[mn] = fqn
         for key, o in inspect.getmembers(mod, inspect.isfunction):
             if o.__code__.co_argcount == 1:
                 if o.__code__.co_varnames[0] == "obj":
                     self.register(key, o)
                 elif o.__code__.co_varnames[0] == "event":
                     self.cmds[key] = o
-                self.modnames[key] = o.__module__
+                    self.modnames[key] = o.__module__
         for _key, o in inspect.getmembers(mod, inspect.isclass):
             if issubclass(o, Object):
                 t = "%s.%s" % (o.__module__, o.__name__)
@@ -195,11 +245,25 @@ class Handler(Object):
 
     @locked(loadlock)
     def load(self, mn):
-        if mn in self.table:
-            return self.table[mn]
         self.table[mn] = direct(mn)
-        self.intro(self.table[mn])
+        for key, o in inspect.getmembers(self.table[mn], inspect.isfunction):
+            if o.__code__.co_argcount == 1:
+                if o.__code__.co_varnames[0] == "obj":
+                    self.register(key, o)
+                elif o.__code__.co_varnames[0] == "event":
+                    self.cmds[key] = o
         return self.table[mn]
+
+    def load_mod(self, mns):
+        if not self.pkgnames:
+            try:
+                mod = direct(self.tablename)
+                update(self.pkgnames, mod.pkgnames)
+            except ImportError:
+                pass
+        for mn in spl(mns):
+            mn = get(self.pkgnames, mn, mn)
+            self.load(mn)
 
     def handler(self):
         self.running = True
@@ -220,7 +284,7 @@ class Handler(Object):
     def say(self, channel, txt):
         self.direct(txt)
 
-    def start(self):
+    def start(self, pkgnames=None):
         launch(self.handler)
 
     def stop(self):
@@ -232,7 +296,6 @@ class Handler(Object):
             if not has_mod(pn):
                 continue
             mod = direct(pn)
-            self.pkgs.append(pn)
             if "__file__" in dir(mod) and mod.__file__:
                 p = os.path.dirname(mod.__file__)
             else:
@@ -243,10 +306,36 @@ class Handler(Object):
         while not self.stopped:
             time.sleep(30.0)
 
+class Core(Handler):
+
+    def __init__(self):
+        super().__init__()
+        self.register("cmd", cmd)
+
+class BusCore(Core):
+
+    def __init__(self):
+        super().__init__()
+        Bus.add(self)
+
+class Console(BusCore):
+
+    def direct(self, txt):
+        pass
+
+    def poll(self):
+        return Command(input("> "))
+
+    def start(self):
+        super().start()
+        launch(self.input)
+
+# functions
+
 def cmd(handler, obj):
     obj.parse()
-    f = get(handler.cmds, obj.cmd, None)
     res = None
+    f = handler.get_cmd(obj.cmd)
     if f:
         res = f(obj)
         obj.show()

@@ -1,5 +1,5 @@
-# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://genocide.rtfd.io
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
 #
 # This file is placed in the Public Domain.
 
-systemd-run -q -t --property=Type=exec --no-ask-password --property=DynamicUser=yes --property=StateDirectory=genocide gcd $*
+systemd-run -q -t --property=Type=exec --no-ask-password --property=DynamicUser=yes --property=StateDirectory=opbot op $*

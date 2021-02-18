@@ -69,10 +69,3 @@ contact
 | Bart Thate (bthate@dds.nl)
 | botfather on #dunkbots at irc.freenode.net
 
-
-.. toctree::
-    :hidden:
-    :glob:
-
-    *
-    txt/*

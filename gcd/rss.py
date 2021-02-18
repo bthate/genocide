@@ -122,7 +122,7 @@ class Fetcher(Object):
 
     def run(self):
         thrs = []
-        for fn, o in all("opbot.rss.Rss"):
+        for fn, o in all("gcd.rss.Rss"):
             #d = Default(o)
             thrs.append(launch(self.fetch, o))
         return thrs
@@ -160,7 +160,7 @@ def dpl(event):
     if len(event.args) < 2:
         return
     setter = {"display_list": event.args[1]}
-    for fn, o in last_match("opbot.rss.Rss", {"rss": event.args[0]}):
+    for fn, o in last_match("gcd.rss.Rss", {"rss": event.args[0]}):
         edit(o, setter)
         save(o)
         event.reply("ok")
@@ -183,7 +183,7 @@ def rem(event):
     selector = {"rss": event.args[0]}
     nr = 0
     got = []
-    for fn, o in find("opbot.rss.Rss", selector):
+    for fn, o in find("gcd.rss.Rss", selector):
         nr += 1
         o._deleted = True
         got.append(o)
@@ -195,7 +195,7 @@ def rss(event):
     if not event.args:
         return
     url = event.args[0]
-    res = list(find("opbot.rss.Rss", {"rss": url}))
+    res = list(find("gcd.rss.Rss", {"rss": url}))
     if res:
         return
     o = Rss()

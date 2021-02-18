@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-# OPBOT - operbot (bin/opudp)
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
 #
-# this file is placed in the public domain
+# This file is placed in the Public Domain.
 
 import select, socket, sys
 

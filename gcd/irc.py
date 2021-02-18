@@ -41,12 +41,12 @@ class Cfg(Cfg):
 
     def __init__(self):
         super().__init__()
-        self.channel = "#opbot"
-        self.nick = "opbot"
+        self.channel = "#genocide"
+        self.nick = "genocide"
         self.port = 6667
         self.server = "localhost"
-        self.realname = "pure python3 IRC bot"
-        self.username = "opbot"
+        self.realname = "OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !"
+        self.username = "genocide"
 
 class Event(Event):
 

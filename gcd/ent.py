@@ -29,7 +29,7 @@ def dne(event):
     if not event.args:
         return
     selector = {"txt": event.args[0]}
-    for fn, o in find("opbot.ent.Todo", selector):
+    for fn, o in find("gcd.ent.Todo", selector):
         o._deleted = True
         save(o)
         event.reply("ok")

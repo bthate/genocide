@@ -48,7 +48,7 @@ class Users(Object):
 
     def get_users(self, origin=""):
         s = {"user": origin}
-        return find("opbot.usr.User", s)
+        return find("gcd.usr.User", s)
 
     def get_user(self, origin):
         u = list(self.get_users(origin))
@@ -91,7 +91,7 @@ def dlt(event):
     if not event.args:
         return
     selector = {"user": event.args[0]}
-    for fn, o in find("opbot.usr.User", selector):
+    for fn, o in find("gcd.usr.User", selector):
         o._deleted = True
         save(o)
         event.reply("ok")

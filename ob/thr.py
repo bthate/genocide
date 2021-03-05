@@ -58,6 +58,6 @@ def launch(func, *args, **kwargs):
     name = kwargs.get("name", get_name(func))
     t = Thr(func, *args, thrname=name, daemon=True)
     t.start()
-    if ob.cfg.debug:
+    if ob.cfg.verbose:
         print("launch %s" % t.getName())
     return t

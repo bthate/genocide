@@ -176,7 +176,7 @@ def keys(o):
     return o.__dict__.keys()
 
 def load(o, opath):
-    if cfg.debug:
+    if cfg.verbose:
         print("load %s" % opath)
     assert opath
     assert cfg.wd
@@ -210,7 +210,7 @@ def save(o):
     with open(opath, "w") as ofile:
         json.dump(o, ofile, default=default)
     os.chmod(opath, 0o444)
-    if cfg.debug:
+    if cfg.verbose:
         print("save %s" % o.__stp__)
     return o.__stp__
 

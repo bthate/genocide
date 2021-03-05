@@ -1,39 +1,25 @@
 # This file is placed in the Public Domain.
 
-import types, unittest
+"test objects"
 
-from op.dbs import last
-from op.obj  import O, Object, load, save
+# imports
 
-class Obj(O):
-    def test(self):
-        return True
+import unittest
+
+from ob import O, Object, load, save
+from ob.dbs import last
+
+# classes
 
 class Test_Object(unittest.TestCase):
 
-    def test_clean(self):
-        o = Obj()
-        self.assertTrue("test" not in o.__dict__)
-
-    def test_notclean(self):
-        class Obj(O):
-            def test(self):
-                return True
-        o = Obj()
-        self.assertTrue("test" in dir(o))
-
-    def test_attr(self):
-        o = Obj()
-        o.test = "bla"
-        self.assertTrue(type(o.test) != types.MethodType)        
-                
-    def test_O(self):
+    def testO(self):
         o = O()
         self.assertEqual(type(o), O)
 
-    def test_Object(self):
+    def testObject(self):
         o = Object()
-        self.assertTrue(isinstance(o, Object))
+        self.assertEqual(type(o), Object)
 
     def test_intern1(self):
         o = Object()
@@ -45,7 +31,7 @@ class Test_Object(unittest.TestCase):
 
     def test_intern3(self):
         o = Object()
-        self.assertTrue("<op.obj.Object object at" in repr(o))
+        self.assertTrue("<ob.Object object at" in repr(o))
 
     def test_intern4(self):
         o = Object()

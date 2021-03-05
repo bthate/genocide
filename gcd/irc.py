@@ -129,7 +129,7 @@ class IRC(Handler):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
-        if ob.cfg.debug:
+        if ob.cfg.verbose:
             print(rawstr)
         o = Event()
         o.rawstr = rawstr
@@ -344,7 +344,7 @@ class IRC(Handler):
         assert self.cfg.server
         self.channels.append(self.cfg.channel)
         self._joined.clear()
-        if not ob.cfg.debug:
+        if not ob.cfg.verbose:
             launch(self.doconnect)
         self._joined.wait()
 

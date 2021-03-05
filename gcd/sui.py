@@ -4,10 +4,10 @@
 
 import random, time
 
-from op.obj import Object, get, keys, items, values
-from op.clk import Repeater
-from op.hdl import Bus, Event
-from op.prs import elapsed, parse_time
+from ob import Object, get, keys, items, values
+from ob.clk import Repeater
+from ob.hdl import Bus, Event
+from ob.prs import elapsed, parse_time
 
 def __dir__():
     return ("sts", "init")

@@ -2,17 +2,10 @@ GENOCIDE
 #########
 
 NAME
-        GENOCIDE - using the law to administer poison the king of the
-                   netherlands commits genocide.
+        GENOCIDE - the king of the netherlands commits genocide.
 
 SYNOPSIS
-        1) genocide <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
-        2) genocide cfg server=<server> channel=<channel> nick=<nick>
-        3) genocide met <userhost>
-        4) genocide rss <url>
-        5) genocide ftc
-        6) genocide cmd
-        7) genocide mods=irc
+        1) genocide <cmd> [mods=mod1,mod2] [-b] [-c] [-h] [-r] [-v]
 
 DESCCRIPTION
         GENOCIDE is a python3 program that holds evidence that the king of the
@@ -40,10 +33,19 @@ DESCCRIPTION
         and have it log objects on disk to search them.
 
         GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
-        
+
 OPTIONS
-        -d              daemon mode
-        -s              start a shell
-        -v              be verbose
+        -b              show banner
+        -c              start console
         -h              print this message
-        -x              enable debug
+        -r              use /var/lib/ob
+        -v              be verbose
+
+EXAMPLES
+        1) genocide cfg server=<server> channel=<channel> nick=<nick>
+        2) genocide met <userhost>
+        3) genocide rss <url>
+        4) genocide ftc
+        5) genocide cmd
+        6) genocided
+	7) genocidectl cfg

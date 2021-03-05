@@ -3,19 +3,18 @@
 #
 # OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide
 
-"""GCD(1)                           User Commands                            GCD(1)
+"""GENOCIDE(1)                      User Commands                       GENOCIDE(1)
 
 NAME
-        gcd - the king of the netherlands commits genocide
+        genocide - the king of the netherlands commits genocide
 
 SYNOPSIS
-        gcd <cmd> [mods=mod1,mod2] [-a] [-b] [-c] [-d] [-h] [-l] [-s] [-v] [-z]
-        gcd cmd
-        gcd mod
-        gcd mods=irc,rss -c
+        genocide <cmd> [mods=mod1,mod2] [-b] [-c] [-d] [-h] [-l] [-s] [-v] 
+        genocide cmd
+        genocide mod
+        genocude mods=irc,rss -c
 
 OPTIONS
-        -a		autoload
         -b		show banner
         -c		start console
         -d		start daemon
@@ -24,12 +23,12 @@ OPTIONS
         -r		use /var/lib/ob
         -s 		save cfg
         -v		be verbose
-        -z		enable debug
 """
 
 # imports
 
 import os, sys ; sys.path.insert(0, os.getcwd())
+import ob
 import readline
 import time
 
@@ -114,13 +113,11 @@ def hup(event):
 
 def main():
     parse()
+    if not cfg.sets.mods:
+        cfg.sets.mods ="all"
     if op("h"):
         print(__doc__)
         return
-    if op("a"):
-        cfg.autoload = True
-    if op("z"):
-        cfg.debug = True
     if op("s"):
         save(cfg)
     if op("l"):
@@ -128,12 +125,13 @@ def main():
         last(c)
         oupdate(cfg, c)
     if op("r"):
-        cfg.wd = "/var/lib/gcd/"
+        cfg.wd = "/var/lib/genocide/"
         cfg.md = j(cfg.wd, "mod")
     if op("b"):
-        print("GCD is placed in the Public Domain. No COPYRiGHT. No LICENSE.")
+        print("GENOCIDE is placed in the Public Domain. No COPYRiGHT. No LICENSE.")
         print("started at %s (#%s)" % (time.ctime(time.time()), cfg.version))
-        print(format(cfg, skip=["old", "opts", "res"]))
+        print(format(cfg, skip=["old", "res"]))
+
     s = Shell(tbl)
     s.load_mod(cfg.sets.mods)
     s.scandir(cfg.md)
@@ -161,7 +159,7 @@ def main():
 
 cfg.debug = False
 cfg.pkgs = "ob,mod,gcd"
-cfg.wd = e("~/.gcd")
+cfg.wd = e("~/.genocide")
 cfg.md = j(os.getcwd(), "mod")
 cfg.version = __version__
 

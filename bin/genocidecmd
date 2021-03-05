@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+#
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide
+
+"the king of the netherlands commits genocide"
+
+# imports
+
+from gcd.tbl import tbl
+from gcd.ver import __version__, os, sys
+
+from ob.run import Bus, Shell, cfg, exec, j, last, overlay, privileges, update
+
+# defines
+
+cfg.name = "genocide"
+cfg.pkgs = "ob,mod,gcd"
+cfg.wd = "/var/lib/genocide"
+cfg.version = __version__
+
+# runtime
+
+def main():
+    s = Shell(tbl)
+    privileges("genocide")
+    last(cfg)
+    s.load_mod("all")
+    s.scandir(j(cfg.wd, "mod"))
+    return s.cmd(" ".join(sys.argv[1:]))
+
+exec(main)

@@ -12,6 +12,7 @@ import sys
 from .hdl import Bus, Command, Bused, Cfg, Handler
 from .prs import parse as p
 from .thr import launch
+from .trm import termreset, termsave
 
 # classes
 
@@ -52,6 +53,17 @@ class Console(Shell):
 
 # functions
 
+def exec(main):
+    termsave()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("")
+    except PermissionError as ex:
+        print(str(ex))
+    finally:
+        termreset()
+
 def op(ops):
     for opt in ops:
         if opt in ob.cfg.opts:
@@ -60,6 +72,7 @@ def op(ops):
 
 def parse():
     p(ob.cfg, " ".join(sys.argv[1:]))
+    update(ob.cfg, ob.cfg.sets)
     return ob.cfg
 
 def complete(text, state):

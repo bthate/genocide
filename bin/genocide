@@ -97,46 +97,43 @@ def hup(event):
 # runtime
 
 def main():
-    wait = False
     parse()
     if op("v"):
         cfg.verbose = True
     if op("h"):
         print(__doc__)
         return
-    if op("r"):
-        cfg.wd = "/var/lib/genocide/"
-    if op("s"):
-        c = Cfg()
-        update(c, cfg)
-        save(c)
-    if op("l"):
-        c = Cfg()
-        last(c)
-        overlay(c, cfg)
-        update(cfg, c)
-    s.load_mod(cfg.sets.mods)
-    s.scandir(j(cfg.wd, "mod"))
-    if cfg.res.txt:
-        return s.cmd(cfg.old.txt)
-    elif op("d"):
-        privileges("genocide")
-        daemon()
-        wait = True
-    elif op("c"):
-        c = Console(tbl)
-        c.handler = s
-        c.start()        
-        wait = True
     if op("b"):
         print("GENOCIDE #%s started at %s" % (cfg.version, time.ctime(time.time())))
         print(format(cfg, skip=["old", "opts", "res"]))
         print("OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide")
-    if op("t"):
+        daemon()
+    if op("r"):
+        cfg.wd = "/var/lib/genocide/"
+        if op("d"):
+            daemon()
+        privileges("genocide")
+        c = Cfg()
+        last(c)
+        overlay(c, cfg)
+        update(cfg, c)
+    if cfg.res.txt:
+        s.load_mod("all")
+        return s.cmd(cfg.old.txt)
+    elif op("c"):
+        s.load_mod("all")
+        s.add("hup", hup)
+        s.add("xit", xit)
+        c = Console(tbl)
+        c.handler = s
+        c.start()        
+    elif op("t"):
         Bus.resume()
+    s.load_mod(cfg.sets.mods)
+    s.scandir(j(cfg.wd, "mod"))
     s.start()
     s.init(cfg.sets.mods)
-    if wait:
+    if op("cdwt") or ob.cfg.mods:
         s.wait()
 
 exec(main)

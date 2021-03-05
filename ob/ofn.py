@@ -54,5 +54,5 @@ def overlay(o, d, keys=None):
     for k, v in ob.items(d):
         if keys and k not in keys:
             continue
-        if v and k not in o:
+        if v:
             o[k] = v

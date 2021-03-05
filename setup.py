@@ -21,7 +21,7 @@ setup(
     install_requires=["ob"],
     packages=["gcd"],
     zip_safe=True,
-    scripts=["bin/genocide", "bin/genocidectl"],
+    scripts=["bin/genocide", "bin/genocidecmd", "bin/genocidectl", "bin/genocided"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: MIT License',
                  'Operating System :: Unix',

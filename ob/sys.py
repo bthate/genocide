@@ -9,10 +9,12 @@ import threading
 import time
 
 from . import Object, keys, save, update
+from .dbs import last
 from .hdl import Bus, Handler
 from .itr import find_modules
 from .ofn import edit, format
 from .prs import elapsed
+from .shl import Cfg
 from .utl import get_name
 
 # defines
@@ -23,7 +25,7 @@ starttime = time.time()
 
 def krn(event):
     if not event.sets:
-        event.reply(format(ob.cfg, skip=["old", "res"]))
+        event.reply(format(ob.cfg, skip=["old", "opts", "res", "sets"]))
         return
     edit(ob.cfg, event.sets)
     save(ob.cfg)

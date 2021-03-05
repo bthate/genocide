@@ -6,13 +6,10 @@
 """GENOCIDE(1)                      User Commands                       GENOCIDE(1)
 
 NAME
-        genocide - the king of the netherlands commits genocide (OTP-CR-117/19)
+        genocide - the king of the netherlands commits genocide  (OTP-CR-117/19)
 
 SYNOPSIS
         genocide <cmd> [mods=mod1,mod2] [-b] [-c] [-d] [-h] [-l] [-s] [-v] 
-        genocide cmd
-        genocide mod
-        genocide mods=shl,irc,rss
 
 OPTIONS
         -b		show banner
@@ -22,6 +19,12 @@ OPTIONS
         -r		use /var/lib/ob
         -s 		save cfg
         -v		be verbose
+
+EXAMPLES
+        genocide cmd
+        genocide mod
+        genocide mods=cmd,shl,irc,rss
+        genocidectl 
 """
 
 # imports
@@ -31,11 +34,11 @@ import ob
 import readline
 import time
 
-from ob import Cfg, cfg, e, j, oupdate, save
+from ob import cfg, e, j, oupdate, save, update
 from ob.dbs import last
 from ob.ofn import format
 from ob.hdl import Bus, Bused, Command, Console, Handler
-from ob.shl import Shell, op, parse, setcompleter
+from ob.shl import Cfg, Shell, op, parse, setcompleter
 from ob.thr import launch
 from ob.trm import termreset, termsave
 from ob.utl import privileges
@@ -84,31 +87,33 @@ def hup(event):
 
 def main():
     parse()
-    if not cfg.sets.mods:
-        cfg.sets.mods ="all"
+    if op("v"):
+        cfg.verbose = True
     if op("h"):
         print(__doc__)
         return
+    if op("r"):
+        cfg.wd = "/var/lib/genocide/"
+        cfg.md = j(cfg.wd, "mod")
     if op("s"):
-        save(cfg)
+        c = Cfg()
+        update(c, cfg)
+        save(c)
     if op("l"):
         c = Cfg()
         last(c)
         oupdate(cfg, c)
-    if op("r"):
-        cfg.wd = "/var/lib/genocide/"
-        cfg.md = j(cfg.wd, "mod")
+    if op("d"):
+        privileges("genocide")
+        daemon()
     if op("b"):
-        print("GENOCIDE is placed in the Public Domain. No COPYRiGHT. No LICENSE.")
-        print("started at %s (#%s)" % (time.ctime(time.time()), cfg.version))
+        print("GENOCIDE #%s started at %s" % (cfg.version, time.ctime(time.time())))
         print(format(cfg, skip=["old", "opts", "res", "sets"]))
+        print("OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide")
     s.load_mod(cfg.sets.mods)
-    s.scandir(cfg.md)
+    s.scandir(j(cfg.wd, "mod"))
     if cfg.res.txt:
         return s.cmd(cfg.old.txt)
-    if op("d"):
-        privileges("ob")
-        daemon()
     if op("t"):
         Bus.resume()
     s.start()
@@ -120,10 +125,10 @@ def main():
 
 s = Shell(tbl)
 
+cfg.name = "genocide"
 cfg.debug = False
 cfg.pkgs = "ob,mod,gcd"
 cfg.wd = e("~/.genocide")
-cfg.md = j(os.getcwd(), "mod")
 cfg.version = __version__
 
 exec(main)

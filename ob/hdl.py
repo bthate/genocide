@@ -209,7 +209,7 @@ class Handler(Object):
 
     def load_mod(self, mns):
         mods = []
-        if mns == "all":
+        if "all" in spl(mns):
             mns = ",".join([x.split(".")[-1] for x in find_modules(ob.cfg.pkgs)])
         for mn in spl(mns):
             mnn = getattr(Handler.pnames, mn, mn)

@@ -24,7 +24,8 @@ from ob.utl import locked
 
 def init(hdl):
     i = IRC()
-    return launch(i.start)
+    i.start()
+    return i
 
 saylock = _thread.allocate_lock()
 

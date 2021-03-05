@@ -176,8 +176,6 @@ def keys(o):
     return o.__dict__.keys()
 
 def load(o, opath):
-    if cfg.verbose:
-        print("load %s" % opath)
     assert opath
     assert cfg.wd
     if opath.count(os.sep) != 3:
@@ -210,8 +208,6 @@ def save(o):
     with open(opath, "w") as ofile:
         json.dump(o, ofile, default=default)
     os.chmod(opath, 0o444)
-    if cfg.verbose:
-        print("save %s" % o.__stp__)
     return o.__stp__
 
 def set(o, k, v):
@@ -229,7 +225,7 @@ def values(o):
 # runtime
 
 cfg = Cfg()
-cfg.autoload = True
+cfg.autoload = False
 cfg.debug = False
 cfg.verbose = False
 cfg.wd = ""

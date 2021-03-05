@@ -178,12 +178,15 @@ class Handler(Object):
 
     def init(self, mns):
         thrs = []
+        result = []
         for mn in spl(mns):
             mn = getattr(Handler.pnames, mn, mn)
             mod = self.get_mod(mn)
             if mod and "init" in dir(mod):
                 thrs.append(launch(mod.init, self))
-        return thrs
+        for thr in thrs:
+            result.append(thr.join())
+        return result
 
     def input(self):
         while not self.stopped:
@@ -209,9 +212,11 @@ class Handler(Object):
         if mns == "all":
             mns = ",".join([x.split(".")[-1] for x in find_modules(ob.cfg.pkgs)])
         for mn in spl(mns):
-            mnn = getattr(Handler.pnames, mn, None)
+            mnn = getattr(Handler.pnames, mn, mn)
             try:
-                mods.append(self.load(mnn))
+                mod = self.load(mnn)
+                if mod:
+                    mods.append(mod)
             except ModuleNotFoundError:
                 pass
         if ob.cfg.debug and mods:
@@ -283,6 +288,25 @@ class Bused(Core):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         Bus.add(self)
+
+class Console(Bused):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if args:
+            self.target = args[0]
+
+    def poll(self):
+        self._connected.wait()
+        c = Command(input("> "))
+        c.orig = repr(self)
+        c.origin = "root@console"
+        s.put(c)
+        return c
+
+    def start(self):
+        launch(self.input)
+        self._connected.set()
 
 # functions
 

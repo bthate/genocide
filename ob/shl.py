@@ -9,14 +9,14 @@ import ob
 import readline
 import sys
 
-from .hdl import Bused, Cfg
+from .hdl import Command, Bused, Cfg
 from .prs import parse as p
+from .thr import launch
 
 # defines
 
 def init(h):
-    shl = Shell()
-    shl.clone(h)
+    shl = Console(h)
     shl.start()
     return shl
 
@@ -33,7 +33,28 @@ class Shell(Bused):
         self.cfg = Cfg()
 
     def direct(self, txt):
-        pass
+        print(txt)
+
+class Console(Shell):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args[1:], **kwargs)
+        self.handler = None
+        if args:
+            self.handler = args[0]
+
+    def poll(self):
+        self._connected.wait()
+        c = Command(input("> "))
+        c.orig = repr(self)
+        c.origin = "root@console"
+        if self.handler:
+            self.handler.put(c)
+        return c
+
+    def start(self):
+        launch(self.input)
+        self._connected.set()
 
 # functions
 
@@ -64,7 +85,6 @@ def setcompleter(commands):
     readline.set_completer(complete)
     readline.parse_and_bind("tab: complete")
     atexit.register(lambda: readline.set_completer(None))
-
 
 # runtime
 

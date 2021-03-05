@@ -6,17 +6,16 @@
 """GENOCIDE(1)                      User Commands                       GENOCIDE(1)
 
 NAME
-        genocide - the king of the netherlands commits genocide
+        genocide - the king of the netherlands commits genocide (OTP-CR-117/19)
 
 SYNOPSIS
         genocide <cmd> [mods=mod1,mod2] [-b] [-c] [-d] [-h] [-l] [-s] [-v] 
         genocide cmd
         genocide mod
-        genocude mods=irc,rss -c
+        genocide mods=shl,irc,rss
 
 OPTIONS
         -b		show banner
-        -c		start console
         -d		start daemon
         -h		print this message
         -l		load cfg
@@ -35,7 +34,7 @@ import time
 from ob import Cfg, cfg, e, j, oupdate, save
 from ob.dbs import last
 from ob.ofn import format
-from ob.hdl import Bus, Bused, Command, Handler
+from ob.hdl import Bus, Bused, Command, Console, Handler
 from ob.shl import Shell, op, parse, setcompleter
 from ob.thr import launch
 from ob.trm import termreset, termsave
@@ -44,34 +43,6 @@ from ob.utl import privileges
 from gcd.tbl import tbl
 from gcd.ver import __version__
 
-# classes
-
-class Cfg(Cfg):
-
-    pass
-
-class Core(Bused):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.cfg = Cfg()
-
-    def direct(self, txt):
-        print(txt)
-
-class Console(Core):
-
-    def poll(self):
-        self._connected.wait()
-        c = Command(input("> "))
-        c.origin = "root@console"
-        return c
-
-    def start(self):
-        super().start()
-        launch(self.input)
-        self._connected.set()
-         
 # functions
 
 def daemon():
@@ -130,32 +101,24 @@ def main():
     if op("b"):
         print("GENOCIDE is placed in the Public Domain. No COPYRiGHT. No LICENSE.")
         print("started at %s (#%s)" % (time.ctime(time.time()), cfg.version))
-        print(format(cfg, skip=["old", "res"]))
-
-    s = Shell(tbl)
+        print(format(cfg, skip=["old", "opts", "res", "sets"]))
     s.load_mod(cfg.sets.mods)
     s.scandir(cfg.md)
     if cfg.res.txt:
-        c = Core(tbl)
-        return c.cmd(cfg.old.txt)
+        return s.cmd(cfg.old.txt)
     if op("d"):
         privileges("ob")
         daemon()
     if op("t"):
         Bus.resume()
     s.start()
-    s.init(cfg.sets.mods)
-    if op("c"):
-        c = Console(tbl)
-        if op("z"):
-            c.add("xit", xit)
-            c.add("hup", hup)
-        setcompleter(c.cmds)
-        c.start()
-    if op("tdrcw"):
-        s.wait()
+    bots = s.init(cfg.sets.mods)
+    for bot in bots:
+        bot.wait()
 
 # runtime
+
+s = Shell(tbl)
 
 cfg.debug = False
 cfg.pkgs = "ob,mod,gcd"

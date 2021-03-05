@@ -38,12 +38,12 @@ class ENOUSER(Exception):
 
 class Cfg(Cfg):
 
-    channel = "#ob"
-    nick = "ob"
+    channel = "#genocide"
+    nick = "genocide"
     port = 6667
     server = "localhost"
-    realname = "write your own command"
-    username = "ob"
+    realname = "the king of the netherlands commits genocide"
+    username = "genocide"
 
     def __init__(self):
         super().__init__()

@@ -3,7 +3,7 @@
 #
 # OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide
 
-"""GCD(1)                            User Commands                             GCD(1)
+"""GCD(1)                           User Commands                            GCD(1)
 
 NAME
         gcd - the king of the netherlands commits genocide
@@ -15,7 +15,7 @@ SYNOPSIS
         gcd mods=irc,rss -c
 
 OPTIONS
-        -a		advanced mode
+        -a		autoload
         -b		show banner
         -c		start console
         -d		start daemon
@@ -117,6 +117,8 @@ def main():
     if op("h"):
         print(__doc__)
         return
+    if op("a"):
+        cfg.autoload = True
     if op("z"):
         cfg.debug = True
     if op("s"):
@@ -147,7 +149,7 @@ def main():
     s.init(cfg.sets.mods)
     if op("c"):
         c = Console(tbl)
-        if op("a"):
+        if op("z"):
             c.add("xit", xit)
             c.add("hup", hup)
         setcompleter(c.cmds)

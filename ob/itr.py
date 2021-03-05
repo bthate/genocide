@@ -40,10 +40,14 @@ def find_mods(mod):
     return mods
 
 def find_modules(pns):
+    mods = []
     for mn in find_all(pns):
+        if mn in mods:
+            continue
         mod = direct(mn)
         if find_cmds(mod):
-            yield mn
+            mods.append(mn)
+    return mods
 
 def find_classes(mod):
     nms = ObjectList()

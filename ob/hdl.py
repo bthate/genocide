@@ -162,8 +162,8 @@ class Handler(Object):
         if event.type and event.type in self.cbs:
             self.cbs[event.type](self, event)
 
-    def get_cmd(self, cmd):
-        if cmd not in Handler.cmds:
+    def get_cmd(self, cmd, autoload=False):
+        if autoload and cmd not in Handler.cmds:
             mn = getattr(Handler.modnames, cmd, None)
             if mn:
                 mod = self.load(mn)
@@ -289,7 +289,7 @@ class Bused(Core):
 def cmd(handler, obj):
     obj.parse()
     res = None
-    f = handler.get_cmd(obj.res.cmd)
+    f = handler.get_cmd(obj.res.cmd, ob.cfg.autoload)
     if f:
         res = f(obj)
         obj.show()

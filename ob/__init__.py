@@ -229,6 +229,7 @@ def values(o):
 # runtime
 
 cfg = Cfg()
+cfg.autoload = True
 cfg.debug = False
 cfg.verbose = False
 cfg.wd = ""

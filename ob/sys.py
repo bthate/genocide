@@ -30,7 +30,7 @@ def krn(event):
     event.reply("ok")
 
 def mod(event):
-    event.reply(",".join([x.split(".")[-1] for x in find_modules(Handler.pkgs)]))
+    event.reply(",".join(sorted({x.split(".")[-1] for x in find_modules(ob.cfg.pkgs)})))
 
 def flt(event):
     try:

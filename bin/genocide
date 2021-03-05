@@ -39,7 +39,7 @@ from ob import cfg, e, j, save, values, update
 from ob.dbs import last
 from ob.ofn import format, overlay
 from ob.hdl import Bus, Bused, Command, Handler
-from ob.shl import Cfg, Console, Shell, op, parse, setcompleter
+from ob.shl import Cfg, Console, Shell, exec, op, parse, setcompleter
 from ob.thr import launch
 from ob.trm import termreset, termsave
 from ob.utl import privileges
@@ -49,40 +49,11 @@ from gcd.ver import __version__
 
 # defines
 
-s = Shell(tbl)
-
 cfg.name = "genocide"
 cfg.debug = False
 cfg.pkgs = "ob,mod,gcd"
 cfg.wd = e("~/.genocide")
 cfg.version = __version__
-
-# functions
-
-def daemon():
-    pid = os.fork()
-    if pid != 0:
-        termreset()
-        os._exit(0)
-    os.setsid()
-    os.umask(0)
-    si = open("/dev/null", 'r')
-    so = open("/dev/null", 'a+')
-    se = open("/dev/null", 'a+')
-    os.dup2(si.fileno(), sys.stdin.fileno())
-    os.dup2(so.fileno(), sys.stdout.fileno())
-    os.dup2(se.fileno(), sys.stderr.fileno())
-
-def exec(main):
-    termsave()
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("")
-    except PermissionError as ex:
-        print(str(ex))
-    finally:
-        termreset()
 
 # commands
 
@@ -97,6 +68,7 @@ def hup(event):
 # runtime
 
 def main():
+    s = Shell(tbl)
     parse()
     if op("v"):
         cfg.verbose = True
@@ -110,8 +82,6 @@ def main():
         daemon()
     if op("r"):
         cfg.wd = "/var/lib/genocide/"
-        if op("d"):
-            daemon()
         privileges("genocide")
         c = Cfg()
         last(c)

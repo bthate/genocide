@@ -9,6 +9,7 @@ import ob
 import readline
 import sys
 
+from . import update
 from .hdl import Bus, Command, Bused, Cfg, Handler
 from .prs import parse as p
 from .thr import launch

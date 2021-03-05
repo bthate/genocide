@@ -205,6 +205,8 @@ class Handler(Object):
         cmds = find_cmds(mod)
         update(Handler.cmds, cmds)
         Handler.table[mn] = mod
+        if ob.cfg.banner:
+            print("load %s" % mn)
         return mod
 
     def load_mod(self, mns):
@@ -288,25 +290,6 @@ class Bused(Core):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         Bus.add(self)
-
-class Console(Bused):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if args:
-            self.target = args[0]
-
-    def poll(self):
-        self._connected.wait()
-        c = Command(input("> "))
-        c.orig = repr(self)
-        c.origin = "root@console"
-        s.put(c)
-        return c
-
-    def start(self):
-        launch(self.input)
-        self._connected.set()
 
 # functions
 

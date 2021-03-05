@@ -13,13 +13,6 @@ from .hdl import Bus, Command, Bused, Cfg, Handler
 from .prs import parse as p
 from .thr import launch
 
-# defines
-
-def init(h):
-    shl = Console(h)
-    shl.start()
-    return shl
-
 # classes
 
 class Cfg(Cfg):
@@ -38,10 +31,8 @@ class Shell(Bused):
 class Console(Shell):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args[1:], **kwargs)
+        super().__init__(*args, **kwargs)
         self.handler = None
-        if args:
-            self.handler = args[0]
         self.add("cmd", cmd)
 
     def poll(self):
@@ -51,6 +42,8 @@ class Console(Shell):
         c.origin = "root@console"
         if self.handler:
             self.handler.put(c)
+        else:
+            self.put(c)
         return c
 
     def start(self):

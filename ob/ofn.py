@@ -49,3 +49,10 @@ def format(o, keys=None, skip=None, empty=True):
         result.append("%s=%s%s" % (k, v, " "))
     txt += " ".join([x.strip() for x in result])
     return txt.strip()
+
+def overlay(o, d, keys=None):
+    for k, v in ob.items(d):
+        if keys and k not in keys:
+            continue
+        if v and k not in o:
+            o[k] = v

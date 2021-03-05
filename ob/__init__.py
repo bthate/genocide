@@ -192,11 +192,6 @@ def load(o, opath):
             return
     return stp
 
-def oupdate(o, d):
-    for k, v in items(d):
-        if v and k not in o:
-              o[k] = v
-
 def register(o, k, v):
     o[k] = v
 
@@ -227,5 +222,7 @@ def values(o):
 cfg = Cfg()
 cfg.autoload = False
 cfg.debug = False
+cfg.name = "ob"
+cfg.pkgs = "ob,mod"
 cfg.verbose = False
 cfg.wd = ""

@@ -7,7 +7,7 @@ DynamicUser=True
 StateDirectory=genocide
 LogsDirectory=genocide
 CacheDirectory=genocide
-ExecStart=/usr/local/bin/genocide -rv
+ExecStart=/usr/local/bin/genocide -rlb
 CapabilityBoundingSet=CAP_NET_RAW
 
 [Install]

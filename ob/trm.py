@@ -1,25 +1,14 @@
-# OPBOT - pure python3 IRC bot (op/trm.py)
-#
 # This file is placed in the Public Domain.
 
-"terminal"
+"terminal reset"
 
 # imports
 
-import atexit, sys, termios
+import atexit
+import sys
+import termios
 
 # functions
-
-def exec(main):
-    termsave()
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("")
-    except PermissionError as ex:
-        print(str(ex))
-    finally:
-        termreset()
 
 def termsetup(fd):
     return termios.tcgetattr(fd)

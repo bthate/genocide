@@ -1,44 +1,166 @@
 #!/usr/bin/env python3
-# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
-#
 # This file is placed in the Public Domain.
+#
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide
 
-"cli"
+"""GCD(1)                            User Commands                             GCD(1)
+
+NAME
+        gcd - the king of the netherlands commits genocide
+
+SYNOPSIS
+        gcd <cmd> [mods=mod1,mod2] [-a] [-b] [-c] [-d] [-h] [-l] [-s] [-v] [-z]
+        gcd cmd
+        gcd mod
+        gcd mods=irc,rss -c
+
+OPTIONS
+        -a		advanced mode
+        -b		show banner
+        -c		start console
+        -d		start daemon
+        -h		print this message
+        -l		load cfg
+        -r		use /var/lib/ob
+        -s 		save cfg
+        -v		be verbose
+        -z		enable debug
+"""
 
 # imports
 
-import os, readline, shutil
+import os, sys ; sys.path.insert(0, os.getcwd())
+import readline
+import time
 
-from op.hdl import BusCore
-from op.run import cfg, parse_cli
-from op.trm import exec
-from op.utl import privileges
+from ob import Cfg, cfg, e, j, oupdate, save
+from ob.dbs import last
+from ob.ofn import format
+from ob.hdl import Bus, Bused, Command, Handler
+from ob.shl import Shell, op, parse, setcompleter
+from ob.thr import launch
+from ob.trm import termreset, termsave
+from ob.utl import privileges
 
-import gcd.tbl
-
-# defines
-
-cfg.wd = "/var/lib/genocide/"
+from gcd.tbl import tbl
+from gcd.ver import __version__
 
 # classes
 
-class Basic(BusCore):
+class Cfg(Cfg):
+
+    pass
+
+class Core(Bused):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.cfg = Cfg()
 
     def direct(self, txt):
         print(txt)
 
+class Console(Core):
+
+    def poll(self):
+        self._connected.wait()
+        c = Command(input("> "))
+        c.origin = "root@console"
+        return c
+
+    def start(self):
+        super().start()
+        launch(self.input)
+        self._connected.set()
+         
 # functions
 
-def main():
-    parse_cli()
-    privileges("genocide")
-    h = Basic()
-    h.tablename = "gcd.tbl"
-    h.fromdir(os.path.join(cfg.wd, "mod"))
-    h.load_mod("cli,cmd,fnd,irc,rss,usr,ver")
-    h.load_mod(cfg.mods)
-    return h.cmd(cfg.otxt)
+def daemon():
+    pid = os.fork()
+    if pid != 0:
+        termreset()
+        os._exit(0)
+    os.setsid()
+    os.umask(0)
+    si = open("/dev/null", 'r')
+    so = open("/dev/null", 'a+')
+    se = open("/dev/null", 'a+')
+    os.dup2(si.fileno(), sys.stdin.fileno())
+    os.dup2(so.fileno(), sys.stdout.fileno())
+    os.dup2(se.fileno(), sys.stderr.fileno())
+
+def exec(main):
+    termsave()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("")
+    except PermissionError as ex:
+        print(str(ex))
+    finally:
+        termreset()
+
+# commands
+
+def xit(event):
+    Bus.save()
+    os._exit(0)
+
+def hup(event):
+    last(cfg)
+    Bus.resume()
 
 # runtime
+
+def main():
+    parse()
+    if op("h"):
+        print(__doc__)
+        return
+    if op("z"):
+        cfg.debug = True
+    if op("s"):
+        save(cfg)
+    if op("l"):
+        c = Cfg()
+        last(c)
+        oupdate(cfg, c)
+    if op("r"):
+        cfg.wd = "/var/lib/gcd/"
+        cfg.md = j(cfg.wd, "mod")
+    if op("b"):
+        print("GCD is placed in the Public Domain. No COPYRiGHT. No LICENSE.")
+        print("started at %s (#%s)" % (time.ctime(time.time()), cfg.version))
+        print(format(cfg, skip=["old", "opts", "res"]))
+    s = Shell(tbl)
+    s.load_mod(cfg.sets.mods)
+    s.scandir(cfg.md)
+    if cfg.res.txt:
+        c = Core(tbl)
+        return c.cmd(cfg.old.txt)
+    if op("d"):
+        privileges("ob")
+        daemon()
+    if op("t"):
+        Bus.resume()
+    s.start()
+    s.init(cfg.sets.mods)
+    if op("c"):
+        c = Console(tbl)
+        if op("a"):
+            c.add("xit", xit)
+            c.add("hup", hup)
+        setcompleter(c.cmds)
+        c.start()
+    if op("tdrcw"):
+        s.wait()
+
+# runtime
+
+cfg.debug = False
+cfg.pkgs = "ob,mod,gcd"
+cfg.wd = e("~/.gcd")
+cfg.md = j(os.getcwd(), "mod")
+cfg.version = __version__
 
 exec(main)

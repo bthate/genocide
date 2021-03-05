@@ -1,14 +1,14 @@
-# OPBOT - pure python3 IRC bot (bin/clean)
-#
 # This file is placed in the Public Domain.
 
 "threads"
 
 # imports
 
-import queue, threading
+import ob
+import queue
+import threading
 
-from .obj import Default, Object
+from . import Default, Object
 from .utl import get_name
 
 # classes
@@ -58,4 +58,6 @@ def launch(func, *args, **kwargs):
     name = kwargs.get("name", get_name(func))
     t = Thr(func, *args, thrname=name, daemon=True)
     t.start()
+    if ob.cfg.debug:
+        print("launch %s" % t.getName())
     return t

@@ -1,29 +1,40 @@
-# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
-#
 # This file is placed in the Public Domain.
 
 "system commands"
 
 # imports
 
-import threading, time
+import ob
+import threading
+import time
 
-from op.obj import Object, get, update
-from op.hdl import Bus
-from op.prs import elapsed
-from op.run import starttime
-from op.utl import get_name
+from . import Object, keys, save, update
+from .hdl import Bus, Handler
+from .itr import find_modules
+from .ofn import edit, format
+from .prs import elapsed
+from .utl import get_name
 
 # defines
 
-def __dir__():
-    return ("flt", "thr", "upt")
+starttime = time.time()
 
 # commands
 
+def krn(event):
+    if not event.sets:
+        event.reply(format(ob.cfg, skip=["old", "res"]))
+        return
+    edit(ob.cfg, event.sets)
+    save(ob.cfg)
+    event.reply("ok")
+
+def mod(event):
+    event.reply(",".join([x.split(".")[-1] for x in find_modules(Handler.pkgs)]))
+
 def flt(event):
     try:
-        event.reply(str(Bus.objs[event.prs.index]))
+        event.reply(str(Bus.objs[event.index]))
         return
     except (TypeError, IndexError):
         pass
@@ -37,7 +48,7 @@ def thr(event):
             continue
         o = Object()
         update(o, thr)
-        if get(o, "sleep", None):
+        if getattr(o, "sleep", None):
             up = o.sleep - int(time.time() - o.state.latest)
         else:
             up = int(time.time() - starttime)

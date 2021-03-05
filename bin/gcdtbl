@@ -1,26 +1,34 @@
 #!/usr/bin/env python3
-# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !
-#
 # This file is placed in the Public Domain.
 
 "create tables"
 
-# import
+import os, sys ; sys.path.insert(0, os.getcwd())
 
-from op.hdl import Handler
+# imports
+
+import json
+import sys
+
+from ob import default
+from ob.itr import walk
+from ob.utl import direct, spl
+
+# functions
+
+def tojson(d):
+    return json.dumps(d, default=default, indent=4, sort_keys=True)
 
 # runtime
 
-h = Handler()
-h.walk("gcd,op")
-
-print("# OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !")
-print("#")
+tbl = walk("ob,mod,gcd")
+del tbl.pnames["__init__"]
 print("# This file is placed in the Public Domain.")
 print("")
-print("#:")
-print("modnames = %s" % h.modnames)
-print("#:")
-print("names = %s" % h.names)
-print("#:")
-print("pkgnames = %s" % h.pkgnames)
+print("from ob import Default,update")
+print("")
+print("tbl = Default()")
+print("")
+print("update(tbl, %s)" % tbl)
+sys.stdout.flush()
+sys.exit()

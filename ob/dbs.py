@@ -1,21 +1,15 @@
-# OPBOT - pure python3 IRC bot (op/dbs.py)
-#
 # This file is placed in the Public Domain.
 
-"database"
+"database functions"
 
 # imports
 
-from .obj import get_type, hook, search, update, os
-from .run import cfg
+import os
+
+from . import cfg, j, get_type, hook, update
 from .utl import fntime
 
-# defines
-
-def __dir__():
-    return ("all", "deleted", "every", "find", "find_event", "fnd", "last", "last_match", "last_type", "last_fn")
-
-# functions
+# database functions
 
 def all(otype, selector=None, index=None, timed=None):
     nr = -1
@@ -43,7 +37,7 @@ def every(selector=None, index=None, timed=None):
     nr = -1
     if selector is None:
         selector = {}
-    for otype in os.listdir(os.path.join(cfg.wd, "store")):
+    for otype in os.listdir(j(cfg.wd, "store")):
         for fn in fns(otype, timed):
             o = hook(fn)
             if selector and not search(o, selector):
@@ -84,26 +78,6 @@ def find_event(e):
             continue
         yield fn, o
 
-def fns(name, timed=None):
-    if not name:
-        return []
-    p = os.path.join(cfg.wd, "store", name) + os.sep
-    res = []
-    d = ""
-    for rootdir, dirs, _files in os.walk(p, topdown=False):
-        if dirs:
-            d = sorted(dirs)[-1]
-            if d.count("-") == 2:
-                dd = os.path.join(rootdir, d)
-                fls = sorted(os.listdir(dd))
-                if fls:
-                    p = os.path.join(dd, fls[-1])
-                    if timed and "from" in timed and timed["from"] and fntime(p) < timed["from"]:
-                        continue
-                    if timed and timed.to and fntime(p) > timed.to:
-                        continue
-                    res.append(p)
-    return sorted(res, key=fntime)
 
 def last(o):
     path, l = last_fn(str(get_type(o)))
@@ -131,8 +105,45 @@ def last_fn(otype):
         return (fnn, hook(fnn))
     return (None, None)
 
+# functions
+
+def fns(name, timed=None):
+    if not name:
+        return []
+    p = j(cfg.wd, "store", name) + os.sep
+    res = []
+    d = ""
+    for rootdir, dirs, _files in os.walk(p, topdown=False):
+        if dirs:
+            d = sorted(dirs)[-1]
+            if d.count("-") == 2:
+                dd = j(rootdir, d)
+                fls = sorted(os.listdir(dd))
+                if fls:
+                    p = j(dd, fls[-1])
+                    if timed and "from" in timed and timed["from"] and fntime(p) < timed["from"]:
+                        continue
+                    if timed and timed.to and fntime(p) > timed.to:
+                        continue
+                    res.append(p)
+    return sorted(res, key=fntime)
+
 def list_files(wd):
-    path = os.path.join(wd, "store")
+    path = j(wd, "store")
     if not os.path.exists(path):
         return []
     return sorted(os.listdir(path))
+
+def search(o, s):
+    ok = False
+    try:
+        ss = vars(s)
+    except TypeError:
+        ss = s
+    for k, v in ss.items():
+        vv = getattr(o, k)
+        if v not in str(vv):
+            ok = False
+            break
+        ok = True
+    return ok

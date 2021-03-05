@@ -1,30 +1,32 @@
-# OPBOT - pure python3 IRC bot (op/sel.py)
-#
 # This file is placed in the Public Domain.
 
-"select"
+"select based bot"
 
 # imports
 
-import selectors, time
+import selectors
+import time
 
 from .hdl import Event, Handler
 from .thr import launch
 from .utl import get_name
 
-# classes
+# exceptions
 
 class EDISCONNECT(Exception):
 
     pass
+
+# classes
 
 class Select(Handler):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._select = selectors.DefaultSelector()
+        self.stopped = False
 
-    def select(self, once=False):
+    def select(self, once=True):
         while not self.stopped:
             try:
                 sel = self._select.select(1.0)

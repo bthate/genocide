@@ -1,6 +1,4 @@
-# GENOCIDE - the king of the netherlands commits genocide
-#
-# OTP-CR-117/19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
+# This file is placed in the Public Domain.
 
 from setuptools import setup
 
@@ -13,18 +11,17 @@ def read():
 
 setup(
     name='genocide',
-    version='26',
+    version='27',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
-    description="using the law to adminster poison the king of the netherlands commits genocide",
+    description="OTP-CR-117/19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io",
     long_description=read(),
     license='Public Domain',
-    install_requires=["oplib"],
+    install_requires=["ob"],
     packages=["gcd"],
-    namespace_packages=["gcd"],
-    zip_safe=False,
-    scripts=["bin/gcd", "bin/gcdctl", "bin/gcdudp", "bin/genocide", "bin/genocided"],
+    zip_safe=True,
+    scripts=["bin/gcd", "bin/gcdctl", "bin/gcdudp"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: MIT License',
                  'Operating System :: Unix',

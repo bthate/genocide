@@ -1,16 +1,13 @@
-# OPBOT - pure python3 IRC bot (bin/clean)
-#
 # This file is placed in the Public Domain.
+
+"parsing"
 
 # imports
 
-from .obj import Default, Object, update
+from . import Default, Object, update
 from .utl import day, time
 
 # defines
-
-def __dir__():
-    return ("elapsed", "parse", "parse_cli", "parse_time", "parse_ymd")
 
 year_formats = [
     "%b %H:%M",
@@ -112,6 +109,62 @@ class Timed(Object):
         if vv:
             self["to"] = time.time() - vv
 
+# object functions
+
+def parse(o, txt):
+    o.old = Default()
+    o.old.txt = txt
+    o.gets = Default()
+    o.opts = Default()
+    o.res = Default()
+    o.res.timed = []
+    o.res.index = None
+    o.sets = Default()
+    o.skip = Default()
+    args = []
+    for token in [Token(txt) for txt in txt.split()]:
+        s = Skip(token.txt)
+        if s:
+            update(o.skip, s)
+            token.txt = token.txt[:-1]
+        t = Timed(token.txt)
+        if t:
+            update(o.timed, t)
+            continue
+        g = Getter(token.txt)
+        if g:
+            update(o.gets, g)
+            continue
+        s = Setter(token.txt)
+        if s:
+            update(o.sets, s)
+            continue
+        opt = Option(token.txt)
+        if opt:
+            try:
+                o.res.index = int(opt.opt)
+                continue
+            except ValueError:
+                pass
+            if len(opt.opt) > 1:
+                for op in opt.opt:
+                    o.opts[op] = True
+            else:
+                o.opts[opt.opt] = True
+            continue
+        args.append(token.txt)
+    if not args:
+        o.res.args = []
+        o.res.cmd = ""
+        o.res.rest = ""
+        o.res.txt = ""
+        return o
+    o.res.cmd = args[0]
+    o.res.args = args[1:]
+    o.res.txt = " ".join(args)
+    o.res.rest = " ".join(args[1:])
+    return o
+
 # functions
 
 def elapsed(seconds, short=True):
@@ -154,59 +207,6 @@ def elapsed(seconds, short=True):
         txt += "%ss" % int(sec)
     txt = txt.strip()
     return txt
-
-def parse(o, txt):
-    args = []
-    o.txt = txt
-    o.otxt = txt
-    o.gets = Default()
-    o.opts = Default()
-    o.sets = Default()
-    o.skip = Default()
-    o.timed = ()
-    o.index = None
-    for token in [Token(txt) for txt in txt.split()]:
-        s = Skip(token.txt)
-        if s:
-            update(o.skip, s)
-            token.txt = token.txt[:-1]
-        t = Timed(token.txt)
-        if t:
-            update(o.timed, t)
-            continue
-        g = Getter(token.txt)
-        if g:
-            update(o.gets, g)
-            continue
-        s = Setter(token.txt)
-        if s:
-            update(o.sets, s)
-            continue
-        opt = Option(token.txt)
-        if opt:
-            try:
-                o.index = int(opt.opt)
-                continue
-            except ValueError:
-                pass
-            if len(opt.opt) > 1:
-                for op in opt.opt:
-                    o.opts[op] = True
-            else:
-                o.opts[opt.opt] = True
-            continue
-        args.append(token.txt)
-    if not args:
-        o.args = []
-        o.cmd = ""
-        o.rest = ""
-        o.txt = ""
-        return o
-    o.cmd = args[0]
-    o.args = args[1:]
-    o.txt = " ".join(args)
-    o.rest = " ".join(args[1:])
-    return o
 
 def parse_time(daystring):
     line = ""

@@ -1,10 +1,8 @@
+# This file is placed in the Public Domain.
+
 include README.rst
-include genocide.service
-include docs/conf.py
-include docs/index.rst
-include docs/requirements.txt
-recursive-include op/ *.py
-recursive-include docs/ *.png
-recursive-include docs/pdf *.pdf
-recursive-include docs/txt *
-recursive-include docs/_templates *
+include gcd.service
+include MANIFEST.in
+recursive-include bin *
+recursive-include mod *.py
+recursive-include omod *.py

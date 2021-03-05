@@ -1,15 +1,25 @@
-# OPBOT - pure python3 IRC bot (op/utl.py)
-#
 # This file is placed in the Public Domain.
 
 "utilities"
 
 # imports
 
-import datetime, getpass, inspect, os, pwd, random
-import re, socket, sys, time, traceback, types, urllib
-import importlib, importlib.util
+import datetime
+import getpass
+import inspect
+import json
+import os
+import pwd
+import random
+import re
+import sys
+import time
+import traceback
+import types
+import importlib
+import importlib.util
 
+import urllib
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
@@ -33,6 +43,12 @@ timestrings = [
     "%d, %b %Y %H:%M:%S +0000"
 ]
 
+# exceptions
+
+class ENOCLASS(Exception):
+
+    pass
+
 # functions
 
 def day():
@@ -40,6 +56,9 @@ def day():
 
 def direct(name, pname=''):
     return importlib.import_module(name, pname)
+
+def e(p):
+    return os.path.expanduser(p)
 
 def file_time(timestamp):
     s = str(datetime.datetime.fromtimestamp(timestamp))
@@ -64,6 +83,14 @@ def get_args(f):
     spec = inspect.signature(f)
     return spec.parameters
 
+def get_cls(fullname):
+    try:
+        modname, clsname = fullname.rsplit(".", 1)
+    except Exception as ex:
+        raise ENOCLASS(fullname)
+    mod = importlib.import_module(modname)
+    return getattr(mod, clsname)
+
 def get_exception(txt="", sep=" "):
     exctype, excvalue, tb = sys.exc_info()
     trace = traceback.extract_tb(tb)
@@ -74,7 +101,7 @@ def get_exception(txt="", sep=" "):
         res = []
         for x in elem[0].split(os.sep)[::-1]:
             res.append(x)
-            if x in ["op"]:
+            if x in ["ok"]:
                 break
         result.append("%s:%s" % (os.sep.join(res[::-1]), elem[1]))
     res = "%s %s: %s %s" % (sep.join(result), exctype, excvalue, str(txt))
@@ -97,18 +124,8 @@ def get_name(o):
                 n = o.__name__
     return n
 
-def get_names(pkgs):
-    from .obj import Object, update
-    from .itr import find_names
-    res = Object()
-    for pkg in spl(pkgs):
-        for mod in mods(pkg):
-            n = find_names(mod)
-            update(res, n)
-    return res
-
 def get_tinyurl(url):
-    from .run import cfg
+    from . import cfg
     if cfg.debug:
         return []
     postarray = [
@@ -126,7 +143,7 @@ def get_tinyurl(url):
     return []
 
 def get_url(url):
-    from .run import cfg
+    from . import cfg
     if cfg.debug:
         return
     url = urllib.parse.urlunparse(urllib.parse.urlparse(url))
@@ -145,6 +162,22 @@ def has_mod(fqn):
         pass
     return False
 
+def hook(hfn):
+    from . import load
+    if hfn.count(os.sep) > 3:
+        oname = hfn.split(os.sep)[-4:]
+    else:
+        oname = hfn.split(os.sep)
+    cname = oname[0]
+    fn = os.sep.join(oname)
+    cls = get_cls(cname)
+    o = cls()
+    load(o, fn)
+    return o
+
+def j(*args):
+    return os.path.join(*args)
+
 def locked(l):
     def lockeddec(func, *args, **kwargs):
         def lockedfunc(*args, **kwargs):
@@ -156,7 +189,6 @@ def locked(l):
                 l.release()
             return res
         lockedfunc.__wrapped__ = func
-        #lockeddec.__wrapped__ = func
         return lockedfunc
     return lockeddec
 
@@ -207,6 +239,9 @@ def strip_html(text):
     clean = re.compile('<.*?>')
     return re.sub(clean, '', text)
 
+def tojson(d):
+    return json.dumps(d, indent=4, sort_keys=True)
+
 def to_time(daystr):
     daystr = daystr.strip()
     if "," in daystr:
@@ -234,10 +269,6 @@ def to_time(daystr):
             break
     return res
 
-def toudp(host, port, txt):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.sendto(bytes(txt.strip(), "utf-8"), (host, port))
-
 def unescape(text):
     import html.parser
     txt = re.sub(r"\s+", " ", text)
@@ -245,3 +276,11 @@ def unescape(text):
 
 def useragent(txt):
     return 'Mozilla/5.0 (X11; Linux x86_64) ' + txt
+
+def xdir(o, skip=None):
+    res = []
+    for k in dir(o):
+        if skip is not None and skip in k:
+            continue
+        res.append(k)
+    return res

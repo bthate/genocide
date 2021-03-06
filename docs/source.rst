@@ -1,14 +1,42 @@
 .. _source:
 
-source
-======
+OB
+==
 
 .. autosummary::
     :toctree: 
     :template: module.rst
 
-    gcd.reconsider         - request to the prosecutor
-    gcd.sui                - suicide stats
-    gcd.trt                - torture definition
-    gcd.wsd                - wisdom
-    gcd.zzz                - reconsider
+    ob
+    ob.clk
+    ob.dbs
+    ob.fnd
+    ob.hdl
+    ob.itr
+    ob.ofn
+    ob.prs
+    ob.sel
+    ob.shl
+    ob.sys
+    ob.tbl
+    ob.thr
+    ob.trm
+    ob.utl
+    ob.ver
+
+GCD
+===
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+    gcd.ent
+    gcd.irc 
+    gcd.req
+    gcd.rss
+    gcd.sui             
+    gcd.tbl
+    gcd.trt            
+    gcd.wsd           
+    gcd.ver

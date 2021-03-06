@@ -4,10 +4,10 @@
 
 # imports
 
-from .hdl import Bus, Handler
+import ob
 
 # commands
 
 def cmd(event):
-    b = Bus.by_orig(event.orig)
-    event.reply(",".join(sorted(Handler.cmds)))
+    b = ob.bus.Bus.by_orig(event.orig)
+    event.reply(",".join(sorted(b.cmds)))

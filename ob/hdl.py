@@ -6,19 +6,10 @@
 
 import ob
 import ob.prs
-
 import os
 import queue
 import threading
 import time
-
-from . import Object, ObjectList, Cfg, Default, items, save, update
-from .dbs import last
-from .itr import find_cmds, find_modules, walk
-from .prs import parse
-from .thr import launch
-from .utl import direct, has_mod, locked, spl
-
 import _thread
 
 # defines
@@ -27,129 +18,43 @@ loadlock = _thread.allocate_lock()
 
 # classes
 
-class Bus(Object):
-
-    objs = []
-
-    def __call__(self, *args, **kwargs):
-        return Bus.objs
-
-    def __iter__(self):
-        return iter(Bus.objs)
-
-    @staticmethod
-    def add(obj):
-        Bus.objs.append(obj)
-
-    @staticmethod
-    def announce(txt, skip=None):
-        for h in Bus.objs:
-            if skip is not None and isinstance(h, skip):
-                continue
-            if "announce" in dir(h):
-                h.announce(txt)
-
-    @staticmethod
-    def by_orig(orig):
-        for o in Bus.objs:
-            if repr(o) == orig:
-                return o
-    @staticmethod
-    def resume():
-        for o in Bus.objs:
-            o.resume()
-
-    @staticmethod
-    def save():
-        for o in Bus.objs:
-            save(o)
-
-    @staticmethod
-    def say(orig, channel, txt):
-        for o in Bus.objs:
-            if repr(o) == orig:
-                o.say(channel, str(txt))
-
-class Cfg(Cfg):
+class Cfg(ob.Cfg):
 
     pass
 
-class Event(Default):
+class Handler(ob.Object):
 
-    def __init__(self, *args, **kw):
-        super().__init__(*args, **kw)
-        self.channel = ""
-        self.done = threading.Event()
-        self.orig = None
-        self.result = []
-        self.thrs = []
-        self.type = "event"
-        self.txt = ""
-        if args:
-            self.txt = args[0]
-
-    def direct(self, txt):
-        Bus.say(self.orig, self.channel, txt)
-
-    def parse(self):
-        ob.prs.parse(self, self.txt)
-
-    def ready(self):
-        self.done.set()
-
-    def reply(self, txt):
-        self.result.append(txt)
-
-    def show(self):
-        for txt in self.result:
-            self.direct(txt)
-
-    def wait(self, timeout=1.0):
-        self.done.wait(timeout)
-        for thr in self.thrs:
-            thr.join()
-
-class Command(Event):
-
-    def __init__(self, txt, **kwargs):
-        super().__init__(**kwargs)
-        self.type = "cmd"
-        if txt:
-            self.txt = txt.rstrip()
-
-class Handler(Object):
-
-    cmds = Object()
-    table = Object()
-    pnames = Object()
-    modnames = Object()
-    names = ObjectList()
+    table = ob.Object()
+    pnames = ob.Object()
+    modnames = ob.Object()
+    names = ob.ObjectList()
 
     def __init__(self, *args, **kwargs):
         super().__init__()
         self._connected = threading.Event()
-        self.cbs = Object()
+        self.cbs = ob.Object()
         self.cfg = Cfg()
+        self.cmds = ob.Object()
         self.queue = queue.Queue()
         self.started = []
         self.stopped = False
         if not args:
-            from .tbl import tbl
+            from ob.tbl import tbl
         else:
             tbl = args[0]
-        update(Handler.names, tbl["names"])
-        update(Handler.modnames, tbl["modnames"])
-        update(Handler.pnames, tbl["pnames"])
+        ob.update(Handler.names, tbl["names"])
+        ob.update(Handler.modnames, tbl["modnames"])
+        ob.update(Handler.pnames, tbl["pnames"])
 
     def add(self, cmd, func):
-        Handler.cmds[cmd] = func
+        self.cmds[cmd] = func
         Handler.modnames[cmd] = func.__module__
         
     def announce(self, txt):
         self.direct(txt)
 
     def cmd(self, txt):
-        c = Command(txt)
+        c = ob.evt.Command(txt)
         c.orig = repr(self)
         c.origin = "root@@console"
         cmd(self, c)
@@ -163,11 +68,11 @@ class Handler(Object):
             self.cbs[event.type](self, event)
 
     def get_cmd(self, cmd, autoload=False):
-        if autoload and cmd not in Handler.cmds:
+        if autoload and cmd not in self.cmds:
             mn = getattr(Handler.modnames, cmd, None)
             if mn:
                 mod = self.load(mn)
-        return getattr(Handler.cmds, cmd, None)
+        return getattr(self.cmds, cmd, None)
 
     def get_mod(self, mn):
         if mn in Handler.table:
@@ -179,11 +84,11 @@ class Handler(Object):
     def init(self, mns):
         thrs = []
         result = []
-        for mn in spl(mns):
+        for mn in ob.spl(mns):
             mn = getattr(Handler.pnames, mn, mn)
             mod = self.get_mod(mn)
             if mod and "init" in dir(mod):
-                thrs.append(launch(mod.init, self))
+                thrs.append(ob.thr.launch(mod.init, self))
         for thr in thrs:
             result.append(thr.join())
         return result
@@ -197,23 +102,23 @@ class Handler(Object):
             self.put(e)
             e.wait()
 
-    @locked(loadlock)
+    @ob.utl.locked(loadlock)
     def load(self, mn):
         if not "." in mn:
             return None
-        mod = direct(mn)
-        cmds = find_cmds(mod)
-        update(Handler.cmds, cmds)
+        mod = ob.direct(mn)
+        cmds = ob.itr.find_cmds(mod)
+        ob.update(self.cmds, cmds)
         Handler.table[mn] = mod
-        if ob.cfg.banner:
+        if "b" in ob.cfg.opts:
             print("load %s" % mn)
         return mod
 
     def load_mod(self, mns):
         mods = []
-        if "all" in spl(mns):
-            mns = ",".join([x.split(".")[-1] for x in find_modules(ob.cfg.pkgs)])
-        for mn in spl(mns):
+        if "all" in ob.spl(mns):
+            mns = ",".join([x.split(".")[-1] for x in ob.itr.find_modules(ob.cfg.pkgs)])
+        for mn in ob.spl(mns):
             mnn = getattr(Handler.pnames, mn, mn)
             try:
                 mod = self.load(mnn)
@@ -221,7 +126,7 @@ class Handler(Object):
                     mods.append(mod)
             except ModuleNotFoundError:
                 pass
-        if ob.cfg.debug and mods:
+        if "d" in ob.cfg.opts and mods:
             print("load %s" % ",".join(sorted(mods)))
         return mods
 
@@ -233,7 +138,7 @@ class Handler(Object):
                 break
             if not e.orig:
                 e.orig = repr(self)
-            e.thrs.append(launch(self.dispatch, e))
+            e.thrs.append(ob.thr.launch(self.dispatch, e))
 
     def put(self, e):
         self.queue.put_nowait(e)
@@ -262,7 +167,7 @@ class Handler(Object):
             self.load(fqn)
 
     def start(self):
-        launch(self.handler)
+        ob.thr.launch(self.handler)
 
     def stop(self):
         self.stopped = True
@@ -270,7 +175,6 @@ class Handler(Object):
 
     def walk(self, nms="ob"):
         w = walk(nms)
-        update(self, w)
         for c, mn in items(w.modnames):
             if has_mod(mn):
                 self.load(mn)
@@ -289,7 +193,7 @@ class Bused(Core):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        Bus.add(self)
+        ob.bus.Bus.add(self)
 
 # functions
 

@@ -1,4 +1,8 @@
-TO RECONSIDER
+.. image:: informed.jpg
+
+.. image:: opdehoogte.jpg
+
+to reconsider
 =============
 
 | Information and Evidence Unit

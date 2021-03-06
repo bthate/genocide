@@ -9,6 +9,8 @@ import importlib
 import json
 import os
 import random
+import sys
+import types
 import uuid
 
 # exceptions
@@ -112,6 +114,11 @@ def cdir(path):
             os.chmod(padje, 0o700)
         except (IsADirectoryError, NotADirectoryError, FileExistsError):
             pass
+
+def direct(name, pname=''):
+    if name in sys.modules:
+        return sys.modules[name]
+    return importlib.import_module(name, pname)
             
 def e(p):
     return os.path.expanduser(p)
@@ -136,6 +143,32 @@ def hook(hfn):
     load(o, fn)
     return o
 
+def mods(mn):
+    mod = []
+    for name in spl(mn):
+        pkg = direct(name)
+        path = list(pkg.__path__)[0]
+        for m in ["%s.%s" % (name, x.split(os.sep)[-1][:-3]) for x in os.listdir(path)
+                  if x.endswith(".py")
+                  and not x == "setup.py"]:
+            mod.append(direct(m))
+    return mod
+
+def op(ops):
+    for opt in ops:
+        if opt in cfg.opts:
+            return True
+    return False
+
+def parse():
+    import ob.prs
+    ob.prs.parse(cfg, " ".join(sys.argv[1:]))
+    ob.update(cfg, cfg.sets)
+    return cfg
+
+def spl(txt):
+    return [x for x in txt.split(",") if x]
+
 # object functions
 
 def default(o):
@@ -149,10 +182,71 @@ def default(o):
         return o
     return repr(o)
 
+def edit(o, setter, skip=False):
+    try:
+        setter = vars(setter)
+    except (TypeError, ValueError):
+        pass
+    if not setter:
+        setter = {}
+    count = 0
+    for key, v in ob.items(setter):
+        if skip and v == "":
+            continue
+        count += 1
+        if v in ["True", "true"]:
+            o[key] = True
+        elif v in ["False", "false"]:
+            o[key] = False
+        else:
+            o[key] = v
+    return count
+
+def format(o, keys=None, skip=None, empty=True):
+    if keys is None:
+        keys = vars(o).keys()
+    if skip is None:
+        skip = []
+    res = []
+    txt = ""
+    for key in keys:
+        if key in skip:
+            continue
+        try:
+            val = o[key]
+        except KeyError:
+            continue
+        if empty and not val:
+            continue
+        val = str(val).strip()
+        res.append((key, val))
+    result = []
+    for k, v in res:
+        result.append("%s=%s%s" % (k, v, " "))
+    txt += " ".join([x.strip() for x in result])
+    return txt.strip()
+
+
 def get(o, k, d=None):
     if isinstance(o, dict):
         return o.get(k, d)
     return o.__dict__.get(k, d)
+
+def get_name(o):
+    t = type(o)
+    if t == types.ModuleType:
+        return o.__name__
+    try:
+        n = "%s.%s" % (o.__self__.__class__.__name__, o.__name__)
+    except AttributeError:
+        try:
+            n = "%s.%s" % (o.__class__.__name__, o.__name__)
+        except AttributeError:
+            try:
+                n = o.__class__.__name__
+            except AttributeError:
+                n = o.__name__
+    return n
 
 def get_type(o):
     t = type(o)
@@ -192,6 +286,13 @@ def load(o, opath):
             return
     return stp
 
+def overlay(o, d, keys=None):
+    for k, v in items(d):
+        if keys and k not in keys:
+            continue
+        if v:
+            o[k] = v
+
 def register(o, k, v):
     o[k] = v
 
@@ -217,6 +318,19 @@ def update(o, d):
 def values(o):
     return o.__dict__.values()
 
+# commands
+
+def krn(event):
+    if not event.sets:
+        event.reply(format(cfg, skip=["old", "opts", "res", "sets"]))
+        return
+    edit(cfg, event.sets)
+    save(cfg)
+    event.reply("ok")
+
+def mod(event):
+    event.reply(",".join(sorted({x.split(".")[-1] for x in find_modules(ob.cfg.pkgs)})))
+
 # runtime
 
 cfg = Cfg()
@@ -226,3 +340,13 @@ cfg.name = "ob"
 cfg.pkgs = "ob,mod"
 cfg.verbose = False
 cfg.wd = ""
+
+import ob.bus
+import ob.evt
+import ob.prs
+import ob.thr
+import ob.dbs
+import ob.hdl
+import ob.shl
+import ob.trm
+import ob.itr

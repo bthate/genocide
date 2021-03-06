@@ -4,16 +4,15 @@
 
 # imports
 
+import ob
+import os
 import inspect
 import pkgutil
-
-from . import Object, ObjectList, cfg, update
-from .utl import direct, mods, spl, os
 
 # functions
 
 def find_cmds(mod):
-    cmds = Object()
+    cmds = ob.Object()
     for key, o in inspect.getmembers(mod, inspect.isfunction):
         if "event" in o.__code__.co_varnames:
             if o.__code__.co_argcount == 1:
@@ -22,7 +21,7 @@ def find_cmds(mod):
     return cmds
 
 def find_funcs(mod):
-    funcs = Object()
+    funcs = ob.Object()
     for key, o in inspect.getmembers(mod, inspect.isfunction):
         if "event" in o.__code__.co_varnames:
             if o.__code__.co_argcount == 1:
@@ -31,7 +30,7 @@ def find_funcs(mod):
     return funcs
 
 def find_mods(mod):
-    mods = Object()
+    mods = ob.Object()
     for key, o in inspect.getmembers(mod, inspect.isfunction):
         if "event" in o.__code__.co_varnames:
             if o.__code__.co_argcount == 1:
@@ -41,16 +40,16 @@ def find_mods(mod):
 
 def find_modules(pns):
     mods = []
-    for mn in find_all(pns):
+    for mn in ob.itr.find_all(pns):
         if mn in mods:
             continue
-        mod = direct(mn)
-        if find_cmds(mod):
+        mod = ob.direct(mn)
+        if ob.itr.find_cmds(mod):
             mods.append(mn)
     return mods
 
 def find_classes(mod):
-    nms = ObjectList()
+    nms = ob.ObjectList()
     for _key, o in inspect.getmembers(mod, inspect.isclass):
         if issubclass(o, Object):
             t = "%s.%s" % (o.__module__, o.__name__)
@@ -58,27 +57,27 @@ def find_classes(mod):
     return nms
 
 def find_class(mod):
-    mds = ObjectList()
+    mds = ob.ObjectList()
     for key, o in inspect.getmembers(mod, inspect.isclass):
         if issubclass(o, Object):
             mds.append(o.__name__, o.__module__)
     return mds
 
 def find_names(mod):
-    tps = Object()
+    tps = ob.Object()
     for _key, o in inspect.getmembers(mod, inspect.isclass):
-        if issubclass(o, Object):
+        if issubclass(o, ob.Object):
             t = "%s.%s" % (o.__module__, o.__name__)
             if t not in tps:
                 tps[o.__name__.lower()] = t
     return tps
 
 def find_all(names):
-    for pn in spl(names):
+    for pn in ob.spl(names):
         try:
-            mod = direct(pn)
+            mod = ob.direct(pn)
         except ModuleNotFoundError:
-            if cfg.verbose:
+            if ob.cfg.verbose:
                 print("skip %s" % pn)
             continue
         if "__file__" in dir(mod) and mod.__file__:
@@ -95,21 +94,21 @@ def find_all(names):
                 yield fqn
 
 def get_names(pkgs):
-    res = Object()
-    for pkg in spl(pkgs):
+    res = ob.Object()
+    for pkg in ob.spl(pkgs):
         for mod in mods(pkg):
-            n = find_names(mod)
-            update(res, n)
+            n = ob.itr.find_names(mod)
+            ob.update(res, n)
     return res
 
 def walk(names):
-    oo = Object()
-    oo.pnames = Object()
-    oo.names = ObjectList()
-    oo.modnames = Object()
-    for mn in find_all(names):
-        mod = direct(mn)
+    oo = ob.Object()
+    oo.pnames = ob.Object()
+    oo.names = ob.ObjectList()
+    oo.modnames = ob.Object()
+    for mn in ob.itr.find_all(names):
+        mod = ob.direct(mn)
         oo.pnames[mn.split(".")[-1]] = mn
-        update(oo.modnames, find_mods(mod))
-        oo.names.update(find_names(mod))
+        ob.update(oo.modnames, ob.itr.find_mods(mod))
+        oo.names.update(ob.itr.find_names(mod))
     return oo

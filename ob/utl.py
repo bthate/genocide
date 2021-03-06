@@ -232,9 +232,6 @@ def root():
         return False
     return True
 
-def spl(txt):
-    return [x for x in txt.split(",") if x]
-
 def strip_html(text):
     clean = re.compile('<.*?>')
     return re.sub(clean, '', text)

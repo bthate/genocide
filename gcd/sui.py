@@ -5,8 +5,9 @@
 import random, time
 
 from ob import Object, get, keys, items, values
+from ob.bus import Bus
 from ob.clk import Repeater
-from ob.hdl import Bus, Event
+from ob.evt import Event
 from ob.prs import elapsed, parse_time
 
 def __dir__():

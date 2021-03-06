@@ -18,8 +18,7 @@ setup(
     description="OTP-CR-117/19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io",
     long_description=read(),
     license='Public Domain',
-    install_requires=["ob"],
-    packages=["gcd"],
+    packages=["gcd", "ob"],
     zip_safe=True,
     scripts=["bin/genocide", "bin/genocidecmd", "bin/genocidectl", "bin/genocided"],
     classifiers=['Development Status :: 3 - Alpha',
@@ -29,3 +28,4 @@ setup(
                  'Topic :: Utilities'
                 ]
 )
+ 

@@ -1,4 +1,4 @@
-MANPAGE
+manpage
 =======
 
 NAME

@@ -6,11 +6,9 @@
 
 import urllib
 
-from ob import Cfg, Default, Object, cfg, get, save, update
+from ob import Cfg, Default, Object, cfg, edit, get, save, update
 from ob.clk import Repeater
 from ob.dbs import all, find, last, last_match
-from ob.ofn import edit
-from ob.hdl import Bus
 from ob.thr import launch
 from ob.utl import get_tinyurl, get_url, strip_html, unescape
 

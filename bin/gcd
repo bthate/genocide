@@ -6,19 +6,16 @@
 """GENOCIDE(1)                      User Commands                       GENOCIDE(1)
 
 NAME
-        genocide - the king of the netherlands commits genocide  (OTP-CR-117/19)
+        gcd - the king of the netherlands commits genocide  (OTP-CR-117/19)
 
 SYNOPSIS
-        genocide <cmd> [mods=mod1,mod2] [-b] [-c|d] [-h] [-l|s] [-v] 
+        gcd <cmd> [mods=mod1,mod2] [-b] [-c] [-h] [-r] [-v] 
 
 OPTIONS
         -b		show banner
         -c 		start console
-        -d		start daemon
         -h		print this message
-        -l		load cfg
         -r		use /var/lib/ob
-        -s 		save cfg
         -v		be verbose
 
 EXAMPLES
@@ -31,19 +28,13 @@ EXAMPLES
 # imports
 
 import os, sys ; sys.path.insert(0, os.getcwd())
+
 import ob
 import readline
 import time
 
-from ob import cfg, e, j, save, values, update
-from ob.dbs import last
-from ob.ofn import format, overlay
-from ob.hdl import Bus, Bused, Command, Handler
-from ob.shl import Cfg, Console, Shell, exec, op, parse, setcompleter
-from ob.thr import launch
-from ob.trm import termreset, termsave
-from ob.utl import privileges
-
+from ob import cfg
+from ob.shl import op
 from gcd.tbl import tbl
 from gcd.ver import __version__
 
@@ -52,58 +43,55 @@ from gcd.ver import __version__
 cfg.name = "genocide"
 cfg.debug = False
 cfg.pkgs = "ob,mod,gcd"
-cfg.wd = e("~/.genocide")
+cfg.wd = ob.e("~/.genocide")
 cfg.version = __version__
 
 # commands
 
 def xit(event):
-    Bus.save()
+    ob.bus.Bus.save()
     os._exit(0)
 
 def hup(event):
-    last(cfg)
-    Bus.resume()
+    ob.dbs.last(cfg)
+    ob.bus.Bus.resume()
 
 # runtime
 
 def main():
-    s = Shell(tbl)
-    parse()
-    if op("v"):
+    s = ob.shl.Shell(tbl)
+    s.load_mod("req,sui,trt,wsd")
+    ob.shl.parse()
+    if ob.op("v"):
         cfg.verbose = True
-    if op("h"):
+    if ob.op("h"):
         print(__doc__)
         return
-    if op("b"):
+    if ob.op("b"):
         print("GENOCIDE #%s started at %s" % (cfg.version, time.ctime(time.time())))
         print(format(cfg, skip=["old", "opts", "res"]))
         print("OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide")
-        daemon()
-    if op("r"):
+    if ob.op("r"):
         cfg.wd = "/var/lib/genocide/"
         privileges("genocide")
-        c = Cfg()
-        last(c)
-        overlay(c, cfg)
-        update(cfg, c)
+        cfg.mods += ",irc"
     if cfg.res.txt:
         s.load_mod("all")
         return s.cmd(cfg.old.txt)
-    elif op("c"):
-        s.load_mod("all")
+    elif ob.op("c"):
+        s.load_mod("shl,sys")
         s.add("hup", hup)
         s.add("xit", xit)
         c = Console(tbl)
         c.handler = s
         c.start()        
-    elif op("t"):
+    elif ob.op("t"):
         Bus.resume()
     s.load_mod(cfg.sets.mods)
-    s.scandir(j(cfg.wd, "mod"))
+    s.scandir(ob.j(cfg.wd, "mod"))
     s.start()
     s.init(cfg.sets.mods)
-    if op("cdwt") or ob.cfg.mods:
+    if ob.op("ctr"):
         s.wait()
 
-exec(main)
+ob.shl.exec(main)

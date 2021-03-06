@@ -7,7 +7,8 @@
 import selectors
 import time
 
-from .hdl import Event, Handler
+from .evt import Event
+from .hdl import Handler
 from .thr import launch
 from .utl import get_name
 

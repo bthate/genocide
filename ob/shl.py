@@ -9,19 +9,13 @@ import ob
 import readline
 import sys
 
-from . import update
-from .hdl import Bus, Command, Bused, Cfg, Handler
-from .prs import parse as p
-from .thr import launch
-from .trm import termreset, termsave
-
 # classes
 
-class Cfg(Cfg):
+class Cfg(ob.Cfg):
 
     pass
 
-class Shell(Bused):
+class Shell(ob.hdl.Bused):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -55,7 +49,7 @@ class Console(Shell):
 # functions
 
 def exec(main):
-    termsave()
+    ob.trm.termsave()
     try:
         main()
     except KeyboardInterrupt:
@@ -63,7 +57,7 @@ def exec(main):
     except PermissionError as ex:
         print(str(ex))
     finally:
-        termreset()
+        ob.trm.termreset()
 
 def op(ops):
     for opt in ops:
@@ -72,8 +66,8 @@ def op(ops):
     return False
 
 def parse():
-    p(ob.cfg, " ".join(sys.argv[1:]))
-    update(ob.cfg, ob.cfg.sets)
+    ob.prs.parse(ob.cfg, " ".join(sys.argv[1:]))
+    ob.update(ob.cfg, ob.cfg.sets)
     return ob.cfg
 
 def complete(text, state):
@@ -92,12 +86,6 @@ def setcompleter(commands):
     readline.set_completer(complete)
     readline.parse_and_bind("tab: complete")
     atexit.register(lambda: readline.set_completer(None))
-
-# commands
-
-def cmd(event):
-    b = Bus.by_orig(event.orig)
-    event.reply(",".join(sorted(Handler.cmds)))
 
 # runtime
 

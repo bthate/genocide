@@ -4,29 +4,24 @@
 
 # imports
 
-from . import cfg, keys
-from .ofn import format
-from .dbs import find, list_files
-from .hdl import Bus
-from .prs import elapsed
-from .utl import fntime, time
+import ob
 
 # commands
 
 def fnd(event):
     if not event.res.args:
-        fls = list_files(cfg.wd)
+        fls = ob.dbs.list_files(cfg.wd)
         if fls:
             event.reply("|".join([x.split(".")[-1].lower() for x in fls]))
         return
     name = event.res.args[0]
-    bot = Bus.by_orig(event.orig)
+    bot = ob.bus.Bus.by_orig(event.orig)
     t = bot.get_names(name)
     nr = -1
     for otype in t:
-        for fn, o in find(otype, event.gets, event.res.index, event.res.timed):
+        for fn, o in ob.dbs.find(otype, event.gets, event.res.index, event.res.timed):
             nr += 1
-            txt = "%s %s" % (str(nr), format(o, keys(o), skip=event.skip))
+            txt = "%s %s" % (str(nr), ob.format(o, ob.keys(o), skip=event.skip))
             if "t" in event.opts:
-                txt = txt + " %s" % (elapsed(time.time() - fntime(fn)))
+                txt = txt + " %s" % (elapsed(time.time() - ob.utl.fntime(fn)))
             event.reply(txt)

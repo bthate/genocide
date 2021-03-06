@@ -8,8 +8,8 @@ import socket
 import time
 
 from ob import Cfg, Object
+from ob.bus import Bus
 from ob.dbs import last
-from ob.hdl import Bus
 from ob.thr import launch
 
 # defines

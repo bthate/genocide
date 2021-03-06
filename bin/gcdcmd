@@ -3,30 +3,92 @@
 #
 # OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide
 
-"the king of the netherlands commits genocide"
+"""GENOCIDE(1)                      User Commands                       GENOCIDE(1)
+
+NAME
+        gcd - the king of the netherlands commits genocide  (OTP-CR-117/19)
+
+SYNOPSIS
+        gcd <cmd> [mods=mod1,mod2] [-b] [-c] [-h] [-r] [-v] 
+
+OPTIONS
+        -b		show banner
+        -c 		start console
+        -h		print this message
+        -r		use /var/lib/ob
+        -v		be verbose
+
+EXAMPLES
+        genocide cmd
+        genocide mod
+        genocide mods=irc,rss
+        genocidectl krn mods=irc,rss
+"""
 
 # imports
 
-from gcd.tbl import tbl
-from gcd.ver import __version__, os, sys
+import os, sys ; sys.path.insert(0, os.getcwd())
 
-from ob.run import Bus, Shell, cfg, exec, j, last, overlay, privileges, update
+import ob
+import readline
+import time
+
+from ob.krn import k, op
+from gcd.tbl import tbl
+from gcd.ver import __version__
 
 # defines
 
-cfg.name = "genocide"
-cfg.pkgs = "ob,mod,gcd"
-cfg.wd = "/var/lib/genocide"
-cfg.version = __version__
+k.cfg.name = "genocide"
+k.cfg.pkgs = "ob,mod,gcd"
+k.cfg.wd = ob.e("~/.genocide")
+k.cfg.version = __version__
+
+# commands
+
+def xit(event):
+    ob.bus.Bus.save()
+    os._exit(0)
+
+def hup(event):
+    ob.dbs.last(k.cfg)
+    ob.bus.Bus.resume()
 
 # runtime
 
 def main():
-    s = Shell(tbl)
-    privileges("genocide")
-    last(cfg)
-    s.load_mod("all")
-    s.scandir(j(cfg.wd, "mod"))
-    return s.cmd(" ".join(sys.argv[1:]))
+    s = ob.shl.Shell(tbl)
+    ob.shl.parse()
+    if op("v"):
+        k.cfg.verbose = True
+    if op("h"):
+        print(__doc__)
+        return
+    if op("b"):
+        print("GENOCIDE #%s started at %s" % (k.cfg.version, time.ctime(time.time())))
+        print(ob.format(k.cfg, skip=["old", "opts", "res"]))
+        print("OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide")
+    if op("r"):
+        ob.wd = "/var/lib/genocide/"
+        ob.utl.privileges("genocide")
+        k.cfg.mods += ",irc"
+    s.load_mod("krn,req,sui,trt,wsd")
+    s.load_mod(k.cfg.sets.mods)
+    s.scandir(ob.j(ob.wd, "mod"))
+    if k.cfg.res.txt:
+        s.load_mod("all")
+        return s.cmd(k.cfg.old.txt)
+    s.start()
+    if op("c"):
+        s.add("hup", hup)
+        s.add("xit", xit)
+        c = ob.shl.Console(tbl)
+        c.handler = s
+        c.start()        
+    elif op("t"):
+        Bus.resume()
+    s.init(k.cfg.sets.mods)
+    if op("ctr"):
+        s.wait()
 
-exec(main)
+ob.shl.exec(main)

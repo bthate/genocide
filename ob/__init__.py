@@ -2,8 +2,6 @@
 
 "object class"
 
-# imports
-
 import datetime
 import importlib
 import json
@@ -12,6 +10,10 @@ import random
 import sys
 import types
 import uuid
+
+# defines
+
+wd = ""
 
 # exceptions
 
@@ -154,20 +156,11 @@ def mods(mn):
             mod.append(direct(m))
     return mod
 
-def op(ops):
-    for opt in ops:
-        if opt in cfg.opts:
-            return True
-    return False
-
-def parse():
-    import ob.prs
-    ob.prs.parse(cfg, " ".join(sys.argv[1:]))
-    ob.update(cfg, cfg.sets)
-    return cfg
-
 def spl(txt):
     return [x for x in txt.split(",") if x]
+
+def tojson(d):
+    return json.dumps(d, default=default, indent=4, sort_keys=True)
 
 # object functions
 
@@ -271,12 +264,12 @@ def keys(o):
 
 def load(o, opath):
     assert opath
-    assert cfg.wd
+    assert wd
     if opath.count(os.sep) != 3:
         raise ENOFILENAME(opath)
     spl = opath.split(os.sep)
     stp = os.sep.join(spl[-4:])
-    lpath = os.path.join(cfg.wd, "store", stp)
+    lpath = os.path.join(wd, "store", stp)
     o.__type__ = spl[0]
     o.__id__ = spl[1]
     with open(lpath, "r") as ofile:
@@ -299,7 +292,7 @@ def register(o, k, v):
 def save(o):
     timestamp = str(datetime.datetime.now()).split()
     o.__stp__ = os.path.join(o.__type__, o.__id__, os.sep.join(timestamp))
-    opath = os.path.join(cfg.wd, "store", o.__stp__)
+    opath = os.path.join(wd, "store", o.__stp__)
     cdir(opath)
     with open(opath, "w") as ofile:
         json.dump(o, ofile, default=default)
@@ -318,35 +311,12 @@ def update(o, d):
 def values(o):
     return o.__dict__.values()
 
-# commands
-
-def krn(event):
-    if not event.sets:
-        event.reply(format(cfg, skip=["old", "opts", "res", "sets"]))
-        return
-    edit(cfg, event.sets)
-    save(cfg)
-    event.reply("ok")
-
-def mod(event):
-    event.reply(",".join(sorted({x.split(".")[-1] for x in find_modules(ob.cfg.pkgs)})))
-
-# runtime
-
-cfg = Cfg()
-cfg.autoload = False
-cfg.debug = False
-cfg.name = "ob"
-cfg.pkgs = "ob,mod"
-cfg.verbose = False
-cfg.wd = ""
-
 import ob.bus
 import ob.evt
 import ob.prs
 import ob.thr
 import ob.dbs
 import ob.hdl
-import ob.shl
+import ob.krn
 import ob.trm
 import ob.itr

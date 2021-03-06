@@ -7,9 +7,11 @@
 import ob
 import queue
 import threading
+import time
 
-from . import Default, Object
-from .utl import get_name
+# defines
+
+starttime = time.time()
 
 # classes
 
@@ -17,12 +19,12 @@ class Thr(threading.Thread):
 
     def __init__(self, func, *args, thrname="", daemon=True):
         super().__init__(None, self.run, thrname, (), {}, daemon=daemon)
-        self._name = thrname or get_name(func)
+        self._name = thrname or ob.get_name(func)
         self._result = None
         self._queue = queue.Queue()
         self._queue.put_nowait((func, args))
         self.sleep = 0
-        self.state = Object()
+        self.state = ob.Object()
 
     def __iter__(self):
         return self
@@ -41,7 +43,7 @@ class Thr(threading.Thread):
         func, args = self._queue.get_nowait()
         if args:
             try:
-                target = Default(vars(args[0]))
+                target = ob.Default(vars(args[0]))
                 self._name = (target and target.txt and target.txt.split()[0]) or self._name
             except TypeError:
                 pass
@@ -55,25 +57,24 @@ class Thr(threading.Thread):
 # functions
 
 def launch(func, *args, **kwargs):
-    name = kwargs.get("name", get_name(func))
+    from .krn import cfg
+    name = kwargs.get("name", ob.get_name(func))
     t = Thr(func, *args, thrname=name, daemon=True)
     t.start()
-    if ob.cfg.verbose:
+    if cfg.verbose:
         print("launch %s" % t.getName())
     return t
 
 # commands
 
 def thr(event):
-    import threading, time
-    from . import Object, update
     psformat = "%s %s"
     result = []
     for thr in sorted(threading.enumerate(), key=lambda x: x.getName()):
         if str(thr).startswith("<_"):
             continue
-        o = Object()
-        update(o, thr)
+        o = ob.Object()
+        ob.update(o, thr)
         if getattr(o, "sleep", None):
             up = o.sleep - int(time.time() - o.state.latest)
         else:
@@ -85,6 +86,6 @@ def thr(event):
             result.append((up, thrname))
     res = []
     for up, txt in sorted(result, key=lambda x: x[0]):
-        res.append("%s %s" % (txt, elapsed(up)))
+        res.append("%s %s" % (txt, ob.prs.elapsed(up)))
     if res:
         event.reply(" | ".join(res))

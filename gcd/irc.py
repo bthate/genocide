@@ -13,7 +13,7 @@ import time
 import threading
 import  _thread
 
-from ob import Cfg, Object, cfg, edit, format, save
+from ob import Cfg, Object, edit, format, save
 from ob.bus import Bus
 from ob.dbs import find, last
 from ob.evt import Event
@@ -109,9 +109,9 @@ class IRC(Handler):
         Bus.add(self)
 
     def _connect(self, server, port=6667):
-        if ob.cfg.resume:
-            s = socket.fromfd(self.cfg.resume, socket.AF_INET, socket.SOCK_STREAM)
-            self.cfg.resume = s.fileno()
+        if ob.krn.cfg.resume:
+            s = socket.fromfd(ob.krn.cfg.resume, socket.AF_INET, socket.SOCK_STREAM)
+            ob.krn.resume[repr(self)] = s.fileno()
             s.command('PING", ":RESUME %s' % str(time.time()))
             s.connected.set()
             self.say(self.cfg.channel, 'done')
@@ -131,7 +131,7 @@ class IRC(Handler):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
-        if ob.cfg.verbose:
+        if ob.krn.cfg.verbose:
             print(rawstr)
         o = Event()
         o.rawstr = rawstr
@@ -346,7 +346,7 @@ class IRC(Handler):
         assert self.cfg.server
         self.channels.append(self.cfg.channel)
         self._joined.clear()
-        if not ob.cfg.verbose:
+        if not ob.krn.cfg.verbose:
             launch(self.doconnect)
         self._joined.wait()
 

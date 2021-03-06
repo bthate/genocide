@@ -51,6 +51,11 @@ class Bus(ob.Object):
             if repr(o) == orig:
                 o.say(channel, str(txt))
 
+# functions
+
+def by_orig(orig):
+    return Bus.by_orig(orig)
+
 # commands
 
 def flt(event):

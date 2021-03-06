@@ -6,7 +6,7 @@
 
 import os
 
-from . import cfg, j, get_type, hook, update
+from . import j, get_type, hook, update
 from .utl import fntime
 
 # database functions
@@ -37,7 +37,7 @@ def every(selector=None, index=None, timed=None):
     nr = -1
     if selector is None:
         selector = {}
-    for otype in os.listdir(j(cfg.wd, "store")):
+    for otype in os.listdir(j(ob.wd, "store")):
         for fn in fns(otype, timed):
             o = hook(fn)
             if selector and not search(o, selector):
@@ -110,7 +110,7 @@ def last_fn(otype):
 def fns(name, timed=None):
     if not name:
         return []
-    p = j(cfg.wd, "store", name) + os.sep
+    p = j(ob.wd, "store", name) + os.sep
     res = []
     d = ""
     for rootdir, dirs, _files in os.walk(p, topdown=False):

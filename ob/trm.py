@@ -28,6 +28,24 @@ def termsave():
     except termios.error:
         pass
 
+def complete(text, state):
+    matches = []
+    if text:
+        matches = [s for s in cmds if s and s.startswith(text)]
+    else:
+        matches = cmds[:]
+    try:
+        return matches[state]
+    except IndexError:
+        return None
+
+def setcompleter(commands):
+    cmds.extend(commands)
+    readline.set_completer(complete)
+    readline.parse_and_bind("tab: complete")
+    atexit.register(lambda: readline.set_completer(None))
+
 # runtime
 
+cmds = []
 resume = {}

@@ -19,10 +19,10 @@ OPTIONS
         -v		be verbose
 
 EXAMPLES
-        genocide cmd
-        genocide mod
-        genocide mods=irc,rss
-        genocidectl krn mods=irc,rss
+        gcd cmd
+        gcd mod
+        gcd mods=irc,rss
+        gcd krn mods=irc,rss
 """
 
 # imports
@@ -33,65 +33,52 @@ import ob
 import readline
 import time
 
-from ob import cfg
-from ob.shl import op
+from ob.krn import Bus, Shell, cfg, exec, last, op, parse
 from gcd.tbl import tbl
 from gcd.ver import __version__
-
-# defines
-
-cfg.name = "genocide"
-cfg.debug = False
-cfg.pkgs = "ob,mod,gcd"
-cfg.wd = ob.e("~/.genocide")
-cfg.version = __version__
 
 # commands
 
 def xit(event):
-    ob.bus.Bus.save()
+    Bus.save()
     os._exit(0)
 
 def hup(event):
-    ob.dbs.last(cfg)
-    ob.bus.Bus.resume()
+    ob.dbs.last(k)
+    Bus.resume()
 
 # runtime
 
 def main():
-    s = ob.shl.Shell(tbl)
-    s.load_mod("req,sui,trt,wsd")
-    ob.shl.parse()
-    if ob.op("v"):
+    parse("genocide")
+    if op("v"):
         cfg.verbose = True
-    if ob.op("h"):
+    if op("h"):
         print(__doc__)
         return
-    if ob.op("b"):
-        print("GENOCIDE #%s started at %s" % (cfg.version, time.ctime(time.time())))
-        print(format(cfg, skip=["old", "opts", "res"]))
-        print("OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide")
-    if ob.op("r"):
-        cfg.wd = "/var/lib/genocide/"
-        privileges("genocide")
+    if op("b"):
+        print("%s #%s started at %s" % (cfg.name, cfg.version, time.ctime(time.time())))
+        print(ob.format(cfg, skip=["old", "res"]))
+    s = Shell(tbl)
+    s.load_mod("krn")
+    s.scandir(ob.j(ob.wd, "mod"))
+    if op("r"):
+        ob.wd = "/var/lib/%s/" % cfg.name.lower()
+        ob.utl.privileges(cfg.name.lower())
         cfg.mods += ",irc"
-    if cfg.res.txt:
-        s.load_mod("all")
+    if cfg.old.txt:
         return s.cmd(cfg.old.txt)
-    elif ob.op("c"):
-        s.load_mod("shl,sys")
+    if op("c"):
         s.add("hup", hup)
         s.add("xit", xit)
-        c = Console(tbl)
+        c = ob.shl.Console(tbl)
         c.handler = s
-        c.start()        
-    elif ob.op("t"):
+        c.start()
+    elif op("t"):
         Bus.resume()
-    s.load_mod(cfg.sets.mods)
-    s.scandir(ob.j(cfg.wd, "mod"))
+    s.init(cfg.mods)
     s.start()
-    s.init(cfg.sets.mods)
-    if ob.op("ctr"):
+    if op("ctr"):
         s.wait()
 
-ob.shl.exec(main)
+exec(main)

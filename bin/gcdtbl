@@ -8,27 +8,19 @@ import os, sys ; sys.path.insert(0, os.getcwd())
 # imports
 
 import json
+import ob
 import sys
-
-from ob import default
-from ob.itr import walk
-from ob.utl import direct, spl
-
-# functions
-
-def tojson(d):
-    return json.dumps(d, default=default, indent=4, sort_keys=True)
 
 # runtime
 
-tbl = walk("ob,mod,gcd")
+tbl = ob.itr.walk("ob,mod,gcd")
 del tbl.pnames["__init__"]
 print("# This file is placed in the Public Domain.")
 print("")
-print("from ob import Default,update")
+print("import ob")
 print("")
-print("tbl = Default()")
+print("tbl = ob.Default()")
 print("")
-print("update(tbl, %s)" % tbl)
+print("ob.update(tbl, %s)" % tbl)
 sys.stdout.flush()
 sys.exit()

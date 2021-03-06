@@ -6,7 +6,7 @@
 
 import urllib
 
-from ob import Cfg, Default, Object, cfg, edit, get, save, update
+from ob import Cfg, Default, Object, edit, get, save, update
 from ob.clk import Repeater
 from ob.dbs import all, find, last, last_match
 from ob.thr import launch
@@ -134,7 +134,7 @@ class Fetcher(Object):
 # functions
 
 def get_feed(url):
-    if cfg.debug:
+    if ob.krn.cfg.debug:
         return [Object(), Object()]
     try:
         result = get_url(url)

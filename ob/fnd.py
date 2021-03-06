@@ -10,7 +10,7 @@ import ob
 
 def fnd(event):
     if not event.res.args:
-        fls = ob.dbs.list_files(cfg.wd)
+        fls = ob.dbs.list_files(ob.wd)
         if fls:
             event.reply("|".join([x.split(".")[-1].lower() for x in fls]))
         return

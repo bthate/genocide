@@ -33,7 +33,7 @@ class Handler(ob.Object):
         super().__init__()
         self._connected = threading.Event()
         self.cbs = ob.Object()
-        self.cfg = Cfg()
+        self.cfg = ob.Cfg()
         self.cmds = ob.Object()
         self.queue = queue.Queue()
         self.started = []
@@ -54,6 +54,7 @@ class Handler(ob.Object):
         self.direct(txt)
 
     def cmd(self, txt):
+        self.load_mod("all")
         c = ob.evt.Command(txt)
         c.orig = repr(self)
         c.origin = "root@@console"
@@ -110,14 +111,13 @@ class Handler(ob.Object):
         cmds = ob.itr.find_cmds(mod)
         ob.update(self.cmds, cmds)
         Handler.table[mn] = mod
-        if "b" in ob.cfg.opts:
-            print("load %s" % mn)
         return mod
 
     def load_mod(self, mns):
+        from .krn import cfg
         mods = []
         if "all" in ob.spl(mns):
-            mns = ",".join([x.split(".")[-1] for x in ob.itr.find_modules(ob.cfg.pkgs)])
+            mns = ",".join([x.split(".")[-1] for x in ob.itr.find_modules(cfg.pkgs)])
         for mn in ob.spl(mns):
             mnn = getattr(Handler.pnames, mn, mn)
             try:
@@ -126,7 +126,7 @@ class Handler(ob.Object):
                     mods.append(mod)
             except ModuleNotFoundError:
                 pass
-        if "d" in ob.cfg.opts and mods:
+        if "d" in cfg.opts and mods:
             print("load %s" % ",".join(sorted(mods)))
         return mods
 
@@ -173,12 +173,6 @@ class Handler(ob.Object):
         self.stopped = True
         self.queue.put(None)
 
-    def walk(self, nms="ob"):
-        w = walk(nms)
-        for c, mn in items(w.modnames):
-            if has_mod(mn):
-                self.load(mn)
-
     def wait(self):
         while not self.stopped:
             time.sleep(30.0)
@@ -198,9 +192,10 @@ class Bused(Core):
 # functions
 
 def cmd(handler, obj):
+    from .krn import cfg
     obj.parse()
     res = None
-    f = handler.get_cmd(obj.res.cmd, ob.cfg.autoload)
+    f = handler.get_cmd(obj.res.cmd, cfg.autoreload)
     if f:
         res = f(obj)
         obj.show()

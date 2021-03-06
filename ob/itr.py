@@ -73,11 +73,12 @@ def find_names(mod):
     return tps
 
 def find_all(names):
+    from .krn import cfg
     for pn in ob.spl(names):
         try:
             mod = ob.direct(pn)
         except ModuleNotFoundError:
-            if ob.cfg.verbose:
+            if cfg.verbose:
                 print("skip %s" % pn)
             continue
         if "__file__" in dir(mod) and mod.__file__:

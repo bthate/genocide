@@ -70,7 +70,7 @@ def parse(name):
 
 def cmd(event):
     b = ob.bus.by_orig(event.orig)
-    event.reply(",".join(sorted(b.cmds)))
+    event.reply(",".join(sorted(b.handler.cmds or b.cmds)))
 
 def krn(event):
     if not event.sets:

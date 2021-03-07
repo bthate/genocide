@@ -33,7 +33,7 @@ import ob
 import readline
 import time
 
-from ob.krn import Bus, Shell, cfg, exec, last, op, parse
+from ob.krn import Bus, Console, Shell, cfg, exec, last, op, parse
 from gcd.tbl import tbl
 from gcd.ver import __version__
 
@@ -44,7 +44,7 @@ def xit(event):
     os._exit(0)
 
 def hup(event):
-    ob.dbs.last(k)
+    last(cfg)
     Bus.resume()
 
 # runtime
@@ -66,12 +66,12 @@ def main():
         ob.wd = "/var/lib/%s/" % cfg.name.lower()
         ob.utl.privileges(cfg.name.lower())
         cfg.mods += ",irc"
-    if cfg.old.txt:
+    if cfg.res.txt:
         return s.cmd(cfg.old.txt)
     if op("c"):
-        s.add("hup", hup)
-        s.add("xit", xit)
-        c = ob.shl.Console(tbl)
+        c = Console(tbl)
+        c.add("hup", hup)
+        c.add("xit", xit)
         c.handler = s
         c.start()
     elif op("t"):

@@ -13,26 +13,29 @@ import unittest
 
 sys.path.insert(0, os.getcwd())
 
-from ob import cfg
-from ob.hdl import Event, Handler
-from ob.shl import parse
-from ob.utl import get_exception, mods
+from ob.evt import Event
+from ob.krn import cfg, parse
+from ob.hdl import Handler
+from ob.utl import get_exception
+
+from test.run import h
 
 # defines
 
 def cb(event):
-    print("yoo")
+    if cfg.verbose:
+        print("yoo")
 
-exclude = ["poll", "handler", "input", "doconnect", "raw", "start"]
+exclude = ["announce", "direct", "poll", "handler", "input", "doconnect", "raw", "say", "start"]
 exc = []
 result = []
 
 values = ob.Object()
-values["txt"] = "yoo"
+values["txt"] = "yoo2"
 values["key"] = "txt"
 values["value"] = ob.Object()
 values["d"] = {}
-values["hdl"] = Handler()
+values["hdl"] = h
 values["event"] = Event({"txt": "thr", "error": "test"})
 values["path"] = cfg.wd
 values["channel"] = "#operbot"
@@ -56,7 +59,7 @@ values["server"] = "localhost"
 values["nick"] = "bot"
 values["rssobj"] = ob.Object()
 values["o"] = ob.Object()
-values["handler"] = Handler()
+values["handler"] = h
 
 # classes
 
@@ -64,7 +67,7 @@ class Test_Fuzzer(unittest.TestCase):
 
     def test_fuzz(self):
         global exc
-        m = mods("ob")
+        m = ob.mods("ob,gcd")
         for x in range(cfg.index or 1):
             for mod in m:
                 fuzz(mod)
@@ -104,6 +107,7 @@ def fuzz(mod, *args, **kwargs):
                 handle_type(ex)
                 continue
             try:
+                print(meth)
                 res = meth(*args, **kwargs)
                 if cfg.verbose:
                     print("%s(%s) -> %s" % (name, ",".join([str(x) for x in args]), res))

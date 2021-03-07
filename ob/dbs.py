@@ -4,6 +4,7 @@
 
 # imports
 
+import ob
 import os
 
 from . import j, get_type, hook, update
@@ -110,7 +111,7 @@ def last_fn(otype):
 def fns(name, timed=None):
     if not name:
         return []
-    p = j(ob.wd, "store", name) + os.sep
+    p = ob.j(ob.wd, "store", name) + os.sep
     res = []
     d = ""
     for rootdir, dirs, _files in os.walk(p, topdown=False):

@@ -6,7 +6,7 @@
 
 import unittest
 
-from ob import cfg
+from ob.krn import cfg
 from ob.sel import Select
 
 from test.run import exec

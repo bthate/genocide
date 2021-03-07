@@ -25,6 +25,7 @@ from ob.utl import locked
 
 def init(hdl):
     i = IRC()
+    ob.update(i.cmds, hdl.cmds)
     i.start()
     return i
 
@@ -104,7 +105,6 @@ class IRC(Handler):
         self.state.nrsend = 0
         self.state.pongcheck = False
         self.threaded = False
-        self.verbose = False
         self.users = Users()
         Bus.add(self)
 

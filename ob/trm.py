@@ -5,6 +5,7 @@
 # imports
 
 import atexit
+import readline
 import sys
 import termios
 

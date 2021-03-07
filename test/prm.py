@@ -5,7 +5,7 @@
 # imports
 
 from ob import Object
-from ob.hdl import Command
+from ob.evt import Command
 
 # defines
 

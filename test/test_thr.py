@@ -6,7 +6,7 @@
 
 import unittest
 
-from ob import cfg
+from ob.krn import cfg
 from ob.thr import launch
 
 from test.run import exec, consume, h

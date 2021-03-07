@@ -5,6 +5,7 @@
 # imports
 
 import ob
+import time
 
 # commands
 
@@ -23,5 +24,5 @@ def fnd(event):
             nr += 1
             txt = "%s %s" % (str(nr), ob.format(o, ob.keys(o), skip=event.skip))
             if "t" in event.opts:
-                txt = txt + " %s" % (elapsed(time.time() - ob.utl.fntime(fn)))
+                txt = txt + " %s" % (ob.prs.elapsed(time.time() - ob.utl.fntime(fn)))
             event.reply(txt)

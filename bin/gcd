@@ -3,82 +3,42 @@
 #
 # OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide
 
-"""GENOCIDE(1)                      User Commands                       GENOCIDE(1)
-
-NAME
-        gcd - the king of the netherlands commits genocide  (OTP-CR-117/19)
-
-SYNOPSIS
-        gcd <cmd> [mods=mod1,mod2] [-b] [-c] [-h] [-r] [-v] 
-
-OPTIONS
-        -b		show banner
-        -c 		start console
-        -h		print this message
-        -r		use /var/lib/ob
-        -v		be verbose
-
-EXAMPLES
-        gcd cmd
-        gcd mod
-        gcd mods=irc,rss
-        gcd krn mods=irc,rss
-"""
+"genocide (gcd)"
 
 # imports
 
-import os, sys ; sys.path.insert(0, os.getcwd())
-
 import ob
-import readline
-import time
 
-from ob.krn import Bus, Console, Shell, cfg, exec, last, op, parse
+from ob.krn import cfg, op
 from gcd.tbl import tbl
-from gcd.ver import __version__
-
-# commands
-
-def xit(event):
-    Bus.save()
-    os._exit(0)
-
-def hup(event):
-    last(cfg)
-    Bus.resume()
 
 # runtime
 
 def main():
-    parse("genocide")
+    ob.wd = ob.e("~/.genocide")
+    ob.krn.parse("genocide", "ob,mod,gcd")
     if op("v"):
         cfg.verbose = True
-    if op("h"):
-        print(__doc__)
-        return
-    if op("b"):
-        print("%s #%s started at %s" % (cfg.name, cfg.version, time.ctime(time.time())))
-        print(ob.format(cfg, skip=["old", "res"]))
-    s = Shell(tbl)
-    s.load_mod("krn")
-    s.scandir(ob.j(ob.wd, "mod"))
     if op("r"):
         ob.wd = "/var/lib/%s/" % cfg.name.lower()
         ob.utl.privileges(cfg.name.lower())
         cfg.mods += ",irc"
+    s = ob.krn.Shell(tbl)
+    s.load_mod("krn")
+    s.load_mod(cfg.mods)
+    s.scandir(ob.j(ob.wd, "mod"))
     if cfg.res.txt:
+        s.load_mod("all")
         return s.cmd(cfg.old.txt)
     if op("c"):
-        c = Console(tbl)
-        c.add("hup", hup)
-        c.add("xit", xit)
-        c.handler = s
+        c = ob.krn.Console(tbl)
+        ob.update(c.cmds, s.cmds)
         c.start()
-    elif op("t"):
-        Bus.resume()
+        print(c)
+    else:
+        s.start()
     s.init(cfg.mods)
-    s.start()
-    if op("ctr"):
+    if op("cr"):
         s.wait()
 
-exec(main)
+ob.krn.exec(main)

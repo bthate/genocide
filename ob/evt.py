@@ -46,8 +46,7 @@ class Event(ob.Default):
 
 class Command(Event):
 
-    def __init__(self, txt, **kwargs):
+    def __init__(self, txt="", **kwargs):
         super().__init__(**kwargs)
         self.type = "cmd"
-        if txt:
-            self.txt = txt.rstrip()
+        self.txt = txt.rstrip()

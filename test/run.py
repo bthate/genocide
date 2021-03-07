@@ -6,7 +6,10 @@
 
 import ob
 
-from ob.hdl import Bused, Command
+from ob.evt import Command
+from ob.hdl import Bused
+from ob.itr import walk
+from ob.krn import cfg
 
 from test.prm import param
 
@@ -15,8 +18,12 @@ from test.prm import param
 class Test(Bused):
 
     def direct(self, txt):
-        if ob.cfg.verbose:
+        if cfg.verbose:
             print(txt)
+
+    def say(self, channel, txt):
+        if cfg.verbose:
+            self.direct(txt)
 
 # functions
 
@@ -52,7 +59,7 @@ def exec(cmd):
 events = []
 
 h = Test()
-h.walk("ob,mod,gcd")
+ob.update(h, walk(cfg.pkgs))
 h.start()
 
 for e in exec("rss https://www.reddit.com/r/python/.rss"):

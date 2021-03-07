@@ -6,7 +6,7 @@
 
 import unittest
 
-from ob import cfg
+from ob.krn import cfg
 
 from test.run import exec, h
 

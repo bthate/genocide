@@ -78,8 +78,6 @@ def find_all(names):
         try:
             mod = ob.direct(pn)
         except ModuleNotFoundError:
-            if cfg.verbose:
-                print("skip %s" % pn)
             continue
         if "__file__" in dir(mod) and mod.__file__:
             pths = [os.path.dirname(mod.__file__),]

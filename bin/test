@@ -5,29 +5,16 @@
 
 import os, sys ; sys.path.insert(0, os.getcwd())
 
+import ob
 import unittest
 
-from ob import cfg
-from ob.shl import op, parse
-from ob.trm import termreset, termsave
+from ob.krn import cfg, exec, op, parse
 
 # defines
 
-wd = os.path.expanduser("~/.test")
 path = os.path.join(os.getcwd(), "test")
 
 # functions
-
-def exec(main):
-    termsave()
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("")
-    except PermissionError as ex:
-        print(str(ex))
-    finally:
-        termreset()
 
 def open(txt):
     try:
@@ -37,12 +24,9 @@ def open(txt):
         pass
 
 def main():
-    open("rm -fR %s" % wd)
-    parse()
+    parse("test")
+    open("rm -fR %s" % ob.wd)
     cfg.debug = True
-    if op("v"):
-        cfg.verbose = True
-    cfg.wd = wd
     suite = unittest.loader.TestLoader().discover(path, pattern="test*")
     unittest.TextTestRunner(verbosity=3).run(suite)
 

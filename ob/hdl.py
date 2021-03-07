@@ -51,7 +51,8 @@ class Handler(ob.Object):
         Handler.modnames[cmd] = func.__module__
         
     def announce(self, txt):
-        self.direct(txt)
+        if not self.stopped:
+            self.direct(txt)
 
     def cmd(self, txt):
         self.load_mod("all")
@@ -114,10 +115,9 @@ class Handler(ob.Object):
         return mod
 
     def load_mod(self, mns):
-        from .krn import cfg
         mods = []
         if "all" in ob.spl(mns):
-            mns = ",".join([x.split(".")[-1] for x in ob.itr.find_modules(cfg.pkgs)])
+            mns = ",".join([x.split(".")[-1] for x in ob.itr.find_modules(ob.krn.cfg.pkgs)])
         for mn in ob.spl(mns):
             mnn = getattr(Handler.pnames, mn, mn)
             try:
@@ -126,8 +126,8 @@ class Handler(ob.Object):
                     mods.append(mod)
             except ModuleNotFoundError:
                 pass
-        if "d" in cfg.opts and mods:
-            print("load %s" % ",".join(sorted(mods)))
+        if ob.krn.cfg.verbose and mods:
+            print("loaded %s" % ",".join(sorted([x.__name__.split(".")[-1] for x in mods])))
         return mods
 
     def handler(self):
@@ -146,11 +146,9 @@ class Handler(ob.Object):
     def register(self, name, callback):
         self.cbs[name] = callback
 
-    def resume(self):
-        last(self.cfg)
-
     def say(self, channel, txt):
-        self.direct(txt)
+        if not self.stopped:
+            self.direct(txt)
 
     def scandir(self, path, name=""):
         if not os.path.exists(path):
@@ -192,10 +190,9 @@ class Bused(Core):
 # functions
 
 def cmd(handler, obj):
-    from .krn import cfg
     obj.parse()
+    f = handler.get_cmd(obj.res.cmd, ob.krn.cfg.autoreload)
     res = None
-    f = handler.get_cmd(obj.res.cmd, cfg.autoreload)
     if f:
         res = f(obj)
         obj.show()

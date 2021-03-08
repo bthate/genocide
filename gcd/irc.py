@@ -384,6 +384,7 @@ class IRC(Handler):
             try:
                 dcc = DCC()
                 dcc.encoding = "utf-8"
+                ob.update(dcc.cmds, self.cmds)
                 launch(dcc.connect, pevent)
                 return
             except ConnectionError as ex:

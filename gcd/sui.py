@@ -1,14 +1,21 @@
-# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
-#
 # This file is placed in the Public Domain.
+#
+# OTP-CR-117/19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-import random, time
+"suicide stats"
+
+# imports
+
+import random
+import time
 
 from ob import Object, get, keys, items, values
 from ob.bus import Bus
 from ob.clk import Repeater
 from ob.evt import Event
 from ob.prs import elapsed, parse_time
+
+# defines
 
 def __dir__():
     return ("sts", "init")
@@ -29,9 +36,13 @@ def init(kernel):
                 repeater = Repeater(sec, stat, e, name=key)
                 repeater.start()
 
+# classes
+
 class ENOSTATS(Exception):
 
     pass
+
+# functions
 
 def seconds(nrs, period="jaar"):
     if not nrs:
@@ -45,18 +56,6 @@ def nr(name):
             if n == name:
                 return get(obj, n)
     raise ENOSTATS(name)
-
-def sts(event):
-    txt = "Sinds %s\n" % time.ctime(starttime)
-    delta = time.time() - starttime
-    for _name, obj in items(wanted):
-        for key, _val in items(obj):
-            needed = seconds(nr(key))
-            if not needed:
-                continue
-            nrtimes = int(delta/needed)
-            txt += "\n%s #%s %s %s" % (key.upper(), nrtimes, get(tags, key, ""), get(zorg, random.choice(list(keys(zorg))), ""))
-    event.reply(txt.strip())
 
 def stat(e):
     name = e.rest or "suicide"
@@ -80,6 +79,22 @@ def stat(e):
         else:
             txt += " %s" % random.choice(list(values(tags)))
         Bus.announce(txt)
+
+# commands
+
+def sts(event):
+    txt = "Sinds %s\n" % time.ctime(starttime)
+    delta = time.time() - starttime
+    for _name, obj in items(wanted):
+        for key, _val in items(obj):
+            needed = seconds(nr(key))
+            if not needed:
+                continue
+            nrtimes = int(delta/needed)
+            txt += "\n%s #%s %s %s" % (key.upper(), nrtimes, get(tags, key, ""), get(zorg, random.choice(list(keys(zorg))), ""))
+    event.reply(txt.strip())
+
+# model
 
 cijfers = Object()
 cijfers.melding = 61000

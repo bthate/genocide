@@ -8,16 +8,16 @@ OB
     :template: module.rst
 
     ob
+    ob.bus
     ob.clk
     ob.dbs
+    ob.evt
     ob.fnd
     ob.hdl
     ob.itr
-    ob.ofn
+    ob.krn
     ob.prs
     ob.sel
-    ob.shl
-    ob.sys
     ob.tbl
     ob.thr
     ob.trm

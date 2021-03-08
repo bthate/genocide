@@ -1,4 +1,4 @@
-GENOCIDE
+genocide
 ########
 
 GENOCIDE is a python3 program that holds evidence that the king in the

@@ -1,10 +1,10 @@
-# GENOCIDE - the king of the netherlands commits genocide
+# This file is placed in the Public Domain
 #
-# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
+# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io"
 
-"""torture definition (trt)
+"torture definition"
 
-§ 95.1 Definitions.
+"""§ 95.1 Definitions.
 
 (a) Convention means the United NationsConvention Against Torture and Other Forms of Cruel, Inhuman or Degrading Treatment or Punishment, done at New York on December 10, 1984, entered into force for the United States on November 10, 1994. Definitions provided below in paragraphs (b) and (c) of this section reflect the language of the Convention and understandings set forth in the United States instrument of ratification to the Convention.
 (b) Torture means:
@@ -26,10 +26,7 @@
 (c) Where there are substantial grounds for believing that [a fugitive] would be in danger of being subjected to torture means if it is more likely than not that the fugitive would be tortured.
 (d) Secretary means Secretary of State and includes, for purposes of this rule, the Deputy Secretary of State, by delegation.
 
-see https://www.law.cornell.edu/cfr/text/22/95.1
-
-"""
+see https://www.law.cornell.edu/cfr/text/22/95.1"""
 
 def trt(event):
-    "show torture definition (trt)"
     event.reply(__doc__)

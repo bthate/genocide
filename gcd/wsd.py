@@ -1,13 +1,16 @@
-# GENOCIDE - the king of the netherlands commits genocide
+# This file is placed in the Public Domain
 #
-# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
+# OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io"
 
-"""wijsheid, wijs !
+"the trip in between"
 
-OVERDRACHT
-==========
+#:
+txt = """| wijsheid, wijs !
 
-No Voice, No Description:
+| OVERDRACHT
+| ==========
+
+| No Voice, No Description:
 
 | enkelt eenlingen
 | knipperogen
@@ -121,7 +124,7 @@ No Voice, No Description:
 | moraal roeping
 | haakse als effectief op gedachtenstroom (uitleg van de hemel)
 | de een zijn hemel is de ander zijn hel
-| "het woord begeleid", nieuw komenden
+| 'het woord begeleid', nieuw komenden
 | ultra addaptables
 | terminator badjes
 | denk instraal met materiaal (zonder handjes)
@@ -187,5 +190,4 @@ No Voice, No Description:
 import random
 
 def wsd(event):
-    "show the wisdom (wsd)"
-    event.reply(random.choice(__doc__.split("\n")).strip())
+    event.reply(random.choice(txt.split("\n")).strip()[2:])

@@ -2,17 +2,10 @@ manpage
 =======
 
 NAME
-        GENOCIDE - using the law to administer poison the king of the
-                   netherlands commits genocide.
+        GENOCIDE - the king of the netherlands commits genocide.
 
 SYNOPSIS
-        1) genocide <cmd> [mods=mod1,mod2] [-d] [-h] [-s] [-v]
-        2) genocide cfg server=<server> channel=<channel> nick=<nick>
-        3) genocide met <userhost>
-        4) genocide rss <url>
-        5) genocide ftc
-        6) genocide cmd
-        7) genocide mods=irc
+        gcd <cmd> [mods=mod1,mod2] [-c] [-r] [-v]
 
 DESCRIPTION
         GENOCIDE is a python3 program that holds evidence that the king of the
@@ -33,9 +26,16 @@ DESCRIPTION
         
         GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
 
+EXAMPLES
+        1) gcd cfg server=<server> channel=<channel> nick=<nick>
+        2) gcd met <userhost>
+        3) gcd rss <url>
+        4) gcd ftc
+        5) gcd cmd
+        6) gcd mods=irc
+        7) sudo gcdctl cfg
+
 OPTIONS
-        -d              daemon mode
-        -s              start a shell
+        -c              start a console
+        -r              use /var/lib/genocide
         -v              be verbose
-        -h              print this message
-        -x              enable debug

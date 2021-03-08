@@ -13,7 +13,7 @@ import sys
 
 # runtime
 
-tbl = ob.itr.walk("ob,mod,gcd")
+tbl = ob.itr.walk("ob,gcd")
 del tbl.pnames["__init__"]
 print("# This file is placed in the Public Domain.")
 print("")

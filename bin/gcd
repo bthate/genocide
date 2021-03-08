@@ -20,7 +20,7 @@ def main():
     if op("v"):
         cfg.verbose = True
     if op("r"):
-        ob.wd = "/var/lib/%s/" % cfg.name.lower()
+        ob.wd = cfg.wd = "/var/lib/%s/" % cfg.name.lower()
         ob.utl.privileges(cfg.name.lower())
         cfg.mods += ",irc"
     s = ob.krn.Shell(tbl)
@@ -34,7 +34,6 @@ def main():
         c = ob.krn.Console(tbl)
         ob.update(c.cmds, s.cmds)
         c.start()
-        print(c)
     else:
         s.start()
     s.init(cfg.mods)

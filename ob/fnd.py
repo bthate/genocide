@@ -16,7 +16,7 @@ def fnd(event):
             event.reply("|".join([x.split(".")[-1].lower() for x in fls]))
         return
     name = event.res.args[0]
-    bot = ob.bus.Bus.by_orig(event.orig)
+    bot = ob.bus.by_orig(event.orig)
     t = bot.get_names(name)
     nr = -1
     for otype in t:

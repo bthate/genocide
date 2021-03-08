@@ -20,7 +20,7 @@ setup(
     license='Public Domain',
     packages=["gcd", "ob"],
     zip_safe=True,
-    scripts=["bin/genocide", "bin/genocidecmd", "bin/genocidectl", "bin/genocided"],
+    scripts=["bin/gcd", "bin/gcdctl"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: MIT License',
                  'Operating System :: Unix',

@@ -8,7 +8,7 @@ from op.itr import walk
 if len(sys.argv) > 1:
     a = sys.argv[1]
 else:
-    a = "op,op.cmd"
+    a = "op,op.cmd,gcd"
 
 tbl = walk(a)
 del tbl.pnames["__init__"]

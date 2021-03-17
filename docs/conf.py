@@ -3,8 +3,6 @@
 #
 # OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
 
-__version__ = 26
-
 import doctest, os, sys, unittest
 
 curdir = os.getcwd()
@@ -12,6 +10,8 @@ sys.path.insert(0, curdir + os.sep)
 sys.path.insert(0, curdir + os.sep + ".." + os.sep + "genocide")
 
 # -- Options for GENERIC output ---------------------------------------------
+
+from gcd.ver import __version__
 
 project = "genocide"
 master_doc = 'index'

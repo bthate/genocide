@@ -4,10 +4,12 @@
 from op import cfg, e, j, op, os
 from op.csl import Console, exec, parse
 
+from gcd.tbl import tbl
+
 def main():
-    cfg.wd = e("~/.op")
+    cfg.wd = e("~/.genocide")
     parse()
-    s = Console()
+    s = Console(tbl)
     s.scandir(j(os.getcwd(), "mod"))
     if cfg.txt:
         s.cmd(cfg.old.txt)

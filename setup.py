@@ -11,14 +11,14 @@ def read():
 
 setup(
     name='genocide',
-    version='27',
+    version='28',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
     description="OTP-CR-117/19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io",
     long_description=read(),
     license='Public Domain',
-    install_requires=["ob"],
+    install_requires=["oplib"],
     packages=["gcd"],
     zip_safe=True,
     scripts=["bin/gcd", "bin/gcdctl"],

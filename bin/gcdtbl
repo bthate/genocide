@@ -1,26 +1,24 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
 
-"create tables"
-
 import os, sys ; sys.path.insert(0, os.getcwd())
 
-# imports
+from op.itr import walk
 
-import json
-import ob
-import sys
+if len(sys.argv) > 1:
+    a = sys.argv[1]
+else:
+    a = "op,op.cmd"
 
-# runtime
-
-tbl = ob.itr.walk("ob,gcd")
+tbl = walk(a)
 del tbl.pnames["__init__"]
+
 print("# This file is placed in the Public Domain.")
 print("")
-print("import ob")
+print("import op")
 print("")
-print("tbl = ob.Default()")
+print("tbl = op.Default()")
 print("")
-print("ob.update(tbl, %s)" % tbl)
+print("op.update(tbl, %s)" % tbl)
 sys.stdout.flush()
 sys.exit()

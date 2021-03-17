@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
 
-"unittests"
-
 import os, sys ; sys.path.insert(0, os.getcwd())
 
-import ob
+import time
 import unittest
 
-from ob.krn import cfg, exec, op, parse
+from op import c, cfg, op
+from op.bus import Bus
+from op.csl import Test, exec, parse
 
-# defines
+import op.utl
 
-path = os.path.join(os.getcwd(), "test")
-
-# functions
+import test.run
 
 def open(txt):
     try:
@@ -24,12 +22,15 @@ def open(txt):
         pass
 
 def main():
-    parse("test")
-    open("rm -fR %s" % ob.wd)
-    cfg.debug = True
-    suite = unittest.loader.TestLoader().discover(path, pattern="test*")
+    cfg.wd = c(".test")
+    cfg.pkgs = "op,op.cmd,gcd"
+    parse()
+    open("rm -fR %s" % cfg.wd)
+    op.utl.debug = True
+    pat = "test_%s*" % cfg.cmd or "*"
+    suite = unittest.loader.TestLoader().discover("test", pattern=pat)
     unittest.TextTestRunner(verbosity=3).run(suite)
-
-# runtime
+    if not cfg.cmd:
+        Bus.wait(Test)
 
 exec(main)

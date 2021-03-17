@@ -6,11 +6,11 @@
 
 import urllib
 
-from ob import Cfg, Default, Object, edit, get, save, update
-from ob.clk import Repeater
-from ob.dbs import all, find, last, last_match
-from ob.thr import launch
-from ob.utl import get_tinyurl, get_url, strip_html, unescape
+from op import Cfg, Default, Object, edit, get, save, update
+from op.clk import Repeater
+from op.dbs import all, find, last, last_match
+from op.thr import launch
+from op.utl import get_tinyurl, get_url, strip_html, unescape
 
 from urllib.error import HTTPError, URLError
 

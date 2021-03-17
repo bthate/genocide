@@ -1,32 +1,45 @@
 # This file is placed in the Public Domain.
 
-"test threads"
-
-# imports
-
 import unittest
 
-from ob.krn import cfg
-from ob.thr import launch
+from op import cfg
+from op.evt import Command
+from op.thr import launch
 
-from test.run import exec, consume, h
+from test.prm import param
+from test.run import h
 
-# classes
+events = []
 
 class Test_Threaded(unittest.TestCase):
 
     def test_thrs(self):
         thrs = []
-        for x in range(cfg.res.index or 1):
-            launch(tests, h)
-        consume(events)
+        for x in range(cfg.index or 1):
+            thr = launch(exec)
+            thrs.append(thr)
+        for thr in thrs:
+            thr.join()
+        consume()
+        h.stop()
 
-# functions
+def consume():
+    fixed = []
+    res = []
+    for e in events:
+        e.wait()
+        fixed.append(e)
+    for f in fixed:
+        try:
+            events.remove(f)
+        except ValueError:
+            continue
+    return res
 
-def tests(b):
-    for cmd in h.cmds:
-        events.extend(exec(cmd))
-
-# runtime
-
-events = []
+def exec():
+    for cmd in h.modnames:
+        for ex in getattr(param, cmd, [""]):
+            txt = cmd + " " + ex
+            e = Command(txt)
+            h.put(e)
+            events.append(e)

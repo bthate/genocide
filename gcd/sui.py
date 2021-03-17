@@ -9,11 +9,11 @@
 import random
 import time
 
-from ob import Object, get, keys, items, values
-from ob.bus import Bus
-from ob.clk import Repeater
-from ob.evt import Event
-from ob.prs import elapsed, parse_time
+from op import Object, get, keys, items, values
+from op.bus import Bus
+from op.clk import Repeater
+from op.evt import Event
+from op.prs import elapsed, parse_time
 
 # defines
 

@@ -4,17 +4,17 @@
 
 # imports
 
-import ob
+import op
 
 # classes
 
-class Log(ob.Object):
+class Log(op.Object):
 
     def __init__(self):
         super().__init__()
         self.txt = ""
 
-class Todo(ob.Object):
+class Todo(op.Object):
 
     def __init__(self):
         super().__init__()
@@ -26,9 +26,9 @@ def dne(event):
     if not event.res.args:
         return
     selector = {"txt": event.res.args[0]}
-    for fn, o in ob.dbs.find("gcd.ent.Todo", selector):
+    for fn, o in op.dbs.find("gcd.ent.Todo", selector):
         o._deleted = True
-        ob.save(o)
+        op.save(o)
         event.reply("ok")
         break
 
@@ -37,7 +37,7 @@ def log(event):
         return
     l = Log()
     l.txt = event.res.rest
-    ob.save(l)
+    op.save(l)
     event.reply("ok")
 
 def tdo(event):
@@ -45,5 +45,5 @@ def tdo(event):
         return
     o = Todo()
     o.txt = event.res.rest
-    ob.save(o)
+    op.save(o)
     event.reply("ok")

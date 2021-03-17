@@ -1,13 +1,7 @@
 # This file is placed in the Public Domain.
 
-"paramters"
-
-# imports
-
-from ob import Object
-from ob.evt import Command
-
-# defines
+from op import Object
+from op.evt import Command
 
 param = Object()
 param.add = ["test@shell", "bart"]
@@ -27,8 +21,6 @@ param.fnd = ["cfg",
 param.rss = ["https://www.reddit.com/r/python/.rss"]
 param.tdo = ["test4", ""]
 param.mbx = ["~/Desktop/25-1-2013", ""]
-
-# functions
 
 def exec(h, cmd):
     exs = param.get(cmd, [""])

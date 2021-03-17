@@ -15,6 +15,7 @@ def cprint(txt):
     sys.stdout.flush()
 
 def main():
+    cfg.wd = "/var/lib/genocide"
     privileges("genocide")
     cprint("GENOCIDE started at %s" % time.ctime(time.time()))
     last(cfg)

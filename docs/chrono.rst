@@ -1,5 +1,5 @@
-genocide
-########
+chrono
+######
 
 GENOCIDE is a python3 program that holds evidence that the king in the
 netherlands is doing a genocide, a written response where the king

@@ -21,7 +21,7 @@ setup(
     install_requires=["oplib"],
     packages=["gcd"],
     zip_safe=True,
-    scripts=["bin/genocide", "bin/genocidectl", "bin/genocided"],
+    scripts=["bin/gcd", "bin/genocide", "bin/genocidectl", "bin/genocided"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: OSI Approved :: MIT License',
                  'Operating System :: Unix',

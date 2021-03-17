@@ -2,6 +2,8 @@
 
 from op.csl import Test
 
+from gcd.tbl import tbl
+
 debug = False
 
-h = Test()
+h = Test(tbl)

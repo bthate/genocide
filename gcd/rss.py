@@ -6,11 +6,11 @@
 
 import urllib
 
-from op import Cfg, Default, Object, edit, get, save, update
+from op import Cfg, Default, Object, cfg, edit, get, save, update
 from op.clk import Repeater
 from op.dbs import all, find, last, last_match
 from op.thr import launch
-from op.utl import get_tinyurl, get_url, strip_html, unescape
+from op.utl import debug, get_tinyurl, get_url, strip_html, unescape
 
 from urllib.error import HTTPError, URLError
 
@@ -134,7 +134,7 @@ class Fetcher(Object):
 # functions
 
 def get_feed(url):
-    if ob.krn.cfg.debug:
+    if debug:
         return [Object(), Object()]
     try:
         result = get_url(url)
@@ -151,10 +151,10 @@ def get_feed(url):
 # commands
 
 def dpl(event):
-    if len(event.res.args) < 2:
+    if len(event.args) < 2:
         return
-    setter = {"display_list": event.res.args[1]}
-    for fn, o in last_match("gcd.rss.Rss", {"rss": event.res.args[0]}):
+    setter = {"display_list": event.args[1]}
+    for fn, o in last_match("gcd.rss.Rss", {"rss": event.args[0]}):
         edit(o, setter)
         save(o)
         event.reply("ok")
@@ -172,9 +172,9 @@ def ftc(event):
         return
 
 def rem(event):
-    if not event.res.args:
+    if not event.args:
         return
-    selector = {"rss": event.res.args[0]}
+    selector = {"rss": event.args[0]}
     nr = 0
     got = []
     for fn, o in find("gcd.rss.Rss", selector):
@@ -186,13 +186,13 @@ def rem(event):
     event.reply("ok")
 
 def rss(event):
-    if not event.res.args:
+    if not event.args:
         return
-    url = event.res.args[0]
+    url = event.args[0]
     res = list(find("gcd.rss.Rss", {"rss": url}))
     if res:
         return
     o = Rss()
-    o.rss = event.res.args[0]
+    o.rss = event.args[0]
     save(o)
     event.reply("ok")

@@ -23,9 +23,9 @@ class Todo(op.Object):
 # commands
 
 def dne(event):
-    if not event.res.args:
+    if not event.args:
         return
-    selector = {"txt": event.res.args[0]}
+    selector = {"txt": event.args[0]}
     for fn, o in op.dbs.find("gcd.ent.Todo", selector):
         o._deleted = True
         op.save(o)
@@ -33,17 +33,17 @@ def dne(event):
         break
 
 def log(event):
-    if not event.res.rest:
+    if not event.rest:
         return
     l = Log()
-    l.txt = event.res.rest
+    l.txt = event.rest
     op.save(l)
     event.reply("ok")
 
 def tdo(event):
-    if not event.res.rest:
+    if not event.rest:
         return
     o = Todo()
-    o.txt = event.res.rest
+    o.txt = event.rest
     op.save(o)
     event.reply("ok")

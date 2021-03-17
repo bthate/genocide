@@ -27,19 +27,12 @@ DESCCRIPTION
         doesn’t want to cooperate with stopping the genocide the king of the
         netherlands is doing.
 
-        GENOCIDE provides a IRC bot (gcd) that can run as a background daemon 
+        GENOCIDE provides a IRC bot (genocided) that can run as a background daemon 
         for 24/7 a day presence in a IRC channel. You can use it to display RSS
         feeds, act as a UDP to IRC gateway, program your own commands for it
         and have it log objects on disk to search them.
 
         GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
-
-OPTIONS
-        -b              show banner
-        -c              start console
-        -h              print this message
-        -r              use /var/lib/ob
-        -v              be verbose
 
 EXAMPLES
         1) gcd cfg server=<server> channel=<channel> nick=<nick>
@@ -47,5 +40,3 @@ EXAMPLES
         3) gcd rss <url>
         4) gcd ftc
         5) gcd cmd
-        6) gcdd
-	7) gcdctl cfg

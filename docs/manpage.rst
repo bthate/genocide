@@ -5,7 +5,7 @@ NAME
         GENOCIDE - the king of the netherlands commits genocide.
 
 SYNOPSIS
-        gcd <cmd> [mods=mod1,mod2] [-c] [-r] [-v]
+        gcd <cmd> [mods=mod1,mod2] 
 
 DESCRIPTION
         GENOCIDE is a python3 program that holds evidence that the king of the
@@ -33,9 +33,4 @@ EXAMPLES
         4) gcd ftc
         5) gcd cmd
         6) gcd mods=irc
-        7) sudo gcdctl cfg
 
-OPTIONS
-        -c              start a console
-        -r              use /var/lib/genocide
-        -v              be verbose

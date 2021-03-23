@@ -2,7 +2,7 @@
 
 "genocide version"
 
-__version__ = 27
+__version__ = 29
 
 def ver(event):
     event.reply("OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://pypi.org/project/genocide !")

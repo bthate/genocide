@@ -1,21 +1,14 @@
 # This file is placed in the Public Domain.
-#
-# OTP-CR-117/19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
 "suicide stats"
 
-# imports
-
-import random
-import time
-
-from op import Object, get, keys, items, values
 from op.bus import Bus
 from op.clk import Repeater
 from op.evt import Event
-from op.prs import elapsed, parse_time
-
-# defines
+from op.obj import Object
+from op.prs import parse_time
+from op.tms import elapsed
+from op.zzz import random, time
 
 def __dir__():
     return ("sts", "init")
@@ -25,9 +18,9 @@ startdate = "2018-10-05 00:00:00"
 starttime = parse_time(startdate)
 
 def init(kernel):
-    for _name, obj in items(wanted):
-        for key in keys(obj):
-            val = get(obj, key, None)
+    for _name, obj in wanted.items():
+        for key in obj.keys():
+            val = obj.get(key, None)
             if val:
                 e = Event()
                 e.txt = ""
@@ -36,25 +29,21 @@ def init(kernel):
                 repeater = Repeater(sec, stat, e, name=key)
                 repeater.start()
 
-# classes
-
 class ENOSTATS(Exception):
 
     pass
 
-# functions
-
 def seconds(nrs, period="jaar"):
     if not nrs:
         return nrs
-    return get(nrsec, period) / float(nrs)
+    return nrsec.get(period) / float(nrs)
 
 def nr(name):
-    for key in keys(wanted):
-        obj = get(wanted, key, None)
-        for n in keys(obj):
+    for key in wanted.keys():
+        obj = wanted.get(key, None)
+        for n in obj.keys():
             if n == name:
-                return get(obj, n)
+                return obj.get(n)
     raise ENOSTATS(name)
 
 def stat(e):
@@ -72,29 +61,25 @@ def stat(e):
         nrtimes = int(delta/needed)
         txt = "%s #%s" % (name.upper(), nrtimes)
         if name in omschrijving:
-            txt += " (%s)" % get(omschrijving, name)
+            txt += " (%s)" % omschrijving.get(name)
         txt += " elke %s" % elapsed(seconds(nr(name)))
         if name in tags:
-            txt += " %s" % get(tags, name)
+            txt += " %s" % tags.get(name)
         else:
-            txt += " %s" % random.choice(list(values(tags)))
+            txt += " %s" % random.choice(list(tags.values()))
         Bus.announce(txt)
-
-# commands
 
 def sts(event):
     txt = "Sinds %s\n" % time.ctime(starttime)
     delta = time.time() - starttime
-    for _name, obj in items(wanted):
-        for key, _val in items(obj):
+    for _name, obj in wanted.items():
+        for key, _val in obj.items():
             needed = seconds(nr(key))
             if not needed:
                 continue
             nrtimes = int(delta/needed)
-            txt += "\n%s #%s %s %s" % (key.upper(), nrtimes, get(tags, key, ""), get(zorg, random.choice(list(keys(zorg))), ""))
+            txt += "\n%s #%s %s %s" % (key.upper(), nrtimes, tags.get(key, ""), zorg.get(random.choice(list(zorg.keys())), ""))
     event.reply(txt.strip())
-
-# model
 
 cijfers = Object()
 cijfers.melding = 61000
@@ -304,7 +289,6 @@ perdag = Object()
 perdag.medicijnen = medicijnen
 perdag.drugs = drugs
 
-#:
 periode = Object()
 periode.ibs = "voor 6 weken"
 periode.rm = "voor 6 maanden"

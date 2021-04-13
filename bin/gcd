@@ -9,6 +9,8 @@ from op.trm import exec
 from op.tbl import tbl
 from op.zzz import os, time
 
+from gcd.tbl import tbl
+
 def main():
     k = Console()
     k.prompt = False

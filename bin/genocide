@@ -8,6 +8,8 @@ from op.clt import CLI
 from op.trm import exec
 from op.zzz import os, time
 
+from gcd.tbl import tbl
+
 def main():
     if "INVOCATION_ID" not in os.environ:
         print("run this program under systemd.")

@@ -3,34 +3,32 @@
 
 import os, sys ; sys.path.insert(0, os.getcwd())
 
-import time
-import unittest
+from op.clt import Test
+from op.evt import events
+from op.obj import Cfg
+from op.prs import parseargs
+from op.tbl import tbl
+from op.trc import exc
+from op.trm import exec
+from op.zzz import shutil, time, unittest
 
-from op import c, cfg, op
-from op.bus import Bus
-from op.csl import Test, exec, parse
-
-import op.utl
-
-import test.run
-
-def open(txt):
-    try:
-        for line in os.popen(txt).readlines():
-            print(line.rstrip())
-    except:
-        pass
+import op.obj
+import op.url
 
 def main():
-    cfg.wd = c(".test")
-    cfg.pkgs = "op,op.cmd,gcd"
-    parse()
-    open("rm -fR %s" % cfg.wd)
-    op.utl.debug = True
-    pat = "test_%s*" % cfg.cmd or "*"
+    if os.path.exists(".test"):
+        shutil.rmtree(".test")
+    op.url.debug = True
+    pat = "test_%s*" % "*"
     suite = unittest.loader.TestLoader().discover("test", pattern=pat)
     unittest.TextTestRunner(verbosity=3).run(suite)
-    if not cfg.cmd:
-        Bus.wait(Test)
 
 exec(main)
+if exc:
+    print("EXCEPTIONS:")
+    for e in exc:
+        print(e)
+if events:
+    print("EVENTS:")
+    for e in events:
+        print(e)

@@ -1,31 +1,31 @@
 # This file is in the Public Domain.
 
-import threading
-import time
+"repeater"
 
-from . import Object, get_name
+import time
+import threading
+
+from .obj import Object, getname
 from .thr import launch
 
 class Timer(Object):
 
-    def __init__(self, sleep, func, *args, **kwargs):
+    def __init__(self, sleep, func, name=None):
         super().__init__()
         self.func = func
         self.sleep = sleep
-        self.args = args
-        self.name = kwargs.get("name", "")
-        self.kwargs = kwargs
+        self.name = name or  ""
         self.state = Object()
         self.timer = None
 
-    def run(self, *args, **kwargs):
+    def run(self):
         self.state.latest = time.time()
-        launch(self.func, *self.args, **self.kwargs)
+        launch(self.func)
 
     def start(self):
         if not self.name:
-            self.name = get_name(self.func)
-        timer = threading.Timer(self.sleep, self.run, self.args, self.kwargs)
+            self.name = getname(self.func)
+        timer = threading.Timer(self.sleep, self.run)
         timer.setName(self.name)
         timer.setDaemon(True)
         timer.sleep = self.sleep
@@ -43,7 +43,7 @@ class Timer(Object):
 
 class Repeater(Timer):
 
-    def run(self, *args, **kwargs):
-        thr = launch(self.start, **kwargs)
-        super().run(*args, **kwargs)
+    def run(self):
+        thr = launch(self.start)
+        super().run()
         return thr

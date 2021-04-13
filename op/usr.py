@@ -1,18 +1,19 @@
 # This file is placed in the Public Domain.
 
-from . import Object, save
+"users"
+
 from .dbs import find
-
-class ENOUSER(Exception):
-
-    pass
+from .obj import Object, save
+from .err import ENOUSER
 
 class User(Object):
 
-    def __init__(self):
+    def __init__(self, val=None):
         super().__init__()
         self.user = ""
         self.perms = []
+        if val:
+            self.update(val)
 
 class Users(Object):
 
@@ -31,7 +32,7 @@ class Users(Object):
         for user in self.get_users(origin):
             try:
                 user.perms.remove(perm)
-                user.save()
+                save(user)
                 return True
             except ValueError:
                 pass
@@ -45,26 +46,6 @@ class Users(Object):
         if u:
             return u[-1][-1]
 
-    def meet(self, origin, perms=None):
-        user = self.get_user(origin)
-        if user:
-            return user
-        user = User()
-        user.user = origin
-        user.perms = ["USER", ]
-        save(user)
-        return user
-
-    def oper(self, origin):
-        user = self.get_user(origin)
-        if user:
-            return user
-        user = User()
-        user.user = origin
-        user.perms = ["OPER", "USER"]
-        save(user)
-        return user
-
     def perm(self, origin, permission):
         user = self.get_user(origin)
         if not user:
@@ -73,10 +54,11 @@ class Users(Object):
             user.perms.append(permission.upper())
             save(user)
         return user
-
+        hdl.reconnect()
 
 def dlt(event):
     if not event.args:
+        event.reply("dlt <username>")
         return
     selector = {"user": event.args[0]}
     for fn, o in find("op.usr.User", selector):
@@ -87,6 +69,7 @@ def dlt(event):
 
 def met(event):
     if not event.args:
+        event.reply("met <userhost>")
         return
     user = User()
     user.user = event.rest

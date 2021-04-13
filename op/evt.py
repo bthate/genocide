@@ -1,50 +1,58 @@
 # This file is in the Public Domain.
 
+"event"
+
 import threading
 
-from . import Default
+from .obj import Default
 from .bus import Bus
-from .prs import parse as myparse
+from .prs import parseargs
 
 class Event(Default):
 
-    def __init__(self, *args, **kw):
-        super().__init__(*args, **kw)
+    def __init__(self, val=None):
+        super().__init__(val)
         self.channel = ""
         self.done = threading.Event()
-        self.orig = None
         self.result = []
         self.thrs = []
         self.type = "event"
-        self.txt = ""
-        if args:
-            self.txt = args[0]
 
-    def direct(self, txt):
-        Bus.say(self.orig, self.channel, txt)
+    def bot(self):
+        return Bus.byorig(self.orig)
 
     def parse(self):
-        myparse(self, self.txt)
+        parseargs(self, self.txt)
+        return self
 
     def ready(self):
         self.done.set()
 
     def reply(self, txt):
+        self.say(txt)
         self.result.append(txt)
 
+    def say(self, txt):
+        try:
+            Bus.say(self.orig, self.channel, txt.rstrip())
+        except UnicodeEncodeError:
+            pass
+
     def show(self):
-        for txt in self.result:
-            self.direct(txt)
+        pass
+        #for txt in self.result:
+        #    self.say(txt)
 
     def wait(self, timeout=1.0):
-        self.done.wait(timeout)
+        self.done.wait()
         for thr in self.thrs:
             thr.join()
 
 class Command(Event):
 
-    def __init__(self, txt="", origin="", **kwargs):
-        super().__init__(**kwargs)
-        self.origin = origin or "root@shell"
+    def __init__(self, val):
+        super().__init__(val)
         self.type = "cmd"
-        self.txt = txt.rstrip()
+
+events = []
+        

@@ -1,7 +1,14 @@
 # This file is placed in the Public Domain.
 
-from . import cfg, hook, get_type, j, overlay, update
-from .utl import fntime, os
+"databases"
+
+from .obj import gettype, hook
+from .tms import fntime
+from .zzz import os, _thread
+
+import op.obj
+
+dirlock = _thread.allocate_lock()
 
 def all(otype, selector=None, index=None, timed=None):
     nr = -1
@@ -29,7 +36,7 @@ def every(selector=None, index=None, timed=None):
     nr = -1
     if selector is None:
         selector = {}
-    for otype in os.listdir(j(cfg.wd, "store")):
+    for otype in os.listdir(os.path.join(op.obj.wd, "store")):
         for fn in fns(otype, timed):
             o = hook(fn)
             if selector and not search(o, selector):
@@ -54,9 +61,11 @@ def find(otype, selector=None, index=None, timed=None):
         nr += 1
         if index is not None and nr != index:
             continue
-        yield fn, o
+        yield (fn, o)
+    else:
+        return (None, None)
 
-def find_event(e):
+def findevent(e):
     nr = -1
     for fn in fns(e.otype, e.timed):
         o = hook(fn)
@@ -68,54 +77,52 @@ def find_event(e):
         if e.index is not None and nr != e.index:
             continue
         yield fn, o
+    else:
+        return (None, None)
 
 def last(o):
-    path, l = last_fn(str(get_type(o)))
+    path, l = lastfn(str(gettype(o)))
     if  l:
-        update(o, l)
+        o.update(l)
     if path:
         spl = path.split(os.sep)
         stp = os.sep.join(spl[-4:])
         return stp
 
-def last_match(otype, selector=None, index=None, timed=None):
-    for fn, o in find(otype, selector, index, timed):
-        yield fn, o
-        break
+def lastmatch(otype, selector=None, index=None, timed=None):
+    res = sorted(find(otype, selector, index, timed), key=lambda x: fntime(x[0]))
+    if res:
+        return res[-1]
+    return (None, None)
 
-def last_type(otype):
+def lasttype(otype):
     fnn = fns(otype)
     if fnn:
         return hook(fnn[-1])
 
-def last_fn(otype):
+def lastfn(otype):
     fn = fns(otype)
     if fn:
         fnn = fn[-1]
         return (fnn, hook(fnn))
     return (None, None)
 
-def updatelast(o):
-    c = type(o)()
-    last(c)
-    overlay(c, o, skip=["mods"])
-    update(o, c)
-    update(o, cfg.sets)
-
+#@locked(savelock)
 def fns(name, timed=None):
     if not name:
         return []
-    p = j(cfg.wd, "store", name) + os.sep
+    assert op.obj.wd
+    p = os.path.join(op.obj.wd, "store", name) + os.sep
     res = []
     d = ""
     for rootdir, dirs, _files in os.walk(p, topdown=False):
         if dirs:
             d = sorted(dirs)[-1]
             if d.count("-") == 2:
-                dd = j(rootdir, d)
+                dd = os.path.join(rootdir, d)
                 fls = sorted(os.listdir(dd))
                 if fls:
-                    p = j(dd, fls[-1])
+                    p = os.path.join(dd, fls[-1])
                     if timed and "from" in timed and timed["from"] and fntime(p) < timed["from"]:
                         continue
                     if timed and timed.to and fntime(p) > timed.to:
@@ -123,8 +130,8 @@ def fns(name, timed=None):
                     res.append(p)
     return sorted(res, key=fntime)
 
-def list_files(wd):
-    path = j(wd, "store")
+def listfiles(wd):
+    path = os.path.join(wd, "store")
     if not os.path.exists(path):
         return []
     return sorted(os.listdir(path))
@@ -136,7 +143,7 @@ def search(o, s):
     except TypeError:
         ss = s
     for k, v in ss.items():
-        vv = getattr(o, k)
+        vv = getattr(o, k, None)
         if v not in str(vv):
             ok = False
             break

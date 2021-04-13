@@ -1,48 +1,47 @@
 # This file is placed in the Public Domain.
 
-import os
-import queue
-import socket
-import textwrap
-import time
-import threading
-import  _thread
+"24/7 channel bot"
 
-from . import Cfg, Object, cfg
-from .bus import Bus
-from .csl import Shell
-from .dbs import last
-from .evt import Event
-from .hdl import Handler, cb_cmd
-from .thr import launch
-from .usr import Users
-from .utl import locked
+__version__ = 36
+
+from op.bus import Bus
+from op.clt import Client
+from op.dbs import find, last
+from op.edt import edit
+from op.err import ENOUSER
+from op.evt import Event
+from op.obj import Cfg, Object, fmt, save
+from op.opt import Output
+from op.hdl import Handler, cmd
+from op.thr import launch
+from op.trc import exception
+from op.usr import Users
+from op.utl import cprint, locked
+from op.zzz import os, queue, socket, textwrap
+from op.zzz import time, threading, _thread
 
 def init(hdl):
     i = IRC()
-    i.clone(hdl)
-    launch(i.start)
+    i.addbus()
+    i.start()
     return i
 
 saylock = _thread.allocate_lock()
 
 class Cfg(Cfg):
 
-    channel = "#oplib"
-    nick = "oplib"
-    port = 6667
-    server = "localhost"
-    realname = "object programming library"
-    username = "oplib"
 
-    def __init__(self):
+    def __init__(self, val=None):
         super().__init__()
-        self.channel = Cfg.channel
-        self.nick = Cfg.nick
-        self.port = Cfg.port
-        self.server = Cfg.server
-        self.realname = Cfg.realname
-        self.username = Cfg.username
+        self.cc = "!"
+        self.channel = "#opbot"
+        self.nick = "opbot"
+        self.port = 6667
+        self.server = "localhost"
+        self.realname = "24/7 channel daemon"
+        self.username = "opbot"
+        if val:
+            self.update(val)
 
 class Event(Event):
 
@@ -59,29 +58,19 @@ class TextWrap(textwrap.TextWrapper):
         self.tabsize = 4
         self.width = 450
 
-class IRC(Handler):
+class IRC(Output, Client):
 
     def __init__(self):
-        super().__init__()
-        self._buffer = []
-        self._connected = threading.Event()
-        self._joined = threading.Event()
-        self._outqueue = queue.Queue()
-        self._sock = None
-        self._fsock = None
-        self._trc = ""
-        self.cc = "!"
+        Client.__init__(self)
+        Output.__init__(self)
+        self.buffer = []
         self.cfg = Cfg()
-        self.cmds = Object()
+        self.connected = threading.Event()
         self.channels = []
-        self.register("cmd", cb_cmd)
-        self.register("ERROR", self.ERROR)
-        self.register("LOG", self.LOG)
-        self.register("NOTICE", self.NOTICE)
-        self.register("PRIVMSG", self.PRIVMSG)
-        self.register("QUIT", self.QUIT)
-        self.register("366", self.JOINED)
-        self.speed = "slow"
+        self.sock = None
+        self.joined = threading.Event()
+        self.keeprunning = False
+        self.outqueue = queue.Queue()
         self.state = Object()
         self.state.needconnect = False
         self.state.error = ""
@@ -93,31 +82,124 @@ class IRC(Handler):
         self.state.pongcheck = False
         self.threaded = False
         self.users = Users()
-        Bus.add(self)
+        self.zelf = ""
+        self.register("cmd", cmd)
+        self.register("ERROR", ERROR)
+        self.register("LOG", LOG)
+        self.register("NOTICE", NOTICE)
+        self.register("PRIVMSG", PRIVMSG)
+        self.register("QUIT", QUIT)
 
-    def _connect(self, server, port=6667):
-        if cfg.resume:
-            s = socket.fromfd(self.cfg.resume, socket.AF_INET, socket.SOCK_STREAM)
-            self.cfg.resume = s.fileno()
-            self.command('PING", ":RESUME %s' % str(time.time()))
-            self._connected.set()
-            self.say(self.cfg.channel, 'done')
-        else:
-            addr = socket.getaddrinfo(server, port, socket.AF_INET)[-1][-1]
-            s = socket.create_connection(addr)
-            self.cfg.resume = s.fileno()
-            os.set_inheritable(self.cfg.resume, os.O_RDWR)
-        s.setblocking(True)
-        s.settimeout(1200.0)
-        self._sock = s
-        self._fsock = self._sock.makefile("r")
-        self._connected.set()
+    def announce(self, txt):
+        for channel in self.channels:
+            self.say(channel, txt)
+
+    def command(self, cmd, *args):
+        self.connected.wait()
+        if not args:
+            self.raw(cmd)
+            return
+        if len(args) == 1:
+            self.raw("%s %s" % (cmd.upper(), args[0]))
+            return
+        if len(args) == 2:
+            self.raw("%s %s :%s" % (cmd.upper(), args[0], " ".join(args[1:])))
+            return
+        if len(args) >= 3:
+            self.raw("%s %s %s :%s" % (cmd.upper(), args[0], args[1], " ".join(args[2:])))
+            return
+
+    def connect(self, server, port=6667):
+        cprint("connect %s:%s" % (server, port))
+        addr = socket.getaddrinfo(server, port, socket.AF_INET)[-1][-1]
+        self.sock = socket.create_connection(addr)
+        os.set_inheritable(self.fileno(), os.O_RDWR)
+        self.sock.setblocking(True)
+        self.sock.settimeout(180.0)
+        self.connected.set()
         return True
 
-    def _parsing(self, txt):
+    def doconnect(self, server, nick, port=6667):
+        self.state.nrconnect = 0
+        while not self.stopped:
+            self.state.nrconnect += 1
+            try:
+                if self.connect(server, port):
+                    break
+            except (ConnectionResetError, OSError):
+                pass
+            time.sleep(10.0 * self.state.nrconnect)
+        self.logon(server, nick)
+
+    @locked(saylock)
+    def dosay(self, channel, txt):
+        wrapper = TextWrap()
+        txt = str(txt).replace("\n", "")
+        for t in wrapper.wrap(txt):
+            if not t:
+                continue
+            self.command("PRIVMSG", channel, t)
+            if (time.time() - self.state.last) < 4.0:
+                time.sleep(4.0)
+            self.state.last = time.time()
+
+    def event(self, txt):
+        if not txt:
+            return
+        e = self.parsing(txt)
+        cmd = e.command
+        if cmd == "PING":
+            self.state.pongcheck = True
+            self.command("PONG", e.txt or "")
+        elif cmd == "PONG":
+            self.state.pongcheck = False
+        if cmd == "001":
+            self.state.needconnect = False
+            if "servermodes" in dir(self.cfg):
+                self.raw("MODE %s %s" % (self.cfg.nick, self.cfg.servermodes))
+            self.zelf = e.args[-1]
+            self.joinall()
+        elif cmd == "002":
+            self.state.host = e.args[2][:-1]
+        elif cmd == "366":
+            self.joined.set()
+        elif cmd == "433":
+            nick = self.cfg.nick + "_"
+            self.cfg.nick = nick
+            self.raw("NICK %s" % self.cfg.nick)
+        return e
+
+    def fileno(self):
+        return self.sock.fileno()
+
+    def joinall(self):
+        for channel in self.channels:
+            self.command("JOIN", channel)
+
+    def keep(self):
+        while not self.stopped:
+            self.keeprunning = True
+            time.sleep(60)
+            self.state.pongcheck = True
+            self.command("PING", self.cfg.server)
+            time.sleep(5.0)
+            if self.state.pongcheck:
+                self.keeprunning = False
+                try:
+                    self.reconnect()
+                except ConnectionResetError:
+                    continue
+                break
+
+    def logon(self, server, nick):
+        self.raw("NICK %s" % nick)
+        self.raw("USER %s %s %s :%s" % (self.cfg.username, server, server, self.cfg.realname))
+
+    def parsing(self, txt):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
+        cprint(rawstr)
         o = Event()
         o.rawstr = rawstr
         o.orig = repr(self)
@@ -155,293 +237,185 @@ class IRC(Handler):
             o.nick = ""
         target = ""
         if o.arguments:
-            target = o.arguments[-1]
+            target = o.arguments[0]
         if target.startswith("#"):
             o.channel = target
         else:
             o.channel = o.nick
         if not o.txt:
-            if rawstr[0] == ":":
-                rawstr = rawstr[1:]
-            o.txt = rawstr.split(":", 1)[-1]
+            o.txt = rawstr.split(":", 2)[-1]
         if not o.txt and len(arguments) == 1:
             o.txt = arguments[1]
         spl = o.txt.split()
         if len(spl) > 1:
             o.args = spl[1:]
+        o.type = o.command
         return o
 
-    @locked(saylock)
-    def _say(self, channel, txt):
-        wrapper = TextWrap()
-        txt = str(txt).replace("\n", "")
-        for t in wrapper.wrap(txt):
-            if not t:
-                continue
-            self.command("PRIVMSG", channel, t)
-            if (time.time() - self.state.last) < 4.0:
-                time.sleep(4.0)
-            self.state.last = time.time()
+    def poll(self):
+        self.connected.wait()
+        if not self.buffer:
+            self.some()
+        if self.buffer:
+            return self.buffer.pop(0)
 
-    def _some(self):
-        inbytes = self._sock.recv(512)
+    def raw(self, txt):
+        txt = txt.rstrip()
+        if not txt.endswith("\r\n"):
+            txt += "\r\n"
+        txt = txt[:512]
+        txt += "\n"
+        cprint(txt.rstrip())
+        txt = bytes(txt, "utf-8")
+        self.sock.send(txt)
+        self.state.last = time.time()
+        self.state.nrsend += 1
+
+    def reconnect(self):
+        cprint("reconnect to %s" % self.cfg.server) 
+        self.stop()
+        time.sleep(5.0)
+        self.stopped = False
+        self.start()
+
+    def some(self):
+        self.connected.wait()
+        inbytes = self.sock.recv(512)
         txt = str(inbytes, "utf-8")
         if txt == "":
             raise ConnectionResetError
         self.state.lastline += txt
         splitted = self.state.lastline.split("\r\n")
         for s in splitted[:-1]:
-            self._buffer.append(s)
+            self.buffer.append(s)
         self.state.lastline = splitted[-1]
 
-    def announce(self, txt):
-        for channel in self.channels:
-            self.say(channel, txt)
-
-    def command(self, cmd, *args):
-        if not args:
-            self.raw(cmd)
-            return
-        if len(args) == 1:
-            self.raw("%s %s" % (cmd.upper(), args[0]))
-            return
-        if len(args) == 2:
-            self.raw("%s %s :%s" % (cmd.upper(), args[0], " ".join(args[1:])))
-            return
-        if len(args) >= 3:
-            self.raw("%s %s %s :%s" % (cmd.upper(), args[0], args[1], " ".join(args[2:])))
-            return
-
-    def connect(self, server, nick, port=6667):
-        nr = 0
-        while not self.stopped:
-            self.state.nrconnect += 1
-            if self._connect(server, port):
-                break
-            time.sleep(10.0)
-            nr += 1
-        else:
-            self._connected.set()
-        if self._sock:
-            self.logon(server, nick)
-
-    def doconnect(self):
-        if self.stopped:
-            return
-        super().start()
-        launch(self.input)
-        launch(self.output)
-        self.connect(self.cfg.server, self.cfg.nick, int(self.cfg.port) or 6667)
-
-    def handle(self, event):
-        if event.command in self.cbs:
-            self.cbs[event.command](event)
-
-    def input(self):
-        self._connected.wait()
-        while not self.stopped:
-            try:
-                e = self.poll()
-            except (OSError, ConnectionResetError, socket.timeout) as ex:
-                e = Event()
-                e.error = str(ex)
-                self.ERROR(e)
-                break
-            if not e:
-                break
-            if not e.orig:
-                e.orig = repr(self)
-            self.handle(e)
-
-    def joinall(self):
-        for channel in self.channels:
-            self.command("JOIN", channel)
-
-    def logon(self, server, nick):
-        self.raw("NICK %s" % nick)
-        self.raw("USER %s %s %s :%s" % (self.cfg.username, server, server, self.cfg.realname))
-
-    def output(self, once=False):
-        while not self.stopped:
-            channel, txt = self._outqueue.get()
-            if channel is None:
-                break
-            if txt:
-                self._say(channel, txt)
-            if once:
-                break
-            time.sleep(0.01)
-
-    def poll(self):
-        if not self._buffer:
-            self._some()
-        if not self._buffer:
-            return
-        e = self._parsing(self._buffer.pop(0))
-        cmd = e.command
-        if cmd == "PING":
-            self.state.pongcheck = True
-            self.command("PONG", e.txt or "")
-        elif cmd == "PONG":
-            self.state.pongcheck = False
-        if cmd == "001":
-            self.state.needconnect = False
-            if "servermodes" in dir(self.cfg):
-                self.raw("MODE %s %s" % (self.cfg.nick, self.cfg.servermodes))
-            self.joinall()
-        elif cmd == "366":
-            self._joined.set()
-        elif cmd == "433":
-            nick = self.cfg.nick + "_"
-            self.cfg.nick = nick
-            self.raw("NICK %s" % self.cfg.nick)
-        return e
-
-    def raw(self, txt):
-        if not self._sock:
-            return
-        txt = txt.rstrip()
-        if not txt.endswith("\r\n"):
-            txt += "\r\n"
-        txt = txt[:512]
-        txt = bytes(txt, "utf-8")
-        try:
-            self._sock.send(txt)
-        except (OSError, ConnectionResetError) as ex:
-            e = Event()
-            e.error = str(ex)
-            self.LOG(e)
-            self._connected.clear()
-        self.state.last = time.time()
-        self.state.nrsend += 1
-
-    def say(self, channel, txt):
-        if not self.stopped:
-            self._outqueue.put_nowait((channel, txt))
-
-    def start(self, cfg=None):
-        if self.stopped:
-            return
-        if cfg is not None:
-            self.cfg.update(cfg)
-        else:
-            last(self.cfg)
-        self.channels.append(self.cfg.channel)
-        self._joined.clear()
-        launch(self.doconnect)
-        self._joined.wait()
+    def start(self):
+        last(self.cfg)
+        if self.cfg.channel not in self.channels:
+            self.channels.append(self.cfg.channel)
+        self.stopped = False
+        self.connected.clear()
+        self.joined.clear()
+        self.sock = None
+        self.doconnect(self.cfg.server, self.cfg.nick, int(self.cfg.port) or 6667)
+        Client.start(self)
+        Output.start(self)
+        if not self.keeprunning:
+            launch(self.keep)
+        self.wait()
 
     def stop(self):
-        super().stop()
-        self._outqueue.put((None, None))
-        if self._sock:
-            try:
-                self._sock.shutdown(2)
-            except OSError:
-                pass
+        self.stopped = True
+        try:
+            self.sock.shutdown(2)
+        except OSError:
+            pass
+        Client.stop(self)
+        Output.stop(self)
+        
+    def wait(self):
+        self.joined.wait()
 
-    def ERROR(self, event):
-        self.state.nrerror += 1
-        self.state.error = event.error
-        self._connected.clear()
-        self.stop()
-        self.start()
-
-    def JOINED(self, event):
-        self._joined.set()
-
-    def LOG(self, event):
-        pass
-
-    def NOTICE(self, event):
-        if event.txt.startswith("VERSION"):
-            txt = "\001VERSION %s %s - %s\001" % (self.cfg.nick.upper(), self.cfg.version or 1, self.cfg.username)
-            self.command("NOTICE", event.channel, txt)
-
-    def PRIVMSG(self, pevent):
-        if pevent.txt.startswith("DCC CHAT"):
-            if not self.users.allowed(pevent.origin, "USER"):
-                return
-            try:
-                dcc = DCC()
-                dcc.clone(self)
-                dcc.encoding = "utf-8"
-                launch(dcc.connect, pevent)
-                return
-            except ConnectionError as ex:
-                return
-        if pevent.txt and pevent.txt[0] == self.cc:
-            if not self.users.allowed(pevent.origin, "USER"):
-                return
-            pevent.type = "cmd"
-            pevent.txt = pevent.txt[1:]
-            super().dispatch(pevent)
-
-    def QUIT(self, event):
-        if event.orig and self.cfg.server in event.orig:
-            self.stop()
-
-class DCC(Shell):
+class DCC(Client):
 
     def __init__(self):
         super().__init__()
-        self._connected = threading.Event()
-        self._sock = None
-        self._fsock = None
         self.encoding = "utf-8"
         self.origin = ""
+        self.sock = None
         self.stopped = False
+        self.register("cmd", cmd)
 
     def raw(self, txt):
-        self._fsock.write(str(txt).rstrip())
-        self._fsock.write("\n")
-        self._fsock.flush()
+        self.sock.send(bytes("%s\n" % txt.rstrip(), self.encoding))
 
     def announce(self, txt):
         pass
 
     def connect(self, dccevent):
-        if self.stopped:
-            return
         dccevent.parse()
         arguments = dccevent.old.txt.split()
         addr = arguments[3]
         port = int(arguments[4])
         if ':' in addr:
-            s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+            self.sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
         else:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
-            s.connect((addr, port))
+            self.sock.connect((addr, port))
         except ConnectionRefusedError:
-            self._connected.set()
+            self.connected.set()
             return
-        s.setblocking(1)
-        os.set_inheritable(s.fileno(), os.O_RDWR)
-        self._sock = s
-        self._fsock = self._sock.makefile("rw")
+        self.sock.setblocking(1)
+        os.set_inheritable(self.sock.fileno(), os.O_RDWR)
+        self.fd = self.sock.fileno()
         self.raw('Welcome %s' % dccevent.origin)
         self.origin = dccevent.origin
-        self._connected.set()
-        launch(self.input)
         super().start()
+        self.addbus()
 
-    def input(self):
-        self._connected.wait()
-        super().input()
+    def dosay(self, channel, txt):
+        self.raw(txt)
 
-    def poll(self):
+    def event(self, txt):
         e = Event()
         e.type = "cmd"
         e.channel = self.origin
         e.origin = self.origin or "root@dcc"
         e.orig = repr(self)
-        txt = self._fsock.readline()
         e.txt = txt.rstrip()
-        e._sock = self._sock
-        e._fsock = self._fsock
+        e.sock = self.sock
+        #self.put(e)
         return e
 
-    def say(self, channel, txt):
-        if not self.stopped:
-            self.raw(txt)
+    def poll(self):
+        return str(self.sock.recv(512), "utf8")
+
+def ERROR(hdl, obj):
+    hdl.state.nrerror += 1
+    hdl.state.error = obj.error
+
+def KILL(hdl, obj):
+    pass
+
+def LOG(hdl, obj):
+    pass
+    
+def NOTICE(hdl, obj):
+    if obj.txt.startswith("VERSION"):
+        txt = "\001VERSION %s %s - %s\001" % (hdl.cfg.name.upper(), hdl.cfg.version or __version__, hdl.cfg.username)
+        hdl.command("NOTICE", obj.channel, txt)
+
+def PRIVMSG(hdl, obj):
+    if obj.txt.startswith("DCC CHAT"):
+        if hdl.cfg.users and not hdl.users.allowed(obj.origin, "USER"):
+            return
+        try:
+            dcc = DCC()
+            launch(dcc.connect, obj)
+            return
+        except ConnectionError as ex:
+            return
+    if obj.txt:
+        if obj.txt[0] in [hdl.cfg.cc, "!"]:
+            obj.txt = obj.txt[1:]
+        elif obj.txt.startswith("%s:" % hdl.cfg.nick):
+            obj.txt = obj.txt[len(hdl.cfg.nick)+1:]
+        if hdl.cfg.users and not hdl.users.allowed(obj.origin, "USER"):
+            return
+        obj.type = "cmd"
+        hdl.put(obj)
+
+def QUIT(hdl, obj):
+    if obj.orig and obj.orig in hdl.zelf:
+        hdl.reconnect()
+
+def cfg(event):
+    c = Cfg()
+    last(c)
+    if not event.sets:
+        return event.reply(fmt(c, skip=["username", "realname"]))
+    edit(c, event.sets)
+    save(c)
+    event.reply("ok")

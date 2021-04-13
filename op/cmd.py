@@ -1,8 +1,11 @@
 # This file is in the Public Domain.
 
-from ..bus import by_orig
+"commands"
 
 def cmd(event):
-    b = by_orig(event.orig)
+    b = event.bot()
     event.reply(",".join(sorted(b.modnames)))
 
+def ech(event):
+    if event.rest:
+        event.reply(event.rest)

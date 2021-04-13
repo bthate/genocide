@@ -1,25 +1,29 @@
 #!/usr/bin/env python3 
 # This file is placed in the Public Domain.
 
-__version__ = 29
-
 import os, sys ; sys.path.insert(0, os.getcwd())
 
-from op import cfg, e, j, op, os
-from op.csl import Console, exec, parse
-
-from gcd.tbl import tbl
+from op.bus import opts
+from op.clt import Console
+from op.trm import exec
+from op.tbl import tbl
+from op.zzz import os, time
 
 def main():
-    cfg.wd = e("~/.genocide")
-    parse()
-    s = Console(tbl)
-    s.scandir(j(os.getcwd(), "mod"))
-    if cfg.txt:
-        s.cmd(cfg.old.txt)
+    k = Console()
+    k.prompt = False
+    k.tbl(tbl)
+    k.cfg.name = "genocide"
+    k.cfg.version = 29
+    k.parse()
+    k.scan(os.path.join(os.getcwd(), "mod"))
+    if k.cfg.txt:
+        k.run()
         return
-    s.start()
-    s.init(cfg.mods)
-    s.wait()
+    if opts("c"):
+        k.prompt = True
+        k.start()
+        k.init(k.cfg.mods)
+        k.wait()
 
 exec(main)

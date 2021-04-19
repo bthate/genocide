@@ -13,14 +13,10 @@ from gcd.trc import exception
 from gcd.trm import exec
 from gcd.zzz import os, sys
 
-from genocide.tbl import tbl
-
 __version__ = 30
 
 Cfg.channel = "#genocide"
 Cfg.nick = "genocide"
-
-Names.tbl(tbl)
 
 class Console(Client):
 
@@ -42,6 +38,11 @@ def ver(event):
     event.reply("GENOCIDE %s" % __version__)
 
 def main():
+    if "INVOCATION_ID" not in os.environ:
+        print("run this program under systemd.")
+        return
+    cfg.name = "genocide"
+    Names.walk("genocide")
     c = Console()
     c.boot("/var/lib/genocide")
     c.add("ver", ver)

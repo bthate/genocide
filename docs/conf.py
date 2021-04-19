@@ -11,7 +11,7 @@ sys.path.insert(0, curdir + os.sep + ".." + os.sep + "genocide")
 
 # -- Options for GENERIC output ---------------------------------------------
 
-from gcd.ver import __version__
+__version__ = 30
 
 project = "genocide"
 master_doc = 'index'
@@ -39,7 +39,7 @@ extensions=[
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
     'sphinx.ext.githubpages',
-    'sphinx_autodoc_annotation' 
+    #'sphinx_autodoc_annotation'
 ]
 
 # -- Options for HTML output -------------------------------------------------

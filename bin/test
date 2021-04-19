@@ -3,32 +3,34 @@
 
 import os, sys ; sys.path.insert(0, os.getcwd())
 
-from op.clt import Test
-from op.evt import events
-from op.obj import Cfg
-from op.prs import parseargs
-from op.tbl import tbl
-from op.trc import exc
-from op.trm import exec
-from op.zzz import shutil, time, unittest
+from gcd.hdl import Client
+from gcd.nms import Names
+from gcd.obj import cfg, opts
+from gcd.trm import exec
+from gcd.zzz import shutil, unittest
 
-import op.obj
-import op.url
+import gcd.trc
+import gcd.url
+
+class Test(Client):
+
+    def raw(self, txt):
+        if opts("v"):
+            print(txt)
 
 def main():
-    if os.path.exists(".test"):
-        shutil.rmtree(".test")
-    op.url.debug = True
+    if os.path.exists(".genocide"):
+        shutil.rmtree(".genocide")
+    Names.walk("genocide")
+    gcd.url.debug = True
+    cfg.wd = ".genocide"
+    c = Test()
+    c.boot()
+    c.start()
     pat = "test_%s*" % "*"
     suite = unittest.loader.TestLoader().discover("test", pattern=pat)
     unittest.TextTestRunner(verbosity=3).run(suite)
 
 exec(main)
-if exc:
-    print("EXCEPTIONS:")
-    for e in exc:
-        print(e)
-if events:
-    print("EVENTS:")
-    for e in events:
-        print(e)
+for e in gcd.trc.exc:
+    print(e)

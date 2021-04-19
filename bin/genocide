@@ -53,6 +53,7 @@ def main():
         e = c.event(cfg.otxt)
         cmd(c, e)
         e.wait()
+        return
     c.start()
     c.init(cfg.mods)
     c.wait()

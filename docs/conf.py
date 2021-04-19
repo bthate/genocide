@@ -76,7 +76,6 @@ intersphinx_mapping = {
                       }
 intersphinx_cache_limit=1
 
-
 # -- Options for CODE output -------------------------------------------------
 
 autosummary_generate=True

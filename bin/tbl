@@ -55,16 +55,15 @@ def spl(txt):
     return [x for x in txt.split(",") if x]
 
 def walk(names):
-    "scan all packages."
     o = {}
-    o["pnames"] = {}
+    o["inits"] = {}
     o["names"] = {}
-    o["modnames"] = {}
+    o["modules"] = {}
     for mn in findall(names):
         mod = direct(mn)
         if "cmd" not in mn:
-            o["pnames"][mn.split(".")[-1]] = mn
-        o["modnames"].update(findmods(mod))
+            o["inits"][mn.split(".")[-1]] = mn
+        o["modules"].update(findmods(mod))
         for k, v in findnames(mod).items():
             if k not in o["names"]:
                 o["names"][k] = []
@@ -76,7 +75,7 @@ def main():
     if len(sys.argv) > 1:
         a = sys.argv[1]
     else:
-        a = "op,gcd"
+        a = "gcd,genocide"
     tbl = walk(a)
     print("# This file is placed in the Public Domain.")
     print("")

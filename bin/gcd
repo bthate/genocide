@@ -13,14 +13,10 @@ from gcd.trc import exception
 from gcd.trm import exec
 from gcd.zzz import os, sys
 
-from genocide.tbl import tbl
-
 __version__ = 30
 
 Cfg.channel = "#genocide"
 Cfg.nick = "genocide"
-
-Names.tbl(tbl)
 
 class Console(Client):
 
@@ -42,6 +38,7 @@ def ver(event):
     event.reply("GENOCIDE %s" % __version__)
 
 def main():
+    Names.walk("genocide")
     cfg.name = "gcd"
     c = Console()
     c.boot()

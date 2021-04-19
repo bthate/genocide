@@ -1,116 +1,205 @@
 # This file is placed in the Public Domain.
 
+from .itr import findall, findmods, findnames
 from .obj import Default, Object
+from .utl import direct
 
 class Names(Object):
 
+    inits = Object({
+        "adm": "gcd.adm",
+        "bus": "gcd.bus",
+        "clk": "gcd.clk",
+        "dbs": "gcd.dbs",
+        "edt": "gcd.edt",
+        "err": "gcd.err",
+        "evt": "gcd.evt",
+        "fnd": "gcd.fnd",
+        "hdl": "gcd.hdl",
+        "irc": "gcd.irc",
+        "itr": "gcd.itr",
+        "ldr": "gcd.ldr",
+        "log": "gcd.log",
+        "mbx": "gcd.mbx",
+        "nms": "gcd.nms",
+        "obj": "gcd.obj",
+        "opt": "gcd.opt",
+        "prs": "gcd.prs",
+        "rss": "gcd.rss",
+        "tdo": "gcd.tdo",
+        "thr": "gcd.thr",
+        "tms": "gcd.tms",
+        "trc": "gcd.trc",
+        "trm": "gcd.trm",
+        "udp": "gcd.udp",
+        "url": "gcd.url",
+        "usr": "gcd.usr",
+        "utl": "gcd.utl",
+        "zzz": "gcd.zzz"
+    })
+    
     names = Default({
-                 'bus': ['op.bus.Bus'],
-                 'cfg': [   'op.obj.Cfg',
-                            'op.krn.Cfg',
-                            'op.rss.Cfg',
-                            'op.udp.Cfg',
-                            'op.irc.Cfg'],
-                 'client': ['op.krn.Client', 'op.hdl.Client'],
-                 'command': ['op.evt.Command'],
-                 'dcc': ['op.irc.DCC'],
-                 'default': ['op.obj.Default'],
-                 'email': ['op.mbx.Email'],
-                 'enoclass': ['op.err.ENOCLASS'],
-                 'enofilename': ['op.err.ENOFILENAME'],
-                 'enomore': ['op.err.ENOMORE'],
-                 'enotimplemented': ['op.err.ENOTIMPLEMENTED'],
-                 'enotxt': ['op.err.ENOTXT'],
-                 'enouser': ['op.err.ENOUSER'],
-                 'event': ['op.evt.Event', 'op.irc.Event'],
-                 'feed': ['op.rss.Feed'],
-                 'fetcher': ['op.rss.Fetcher'],
-                 'getter': ['op.prs.Getter'],
-                 'handler': ['op.hdl.Handler'],
-                 'httperror': ['urllib.error.HTTPError'],
-                 'irc': ['op.irc.IRC'],
-                 'kernel': ['op.krn.Kernel'],
-                 'loader': ['op.ldr.Loader'],
-                 'log': ['op.log.Log'],
-                 'names': ['op.nms.Names'],
-                 'o': ['op.obj.O'],
-                 'obj': ['op.obj.Obj'],
-                 'object': ['op.obj.Object'],
-                 'objectlist': ['op.obj.ObjectList'],
-                 'option': ['op.prs.Option'],
-                 'output': ['op.opt.Output'],
-                 'repeater': ['op.clk.Repeater'],
-                 'request': ['urllib.request.Request'],
-                 'rss': ['op.rss.Rss'],
-                 'seen': ['op.rss.Seen'],
-                 'setter': ['op.prs.Setter'],
-                 'skip': ['op.prs.Skip'],
-                 'textwrap': ['op.irc.TextWrap'],
-                 'thr': ['op.thr.Thr'],
-                 'timed': ['op.prs.Timed'],
-                 'timer': ['op.clk.Timer'],
-                 'todo': ['op.tdo.Todo'],
-                 'token': ['op.prs.Token'],
-                 'udp': ['op.udp.UDP'],
-                 'urlerror': ['urllib.error.URLError'],
-                 'user': ['op.usr.User'],
-                 'users': ['op.usr.Users']
+        "bus": [
+            "gcd.bus.Bus"
+        ],
+        "cfg": [
+            "gcd.obj.Cfg",
+            "gcd.rss.Cfg",
+            "gcd.udp.Cfg",
+            "gcd.irc.Cfg"
+        ],
+        "client": [
+            "gcd.hdl.Client"
+        ],
+        "command": [
+            "gcd.evt.Command"
+        ],
+        "dcc": [
+            "gcd.irc.DCC"
+        ],
+        "default": [
+            "gcd.obj.Default"
+        ],
+        "email": [
+            "gcd.mbx.Email"
+        ],
+        "enoclass": [
+            "gcd.err.ENOCLASS"
+        ],
+        "enofilename": [
+            "gcd.err.ENOFILENAME"
+        ],
+        "enomore": [
+            "gcd.err.ENOMORE"
+        ],
+        "enotimplemented": [
+            "gcd.err.ENOTIMPLEMENTED"
+        ],
+        "enotxt": [
+            "gcd.err.ENOTXT"
+        ],
+        "enouser": [
+            "gcd.err.ENOUSER"
+        ],
+        "event": [
+            "gcd.evt.Event",
+            "gcd.irc.Event"
+        ],
+        "feed": [
+            "gcd.rss.Feed"
+        ],
+        "fetcher": [
+            "gcd.rss.Fetcher"
+        ],
+        "getter": [
+            "gcd.prs.Getter"
+        ],
+        "handler": [
+            "gcd.hdl.Handler"
+        ],
+        "httperror": [
+            "urllib.error.HTTPError"
+        ],
+        "irc": [
+            "gcd.irc.IRC"
+        ],
+        "loader": [
+            "gcd.ldr.Loader"
+        ],
+        "log": [
+            "gcd.log.Log"
+        ],
+        "names": [
+            "gcd.nms.Names"
+        ],
+        "o": [
+            "gcd.obj.O"
+        ],
+        "obj": [
+            "gcd.obj.Obj"
+        ],
+        "object": [
+            "gcd.obj.Object"
+        ],
+        "objectlist": [
+            "gcd.obj.ObjectList"
+        ],
+        "option": [
+            "gcd.prs.Option"
+        ],
+        "output": [
+            "gcd.opt.Output"
+        ],
+        "repeater": [
+            "gcd.clk.Repeater"
+        ],
+        "request": [
+            "urllib.request.Request"
+        ],
+        "rss": [
+            "gcd.rss.Rss"
+        ],
+        "seen": [
+            "gcd.rss.Seen"
+        ],
+        "setter": [
+            "gcd.prs.Setter"
+        ],
+        "skip": [
+            "gcd.prs.Skip"
+        ],
+        "textwrap": [
+            "gcd.irc.TextWrap"
+        ],
+        "thr": [
+            "gcd.thr.Thr"
+        ],
+        "timed": [
+            "gcd.prs.Timed"
+        ],
+        "timer": [
+            "gcd.clk.Timer"
+        ],
+        "todo": [
+            "gcd.tdo.Todo"
+        ],
+        "token": [
+            "gcd.prs.Token"
+        ],
+        "udp": [
+            "gcd.udp.UDP"
+        ],
+        "urlerror": [
+            "urllib.error.URLError"
+        ],
+        "user": [
+            "gcd.usr.User"
+        ],
+        "users": [
+            "gcd.usr.Users"
+        ]
     })
 
     modules = Object({
-                    'cfg': 'op.irc',
-                    'cmd': 'op.cmd',
-                    'dlt': 'op.usr',
-                    'dne': 'op.tdo',
-                    'dpl': 'op.rss',
-                    'ech': 'op.adm',
-                    'flt': 'op.adm',
-                    'fnd': 'op.fnd',
-                    'ftc': 'op.rss',
-                    'krn': 'op.adm',
-                    'log': 'op.log',
-                    'mbx': 'op.mbx',
-                    'met': 'op.usr',
-                    'rem': 'op.rss',
-                    'rss': 'op.rss',
-                    'sve': 'op.adm',
-                    'tdo': 'op.tdo',
-                    'thr': 'op.adm',
-                    'upt': 'op.adm',
-                    'ver': 'op.adm'
-    })
-
-    inits =  Object({
-                  'adm': 'op.adm',
-                  'bus': 'op.bus',
-                  'clk': 'op.clk',
-                  'dbs': 'op.dbs',
-                  'edt': 'op.edt',
-                  'err': 'op.err',
-                  'evt': 'op.evt',
-                  'fnd': 'op.fnd',
-                  'hdl': 'op.hdl',
-                  'irc': 'op.irc',
-                  'itr': 'op.itr',
-                  'krn': 'op.krn',
-                  'ldr': 'op.ldr',
-                  'log': 'op.log',
-                  'mbx': 'op.mbx',
-                  'nms': 'op.nms',
-                  'obj': 'op.obj',
-                  'opt': 'op.opt',
-                  'prs': 'op.prs',
-                  'rss': 'op.rss',
-                  'tdo': 'op.tdo',
-                  'thr': 'op.thr',
-                  'tms': 'op.tms',
-                  'trc': 'op.trc',
-                  'trm': 'op.trm',
-                  'udp': 'op.udp',
-                  'url': 'op.url',
-                  'usr': 'op.usr',
-                  'utl': 'op.utl',
-                  'zzz': 'op.zzz'
+        "cfg": "gcd.irc",
+        "cmd": "gcd.cmd",
+        "dlt": "gcd.usr",
+        "dne": "gcd.tdo",
+        "dpl": "gcd.rss",
+        "ech": "gcd.adm",
+        "flt": "gcd.adm",
+        "fnd": "gcd.fnd",
+        "ftc": "gcd.rss",
+        "krn": "gcd.adm",
+        "log": "gcd.log",
+        "mbx": "gcd.mbx",
+        "met": "gcd.usr",
+        "rem": "gcd.rss",
+        "rss": "gcd.rss",
+        "sve": "gcd.adm",
+        "tdo": "gcd.tdo",
+        "thr": "gcd.adm",
+        "upt": "gcd.adm"
     })
 
     @staticmethod
@@ -144,4 +233,3 @@ class Names(Object):
                     Names.names[k] = []
                 if v not in Loader.names[k]:
                     Names.names[k].append(v)
-        

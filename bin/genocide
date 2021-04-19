@@ -13,7 +13,7 @@ from gcd.trc import exception
 from gcd.trm import exec
 from gcd.zzz import os, sys
 
-__version__ = 30
+__version__ = 31
 
 Cfg.channel = "#genocide"
 Cfg.nick = "genocide"

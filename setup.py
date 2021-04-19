@@ -11,7 +11,7 @@ setup(
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
-    description="the king of the netherlands commits genocide.",
+    description="The king of the netherlands commits genocide - http://genocide.rtfd.io #ggz #gifpil",
     long_description=read(),
     license='Public Domain',
     packages=["gcd", "genocide"],

@@ -7,7 +7,7 @@ def read():
 
 setup(
     name='genocide',
-    version='31',
+    version='32',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
@@ -15,9 +15,8 @@ setup(
     long_description=read(),
     license='Public Domain',
     packages=["gcd", "genocide"],
-    namespace_packages=["gcd", "genocide"],
-    zip_safe=False,
-    scripts=["bin/gcd", "bin/genocide", "bin/genocidectl"],
+    zip_safe=True,
+    scripts=["bin/genocide", "bin/genocided", "bin/genocidectl"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: Public Domain',
                  'Operating System :: Unix',

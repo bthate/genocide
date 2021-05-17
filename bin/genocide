@@ -18,7 +18,7 @@ from gcd.obj import cfg
 import gcd.all
 import genocide.all
 
-all = "cms,fnd,log,irc,req,trt,wsd"
+all = "cms,fnd,log,irc,req,slg,trt,wsd"
 resume = {}
 
 def termsetup(fd):

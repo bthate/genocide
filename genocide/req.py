@@ -44,5 +44,8 @@ Since the members of the chamber and the king were aware that these medicine are
 
 I hope you can stop the above mentioned crimes the king of the netherlands and his government are doing."""
 
+def register(k):
+    k.addcmd(req)
+
 def req(event):
     event.reply(__doc__)

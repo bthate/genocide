@@ -1,27 +1,78 @@
 # This file is placed in the Public Domain.
 
-from .err import ENOCLASS, ENOFILENAME
-from .trc import where
-from .utl import locked
-from .zzz import datetime, importlib, js, os, sys, time, types, uuid, _thread
+"object library"
 
-savelock = _thread.allocate_lock()
+import datetime
+import inspect
+import json as js
+import os
+import pathlib
+import sys
+import threading
+import time
+import types
+import _thread
+import uuid
+
+def __dir__():
+    return ('Default', 'ENOCLASS', 'ENOFILENAME', 'ENOTYPE', 'O', 'Obj',
+            'Object', 'ObjectList', 'cdir', 'edit', 'fmt', 'get', 'getname',
+            'gettype', 'items', 'keys', 'load', 'merge', 'overlay', 'register',
+            'save', 'search', 'set', 'spl', 'update', 'values', 'wd')
+
+class ENOTYPE(Exception):
+
+    pass
+
+class ENOCLASS(Exception):
+
+    pass
+
+class ENOFILENAME(Exception):
+
+    pass
+
+def cdir(path):
+    path2 = os.path.dirname(path)
+    pathlib.Path(path2).mkdir(parents=True, exist_ok=True) 
 
 def gettype(o):
     return str(type(o)).split()[-1][1:-2]
 
+def spl(txt):
+    return [x for x in txt.split(",") if x]
+
+# objects
+
 class O:
 
-    __slots__ = ("__dict__", "__stp__")
+    __slots__ = ("__dict__", "__stp__", "__otype__")
 
     def __init__(self):
+        self.__otype__ = gettype(self)
         self.__stp__ = os.path.join(gettype(self), str(uuid.uuid4()), os.sep.join(str(datetime.datetime.now()).split()))
 
+    @staticmethod
+    def __default__(oo):
+        if isinstance(oo, O):
+            return vars(oo)
+        if isinstance(oo, dict):
+            return oo.items()
+        if isinstance(oo, list):
+            return iter(oo)
+        if isinstance(oo, (type(str), type(True), type(False), type(int), type(float))):
+            return oo
+        return repr(oo)
+
+    def __dorepr__(self):
+        return '<%s.%s object at %s>' % (
+            self.__class__.__module__,
+            self.__class__.__name__,
+            hex(id(self))
+        )
     def __delitem__(self, k):
-        try:
+        if k in self:
             del self.__dict__[k]
-        except KeyError:
-            pass
 
     def __getitem__(self, k):
         return self.__dict__[k]
@@ -39,7 +90,10 @@ class O:
         self.__dict__[k] = v
 
     def __repr__(self):
-        return js.dumps(self.__dict__, default=default, sort_keys=True)
+        return js.dumps(self.__dict__, default=self.__default__, sort_keys=True)
+
+    def __str__(self):
+        return str(self.__dict__)
 
 class Obj(O):
 
@@ -57,6 +111,17 @@ class Obj(O):
     def items(self):
         return self.__dict__.items()
 
+    def merge(self, d):
+        for k, v in d.items():
+            if not v:
+                continue
+            if k in self:
+                if isinstance(self[k], dict):
+                    continue
+                self[k] = self[k] + v
+            else:
+                self[k] = v
+
     def register(self, key, value):
         self[str(key)] = value
 
@@ -71,6 +136,9 @@ class Obj(O):
 
 class Object(Obj):
 
+    def json(self):
+        return repr(self)
+
     def load(self, opath):
         assert cfg.wd
         if opath.count(os.sep) != 3:
@@ -78,16 +146,12 @@ class Object(Obj):
         spl = opath.split(os.sep)
         stp = os.sep.join(spl[-4:])
         lpath = os.path.join(cfg.wd, "store", stp)
-        try:
+        if os.path.exists(lpath):
             with open(lpath, "r") as ofile:
                 d = js.load(ofile, object_hook=Obj)
                 self.update(d)
-        except FileNotFoundError:
-            pass
         self.__stp__ = stp
-        return stp
 
-    #@locked(savelock)
     def save(self, tab=False):
         assert cfg.wd
         prv = os.sep.join(self.__stp__.split(os.sep)[:2])
@@ -95,7 +159,7 @@ class Object(Obj):
         opath = os.path.join(cfg.wd, "store", self.__stp__)
         cdir(opath)
         with open(opath, "w") as ofile:
-            js.dump(self, ofile, default=default, indent=4, sort_keys=True)
+            js.dump(self, ofile, default=self.__default__, indent=4, sort_keys=True)
         os.chmod(opath, 0o444)
         return self.__stp__
 
@@ -120,103 +184,36 @@ class Default(Object):
     default = ""
 
     def __getattr__(self, k):
-        try:
+        if k in self:
             return super().__getattribute__(k)
-        except AttributeError:
-            try:
-                return super().__getitem__(k)
-            except KeyError:
-                return self.default
+        if k in super().__dict__:
+            return super().__getitem__(k)
+        return self.default
 
 class Cfg(Default):
 
-    mods = ""
-    opts = Default() 
-    name = ""
-    version = None
-    wd = ""
+    pass
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.mods = Cfg.mods
-        self.opts = Cfg.opts
-        self.name = Cfg.name
-        self.version = Cfg.version
-        self.wd = Cfg.wd
+# runtime
 
 cfg = Cfg()
+cfg.wd = ""
 
-starttime = time.time()
+# object functions
 
-def boot(wd=None):
-    from .prs import parseargs
-    if len(sys.argv) >= 1:
-        parseargs(cfg, " ".join(sys.argv[1:]))
-        cfg.update(cfg.sets)
-    cfg.name = sys.argv[0].split(os.sep)[-1]
-    cfg.wd = wd or cfg.wd or os.path.expanduser("~/.%s" % cfg.name)
-    return cfg
-
-def cdir(path):
-    if os.path.exists(path):
-        return
-    res = ""
-    path2, _fn = os.path.split(path)
-    for p in path2.split(os.sep):
-        res += "%s%s" % (p, os.sep)
-        padje = os.path.abspath(os.path.normpath(res))
-        try:
-            os.mkdir(padje)
-            os.chmod(padje, 0o700)
-        except (IsADirectoryError, NotADirectoryError, FileExistsError):
-            pass
-
-def dorepr(o):
-    return '<%s.%s object at %s>' % (
-        o.__class__.__module__,
-        o.__class__.__name__,
-        hex(id(o))
-    )
-
-def getcls(fullname):
-    try:
-        modname, clsname = fullname.rsplit(".", 1)
-    except Exception as ex:
-        raise ENOCLASS(fullname) from ex
-    mod = importlib.import_module(modname)
-    return getattr(mod, clsname)
-
-def hook(hfn):
-    if hfn.count(os.sep) > 3:
-        oname = hfn.split(os.sep)[-4:]
-    else:
-        oname = hfn.split(os.sep)
-    cname = oname[0]
-    fn = os.sep.join(oname)
-    o = getcls(cname)()
-    try:
-        o.load(fn)
-    except:
-        pass
-    return o
-
-def opts(ops):
-    global cfg
-    for opt in ops:
-        if opt in cfg.opts:
-            return True
-    return False
-
-def default(o):
-    if isinstance(o, O):
-        return vars(o)
-    if isinstance(o, dict):
-        return o.items()
-    if isinstance(o, list):
-        return iter(o)
-    if isinstance(o, (type(str), type(True), type(False), type(int), type(float))):
-        return o
-    return dorepr(o)
+def edit(o, setter, skip=False):
+    count = 0
+    for key, v in setter.items():
+        if skip and v == "":
+            continue
+        count += 1
+        if v in ["True", "true"]:
+            o[key] = True
+        elif v in ["False", "false"]:
+            o[key] = False
+        else:
+            o[key] = v
+    return count
 
 def fmt(o, keys=None, empty=True, skip=None):
     if keys is None:
@@ -230,35 +227,105 @@ def fmt(o, keys=None, empty=True, skip=None):
     for key in sorted(keys):
         if key in skip:
             continue
-        try:
+        if key in o:
             val = o[key]
-        except KeyError:
-            continue
-        if empty and not val:
-            continue
-        val = str(val).strip()
-        res.append((key, val))
+            if empty and not val:
+                continue
+            val = str(val).strip()
+            res.append((key, val))
     result = []
     for k, v in res:
         result.append("%s=%s%s" % (k, v, " "))
     txt += " ".join([x.strip() for x in result])
     return txt.strip()
 
+def get(o, key, default=None):
+    return o.__dict__.get(key, default)
+
 def getname(o):
     t = type(o)
     if t == types.ModuleType:
         return o.__name__
-    try:
-        n = "%s.%s" % (o.__self__.__class__.__name__, o.__name__)
-    except AttributeError:
-        try:
-            n = "%s.%s" % (o.__class__.__name__, o.__name__)
-        except AttributeError:
-            try:
-                n = o.__class__.__name__
-            except AttributeError:
-                n = o.__name__
-    return n
+    if "__self__" in dir(o):
+        return "%s.%s" % (o.__self__.__class__.__name__, o.__name__)
+    if "__class__" in dir(o) and "__name__" in dir(o):
+        return "%s.%s" % (o.__class__.__name__, o.__name__)
+    if "__class__" in dir(o):
+        return o.__class__.__name__
+    if "__name__" in dir(o):
+        return o.__name__
 
-def tojson(o):
-    return js.dumps(o.__dict__, default=default, indent=4, sort_keys=True)
+def items(o):
+    return o.__dict__.items()
+
+def json(o):
+    return repr(o)
+
+def keys(o):
+    return o.__dict__.keys()
+
+def load(o, opath):
+    assert cfg.wd
+    if opath.count(os.sep) != 3:
+        raise ENOFILENAME(opath)
+    spl = opath.split(os.sep)
+    stp = os.sep.join(spl[-4:])
+    lpath = os.path.join(cfg.wd, "store", stp)
+    if os.path.exists(lpath):
+        with open(lpath, "r") as ofile:
+            d = js.load(ofile, object_hook=Obj)
+            o.update(d)
+    o.__stp__ = stp
+
+def merge(o, d):
+    for k, v in d.items():
+        if not v:
+            continue
+        if k in o:
+            if isinstance(o[k], dict):
+                continue
+            o[k] = o[k] + v
+        else:
+            o[k] = v
+
+def overlay(o, d, keys=None, skip=None):
+    for k, v in d.items():
+        if keys and k not in keys:
+            continue
+        if skip and k in skip:
+            continue
+        if v:
+            o[k] = v
+
+def register(o, key, value):
+    o[str(key)] = value
+
+def save(o, tab=False):
+    assert cfg.wd
+    prv = os.sep.join(o.__stp__.split(os.sep)[:2])
+    o.__stp__ = os.path.join(prv, os.sep.join(str(datetime.datetime.now()).split()))
+    opath = os.path.join(cfg.wd, "store", o.__stp__)
+    cdir(opath)
+    with open(opath, "w") as ofile:
+        js.dump(o, ofile, default=default, indent=4, sort_keys=True)
+    os.chmod(opath, 0o444)
+    return o.__stp__
+
+def set(o, key, value):
+    o.__dict__[key] = value
+
+def search(o, s):
+    ok = False
+    for k, v in s.items():
+        vv = getattr(o, k, None)
+        if v not in str(vv):
+            ok = False
+            break
+        ok = True
+    return ok
+
+def update(o, data):
+    return o.__dict__.update(data)
+
+def values(o):
+    return o.__dict__.values()

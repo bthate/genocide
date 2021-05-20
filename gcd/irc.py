@@ -11,9 +11,16 @@ import time
 import threading
 import _thread
 
-from .hdl import Bus, Handler, Event, Client, Output, launch
-from .krn import Kernel, find, kcmd, last
-from .obj import Default, Object, edit, fmt
+from .bus import Bus
+from .dbs import find, last
+from .dft import Default
+from .evt import Event
+from .hdl import Handler
+from .clt import Client
+from .opt import Output
+from .thr import launch
+from .krn import Kernel, kcmd
+from .obj import Object, edit, fmt
 
 def __dir__():
     return ("ENOUSER", "Cfg", "DCC", "Event", "IRC", "User", "Users", "cfg", "dlt", "init", "locked", "met", "mre", "register")
@@ -61,7 +68,7 @@ class Cfg(Default):
     server = "localhost"
     realname = "24/7 channel daemon"
     username = "botd"
-    users = True
+    users = False
 
     def __init__(self, val=None):
         super().__init__()

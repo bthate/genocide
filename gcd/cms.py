@@ -2,7 +2,7 @@
 
 "commands"
 
-from .krn import Kernel
+from gcd.krn import Kernel
 
 def __dir__():
     return ("cmd", "register")

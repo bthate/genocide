@@ -7,6 +7,7 @@ import inspect
 import json as js
 import os
 import pathlib
+import queue
 import sys
 import threading
 import time
@@ -15,10 +16,20 @@ import _thread
 import uuid
 
 def __dir__():
-    return ('Default', 'ENOCLASS', 'ENOFILENAME', 'ENOTYPE', 'O', 'Obj',
-            'Object', 'ObjectList', 'cdir', 'edit', 'fmt', 'get', 'getname',
+    return ('ENOCLASS', 'ENOFILENAME', 'ENOTYPE', 'O', 'Obj',
+            'Object', 'cdir', 'edit', 'fmt', 'get', 'getname',
             'gettype', 'items', 'keys', 'load', 'merge', 'overlay', 'register',
             'save', 'search', 'set', 'spl', 'update', 'values', 'wd')
+
+def cdir(path):
+    path2 = os.path.dirname(path)
+    pathlib.Path(path2).mkdir(parents=True, exist_ok=True) 
+
+def gettype(o):
+    return str(type(o)).split()[-1][1:-2]
+
+def spl(txt):
+    return [x for x in txt.split(",") if x]
 
 class ENOTYPE(Exception):
 
@@ -31,18 +42,6 @@ class ENOCLASS(Exception):
 class ENOFILENAME(Exception):
 
     pass
-
-def cdir(path):
-    path2 = os.path.dirname(path)
-    pathlib.Path(path2).mkdir(parents=True, exist_ok=True) 
-
-def gettype(o):
-    return str(type(o)).split()[-1][1:-2]
-
-def spl(txt):
-    return [x for x in txt.split(",") if x]
-
-# objects
 
 class O:
 
@@ -163,43 +162,8 @@ class Object(Obj):
         os.chmod(opath, 0o444)
         return self.__stp__
 
-class ObjectList(Object):
-
-    def append(self, key, value):
-        if key not in self:
-            self[key] = []
-        if value in self[key]:
-            return
-        if isinstance(value, list):
-            self[key].extend(value)
-        else:
-            self[key].append(value)
-
-    def update(self, d):
-        for k, v in d.items():
-            self.append(k, v)
-
-class Default(Object):
-
-    default = ""
-
-    def __getattr__(self, k):
-        if k in self:
-            return super().__getattribute__(k)
-        if k in super().__dict__:
-            return super().__getitem__(k)
-        return self.default
-
-class Cfg(Default):
-
-    pass
-
-# runtime
-
-cfg = Cfg()
+cfg = Object()
 cfg.wd = ""
-
-# object functions
 
 def edit(o, setter, skip=False):
     count = 0

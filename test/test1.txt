@@ -1,0 +1,29 @@
+# basic set
+
+>>> from gcd.obj import Object
+>>> o = Object()
+>>> o.set("key", "value")
+>>> o.key
+'value'
+
+# attribute set
+
+>>> from gcd.obj import Object
+>>> o = Object()
+>>> o.key = "value"
+>>> o.key
+'value'
+
+# save/load
+
+>>> import gcd.obj
+>>> gcd.obj.wd = ".test"
+>>> o = gcd.obj.Object()
+>>> o["key"] = "value"
+>>> p = o.save()
+>>> p
+'gcd.obj.Object/...
+>>> oo = gcd.obj.Object()
+>>> oo.load(p)
+>>> oo.key
+'value'

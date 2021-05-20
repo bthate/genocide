@@ -2,13 +2,15 @@
 
 "suicide stats"
 
+import random
+import time
+
 from gcd.bus import Bus
 from gcd.clk import Repeater
 from gcd.evt import Event
 from gcd.obj import Object
 from gcd.prs import parse_time
 from gcd.tms import elapsed
-from gcd.zzz import random, time
 
 def __dir__():
     return ("sts", "init")

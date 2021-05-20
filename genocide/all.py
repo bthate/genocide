@@ -1,15 +1,19 @@
-# This file is placed in the Public Domain
-
 "all modules"
 
 from gcd.krn import Kernel
 
-import genocide.req
+import genocide.adm
+import genocide.fnd
+import genocide.log
+import genocide.rss
 import genocide.slg
-import genocide.trt
-import genocide.wsd
+import genocide.tdo
+import genocide.udp
 
-Kernel.addmod(genocide.req)
+Kernel.addmod(genocide.adm)
+Kernel.addmod(genocide.fnd)
+Kernel.addmod(genocide.log)
+Kernel.addmod(genocide.rss)
 Kernel.addmod(genocide.slg)
-Kernel.addmod(genocide.trt)
-Kernel.addmod(genocide.wsd)
+Kernel.addmod(genocide.tdo)
+Kernel.addmod(genocide.udp)

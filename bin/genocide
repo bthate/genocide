@@ -20,7 +20,7 @@ from gcd.obj import cfg
 import gcd.all
 import genocide.all
 
-all = "adm,cms,fnd,irc,krn,log,rss,slg,sts,tdo,udp"
+all = "adm,cms,fnd,irc,krn,log,rss,slg,sts,tdo,trt,udp,wsd"
 name = "genocide"
 resume = {}
 
@@ -81,7 +81,7 @@ def main():
         e.wait()
         return 
     c = Client()
-    k.init(k.cfg.mods)
+    k.init(k.cfg.mods or all)
     if k.opts("c"):
         c = Console()
     if k.opts("cd"):

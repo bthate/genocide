@@ -1,36 +1,68 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
 
-import os, sys ; sys.path.insert(0, os.getcwd())
+__version__ = 41
 
-from gcd.hdl import Client
-from gcd.nms import Names
-from gcd.obj import cfg, opts
-from gcd.trm import exec
-from gcd.zzz import shutil, unittest
+import atexit
+import doctest
+import importlib
+import os
+import shutil
+import sys
+import termios
+import unittest
 
-import gcd.trc
-import gcd.url
+sys.path.insert(0, os.getcwd())
+
+from gcd.bus import Bus
+from gcd.clt import Client
+from gcd.krn import Kernel
+from gcd.obj import cfg
+
+import gcd.all
+import genocide.all
+
+all = "adm,cmd,fnd,irc,log,req,rss,tdo,trt,sui,udp,wsd"
+
+flags = doctest.REPORT_NDIFF|doctest.FAIL_FAST|doctest.ELLIPSIS
 
 class Test(Client):
 
+    def __init__(self):
+        super().__init__()
+        self.initialize()
+
     def raw(self, txt):
-        if opts("v"):
+        if Kernel.opts("v"):
             print(txt)
 
+def docmd(hdl, o):
+    o.parse()
+    f = Kernel.getcmd(o.cmd)
+    if f:
+        f(o)
+        o.show()
+    o.ready()
+
+def exec(main):
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
+
 def main():
-    if os.path.exists(".genocide"):
-        shutil.rmtree(".genocide")
-    Names.walk("genocide")
-    gcd.url.debug = True
-    cfg.wd = ".genocide"
+    if os.path.exists(".test"):
+        shutil.rmtree(".test")
+    cfg.debug = True
+    cfg.wd = ".test"
+    k = Kernel()
+    k.boot("test", all)
     c = Test()
-    c.boot()
+    c.register("cmd", docmd)
     c.start()
     pat = "test_%s*" % "*"
     suite = unittest.loader.TestLoader().discover("test", pattern=pat)
     unittest.TextTestRunner(verbosity=3).run(suite)
+    doctest.testfile("../test/test1.txt", optionflags=flags, report=False, verbose=False)
 
 exec(main)
-for e in gcd.trc.exc:
-    print(e)

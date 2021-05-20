@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain
 
-txt = "! OTP-CR-117/19 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io !"
+txt = "OTP-CR-117/19 otp.informationdesk@icc-cpi.int http://genocide.rtfd.io"
 
 def register(k):
     k.addcmd(slg)

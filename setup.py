@@ -16,7 +16,7 @@ setup(
     license='Public Domain',
     packages=["gcd", "genocide"],
     zip_safe=True,
-    scripts=["bin/genocide", "bin/genocided", "bin/genocidectl"],
+    scripts=["bin/gcd", "bin/gcdd", "bin/gcdctl"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: Public Domain',
                  'Operating System :: Unix',

@@ -14,11 +14,16 @@ sys.path.insert(0, os.getcwd())
 from gcd.bus import first
 from gcd.clt import Client
 from gcd.evt import Event
+from gcd.irc import Cfg
 from gcd.krn import Kernel, kcmd
 from gcd.obj import cfg
 
 import gcd.all
 import genocide.all
+
+Cfg.channel = "#gcd"
+Cfg.nick = "gcd"
+Cfg.server = "localhost"
 
 all = "adm,cms,fnd,irc,krn,log,rss,slg,sts,tdo,trt,sui,udp,wsd"
 name = "genocide"

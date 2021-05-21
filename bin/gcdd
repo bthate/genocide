@@ -5,12 +5,20 @@ __version__ = 32
 
 import os, sys
 
-from gcd.hdl import Client
+from gcd.clt import Client
+from gcd.irc import Cfg
 from gcd.krn import Kernel, kcmd
 from gcd.obj import cfg
 
 import gcd.all
 import genocide.all
+
+Cfg.channel = "#gcd"
+Cfg.nick = "gcd"
+Cfg.server = "localhost"
+
+all = "adm,cms,fnd,irc,krn,log,rss,slg,sts,tdo,trt,sui,udp,wsd"
+name = "genocide"
 
 class CLI(Client):
 
@@ -31,14 +39,14 @@ def main():
     cfg.wd = "/var/lib/genocide/"
     k = Kernel()
     k.addcmd(ver)
-    k.boot("genocide", "adm,cms,fnd,irc,rss,udp")
+    k.boot("genocide", all)
     if k.cfg.txt:
         c = CLI()
         e = c.event(k.cfg.otxt)
         kcmd(c, e)
         e.wait()
         return 
-    k.init("adm,cms,fnd,irc,rss,udp")
+    k.init(all)
     k.wait()
 
 if __name__ == "__main__":

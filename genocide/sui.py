@@ -9,8 +9,7 @@ from gcd.bus import Bus
 from gcd.clk import Repeater
 from gcd.evt import Event
 from gcd.obj import Object
-from gcd.prs import parse_time
-from gcd.tms import elapsed
+from gcd.prs import elapsed, parse_time
 
 def __dir__():
     return ("sts", "init")
@@ -19,7 +18,7 @@ source = "https://github.com/bthate/genocide"
 startdate = "2018-10-05 00:00:00"
 starttime = parse_time(startdate)
 
-def init(kernel):
+def init():
     for _name, obj in wanted.items():
         for key in obj.keys():
             val = obj.get(key, None)
@@ -30,6 +29,9 @@ def init(kernel):
                 sec = seconds(val)
                 repeater = Repeater(sec, stat, e, name=key)
                 repeater.start()
+
+def register(k):
+    k.addcmd(sts)
 
 class ENOSTATS(Exception):
 

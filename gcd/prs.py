@@ -1,7 +1,31 @@
 # This file is placed in the Public Domain.
 
+import time
+
 from .dft import Default
 from .obj import Object
+
+year_formats = [
+    "%b %H:%M",
+    "%b %H:%M:%S",
+    "%a %H:%M %Y",
+    "%a %H:%M",
+    "%a %H:%M:%S",
+    "%Y-%m-%d",
+    "%d-%m-%Y",
+    "%d-%m",
+    "%m-%d",
+    "%Y-%m-%d %H:%M:%S",
+    "%d-%m-%Y %H:%M:%S",
+    "%d-%m %H:%M:%S",
+    "%m-%d %H:%M:%S",
+    "%Y-%m-%d %H:%M",
+    "%d-%m-%Y %H:%M",
+    "%d-%m %H:%M",
+    "%m-%d %H:%M",
+    "%H:%M:%S",
+    "%H:%M"
+]
 
 class Token(Object):
 
@@ -105,6 +129,24 @@ def elapsed(seconds, short=True):
         txt += "%ss" % int(sec)
     txt = txt.strip()
     return txt
+
+def parse_time(daystring):
+    line = ""
+    daystr = str(daystring)
+    for word in daystr.split():
+        if "-" in word:
+            line += word + " "
+        elif ":" in word:
+            line += word
+    if "-" not in line:
+        line = day() + " " + line
+    for f in year_formats:
+        try:
+            t = time.mktime(time.strptime(line, f))
+            return t
+        except ValueError:
+            pass
+
 
 def parse_txt(o, ptxt=None):
     if ptxt is None:

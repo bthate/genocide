@@ -2,12 +2,13 @@
 
 import queue
 import threading
+import types
 
 class Thr(threading.Thread):
 
     def __init__(self, func, *args, thrname="", daemon=True):
         super().__init__(None, self.run, thrname, (), {}, daemon=daemon)
-        self.name = thrname or str(func)
+        self.name = thrname or getname(func)
         self.result = None
         self.queue = queue.Queue()
         self.queue.put_nowait((func, args))
@@ -35,8 +36,21 @@ class Thr(threading.Thread):
         self.setName(self.name)
         self.result = func(*args)
 
+def getname(o):
+    t = type(o)
+    if t == types.ModuleType:
+        return o.__name__
+    if "__self__" in dir(o):
+        return "%s.%s" % (o.__self__.__class__.__name__, o.__name__)
+    if "__class__" in dir(o) and "__name__" in dir(o):
+        return "%s.%s" % (o.__class__.__name__, o.__name__)
+    if "__class__" in dir(o):
+        return o.__class__.__name__
+    if "__name__" in dir(o):
+        return o.__name__
+
 def launch(func, *args, **kwargs):
-    name = kwargs.get("name", str(func))
+    name = kwargs.get("name", getname(func))
     t = Thr(func, *args, thrname=name, daemon=True)
     t.start()
     return t

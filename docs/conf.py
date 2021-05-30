@@ -7,7 +7,7 @@ import doctest, os, sys, unittest
 
 curdir = os.getcwd()
 sys.path.insert(0, curdir + os.sep)
-sys.path.insert(0, curdir + os.sep + ".." + os.sep + "genocide")
+sys.path.insert(0, curdir + os.sep + ".." + os.sep + "gcd")
 
 # -- Options for GENERIC output ---------------------------------------------
 

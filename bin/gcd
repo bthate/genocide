@@ -74,7 +74,7 @@ def main():
     c = Client()
     if k.opts("c"):
         c = Console()
-        k.cfg.mods += ",cms"
+        k.cfg.mods += "adm,cms,sui,trt,req,wsd"
     k.regs(k.cfg.mods)
     k.init(k.cfg.mods)
     if k.opts("cd"):

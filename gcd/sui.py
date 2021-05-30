@@ -12,11 +12,14 @@ from bot.obj import Object
 from bot.prs import elapsed
 
 def __dir__():
-    return ("sts", "init")
+    return ("register", "sts", "init")
 
 source = "https://github.com/bthate/genocide"
 startdate = "2018-10-05 00:00:00"
-starttime = time.strptime(startdate)
+starttime = time.mktime(time.strptime(startdate, "%Y-%m-%d %H:%M:%S"))
+
+def register(k):
+    k.addcmd(sts)
 
 def init():
     for _name, obj in wanted.items():
@@ -29,9 +32,6 @@ def init():
                 sec = seconds(val)
                 repeater = Repeater(sec, stat, e, name=key)
                 repeater.start()
-
-def register(k):
-    k.addcmd(sts)
 
 class ENOSTATS(Exception):
 

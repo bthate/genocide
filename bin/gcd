@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
 
-__version__ = 43
+__version__ = 34
 
 import atexit
 import os

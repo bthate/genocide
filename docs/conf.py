@@ -11,7 +11,7 @@ sys.path.insert(0, curdir + os.sep + ".." + os.sep + "gcd")
 
 # -- Options for GENERIC output ---------------------------------------------
 
-__version__ = 31
+__version__ = 34
 
 project = "genocide"
 master_doc = 'index'

@@ -63,7 +63,7 @@ html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
 
 rst_prolog = """.. image:: genocide3line.png
-    :height: 2.7cm
+    :height: 2.6cm
     :width: 100%
 
 .. title::  !!!! OTP-CR-117/19 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io !!!!

@@ -1,3 +1,6 @@
+.. image:: clozastrip.jpg
+    :width: 100%
+
 to reconsider
 =============
 
@@ -82,6 +85,15 @@ from the chamber
 ================
 
 .. image:: kamergriffe.png
+
+EVIDENCE
+========
+
+.. image:: ECHAclozapine.png
+
+
+.. image:: bewijsgif3.jpg
+
 
 .. toctree::
     :hidden:

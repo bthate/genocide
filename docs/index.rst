@@ -4,6 +4,9 @@
 to reconsider
 =============
 
+.. image:: clozastrip.jpg
+    :width: 100%
+
 | Information and Evidence Unit
 | Office of the Prosecutor
 | Post Office Box 19519

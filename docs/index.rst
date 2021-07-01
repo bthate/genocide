@@ -1,4 +1,4 @@
-.. image:: clozastrip.jpg
+.. image:: prosecutor.jpg
     :width: 100%
 
 to reconsider

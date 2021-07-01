@@ -13,7 +13,7 @@ setup(
     author_email='bthate@dds.nl', 
     description="OTP-CR-117/19 - otp.informationdesk@icc-cpi.int - https://genocide.rtfd.io",
     long_description=read(),
-    install_requires=["botlib"],
+    install_requires=["ob"],
     license='Public Domain',
     packages=["gcd"],
     zip_safe=True,

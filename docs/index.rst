@@ -70,31 +70,6 @@ does not entail etnicity or nationality but on general groups in the population.
 I hope you can stop the above mentioned crimes the king of the netherlands and
 his government are doing.
 
-
-to the king
-===========
-
-.. image:: informed.jpg
-
-from the king
-=============
-
-.. image:: opdehoogte.jpg
-
-from the chamber
-================
-
-.. image:: kamergriffe.png
-
-EVIDENCE
-========
-
-.. image:: ECHAclozapine.png
-
-
-.. image:: bewijsgif3.jpg
-
-
 .. toctree::
     :hidden:
     :glob:

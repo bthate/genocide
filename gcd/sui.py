@@ -5,21 +5,11 @@
 import random
 import time
 
-from bot.bus import Bus
-from bot.clk import Repeater
-from bot.evt import Event
-from bot.obj import Object
-from bot.prs import elapsed
-
-def __dir__():
-    return ("register", "sts", "init")
+from ob import Bus, Repeater, Event, Object, elapsed
 
 source = "https://github.com/bthate/genocide"
 startdate = "2018-10-05 00:00:00"
 starttime = time.mktime(time.strptime(startdate, "%Y-%m-%d %H:%M:%S"))
-
-def register(k):
-    k.addcmd(sts)
 
 def init():
     for _name, obj in wanted.items():

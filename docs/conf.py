@@ -11,7 +11,7 @@ sys.path.insert(0, curdir + os.sep + ".." + os.sep + "gcd")
 
 # -- Options for GENERIC output ---------------------------------------------
 
-__version__ = 35
+__version__ = 36
 
 project = "genocide"
 master_doc = 'index'
@@ -66,12 +66,13 @@ rst_prolog = """.. image:: genocide3line.png
     :height: 2.6cm
     :width: 100%
 
-.. title:: any time to the king until arrested
+.. title:: !!!! OTP-CR-117/19 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io !!!!
+
 """ 
 
 rst_epilog = """.. raw:: html
 
-   <center><h1>OTP-CR-117/19 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io</h1></center>
+   <center><h1>! ! ! ! OTP-CR-117/19 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io ! ! ! ! </h1></center>
 """
 
 intersphinx_mapping = {
@@ -93,7 +94,6 @@ doctest_global_cleanup=""
 doctest_test_doctest_blocks="default"
 trim_doctest_flags=True
 doctest_flags=doctest.REPORT_UDIFF
-
 nitpick_ignore=[
                 ('py:class', 'builtins.BaseException'),
                ]

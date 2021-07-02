@@ -1,8 +1,12 @@
+.. raw:: html
+
+  <br><br>
+
 .. image:: prosecutor.jpg
     :width: 100%
 
 to reconsider
-=============
+#############
 
 .. image:: clozastrip.jpg
     :width: 100%
@@ -72,6 +76,10 @@ does not entail etnicity or nationality but on general groups in the population.
 
 I hope you can stop the above mentioned crimes the king of the netherlands and
 his government are doing.
+
+.. raw:: html
+
+   <title>!!!!!! OTP-CR-117/19 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io !!!!!!</title>
 
 .. toctree::
     :hidden:

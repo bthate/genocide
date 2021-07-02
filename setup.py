@@ -15,6 +15,7 @@ setup(
     long_description=read(),
     install_requires=["ob"],
     license='Public Domain',
+    py_modules=["ob"],
     packages=["gcd"],
     zip_safe=True,
     scripts=["bin/gcd"],

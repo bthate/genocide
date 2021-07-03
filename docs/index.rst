@@ -5,7 +5,7 @@
 .. image:: prosecutor.jpg
     :width: 100%
 
-to reconsider
+TO RECONSIDER
 #############
 
 .. image:: clozastrip.jpg

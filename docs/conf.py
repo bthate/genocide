@@ -66,13 +66,12 @@ rst_prolog = """.. image:: genocide3line.png
     :height: 2.6cm
     :width: 100%
 
-.. title:: !!!! OTP-CR-117/19 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io !!!!
-
-""" 
+.. title:: ! Article 15. as it is intended - otp.informationdesk@icc-cpi.int - OTP-CR-117/19 !
+"""
 
 rst_epilog = """.. raw:: html
 
-   <center><h1>! ! ! ! OTP-CR-117/19 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io ! ! ! ! </h1></center>
+   <center><h1>https://genocide.rtfd.io | otp.informationdesk@icc-cpi.int | OTP-CR-117/19</h1></center>
 """
 
 intersphinx_mapping = {

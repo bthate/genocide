@@ -7,11 +7,11 @@ def read():
 
 setup(
     name='genocide',
-    version='36',
+    version='37',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate@dds.nl', 
-    description="! Article 15. as it is intended - otp.informationdesk@icc-cpi.int - OTP-CR-117/19 !",
+    description="http://genocide.rtfd.io - otp.informationdesk@icc-cpi.int - OTP-CR-117/19",
     long_description=read(),
     license='Public Domain',
     py_modules=["ob"],

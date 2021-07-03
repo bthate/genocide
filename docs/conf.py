@@ -66,7 +66,7 @@ rst_prolog = """.. image:: genocide3line.png
     :height: 2.6cm
     :width: 100%
 
-.. title:: ! Article 15. as it is intended - otp.informationdesk@icc-cpi.int - OTP-CR-117/19 !
+.. title:: http://genocide.rtfd.io - otp.informationdesk@icc-cpi.int - OTP-CR-117/19
 """
 
 rst_epilog = """.. raw:: html

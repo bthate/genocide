@@ -45,7 +45,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = "haiku"
-#html_title = "GENOCIDE %s" % __version__
+html_title = "GENOCIDE %s" % __version__
 html_short_title = ""
 html_favicon = "genocide3smile.png"
 html_extra_path = []
@@ -65,8 +65,6 @@ htmlhelp_basename = 'testdoc'
 rst_prolog = """.. image:: genocide3line.png
     :height: 2.6cm
     :width: 100%
-
-.. title:: !!!! http://genocide.rtfd.io - otp.informationdesk@icc-cpi.int - OTP-CR-117/19 !!!!
 """
 
 rst_epilog = """.. raw:: html

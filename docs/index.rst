@@ -1,10 +1,3 @@
-.. raw:: html
-
-  <br><br>
-
-.. image:: prosecutor.jpg
-    :width: 100%
-
 TO RECONSIDER
 #############
 

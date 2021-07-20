@@ -18,7 +18,7 @@ setup(
     py_modules=["ob", 'trm'],
     packages=["bot", "genocide"],
     zip_safe=True,
-    install_package_data=True,
+    include_package_data=True,
     data_files=[
         (
             "share/genocide/",

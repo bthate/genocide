@@ -1,4 +1,4 @@
-TO RECONSIDER
+to reconsider
 #############
 
 .. image:: clozastrip.jpg
@@ -72,6 +72,8 @@ his government are doing.
 
 .. toctree::
     :hidden:
-    :glob:
 
-    txt/*
+    txt/chrono.rst
+    txt/kamer.rst
+    txt/fact.rst
+

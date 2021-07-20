@@ -24,7 +24,7 @@ setup(
             "share/genocide/",
             [
                 "files/genocide.1.md",
-                "files/genocideectl.8.md",
+                "files/genocidectl.8.md",
                 "files/genocided.8.md",
                 "files/genocide.service",
                 "files/genocide",

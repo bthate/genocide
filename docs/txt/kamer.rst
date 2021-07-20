@@ -1,6 +1,6 @@
 kamer
 =====
 
-.. image:: kamer.png
+.. image:: ../kamer.png
     :width: 100%
  

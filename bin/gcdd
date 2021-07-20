@@ -49,7 +49,7 @@ def main():
     k.boot()
     k.add(ver)
     if k.opts("d"):
-        daemon()
+        trm.daemon()
     k.privileges()
     k.start()
     k.wait()

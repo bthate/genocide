@@ -11,7 +11,7 @@ source = "https://github.com/bthate/genocide"
 startdate = "2018-10-05 00:00:00"
 starttime = time.mktime(time.strptime(startdate, "%Y-%m-%d %H:%M:%S"))
 
-def init():
+def init(k):
     for _name, obj in wanted.items():
         for key in obj.keys():
             val = obj.get(key, None)

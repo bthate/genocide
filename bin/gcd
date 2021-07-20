@@ -2,7 +2,7 @@
 # This file is placed in the Public Domain.
 
 
-"irc bot"
+"genocide"
 
 __version__ = 38
 
@@ -23,6 +23,16 @@ ob.wd = os.path.expanduser("~/.genocide")
 
 from ob import Restart, Handler, Kernel, launch
 
+from bot.irc import Cfg
+
+Cfg.cc = '!'
+Cfg.channel = "#genocide"
+Cfg.nick = "genocide"
+Cfg.port = 6667
+Cfg.server = "localhost"
+Cfg.realname = "http://genocide.rtfd.io otp.informationdesk@icc-cpi.int OTP-CR-117/19"
+Cfg.username = "genocide"
+Cfg.users = False
 
 class CLI(Handler):
 
@@ -54,28 +64,21 @@ def ver(event):
 
 
 k = MyKernel()
-k.cfg.p = "bot"
-k.cfg.m = ""
+k.cfg.p = "bot,gcd"
 name = "genocide"
-resume = {}
-
 
 def main():
-    k.parse_cli(name)
-    k.boot()
     k.add(ver)
+    k.boot(name)
     if k.cfg.txt:
         cli = CLI()
         return k.cmd(cli, k.cfg.txt)
-    if k.opts("d"):
-        daemon()
-        k.privileges()
-        k.start()
-    elif k.opts("c") or k.cfg.m:
-        k.start()
+    if k.opts("c"):
         csl = Console()
         csl.start()
-    if k.opts("cd") or k.cfg.m:
+        k.start()
+        k.cfg.m += ",bot.irc,gcd.sui"
+        k.init(k.cfg.m)
         k.wait()
 
 

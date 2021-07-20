@@ -760,11 +760,10 @@ class Kernel(Dispatcher, Loop):
         n = func.__name__
         self.cmds[n] = func
 
-    def boot(self, wd=""):
-        self.parse_cli(wd)
+    def boot(self, name):
+        self.parse_cli(name)
         cdir(self.cfg.wd + os.sep)
         self.scan(self.cfg.p)
-        self.init(self.cfg.m)
 
     def cmd(self, clt, txt):
         Bus.add(clt)

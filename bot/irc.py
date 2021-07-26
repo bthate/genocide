@@ -14,6 +14,7 @@ from ob import (
     Db,
     Default,
     Dispatcher,
+    Error,
     Event,
     Handler,
     Object,
@@ -38,6 +39,8 @@ def __dir__():
         "locked",
         "met",
         "mre",
+        "ops",
+        "nck"
     )
 
 
@@ -73,12 +76,12 @@ saylock = _thread.allocate_lock()
 class Cfg(Default):
 
     cc = "!"
-    channel = "#genocide"
-    nick = "genocide"
+    channel = "#botd"
+    nick = "botd"
     port = 6667
     server = "localhost"
-    realname = "http://genocide.rtfd.io otp.informationdesk@icc-cpi.int OTP-CR-117/19"
-    username = "genocide"
+    realname = "24/7 channel daemon"
+    username = "botd"
     users = False
 
     def __init__(self, val=None):
@@ -138,6 +141,7 @@ class IRC(Output, Handler):
         self.zelf = ""
         self.register("ERROR", ERROR)
         self.register("LOG", LOG)
+        self.register("NICK", NICK)
         self.register("NOTICE", NOTICE)
         self.register("PRIVMSG", PRIVMSG)
         self.register("QUIT", QUIT)
@@ -212,9 +216,11 @@ class IRC(Output, Handler):
         elif cmd == "366":
             self.joined.set()
         elif cmd == "433":
-            nick = self.cfg.nick + "_"
-            self.cfg.nick = nick
-            self.raw("NICK %s" % self.cfg.nick)
+            if "_" in self.cfg.nick:
+                nick = self.cfg.nick.replace("_", "")
+            else:
+                nick = self.cfg.nick + "_"
+            self.raw("NICK %s" % nick)
         return e
 
     def fileno(self):
@@ -235,7 +241,10 @@ class IRC(Output, Handler):
             self.keeprunning = True
             time.sleep(60)
             self.state.pongcheck = True
-            self.command("PING", self.cfg.server)
+            try:
+                self.command("PING", self.cfg.server)
+            except BrokenPipeError:
+                continue
             time.sleep(10.0)
             if self.state.pongcheck:
                 self.keeprunning = False
@@ -250,10 +259,10 @@ class IRC(Output, Handler):
         self.raw(
             "USER %s %s %s :%s"
             % (
-                self.cfg.username or "ob",
+                self.cfg.username or "botd",
                 server,
                 server,
-                self.cfg.realname or "python3 object library",
+                self.cfg.realname or "24/7 channel daemon",
             )
         )
 
@@ -483,8 +492,8 @@ class Users(Object):
 
 def ERROR(clt, obj):
     clt.state.nrerror += 1
-    clt.state.error = obj.error
-
+    clt.state.error = obj.txt
+    k.error(obj)
 
 def KILL(clt, obj):
     pass
@@ -493,6 +502,10 @@ def KILL(clt, obj):
 def LOG(clt, obj):
     pass
 
+
+def NICK(clt, obj):
+    if clt.cfg.nick in obj.nick:
+        clt.command("NICK", clt.cfg.nick)
 
 def NOTICE(clt, obj):
     if obj.txt.startswith("VERSION"):
@@ -522,6 +535,9 @@ def PRIVMSG(clt, obj):
         if clt.cfg.users and not clt.users.allowed(obj.origin, "USER"):
             return
         obj.type = "cmd"
+        spl = obj.txt.split()
+        spl[0] = spl[0].lower()
+        obj.txt = " ".join(spl)
         k.dispatch(obj)
 
 
@@ -537,7 +553,7 @@ def cfg(event):
     if not event.sets:
         return event.reply(fmt(c, skip=["username", "realname"]))
     c.edit(event.sets)
-    c.save()
+    p = c.save()
     event.reply("ok")
 
 
@@ -578,3 +594,16 @@ def mre(event):
             if txt:
                 event.say(txt)
     event.reply("(+%s more)" % Output.size(event.channel))
+
+def ops(event):
+    bot = event.bot()
+    if type(bot) == IRC:
+        bot.command("MODE", event.channel, "+o", event.nick)
+
+    
+def nck(event):
+    bot = event.bot()
+    if type(bot) == IRC:
+        bot.command("NICK", event.rest)
+        bot.cfg.nick = event.rest
+        bot.cfg.save()

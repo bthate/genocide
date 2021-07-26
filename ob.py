@@ -929,6 +929,8 @@ class Kernel(Dispatcher, Loop):
         res = {}
         for pn in spl(pkgs):
             p = sys.modules.get(pn, None)
+            if not p:
+                continue
             for mn in pkgutil.walk_packages(p.__path__, pn + "."):
                 zip = mn[0].find_module(mn[1])
                 mod = zip.load_module(mn[1])

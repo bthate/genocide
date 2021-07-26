@@ -78,7 +78,7 @@ def main():
         csl = Console()
         csl.start()
         k.start()
-        k.cfg.m += ",bot.irc,gcd.sui"
+        k.cfg.m += ",bot.irc,genocide.sui"
         k.init(k.cfg.m)
         k.wait()
 

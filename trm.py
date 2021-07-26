@@ -9,6 +9,39 @@ import termios
 
 resume = {}
 
+from ob import Kernel, Handler
+
+class Runtime(Kernel):
+    def error(self, e):
+        if e.txt:
+            cprint(e.txt)
+        if e.error:
+            cprint(e.error)
+        if e.exc:
+            cprint(e.exc)
+        e.ready()
+
+
+class CLI(Handler):
+
+    def handle(self, e):
+        k.put(e)
+        e.wait()
+
+    def error(self, e):
+        cprint(str(e))
+        e.ready()
+
+    def raw(self, txt):
+        cprint(txt)
+
+
+class Console(CLI):
+
+    def poll(self):
+        return input("> ")
+
+
 def cprint(*args):
     print(*args)
     sys.stdout.flush()

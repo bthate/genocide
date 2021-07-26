@@ -13,6 +13,7 @@ sys.path.insert(0, os.getcwd())
 
 import atexit
 import bot.all
+import genocide.all
 import ob
 import os
 import sys

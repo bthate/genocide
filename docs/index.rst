@@ -67,9 +67,6 @@ poison at the time they voted for this law and the day the Wfz law took effect
 chamber for three genocide crimes mentioned in article 6 on the note that this
 does not entail etnicity or nationality but on general groups in the population.
 
-I hope you can stop the above mentioned crimes the king of the netherlands and
-his government are doing.
-
 .. toctree::
     :hidden:
 

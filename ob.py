@@ -23,23 +23,32 @@ import types
 import uuid
 
 resume = {}
-wd = ".ob"
+wd = ""
+
 
 class Restart(Exception):
 
     pass
+
+class Break(Exception):
+
+    pass
+
 
 class NotImplemented(Exception):
 
     pass
 
+
 class Restart(Exception):
 
     pass
 
+
 class Stop(Exception):
 
     pass
+
 
 class NoBot(Exception):
 
@@ -50,13 +59,16 @@ class NoFile(Exception):
 
     pass
 
+
 class NoModule(Exception):
 
     pass
 
+
 class NoType(Exception):
 
     pass
+
 
 def cdir(path):
     if os.path.exists(path):
@@ -65,11 +77,14 @@ def cdir(path):
         path = os.path.dirname(path)
     pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
+
 def gettype(o):
     return str(type(o)).split()[-1][1:-2]
 
+
 def kernel():
     return getattr(sys.modules["__main__"], "k", None)
+
 
 class O:
 
@@ -77,7 +92,11 @@ class O:
 
     def __init__(self):
         self.__otype__ = gettype(self)
-        self.__stp__ = os.path.join(gettype(self), str(uuid.uuid4()), os.sep.join(str(datetime.datetime.now()).split()))
+        self.__stp__ = os.path.join(
+            gettype(self),
+            str(uuid.uuid4()),
+            os.sep.join(str(datetime.datetime.now()).split()),
+        )
 
     @staticmethod
     def __default__(oo):
@@ -93,11 +112,12 @@ class O:
 
     @staticmethod
     def __dorepr__(o):
-        return '<%s.%s object at %s>' % (
+        return "<%s.%s object at %s>" % (
             o.__class__.__module__,
             o.__class__.__name__,
-            hex(id(o))
+            hex(id(o)),
         )
+
     def __delitem__(self, k):
         if k in self:
             del self.__dict__[k]
@@ -119,12 +139,12 @@ class O:
 
     def __repr__(self):
         return js.dumps(self, default=self.__default__)
-     
+
     def __str__(self):
         return str(self.__dict__)
 
-class Obj(O):
 
+class Obj(O):
     def __init__(self, *args, **kwargs):
         super().__init__()
         if args:
@@ -163,7 +183,7 @@ class Obj(O):
         db = Db()
         t = str(gettype(self))
         path, l = db.lastfn(t)
-        if  l:
+        if l:
             self.update(l)
         if path:
             spl = path.split(os.sep)
@@ -212,8 +232,8 @@ class Obj(O):
     def values(self):
         return self.__dict__.values()
 
-class Object(Obj):
 
+class Object(Obj):
     def json(self):
         return repr(self)
 
@@ -234,13 +254,16 @@ class Object(Obj):
     def save(self, tab=False):
         assert wd
         prv = os.sep.join(self.__stp__.split(os.sep)[:2])
-        self.__stp__ = os.path.join(prv, os.sep.join(str(datetime.datetime.now()).split()))
+        self.__stp__ = os.path.join(
+            prv, os.sep.join(str(datetime.datetime.now()).split())
+        )
         opath = os.path.join(wd, "store", self.__stp__)
         cdir(opath)
         with open(opath, "w") as ofile:
             js.dump(self, ofile, default=self.__default__, indent=4, sort_keys=True)
         os.chmod(opath, 0o444)
         return self.__stp__
+
 
 class Default(Object):
 
@@ -253,12 +276,13 @@ class Default(Object):
             return super().__getitem__(k)
         return self.default
 
+
 class Cfg(Default):
 
     pass
 
-class List(Object):
 
+class List(Object):
     def append(self, key, value):
         if key not in self:
             self[key] = []
@@ -273,14 +297,14 @@ class List(Object):
         for k, v in d.items():
             self.append(k, v)
 
-class Timer(Object):
 
+class Timer(Object):
     def __init__(self, sleep, func, *args, name=None):
         super().__init__()
         self.args = args
         self.func = func
         self.sleep = sleep
-        self.name = name or  ""
+        self.name = name or ""
         self.state = Object()
         self.timer = None
 
@@ -307,8 +331,8 @@ class Timer(Object):
         if self.timer:
             self.timer.cancel()
 
-class Repeater(Timer):
 
+class Repeater(Timer):
     def run(self):
         thr = launch(self.start)
         super().run()
@@ -316,7 +340,6 @@ class Repeater(Timer):
 
 
 class Db(Object):
-
     def all(self, otype, selector=None, index=None, timed=None):
         nr = -1
         if selector is None:
@@ -375,11 +398,26 @@ class Db(Object):
         if not got:
             return (None, None)
 
+    def findname(self, name, selector=None, index=None, timed=None):
+        k = kernel()
+        got = False
+        for n in k.names.get(name, [name,]):
+            for fn, o in self.find(n, selector, index, timed):
+                got = True
+                yield fn, o
+        if not got:
+            return (None, None)
+
     def lastmatch(self, otype, selector=None, index=None, timed=None):
-        res = sorted(self.find(otype, selector, index, timed), key=lambda x: fntime(x[0]))
+        res = sorted(
+            self.find(otype, selector, index, timed), key=lambda x: fntime(x[0])
+        )
         if res:
             return res[-1]
         return (None, None)
+
+    def lastobject(self, o):
+        return self.lasttype(o.__otype__)
 
     def lasttype(self, otype):
         fnn = fns(otype)
@@ -393,8 +431,8 @@ class Db(Object):
             return (fnn, hook(fnn))
         return (None, None)
 
-class Thr(threading.Thread):
 
+class Thr(threading.Thread):
     def __init__(self, func, *args, thrname="", daemon=True):
         super().__init__(None, self.run, thrname, (), {}, daemon=daemon)
         self.name = thrname or getname(func)
@@ -425,14 +463,14 @@ class Thr(threading.Thread):
         self.setName(self.name)
         self.result = func(*args)
 
-class Token(Object):
 
+class Token(Object):
     def __init__(self, txt):
         super().__init__()
         self.txt = txt
 
-class Option(Default):
 
+class Option(Default):
     def __init__(self, txt):
         super().__init__()
         if txt.startswith("--"):
@@ -440,8 +478,8 @@ class Option(Default):
         if txt.startswith("-"):
             self.opt = txt[1:]
 
-class Getter(Object):
 
+class Getter(Object):
     def __init__(self, txt):
         super().__init__()
         if "==" in txt:
@@ -451,8 +489,8 @@ class Getter(Object):
         if pre:
             self[pre] = post
 
-class Setter(Object):
 
+class Setter(Object):
     def __init__(self, txt):
         super().__init__()
         if "=" in txt:
@@ -462,8 +500,8 @@ class Setter(Object):
         if pre:
             self[pre] = post
 
-class Skip(Object):
 
+class Skip(Object):
     def __init__(self, txt):
         super().__init__()
         pre = ""
@@ -477,12 +515,13 @@ class Skip(Object):
         if pre:
             self[pre] = True
 
-class Url(Object):
 
+class Url(Object):
     def __init__(self, txt):
         super().__init__()
         if txt.startswith("http"):
             self["url"] = txt
+
 
 class Bus(Object):
 
@@ -539,8 +578,8 @@ class Bus(Object):
             if Object.__dorepr__(o) == orig:
                 o.say(channel, txt)
 
-class Dispatcher(Object):
 
+class Dispatcher(Object):
     def __init__(self):
         super().__init__()
         self.cbs = Object()
@@ -554,19 +593,19 @@ class Dispatcher(Object):
     def register(self, name, callback):
         self.cbs[name] = callback
 
-class Output(Object):
 
+class Output(Object):
+    cache = List()
     def __init__(self):
         Object.__init__(self)
-        self.cache = List()
         self.oqueue = queue.Queue()
         self.dostop = threading.Event()
-        
+
     @staticmethod
     def append(channel, txtlist):
         if channel not in Output.cache:
-            self.cache[channel] = []
-        self.cache[channel].extend(txtlist)
+            Output.cache[channel] = []
+        Output.cache[channel].extend(txtlist)
 
     def dosay(self, channel, txt):
         pass
@@ -583,8 +622,8 @@ class Output(Object):
 
     @staticmethod
     def size(name):
-        if name in self.cache:
-            return len(self.cache[name])
+        if name in Output.cache:
+            return len(Output.cache[name])
         return 0
 
     def start(self):
@@ -596,8 +635,8 @@ class Output(Object):
         self.dostop.set()
         self.oqueue.put_nowait((None, None))
 
-class Event(Default):
 
+class Event(Default):
     def __init__(self):
         super().__init__()
         self.channel = None
@@ -628,7 +667,7 @@ class Event(Default):
 
     def show(self):
         if self.exc:
-            self.say(self.exc)
+            self.say(str(self.exc))
             return
         bot = self.bot()
         if not bot:
@@ -645,25 +684,31 @@ class Event(Default):
         for thr in self.thrs:
             thr.join(timeout)
 
-class Command(Event):
+class Error(Event):
 
+    pass
+
+
+class Command(Event):
     def __init__(self):
         super().__init__()
         self.type = "cmd"
 
-class Loop(Object):
 
+class Loop(Object):
     def __init__(self):
         super().__init__()
+        self.errorhandler = None
         self.queue = queue.Queue()
         self.speed = "normal"
         self.stopped = threading.Event()
 
     def do(self, e):
         raise NotImplemented("do")
-        
+
     def error(self, e):
-        raise NotImplemented("error")
+        if self.errorhandler:
+            self.errorhandler(e)
 
     def loop(self):
         dorestart = False
@@ -678,7 +723,6 @@ class Loop(Object):
             except Stop:
                 break
             except Exception as ex:
-                e = Event()
                 e.type = "error"
                 e.exc = ex
                 self.error(e)
@@ -704,8 +748,8 @@ class Loop(Object):
         self.stopped.set()
         self.queue.put(None)
 
-class Handler(Dispatcher, Loop):
 
+class Handler(Dispatcher, Loop):
     def cmd(self, txt):
         Bus.add(self)
         e = self.event(txt)
@@ -726,11 +770,23 @@ class Handler(Dispatcher, Loop):
 
     def loop(self):
         while not self.stopped.isSet():
-            txt = self.poll()
+            try:
+                txt = self.poll()
+            except (ConnectionRefusedError, ConnectionResetError) as ex:
+                e = Error()
+                e.exc = ex
+                self.error(e)
+                break
             if txt is None:
+                e = Error()
+                e.exc = Break
+                self.error(e)
                 break
             e = self.event(txt)
             if not e:
+                e.type = "error"
+                e.exc = Stop
+                self.error(e)
                 break
             self.handle(e)
 
@@ -747,22 +803,32 @@ class Handler(Dispatcher, Loop):
         super().start()
         Bus.add(self)
 
-class Kernel(Dispatcher, Loop):
 
+class CLI(Handler):
+
+    def handle(self, e):
+        k.put(e)
+        e.wait()
+
+
+class Kernel(Dispatcher, Loop):
     def __init__(self):
         Dispatcher.__init__(self)
         Loop.__init__(self)
         self.cfg = Cfg()
         self.cmds = Object()
+        self.classes = Object()
+        self.names = List()
         self.register("cmd", self.handle)
 
     def add(self, func):
         n = func.__name__
         self.cmds[n] = func
 
-    def boot(self, name):
-        self.parse_cli(name)
+    def boot(self, name, disk=False):
+        self.parse_cli(name, disk)
         cdir(self.cfg.wd + os.sep)
+        cdir(os.path.join(self.cfg.wd, "store", ""))
         self.scan(self.cfg.p)
 
     def cmd(self, clt, txt):
@@ -774,9 +840,6 @@ class Kernel(Dispatcher, Loop):
 
     def do(self, e):
         self.dispatch(e)
-
-    def error(self, e):
-        pass
 
     def handle(self, hdl, obj):
         obj.parse()
@@ -797,6 +860,9 @@ class Kernel(Dispatcher, Loop):
         for key, o in inspect.getmembers(mod, inspect.isfunction):
             if o.__code__.co_argcount == 1 and "event" in o.__code__.co_varnames:
                 self.cmds[o.__name__] = o
+        for key, o in inspect.getmembers(mod, inspect.isclass):
+            self.classes[o.__name__] = o
+            self.names.append(o.__name__.lower(), "%s.%s" % (o.__module__, o.__name__))
 
     def opts(self, ops):
         for opt in ops:
@@ -804,13 +870,23 @@ class Kernel(Dispatcher, Loop):
                 return True
         return False
 
-    def parse_cli(self, wd=""):
-        txt = " ".join(sys.argv[1:])
+    def parse_cli(self, name="", disk=False):
+        global wd
         o = Default()
-        parse_txt(o, txt)
+        if disk:
+            db = Db()
+            oo = db.lastobject(self.cfg)
+            if oo:
+                o.update(oo)
+        txt = " ".join(sys.argv[1:])
+        if txt:
+            parse_txt(o, txt)
         self.cfg.update(o)
-        self.cfg.update(self.cfg.sets)
-        wd = wd or self.cfg.wd or wd or None
+        if o.sets:
+            self.cfg.update(o.sets)
+        self.cfg.wd = (
+            wd or self.cfg.wd or (name and os.path.expanduser("~/.%s" % name)) or None
+        )
 
     @staticmethod
     def privileges(name=None):
@@ -818,28 +894,28 @@ class Kernel(Dispatcher, Loop):
             return
         try:
             pwn = pwd.getpwnam(name)
-        except KeyError:
+        except (TypeError, KeyError):
             name = getpass.getuser()
             try:
                 pwn = pwd.getpwnam(name)
-            except KeyError:
+            except (TypeError, KeyError):
                 return
         if name is None:
             try:
                 name = getpass.getuser()
-            except KeyError:
+            except (TypeError, KeyError):
                 pass
         try:
             pwn = pwd.getpwnam(name)
-        except KeyError:
+        except (TypeError, KeyError):
             return False
         try:
             os.chown(wd, pwn.pw_uid, pwn.pw_gid)
         except PermissionError:
             pass
         os.setgroups([])
-        os.setgid(pwnam.pw_gid)
-        os.setuid(pwnam.pw_uid)
+        os.setgid(pwn.pw_gid)
+        os.setuid(pwn.pw_uid)
         old_umask = os.umask(0o22)
         return True
 
@@ -853,77 +929,39 @@ class Kernel(Dispatcher, Loop):
         res = {}
         for pn in spl(pkgs):
             p = sys.modules.get(pn, None)
-            if not p:
-                try:
-                    p = __import__(pn)
-                except ModuleNotFoundError:
-                    continue
-            for mn in pkgutil.walk_packages(p.__path__, pn+"."):
+            for mn in pkgutil.walk_packages(p.__path__, pn + "."):
                 zip = mn[0].find_module(mn[1])
                 mod = zip.load_module(mn[1])
                 self.introspect(mod)
-                
-    def start(self, wd=""):
-        self.boot(wd)
-        super().start()
 
     @staticmethod
     def wait():
         while 1:
             time.sleep(5.0)
 
-k = Kernel()
-
-class CLI(Handler):
-
-    def error(self, e):
-        print(e.exc)
-        raise Restart
-
-    def handle(self, e):
-        k.put(e)
-        e.wait()
-
-    def raw(self, txt):
-        print(txt)
-
-class Console(CLI):
-
-    def error(self, e):
-        print(e.exc)
-        raise Restart
-
-    def handle(self, e):
-        k.put(e)
-        e.wait()
-
-    def poll(self):
-        return input("> ")
-
-    def raw(self, txt):
-        print(txt)
 
 def day():
     return str(datetime.datetime.today()).split()[0]
 
+
 def elapsed(seconds, short=True):
     txt = ""
     nsec = float(seconds)
-    year = 365*24*60*60
-    week = 7*24*60*60
-    nday = 24*60*60
-    hour = 60*60
+    year = 365 * 24 * 60 * 60
+    week = 7 * 24 * 60 * 60
+    nday = 24 * 60 * 60
+    hour = 60 * 60
     minute = 60
-    years = int(nsec/year)
-    nsec -= years*year
-    weeks = int(nsec/week)
-    nsec -= weeks*week
-    nrdays = int(nsec/nday)
-    nsec -= nrdays*nday
-    hours = int(nsec/hour)
-    nsec -= hours*hour
-    minutes = int(nsec/minute)
-    sec = nsec - minutes*minute
+    years = int(nsec / year)
+    nsec -= years * year
+    weeks = int(nsec / week)
+    nsec -= weeks * week
+    nrdays = int(nsec / nday)
+    nsec -= nrdays * nday
+    hours = int(nsec / hour)
+    nsec -= hours * hour
+    minutes = int(nsec / minute)
+    sec = nsec - minutes * minute
     if years:
         txt += "%sy" % years
     if weeks:
@@ -946,6 +984,7 @@ def elapsed(seconds, short=True):
         txt += "%ss" % int(sec)
     txt = txt.strip()
     return txt
+
 
 def fmt(o, keys=None, empty=True, skip=None):
     if keys is None:
@@ -971,6 +1010,7 @@ def fmt(o, keys=None, empty=True, skip=None):
     txt += " ".join([x.strip() for x in result])
     return txt.strip()
 
+
 def fns(name, timed=None):
     if not name:
         return []
@@ -985,7 +1025,12 @@ def fns(name, timed=None):
                 fls = sorted(os.listdir(dd))
                 if fls:
                     p = os.path.join(dd, fls[-1])
-                    if timed and "from" in timed and timed["from"] and fntime(p) < timed["from"]:
+                    if (
+                        timed
+                        and "from" in timed
+                        and timed["from"]
+                        and fntime(p) < timed["from"]
+                    ):
                         continue
                     if timed and timed.to and fntime(p) > timed.to:
                         continue
@@ -1007,6 +1052,7 @@ def fntime(daystr):
         t = 0
     return t
 
+
 def getname(o):
     t = type(o)
     if t == types.ModuleType:
@@ -1020,6 +1066,7 @@ def getname(o):
     if "__name__" in dir(o):
         return o.__name__
 
+
 def hook(hfn):
     if hfn.count(os.sep) > 3:
         oname = hfn.split(os.sep)[-4:]
@@ -1030,7 +1077,7 @@ def hook(hfn):
     mn, cn = cname.rsplit(".", 1)
     mod = sys.modules.get(mn, None)
     if not mod:
-        raise NoModule(mn)        
+        raise NoModule(mn)
     t = getattr(mod, cn, None)
     if fn:
         o = t()
@@ -1038,20 +1085,24 @@ def hook(hfn):
         return o
     raise NoType(cname)
 
+
 def launch(func, *args, **kwargs):
     name = kwargs.get("name", getname(func))
     t = Thr(func, *args, thrname=name, daemon=True)
     t.start()
     return t
 
+
 def spl(txt):
     return [x for x in txt.split(",") if x]
+
 
 def listfiles(wd):
     path = os.path.join(wd, "store")
     if not os.path.exists(path):
         return []
     return sorted(os.listdir(path))
+
 
 def parse_txt(o, ptxt=None):
     if ptxt is None:
@@ -1108,6 +1159,7 @@ def parse_txt(o, ptxt=None):
     o.rest = " ".join(args[1:])
     return o
 
+
 def parse_ymd(daystr):
     valstr = ""
     val = 0
@@ -1118,11 +1170,11 @@ def parse_ymd(daystr):
         else:
             vv = 0
         if c == "y":
-            val = vv * 3600*24*365
+            val = vv * 3600 * 24 * 365
         if c == "w":
-            val = vv * 3600*24*7
+            val = vv * 3600 * 24 * 7
         elif c == "d":
-            val = vv * 3600*24
+            val = vv * 3600 * 24
         elif c == "h":
             val = vv * 3600
         elif c == "m":

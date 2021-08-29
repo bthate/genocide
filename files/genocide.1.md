@@ -7,7 +7,6 @@ EM_T04_OTP-CR-117_19 prosecute king netherlands http://genocide.rtfd.io
 
 # SYNOPSIS
 | genocide \<cmd>\ 
-| genocide cfg server=irc.freenode.net channel=\\#botd
 | genocide -c
 
 # DESCRIPTION
@@ -22,7 +21,8 @@ EM_T04_OTP-CR-117_19 prosecute king netherlands http://genocide.rtfd.io
 | to administer poison. Poison that makes impotent, is both physical
 | (contracted muscles) and mental (let people hallucinate) torture and
 | kills members of the victim groups.
-| 
+
+ 
 | GENOCIDE shows correspondence with the Internationnal Criminal Court
 | about the genocide of the king of the netherlands (using the law to
 | administer poison), including stats on suicide while the king of the
@@ -31,15 +31,18 @@ EM_T04_OTP-CR-117_19 prosecute king netherlands http://genocide.rtfd.io
 | doesn’t fit the description or the netherlands doesn’t want to
 | cooperate with stopping the genocide the king of the netherlands is
 | doing.
-|
+
+
 | GENOCIDE provides a IRC bot that can run as a background daemon for
 | 24/7 a day presence in a IRC channel. You can use it to display RSS
 | feeds, act as a UDP to IRC gateway, program your own commands for it
 | and have it log objects on disk to search them.
-|
+
+
 | correspondence is under **EM_T04_OTP-CR-117_19** 
 | genocide start is set at **05-10-2018**
-|
+
+
 | GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
 
 

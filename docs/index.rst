@@ -46,8 +46,8 @@ DESCRIPTION
  and have it log objects on disk to search them.
 
 
- correspondence is under **EM_T04_OTP-CR-117_19** 
- genocide start is set at **05-10-2018**
+ | correspondence is under **EM_T04_OTP-CR-117_19** 
+ | genocide start is set at **05-10-2018**
 
 
  GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.

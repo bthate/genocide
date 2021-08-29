@@ -2,62 +2,56 @@
 # This file is placed in the Public Domain.
 
 
-"genocide"
-
-__version__ = 38
+import os, sys ; sys.path.insert(0, os.getcwd())
 
 
-import os, sys
-
-sys.path.insert(0, os.getcwd())
-
-import atexit
-import bot.all
-import genocide
-import genocide.all
-import ob
 import os
 import sys
 import termios
-import trm
-
-ob.wd = os.path.expanduser("~/.genocide")
-
-from ob import Restart, Handler, Kernel, launch
-from trm import Runtime, CLI, Console
-
-from bot.irc import Cfg
-
-Cfg.cc = '!'
-Cfg.channel = "#genocide"
-Cfg.nick = "genocide"
-Cfg.port = 6667
-Cfg.server = "localhost"
-Cfg.realname = "http://genocide.rtfd.io otp.informationdesk@icc-cpi.int OTP-CR-117/19"
-Cfg.username = "genocide"
-Cfg.users = False
-
-def ver(event):
-    event.reply("GENOCIDE %s" % __version__)
+import time
 
 
-k = Runtime()
-k.cfg.p = "bot,genocide"
-name = "genocide"
+wd = os.path.expanduser("~/.genocide")
+
+
+from genocide.obj import keys
+from genocide.run import Client, Runtime
+from genocide.tbl import Table
+from genocide.trc import get_exception
+
+
+class Kernel(Runtime):
+
+    def error(self, txt):
+        print(txt)
+        sys.stdout.flush()
+        
+    def log(self, txt):
+        print(txt)
+        sys.stdout.flush()
+
+
+class CLI(Client):
+
+    def raw(self, txt):
+        print(txt)
+        sys.stdout.flush()
+
+clt = CLI()
+k = Kernel()
+tbl = Table()
+
+
+import genocide.all
+
 
 def main():
-    k.add(ver)
-    k.boot(name)
+    k.boot()
+    t.scan("genocide")
     if k.cfg.txt:
-        cli = CLI()
-        return k.cmd(cli, k.cfg.txt)
-    if k.opts("c"):
-        csl = Console()
-        csl.start()
-        k.start()
-        k.cfg.m += ",bot.irc,genocide.sui"
-        k.init(k.cfg.m)
-        k.wait()
+        return k.cmd(k.cfg.otxt)
+    k.start()
+    k.init(k.cfg.m)
+    k.wait()
 
-
-trm.wrap(main)
+main()

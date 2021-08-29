@@ -3,7 +3,7 @@
 % July 2021
 
 # NAME
-GENOCIDE - http://genocide.rtfd.io otp.informationdesk@icc-cpi.int OTP-CR-117/19
+GENOCIDE - prosecute the king and members of the chamber for three genocide crimes mentioned !!
 
 # SYNOPSIS
 | genocide \<cmd>\ 
@@ -36,6 +36,9 @@ GENOCIDE - http://genocide.rtfd.io otp.informationdesk@icc-cpi.int OTP-CR-117/19
 |        24/7 a day presence in a IRC channel. You can use it to display RSS
 |        feeds, act as a UDP to IRC gateway, program your own commands for it
 |        and have it log objects on disk to search them.
+|
+|        correspondence is under **EM_T04_OTP-CR-117_19** 
+|        genocide start is set at **05-10-2018**
 
 |        GENOCIDE is placed in the Public Domain, no COPYRIGHT, no LICENSE.
 
@@ -63,4 +66,4 @@ GENOCIDE - http://genocide.rtfd.io otp.informationdesk@icc-cpi.int OTP-CR-117/19
 | ~/.genocide
 
 # COPYRIGHT
-GENOCIDE is placed in the Public Domain and has no Copyright and no LICENSE.
+| GENOCIDE is placed in the Public Domai, no Copyright, no LICENSE.

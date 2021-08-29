@@ -2,7 +2,10 @@
 #
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-"""| Information and Evidence Unit
+"""
+| EM_T04_OTP-CR-117_19 - prosecute the king and members of the chamber for three genocide crimes mentioned !!
+|
+| Information and Evidence Unit
 | Office of the Prosecutor
 | Post Office Box 19519
 | 2500 CM The Hague
@@ -43,9 +46,6 @@ With the laws that give instructions to “treat” certain groups in the popula
 Since the members of the chamber and the king were aware that these medicine are poison at the time they voted for this law and the day the Wfz law took effect (1-1-2019) i ask the prosecutor to prosecute the king and members of the chamber for three genocide crimes mentioned in article 6 on the note that this does not entail etnicity or nationality but on general groups in the population.
 
 I hope you can stop the above mentioned crimes the king of the netherlands and his government are doing."""
-
-def register(k):
-    k.addcmd(req)
 
 def req(event):
     event.reply(__doc__)

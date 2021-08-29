@@ -5,16 +5,19 @@
 import random
 import time
 
-from ob import Bus, Repeater, Event, Object, elapsed
+from .bus import Bus
+from .evt import Event
+from .obj import Object, get, items, keys
+from .tms import Repeater, elapsed
 
 source = "https://github.com/bthate/genocide"
 startdate = "2018-10-05 00:00:00"
 starttime = time.mktime(time.strptime(startdate, "%Y-%m-%d %H:%M:%S"))
 
 def init(k):
-    for _name, obj in wanted.items():
-        for key in obj.keys():
-            val = obj.get(key, None)
+    for _name, obj in items(wanted):
+        for key in keys(obj):
+            val = get(obj, key, None)
             if val:
                 e = Event()
                 e.txt = ""
@@ -30,14 +33,14 @@ class ENOSTATS(Exception):
 def seconds(nrs, period="jaar"):
     if not nrs:
         return nrs
-    return nrsec.get(period) / float(nrs)
+    return get(nrsec, period) / float(nrs)
 
 def nr(name):
-    for key in wanted.keys():
-        obj = wanted.get(key, None)
-        for n in obj.keys():
+    for key in keys(wanted):
+        obj = get(wanted, key, None)
+        for n in keys(obj):
             if n == name:
-                return obj.get(n)
+                return get(obj, n)
     raise ENOSTATS(name)
 
 def stat(e):
@@ -55,10 +58,10 @@ def stat(e):
         nrtimes = int(delta/needed)
         txt = "%s #%s" % (name.upper(), nrtimes)
         if name in omschrijving:
-            txt += " (%s)" % omschrijving.get(name)
+            txt += " (%s)" % get(omschrijving, name)
         txt += " elke %s" % elapsed(seconds(nr(name)))
         if name in tags:
-            txt += " %s" % tags.get(name)
+            txt += " %s" % get(tags,name)
         else:
             txt += " %s" % random.choice(list(tags.values()))
         Bus.announce(txt)
@@ -66,13 +69,13 @@ def stat(e):
 def sts(event):
     txt = "Sinds %s\n" % time.ctime(starttime)
     delta = time.time() - starttime
-    for _name, obj in wanted.items():
-        for key, _val in obj.items():
+    for _name, obj in items(wanted):
+        for key, _val in items(obj):
             needed = seconds(nr(key))
             if not needed:
                 continue
             nrtimes = int(delta/needed)
-            txt += "\n%s #%s %s %s" % (key.upper(), nrtimes, tags.get(key, ""), zorg.get(random.choice(list(zorg.keys())), ""))
+            txt += "\n%s #%s %s %s" % (key.upper(), nrtimes, get(tags, key, ""), get(zorg, random.choice(list(keys(zorg))), ""))
     event.reply(txt.strip())
 
 cijfers = Object()

@@ -45,13 +45,18 @@ tbl = Table()
 import genocide.all
 
 
+def cmd(event):
+    event.reply(",".join(sorted(keys(tbl.modnames))))
+
+
 def main():
     k.boot()
-    t.scan("genocide")
+    tbl.scan("genocide")
+    tbl.add(cmd)
     if k.cfg.txt:
         return k.cmd(k.cfg.otxt)
-    k.start()
-    k.init(k.cfg.m)
-    k.wait()
+    if k.cfg.console:
+        k.start()
+        k.wait()
 
 main()

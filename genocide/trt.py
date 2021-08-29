@@ -26,8 +26,5 @@
 
 see https://www.law.cornell.edu/cfr/text/22/95.1"""
 
-def register(k):
-    k.addcmd(trt)
-
 def trt(event):
     event.reply(__doc__)

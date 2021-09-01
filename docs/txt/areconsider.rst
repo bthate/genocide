@@ -1,7 +1,7 @@
 .. _reconsider:
 
-to reconsider
-#############
+reconsider
+##########
 
 .. image:: clozastrip.jpg
     :width: 100%

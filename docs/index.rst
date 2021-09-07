@@ -77,4 +77,3 @@ COPYRIGHT
     txt/areconsider.rst
     txt/chrono.rst
     txt/kamer.rst
-    txt/fact.rst

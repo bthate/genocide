@@ -1,4 +1,6 @@
 # This file is placed in the Public Domain.
+#
+# Request to reconsider to prosecute king netherlands for genocide - http://genocide.rtfd.io - EM_T04_OTP-CR-117_19
 
 import os
 
@@ -27,7 +29,7 @@ setup(
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate67@gmail.com', 
-    description="EM_T04_OTP-CR-117_19 - prosecute king netherlands for genocide - http://genocide.rtfd.io",
+    description="request to reconsider to prosecute king netherlands for genocide - http://genocide.rtfd.io",
     long_description=read(),
     license='Public Domain',
     packages=["genocide"],

@@ -1,13 +1,13 @@
-reconsider
+resonsider
 ##########
 
 .. image:: clozastrip.jpg
     :width: 100%
 
-prosecute king netherlands for genocide (EM_T04_OTP-CR-117_19)
+| correspondence is under **EM_T04_OTP-CR-117_19** 
+| genocide start is set at **05-10-2018**
 
- | correspondence is under **EM_T04_OTP-CR-117_19** 
- | genocide start is set at **05-10-2018**
+request to reconsider to prosecute king netherlands for genocide:
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -78,3 +78,4 @@ does not entail etnicity or nationality but on general groups in the population.
     txt/areconsider.rst
     txt/chrono.rst
     txt/kamer.rst
+    txt/man.rst

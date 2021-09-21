@@ -71,9 +71,3 @@ COPYRIGHT
 
  | **GENOCIDE** is placed in the Public Domain, no Copyright, no LICENSE.
 
-.. toctree::
-    :hidden:
-
-    txt/areconsider.rst
-    txt/chrono.rst
-    txt/kamer.rst

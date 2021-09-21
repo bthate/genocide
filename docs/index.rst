@@ -1,4 +1,4 @@
-resonsider
+reconsider
 ##########
 
 .. image:: clozastrip.jpg
@@ -75,7 +75,6 @@ does not entail etnicity or nationality but on general groups in the population.
 .. toctree::
     :hidden:
 
-    txt/areconsider.rst
     txt/chrono.rst
     txt/kamer.rst
     txt/man.rst

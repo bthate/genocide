@@ -71,7 +71,6 @@ does not entail etnicity or nationality but on general groups in the population.
 
 .. toctree::
     :hidden:
+    :glob:
 
-    txt/chrono.rst
-    txt/kamer.rst
-    txt/man.rst
+    txt/*

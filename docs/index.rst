@@ -39,14 +39,8 @@ description
 examples
 ========
 
- | $ genocide
- | $ 
-
  | $ genocide cmd
  | cmd,req,slg,sts,trt,wsd
-
- | $ genocide -c
- | >
 
 see also
 ========

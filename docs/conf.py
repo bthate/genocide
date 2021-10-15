@@ -11,7 +11,7 @@ sys.path.insert(0, curdir + os.sep + ".." + os.sep + "gcd")
 
 # -- Options for GENERIC output ---------------------------------------------
 
-__version__ = 36
+__version__ = 41
 
 project = "genocide"
 master_doc = 'index'
@@ -48,13 +48,13 @@ extensions=[
 html_theme = "classic"
 html_theme_options = {
     "rightsidebar": False,
-    "stickysidebar": True,
+    "stickysidebar": False,
     "collapsiblesidebar": True,
     "externalrefs": True,
     "linkcolor": "#11635f",
     "visitedlinkcolor": "#11635f",
 }
-html_title = "GENOCIDE %s" % __version__
+html_title = "GENOCIDE %s - EM_T04_OTP-CR-117_19" % __version__
 html_short_title = ""
 html_favicon = "genocide3smile.png"
 html_extra_path = []
@@ -72,10 +72,8 @@ html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
 
 rst_prolog = """.. image:: genocide3line.png
-    :height: 2.6cm
+    :height: 2.3cm
     :width: 100%
-
-.. title:: EM_T04_OTP-CR-117_19
 """
 
 intersphinx_mapping = {

@@ -1,0 +1,51 @@
+# This file is placed in the Public Domain.
+
+
+import botl.bus as bus
+import botl.clt as clt
+import botl.dbs as dbs
+import botl.dpt as dpt
+import botl.evt as evt
+import botl.fnd as fnd
+import botl.irc as irc
+import botl.log as log
+import botl.lop as lop
+import botl.obj as obj
+import botl.ofn as ofn
+import botl.opt as opt
+import botl.prs as prs
+import botl.rpt as rpt
+import botl.run as run
+import botl.rss as rss
+import botl.sys as sys
+import botl.tbl as tbl
+import botl.thr as thr
+import botl.tmr as tmr
+import botl.tms as tms
+import botl.utl as utl
+
+
+from botl.tbl import Table
+
+
+Table.addmod(bus)
+Table.addmod(clt)
+Table.addmod(dbs)
+Table.addmod(dpt)
+Table.addmod(evt)
+Table.addmod(fnd)
+Table.addmod(irc)
+Table.addmod(log)
+Table.addmod(lop)
+Table.addmod(obj)
+Table.addmod(ofn)
+Table.addmod(opt)
+Table.addmod(prs)
+Table.addmod(rpt)
+Table.addmod(rss)
+Table.addmod(sys)
+Table.addmod(tbl)
+Table.addmod(thr)
+Table.addmod(tmr)
+Table.addmod(tms)
+Table.addmod(utl)

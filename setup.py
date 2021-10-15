@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 #
-# Request to reconsider to prosecute king netherlands for genocide - http://genocide.rtfd.io - EM_T04_OTP-CR-117_19
+# http://genocide.rtfd.io - EM_T04_OTP-CR-117_19
 
 import os
 
@@ -32,7 +32,7 @@ setup(
     description="request to reconsider to prosecute king netherlands for genocide - http://genocide.rtfd.io",
     long_description=read(),
     license='Public Domain',
-    packages=["genocide"],
+    packages=["gcd", "genocide"],
     zip_safe=True,
     include_package_data=True,
     data_files=[

@@ -3,6 +3,6 @@
 #
 # OTP-CR-117/19/001 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-bin/env
-env/bin/python3 env/bin/pip3 install sphinx 
+[ -d "env" ] && echo "environment is there" || (echo "creating environment" ; bin/upenv)
 env/bin/python3 env/bin/sphinx-build docs html
+

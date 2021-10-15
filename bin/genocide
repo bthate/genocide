@@ -3,20 +3,25 @@
 
 __version__ = 41
 
-import importlib
+import os, sys ; sys.path.insert(0, os.getcwd())
+
 import os
-import pkgutil
 import readline
 import sys
 import termios
+import threading
 import time
 
-from genocide.obj import RunCfg, Object, fmt, keys, save
-from genocide.run import Client, Runtime, Table, elapsed, find, fntime, get_exception
-from genocide.run import listfiles, spl
+from gcd.clt import Client
+from gcd.obj import Cfg, Object, keys
+from gcd.ofn import fmt
+from gcd.run import Runtime
+from gcd.tbl import Table
+from gcd.tms import elapsed
+from gcd.run import Cfg as RunCfg
+from gcd.utl import spl
 
-
-RunCfg.wd = os.path.expanduser("~/.genocide")
+Cfg.wd = os.path.expanduser("~/.genocide")
 
 
 class Console(Client):
@@ -35,37 +40,18 @@ class Console(Client):
 
 class Kernel(Runtime):
 
-    def error(self, txt):
+    @staticmethod
+    def error(txt):
         print(txt)
         sys.stdout.flush()
 
-    def log(self, txt):
+    @staticmethod
+    def log(txt):
         if "PONG" in txt or "PING" in txt:
             return
         if RunCfg.verbose:
             print(txt.rstrip())
             sys.stdout.flush()
-
-
-class Table(Table):
-
-    def addmod(self, mn):
-        spc = importlib.util.find_spec(mn)
-        if not spc:
-            return
-        mod = importlib.import_module(mn)
-        self.introspect(mod)
-
-    def scan(self, pn):
-        spc = importlib.util.find_spec(pn)
-        if not spc:
-            return
-        pkg = importlib.import_module(pn)
-        for mn in pkgutil.walk_packages(pkg.__path__, pn + "."):
-            mod = importlib.import_module(mn.name)
-            if mod:
-                self.introspect(mod)
-
 
 def daemon():
     pid = os.fork()
@@ -82,6 +68,12 @@ def daemon():
     os.dup2(se.fileno(), sys.stderr.fileno())
 
 
+clt = Console()
+k = Kernel()
+
+
+import genocide.all
+
 def wrap(func):
     fd = sys.stdin.fileno()
     old = termios.tcgetattr(fd)
@@ -93,37 +85,31 @@ def wrap(func):
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
 
-clt = Console()
-k = Kernel()
-tbl = Table()
-
-
 def cmd(event):
-    event.reply(",".join(tbl.modnames))
+    event.reply(",".join(sorted(list(Table.modnames))))
 
-
-def ver(event):
-    event.reply("GENOCIDE %s" % __version__)
-    
 
 def main():
-    k.boot()
-    tbl.add(cmd)
-    tbl.add(ver)
-    if RunCfg.verbose:
-        k.log("GENOCIDE %s" % __version__)
-        k.log(fmt(RunCfg, ["bork","console","daemon","debug","verbose","wd"]))
-    tbl.scan("genocide")
-    if RunCfg.verbose:
-        k.log(",".join(tbl.modnames))
-    if k.cfg.txt:
-        return k.cmd(k.cfg.otxt)
+    if k.root():
+        print("don't run this bot as root")
+        return
+    Runtime.cfg.name = "genocide"
+    Runtime.cfg.version = __version__
+    k.parse_cli()
+    Table.add(cmd)
+    if k.cfg.verbose:
+        k.log("GENOCIDE %s starting at %s" % (__version__, time.ctime(time.time())))
+        k.log(",".join(sorted(list(Table.modnames))))
+        k.log(fmt(k.cfg, ["console", "daemon", "debug", "systemd", "verbose"]))
+    if k.prs.txt:
+        return k.cmd(clt, k.prs.otxt)
     if RunCfg.daemon:
         daemon()
-    if RunCfg.console or k.cfg.mod:
+    if RunCfg.console or "mod" in k.cfg:
         k.start()
         for mn in spl(k.cfg.mod):
             k.init("genocide.%s" % mn)
+        k.log("booted")
         clt.start()
         k.wait()
 

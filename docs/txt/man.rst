@@ -1,13 +1,10 @@
-GENOCIDE
+genocide
 ########
-
-.. image:: clozastrip.jpg
-    :width: 100%
 
 NAME
 ====
 
- **GENOCIDE** - prosecute king netherlands for genocide (EM_T04_OTP-CR-117_19)  
+ **GENOCIDE** - EM_T04_OTP-CR-117_19
 
 SYNOPSIS
 ========

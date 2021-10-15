@@ -1,9 +1,6 @@
 reconsider
 ##########
 
-.. image:: clozastrip.jpg
-    :width: 100%
-
 | correspondence is under **EM_T04_OTP-CR-117_19** 
 | genocide start is set at **05-10-2018**
 

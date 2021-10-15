@@ -3,10 +3,6 @@
 chrono
 ######
 
-.. image:: clozastrip.jpg
-    :width: 100%
-
-
 to the king
 ===========
 

@@ -44,7 +44,16 @@ extensions=[
 
 # -- Options for HTML output -------------------------------------------------
 
-html_theme = "haiku"
+#html_theme = "haiku"
+html_theme = "classic"
+html_theme_options = {
+    "rightsidebar": False,
+    "stickysidebar": True,
+    "collapsiblesidebar": True,
+    "externalrefs": True,
+    "linkcolor": "#11635f",
+    "visitedlinkcolor": "#11635f",
+}
 html_title = "GENOCIDE %s" % __version__
 html_short_title = ""
 html_favicon = "genocide3smile.png"
@@ -66,8 +75,7 @@ rst_prolog = """.. image:: genocide3line.png
     :height: 2.6cm
     :width: 100%
 
-.. title:: reconsider to prosecute king netherlands for genocide - EM_T04_OTP-CR-117_19
-
+.. title:: EM_T04_OTP-CR-117_19
 """
 
 intersphinx_mapping = {

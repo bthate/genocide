@@ -61,8 +61,7 @@ html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
 
-rst_prolog = """.. image:: genocide3line.png
-    :height: 2.6cm
+rst_prolog = """.. image:: clozastrip.jpg
     :width: 100%
 
 .. title:: PROSECUTE KING NETHERLANDS FOR GENOCIDE

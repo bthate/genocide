@@ -1,12 +1,6 @@
 GENOCIDE
 ########
 
-GENOCIDE is a python3 program that holds evidence that the king of the netherlands is doing a genocide, a written response where the king of the netherlands confirmed taking note of “what i have written”, namely proof that medicine he uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison. This means that the king of the netherlands is not using laws to provide care for the elderly, handicapped, psychiatric patients and criminals but is using the laws to administer poison. Poison that makes impotent, is both physical (contracted muscles) and mental (let people hallucinate) torture and kills members of the victim groups.
-
-GENOCIDE shows correspondence with the Internationnal Criminal Court about the genocide of the king of the netherlands (using the law to administer poison), including stats on suicide while the king of the netherland’s genocide is still going on. Status is that there is not a basis to proceed, whether the king of the netherland’s genocide doesn’t fit the description or the netherlands doesn’t want to cooperate with stopping the genocide the king of the netherlands is doing.
-
-
-
 | Information and Evidence Unit
 | Office of the Prosecutor
 | Post Office Box 19519
@@ -70,7 +64,3 @@ poison at the time they voted for this law and the day the Wfz law took effect
 chamber for three genocide crimes mentioned in article 6 on the note that this
 does not entail etnicity or nationality but on general groups in the population.
 
-.. toctree::
-    :hidden:
-
-    man

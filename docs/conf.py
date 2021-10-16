@@ -44,18 +44,18 @@ extensions=[
 
 # -- Options for HTML output -------------------------------------------------
 
-#html_theme = "haiku"
-html_theme = "classic"
+html_theme = "haiku"
+#html_theme = "classic"
 html_theme_options = {
-    "rightsidebar": True,
-    "stickysidebar": True,
-    "collapsiblesidebar": False,
-    "externalrefs": False,
+#    "rightsidebar": True,
+#    "stickysidebar": True,
+#    "collapsiblesidebar": False,
+#    "externalrefs": False,
     "linkcolor": "#11635f",
     "visitedlinkcolor": "#11635f",
 }
-html_short_title = "GENOCIDE %s - EM_T04_OTP-CR-117_19" % __version__
-#html_short_title = ""
+#html_short_title = "GENOCIDE %s" % __version__
+html_short_title = ""
 html_favicon = "genocide3smile.png"
 html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
@@ -71,10 +71,12 @@ html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
 
-#rst_prolog = """.. image:: genocide3line.png
-#    :height: 2.3cm
-#    :width: 100%
-#"""
+rst_prolog = """.. image:: genocide3line.png
+    :height: 2.6cm
+    :width: 100%
+
+.. title:: Arrest king netherlands for genocide
+"""
 
 intersphinx_mapping = {
                        'python': ('https://docs.python.org/3', 'objects.inv'),

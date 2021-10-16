@@ -45,7 +45,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = "haiku"
-html_short_title = ""
+html_short_title = "prosecute king netherlands for genocide".upper()
 html_favicon = "genocide3smile.png"
 html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
@@ -65,7 +65,7 @@ rst_prolog = """.. image:: genocide3line.png
     :height: 2.6cm
     :width: 100%
 
-.. title:: prosecute king netherlands for genocide
+.. title:: EM_T04_OTP-CR-117_19
 """
 
 intersphinx_mapping = {

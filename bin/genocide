@@ -23,6 +23,13 @@ from gcd.utl import spl
 
 Cfg.wd = os.path.expanduser("~/.genocide")
 
+import gcd.irc
+
+gcd.irc.IRC.realname = "EM_T04_OTP-CR-117_19 - prosecute king netherlands for genocide - http://genocide.rtfd.io"
+gcd.irc.IRC.username = "genocide"
+gcd.irc.IRC.channel = "#genocide"
+gcd.irc.IRC.nick = "genocide"
+gcd.irc.IRC.server = "localhost"
 
 class Console(Client):
 
@@ -72,6 +79,7 @@ clt = Console()
 k = Kernel()
 
 
+import gcd.all
 import genocide.all
 
 def wrap(func):
@@ -93,22 +101,22 @@ def main():
     if k.root():
         print("don't run this bot as root")
         return
+    Table.add(cmd)
     Runtime.cfg.name = "genocide"
     Runtime.cfg.version = __version__
     k.parse_cli()
-    Table.add(cmd)
     if k.cfg.verbose:
         k.log("GENOCIDE %s starting at %s" % (__version__, time.ctime(time.time())))
         k.log(",".join(sorted(list(Table.modnames))))
-        k.log(fmt(k.cfg, ["console", "daemon", "debug", "systemd", "verbose"]))
+        k.log(fmt(k.cfg))
     if k.prs.txt:
         return k.cmd(clt, k.prs.otxt)
     if RunCfg.daemon:
         daemon()
-    if RunCfg.console or "mod" in k.cfg:
+    if RunCfg.console:
         k.start()
-        for mn in spl(k.cfg.mod):
-            k.init("genocide.%s" % mn)
+        for mn in spl(k.cfg.mods):
+            k.init(mn)
         k.log("booted")
         clt.start()
         k.wait()

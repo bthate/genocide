@@ -78,23 +78,18 @@ class NoUser(Exception):
 
 class Cfg(Object):
 
-    cc = "!"
-    channel = "#bot"
-    nick = "bot"
-    password = ""
-    port = 6667
-    server = "localhost"
-    servermodes = ""
-    realname = "python3 irc bot"
-    username = "bot"
-    users = False
-
     def __init__(self):
         super().__init__()
-        for n in dir(Cfg):
-            if not n.startswith("_"):
-                self[n] = getattr(Cfg, n, None)
-
+        self.cc = "!"
+        self.channel = "#bot"
+        self.nick = "bot"
+        self.password = ""
+        self.port = 6667
+        self.server = "localhost"
+        self.servermodes = ""
+        self.realname = "python3 irc bot"
+        self.username = "bot"
+        self.users = False
 
 class Event(Event):
     def __init__(self):

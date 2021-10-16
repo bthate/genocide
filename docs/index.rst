@@ -1,13 +1,13 @@
-GENOCIDE
-########
+
+.. raw:: html
+
+    <br><br>
 
 | Information and Evidence Unit
 | Office of the Prosecutor
 | Post Office Box 19519
 | 2500 CM The Hague
 | The Netherlands
-
-sent by email to otp.informationdesk@icc-cpi.int
 
 Hello Office of the Prosecutor,
 

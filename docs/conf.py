@@ -1,7 +1,7 @@
+# GENOCIDE - prosecute king netherlands for genocide
 # -*- coding: utf-8 -*-
-# GENOCIDE - using the law to administer poison the king commits genocide
 #
-# OTP-CR-117/19/001 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
+# EM_T04_OTP-CR-117_19 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
 
 import doctest, os, sys, unittest
 
@@ -45,16 +45,6 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = "haiku"
-#html_theme = "classic"
-html_theme_options = {
-#    "rightsidebar": True,
-#    "stickysidebar": True,
-#    "collapsiblesidebar": False,
-#    "externalrefs": False,
-    "linkcolor": "#11635f",
-    "visitedlinkcolor": "#11635f",
-}
-#html_short_title = "GENOCIDE %s" % __version__
 html_short_title = ""
 html_favicon = "genocide3smile.png"
 html_extra_path = []
@@ -75,7 +65,7 @@ rst_prolog = """.. image:: genocide3line.png
     :height: 2.6cm
     :width: 100%
 
-.. title:: Arrest king netherlands for genocide
+.. title:: prosecute king netherlands for genocide
 """
 
 intersphinx_mapping = {
@@ -86,9 +76,8 @@ intersphinx_cache_limit=1
 
 # -- Options for CODE output -------------------------------------------------
 
-autosummary_generate=True
+autosummary_generate=False
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
-#autodoc_member_order='alphabetical'
 autodoc_member_order='groupwise'
 autodoc_docstring_signature=True
 autoclass_content="class"

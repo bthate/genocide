@@ -13,7 +13,8 @@ import threading
 import time
 
 from gcd.clt import Client
-from gcd.obj import Cfg, Object, keys
+from gcd.irc import Cfg
+from gcd.obj import Object, keys, setwd
 from gcd.ofn import fmt
 from gcd.run import Runtime
 from gcd.tbl import Table
@@ -21,15 +22,15 @@ from gcd.tms import elapsed
 from gcd.run import Cfg as RunCfg
 from gcd.utl import spl
 
-Cfg.wd = os.path.expanduser("~/.genocide")
+setwd(os.path.expanduser("~/.genocide"))
 
 import gcd.irc
 
-gcd.irc.IRC.realname = "EM_T04_OTP-CR-117_19 - prosecute king netherlands for genocide - http://genocide.rtfd.io"
-gcd.irc.IRC.username = "genocide"
-gcd.irc.IRC.channel = "#genocide"
-gcd.irc.IRC.nick = "genocide"
-gcd.irc.IRC.server = "localhost"
+gcd.irc.Cfg.realname = "EM_T04_OTP-CR-117_19 - prosecute king netherlands for genocide - http://genocide.rtfd.io"
+gcd.irc.Cfg.username = "genocide"
+gcd.irc.Cfg.channel = "#genocide"
+gcd.irc.Cfg.nick = "genocide"
+gcd.irc.server = "localhost"
 
 class Console(Client):
 
@@ -78,8 +79,6 @@ def daemon():
 clt = Console()
 k = Kernel()
 
-
-import gcd.all
 import genocide.all
 
 def wrap(func):
@@ -102,22 +101,22 @@ def main():
         print("don't run this bot as root")
         return
     Table.add(cmd)
-    Runtime.cfg.name = "genocide"
-    Runtime.cfg.version = __version__
+    RunCfg.name = "genocide"
+    RunCfg.version = __version__
     k.parse_cli()
-    if k.cfg.verbose:
+    if RunCfg.verbose:
         k.log("GENOCIDE %s starting at %s" % (__version__, time.ctime(time.time())))
-        k.log(",".join(sorted(list(Table.modnames))))
-        k.log(fmt(k.cfg))
+        k.log(fmt(RunCfg))
     if k.prs.txt:
         return k.cmd(clt, k.prs.otxt)
     if RunCfg.daemon:
         daemon()
     if RunCfg.console:
+        import gcd.all
         k.start()
-        for mn in spl(k.cfg.mods):
+        for mn in spl(RunCfg.mods):
             k.init(mn)
-        k.log("booted")
+        k.log(",".join(sorted(list(Table.modnames))))
         clt.start()
         k.wait()
 

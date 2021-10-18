@@ -31,6 +31,13 @@ def cdir(path):
         path = os.path.dirname(path)
     pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
+def getwd():
+    return Cfg.wd
+
+
+def setwd(p):
+    Cfg.wd = p
+
 class NoPickle(Exception):
 
     pass

@@ -31,7 +31,7 @@ class Cfg(Object):
     daemon = False
     debug = False
     index = None
-    mod = ""
+    mods = ""
     name = ""
     systemd = False
     verbose = False
@@ -39,10 +39,10 @@ class Cfg(Object):
 
 class Runtime(Dispatcher, Loop):
 
-    cfg = Cfg()
     classes = Object()
     cmds = Object()
     opts = Object()
+    sets = Object()
     prs = Object()
 
     def __init__(self):
@@ -111,7 +111,8 @@ class Runtime(Dispatcher, Loop):
     def parse_cli(self):
         parse(self.prs, " ".join(sys.argv[1:]))
         update(self.opts, self.prs.opts)
-        update(self.cfg, self.prs.sets)
+        if "mods" in self.prs.sets:
+            Cfg.mods = self.prs.sets.mods
         Cfg.console = Runtime.opt("c")
         Cfg.daemon = Runtime.opt("d")
         Cfg.debug = Runtime.opt("z")

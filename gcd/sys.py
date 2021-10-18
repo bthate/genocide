@@ -8,7 +8,7 @@ import time
 from .bus import Bus
 from .obj import Object, get, update
 from .ofn import getname, fmt
-from .run import Runtime, starttime
+from .run import Cfg, Runtime, starttime
 from .tbl import Table
 from .tms import elapsed
 
@@ -59,4 +59,4 @@ def upt(event):
 
 
 def ver(event):
-    event.reply("%s %s" % (Runtime.cfg.name.upper(), Runtime.cfg.version))
+    event.reply("%s %s" % (Cfg.name.upper(), Cfg.version))

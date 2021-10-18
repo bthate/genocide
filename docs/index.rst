@@ -1,16 +1,15 @@
 .. raw:: html
 
- <br><br>
+    <br><br>
 
-.. image:: clozastrip.jpg
+.. image:: opdehoogtestrip.jpg
     :width: 100%
 
 RECONSIDER
 ##########
 
-| correspondence is under reference EM_T04_OTP-CR-117_19
-| start of genocide is at 5-10-2019
-
+.. image:: clozastrip.jpg
+    :width: 100%
 
 | Information and Evidence Unit
 | Office of the Prosecutor
@@ -72,5 +71,3 @@ poison at the time they voted for this law and the day the Wfz law took effect
 (1-1-2019) i ask the prosecutor to prosecute the king and members of the
 chamber for three genocide crimes mentioned in article 6 on the note that this
 does not entail etnicity or nationality but on general groups in the population.
-
-

@@ -11,7 +11,7 @@ from gcd.bus import Bus
 from gcd.evt import Event
 from gcd.rpt import Repeater
 from gcd.tms import elapsed
-from gcd.obj import Object, get, items, keys 
+from gcd.obj import Object, get, items, keys, values
 
 source = "https://github.com/bthate/genocide"
 startdate = "2018-10-05 00:00:00"
@@ -66,7 +66,7 @@ def stat(e):
         if name in tags:
             txt += " %s" % get(tags,name)
         else:
-            txt += " %s" % random.choice(list(tags.values()))
+            txt += " %s" % random.choice(list(values(tags)))
         Bus.announce(txt)
 
 def sts(event):

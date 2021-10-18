@@ -89,6 +89,19 @@ class Cfg(Object):
     username = "bot"
     users = False
 
+    def __init__(self):
+        super().__init__()
+        self.cc = Cfg.cc
+        self.channel = Cfg.channel
+        self.nick = Cfg.nick
+        self.password = Cfg.password
+        self.port = Cfg.port
+        self.server = Cfg.server
+        self.servermodes = Cfg.servermodes
+        self.realname = Cfg.realname
+        self.username = Cfg.username
+        self.users = Cfg.users
+
 class Event(Event):
     def __init__(self):
         super().__init__()
@@ -195,7 +208,7 @@ class IRC(Output, Handler):
 
     def dosay(self, channel, txt):
         wrapper = TextWrap()
-        txt = str(txt).replace("\n", "")
+        txt = str(txt).replace("\n", " ")
         for t in wrapper.wrap(txt):
             if not t:
                 continue
@@ -330,7 +343,6 @@ class IRC(Output, Handler):
         if not txt.endswith("\r\n"):
             txt += "\r\n"
         txt = txt[:512]
-        k = getmain("k")
         if RunCfg.verbose:
             k = getmain("k")
             k.log(txt.rstrip())
@@ -577,8 +589,7 @@ def QUIT(clt, obj):
 
 def cfg(event):
     c = Cfg()
-    last(c)
-    delkeys(event.prs.sets, ["mod"])
+    p = last(c)
     if not event.prs.sets:
         event.reply(fmt(c, skip=["username", "realname"]))
         return

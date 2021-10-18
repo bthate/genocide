@@ -42,7 +42,6 @@ class Runtime(Dispatcher, Loop):
     classes = Object()
     cmds = Object()
     opts = Object()
-    sets = Object()
     prs = Object()
 
     def __init__(self):

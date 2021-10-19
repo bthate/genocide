@@ -1,10 +1,6 @@
 RECONSIDER
 ##########
 
-
-.. image:: clozastrip.jpg
-    :width: 100%
-
 | Information and Evidence Unit
 | Office of the Prosecutor
 | Post Office Box 19519
@@ -29,6 +25,8 @@ There is proof the medication used in forced treatements in the netherlands are 
 
 * haloperiodol (haldol) - https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
 * clozapine (leponex) - https://echa.europa.eu/substance-information/-/substanceinfo/100.024.831
+
+
 * olanzapine (zyprexa) - https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
 * aripriprazole (abilify) - https://echa.europa.eu/substance-information/-/substanceinfo/100.112.532
 

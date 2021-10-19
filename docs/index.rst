@@ -1,12 +1,6 @@
-.. raw:: html
-
-    <br><br>
-
-.. image:: opdehoogtestrip.jpg
-    :width: 100%
-
 RECONSIDER
 ##########
+
 
 .. image:: clozastrip.jpg
     :width: 100%
@@ -16,6 +10,8 @@ RECONSIDER
 | Post Office Box 19519
 | 2500 CM The Hague
 | The Netherlands
+
+correspondence is under **EM_T04_OTP-CR-117_19**
 
 Hello Office of the Prosecutor,
 
@@ -71,3 +67,4 @@ poison at the time they voted for this law and the day the Wfz law took effect
 (1-1-2019) i ask the prosecutor to prosecute the king and members of the
 chamber for three genocide crimes mentioned in article 6 on the note that this
 does not entail etnicity or nationality but on general groups in the population.
+

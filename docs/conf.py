@@ -61,7 +61,7 @@ html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
 
-rst_prolog = """.. image:: number.jpg
+rst_prolog = """.. image:: genocide3line.png
     :width: 100%
     :height: 2.6cm
     

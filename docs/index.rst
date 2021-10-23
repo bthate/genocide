@@ -1,3 +1,6 @@
+.. image:: opdehoogtestrip.jpg
+    :width: 100%
+
 RECONSIDER
 ##########
 

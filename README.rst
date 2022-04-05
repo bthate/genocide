@@ -4,7 +4,7 @@ GENOCIDE
 NAME
 ====
 
-**GENOCIDE** - prosecute king netherlands for genocide (EM_T04_OTP-CR-117_19)  
+**GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19.
 
 SYNOPSIS
 ========

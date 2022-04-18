@@ -68,7 +68,7 @@ def stat(e):
     needed = seconds(nr(name))
     if needed:
         nrtimes = int(delta/needed)
-        txt = "%s #%s" % (name.upper(), nrtimes)
+        txt = "%s #%s" % (name, nrtimes)
         if name in omschrijving:
             txt += " (%s)" % get(omschrijving, name)
         txt += " elke %s" % elapsed(seconds(nr(name)))
@@ -88,7 +88,7 @@ def sts(event):
             if not needed:
                 continue
             nrtimes = int(delta/needed)
-            txt += "\n%s #%s %s %s" % (key.upper(), nrtimes, get(tags, key, ""), get(zorg, random.choice(list(keys(zorg))), ""))
+            txt += "\n%s #%s %s %s" % (key, nrtimes, get(tags, key, ""), get(zorg, random.choice(list(keys(zorg))), ""))
     event.reply(txt.strip())
 
 

@@ -25,11 +25,11 @@ def uploadlist(dir):
 
 setup(
     name='genocide',
-    version='41',
+    version='58',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate67@gmail.com', 
-    description="EM_T04_OTP-CR-117_19 - prosecute king netherlands for genocide - http://genocide.rtfd.io",
+    description="Prosector. Reconsider. OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
     packages=["genocide"],

@@ -1,9 +1,13 @@
+.. raw:: html
+
+    <br>
+
 {{ fullname }}
 {{ underline }}
 
-.. auto{{ objtype }}:: {{ objname }}
+.. raw:: html
 
-.. automodule:: {{ fullname }}
+    <br>
 
+.. auto{{ objtype }}:: {{ fullname }}
 
-.. currentmodule:: {{ module }}

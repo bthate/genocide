@@ -1,17 +1,29 @@
-# GENOCIDE - prosecute king netherlands for genocide
+# GENOCIDE OTP-CR-117/19
 # -*- coding: utf-8 -*-
 #
-# EM_T04_OTP-CR-117_19 | otp.informationdesk@icc-cpi.int | https://genocide.rtfd.io
 
-import doctest, os, sys, unittest
+
+"OTP-CR-117/19"
+
+
+__version__ = 55
+
+
+import doctest
+import os
+import sys
+import unittest
+
 
 curdir = os.getcwd()
-sys.path.insert(0, curdir + os.sep)
-sys.path.insert(0, curdir + os.sep + ".." + os.sep + "gcd")
+
+
+sys.path.insert(0, curdir)
+sys.path.insert(0, os.path.join(curdir , " "))
+
 
 # -- Options for GENERIC output ---------------------------------------------
 
-__version__ = 41
 
 project = "genocide"
 master_doc = 'index'
@@ -30,23 +42,47 @@ templates_path=['_templates']
 add_function_parentheses = False
 add_module_names = False
 show_authors = False
-pygments_style = 'sphinx'
-
+pygments_style = 'colorful'
 extensions=[
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
-    'sphinx.ext.githubpages',
-    #'sphinx_autodoc_annotation'
+    'sphinx.ext.githubpages'
 ]
+
 
 # -- Options for HTML output -------------------------------------------------
 
-html_theme = "haiku"
-html_short_title = ""
-html_favicon = "genocide3smile.png"
+
+html_title = "OTP-CR-117/19"
+html_style = 'genocide.css'
+html_static_path = ["_static"]
+html_css_files = ["genocide.css",]
+html_short_title = "GENOCIDE %s" % __version__
+html_sidebars = {
+    '**': [
+        'about.html',
+        'searchbox.html',
+        'navigation.html',
+        'relations.html',
+    ]
+}
+html_theme = "alabaster"
+html_theme_options = {
+    'github_user': 'bthate',
+    'github_repo': 'genocide2',
+    'github_button': True,
+    'github_banner': False,
+    'logo': 'skull3.jpg',
+    'link': '#000',
+    'link_hover': '#000',
+    'nosidebar': True,
+    'show_powered_by': False,
+    'show_relbar_top': False,
+}
+html_favicon = "skull3.jpg"
 html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
 html_additional_pages = {}
@@ -61,22 +97,26 @@ html_use_opensearch = 'http://genocide.rtfd.io/'
 html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
 
-rst_prolog = """.. image:: genocide3line.png
-    :width: 100%
-    :height: 2.6cm
-    
-.. title:: PROSECUTE KING NETHERLANDS FOR GENOCIDE
-"""
-
 intersphinx_mapping = {
                        'python': ('https://docs.python.org/3', 'objects.inv'),
                        'sphinx': ('http://sphinx.pocoo.org/', None),
                       }
 intersphinx_cache_limit=1
 
-# -- Options for CODE output -------------------------------------------------
 
-autosummary_generate=False
+rst_prolog = '''.. image:: line.png
+    :width: 100%
+    :height: 2.2cm
+    :target: index.html
+
+.. raw:: html
+
+    <br><br>
+
+'''
+
+
+autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
 autodoc_member_order='groupwise'
 autodoc_docstring_signature=True

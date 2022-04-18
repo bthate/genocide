@@ -1,7 +1,12 @@
+.. raw:: html
+
+    <br>
+
 {{ fullname }}
 {{ underline }}
 
 .. automodule:: {{ fullname }}
+    :members:
 
     {% block exceptions %}
     {% if exceptions %}
@@ -18,7 +23,7 @@
     {% if classes %}
     .. rubric:: classes
 
-    .. autosummary::
+    .. autosummary:: 
     {% for item in classes %}
         {{ item }}
     {%- endfor %}
@@ -36,3 +41,6 @@
     {% endif %}
     {% endblock %}
 
+    .. raw:: html
+
+        <br><br>

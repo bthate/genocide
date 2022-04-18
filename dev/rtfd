@@ -1,0 +1,6 @@
+#!/bin/bash
+# This file is placed in the Public Domain.
+
+dev/clean
+[ -d "env" ] && echo "environment is there" || (echo "creating environment" ; dev/upenv)
+env/bin/python3 env/bin/sphinx-build docs html

@@ -1,0 +1,12 @@
+rm -fR bin/*~
+rm -fR *~ __pycache__
+rm -fR lib/*~ lib/__pycache__ lib/genocide.egg-info
+rm -fR __pycache__ build dist MANIFEST genocide.egg-info
+rm -fR otmp/*~ otmp/__pycache__
+rm -fR test/*~ test/__pycache__
+rm -fR omod/*~ omod/__pycache__
+rm -fR dev/*~ 
+rm -fR html
+rm -fR tar
+rm -fR .test
+rm -fR docs/*~ docs/o*.rst docs/_static/*~ docs/_templates/*~

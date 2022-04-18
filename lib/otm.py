@@ -1,13 +1,21 @@
 # This file is placed in the Public Domain.
 
 
+"object timer"
+
+
 import threading
 import time
 
 
-from .obj import Object
-from .ofn import getname
-from .thr import launch
+from obj import Object
+from oth import getname, launch
+
+
+def __dir__():
+    return (
+        "Timer",
+    )
 
 
 class Timer(Object):

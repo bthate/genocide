@@ -1,8 +1,18 @@
 # This file is placed in the Public Domain.
 
 
-from .tmr import Timer
-from .thr import launch
+"object repeater"
+
+
+from otm import Timer
+from oth import launch
+
+
+def __dir__():
+    return (
+        "Repeater",
+    )
+
 
 class Repeater(Timer):
 

@@ -1,51 +1,21 @@
-.. _source:
-
 .. title:: source
 
-.. raw:: html
-
-    <br>
+.. _source:
 
 source
 ======
 
-.. raw:: html
-
-    <br>
-
-
 the following modules are provided:
 
+*genocide*
+
 .. autosummary::
-    :toctree:
+    :toctree: 
     :template: module.rst
 
-    genocide.bus
-    genocide.callback
-    genocide.cls
-    genocide.command
-    genocide.config
-    genocide.database
-    genocide.event
-    genocide.find
-    genocide.function
-    genocide.handler
-    genocide.irc
-    genocide.json
-    genocide.kernel
-    genocide.log
-    genocide.model
-    genocide.object
-    genocide.output
-    genocide.parse
-    genocide.queue
-    genocide.repeater
-    genocide.request
-    genocide.status
-    genocide.table
-    genocide.thread
-    genocide.timer
-    genocide.todo
-    genocide.udp
-    genocide.user
-    genocide.util
+    genocide.mdl		genocide model
+    genocide.req		requirements
+    genocide.slg		slug
+    genocide.sui		suicide stats
+    genocide.trt		torture definition
+    genocide.wsd		wisdom

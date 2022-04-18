@@ -62,4 +62,3 @@ class Handler(Queued):
 
     def stop(self):
         self.stopped.set()
-

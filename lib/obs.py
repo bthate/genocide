@@ -38,4 +38,3 @@ class Bus(Object):
         o = Bus.byorig(orig)
         if o:
             o.say(channel, txt)
-

@@ -2,22 +2,27 @@
 #
 # EM_T04_OTP-CR-117_19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
+
 "suicide stats"
+
 
 import random
 import time
 
-from gcd.bus import Bus
-from gcd.evt import Event
-from gcd.rpt import Repeater
-from gcd.tms import elapsed
-from gcd.obj import Object, get, items, keys, values
+
+from obj import Object, get, items, keys, values
+from obs import Bus
+from oev import Event
+from orp import Repeater
+from oul import elapsed
+
 
 source = "https://github.com/bthate/genocide"
 startdate = "2018-10-05 00:00:00"
 starttime = time.mktime(time.strptime(startdate, "%Y-%m-%d %H:%M:%S"))
 
-def init(k):
+
+def init():
     for _name, obj in items(wanted):
         for key in keys(obj):
             val = get(obj, key, None)
@@ -29,14 +34,17 @@ def init(k):
                 repeater = Repeater(sec, stat, e, name=key)
                 repeater.start()
 
+
 class ENOSTATS(Exception):
 
     pass
+
 
 def seconds(nrs, period="jaar"):
     if not nrs:
         return nrs
     return get(nrsec, period) / float(nrs)
+
 
 def nr(name):
     for key in keys(wanted):
@@ -45,6 +53,7 @@ def nr(name):
             if n == name:
                 return get(obj, n)
     raise ENOSTATS(name)
+
 
 def stat(e):
     name = e.rest or "suicide"
@@ -69,6 +78,7 @@ def stat(e):
             txt += " %s" % random.choice(list(values(tags)))
         Bus.announce(txt)
 
+
 def sts(event):
     txt = "Sinds %s\n" % time.ctime(starttime)
     delta = time.time() - starttime
@@ -80,6 +90,7 @@ def sts(event):
             nrtimes = int(delta/needed)
             txt += "\n%s #%s %s %s" % (key.upper(), nrtimes, get(tags, key, ""), get(zorg, random.choice(list(keys(zorg))), ""))
     event.reply(txt.strip())
+
 
 cijfers = Object()
 cijfers.melding = 61000

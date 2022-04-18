@@ -15,9 +15,9 @@ sys.path.insert(0, os.getcwd())
 sys.path.insert(0, os.getcwd() + os.sep + "lib")
 
 
+from odb import Config
 from ofn import format
 from ohd import Handler
-from okr import Config, boot
 
 
 flags = doctest.REPORT_NDIFF | doctest.FAIL_FAST | doctest.ELLIPSIS
@@ -43,7 +43,6 @@ c = CLI()
 def main():
     if os.path.exists(".test"):
         shutil.rmtree(".test")
-    boot(" ".join(sys.argv[1:]))
     print("GENOCIDE tests started at %s" % time.ctime(time.time()).replace("  ", " "))
     print(format(Config))
     pat = "test_%s*" % "*"

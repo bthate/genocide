@@ -51,30 +51,6 @@ class CLI(Handler):
         print(txt)
 
 
-class Console(Handler):
-
-
-    def announce(self, txt):
-        pass
-
-    def handle(self, e):
-        Handler.handle(self, e)
-        e.wait()
-
-    def poll(self):
-        e = Event()
-        e.txt = input("> ")
-        e.orig = repr(self)
-        return e
-
-    def raw(self, txt):
-        print(txt)
-
-    def start(self):
-        Callback.add("event", dispatch)
-        Handler.start(self)
-
-
 def dispatch(e):
     parse(e, e.txt)
     f = Command.get(e.cmd)
@@ -454,7 +430,7 @@ from ohd import Handler
 
 
 from genocide.mdl import init
-from genocide.sts import init as suistats
+
 
 def wrap(func):
     fd = sys.stdin.fileno()
@@ -473,14 +449,9 @@ def wrap(func):
 def main():
     Config.workdir = os.path.expanduser("~/.%s" % name)
     Config.name = name
-    print("%s start at %s" % (Config.name.upper(), time.ctime(time.time()).replace("  ", " ")))
     scan("genocide")
-    c = Console()
-    c.start()
-    Bus.add(c)
-    init()
-    suistats()
-    wait()
+    c = CLI()
+    kcmd(c, " ".join(sys.argv[1:]))
 
 
 wrap(main)

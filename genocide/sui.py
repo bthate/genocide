@@ -11,10 +11,11 @@ import time
 
 
 from obj import Object, get, items, keys, values
-from obs import Bus
-from oev import Event
-from orp import Repeater
-from oul import elapsed
+
+from run.bus import Bus
+from run.evt import Event
+from run.prs import elapsed
+from run.rpt import Repeater
 
 
 source = "https://github.com/bthate/genocide"

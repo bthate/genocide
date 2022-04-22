@@ -1,8 +1,6 @@
 # This file is placed in the Public Domain.
 
-dev/clean
+bin/clean
 python3 setup.py sdist
-mkdir tar
-cp dist/* tar
-python3 -mvirtualenv env
-env/bin/pip3 install genocide -f tar --upgrade --force-reinstall --no-cache-dir 
+python3 -mvirtualenv --system-site-packages env
+env/bin/pip3 install genocide -f dist --upgrade --force-reinstall --no-cache-dir --no-deps

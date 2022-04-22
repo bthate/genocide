@@ -33,8 +33,8 @@ setup(
     long_description=read(),
     license='Public Domain',
     packages=["genocide"],
-    zip_safe=True,
-    install_requires=["libobj"],
+    zip_safe=False,
+    install_requires=["libobj", "librun", "libexc"],
     include_package_data=True,
     data_files=[
                 ("share/genocide", uploadlist("files")),

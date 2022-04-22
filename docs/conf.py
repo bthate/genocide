@@ -6,7 +6,7 @@
 "OTP-CR-117/19"
 
 
-__version__ = 55
+__version__ = 58
 
 
 import doctest
@@ -21,9 +21,6 @@ curdir = os.getcwd()
 sys.path.insert(0, curdir)
 sys.path.insert(0, os.path.join(curdir, ".."))
 sys.path.insert(0, os.path.join(curdir, "..", ".."))
-
-
-import genocide.all
 
 
 # -- Options for GENERIC output ---------------------------------------------

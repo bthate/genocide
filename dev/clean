@@ -1,6 +1,6 @@
 rm -fR bin/*~
 rm -fR *~ __pycache__
-rm -fR lib/*~ lib/__pycache__ lib/genocide.egg-info
+rm -fR genocide/*~ genocide/__pycache__ 
 rm -fR __pycache__ build dist MANIFEST genocide.egg-info
 rm -fR otmp/*~ otmp/__pycache__
 rm -fR test/*~ test/__pycache__

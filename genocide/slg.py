@@ -4,5 +4,6 @@
 
 """otp.informationdesk@icc-cpi.int https://genocide.rtfd.io"""
 
+
 def slg(event):
     event.reply(txt)

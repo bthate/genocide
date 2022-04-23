@@ -189,8 +189,5 @@ txt = """| wijsheid, wijs !
 
 import random
 
-def register(k):
-    k.addcmd(wsd)
-
 def wsd(event):
     event.reply(random.choice(txt.split("\n")).strip()[2:])

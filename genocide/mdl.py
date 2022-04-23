@@ -175,7 +175,7 @@ def now(event):
     event.reply(txt)
 
 
-def tpc (event):
+def tpc(event):
     txt = "%s " % elapsed(time.time() - starttime)
     for name in sorted(oorzaken, key=lambda x: seconds(nr(x))):
         needed = seconds(nr(name))

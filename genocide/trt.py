@@ -26,5 +26,6 @@
 
 see https://www.law.cornell.edu/cfr/text/22/95.1"""
 
+
 def trt(event):
     event.reply(__doc__)

@@ -1,69 +1,53 @@
-GENOCIDE
-########
+| **Information and Evidence Unit**
+| **Office of the Prosecutor**
+| **Post Office Box 19519**
+| **2500 CM The Hague**
+| **The Netherlands**
 
-NAME
-====
 
-**GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19.
+Hello Office of the Prosecutor,
 
-SYNOPSIS
-========
+i write you in the context of communications and claims under art.15 of 
+the Rome Statute. i want to inform the prosecutor that the king of the 
+netherlands and his government are commiting 3 of the 5 crimes defined 
+in the Rome Statute.
 
-| genocide \<cmd>\ 
-| genocide -c
+The dutch government has introduced three new forced care laws, the Wfz 
+(wet forensische zorg) for criminals, the WvGGZ (Wet verplichte GGZ) for 
+the disturbed and addicted and the Wzd (Wet zorg en dwang) for the 
+handicapped.
 
-DESCRIPTION
-===========
-
-**GENOCIDE** is a python3 program that holds evidence that the king of the
-netherlands is doing a genocide, a written response where the king of
-the netherlands  confirmed taking note of “what i have written”, namely
-proof that medicine he uses in treatement laws like zyprexa, haldol,
-abilify and clozapine are poison. This means that the king of the
-netherlands is not using laws to provide care for the elderly,
-handicapped, psychiatric patients and criminals but is using the laws
-to administer poison. Poison that makes impotent, is both physical
-(contracted muscles) and mental (let people hallucinate) torture and
-kills members of the victim groups.
-
+Both the chamber suggesting these laws to the king and the king himself 
+have been informed about the fact the the substances administered under 
+these laws are proven to be poison.
  
-**GENOCIDE** shows correspondence with the Internationnal Criminal Court
-about the genocide of the king of the netherlands (using the law to
-administer poison), including stats on suicide while the king of the
-netherland's genocide is still going on. Status is that there is not
-a basis to proceed, whether the king of the netherland's genocide
-doesn’t fit the description or the netherlands doesn’t want to
-cooperate with stopping the genocide the king of the netherlands is
-doing.
+There is proof the medication used in forced treatements in the 
+netherlands are poison, see copies of the ECHA <`European Chemical Agency`>
+website for:
 
+(1) haldol
+(2) clozapine
+(3) zyprexa
+(4) abilify
 
-| correspondence is under **EM_T04_OTP-CR-117_19** 
-| genocide start is set at **05-10-2018**
+With the mass scale torture with poison the king of the netherlands and 
+his chamber:
 
+(1) kills
+(2) does grave bodily and mental harm
+(3) makes impotent
 
-**GENOCIDE** is placed in the Public Domain, no COPYRIGHT, no LICENSE.
+on the following victim groups here in the Netherlands:
 
-EXAMPLES
-========
+(1) verslaafden (addicts)
+(2) bejaarden (elderly)
+(3) ggz patienten (psychiatric patients)
+(4) criminelen (criminials)
+(5) gehandicapten (handicapped)
 
-| $ genocide
-| $ 
-
-| $ genocide cmd
-| cmd,req,slg,sts,trt,wsd
-
-| $ genocide -c
-| >
-
-SEE ALSO
-========
-
-| ~/.genocide
-| /usr/local/man/man1/genocide.1.gz
-| /usr/local/share/genocide
-| /usr/local/share/doc/genocide
- 
-COPYRIGHT
-=========
-
-| **GENOCIDE** is placed in the Public Domain, no Copyright, no LICENSE.
+Since the members of the chamber and the king were aware that these medicine
+are poison at the time they voted for this law and the day the Wfz law took
+effect (1-1-2019), i ask the prosecutor to prosecute the king for making the
+commiting of the above mentioned crimes (killing, torture and impotent making)
+possible here in the netherlands in the hope that it stops the mass torture
+with poison the king of the netherlands and his government are doing.

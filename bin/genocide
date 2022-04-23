@@ -6,15 +6,18 @@
 
 
 import os
+import readline
 
 
 from obj import Object, get, keys, update
-from odb import Class, Config, Db, find, fntime, last, save
-from ofn import edit, format, register
+
+
+from obj.dbs import Class, Config, Db, find, fntime, last, save
+from obj.fnc import edit, format, register
 
 
 from run.cbs import Callbacks
-from run.cmd import dispatch
+from run.cmd import Commands, dispatch
 from run.shl import Shell
 
 
@@ -32,6 +35,13 @@ class Console(Shell):
 
     def raw(self, txt):
         cprint(txt)
+
+
+def cmd(event):
+    event.reply(",".join(sorted(Commands.cmd)))
+
+
+Commands.add(cmd)
 
 
 def main():

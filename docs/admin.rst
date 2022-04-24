@@ -39,35 +39,9 @@ admin
  jurisdiction judgement of the prosecutor which requires a reconsider to have
  the king actually arrested, see :ref:`here <reconsider>`.
 
- **GENOCIDE** provides a IRC bot that can run as a background daemon for 24/7
- day presence in a IRC channel, be used to display RSS feeds, act as a UDP
- to IRC gateway and program your own commands for, see :ref:`admin <admin>`
-
 **INSTALL**
 
  ``pip3 install genocide``
-
-**CONFIGURATION**
-
- | ``cp /usr/local/share/genocide/genocide.service /etc/systemd/system``
- | ``systemctl enable genocide --now``
-
- *irc*
-
- | ``genocidectl cfg server=<server> channel=<channel>``
- | ``genocidectl cfg nick=<nick>``
-
- default channel/server is #genocide on localhost
-
- *sasl*
-
- | ``genocidectl pwd <nickservnick> <nickservpass>``
- | ``genocidectl cfg password=<outputfrompwd>``
-
- *users*
-
- | ``genocidectl cfg users=True``
- | ``genocidectl met <userhost>``
 
 **COPYRIGHT**
 

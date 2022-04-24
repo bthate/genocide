@@ -21,7 +21,8 @@ admin
 
 **SYNOPSIS**
 
- ``genocidectl <cmd> [key=value] [key==value]``
+ | ``genocidecmd <cmd> [key=value] [key==value]``
+ | ``genocide``
 
 **DESCRIPTION**
 

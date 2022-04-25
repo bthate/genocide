@@ -108,11 +108,13 @@ intersphinx_cache_limit=1
 rst_prolog = '''.. image:: line.png
     :width: 100%
     :height: 2.2cm
-    :target: overview.html
+    :target: index.html
+
 
 .. raw:: html
 
-    <br><br>
+    <br><br><br><center><i>Prosecutor. Reconsider. OTP-CR-117/19.</i></center>
+
 '''
 
 autosummary_generate=True

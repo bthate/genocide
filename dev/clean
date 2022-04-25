@@ -9,4 +9,4 @@ rm -fR dev/*~
 rm -fR html
 rm -fR tar
 rm -fR .test
-rm -fR docs/*~ docs/o*.rst docs/_static/*~ docs/_templates/*~
+rm -fR docs/*~ docs/_static/*~ docs/_templates/*~

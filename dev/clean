@@ -10,3 +10,4 @@ rm -fR html
 rm -fR tar
 rm -fR .test
 rm -fR docs/*~ docs/_static/*~ docs/_templates/*~
+rm -fR docs/genocide.*.rst

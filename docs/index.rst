@@ -71,7 +71,6 @@ netherlands and his government are :ref:`doing <correspondence>`.
     :hidden:
     :glob:
 
-    overview
     admin
     article15
     correspondence

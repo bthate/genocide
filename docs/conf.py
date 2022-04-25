@@ -113,8 +113,7 @@ rst_prolog = '''.. image:: line.png
 
 .. raw:: html
 
-    <br><br><br><center><i>Prosecutor. Reconsider. OTP-CR-117/19.</i></center>
-
+    <br>
 '''
 
 autosummary_generate=True

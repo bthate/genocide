@@ -14,10 +14,6 @@
 | **The Netherlands**
 
 
-.. raw:: html
-
-   <br>
-
 Hello Office of the Prosecutor,
 
 i write you in the context of communications and claims under art.15 of 

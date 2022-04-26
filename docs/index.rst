@@ -2,7 +2,6 @@
 
 .. title:: OTP-CR-117/19
 
-
 .. raw:: html
 
     <br>

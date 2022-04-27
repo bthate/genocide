@@ -12,9 +12,6 @@
 | **2500 CM The Hague**
 | **The Netherlands**
 
-.. raw:: html
-
-    <br>
 
 Hello Office of the Prosecutor,
 

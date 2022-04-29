@@ -8,13 +8,11 @@ import threading
 import time
 
 
+from .hdl import Bus, Commands
 from .obj import Class, Object, get, keys, update
 from .obj import Config, find, save
 from .obj import edit, format
 from .obj import Db, fntime
-
-
-from .hdl import Bus, Commands
 from .thr import getname
 
 

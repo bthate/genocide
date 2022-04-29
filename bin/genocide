@@ -16,13 +16,13 @@ import traceback
 
 from genocide.evt import Command
 from genocide.hdl import Bus, Callbacks, Commands, Handler, dispatch
+from genocide.irc import IRC
+from genocide.mdl import init
 from genocide.obj import Object, get, keys, update
 from genocide.obj import Class, Config, Db, find, fntime, last, save
 from genocide.obj import edit, format, register
 from genocide.rss import Fetcher
 from genocide.thr import getname
-from genocide.irc import IRC
-from genocide.mdl import init
 
 
 import genocide.cmds
@@ -42,7 +42,6 @@ class CLI(Handler):
         e = Command()
         e.orig = repr(self)
         e.txt = txt
-        e.cmd = txt.split()[0]
         self.handle(e)
         e.wait()
 
@@ -63,9 +62,6 @@ class Console(CLI):
         e = Command()
         e.txt = input("> ")
         e.orig = repr(self)
-        e.cmd = e.txt.split()[0]
-        if e.cmd:
-            e.args = e.txt.split()[1:]
         return e
 
 
@@ -111,6 +107,8 @@ def wrap(func):
         cprint("")
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
+        for err in Callbacks.errors:
+            traceback.print_exception(type(err), err, err.__traceback__)
 
 
 
@@ -127,6 +125,8 @@ def main():
         f = Fetcher()
         f.start()
     c = Console()
+    Bus.add(c)
+    print(Bus.objs)
     c.start()
     init()
     wait()

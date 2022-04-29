@@ -9,6 +9,7 @@ import threading
 
 
 from .obj import Object, get, register
+from .prs import parse
 from .thr import launch
 
 
@@ -160,6 +161,7 @@ class Handler(Object):
 
 
 def dispatch(e):
+    parse(e, e.txt)
     f = Commands.get(e.cmd)
     if f:
         f(e)

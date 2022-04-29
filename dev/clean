@@ -2,9 +2,8 @@ rm -fR bin/*~
 rm -fR *~ __pycache__
 rm -fR genocide/*~ genocide/__pycache__ 
 rm -fR __pycache__ build dist MANIFEST genocide.egg-info
-rm -fR otmp/*~ otmp/__pycache__
 rm -fR test/*~ test/__pycache__
-rm -fR omod/*~ omod/__pycache__
+rm -fR gcd/*~ gcd/__pycache__
 rm -fR dev/*~ 
 rm -fR html
 rm -fR tar

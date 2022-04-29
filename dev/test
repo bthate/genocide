@@ -7,47 +7,31 @@ import inspect
 import os
 import shutil
 import sys
-import time
 import unittest
 
 
 sys.path.insert(0, os.getcwd())
-sys.path.insert(0, os.getcwd() + os.sep + "lib")
 
 
-from odb import Config
-from ofn import format
-from ohd import Handler
+from gcd.obj import Config, format, values
+from gcd.prs import parse
 
 
-flags = doctest.REPORT_NDIFF | doctest.FAIL_FAST | doctest.ELLIPSIS
-results = []
+import gcd.cmds
 
 
 Config.debug = True
 Config.workdir = ".test"
 
 
-class CLI(Handler):
-
-    def cmd(self, txt):
-        self.handle(Event(txt, repr(self)))
-
-    def raw(self, txt):
-        print(txt)
-
-
-c = CLI()
+flags = doctest.REPORT_NDIFF | doctest.FAIL_FAST | doctest.ELLIPSIS
 
 
 def main():
-    if os.path.exists(".test"):
-        shutil.rmtree(".test")
-    print("GENOCIDE tests started at %s" % time.ctime(time.time()).replace("  ", " "))
-    print(format(Config))
+    if os.path.exists(Config.workdir):
+        shutil.rmtree(Config.workdir)
     pat = "test_%s*" % "*"
     suite = unittest.loader.TestLoader().discover("test", pattern=pat)
     unittest.TextTestRunner(verbosity=3).run(suite)
-
 
 main()

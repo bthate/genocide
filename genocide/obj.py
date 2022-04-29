@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"object"
+"Big Object"
 
 
 import copy as copying

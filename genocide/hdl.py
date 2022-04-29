@@ -106,17 +106,6 @@ class Commands(Object):
         return f
 
 
-class Queued(Object):
-
-
-    def __init__(self):
-        Object.__init__(self)
-        self.queue = queue.Queue()
-
-    def put(self, e):
-        self.queue.put_nowait(e)
-
-
 class Table():
 
     mod = {}
@@ -130,12 +119,11 @@ class Table():
         return Table.mod.get(nm, None)
 
 
-class Handler(Queued):
-
-    errors = []
+class Handler(Object):
 
     def __init__(self):
-        Queued.__init__(self)
+        Object.__init__(self)
+        self.queue = queue.Queue()
         self.stopped = threading.Event()
         self.threaded = True
 
@@ -151,6 +139,9 @@ class Handler(Queued):
 
     def poll(self):
         return self.queue.get()
+
+    def put(self, e):
+        self.queue.put_nowait(e)
 
     def raw(self, txt):
         raise NotImplementedError

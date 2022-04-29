@@ -15,12 +15,11 @@ import time
 import _thread
 
 
+from .evt import Command, Event
+from .hdl import Commands, Handler
 from .obj import Config as CoreConfig
 from .obj import Object, Class, find, last, locked, save, update
 from .obj import edit, format
-from .cmd import Commands, Command
-from .evt import Event
-from .hdl import Handler
 from .thr import launch
 
 
@@ -60,8 +59,8 @@ class NoUser(Exception):
 class Config(Object):
 
     cc = "!"
-    channel = "#gcid"
-    nick = "gcid"
+    channel = "#genocide"
+    nick = "genocide"
     password = ""
     port = 6667
     realname = "Prosecutor. Reconsider. OTP-CR-117/19."
@@ -69,7 +68,7 @@ class Config(Object):
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "gcid"
+    username = "genocide"
     users = False
 
     def __init__(self):
@@ -121,9 +120,8 @@ class TextWrap(textwrap.TextWrapper):
 
 class Output(Object):
 
-
     def __init__(self):
-        Object.__init__(self)
+        super().__init__()
         self.cache = Object()
         self.oqueue = queue.Queue()
         self.dostop = threading.Event()
@@ -224,15 +222,13 @@ Class.add(User)
 class IRC(Handler, Output):
 
     def __init__(self):
-        Handler.__init__(self)
-        Output.__init__(self)
+        super().__init__()
         self.buffer = []
         self.cfg = Config()
         self.connected = threading.Event()
         self.channels = []
         self.joined = threading.Event()
         self.keeprunning = False
-        self.outqueue = queue.Queue()
         self.sock = None
         self.speed = "slow"
         self.state = Object()
@@ -498,8 +494,8 @@ class IRC(Handler, Output):
         assert self.cfg.channel
         self.connected.clear()
         self.joined.clear()
-        launch(Handler.start, self)
-        launch(Output.start, self)
+        Handler.start(self)
+        Output.start(self)
         self.doconnect(self.cfg.server, self.cfg.nick, int(self.cfg.port))
         if not self.keeprunning:
             launch(self.keep)

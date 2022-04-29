@@ -2,7 +2,7 @@
 # This file is placed in the Public Domain.
 
 
-"irc bot"
+"Prosecutor. Reconsider. OTP-CR-117/19."
 
 
 import os
@@ -22,13 +22,14 @@ from genocide.obj import edit, format, register
 from genocide.rss import Fetcher
 from genocide.thr import getname
 from genocide.irc import IRC
+from genocide.mdl import init
 
+
+import genocide.cmds
 
 
 Config.name = "genocide"
 Config.workdir = os.path.expanduser("~/.genocide")
-
-
 
 
 starttime = time.time()
@@ -115,8 +116,6 @@ def wrap(func):
 
 def main():
     Callbacks.add("command", dispatch)
-    import genocide.cmds
-    from genocide.mdl import init
     if len(sys.argv) > 1:
         c = CLI()
         return c.cmd(" ".join(sys.argv[1:]))

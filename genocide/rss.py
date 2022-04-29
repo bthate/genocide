@@ -24,8 +24,7 @@ except ImportError:
 from .obj import Class, Db, find, last, save
 from .obj import Config, Object, get, update
 from .obj import edit, spl
-from .bus import Bus
-from .cmd import Commands
+from .hdl import Bus, Commands
 from .rpt import Repeater
 from .thr import launch
 

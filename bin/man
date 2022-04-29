@@ -1,3 +1,0 @@
-# This file is placed in the Public Domain.
-
-pandoc -s -t man files/genocide.1.md -o files/genocide.1 ; gzip -f files/genocide.1

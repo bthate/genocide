@@ -1,6 +1,4 @@
 # This file is placed in the Public Domain.
-#
-# EM_T04_OTP-CR-117_19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
 
 "suicide stats"
@@ -10,12 +8,11 @@ import random
 import time
 
 
-from gcd.obj import Object, get, items, keys, values
-
-from gcd.hdl import Bus
-from gcd.evt import Event
-from gcd.prs import elapsed
-from gcd.rpt import Repeater
+from genocide.evt import Event
+from genocide.hdl import Bus
+from genocide.obj import Object, get, items, keys, values
+from genocide.prs import elapsed
+from genocide.rpt import Repeater
 
 
 source = "https://github.com/bthate/genocide"

@@ -126,7 +126,6 @@ def main():
         f.start()
     c = Console()
     Bus.add(c)
-    print(Bus.objs)
     c.start()
     init()
     wait()

@@ -14,14 +14,15 @@ import threading
 import traceback
 
 
-from gcd.evt import Command
-from gcd.hdl import Bus, Callbacks, Commands, Handler, dispatch
-from gcd.obj import Object, get, keys, update
-from gcd.obj import Class, Config, Db, find, fntime, last, save
-from gcd.obj import edit, format, register
-from gcd.rss import Fetcher
-from gcd.thr import getname
-from gcd.irc import IRC
+from genocide.evt import Command
+from genocide.hdl import Bus, Callbacks, Commands, Handler, dispatch
+from genocide.obj import Object, get, keys, update
+from genocide.obj import Class, Config, Db, find, fntime, last, save
+from genocide.obj import edit, format, register
+from genocide.rss import Fetcher
+from genocide.thr import getname
+from genocide.irc import IRC
+
 
 
 Config.name = "genocide"
@@ -114,7 +115,7 @@ def wrap(func):
 
 def main():
     Callbacks.add("command", dispatch)
-    import gcd.cmds
+    import genocide.cmds
     from genocide.mdl import init
     if len(sys.argv) > 1:
         c = CLI()

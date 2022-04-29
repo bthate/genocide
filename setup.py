@@ -1,13 +1,15 @@
 # This file is placed in the Public Domain.
-#
-# http://genocide.rtfd.io - EM_T04_OTP-CR-117_19
+
 
 import os
 
+
 from setuptools import setup
+
 
 def read():
     return open("README.rst", "r").read()
+
 
 def uploadlist(dir):
     upl = []
@@ -22,6 +24,7 @@ def uploadlist(dir):
                 continue
             upl.append(d)
     return upl
+
 
 setup(
     name='genocide',

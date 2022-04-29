@@ -10,6 +10,7 @@ import time
 from genocide.obj import Object, get, keys, update
 from genocide.hdl import Bus, Commands
 from genocide.evt import Event
+from genocide.prs import elapsed
 from genocide.rpt import Repeater
 from genocide.thr import launch
 
@@ -150,7 +151,7 @@ def sts(e):
         nrtimes = int(delta/needed)
         nryear = int(year/needed)
         #txt = "#%s %s %s/year (%s) " % (nrtimes, name, nryear, elapsed(needed))
-        txt = "%s patient #%s died (%s/year) every %ss" % (get(aliases, name),  nrtimes, nryear, needed)
+        txt = "%s patient #%s died (%s/year) every %ss" % (get(aliases, name),  nrtimes, nryear, elapsed(needed))
         Bus.announce(txt)
 
 
@@ -158,7 +159,7 @@ Commands.add(sts)
 
 
 def now(event):
-    txt = "%ss " % time.time() - starttime
+    txt = "%s " % elapsed(time.time() - starttime)
     for name in sorted(oorzaken, key=lambda x: seconds(nr(x))):
         needed = seconds(nr(name))
         delta = time.time() - starttime
@@ -177,7 +178,7 @@ Commands.add(now)
 
 
 def tpc(event):
-    txt = "%ss " % time.time() - starttime
+    txt = "%ss " % elapsed(time.time() - starttime)
     for name in sorted(oorzaken, key=lambda x: seconds(nr(x))):
         needed = seconds(nr(name))
         delta = time.time() - starttime

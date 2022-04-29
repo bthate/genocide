@@ -13,12 +13,12 @@ from .obj import Class, Object, get, keys, update
 from .obj import Config, find, save
 from .obj import edit, format
 from .obj import Db, fntime
+from .prs import elapsed
 from .thr import getname
 
 
 def __dir__():
     return (
-        "cfg",
         "cmd",
         "flt",
         "fnd",
@@ -48,17 +48,6 @@ class Todo(Object):
 
 
 Class.add(Todo)
-
-
-def cfg(event):
-    if not event.args:
-        event.reply(format(Config))
-        return
-    edit(Config, event.prs.sets)
-    event.reply("ok")
-
-
-Commands.add(cfg)
 
 
 def cmd(event):

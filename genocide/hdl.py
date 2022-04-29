@@ -8,24 +8,18 @@ import queue
 import threading
 
 
-from thr import launch
-from obj import Object, get, register
+from .obj import Object, get, register
+from .thr import launch
 
 
 def __dir__():
     return (
+        'Bus',
         "Callbacks",
         "Commands",
         "Handler",
+        "Table"
     )
-
-
-def dispatch(e):
-    f = Commands.get(e.cmd)
-    if f:
-        f(e)
-        e.show()
-    e.ready()
 
 
 class Bus(Object):
@@ -163,3 +157,12 @@ class Handler(Object):
 
     def stop(self):
         self.stopped.set()
+
+
+def dispatch(e):
+    f = Commands.get(e.cmd)
+    if f:
+        f(e)
+        e.show()
+    e.ready()
+

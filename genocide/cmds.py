@@ -14,10 +14,7 @@ from .obj import edit, format
 from .obj import Db, fntime
 
 
-from .bus import Bus
-from .cmd import Commands
-from .krn import starttime
-from .prs import elapsed
+from .hdl import Bus, Commands
 from .thr import getname
 
 
@@ -31,6 +28,8 @@ def __dir__():
         "log",
         "tdo"
     )
+
+starttime = time.time()
 
 
 class Log(Object):

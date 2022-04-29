@@ -18,8 +18,7 @@ import _thread
 from .evt import Command, Event
 from .hdl import Commands, Handler
 from .obj import Config as CoreConfig
-from .obj import Object, Class, find, last, locked, save, update
-from .obj import edit, format
+from .obj import Object, Class, edit, find, last, locked, save, update, format
 from .thr import launch
 
 
@@ -121,7 +120,7 @@ class TextWrap(textwrap.TextWrapper):
 class Output(Object):
 
     def __init__(self):
-        super().__init__()
+        Object.__init__(self)
         self.cache = Object()
         self.oqueue = queue.Queue()
         self.dostop = threading.Event()
@@ -222,7 +221,8 @@ Class.add(User)
 class IRC(Handler, Output):
 
     def __init__(self):
-        super().__init__()
+        Output.__init__(self)
+        Handler.__init__(self)
         self.buffer = []
         self.cfg = Config()
         self.connected = threading.Event()

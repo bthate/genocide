@@ -6,7 +6,6 @@
 
   <br>
 
-
 evidence
 ========
 
@@ -15,7 +14,6 @@ evidence
   <br>
 
 .. image:: informed.jpg
-
 
 .. _haldol:
 

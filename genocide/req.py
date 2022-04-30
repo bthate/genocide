@@ -1,8 +1,6 @@
 # This file is placed in the Public Domain.
-#
-# EM_T04_OTP-CR-117_19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-"""Prosecutor Reconsider
+"""request to the prosecutor
 
 | Information and Evidence Unit
 | Office of the Prosecutor

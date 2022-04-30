@@ -1,9 +1,8 @@
 # This file is placed in the Public Domain.
-#
-# EM_T04_OTP-CR-117_19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-"""otp.informationdesk@icc-cpi.int https://genocide.rtfd.io"""
+
+"""Prosecutor. Reconsider. OTP-CR-117/19."""
 
 
 def slg(event):
-    event.reply(txt)
+    event.reply(__doc__)

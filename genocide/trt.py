@@ -1,8 +1,9 @@
 # This file is placed in the Public Domain.
-#
-# EM_T04_OTP-CR-117_19 otp.informationdesk@icc-cpi.int https://genocide.rtfd.io
 
-"""§ 95.1 Definitions.
+
+"""torture definition
+
+§ 95.1 Definitions.
 
 (a) Convention means the United NationsConvention Against Torture and Other Forms of Cruel, Inhuman or Degrading Treatment or Punishment, done at New York on December 10, 1984, entered into force for the United States on November 10, 1994. Definitions provided below in paragraphs (b) and (c) of this section reflect the language of the Convention and understandings set forth in the United States instrument of ratification to the Convention.
 (b) Torture means:

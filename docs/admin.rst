@@ -10,18 +10,13 @@
 admin
 =====
 
-.. raw:: html
-
-    <br>
-
-
 **NAME**
 
- **GENOCIDE** - law and poison is genocide
+ **GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19.
 
 **SYNOPSIS**
 
- | ``genocidecmd <cmd> [key=value] [key==value]``
+ | ``genocide <cmd> [key=value] [key==value]``
  | ``genocide``
 
 **DESCRIPTION**
@@ -32,13 +27,15 @@ admin
  proof that medicine he uses in treatement laws like zyprexa, haldol,
  abilify and clozapine are poison that makes impotent, is both physical
  (contracted muscles) and mental (let people hallucinate) torture and kills
- members of the victim groups,  source is :ref:`here <source>`.
+ members of the victim groups.
 
  **GENOCIDE** contains correspondence with the International Criminal Court, 
  asking for arrest of the king of the netherlands, for the genocide he is
  committing with his new treatement laws. Current status is an outside the
  jurisdiction judgement of the prosecutor which requires a reconsider to have
- the king actually arrested, see :ref:`here <reconsider>`.
+ the king actually arrested.
+
+ source code is :ref:`here <source>`.
 
 **INSTALL**
 

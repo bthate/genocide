@@ -67,9 +67,7 @@ netherlands and his government are :ref:`doing <correspondence>`.
     :glob:
 
     admin
-    article15
     correspondence
     evidence
     guilty
     source
-    zindex

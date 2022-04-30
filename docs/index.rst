@@ -2,10 +2,6 @@
 
 .. title:: OTP-CR-117/19
 
-.. raw:: html
-
-    <center><h3>Prosecutor. Reconsider. <b>OTP-CR-117/19</b>.</h3></center>
-
 
 .. raw:: html
 

@@ -1,19 +1,10 @@
-.. title:: evidence
-
 .. _evidence:
 
 .. raw:: html
 
   <br>
 
-evidence
-========
-
-.. raw:: html
-
-  <br>
-
-.. image:: informed.jpg
+.. title:: evidence
 
 .. _haldol:
 

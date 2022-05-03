@@ -113,7 +113,7 @@ rst_prolog = '''.. image:: line.png
 
 .. raw:: html
 
-    <br><br>
+    <br>
 
 '''
 

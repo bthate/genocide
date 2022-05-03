@@ -2,10 +2,15 @@
 
 .. title:: OTP-CR-117/19
 
+.. image:: skulllinesmall3.jpg
+    :width: 100%
+    :height: 2.2cm
+    :target: admin.html
 
 .. raw:: html
 
-    <br>
+    <br><br>
+
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**

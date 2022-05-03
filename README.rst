@@ -134,14 +134,8 @@ here is a short description of the commands.
 **FILES**
 
 
-the following files get installed on your disk:
+the following files get installed in /usr/local/share/doc/genocide:
 
-| ``README.rst``
-| ``setup.py``
-| ``bin/genocide``
-| ``bin/genocidecmd``
-| ``bin/genocidectl``
-| ``bin/genocided``
 | ``docs/ECHAabilify.png``
 | ``docs/ECHAclozapine.png``
 | ``docs/ECHAhaldol.png``
@@ -159,8 +153,7 @@ the following files get installed on your disk:
 | ``docs/informed.jpg``
 | ``docs/kamer.png``
 | ``docs/line.png``
-| ``docs/reconsider.jpg``
-| ``docs/reconsider2.jpg``
+| ``docs/reconsider.rst``
 | ``docs/skull3.jpg``
 | ``docs/skulllinesmall3.jpg``
 | ``docs/source.rst``
@@ -172,26 +165,6 @@ the following files get installed on your disk:
 | ``docs/pdf/EM_T07_OTP-CR-117_19_001.pdf``
 | ``docs/pdf/Kamer.pdf``
 | ``docs/pdf/bevestigd.pdf``
-| ``genocide/__init__.py``
-| ``genocide/cmds.py``
-| ``genocide/evt.py``
-| ``genocide/hdl.py``
-| ``genocide/irc.py``
-| ``genocide/mdl.py``
-| ``genocide/obj.py``
-| ``genocide/req.py``
-| ``genocide/rpt.py``
-| ``genocide/rss.py``
-| ``genocide/slg.py``
-| ``genocide/sui.py``
-| ``genocide/thr.py``
-| ``genocide/trt.py``
-| ``genocide/wsd.py``
-| ``genocide.egg-info/PKG-INFO``
-| ``genocide.egg-info/SOURCES.txt``
-| ``genocide.egg-info/dependency_links.txt``
-| ``genocide.egg-info/not-zip-safe``
-| ``genocide.egg-info/top_level.txt``
 |
 
 **COPYRIGHT**

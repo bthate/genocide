@@ -20,14 +20,11 @@
 
  **GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19. 
 
-
 **SYNOPSIS**
 
  | ``genocidectl <cmd> [key=value] [key==value]``
 
-
 **DESCRIPTION**
-
 
  **GENOCIDE** is a python3 program that holds evidence that the king of the
  netherlands is doing a genocide, a written response where the king of

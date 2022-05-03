@@ -99,9 +99,8 @@ program.
 
 genocide has the following commands::
 
- | ``genocidectl cmd``
- | ``cfg,cmd,dlt,dpl,flt,fnd,ftc,log,met,mre,nme,now,rem,rss,sts,thr,tpc``
- | 
+ ``genocidectl cmd``
+ ``cfg,cmd,dlt,dpl,flt,fnd,ftc,log,met,mre,nme,now,rem,rss,sts,thr,tpc``
 
 here is a short description of the commands.
 

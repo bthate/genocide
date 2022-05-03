@@ -11,7 +11,6 @@
 
 **DESCRIPTION**
 
-| 
 
 **GENOCIDE** is a python3 program that holds evidence that the king of the
 netherlands is doing a genocide, a written response where the king of
@@ -38,11 +37,12 @@ between me, the first chamber, king and prosecutor. If you do not wish to have
 them installed a simple ``pip3 uninstall`` will remove them from the system.  
 
 | ``pip3 uninstall genocide``
-
+|
 
 **INSTALL**
 
-``pip3 install genocide``
+| ``pip3 install genocide``
+|
 
 **CONFIGURATION**
 
@@ -51,6 +51,7 @@ and enable the genocide service.
 
 | ``cp /usr/local/share/genocide/genocide.service``
 | ``systemctl enable genocide --now``
+|
 
 configuration is done by calling the ``cfg`` command of the ``genocidectl``
 program.
@@ -60,17 +61,19 @@ program.
 | ``genocidectl cfg server=<server> channel=<channel> nick=<nick>``
 |
 | (*) default channel/server is #genocide on localhost
+|
 
 **sasl**
 
 | ``genocidectl pwd <nickservnick> <nickservpass>``
 | ``genocidectl cfg password=<outputfrompwd>``
+|
 
 **users**
 
 | ``genocidectl cfg users=True``
 | ``genocidectl met <userhost>``
-
+|
 
 **PROGRAMMING**
 
@@ -96,7 +99,7 @@ genocide has the following commands.
 
 | ``genocidectl cmd``
 | ``cfg,cmd,dlt,dpl,flt,fnd,ftc,met,nam,nck,ops,pwd,rem,rss,thr``
-
+| 
 
 here is a short description of the commands.
 
@@ -124,7 +127,7 @@ here is a short description of the commands.
 | ``tpc`` - set genocide stats in topic
 | ``trt`` - torture definition
 | ``wsd`` - wisdom
-
+| 
 
 **FILES**
 

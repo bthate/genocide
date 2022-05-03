@@ -2,14 +2,14 @@
 # This file is placed in the Public Domain.
 
 
-"irc bot service"
+"genocide daemon"
 
 
 import os
 import time
 
 
-from bot.obj import Config, format
+from genocide.obj import Config, format
 
 
 Config.name = "genocide"
@@ -21,13 +21,13 @@ from genocide.irc import IRC
 from genocide.rss import Fetcher
 
 
-import bot.cmds
+import genocide.cmds
 
 
 def main():
     Callbacks.add("command", dispatch)
     Callbacks.threaded = False
-    print("BOTD started at %s" % time.ctime(time.time()).replace("  ", " "))
+    print("GENOCIDED started at %s" % time.ctime(time.time()).replace("  ", " "))
     i = IRC()
     i.start()
     print(format(i.cfg, skip="realname,sleep,username"))

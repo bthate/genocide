@@ -8,7 +8,7 @@
 import sys
 
 
-from bot.obj import Config
+from genocide.obj import Config
 
 
 Config.name = "genocidecmd"

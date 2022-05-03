@@ -48,13 +48,15 @@ system.
 
  $ sudo pip3 install genocide
 
+
 **CONFIGURATION**
+
 
 to make genocide running under systemd, you need to copy it's service file
 and enable the genocide service.
 
- $ sudo cp /usr/local/share/genocide/genocide.service``
- $ sudo systemctl enable genocide --now``
+ $ sudo cp /usr/local/share/genocide/genocide.service
+ $ sudo systemctl enable genocide --now
 
 
 configuration is done by calling the ``cfg`` command of the ``genocidectl``
@@ -64,7 +66,7 @@ program.
 
 ::
 
- $ sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>``
+ $ sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>
 
  (*) default channel/server is #genocide on localhost
 
@@ -74,33 +76,32 @@ program.
 ::
 
 
- $ sudo genocidectl pwd <nickservnick> <nickservpass>``
- $ sudo genocidectl cfg password=<outputfrompwd>``
+ $ sudo genocidectl pwd <nickservnick> <nickservpass>
+ $ sudo genocidectl cfg password=<outputfrompwd>
 
 **users**
 
 ::
 
- $ sudo genocidectl cfg users=True``
- $ sudo genocidectl met <userhost>``
+ $ sudo genocidectl cfg users=True
+ $ sudo genocidectl met <userhost>
 
 **PROGRAMMING**
 
 ::
 
- $ git clone https://github.com/bthate/genocide``
- $ joe genocide/hlo.py``
-
- ::
-
-  from genocide.hdl import Commands
+ $ git clone https://github.com/bthate/genocide
+ $ joe genocide/hlo.py
 
 
-  def hlo(event):
-      event.reply("hello!")
+ from genocide.hdl import Commands
 
 
-  Commands.add(hlo)
+ def hlo(event):
+     event.reply("hello!")
+
+
+ Commands.add(hlo)
 
 
 **COMMANDS**
@@ -110,32 +111,32 @@ genocide has the following commands::
  $ sudo genocidectl cmd
  cfg,cmd,dlt,dpl,flt,fnd,ftc,log,met,mre,nme,now,rem,rss,sts,thr,tpc
 
-here is a short description of the commands::
+here is a short description of the commands:
 
- ``cmd`` - shows all commands
- ``cfg`` - shows the irc configuration, also edits the config
- ``dlt`` - removes a user from genocide
- ``dpl`` - sets display items for a rss feed
- ``ftc`` - runs a rss feed fetching batch
- ``fnd`` - allows you to display objects on the datastore, read-only json files on disk 
- ``flt`` - shows a list of instances registered to the bus
- ``log`` - logs some text
- ``mdl`` - genocide model
- ``met`` - adds a users with there irc userhost
- ``mre`` - displays cached output, channel wise.
- ``nck`` - changes nick on irc
- ``now`` - show genocide stats
- ``ops`` - tries to give you operator status (+o)
- ``pwd`` - combines a nickserv name/password into a sasl password
- ``rem`` - removes a rss feed by matching is to its url
- ``req`` - request to the prosecutor
- ``rss`` - adds a feed to fetch, fetcher runs every 5 minutes
- ``slg`` - slogan
- ``sts`` - suidicde stats
- ``thr`` - show the running threads
- ``tpc`` - set genocide stats in topic
- ``trt`` - torture definition
- ``wsd`` - wisdom
+ | ``cmd`` - shows all commands
+ | ``cfg`` - shows the irc configuration, also edits the config
+ | ``dlt`` - removes a user from genocide
+ | ``dpl`` - sets display items for a rss feed
+ | ``ftc`` - runs a rss feed fetching batch
+ | ``fnd`` - allows you to display objects on the datastore, read-only json files on disk 
+ | ``flt`` - shows a list of instances registered to the bus
+ | ``log`` - logs some text
+ | ``mdl`` - genocide model
+ | ``met`` - adds a users with there irc userhost
+ | ``mre`` - displays cached output, channel wise.
+ | ``nck`` - changes nick on irc
+ | ``now`` - show genocide stats
+ | ``ops`` - tries to give you operator status (+o)
+ | ``pwd`` - combines a nickserv name/password into a sasl password
+ | ``rem`` - removes a rss feed by matching is to its url
+ | ``req`` - request to the prosecutor
+ | ``rss`` - adds a feed to fetch, fetcher runs every 5 minutes
+ | ``slg`` - slogan
+ | ``sts`` - suidicde stats
+ | ``thr`` - show the running threads
+ | ``tpc`` - set genocide stats in topic
+ | ``trt`` - torture definition
+ | ``wsd`` - wisdom
 
 
 **FILES**
@@ -145,33 +146,33 @@ the following files get installed in /usr/local/share/doc/genocide::
 
  docs/ECHAabilify.png
  docs/ECHAclozapine.png
- ``docs/ECHAhaldol.png``
- ``docs/ECHAzyprexa.png``
- ``docs/OTP1.png``
- ``docs/OTP2.png``
- ``docs/admin.rst``
- ``docs/bevestigd.jpg``
- ``docs/conf.py``
- ``docs/correspondence.rst``
- ``docs/evidence.rst``
- ``docs/genocide3.png``
- ``docs/guilty.rst``
- ``docs/index.rst``
- ``docs/informed.jpg``
- ``docs/kamer.png``
- ``docs/line.png``
- ``docs/reconsider.rst``
- ``docs/skull3.jpg``
- ``docs/skulllinesmall3.jpg``
- ``docs/source.rst``
- ``docs/_static/genocide.css``
- ``docs/_templates/base.rst``
- ``docs/_templates/class.rst``
- ``docs/_templates/module.rst``
- ``docs/pdf/EM_T04_OTP-CR-117_19.pdf``
- ``docs/pdf/EM_T07_OTP-CR-117_19_001.pdf``
- ``docs/pdf/Kamer.pdf``
- ``docs/pdf/bevestigd.pdf``
+ docs/ECHAhaldol.png
+ docs/ECHAzyprexa.png
+ docs/OTP1.png
+ docs/OTP2.png
+ docs/admin.rst
+ docs/bevestigd.jpg
+ docs/conf.py
+ docs/correspondence.rst
+ docs/evidence.rst
+ docs/genocide3.png
+ docs/guilty.rst
+ docs/index.rst
+ docs/informed.jpg
+ docs/kamer.png
+ docs/line.png
+ docs/reconsider.rst
+ docs/skull3.jpg
+ docs/skulllinesmall3.jpg
+ docs/source.rst
+ docs/_static/genocide.css
+ docs/_templates/base.rst
+ docs/_templates/class.rst
+ docs/_templates/module.rst
+ docs/pdf/EM_T04_OTP-CR-117_19.pdf
+ docs/pdf/EM_T07_OTP-CR-117_19_001.pdf
+ docs/pdf/Kamer.pdf
+ docs/pdf/bevestigd.pdf
 
 
 **COPYRIGHT**

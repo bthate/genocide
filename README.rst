@@ -1,5 +1,7 @@
 **NAME**
 
+|
+
 **GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19. 
 
 | 
@@ -77,9 +79,9 @@ program.
 
 **PROGRAMMING**
 
-``git clone https://github.com/bthate/genocide``
-
-``joe genocide/hlo.py``
+| ``git clone https://github.com/bthate/genocide``
+| ``joe genocide/hlo.py``
+|
 
 ::
 
@@ -190,6 +192,7 @@ the following files get installed on your disk:
 | ``genocide.egg-info/dependency_links.txt``
 | ``genocide.egg-info/not-zip-safe``
 | ``genocide.egg-info/top_level.txt``
+|
 
 **COPYRIGHT**
 

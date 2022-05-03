@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+
+
+"irc bot service"
+
+
+import os
+import time
+
+
+from bot.obj import Config, format
+
+
+Config.name = "genocide"
+Config.workdir = "/var/lib/genocide/"
+
+
+from genocide.hdl import Callbacks, dispatch
+from genocide.irc import IRC
+from genocide.rss import Fetcher
+
+
+import bot.cmds
+
+
+def main():
+    Callbacks.add("command", dispatch)
+    Callbacks.threaded = False
+    print("BOTD started at %s" % time.ctime(time.time()).replace("  ", " "))
+    i = IRC()
+    i.start()
+    print(format(i.cfg, skip="realname,sleep,username"))
+    f = Fetcher()
+    f.start()
+    while 1:
+        time.sleep(1.0)
+
+main()

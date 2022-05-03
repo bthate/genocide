@@ -33,7 +33,7 @@ from genocide.rss import Fetcher
 from genocide.sui import init as suiinit
 
 
-import genocide.cmds
+import genocide.all
 
 
 class Console(Handler, Output):
@@ -57,7 +57,7 @@ class Console(Handler, Output):
 
     def poll(self):
         e = Command()
-        e.channel = "#botd"
+        e.channel = "#genocide"
         e.cmd = ""
         e.txt = input("> ")
         e.orig = repr(self)

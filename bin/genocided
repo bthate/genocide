@@ -22,7 +22,7 @@ from genocide.mdl import init
 from genocide.rss import Fetcher
 
 
-import genocide.cmds
+import genocide.all
 
 
 def main():

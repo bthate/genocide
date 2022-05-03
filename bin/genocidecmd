@@ -19,7 +19,7 @@ from genocide.evt import Command
 from genocide.hdl import Callbacks, Handler, dispatch
 
 
-import genocide.cmds
+import genocide.all
 
 
 class CLI(Handler):

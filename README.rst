@@ -52,19 +52,13 @@ system.
 **CONFIGURATION**
 
 
-to make genocide running under systemd, you need to copy it's service file
-and enable the genocide service::
-
- $ sudo cp /usr/local/share/genocide/genocide.service
- $ sudo systemctl enable genocide --now
-
-
 configuration is done by calling the ``cfg`` command of the ``genocidectl``
 program.
 
+
 **irc**
 
- ::
+::
 
   $ sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>
 
@@ -73,21 +67,30 @@ program.
 
 **sasl**
 
- ::
+::
 
   $ sudo genocidectl pwd <nickservnick> <nickservpass>
   $ sudo genocidectl cfg password=<outputfrompwd>
 
 **users**
 
- ::
+::
 
   $ sudo genocidectl cfg users=True
   $ sudo genocidectl met <userhost>
 
+**24/7**
+
+to make genocide running under systemd, you need to copy it's service file
+and enable the genocide service::
+
+ $ sudo cp /usr/local/share/genocide/genocide.service
+ $ sudo systemctl enable genocide --now
+
+
 **PROGRAMMING**
 
- ::
+::
 
   $ git clone https://github.com/bthate/genocide
   $ joe genocide/hlo.py
@@ -141,38 +144,38 @@ here is a short description of the commands:
 **FILES**
 
 
-the following files get installed in /usr/local/share/doc/genocide::
+the following files get installed in /usr/local/share/doc/genocide:
 
- docs/ECHAabilify.png
- docs/ECHAclozapine.png
- docs/ECHAhaldol.png
- docs/ECHAzyprexa.png
- docs/OTP1.png
- docs/OTP2.png
- docs/admin.rst
- docs/bevestigd.jpg
- docs/conf.py
- docs/correspondence.rst
- docs/evidence.rst
- docs/genocide3.png
- docs/guilty.rst
- docs/index.rst
- docs/informed.jpg
- docs/kamer.png
- docs/line.png
- docs/reconsider.rst
- docs/skull3.jpg
- docs/skulllinesmall3.jpg
- docs/source.rst
- docs/_static/genocide.css
- docs/_templates/base.rst
- docs/_templates/class.rst
- docs/_templates/module.rst
- docs/pdf/EM_T04_OTP-CR-117_19.pdf
- docs/pdf/EM_T07_OTP-CR-117_19_001.pdf
- docs/pdf/Kamer.pdf
- docs/pdf/bevestigd.pdf
-
+| ``docs/ECHAabilify.png``
+| ``docs/ECHAclozapine.png``
+| ``docs/ECHAhaldol.png``
+| ``docs/ECHAzyprexa.png``
+| ``docs/OTP1.png``
+| ``docs/OTP2.png``
+| ``docs/admin.rst``
+| ``docs/bevestigd.jpg``
+| ``docs/conf.py``
+| ``docs/correspondence.rst``
+| ``docs/evidence.rst``
+| ``docs/genocide3.png``
+| ``docs/guilty.rst``
+| ``docs/index.rst``
+| ``docs/informed.jpg``
+| ``docs/kamer.png``
+| ``docs/line.png``
+| ``docs/reconsider.rst``
+| ``docs/skull3.jpg``
+| ``docs/skulllinesmall3.jpg``
+| ``docs/source.rst``
+| ``docs/_static/genocide.css``
+| ``docs/_templates/base.rst``
+| ``docs/_templates/class.rst``
+| ``docs/_templates/module.rst``
+| ``docs/pdf/EM_T04_OTP-CR-117_19.pdf``
+| ``docs/pdf/EM_T07_OTP-CR-117_19_001.pdf``
+| ``docs/pdf/Kamer.pdf``
+| ``docs/pdf/bevestigd.pdf``
+|
 
 **COPYRIGHT**
 

@@ -1,33 +1,18 @@
+#!/usr/bin/env python3
 # This file is placed in the Public Domain.
 
 
-"object command"
+"commands"
 
 
 import threading
 import time
 
 
-from .hdl import Bus, Commands
-from .obj import Class, Object, get, keys, update
-from .obj import Config, find, save
-from .obj import edit, format
-from .obj import Db, fntime
-from .prs import elapsed
+from .hdl import Bus, Commands, starttime
+from .irc import Config
+from ..obj import Class, Db, Object, edit, find, format, get, last, save, update
 from .thr import getname
-
-
-def __dir__():
-    return (
-        "cmd",
-        "flt",
-        "fnd",
-        "thr",
-        "log",
-        "tdo"
-    )
-
-starttime = time.time()
 
 
 class Log(Object):
@@ -40,18 +25,8 @@ class Log(Object):
 Class.add(Log)
 
 
-class Todo(Object):
-
-    def __init__(self):
-        super().__init__()
-        self.txt = ""
-
-
-Class.add(Todo)
-
-
 def cmd(event):
-    event.reply(",".join((sorted(keys(Commands.cmd)))))
+    event.reply(",".join(sorted(Commands.cmd)))
 
 
 Commands.add(cmd)
@@ -80,17 +55,20 @@ def fnd(event):
         else:
             event.reply("no types yet.")
         return
+    bot = event.bot()
     otype = event.args[0]
-    nr = -1
-    got = False
-    for fn, o in find(otype):
-        nr += 1
+    res = list(find(otype))
+    if bot.cache:
+         if len(res) > 3:
+             bot.extend(event.channel, [x[1].txt for x in res])
+             bot.say(event.channel, "%s left in cache, use !mre to show more" % bot.cache.size())
+             return
+    nr = 0
+    for _fn, o in res:
         txt = "%s %s" % (str(nr), format(o))
-        if "t" in event.prs.opts:
-            txt = txt + " %s" % (elapsed(time.time() - fntime(fn)))
-        got = True
+        nr += 1
         event.reply(txt)
-    if not got:
+    if nr:
         event.reply("no result")
 
 
@@ -110,20 +88,6 @@ def log(event):
 Commands.add(log)
 
 
-def tdo(event):
-    if not event.rest:
-        nr = 0
-        for fn, o in find("todo"):
-            event.reply("%s %s %s" % (nr, o.txt, elapsed(time.time() - fntime(fn))))
-        return
-    o = Todo()
-    o.txt = event.rest
-    save(o)
-    event.reply("ok")
-
-Commands.add(tdo)
-
-
 def thr(event):
     result = []
     for t in sorted(threading.enumerate(), key=lambda x: x.getName()):
@@ -138,7 +102,7 @@ def thr(event):
         result.append((up, t.getName()))
     res = []
     for up, txt in sorted(result, key=lambda x: x[0]):
-        res.append("%s(%s)" % (txt, elapsed(up)))
+        res.append("%s(%ss)" % (txt, up))
     if res:
         event.reply(" ".join(res))
 

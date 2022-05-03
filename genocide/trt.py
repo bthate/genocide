@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"""torture definition
+""" torture definition, 1984.
 
 § 95.1 Definitions.
 

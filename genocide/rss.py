@@ -4,10 +4,6 @@
 "rich site syndicate"
 
 
-fmt = "[gitweb-dfbsd] - bsd-family-tree: Sync with FreeBSD. - https://tinyurl.com/3n7nvvxz - Sascha Wildner <saw@online.de>"
-fmt = "[%s] - %s - %s - %s"
-
-
 import html.parser
 import re
 import threading
@@ -20,11 +16,10 @@ except ImportError:
     pass
 
 
-
-from .obj import Class, Db, find, last, save
-from .obj import Config, Object, get, update
-from .obj import edit, spl
+from .evt import Command
 from .hdl import Bus, Commands
+from .obj import Object, get, update
+from .obj import Class, Config, Db, find, last, save, edit, spl
 from .rpt import Repeater
 from .thr import launch
 
@@ -62,6 +57,7 @@ class Rss(Object):
 
     def __init__(self):
         super().__init__()
+        self.display_list = "title,link,author"
         self.name = ""
         self.rss = ""
 
@@ -105,9 +101,9 @@ class Fetcher(Object):
     def fetch(self, feed):
         counter = 0
         objs = []
-        for o in reversed(list(getfeed(feed.rss))):
+        for o in reversed(list(getfeed(feed.rss, feed.display_list))):
             f = Feed()
-            update(f, dict(o))
+            update(f, o)
             update(f, feed)
             if "link" in f:
                 u = urllib.parse.urlparse(f.link)
@@ -117,8 +113,9 @@ class Fetcher(Object):
                     url = f.link
                 if url in Fetcher.seen.urls:
                     continue
-            Fetcher.seen.urls.append(url)
+                Fetcher.seen.urls.append(url)
             counter += 1
+            save(f)
             objs.append(f)
         if objs:
             save(Fetcher.seen)
@@ -144,7 +141,34 @@ class Fetcher(Object):
             repeater.start()
 
 
-def getfeed(url):
+def getitem(line, item):
+    try:
+        i = line.index("<%s>" % item) + len(item) + 2
+        ii = line.index("</%s>" % item)
+    except ValueError:
+        return
+    l = line[i:ii]
+    if "CDATA" in l:
+        l = l.replace("![CDATA[", "")
+        l = l.replace("]]", "")
+        l = l[1:-1]
+    return l
+
+
+class XML(Object):
+
+    def parse(self, txt, items="title,link"):
+        res = []
+        for line in txt.split("<item>"):
+            o = Object()
+            for item in spl(items):
+                o[item] = getitem(line, item)
+            res.append(o)
+        return res
+
+
+
+def getfeed(url, items):
     if Config.debug:
         return [Object(), Object()]
     try:
@@ -153,10 +177,7 @@ def getfeed(url):
         return [Object(), Object()]
     if not result:
         return [Object(), Object()]
-    result = feedparser.parse(result.data)
-    if result and "entries" in result:
-        for entry in result["entries"]:
-            yield entry
+    return xml.parse(str(result.data, "utf-8"), items)
 
 
 def gettinyurl(url):
@@ -199,6 +220,9 @@ def useragent(txt):
     return "Mozilla/5.0 (X11; Linux x86_64) " + txt
 
 
+xml = XML()
+
+
 Class.add(Feed)
 Class.add(Rss)
 Class.add(Seen)
@@ -219,6 +243,34 @@ def dpl(event):
             event.reply("ok")
 
 
+Commands.add(dpl)
+
+
+def fnd(event):
+    if not event.args:
+        db = Db()
+        res = ",".join(
+            sorted({x.split(".")[-1].lower() for x in db.types()}))
+        if res:
+            event.reply(res)
+        else:
+            event.reply("no types yet.")
+        return
+    otype = event.args[0]
+    nr = -1
+    got = False
+    for _fn, o in find(otype):
+        nr += 1
+        txt = "%s %s" % (str(nr), format(o))
+        got = True
+        event.reply(txt)
+    if not got:
+        event.reply("no result")
+
+
+Commands.add(fnd)
+
+
 def ftc(event):
     res = []
     thrs = []
@@ -230,6 +282,9 @@ def ftc(event):
     if res:
         event.reply(",".join([str(x) for x in res]))
         return
+
+
+Commands.add(ftc)
 
 
 def nme(event):
@@ -248,6 +303,9 @@ def nme(event):
     event.reply("ok")
 
 
+Commands.add(nme)
+
+
 def rem(event):
     if not event.args:
         event.reply("rem <stringinurl>")
@@ -262,6 +320,9 @@ def rem(event):
     for o in got:
         save(o)
     event.reply("ok")
+
+
+Commands.add(rem)
 
 
 def rss(event):
@@ -281,8 +342,4 @@ def rss(event):
     event.reply("ok")
 
 
-Commands.add(dpl)
-Commands.add(ftc)
-Commands.add(nme)
-Commands.add(rem)
 Commands.add(rss)

@@ -8,11 +8,10 @@ import random
 import time
 
 
-from genocide.evt import Event
-from genocide.hdl import Bus
-from genocide.obj import Object, get, items, keys, values
-from genocide.prs import elapsed
-from genocide.rpt import Repeater
+from .evt import Event
+from .hdl import Bus
+from .obj import Object, get, items, keys, values
+from .rpt import Repeater
 
 
 source = "https://github.com/bthate/genocide"
@@ -54,7 +53,7 @@ def nr(name):
 
 
 def stat(e):
-    name = e.rest or "suicide"
+    name = e.rest or "genocide"
     if "." in name:
         name = name.split(".")[-1]
     name = name.lower()
@@ -69,7 +68,7 @@ def stat(e):
         txt = "%s #%s" % (name, nrtimes)
         if name in omschrijving:
             txt += " (%s)" % get(omschrijving, name)
-        txt += " elke %s" % elapsed(seconds(nr(name)))
+        txt += " elke %ss" % seconds(nr(name))
         if name in tags:
             txt += " %s" % get(tags,name)
         else:

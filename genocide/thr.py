@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"object thread"
+"thread"
 
 
 import queue
@@ -17,20 +17,16 @@ def __dir__():
     )
 
 
-
 class Thread(threading.Thread):
-
-    threads = []
 
     def __init__(self, func, name, *args, daemon=True):
         super().__init__(None, self.run, name, (), {}, daemon=daemon)
-        self.exc = None
-        self.evt = None
+        self._exc = None
+        self._evt = None
         self.name = name
         self.queue = queue.Queue()
         self.queue.put_nowait((func, args))
-        self.result = None
-        Thread.threads.append(self)
+        self._result = None
 
     def __iter__(self):
         return self
@@ -41,15 +37,15 @@ class Thread(threading.Thread):
 
     def join(self, timeout=None):
         super().join(timeout)
-        return self.result
+        return self._result
 
     def run(self):
         func, args = self.queue.get()
         if args:
-            self.evt = args[0]
+            self._evt = args[0]
         self.setName(self.name)
-        self.result = func(*args)
-        return self.result
+        self._result = func(*args)
+        return self._result
 
 
 def getname(o):

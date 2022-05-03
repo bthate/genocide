@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"big object"
+"object"
 
 
 import copy as copying
@@ -49,8 +49,6 @@ def __dir__():
         'values'
     )
 
-
-## Big Object
 
 class Object:
 
@@ -219,8 +217,6 @@ def values(o):
         return o.values()
 
 
-## json
-
 
 class ObjectDecoder(json.JSONDecoder):
 
@@ -265,8 +261,6 @@ def load(s, f):
 def loads(s):
     return json.loads(s, cls=ObjectDecoder)
 
-
-## database
 
 
 dblock = _thread.allocate_lock()
@@ -526,8 +520,6 @@ def save(o):
     return o.__stp__
 
 
-## object functions
-
 
 def spl(txt):
     return [x for x in txt.split(",") if x]
@@ -546,7 +538,7 @@ def edit(o, setter):
         register(o, key, v)
 
 
-def format(o, args="", skip="", sep=" ", empty=False, **kwargs):
+def format(o, args="", skip="_", sep=" ", empty=False, **kwargs):
     res = []
     if args:
         ks = spl(args)
@@ -579,6 +571,3 @@ def search(o, s):
             break
         ok = True
     return ok
-
-
-## teh end

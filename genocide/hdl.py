@@ -6,21 +6,37 @@
 
 import queue
 import threading
+import time
 
 
 from .obj import Object, get, register
-from .prs import parse
 from .thr import launch
 
 
 def __dir__():
     return (
-        'Bus',
         "Callbacks",
         "Commands",
         "Handler",
         "Table"
     )
+
+
+starttime = time.time()
+
+
+def dispatch(e):
+    e.parse()
+    f = Commands.get(e.cmd)
+    if f:
+        f(e)
+        e.show()
+    e.ready()
+
+
+class NotImplemented(Exception):
+
+    pass
 
 
 class Bus(Object):
@@ -69,19 +85,21 @@ class Callbacks(Object):
         try:
             f(e)
         except Exception as ex:
-            Callbacks.errors.append(ex)
-            e.exc = ex
-            e.ready()
+            if Callbacks.threaded:
+                Callbacks.errors.append(ex)
+                e._exc = ex
+                e.ready()
+            else:
+                raise
 
     @staticmethod
     def get(cmd):
         return get(Callbacks.cbs, cmd)
 
-
     @staticmethod
     def dispatch(e):
         if Callbacks.threaded:
-            e.thrs.append(launch(Callbacks.callback, e, name=e.txt))
+            e._thrs.append(launch(Callbacks.callback, e, name=e.txt))
             return
         Callbacks.callback(e)
 
@@ -118,10 +136,12 @@ class Handler(Object):
 
     def __init__(self):
         Object.__init__(self)
+        self.cache = Object()
         self.queue = queue.Queue()
         self.stopped = threading.Event()
-        self.threaded = True
-
+        self.threaded = False
+        Bus.add(self)
+        
     def announce(self, txt):
         self.raw(txt)
 
@@ -139,7 +159,7 @@ class Handler(Object):
         self.queue.put_nowait(e)
 
     def raw(self, txt):
-        raise NotImplementedError
+        pass
 
     def register(self, typ, cb):
         Callbacks.add(typ, cb)
@@ -152,19 +172,8 @@ class Handler(Object):
         self.raw(txt)
 
     def start(self):
-        Bus.add(self)
         self.stopped.clear()
         launch(self.loop)
 
     def stop(self):
         self.stopped.set()
-
-
-def dispatch(e):
-    parse(e, e.txt)
-    f = Commands.get(e.cmd)
-    if f:
-        f(e)
-        e.show()
-    e.ready()
-

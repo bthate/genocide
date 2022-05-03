@@ -4,7 +4,7 @@
 "users"
 
 
-from .hdl import Command
+from .hdl import Commands
 from .obj import Object, find, save, update
 
 
@@ -97,5 +97,5 @@ def met(event):
     event.reply("ok")
 
 
-Command.add(dlt)
-Command.add(met)
+Commands.add(dlt)
+Commands.add(met)

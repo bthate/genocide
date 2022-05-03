@@ -21,16 +21,13 @@
  **GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19. 
 
 
-**INSTALL**
-
- ``pip3 install genocide``
-
-
 **SYNOPSIS**
 
  | ``genocidectl <cmd> [key=value] [key==value]``
 
+
 **DESCRIPTION**
+
 
  **GENOCIDE** is a python3 program that holds evidence that the king of the
  netherlands is doing a genocide, a written response where the king of
@@ -39,6 +36,7 @@
  abilify and clozapine are poison that makes impotent, is both physical
  (contracted muscles) and mental (let people hallucinate) torture and kills
  members of the victim groups.
+
 
  **GENOCIDE** contains correspondence with the International Criminal Court, 
  asking for arrest of the king of the netherlands, for the genocide he is
@@ -57,6 +55,12 @@
  them installed a simple ``pip3 uninstall`` will remove them from the system.  
 
  | ``pip3 uninstall genocide``
+
+
+**INSTALL**
+
+ ``pip3 install genocide``
+
 
 **CONFIGURATION**
 
@@ -142,7 +146,7 @@ here is a short description of the commands.
 
 **FILES**
 
- the following files get installed in /usr/local/share/doc/genocide:
+ the following files get installed on your disk:
 
  | ``README.rst``
  | ``setup.py``

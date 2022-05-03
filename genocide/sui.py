@@ -11,7 +11,7 @@ import time
 from .evt import Event
 from .hdl import Bus
 from .obj import Object, get, items, keys, values
-from .rpt import Repeater
+from .rpt import Repeater, elapsed
 
 
 source = "https://github.com/bthate/genocide"
@@ -68,7 +68,7 @@ def stat(e):
         txt = "%s #%s" % (name, nrtimes)
         if name in omschrijving:
             txt += " (%s)" % get(omschrijving, name)
-        txt += " elke %ss" % seconds(nr(name))
+        txt += " elke %s" % elapsed(seconds(nr(name)))
         if name in tags:
             txt += " %s" % get(tags,name)
         else:

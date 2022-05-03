@@ -39,11 +39,10 @@ setup(
     zip_safe=False,
     include_package_data=True,
     data_files=[
-                ("share/genocide", uploadlist("files")),
-                ("man/man1", ["files/genocide.1.gz"]),
+                ("share/genocide", ["genocide.service",]),
                 ("share/doc/genocide", uploadlist("docs")),
-                ("share/doc/genocide/jpg", uploadlist("docs/jpg")),
                 ("share/doc/genocide/pdf", uploadlist("docs/pdf")),
+                ("share/doc/genocide/_templates", uploadlist("docs/_static")),
                 ("share/doc/genocide/_templates", uploadlist("docs/_templates")),
                ],
     scripts=["bin/genocide", "bin/genocided", "bin/genocidecmd", "bin/genocidectl"],

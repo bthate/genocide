@@ -12,6 +12,7 @@ import time
 from .hdl import Bus, Commands, starttime
 from .irc import Config
 from .obj import Class, Db, Object, edit, find, format, get, last, save, update
+from .rpt import elapsed
 from .thr import getname
 
 
@@ -102,7 +103,7 @@ def thr(event):
         result.append((up, t.getName()))
     res = []
     for up, txt in sorted(result, key=lambda x: x[0]):
-        res.append("%s(%ss)" % (txt, up))
+        res.append("%s(%s)" % (txt, elapsed(up)))
     if res:
         event.reply(" ".join(res))
 

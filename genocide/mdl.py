@@ -10,7 +10,7 @@ import time
 from .obj import Object, get, keys, update
 from .hdl import Bus, Commands
 from .evt import Event
-from .rpt import Repeater
+from .rpt import Repeater, elapsed
 from .thr import launch
 
 
@@ -87,7 +87,7 @@ for k in keys(oorzaak):
 
 
 year = 365*24*60*60
-source = "https://github.com/bthate/genocide2"
+source = "https://github.com/bthate/genocide"
 startdate = "2019-01-21 16:17:13"
 starttime = time.mktime(time.strptime(startdate, "%Y-%m-%d %H:%M:%S"))
 
@@ -101,15 +101,6 @@ def init():
             e.rest = key
             sec = seconds(val)
             repeater = Repeater(sec, sts, e, name=get(aliases, key))
-            repeater.start()
-    for key in keys(jaar):
-        val = get(jaar, key, None)
-        if val:
-            e = Event()
-            e.txt = ""
-            e.rest = key
-            sec = seconds(val)
-            repeater = Repeater(sec, sts, e, name=key)
             repeater.start()
     launch(daily, name="daily")
     launch(hourly, name="hourly")
@@ -149,7 +140,7 @@ def sts(e):
         delta = time.time() - starttime
         nrtimes = int(delta/needed)
         nryear = int(year/needed)
-        txt = "%s patient #%s died (%s/year) every %ss" % (get(aliases, name),  nrtimes, nryear, needed)
+        txt = "patient #%s gestorven aan %s (%s/jaar) elke %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
         Bus.announce(txt)
 
 

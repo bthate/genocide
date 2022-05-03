@@ -19,6 +19,7 @@ sys.path.insert(0, os.getcwd())
 from genocide.obj import Config
 
 
+Config.console = False
 Config.name = "genocide"
 Config.workdir = os.path.expanduser("~/.genocide")
 
@@ -26,8 +27,10 @@ Config.workdir = os.path.expanduser("~/.genocide")
 from genocide.evt import Command
 from genocide.hdl import Callbacks, Commands, Handler, dispatch
 from genocide.irc import IRC, Output
+from genocide.mdl import init as mdlinit
 from genocide.obj import Object, format
 from genocide.rss import Fetcher
+from genocide.sui import init as suiinit
 
 
 import genocide.cmds
@@ -81,16 +84,19 @@ def warp(func):
 
 def main():
     Callbacks.add("command", dispatch)
-    Callbacks.threaded = False
     c = Console()
-    if len(sys.argv) > 1:
+    if "-c" in sys.argv:
+        Config.console = True
+    elif len(sys.argv) > 1:
         return c.cmd(" ".join(sys.argv[1:]))
     print("GENOCIDE started at %s" % time.ctime(time.time()).replace("  ", " "))
-    i = IRC()
-    i.start()
-    print(format(i.cfg, skip="realname,sleep,username"))
-    f = Fetcher()
-    f.start()
+    if not Config.console:
+        i = IRC()
+        i.start()
+        print(format(i.cfg, skip="realname,sleep,username"))
+        f = Fetcher()
+        f.start()
+        mdlinit()
     c.start()
     while 1:
         time.sleep(1.0)

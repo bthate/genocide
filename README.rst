@@ -53,7 +53,7 @@ system.
 
 
 to make genocide running under systemd, you need to copy it's service file
-and enable the genocide service.
+and enable the genocide service::
 
  $ sudo cp /usr/local/share/genocide/genocide.service
  $ sudo systemctl enable genocide --now
@@ -64,44 +64,43 @@ program.
 
 **irc**
 
-::
+ ::
 
- $ sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>
+  $ sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>
 
- (*) default channel/server is #genocide on localhost
+  (*) default channel/server is #genocide on localhost
 
 
 **sasl**
 
-::
+ ::
 
-
- $ sudo genocidectl pwd <nickservnick> <nickservpass>
- $ sudo genocidectl cfg password=<outputfrompwd>
+  $ sudo genocidectl pwd <nickservnick> <nickservpass>
+  $ sudo genocidectl cfg password=<outputfrompwd>
 
 **users**
 
-::
+ ::
 
- $ sudo genocidectl cfg users=True
- $ sudo genocidectl met <userhost>
+  $ sudo genocidectl cfg users=True
+  $ sudo genocidectl met <userhost>
 
 **PROGRAMMING**
 
-::
+ ::
 
- $ git clone https://github.com/bthate/genocide
- $ joe genocide/hlo.py
-
-
- from genocide.hdl import Commands
+  $ git clone https://github.com/bthate/genocide
+  $ joe genocide/hlo.py
 
 
- def hlo(event):
-     event.reply("hello!")
+  from genocide.hdl import Commands
 
 
- Commands.add(hlo)
+  def hlo(event):
+      event.reply("hello!")
+
+
+  Commands.add(hlo)
 
 
 **COMMANDS**
@@ -113,30 +112,30 @@ genocide has the following commands::
 
 here is a short description of the commands:
 
- | ``cmd`` - shows all commands
- | ``cfg`` - shows the irc configuration, also edits the config
- | ``dlt`` - removes a user from genocide
- | ``dpl`` - sets display items for a rss feed
- | ``ftc`` - runs a rss feed fetching batch
- | ``fnd`` - allows you to display objects on the datastore, read-only json files on disk 
- | ``flt`` - shows a list of instances registered to the bus
- | ``log`` - logs some text
- | ``mdl`` - genocide model
- | ``met`` - adds a users with there irc userhost
- | ``mre`` - displays cached output, channel wise.
- | ``nck`` - changes nick on irc
- | ``now`` - show genocide stats
- | ``ops`` - tries to give you operator status (+o)
- | ``pwd`` - combines a nickserv name/password into a sasl password
- | ``rem`` - removes a rss feed by matching is to its url
- | ``req`` - request to the prosecutor
- | ``rss`` - adds a feed to fetch, fetcher runs every 5 minutes
- | ``slg`` - slogan
- | ``sts`` - suidicde stats
- | ``thr`` - show the running threads
- | ``tpc`` - set genocide stats in topic
- | ``trt`` - torture definition
- | ``wsd`` - wisdom
+| ``cmd`` - shows all commands
+| ``cfg`` - shows the irc configuration, also edits the config
+| ``dlt`` - removes a user from genocide
+| ``dpl`` - sets display items for a rss feed
+| ``ftc`` - runs a rss feed fetching batch
+| ``fnd`` - allows you to display objects on the datastore, read-only json files on disk 
+| ``flt`` - shows a list of instances registered to the bus
+| ``log`` - logs some text
+| ``mdl`` - genocide model
+| ``met`` - adds a users with there irc userhost
+| ``mre`` - displays cached output, channel wise.
+| ``nck`` - changes nick on irc
+| ``now`` - show genocide stats
+| ``ops`` - tries to give you operator status (+o)
+| ``pwd`` - combines a nickserv name/password into a sasl password
+| ``rem`` - removes a rss feed by matching is to its url
+| ``req`` - request to the prosecutor
+| ``rss`` - adds a feed to fetch, fetcher runs every 5 minutes
+| ``slg`` - slogan
+| ``sts`` - suidicde stats
+| ``thr`` - show the running threads
+| ``tpc`` - set genocide stats in topic
+| ``trt`` - torture definition
+| ``wsd`` - wisdom
 
 
 **FILES**

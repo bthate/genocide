@@ -71,22 +71,6 @@
  | $ ``sudo systemctl enable genocide --now``
 
 
-**PROGRAMMING**
-
- | $ ``joe genocide/hlo.py``
-
- ::
-
-  from genocide.hdl import Commands
-
-
-  def hlo(event):
-      event.reply("hello!")
-
-
-  Commands.add(hlo)
-
-
 **COMMANDS**
 
  | ``cmd`` - shows all commands
@@ -114,41 +98,27 @@
  | ``trt`` - torture definition
  | ``wsd`` - wisdom
 
-**FILES**
 
- | ``docs/ECHAabilify.png``
- | ``docs/ECHAclozapine.png``
- | ``docs/ECHAhaldol.png``
- | ``docs/ECHAzyprexa.png``
- | ``docs/OTP1.png``
- | ``docs/OTP2.png``
- | ``docs/admin.rst``
- | ``docs/bevestigd.jpg``
- | ``docs/conf.py``
- | ``docs/correspondence.rst``
- | ``docs/evidence.rst``
- | ``docs/genocide3.png``
- | ``docs/guilty.rst``
- | ``docs/index.rst``
- | ``docs/informed.jpg``
- | ``docs/kamer.png``
- | ``docs/line.png``
- | ``docs/reconsider.rst``
- | ``docs/skull3.jpg``
- | ``docs/skulllinesmall3.jpg``
- | ``docs/source.rst``
- | ``docs/_static/genocide.css``
- | ``docs/_templates/base.rst``
- | ``docs/_templates/class.rst``
- | ``docs/_templates/module.rst``
- | ``docs/pdf/EM_T04_OTP-CR-117_19.pdf``
- | ``docs/pdf/EM_T07_OTP-CR-117_19_001.pdf``
- | ``docs/pdf/Kamer.pdf``
- | ``docs/pdf/bevestigd.pdf``
+**PROGRAMMING**
+
+ | $ ``joe genocide/hlo.py``
+
+ ::
+
+  from genocide.hdl import Commands
+
+
+  def hlo(event):
+      event.reply("hello!")
+
+
+  Commands.add(hlo)
+
 
 **SEE ALSO**
 
  | ``/usr/local/share/doc/genocide``
+ | ``/usr/local/share/genocide/genocide.service``
 
 **COPYRIGHT**
 

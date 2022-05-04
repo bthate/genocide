@@ -10,7 +10,7 @@
 
 ::
 
-    genocidectl <cmd> [key=value] [key==value]
+    sudo genocidectl <cmd> [key=value] [key==value]
 
 
 **DESCRIPTION**
@@ -46,7 +46,7 @@ system.
 
 ::
 
- $ sudo pip3 install genocide
+  $ sudo pip3 install genocide
 
 
 **CONFIGURATION**
@@ -84,36 +84,13 @@ program.
 to make genocide running under systemd, you need to copy it's service file
 and enable the genocide service::
 
+::
+
  $ sudo cp /usr/local/share/genocide/genocide.service
  $ sudo systemctl enable genocide --now
 
 
-**PROGRAMMING**
-
-::
-
-  $ git clone https://github.com/bthate/genocide
-  $ joe genocide/hlo.py
-
-
-  from genocide.hdl import Commands
-
-
-  def hlo(event):
-      event.reply("hello!")
-
-
-  Commands.add(hlo)
-
-
 **COMMANDS**
-
-genocide has the following commands::
-
- $ sudo genocidectl cmd
- cfg,cmd,dlt,dpl,flt,fnd,ftc,log,met,mre,nme,now,rem,rss,sts,thr,tpc
-
-here is a short description of the commands:
 
 | ``cmd`` - shows all commands
 | ``cfg`` - shows the irc configuration, also edits the config
@@ -139,42 +116,29 @@ here is a short description of the commands:
 | ``tpc`` - set genocide stats in topic
 | ``trt`` - torture definition
 | ``wsd`` - wisdom
+|
+
+**PROGRAMMING**
+
+::
+
+  $ joe genocide/hlo.py
 
 
-**FILES**
+  from genocide.hdl import Commands
 
 
-the following files get installed in /usr/local/share/doc/genocide:
+  def hlo(event):
+      event.reply("hello!")
 
-| ``docs/ECHAabilify.png``
-| ``docs/ECHAclozapine.png``
-| ``docs/ECHAhaldol.png``
-| ``docs/ECHAzyprexa.png``
-| ``docs/OTP1.png``
-| ``docs/OTP2.png``
-| ``docs/admin.rst``
-| ``docs/bevestigd.jpg``
-| ``docs/conf.py``
-| ``docs/correspondence.rst``
-| ``docs/evidence.rst``
-| ``docs/genocide3.png``
-| ``docs/guilty.rst``
-| ``docs/index.rst``
-| ``docs/informed.jpg``
-| ``docs/kamer.png``
-| ``docs/line.png``
-| ``docs/reconsider.rst``
-| ``docs/skull3.jpg``
-| ``docs/skulllinesmall3.jpg``
-| ``docs/source.rst``
-| ``docs/_static/genocide.css``
-| ``docs/_templates/base.rst``
-| ``docs/_templates/class.rst``
-| ``docs/_templates/module.rst``
-| ``docs/pdf/EM_T04_OTP-CR-117_19.pdf``
-| ``docs/pdf/EM_T07_OTP-CR-117_19_001.pdf``
-| ``docs/pdf/Kamer.pdf``
-| ``docs/pdf/bevestigd.pdf``
+
+  Commands.add(hlo)
+
+
+**SEE ALSO**
+
+| ``/usr/local/share/doc/genocide``
+| ``/usr/local/share/genocide/genocide.service
 |
 
 **COPYRIGHT**

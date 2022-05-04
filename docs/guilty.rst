@@ -1,6 +1,13 @@
+.. _guilty:
+
+.. raw:: html
+
+  <br>
+
 .. title:: guilty
 
-.. _guilty:
+quilty
+======
 
 .. raw:: html
 
@@ -16,6 +23,9 @@
 
 .. _chamber:
 
+chamber
+-------
+
 .. raw:: html
 
   <br><br>
@@ -25,9 +35,12 @@
 
 .. raw:: html
 
-    <br><br><br>
+    <br><br>
 
 .. _king:
+
+king
+----
 
 .. raw:: html
 

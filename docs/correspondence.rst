@@ -4,6 +4,13 @@
 
   <br>
 
+correspondence
+==============
+
+.. raw:: html
+
+    <br>
+
 
 | **From:** Bart Thate <bthate@dds.nl>
 | **To:** otp.informationdesk@icc-cpi.int
@@ -23,6 +30,8 @@
 
 .. _otp1:
 
+otp1
+----
 
 .. raw:: html
 
@@ -32,8 +41,12 @@
 
 .. _otp2:
 
+
+otp2
+----
+
 .. raw:: html
 
-    <br><br><br><br>
+    <br>
 
 .. image:: OTP2.png

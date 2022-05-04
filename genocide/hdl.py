@@ -84,6 +84,9 @@ class Callbacks(Object):
             return
         try:
             f(e)
+        except ConnectionResetError:
+            e.ready()
+            return
         except Exception as ex:
             if Callbacks.threaded:
                 Callbacks.errors.append(ex)

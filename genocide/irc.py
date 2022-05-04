@@ -367,7 +367,14 @@ class IRC(Handler, Output):
     def poll(self):
         self.connected.wait()
         if not self.buffer:
-            self.some()
+            try:
+                self.some()
+            except ConnectionResetError as ex:
+                e = Event()
+                e._exc = ex
+                e.txt = "ConnectionResetError"
+                self.stop()
+                return e
         if self.buffer:
             return self.event(self.buffer.pop(0))
 

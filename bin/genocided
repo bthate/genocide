@@ -27,7 +27,7 @@ import genocide.all
 
 def main():
     Callbacks.add("command", dispatch)
-    Callbacks.threaded = False
+    Callbacks.threaded = True
     print("GENOCIDED started at %s" % time.ctime(time.time()).replace("  ", " "))
     i = IRC()
     i.start()

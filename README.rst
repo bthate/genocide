@@ -84,8 +84,6 @@ program.
 to make genocide running under systemd, you need to copy it's service file
 and enable the genocide service::
 
-::
-
  $ sudo cp /usr/local/share/genocide/genocide.service
  $ sudo systemctl enable genocide --now
 
@@ -137,8 +135,9 @@ and enable the genocide service::
 
 **SEE ALSO**
 
+|
 | ``/usr/local/share/doc/genocide``
-| ``/usr/local/share/genocide/genocide.service
+| ``/usr/local/share/genocide/genocide.service``
 |
 
 **COPYRIGHT**

@@ -29,4 +29,5 @@ the following modules are provided:
     genocide.sui		suicide stats
     genocide.thr		thread
     genocide.trt		torture definition
+    genocide.usr		users
     genocide.wsd		wisdom

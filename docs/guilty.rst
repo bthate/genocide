@@ -6,12 +6,6 @@
 
   <br>
 
-letter
-======
-
-.. raw:: html
-
-  <br>
 
 .. image:: informed.jpg
 
@@ -21,9 +15,6 @@ letter
   <br>
 
 .. _chamber:
-
-chamber
--------
 
 .. raw:: html
 
@@ -37,9 +28,6 @@ chamber
     <br><br><br>
 
 .. _king:
-
-king
-----
 
 .. raw:: html
 

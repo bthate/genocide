@@ -6,23 +6,13 @@
 
 .. title:: OTP-CR-117/19
 
-.. image:: skulllinesmall3.jpg
-    :width: 100%
-    :height: 2.2cm
-    :target: reconsider.html
-
-
-.. raw:: html
-
-    <br><br>
-
 **NAME**
 
  **GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19. 
 
 **SYNOPSIS**
 
- | ``genocidectl <cmd> [key=value] [key==value]``
+ | ``sudo genocidectl <cmd> [key=value] [key==value]``
 
 **DESCRIPTION**
 
@@ -59,9 +49,6 @@
 
 **CONFIGURATION**
 
- configuration is done by calling the ``cfg`` command of the ``genocidectl``
- program.
-
  **irc**
 
  | $ ``sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>``
@@ -80,17 +67,11 @@
 
  **24/7**
 
- to make genocide running under systemd, you need to copy it's service file
- and enable the genocide service.
-
- | $ ``sudo cp /usr/local/share/genocide/genocide.service``
+ | $ ``sudo cp /usr/local/share/genocide/genocide.service /etc/systemd/system``
  | $ ``sudo systemctl enable genocide --now``
 
 
 **PROGRAMMING**
-
- if you want to program your own commands, use the Commands class to add a
- command:
 
  | $ ``joe genocide/hlo.py``
 
@@ -107,8 +88,6 @@
 
 
 **COMMANDS**
-
- here is a short description of the commands:
 
  | ``cmd`` - shows all commands
  | ``cfg`` - shows the irc configuration, also edits the config
@@ -136,8 +115,6 @@
  | ``wsd`` - wisdom
 
 **FILES**
-
- the following files get installed in /usr/local/share/doc/genocide:
 
  | ``docs/ECHAabilify.png``
  | ``docs/ECHAclozapine.png``
@@ -168,6 +145,10 @@
  | ``docs/pdf/EM_T07_OTP-CR-117_19_001.pdf``
  | ``docs/pdf/Kamer.pdf``
  | ``docs/pdf/bevestigd.pdf``
+
+**SEE ALSO**
+
+ | ``/usr/local/share/doc/genocide``
 
 **COPYRIGHT**
 

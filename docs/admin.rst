@@ -99,27 +99,16 @@
  | ``trt`` - torture definition
  | ``wsd`` - wisdom
 
+**FILES**
 
-**PROGRAMMING**
-
- | $ ``joe genocide/hlo.py``
-
- ::
-
-  from genocide.hdl import Commands
-
-
-  def hlo(event):
-      event.reply("hello!")
-
-
-  Commands.add(hlo)
+ | ``/usr/local/share/doc/genocide/*``
+ | ``/usr/local/share/genocide/genocide.service``
 
 
 **SEE ALSO**
 
- | ``/usr/local/share/doc/genocide``
- | ``/usr/local/share/genocide/genocide.service``
+ | https://genocide.rtfd.io
+ | http://pypi.org/project/genocide
 
 **COPYRIGHT**
 

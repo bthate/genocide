@@ -66,10 +66,10 @@ def fnd(event):
              return
     nr = 0
     for _fn, o in res:
-        txt = "%s %s" % (str(nr), format(o))
         nr += 1
+        txt = "%s %s" % (str(nr), format(o))
         event.reply(txt)
-    if nr:
+    if not nr:
         event.reply("no result")
 
 

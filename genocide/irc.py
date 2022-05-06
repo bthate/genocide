@@ -19,6 +19,10 @@ from .obj import Class, Object, edit, format, get, last, locked, save
 from .evt import Event
 from .hdl import Commands, Handler
 from .thr import launch
+from .usr import Users
+
+
+Class.add(Users)
 
 
 def __dir__():
@@ -179,6 +183,7 @@ class IRC(Handler, Output):
         self.state.nrsend = 0
         self.state.pongcheck = False
         self.threaded = False
+        self.users = Users()
         self.zelf = ""
         self.register("903", h903)
         self.register("904", h903)

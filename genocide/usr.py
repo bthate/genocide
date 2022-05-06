@@ -5,7 +5,7 @@
 
 
 from .hdl import Commands
-from .obj import Object, find, save, update
+from .obj import Class, Object, find, save, update
 
 
 def __dir__():
@@ -31,6 +31,9 @@ class User(Object):
         self.perms = []
         if val:
             update(self, val)
+
+
+Class.add(User)
 
 
 class Users(Object):
@@ -74,6 +77,9 @@ class Users(Object):
         return user
 
 
+Class.add(Users)
+
+
 def dlt(event):
     if not event.args:
         event.reply("dlt <username>")
@@ -88,7 +94,7 @@ def dlt(event):
 
 def met(event):
     if not event.args:
-        event.reply("eet <userhost>")
+        event.reply("met <userhost>")
         return
     user = User()
     user.user = event.rest

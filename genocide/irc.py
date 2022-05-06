@@ -54,6 +54,7 @@ class Config(Object):
     servermodes = ""
     sleep = 60
     username = "genocide"
+    users = False
 
     def __init__(self):
         super().__init__()
@@ -68,7 +69,7 @@ class Config(Object):
         self.servermodes = Config.servermodes
         self.sleep = Config.sleep
         self.username = Config.username
-
+        self.users = Config.users
 
 Class.add(Config)
 
@@ -505,7 +506,7 @@ def PRIVMSG(event):
             event.txt = event.txt[len(bot.cfg.nick)+1:]
         else:
             return
-        if bot.cfg.users and not bot.users.allowed(obj.origin, "USER"):
+        if bot.cfg.users and not bot.users.allowed(event.origin, "USER"):
             return
         splitted = event.txt.split()
         splitted[0] = splitted[0].lower()

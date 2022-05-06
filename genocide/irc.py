@@ -500,6 +500,8 @@ def PRIVMSG(event):
             event.txt = event.txt[len(bot.cfg.nick)+1:]
         else:
             return
+        if bot.cfg.users and not bot.users.allowed(obj.origin, "USER"):
+            return
         splitted = event.txt.split()
         splitted[0] = splitted[0].lower()
         event.txt = " ".join(splitted)

@@ -73,15 +73,15 @@ html_sidebars = {
 html_theme = "alabaster"
 html_theme_options = {
     'github_user': 'bthate',
-    'github_repo': 'genocide2',
+    'github_repo': 'genocide',
     'github_button': True,
-    'github_banner': False,
+    'github_banner': True,
     'logo': 'skull3.jpg',
     'link': '#000',
     'link_hover': '#000',
     'nosidebar': True,
     'show_powered_by': False,
-    'show_relbar_top': True,
+    'show_relbar_top': False,
 }
 html_favicon = "skull3.jpg"
 html_extra_path = []

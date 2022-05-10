@@ -9,8 +9,8 @@ import threading
 import time
 
 
-from .obj import Object, get, register
-from .thr import launch
+from obj import Object, get, register
+from thr import launch
 
 
 def __dir__():
@@ -84,9 +84,6 @@ class Callbacks(Object):
             return
         try:
             f(e)
-        except ConnectionResetError:
-            e.ready()
-            return
         except Exception as ex:
             if Callbacks.threaded:
                 Callbacks.errors.append(ex)
@@ -144,7 +141,7 @@ class Handler(Object):
         self.stopped = threading.Event()
         self.threaded = False
         Bus.add(self)
-        
+
     def announce(self, txt):
         self.raw(txt)
 

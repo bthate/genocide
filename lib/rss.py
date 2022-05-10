@@ -16,12 +16,12 @@ except ImportError:
     pass
 
 
-from .evt import Command
-from .hdl import Bus, Commands
-from .obj import Object, get, update
-from .obj import Class, Config, Db, find, last, save, edit, spl
-from .rpt import Repeater
-from .thr import launch
+from evt import Command
+from hdl import Bus, Commands
+from obj import Object, get, update
+from obj import Class, Config, Db, find, last, save, edit, spl
+from rpt import Repeater
+from thr import launch
 
 
 from urllib.error import HTTPError, URLError
@@ -226,120 +226,108 @@ xml = XML()
 Class.add(Feed)
 Class.add(Rss)
 Class.add(Seen)
+# This file is placed in the Public Domain.
 
 
-def dpl(event):
-    if len(event.args) < 2:
-        event.reply("dpl <stringinurl> <item1,item2>")
-        return
-    db = Db()
-    setter = {"display_list": event.args[1]}
-    names = Class.full("rss")
-    if names:
-        _fn, o = db.lastmatch(names[0], {"rss": event.args[0]})
-        if o:
-            edit(o, setter)
-            save(o)
-            event.reply("ok")
+"repeater"
 
 
-Commands.add(dpl)
+import threading
+import time
 
 
-def fnd(event):
-    if not event.args:
-        db = Db()
-        res = ",".join(
-            sorted({x.split(".")[-1].lower() for x in db.types()}))
-        if res:
-            event.reply(res)
-        else:
-            event.reply("no types yet.")
-        return
-    otype = event.args[0]
-    nr = -1
-    got = False
-    for _fn, o in find(otype):
-        nr += 1
-        txt = "%s %s" % (str(nr), format(o))
-        got = True
-        event.reply(txt)
-    if not got:
-        event.reply("no result")
+from obj import Object
+from thr import getname, launch
 
 
-Commands.add(fnd)
+def __dir__():
+    return (
+        "Timer",
+        "Repeater",
+        "elapsed"
+    )
 
 
-def ftc(event):
-    res = []
-    thrs = []
-    fetcher = Fetcher()
-    fetcher.start(False)
-    thrs = fetcher.run()
-    for thr in thrs:
-        res.append(thr.join())
-    if res:
-        event.reply(",".join([str(x) for x in res]))
-        return
+class Timer(Object):
+
+    def __init__(self, sleep, func, *args, name=None):
+        super().__init__()
+        self.args = args
+        self.func = func
+        self.sleep = sleep
+        self.name = name or ""
+        self.state = Object()
+        self.timer = None
+
+    def run(self):
+        self.state.latest = time.time()
+        launch(self.func, *self.args)
+
+    def start(self):
+        if not self.name:
+            self.name = getname(self.func)
+        timer = threading.Timer(self.sleep, self.run)
+        timer.setName(self.name)
+        timer.setDaemon(True)
+        timer.sleep = self.sleep
+        timer.state = self.state
+        timer.state.starttime = time.time()
+        timer.state.latest = time.time()
+        timer.func = self.func
+        timer.start()
+        self.timer = timer
+        return timer
+
+    def stop(self):
+        if self.timer:
+            self.timer.cancel()
 
 
-Commands.add(ftc)
+class Repeater(Timer):
+
+    def run(self):
+        thr = launch(self.start)
+        super().run()
+        return thr
 
 
-def nme(event):
-    if len(event.args) != 2:
-        event.reply("name <stringinurl> <name>")
-        return
-    selector = {"rss": event.args[0]}
-    nr = 0
-    got = []
-    for _fn, o in find("rss", selector):
-        nr += 1
-        o.name = event.args[1]
-        got.append(o)
-    for o in got:
-        save(o)
-    event.reply("ok")
-
-
-Commands.add(nme)
-
-
-def rem(event):
-    if not event.args:
-        event.reply("rem <stringinurl>")
-        return
-    selector = {"rss": event.args[0]}
-    nr = 0
-    got = []
-    for _fn, o in find("rss", selector):
-        nr += 1
-        o._deleted = True
-        got.append(o)
-    for o in got:
-        save(o)
-    event.reply("ok")
-
-
-Commands.add(rem)
-
-
-def rss(event):
-    if not event.args:
-        event.reply("rss <url>")
-        return
-    url = event.args[0]
-    if "http" not in url:
-        event.reply("i need an url")
-        return
-    res = list(find("rss", {"rss": url}))
-    if res:
-        return
-    o = Rss()
-    o.rss = event.args[0]
-    save(o)
-    event.reply("ok")
-
-
-Commands.add(rss)
+def elapsed(seconds, short=True):
+    txt = ""
+    nsec = float(seconds)
+    year = 365*24*60*60
+    week = 7*24*60*60
+    nday = 24*60*60
+    hour = 60*60
+    minute = 60
+    years = int(nsec/year)
+    nsec -= years*year
+    weeks = int(nsec/week)
+    nsec -= weeks*week
+    nrdays = int(nsec/nday)
+    nsec -= nrdays*nday
+    hours = int(nsec/hour)
+    nsec -= hours*hour
+    minutes = int(nsec/minute)
+    sec = nsec - minutes*minute
+    if years:
+        txt += "%sy" % years
+    if weeks:
+        nrdays += weeks * 7
+    if nrdays:
+        txt += "%sd" % nrdays
+    if years and short and txt:
+        return txt
+    if hours:
+        txt += "%sh" % hours
+    if nrdays and short and txt:
+        return txt
+    if minutes:
+        txt += "%sm" % minutes
+    if hours and short and txt:
+        return txt
+    if sec == 0:
+        txt += "0s"
+    else:
+        txt += "%ss" % int(sec)
+    txt = txt.strip()
+    return txt

@@ -4,16 +4,13 @@
 "users"
 
 
-from .hdl import Commands
-from .obj import Class, Object, find, save, update
+from obj import Class, Object, find, save, update
 
 
 def __dir__():
     return (
         "NoUser",
         "Users",
-        "dlt",
-        "met"
     )
 
 
@@ -78,30 +75,3 @@ class Users(Object):
 
 
 Class.add(Users)
-
-
-def dlt(event):
-    if not event.args:
-        event.reply("dlt <username>")
-        return
-    selector = {"user": event.args[0]}
-    for _fn, o in find("user", selector):
-        o._deleted = True
-        save(o)
-        event.reply("ok")
-        break
-
-
-def met(event):
-    if not event.args:
-        event.reply("met <userhost>")
-        return
-    user = User()
-    user.user = event.rest
-    user.perms = ["USER"]
-    save(user)
-    event.reply("ok")
-
-
-Commands.add(dlt)
-Commands.add(met)

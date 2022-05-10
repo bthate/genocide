@@ -8,8 +8,8 @@ import threading
 import time
 
 
-from .obj import Object
-from .thr import getname, launch
+from obj import Object
+from thr import getname, launch
 
 
 def __dir__():

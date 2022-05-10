@@ -21,6 +21,7 @@ from genocide.obj import Config
 
 Config.console = False
 Config.name = "genocide"
+Config.services = False
 Config.workdir = os.path.expanduser("~/.genocide")
 
 
@@ -85,6 +86,8 @@ def warp(func):
 def main():
     Callbacks.add("command", dispatch)
     c = Console()
+    if "-s" in sys.argv:
+        Config.services = True
     if "-c" in sys.argv:
         Config.console = True
     elif len(sys.argv) > 1:
@@ -96,7 +99,8 @@ def main():
         print(format(i.cfg, skip="realname,sleep,username"))
         f = Fetcher()
         f.start()
-        mdlinit()
+        if Config.services:
+            mdlinit()
     c.start()
     while 1:
         time.sleep(1.0)

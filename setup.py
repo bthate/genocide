@@ -7,6 +7,9 @@ import os
 from setuptools import setup
 
 
+mods = ["csl", "evt", "hdl", "irc", "obj", "rpt",  "rss", "scn", "thr", "usr"]
+
+
 def read():
     return open("README.rst", "r").read()
 
@@ -35,8 +38,12 @@ setup(
     description="Prosector. Reconsider. OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
+    package_dir={"": "lib",
+                 "genocide": "genocide"
+                },
+    py_modules=mods,
     packages=["genocide"],
-    zip_safe=False,
+    zip_safe=True,
     include_package_data=True,
     data_files=[
                 ("share/genocide", ["genocide.service",]),

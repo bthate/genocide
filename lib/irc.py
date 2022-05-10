@@ -15,11 +15,11 @@ import time
 import _thread
 
 
-from .obj import Class, Object, edit, format, get, last, locked, save
-from .evt import Event
-from .hdl import Commands, Handler
-from .thr import launch
-from .usr import Users
+from obj import Class, Object, edit, format, get, last, locked, save
+from evt import Event
+from hdl import Commands, Handler
+from thr import launch
+from usr import Users
 
 
 Class.add(Users)
@@ -44,16 +44,16 @@ saylock = _thread.allocate_lock()
 class Config(Object):
 
     cc = "!"
-    channel = "#genocide"
-    nick = "genocide"
+    channel = "#newobj"
+    nick = "newobj"
     password = ""
     port = 6667
-    realname = "Prosecutor. Reconsider. OTP-CR-117/19."
+    realname = "the new old way of programming"
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "genocide"
+    username = "newobj"
     users = False
 
     def __init__(self):
@@ -70,6 +70,7 @@ class Config(Object):
         self.sleep = Config.sleep
         self.username = Config.username
         self.users = Config.users
+
 
 Class.add(Config)
 
@@ -94,12 +95,12 @@ class TextWrap(textwrap.TextWrapper):
 
     def __init__(self):
         super().__init__()
-        self.break_long_words = True
+        self.break_long_words = False
         self.drop_whitespace = True
         self.fix_sentence_endings = True
         self.replace_whitespace = True
         self.tabsize = 4
-        self.width = 250
+        self.width = 450
 
 
 class Output(Object):

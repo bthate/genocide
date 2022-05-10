@@ -141,8 +141,8 @@ class Object:
 class Config(Object):
 
     debug = False
-    name = None
-    workdir = None
+    name = "newapp"
+    workdir = ".newapp"
 
 
 def clear(o):

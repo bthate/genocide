@@ -2,24 +2,33 @@
 # This file is placed in the Public Domain.
 
 
-"daemon"
+"Prosector. Reconsider. OTP-CR-117/19."
 
 
-import os
 import time
 
 
-from genocide.obj import Config, format
+from obj import Config
 
 
+Config.console = False
 Config.name = "genocide"
+Config.services = False
 Config.workdir = "/var/lib/genocide/"
 
 
-from genocide.hdl import Callbacks, dispatch
-from genocide.irc import IRC
-from genocide.mdl import init
-from genocide.rss import Fetcher
+from irc import Config as IRCConfig
+
+
+IRCConfig.channel = "#genocide"
+IRCConfig.nick = "genocide"
+IRCConfig.realname = "Prosector. Reconsider. OTP-CR-117/19."
+IRCConfig.username = "genocide"
+
+
+from hdl import Callbacks, dispatch
+from irc import IRC
+from rss import Fetcher
 
 
 import genocide.all
@@ -27,15 +36,12 @@ import genocide.all
 
 def main():
     Callbacks.add("command", dispatch)
-    Callbacks.threaded = True
-    print("GENOCIDED started at %s" % time.ctime(time.time()).replace("  ", " "))
     i = IRC()
     i.start()
-    print(format(i.cfg, skip="realname,sleep,username"))
     f = Fetcher()
     f.start()
-    init()
     while 1:
         time.sleep(1.0)
+
 
 main()

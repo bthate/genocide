@@ -12,7 +12,9 @@ from hdl import Bus, Commands, starttime
 from irc import Config
 from obj import Class, Db, Object, edit, find, fntime, format, get, last, save, update
 from rpt import elapsed
+from rss import Fetcher, Rss
 from thr import getname
+from usr import User
 
 
 class Log(Object):
@@ -91,10 +93,10 @@ def fnd(event):
     otype = event.args[0]
     res = list(find(otype))
     if bot.cache:
-         if len(res) > 3:
-             bot.extend(event.channel, [x[1].txt for x in res])
-             bot.say(event.channel, "%s left in cache, use !mre to show more" % bot.cache.size())
-             return
+        if len(res) > 3:
+            bot.extend(event.channel, [x[1].txt for x in res])
+            bot.say(event.channel, "%s left in cache, use !mre to show more" % bot.cache.size())
+            return
     nr = 0
     for _fn, o in res:
         txt = "%s %s %s" % (str(nr), format(o), elapsed(time.time()-fntime(_fn)))
@@ -113,8 +115,8 @@ def ftc(event):
     fetcher = Fetcher()
     fetcher.start(False)
     thrs = fetcher.run()
-    for thr in thrs:
-        res.append(thr.join())
+    for t in thrs:
+        res.append(t.join())
     if res:
         event.reply(",".join([str(x) for x in res]))
         return

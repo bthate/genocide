@@ -2,44 +2,54 @@
 # This file is placed in the Public Domain.
 
 
-"command"
+"Prosector. Reconsider. OTP-CR-117/19."
 
 
+import os
+import readline
 import sys
+import termios
+import time
+import traceback
 
 
-from genocide.obj import Config
+from obj import Config
 
 
-Config.name = "genocidecmd"
+Config.console = False
+Config.name = "genocide"
+Config.services = False
 Config.workdir = "/var/lib/genocide/"
 
 
-from genocide.evt import Command
-from genocide.hdl import Callbacks, Handler, dispatch
+from irc import Config as IRCConfig
+
+
+IRCConfig.channel = "#genocide"
+IRCConfig.nick = "genocide"
+IRCConfig.realname = "Prosector. Reconsider. OTP-CR-117/19."
+IRCConfig.username = "genocide"
+
+
+from csl import CLI
+from evt import Command
+from hdl import Callbacks, dispatch
 
 
 import genocide.all
 
 
-class CLI(Handler):
+class CLI(CLI):
 
-    def cmd(self, txt):
-        e = Command()
-        e.parse(txt, repr(self))
-        self.handle(e)
-        e.wait()
 
     def raw(self, txt):
         print(txt)
-        sys.stdout.flush()
 
 
 def main():
     Callbacks.add("command", dispatch)
-    Callbacks.threaded = False
     c = CLI()
-    return c.cmd(" ".join(sys.argv[1:]))
+    c.cmd(" ".join(sys.argv[1:]))
 
 
 main()

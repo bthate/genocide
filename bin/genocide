@@ -35,6 +35,7 @@ IRCConfig.realname = "Prosector. Reconsider. OTP-CR-117/19."
 IRCConfig.username = "genocide"
 
 
+from csl import Console
 from evt import Command
 from hdl import Callbacks, Commands, Handler, dispatch
 from irc import IRC, Output
@@ -49,34 +50,8 @@ from genocide.sui import init as suiinit
 import genocide.all
 
 
-class Console(Handler, Output):
+class Console(Console):
 
-    cache = Object()
-
-    def announce(self, txt):
-        pass
-
-    def cmd(self, txt):
-        c = Command()
-        c.channel = "#genocide"
-        c.orig = repr(self)
-        c.txt = txt
-        self.handle(c)
-        c.wait()
-
-    def handle(self, e):
-        Handler.handle(self, e)
-        e.wait()
-
-    def poll(self):
-        e = Command()
-        e.channel = "#genocide"
-        e.cmd = ""
-        e.txt = input("> ")
-        e.orig = repr(self)
-        if e.txt:
-            e.cmd = e.txt.split()[0]
-        return e
 
     def raw(self, txt):
         print(txt)

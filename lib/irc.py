@@ -106,14 +106,14 @@ class TextWrap(textwrap.TextWrapper):
 class Output(Object):
 
     cache = Object()
-    
+
     def __init__(self):
         Object.__init__(self)
         self.oqueue = queue.Queue()
         self.dostop = threading.Event()
 
     def dosay(self, channel, txt):
-        raise NotImplemented
+        raise NotImplementedError
 
     def extend(self, channel, txtlist):
         if channel not in self.cache:
@@ -125,7 +125,6 @@ class Output(Object):
             return self.cache[channel].pop(0)
         except IndexError:
             pass
-
 
     def oput(self, channel, txt):
         self.oqueue.put_nowait((channel, txt))

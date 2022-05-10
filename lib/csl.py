@@ -8,11 +8,6 @@ from evt import Command
 from hdl import Handler
 
 
-class NotImplemented(Exception):
-
-    pass
-
-
 class CLI(Handler):
 
     def announce(self, txt):
@@ -27,7 +22,7 @@ class CLI(Handler):
         c.wait()
 
     def raw(self, txt):
-        raise NotImplemented
+        raise NotImplementedError
 
 class Console(CLI):
 
@@ -46,5 +41,8 @@ class Console(CLI):
         return e
 
     def forever(self):
-         while 1:
-             time.sleep(1.0)
+        while 1:
+            time.sleep(1.0)
+
+    def raw(self, txt):
+        raise NotImplementedError

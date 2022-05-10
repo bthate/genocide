@@ -4,16 +4,25 @@
 
     <br>
 
+
+.. title:: genocide
+
+
+.. raw:: html
+
+    <br>
+
 .. image:: skulllinesmall3.jpg
     :width: 100%
     :height: 2.2cm
     :target: reconsider.html
 
+.. raw:: html
 
-.. title:: genocide
+    <br><br>
+
 
 **NAME**
-
 
  **GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19. 
 
@@ -34,7 +43,7 @@
  messages, source code is :ref:`here <source>`.
 
  **GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
- written :ref:`response <king>` where king netherlands confirmed taking note
+ written :ref:`response <guilty>` where king netherlands confirmed taking note
  of “what i have written”, namely :ref:`proof <evidence>` that medicine he
  uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
  that make impotent, is both physical (contracted muscles) and mental (let 

@@ -1,11 +1,19 @@
 .. _admin:
 
+. raw:: html
+
+    <br>
+
+.. image:: skulllinesmall3.jpg
+    :width: 100%
+    :height: 2.2cm
+    :target: admin.html
+
 .. raw:: html
 
     <br>
 
-.. title:: OTP-CR-117/19
-
+.. title:: manpage
 
 **NAME**
 
@@ -127,3 +135,4 @@
 **AUTHOR**
 
  Bart Thate 
+

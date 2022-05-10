@@ -110,22 +110,9 @@ rst_prolog = '''.. image:: line.png
     :height: 2.2cm
     :target: index.html
 
-
-.. raw:: html
-
-    <br><br>
-
-.. image:: skulllinesmall3.jpg
-    :width: 100%
-    :height: 2.2cm
-    :target: admin.html
-
-
 .. raw:: html
 
     <br>
-
-
 '''
 
 autosummary_generate=True

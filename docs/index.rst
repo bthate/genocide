@@ -1,72 +1,151 @@
-.. _reconsider:
+.. _admin:
 
 .. raw:: html
 
     <br>
 
-| **Information and Evidence Unit**
-| **Office of the Prosecutor**
-| **Post Office Box 19519**
-| **2500 CM The Hague**
-| **The Netherlands**
-| 
+.. image:: skulllinesmall3.jpg
+    :width: 100%
+    :height: 2.2cm
+    :target: reconsider.html
 
-Hello Office of the Prosecutor,
 
-i write you in the context of communications and claims under art.15 of 
-the Rome Statute. i want to inform the prosecutor that the king of the 
-netherlands and his government are commiting 3 of the 5 crimes defined 
-in the Rome Statute.
 
-The dutch government has introduced three new forced care laws, the Wfz 
-(wet forensische zorg) for criminals, the WvGGZ (Wet verplichte GGZ) for 
-the disturbed and addicted and the Wzd (Wet zorg en dwang) for the 
-handicapped.
+.. raw:: html
 
-Both the chamber suggesting these laws to the king and the king himself 
-have been informed about the fact the the substances administered under 
-these laws are proven to be poison.
- 
-There is proof the medication used in forced treatements in the 
-netherlands are poison, see copies of the ECHA <`European Chemical Agency`>
-website for:
+    <br>
 
-(1) :ref:`haldol <haldol>`
-(2) :ref:`clozapine <clozapine>`
-(3) :ref:`zyprexa <zyprexa>`
-(4) :ref:`abilify <abilify>`
+.. title:: manpage
 
-With the mass scale torture with poison the king of the netherlands and 
-his chamber:
 
-(1) kills
-(2) does grave bodily and mental harm
-(3) makes impotent
+**NAME**
 
-on the following victim groups here in the Netherlands:
 
-(1) verslaafden (addicts)
-(2) bejaarden (elderly)
-(3) ggz patienten (psychiatric patients)
-(4) criminelen (criminials)
-(5) gehandicapten (handicapped)
+ **GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19. 
 
-Since the members of the :ref:`chamber <chamber>` and the :ref:`king <king>`
-were aware that these medicine are poison at the time they voted for this law
-and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to
-prosecute the king for making the commiting of the above mentioned crimes
-(killing, torture and impotent making) possible here in the netherlands in
-the hope that it stops the mass torture with poison the king of the 
-netherlands and his government are :ref:`doing <correspondence>` :ref:`...
-<evidence>`
+
+**SYNOPSIS**
+
+
+ | ``sudo genocidectl <cmd> [key=value] [key==value]``
+
+
+**DESCRIPTION**
+
+
+ **GENOCIDE** is a python3 program that holds evidence that the king of the
+ netherlands is doing a genocide, a written response where the king of
+ the netherlands confirmed taking note of “what i have written”, namely
+ proof that medicine he uses in treatement laws like zyprexa, haldol,
+ abilify and clozapine are poison that makes impotent, is both physical
+ (contracted muscles) and mental (let people hallucinate) torture and kills
+ members of the victim groups.
+
+ **GENOCIDE** contains correspondence with the International Criminal Court, 
+ asking for arrest of the king of the netherlands, for the genocide he is
+ committing with his new treatement laws. Current status is an outside the
+ jurisdiction judgement of the prosecutor which requires a reconsider to have
+ the king actually arrested, see :ref:`here <reconsider>`.
+
+ **GENOCIDE** is also a solid, non hackable bot, that runs under systemd as a 
+ 24/7 background service and starts after reboot, intended to be programmable
+ in a static, only code, no popen, no imports and no reading modules from a
+ directory. It can show genocide and suicide stats into the channel, display rss
+ feeds and log simple text messages. See the source code :ref:`here <source>`.
+
+ **GENOCIDE** installs 52 files containing photo's and pdf's of communications
+ between me, the first chamber, king and prosecutor. If you do not wish to have
+ them installed a simple ``pip3 uninstall genocide`` will remove them from the
+ system.  
+
+
+**INSTALL**
+
+
+ | $ ``sudo pip3 install genocide --upgrade --force-reinstall``
+
+
+**CONFIGURATION**
+
+
+ **irc**
+
+ | $ ``sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>``
+ |
+ | (*) default channel/server is #genocide on localhost
+
+ **sasl**
+
+ | $ ``sudo genocidectl pwd <nickservnick> <nickservpass>``
+ | $ ``sudo genocidectl cfg password=<outputfrompwd>``
+
+ **users**
+
+ | $ ``sudo genocidectl cfg users=True``
+ | $ ``sudo genocidectl met <userhost>``
+
+ **24/7**
+
+ | $ ``sudo cp /usr/local/share/genocide/genocide.service /etc/systemd/system``
+ | $ ``sudo systemctl enable genocide --now``
+
+
+**COMMANDS**
+
+
+ | ``cmd`` - shows all commands
+ | ``cfg`` - shows the irc configuration, also edits the config
+ | ``dlt`` - removes a user from genocide
+ | ``dpl`` - sets display items for a rss feed
+ | ``ftc`` - runs a rss feed fetching batch
+ | ``fnd`` - allows you to display objects on the datastore, read-only json files on disk 
+ | ``flt`` - shows a list of instances registered to the bus
+ | ``log`` - logs some text
+ | ``mdl`` - genocide model
+ | ``met`` - adds a users with there irc userhost
+ | ``mre`` - displays cached output, channel wise.
+ | ``nck`` - changes nick on irc
+ | ``now`` - show genocide stats
+ | ``ops`` - tries to give you operator status (+o)
+ | ``pwd`` - combines a nickserv name/password into a sasl password
+ | ``rem`` - removes a rss feed by matching is to its url
+ | ``req`` - request to the prosecutor
+ | ``rss`` - adds a feed to fetch, fetcher runs every 5 minutes
+ | ``slg`` - slogan
+ | ``sts`` - suidicde stats
+ | ``thr`` - show the running threads
+ | ``tpc`` - set genocide stats in topic
+ | ``trt`` - torture definition
+ | ``wsd`` - wisdom
+
+
+**FILES**
+
+
+ | ``/usr/local/share/doc/genocide/*``
+ | ``/usr/local/share/genocide/genocide.service``
+
+
+**SEE ALSO**
+
+ | http://genocide.rtfd.io
+ | http://pypi.org/project/genocide
+
+**COPYRIGHT**
+
+ **GENOCIDE** is placed in the Public Domain. No Copyright, No License.
+
+**AUTHOR**
+
+ Bart Thate 
 
 .. toctree::
     :hidden:
     :glob:
 
-    admin
     correspondence
     evidence
     guilty
     reconsider
     source
+    admin

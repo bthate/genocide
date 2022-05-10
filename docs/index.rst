@@ -38,9 +38,9 @@
  **GENOCIDE** is a solid, non hackable bot, that runs under systemd as a 
  24/7 background service starts after reboot and is intended to be programmable
  in a static, only code, no popen, no user imports and no reading modules from
- a directory. It can show genocide and suicide stats of king netherlands his
- genocide into a IRC channel, display rss feeds and log simple text
- messages, source code is :ref:`here <source>`.
+ a directory, way. It can show genocide and suicide stats of king netherlands
+ his genocide into a IRC channel, display rss feeds and log simple text
+ messages. Source code is :ref:`here <source>`.
 
  **GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
  written :ref:`response <guilty>` where king netherlands confirmed taking note

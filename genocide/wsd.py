@@ -187,5 +187,11 @@
 import random
 
 
+from hdl import Commands
+
+
 def wsd(event):
     event.reply(random.choice(__doc__.split("\n")).strip()[2:])
+
+
+Commands.add(wsd)

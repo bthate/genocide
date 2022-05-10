@@ -1,8 +1,6 @@
 # This file is placed in the Public Domain.
 
-"""Prosecutor. Reconsider. OTP-CR-117/19.
-
-| Information and Evidence Unit
+"""| Information and Evidence Unit
 | Office of the Prosecutor
 | Post Office Box 19519
 | 2500 CM The Hague

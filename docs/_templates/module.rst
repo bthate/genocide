@@ -1,9 +1,15 @@
+.. _{{ fullname }}:
+
 .. raw:: html
 
-    <br>
+    <br><br>
 
 {{ fullname }}
 {{ underline }}
+
+.. raw:: html
+
+    <br>
 
 .. automodule:: {{ fullname }}
     :members:

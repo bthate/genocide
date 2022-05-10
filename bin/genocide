@@ -26,6 +26,15 @@ Config.services = False
 Config.workdir = os.path.expanduser("~/.genocide")
 
 
+from irc import Config as IRCConfig
+
+
+IRCConfig.channel = "#genocide"
+IRCConfig.nick = "genocide"
+IRCConfig.realname = "Prosector. Reconsider. OTP-CR-117/19."
+IRCConfig.username = "genocide"
+
+
 from evt import Command
 from hdl import Callbacks, Commands, Handler, dispatch
 from irc import IRC, Output

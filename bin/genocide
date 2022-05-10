@@ -14,6 +14,7 @@ import traceback
 
 
 sys.path.insert(0, os.getcwd())
+sys.path.insert(0, "lib")
 
 
 from genocide.obj import Config
@@ -25,12 +26,14 @@ Config.services = False
 Config.workdir = os.path.expanduser("~/.genocide")
 
 
-from genocide.evt import Command
-from genocide.hdl import Callbacks, Commands, Handler, dispatch
-from genocide.irc import IRC, Output
+from evt import Command
+from hdl import Callbacks, Commands, Handler, dispatch
+from irc import IRC, Output
+from obj import Object, format
+from rss import Fetcher
+
+
 from genocide.mdl import init as mdlinit
-from genocide.obj import Object, format
-from genocide.rss import Fetcher
 from genocide.sui import init as suiinit
 
 

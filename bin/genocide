@@ -49,7 +49,7 @@ class Console(Handler, Output):
 
     def cmd(self, txt):
         c = Command()
-        c.channel = "#botd"
+        c.channel = "#genocide"
         c.orig = repr(self)
         c.txt = txt
         self.handle(c)
@@ -103,6 +103,7 @@ def main():
         f = Fetcher()
         f.start()
         if Config.services:
+            suiinit()
             mdlinit()
     c.start()
     while 1:

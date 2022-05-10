@@ -1,4 +1,4 @@
-.. _admin:
+.. _genocide:
 
 .. raw:: html
 
@@ -141,9 +141,9 @@
     :hidden:
     :glob:
 
-    correspondence
+    reconsider
     evidence
     guilty
-    reconsider
     source
-    admin
+    correspondence
+    zadmin

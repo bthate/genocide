@@ -1,6 +1,6 @@
 .. _admin:
 
-. raw:: html
+.. raw:: html
 
     <br>
 

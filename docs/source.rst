@@ -27,3 +27,23 @@ the following modules are provided:
     genocide.sui		suicide stats
     genocide.trt		torture definition
     genocide.wsd		wisdom
+
+
+the library provides the following modules:
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+
+    csl				console
+    evt				event
+    hdl				handler
+    irc				internet relay chat
+    obj				object
+    rpt				repeater
+    rss				rich site syndicate
+    scn				scan
+    tbl				table
+    thr				thread
+    usr				user

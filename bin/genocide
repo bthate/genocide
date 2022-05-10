@@ -102,7 +102,7 @@ def main():
         Config.services = True
     if "-c" in sys.argv:
         Config.console = True
-    elif len(sys.argv) > 1:
+    elif len(sys.argv) > 1 and not Config.services:
         return c.cmd(" ".join(sys.argv[1:]))
     print("GENOCIDE started at %s" % time.ctime(time.time()).replace("  ", " "))
     if not Config.console:

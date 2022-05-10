@@ -1,11 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"the trip in between"
-
-
-#:
-txt = """| wijsheid, wijs !
+"""| wijsheid, wijs !
 
 | OVERDRACHT
 | ==========
@@ -192,4 +188,4 @@ import random
 
 
 def wsd(event):
-    event.reply(random.choice(txt.split("\n")).strip()[2:])
+    event.reply(random.choice(__doc__.split("\n")).strip()[2:])

@@ -81,7 +81,7 @@ html_theme_options = {
     'link_hover': '#000',
     'nosidebar': True,
     'show_powered_by': False,
-    'show_relbar_top': False,
+    'show_relbar_top': True,
 }
 html_favicon = "skull3.jpg"
 html_extra_path = []

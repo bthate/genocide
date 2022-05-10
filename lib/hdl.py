@@ -18,7 +18,6 @@ def __dir__():
         "Callbacks",
         "Commands",
         "Handler",
-        "Table"
     )
 
 
@@ -117,19 +116,6 @@ class Commands(Object):
     def get(command):
         f =  get(Commands.cmd, command)
         return f
-
-
-class Table():
-
-    mod = {}
-
-    @staticmethod
-    def add(o):
-        Table.mod[o.__name__] = o
-
-    @staticmethod
-    def get(nm):
-        return Table.mod.get(nm, None)
 
 
 class Handler(Object):

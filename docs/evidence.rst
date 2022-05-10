@@ -6,7 +6,13 @@
 
 .. title:: evidence
 
+evidence
+========
+
 .. _haldol:
+
+.. image:: informed.jpg
+
 
 .. raw:: html
 

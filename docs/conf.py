@@ -113,6 +113,14 @@ rst_prolog = '''.. image:: line.png
 .. raw:: html
 
     <br>
+
+
+.. raw:: html
+
+    <br>
+
+ <center><i>Elderly and handicapped (Wzd), psychiatric patients (WvGGZ) and criminals (Wfz)</i></center>
+
 '''
 
 autosummary_generate=True

@@ -10,13 +10,7 @@
     :target: reconsider.html
 
 
-
-.. raw:: html
-
-    <br>
-
-.. title:: manpage
-
+.. title:: genocide
 
 **NAME**
 
@@ -32,31 +26,26 @@
 
 **DESCRIPTION**
 
+ **GENOCIDE** is a solid, non hackable bot, that runs under systemd as a 
+ 24/7 background service starts after reboot and is intended to be programmable
+ in a static, only code, no popen, no user imports and no reading modules from
+ a directory. It can show genocide and suicide stats of king netherlands his
+ genocide into a IRC channel, display rss feeds and log simple text
+ messages, source code is :ref:`here <source>`.
 
- **GENOCIDE** is a python3 program that holds evidence that the king of the
- netherlands is doing a genocide, a written response where the king of
- the netherlands confirmed taking note of “what i have written”, namely
- proof that medicine he uses in treatement laws like zyprexa, haldol,
- abilify and clozapine are poison that makes impotent, is both physical
- (contracted muscles) and mental (let people hallucinate) torture and kills
- members of the victim groups.
+ **GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
+ written :ref:`response <king>` where king netherlands confirmed taking note
+ of “what i have written”, namely :ref:`proof <evidence>` that medicine he
+ uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
+ that make impotent, is both physical (contracted muscles) and mental (let 
+ people hallucinate) torture and kills members of the victim groups. 
 
- **GENOCIDE** contains correspondence with the International Criminal Court, 
- asking for arrest of the king of the netherlands, for the genocide he is
- committing with his new treatement laws. Current status is an outside the
- jurisdiction judgement of the prosecutor which requires a reconsider to have
- the king actually arrested, see :ref:`here <reconsider>`.
-
- **GENOCIDE** is also a solid, non hackable bot, that runs under systemd as a 
- 24/7 background service and starts after reboot, intended to be programmable
- in a static, only code, no popen, no imports and no reading modules from a
- directory. It can show genocide and suicide stats into the channel, display rss
- feeds and log simple text messages. See the source code :ref:`here <source>`.
-
- **GENOCIDE** installs 52 files containing photo's and pdf's of communications
- between me, the first chamber, king and prosecutor. If you do not wish to have
- them installed a simple ``pip3 uninstall genocide`` will remove them from the
- system.  
+ **GENOCIDE** contains :ref:`correspondence <correspondence>` with the
+ International Criminal Court, asking for arrest of the king of the 
+ netherlands, for the genocide he is committing with his new treatement laws.
+ Current status is an outside the jurisdiction judgement of the prosecutor 
+ which requires a :ref:`reconsider <reconsider>` to have the king actually
+ arrested.
 
 
 **INSTALL**

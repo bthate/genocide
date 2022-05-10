@@ -6,7 +6,7 @@
 "OTP-CR-117/19"
 
 
-__version__ = 62
+__version__ = 64
 
 
 import doctest
@@ -118,7 +118,7 @@ rst_prolog = '''.. image:: line.png
 .. image:: skulllinesmall3.jpg
     :width: 100%
     :height: 2.2cm
-    :target: reconsider.html
+    :target: admin.html
 
 
 .. raw:: html

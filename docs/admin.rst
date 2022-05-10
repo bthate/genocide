@@ -9,13 +9,18 @@
 
 **NAME**
 
+
  **GENOCIDE** - Prosecutor. Reconsider. OTP-CR-117/19. 
+
 
 **SYNOPSIS**
 
+
  | ``sudo genocidectl <cmd> [key=value] [key==value]``
 
+
 **DESCRIPTION**
+
 
  **GENOCIDE** is a python3 program that holds evidence that the king of the
  netherlands is doing a genocide, a written response where the king of
@@ -45,10 +50,12 @@
 
 **INSTALL**
 
- $ ``sudo pip3 install genocide``
+
+ | $ ``sudo pip3 install genocide --upgrade --force-reinstall``
 
 
 **CONFIGURATION**
+
 
  **irc**
 
@@ -73,6 +80,7 @@
 
 
 **COMMANDS**
+
 
  | ``cmd`` - shows all commands
  | ``cfg`` - shows the irc configuration, also edits the config
@@ -99,7 +107,9 @@
  | ``trt`` - torture definition
  | ``wsd`` - wisdom
 
+
 **FILES**
+
 
  | ``/usr/local/share/doc/genocide/*``
  | ``/usr/local/share/genocide/genocide.service``
@@ -107,7 +117,7 @@
 
 **SEE ALSO**
 
- | https://genocide.rtfd.io
+ | http://genocide.rtfd.io
  | http://pypi.org/project/genocide
 
 **COPYRIGHT**
@@ -116,14 +126,4 @@
 
 **AUTHOR**
 
- Bart Thate - bthate67@gmail.com
-
-.. toctree::
-    :hidden:
-    :glob:
-
-    correspondence
-    evidence
-    guilty
-    reconsider
-    source
+ Bart Thate 

@@ -8,10 +8,10 @@ import random
 import time
 
 
-from .evt import Event
-from .hdl import Bus
-from .obj import Object, get, items, keys, values
-from .rpt import Repeater, elapsed
+from evt import Event
+from hdl import Bus
+from obj import Object, get, items, keys, values
+from rpt import Repeater, elapsed
 
 
 source = "https://github.com/bthate/genocide"

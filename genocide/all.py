@@ -7,14 +7,3 @@ from genocide import sui as sui
 from genocide import req as req
 from genocide import slg as slg
 from genocide import wsd as wsd
-
-
-from hdl import Table
-
-
-Table.add(cmds)
-Table.add(trt)
-Table.add(sui)
-Table.add(req)
-Table.add(slg)
-Table.add(wsd)

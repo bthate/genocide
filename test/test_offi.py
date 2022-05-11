@@ -13,7 +13,7 @@ import unittest
 
 from evt import Event
 from obj import Object, edit, keys, spl, update
-from rss import XML
+from rss import Parser
 
 
 items = "title,description,link,pubDate"
@@ -27,7 +27,7 @@ class Config(Object):
 class Test_officielebekendmakingen(unittest.TestCase):
 
     def test_xml(self):
-        p = XML()
+        p = Parser()
         res =  p.parse(txt, items)
         self.assertEqual(len(res), 151)
 

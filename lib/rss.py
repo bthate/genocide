@@ -10,12 +10,6 @@ import threading
 import urllib
 
 
-try:
-    import feedparser
-except ImportError:
-    pass
-
-
 from evt import Command
 from hdl import Bus, Commands
 from obj import Object, get, update
@@ -36,10 +30,6 @@ def __dir__():
         "Seen",
         "Fetcher",
         "display",
-        "fetch",
-        "name",
-        "remove",
-        "rss"
     )
 
 
@@ -71,6 +61,7 @@ class Seen(Object):
 
 class Fetcher(Object):
 
+    dosave = False
     errors = []
     seen = Seen()
 
@@ -115,7 +106,8 @@ class Fetcher(Object):
                     continue
                 Fetcher.seen.urls.append(url)
             counter += 1
-            save(f)
+            if self.dosave:
+                save(f)
             objs.append(f)
         if objs:
             save(Fetcher.seen)
@@ -124,8 +116,8 @@ class Fetcher(Object):
         if name:
             txt = "[%s] " % name
         for o in objs:
-            txt = self.display(o)
-            Bus.announce(txt.rstrip())
+            txt2 = txt + self.display(o)
+            Bus.announce(txt2.rstrip())
         return counter
 
     def run(self):
@@ -141,28 +133,32 @@ class Fetcher(Object):
             repeater.start()
 
 
-def getitem(line, item):
-    try:
-        i = line.index("<%s>" % item) + len(item) + 2
-        ii = line.index("</%s>" % item)
-    except ValueError:
-        return
-    l = line[i:ii]
-    if "CDATA" in l:
-        l = l.replace("![CDATA[", "")
-        l = l.replace("]]", "")
-        l = l[1:-1]
-    return l
+
+class Parser(Object):
+
+    @staticmethod
+    def getitem(line, item):
+        try:
+            i = line.index("<%s>" % item) + len(item) + 2
+            ii = line.index("</%s>" % item)
+        except ValueError:
+            return
+        l = line[i:ii]
+        if "CDATA" in l:
+            l = l.replace("![CDATA[", "")
+            l = l.replace("]]", "")
+            l = l[1:-1]
+        return l
 
 
-class XML(Object):
-
-    def parse(self, txt, items="title,link"):
+    @staticmethod
+    def parse(txt, items="title,link"):
         res = []
         for line in txt.split("<item>"):
+            line = line.strip()
             o = Object()
             for item in spl(items):
-                o[item] = getitem(line, item)
+                o[item] = Parser.getitem(line, item)
             res.append(o)
         return res
 
@@ -177,7 +173,7 @@ def getfeed(url, items):
         return [Object(), Object()]
     if not result:
         return [Object(), Object()]
-    return xml.parse(str(result.data, "utf-8"), items)
+    return Parser.parse(str(result.data, "utf-8"), items)
 
 
 def gettinyurl(url):
@@ -220,7 +216,7 @@ def useragent(txt):
     return "Mozilla/5.0 (X11; Linux x86_64) " + txt
 
 
-xml = XML()
+parser = Parser()
 
 
 Class.add(Feed)

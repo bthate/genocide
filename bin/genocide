@@ -34,13 +34,15 @@ IRCConfig.username = "genocide"
 from csl import Console
 from evt import Command
 from hdl import Callbacks, Commands, Handler, dispatch
-from irc import IRC, Output
+from irc import IRC
 from obj import Object, format
 from rss import Fetcher
-from tbl import Table
 
 
 import genocide.all
+import genocide.cmds
+import genocide.mdl
+import genocide.sui
 
 
 class Console(Console):
@@ -79,16 +81,11 @@ def main():
         print(format(i.cfg, skip="realname,sleep,username"))
         f = Fetcher()
         f.start()
-        if Config.services:
-            mod = Table.get("mdl")
-            if mod:
-                mod.init()
-            mod = Table.get("sui")
-            if mod:
-                mod.init()
+    if Config.services:
+        genocide.mdl.init()
+        genocide.sui.init()
     c.start()
-    while 1:
-        time.sleep(1.0)
+    c.forever()
 
 
 warp(main)

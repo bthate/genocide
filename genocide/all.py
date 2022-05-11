@@ -1,9 +1,31 @@
 # This file is placed in the Public Domain.
 
 
-from genocide import cmds as cmds
-from genocide import trt as trt
-from genocide import sui as sui
-from genocide import req as req
-from genocide import slg as slg
-from genocide import wsd as wsd
+def __dir__():
+    return (
+        "mdl",
+        "req",
+        "slg",
+        "sui",
+        "trt",
+        "wsd",
+        "cmds"
+    )
+
+
+from tbl import Table
+
+
+from genocide import mdl
+from genocide import req
+from genocide import slg
+from genocide import sui
+from genocide import trt
+from genocide import wsd
+from genocide import cmds
+
+
+for mn in __dir__():
+    md = getattr(locals(), mn, None)
+    if md:
+        Table.add(md)

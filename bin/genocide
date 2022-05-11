@@ -13,10 +13,6 @@ import time
 import traceback
 
 
-sys.path.insert(0, os.getcwd())
-sys.path.insert(0, "lib")
-
-
 from obj import Config
 
 
@@ -41,10 +37,7 @@ from hdl import Callbacks, Commands, Handler, dispatch
 from irc import IRC, Output
 from obj import Object, format
 from rss import Fetcher
-
-
-from genocide.mdl import init as mdlinit
-from genocide.sui import init as suiinit
+from tbl import Table
 
 
 import genocide.all
@@ -87,8 +80,12 @@ def main():
         f = Fetcher()
         f.start()
         if Config.services:
-            suiinit()
-            mdlinit()
+            mod = Table.get("mdl")
+            if mod:
+                mod.init()
+            mod = Table.get("sui")
+            if mod:
+                mod.init()
     c.start()
     while 1:
         time.sleep(1.0)

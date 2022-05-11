@@ -129,13 +129,14 @@
  | http://genocide.rtfd.io
  | http://pypi.org/project/genocide
 
-**COPYRIGHT**
-
- **GENOCIDE** is placed in the Public Domain. No Copyright, No License.
 
 **AUTHOR**
 
  Bart Thate 
+
+**COPYRIGHT**
+
+ **GENOCIDE** is placed in the Public Domain. No Copyright, No License.
 
 .. toctree::
     :hidden:

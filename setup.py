@@ -46,7 +46,7 @@ setup(
     zip_safe=True,
     include_package_data=True,
     data_files=[
-                ("share/genocide", ["genocide.service",]),
+                ("share/genocide", ["files/genocide.service",]),
                 ("share/doc/genocide", uploadlist("docs")),
                 ("share/doc/genocide/pdf", uploadlist("docs/pdf")),
                 ("share/doc/genocide/_templates", uploadlist("docs/_static")),

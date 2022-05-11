@@ -40,7 +40,7 @@ from rss import Fetcher
 from tbl import Table
 
 
-import genocide.all
+import genocide.cmds
 
 
 class Console(Console):

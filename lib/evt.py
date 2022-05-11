@@ -49,14 +49,14 @@ class Event(Object):
             for w in spl[1:]:
                 _nr += 1
                 try:
-                    k, v = w.split("=")
-                    self.sets[k] = v
+                    k, v = w.split("==")
+                    self.gets[k] = v
                 except ValueError:
                     args.append(w)
                     continue
                 try:
-                    k, v = w.split("==")
-                    self.gets[k] = v
+                    k, v = w.split("=")
+                    self.sets[k] = v
                 except ValueError:
                     args.append(w)
             if args:

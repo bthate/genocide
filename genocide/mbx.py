@@ -81,9 +81,15 @@ def cor(event):
         event.reply("cor <email>")
         return
     nr = -1
-    for email in find("email", {"From": event.args[0]}):
+    for fn, email in find("email", {"From": event.args[0]}):
         nr += 1
-        event.reply("%s %s %s" % (nr, format(email, event.args), elapsed(time.time() - fntime(email.__stp__))))
+        txt = ""
+        if len(event.args) > 1:
+            txt = ",".join(event.args[1:])
+        else:
+            txt = "From,Subject"
+        print(fntime(fn))
+        event.reply("%s %s %s" % (nr, format(email, txt, plain=True), elapsed(time.time() - fntime(email.__stp__))))
 
 
 Commands.add(cor)
@@ -95,10 +101,10 @@ def eml(event):
         return
     nr = -1
     db = Db()
-    for o in db.all("email"):
+    for fn, o in db.all("email"):
         if event.rest in o.text:
             nr += 1
-            event.reply("%s %s %s" % (nr, format(o, ["From", "Subject"]), elapsed(time.time() - fntime(o.__stp__))))
+            event.reply("%s %s %s" % (nr, format(o, "From,Subject"), elapsed(time.time() - fntime(fn))))
 
 
 Commands.add(eml)

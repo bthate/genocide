@@ -141,8 +141,8 @@ class Object:
 class Config(Object):
 
     debug = False
-    name = "newapp"
-    workdir = ".newapp"
+    name = ""
+    workdir = ""
 
 
 def clear(o):
@@ -325,6 +325,19 @@ class Db(Object):
 
     names = Object()
 
+    def all(self, otype, timed=None):
+        nr = -1
+        result = []
+        for fn in fns(otype, timed):
+            o = hook(fn)
+            if "_deleted" in o and o._deleted:
+                continue
+            nr += 1
+            result.append((fn, o))
+        if not result:
+            return []
+        return result
+
     def find(self, otype, selector=None, index=None, timed=None):
         if selector is None:
             selector = {}
@@ -386,19 +399,8 @@ class Db(Object):
 def fntime(daystr):
     daystr = daystr.replace("_", ":")
     datestr = " ".join(daystr.split(os.sep)[-2:])
-    if "." in datestr:
-        datestr, rest = datestr.rsplit(".", 1)
-    else:
-        rest = ""
-    t = time.mktime(time.strptime(datestr, "%Y-%m-%d %H:%M:%S"))
-    if rest:
-        try:
-            t += float("." + rest)
-        except ValueError:
-            t = 0
-    else:
-        t = 0
-    return t
+    datestr = datestr.split(".")[0]
+    return time.mktime(time.strptime(datestr, "%Y-%m-%d %H:%M:%S"))
 
 
 @locked(dblock)
@@ -509,10 +511,13 @@ def load(o, opath):
     return o.__stp__
 
 
-def save(o):
+def save(o, stime=None):
     assert Config.workdir
     prv = os.sep.join(o.__stp__.split(os.sep)[:2])
-    o.__stp__ = os.path.join(prv,
+    if stime:
+        o.__stp__ = os.path.join(prv, stime)
+    else:
+        o.__stp__ = os.path.join(prv,
                              os.sep.join(str(datetime.datetime.now()).split()))
     opath = os.path.join(Config.workdir, "store", o.__stp__)
     dump(o, opath)
@@ -538,7 +543,7 @@ def edit(o, setter):
         register(o, key, v)
 
 
-def format(o, args="", skip="_", sep=" ", empty=False, **kwargs):
+def format(o, args="", skip="_", sep=" ", empty=False, plain=False, **kwargs):
     res = []
     if args:
         ks = spl(args)
@@ -550,10 +555,13 @@ def format(o, args="", skip="_", sep=" ", empty=False, **kwargs):
         v = getattr(o, k, None)
         if not v and not empty:
             continue
-        if isinstance(v, str) and len(v.split()) >= 2:
+        txt = ""
+        if plain:
+            txt = str(v)
+        elif isinstance(v, str) and len(v.split()) >= 2:
             txt = '%s="%s"' % (k, v)
         else:
-            txt='%s=%s' % (k, v)
+            txt = '%s=%s' % (k, v)
         res.append(txt)
     return sep.join(res)
 

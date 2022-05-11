@@ -9,7 +9,6 @@ def __dir__():
         "sui",
         "trt",
         "wsd",
-        "cmds"
     )
 
 
@@ -22,7 +21,6 @@ from genocide import slg
 from genocide import sui
 from genocide import trt
 from genocide import wsd
-from genocide import cmds
 
 
 for mn in __dir__():

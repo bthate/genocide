@@ -7,12 +7,13 @@
 from hdl import Commands
 
 
-txt1 = "@IntlCrimCourt @EU_ECHA @Europol @POL_DenHaag @Het_OM ask @KarimKhanQC to reconsider OTP-CR-117/19. #GGZ #ASP20 #ASP21"
-
-
+txt1 = "@IntlCrimCourt @Europol @POL_DenHaag @Het_OM ask @KarimKhanQC to reconsider OTP-CR-117/19"
+txt2 = "Elderly Handicapped (Wzd) Psychatric Patients (WvGGZ) Criminals (Wfz)"
+txt3 = "Elderly & Handicapped/Wzd Psychatric Patients/WvGGZ Criminals/Wfz @IntlCrimCourt @KarimKhanQC article 15, reconsider OTP-CR-117/19"
+txt4 = "Elderly & Handicapped/Wzd Psychatric Patients/WvGGZ Criminals/Wfz - @IntlCrimCourt @KarimKhanQC, article 15, reconsider OTP-CR-117/19 - http://genocide.rtfd.io"
 
 def slg(event):
-    event.reply(event.rest + " " + txt1)
+    event.reply(txt4)
 
 
 Commands.add(slg)

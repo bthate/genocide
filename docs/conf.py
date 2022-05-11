@@ -119,7 +119,7 @@ rst_prolog = '''.. image:: line.png
 
     <br>
 
- <center><i>Elderly and handicapped (Wzd), psychiatric patients (WvGGZ) and criminals (Wfz)</i></center>
+ <center><i>elderly and handicapped (Wzd), psychiatric patients (WvGGZ) and criminals (Wfz)</i></center>
 
 '''
 

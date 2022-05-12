@@ -12,16 +12,31 @@ import termios
 import traceback
 
 
-from obj import Class
+from obj import Class, spl
 from hdl import Callbacks, Commands
 
 
-def init(mod):
-    if "init" in dir(mod):
-        try:
-            mod.init()
-        except Exception as ex:
-            Callbacks.errors.append(ex)
+class Table():
+
+    mod = {}
+
+    @staticmethod
+    def add(o):
+        Table.mod[o.__name__] = o
+
+    @staticmethod
+    def get(nm):
+        return Table.mod.get(nm, None)
+
+
+def init(mns):
+    for mn in spl(mns):
+        mod = Table.get(mn)
+        if mod and "init" in dir(mod):
+            try:
+                mod.init()
+            except Exception as ex:
+                Callbacks.errors.append(ex)
 
 
 def introspect(mod):
@@ -37,6 +52,7 @@ def scan(dn, intro=False):
     for mod in scandir(dn):
         if intro:
             introspect(mod)
+        Table.add(mod)
         mods.append(mod)
     return mods
 

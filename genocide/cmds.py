@@ -31,9 +31,6 @@ def cmd(event):
     event.reply(",".join(sorted(Commands.cmd)))
 
 
-Commands.add(cmd)
-
-
 def dlt(event):
     if not event.args:
         event.reply("dlt <username>")
@@ -44,8 +41,6 @@ def dlt(event):
         save(o)
         event.reply("ok")
         break
-
-Commands.add(dlt)
 
 
 def dpl(event):
@@ -63,9 +58,6 @@ def dpl(event):
             event.reply("ok")
 
 
-Commands.add(dpl)
-
-
 def flt(event):
     try:
         index = int(event.args[0])
@@ -74,9 +66,6 @@ def flt(event):
     except (KeyError, TypeError, IndexError, ValueError):
         pass
     event.reply(" | ".join([getname(o) for o in Bus.objs]))
-
-
-Commands.add(flt)
 
 
 def fnd(event):
@@ -106,9 +95,6 @@ def fnd(event):
         event.reply("no result")
 
 
-Commands.add(fnd)
-
-
 def ftc(event):
     res = []
     thrs = []
@@ -122,9 +108,6 @@ def ftc(event):
         return
 
 
-Commands.add(ftc)
-
-
 def met(event):
     if not event.args:
         event.reply("met <userhost>")
@@ -136,9 +119,6 @@ def met(event):
     event.reply("ok")
 
 
-Commands.add(met)
-
-
 def log(event):
     if not event.rest:
         event.reply("log <txt>")
@@ -147,9 +127,6 @@ def log(event):
     o.txt = event.rest
     save(o)
     event.reply("ok")
-
-
-Commands.add(log)
 
 
 def nme(event):
@@ -168,8 +145,6 @@ def nme(event):
     event.reply("ok")
 
 
-Commands.add(nme)
-
 def rem(event):
     if not event.args:
         event.reply("rem <stringinurl>")
@@ -184,9 +159,6 @@ def rem(event):
     for o in got:
         save(o)
     event.reply("ok")
-
-
-Commands.add(rem)
 
 
 def rss(event):
@@ -206,8 +178,6 @@ def rss(event):
     event.reply("ok")
 
 
-Commands.add(rss)
-
 def thr(event):
     result = []
     for t in sorted(threading.enumerate(), key=lambda x: x.getName()):
@@ -225,6 +195,3 @@ def thr(event):
         res.append("%s(%s)" % (txt, elapsed(up)))
     if res:
         event.reply(" ".join(res))
-
-
-Commands.add(thr)

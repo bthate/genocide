@@ -39,7 +39,7 @@ from obj import Object, format
 from rss import Fetcher
 
 
-from genocide.scn import scan, wrap
+from genocide.scn import init, scan, wrap
 
 
 
@@ -58,10 +58,10 @@ def main():
     if "-c" in sys.argv:
         Config.console = True
     elif len(sys.argv) > 1 and not Config.services:
-        scan("genocide")
+        scan("genocide", True)
         return c.cmd(" ".join(sys.argv[1:]))
     print("GENOCIDE started at %s" % time.ctime(time.time()).replace("  ", " "))
-    scan("genocide")
+    scan("genocide", True)
     if not Config.console:
         i = IRC()
         i.start()
@@ -69,8 +69,7 @@ def main():
         f = Fetcher()
         f.start()
     if Config.services:
-        genocide.mdl.init()
-        genocide.sui.init()
+        init("mdl,sui")
     c.start()
     c.forever()
 

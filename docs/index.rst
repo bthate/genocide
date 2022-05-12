@@ -6,14 +6,6 @@
 
 .. title:: Genocide
 
-
-reconsider
-==========
-
-.. raw:: html
-
-    <br>
-
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
@@ -73,8 +65,8 @@ netherlands and his government are :ref:`doing <correspondence>`.
     :hidden:
     :glob:
 
+    correspondence
     evidence
     guilty
-    correspondence
-    man
     source
+    man

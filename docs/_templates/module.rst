@@ -4,17 +4,6 @@
 
     <br>
 
-.. image:: skulllinesmall3.jpg
-    :width: 100%
-    :height: 2.2cm
-    :target: index.html
-
-
-.. raw:: html
-
-    <br><br><center><i>Prosecutor. Reconsider. OTP-CR-117/19.</i></center><br><br>
-
-
 {{ fullname }}
 {{ underline }}
 

@@ -7,19 +7,10 @@
 .. title:: evidence
 
 
-informed
---------
-
-
-.. image:: informed.jpg
-
-
 .. _haldol:
 
 haldol
 ------
-
-
 
 .. raw:: html
 

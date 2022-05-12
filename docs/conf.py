@@ -75,7 +75,7 @@ html_theme_options = {
     'github_user': 'bthate',
     'github_repo': 'genocide',
     'github_button': True,
-    'github_banner': True,
+    'github_banner': False,
     'logo': 'skull3.jpg',
     'link': '#000',
     'link_hover': '#000',

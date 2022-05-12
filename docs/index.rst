@@ -65,9 +65,8 @@ netherlands and his government are :ref:`doing <correspondence>`.
     :hidden:
     :glob:
 
-    man
     evidence
     guilty
-    source
     correspondence
-    reconsider
+    man
+    source

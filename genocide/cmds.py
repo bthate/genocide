@@ -192,6 +192,6 @@ def thr(event):
         result.append((up, t.getName()))
     res = []
     for up, txt in sorted(result, key=lambda x: x[0]):
-        res.append("%s(%s)" % (txt, elapsed(up)))
+        res.append("%s (%s)" % (txt, elapsed(up)))
     if res:
         event.reply(" ".join(res))

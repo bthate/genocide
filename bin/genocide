@@ -5,9 +5,14 @@
 "Prosector. Reconsider. OTP-CR-117/19."
 
 
-import os
+import os, sys
+
+cwd = os.getcwd()
+sys.path.insert(0, cwd)
+sys.path.insert(0, os.path.join(cwd, "lib"))
+
+
 import readline
-import sys
 import termios
 import time
 import traceback

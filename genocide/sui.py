@@ -67,8 +67,8 @@ def stat(e):
         nrtimes = int(delta/needed)
         txt = "%s #%s" % (name, nrtimes)
         if name in omschrijving:
-            txt += " (%s)" % get(omschrijving, name)
-        txt += " elke %s" % elapsed(seconds(nr(name)))
+            txt += " %s" % get(omschrijving, name)
+        txt += " every %s" % elapsed(seconds(nr(name)))
         if name in tags:
             txt += " %s" % get(tags,name)
         else:
@@ -77,7 +77,7 @@ def stat(e):
 
 
 def sts(event):
-    txt = "Sinds %s\n" % time.ctime(starttime)
+    txt = "Since %s\n" % time.ctime(starttime)
     delta = time.time() - starttime
     for _name, obj in items(wanted):
         for key, _val in items(obj):
@@ -94,7 +94,7 @@ cijfers.melding = 61000
 cijfers.opnames = 24338
 cijfers.crisis = 150000
 cijfers.oordeel = 150000
-cijfers.pogingen = 94000
+cijfers.attempt = 94000
 cijfers.incidenten = 66000
 cijfers.poh = 1300000
 cijfers.vergiftigingen = 25262
@@ -200,7 +200,7 @@ omschrijving.verwijs = "crisisdienst maakt vervolg afspraak"
 omschrijving.uitstroom = "crisisdienst maakt geen vervolgafspraak"
 omschrijving.opname = 'niet meten, maar off-label tot "therapeutische" werking'
 omschrijving.suicide = "behandelplan is niet op te vragen"
-omschrijving.pogingen = "suicide poging is mislukt"
+omschrijving.attempt = "suicide attempt failed"
 omschrijving.weekend = "niet bereikbaar tot maandag"
 omschrijving.avond = "wachten tot de volgende ochtend"
 omschrijving.incidenten = "code 33 gemeld bij politie - overlast veroorzaakt door gestoord/overspannen persoon"
@@ -314,7 +314,7 @@ periode.avond = "'s avonds"
 periode.uitstroom = "voor jaren"
 periode.opname = 'voor 6 maanden'
 periode.suicide = "heel erg lang"
-periode.pogingen = "elke dag"
+periode.attemp = "every day"
 periode.weekend = "in het weekend"
 periode.incidenten = "elke dag"
 periode.acuut = "elke dag"
@@ -326,8 +326,8 @@ periode.oordeel = "buiten kantoor uren en in het weekend"
 periode.vergiftigingen = "elke dag"
 periode.neurotoxisch = "elke dag"
 
-pogingen = Object()
-pogingen.pogingen = cijfers.pogingen
+attempt = Object()
+attempt.attempt = cijfers.attempt
 
 recepten = Object()
 recepten.antipsychotica = 150000
@@ -366,7 +366,7 @@ show = Object()
 show.opnames = 24338
 show.crisis = 150000
 show.oordeel = 150000
-show.pogingen = 94000
+show.attempt = 94000
 show.incidenten = 66000
 show.vergiftigingen = 25262
 show.overlast = 18000
@@ -381,7 +381,6 @@ show.acuut = 8000
 show.spoedeisendpoging = 14000
 show.weguitkliniek = 2539
 show.bewindvoering = 295000
-show.pogingen = cijfers.pogingen
 
 soort = Object()
 soort.alarm = "patient"
@@ -405,7 +404,7 @@ soort.verwijs = "crisisdienst"
 soort.uitstroom = "eigen behandelaar"
 soort.suicide = "slachtoffer"
 soort.crisis = "burger"
-soort.pogingen = "wanhopige patient"
+soort.attempt = "desperate patient"
 soort.incidenten = "hulproepende patient"
 soort.acuut = "vergiftigde patient"
 soort.meds = "toegediende patient"
@@ -448,7 +447,7 @@ tags.uitstroom = "#zorgwekkend"
 tags.opname = "#meermedicijn"
 tags.crisis = "#triade"
 tags.suicide = "#wetverplichteggz"
-tags.pogingen = "#prettigweekend"
+tags.attempt = "#prettigweekend"
 tags.incidenten = "#jammerdan"
 tags.acuut = "#geenbedvoorjou"
 tags.zorgmijder = "#helaas"
@@ -523,7 +522,7 @@ urls.factor = "http://nos.nl/artikel/2090676-aantal-incidenten-met-verwarde-mens
 urls.dbc = "https://www.nza.nl/1048076/1048181/Marktscan_ggz_2014_deel_B_en_beleidsbrief.pdf"
 urls.dbs2015 = "https://www.rijksoverheid.nl/documenten/rapporten/2016/05/25/marktscan-ggz"
 urls.medicijnen = "https://www.zorgprismapubliek.nl/informatie-over/geestelijke-gezondheidszorg/geestelijke-gezondheidszorg/row-5/welke-geneesmiddelen-worden-het-meest-voorgeschreven-in-de-ggz/"
-urls.pogingen = "http://www.nfzp.nl/wp/wp-content/uploads/2010/09/Einddocument-AF0943-Kwaliteitsdcoument-Ketenzorg-bij-Suicidaliteit.pdf"
+urls.attemp = "http://www.nfzp.nl/wp/wp-content/uploads/2010/09/Einddocument-AF0943-Kwaliteitsdcoument-Ketenzorg-bij-Suicidaliteit.pdf"
 urls.suicidegedachte = "http://www.nfzp.nl/wp/wp-content/uploads/2010/09/Einddocument-AF0943-Kwaliteitsdcoument-Ketenzorg-bij-Suicidaliteit.pdf"
 urls.ziekenhuisopnames = "https://www.tweedekamer.nl/kamerstukken/detail?id=2016D13371&did=2016D13371"
 urls.seh = "https://www.tweedekamer.nl/kamerstukken/detail?id=2016D13371&did=2016D13371"
@@ -546,7 +545,7 @@ zorg.beperkingen = "beperkingen in de vrijheid het eigen leven in te richten, di
 
 wanted = Object()
 wanted.oorzaak = oorzaak
-wanted.pogingen = pogingen
+wanted.attempt = attempt
 
 ziekenhuis = Object()
 ziekenhuis.y2010 = 7800

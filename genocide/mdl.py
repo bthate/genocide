@@ -23,28 +23,29 @@ update(oorzaak, zip(oor,aantal))
 
 
 aliases = Object()
-aliases["Nieuwvormingen"] = "kanker"
-aliases["Hart en vaatstelsel"] = "hart"
-aliases["Psychische en gedragsstoornissen"] = "stoornis"
-aliases["Ademhalingsorganen"] = "ademhaling"
-aliases["Uitwendige doodsoorzaken"] = "uitwending"
-aliases["Zenuwstelsel en zintuigen"] = "zenuw"
-aliases["Afwijkende klinische bevindingen"] = "afwijkend"
-aliases["Spijsverteringsorganen"] = "darmen"
-aliases["Endocriene, voedings-, stofwisseling"] = "stofwisseling"
-aliases["Urogenitaal stelsel"] = "nier"
-aliases["Infectieuze en parasitaire ziekten"] = "infectie"
-aliases["Botspierstelsel en bindweefsel"] = "spier"
-aliases["Bloed, bloedvormende organen"] = "bloed"
-aliases["Aangeboren afwijkingen"] = "aangeboren"
-aliases["Perinatale periode"] = "perinataal"
-aliases["Huid en subcutis"] = "huid"
-aliases["Zwangerschap"] = "zwanger"
+aliases["Nieuwvormingen"] = "cancer"
+aliases["Hart en vaatstelsel"] = "hart disease"
+aliases["Psychische en gedragsstoornissen"] = "mental illness"
+aliases["Ademhalingsorganen"] = "breathing"
+aliases["Uitwendige doodsoorzaken"] = "externals"
+aliases["Zenuwstelsel en zintuigen"] = "nerves"
+aliases["Afwijkende klinische bevindingen"] = "other diseases NOS"
+aliases["Spijsverteringsorganen"] = "stomach disease"
+aliases["Endocriene, voedings-, stofwisseling"] = "metabolism disease"
+aliases["Urogenitaal stelsel"] = "kidney disease"
+aliases["Infectieuze en parasitaire ziekten"] = "infectious disease"
+aliases["Botspierstelsel en bindweefsel"] = "muscle disease"
+aliases["Bloed, bloedvormende organen"] = "blood disease"
+aliases["Aangeboren afwijkingen"] = "birth defect"
+aliases["Huid en subcutis"] = "skin disease"
+aliases["Zwangerschap"] = "pregnancy"
 
 
 demo = Object()
 demo.gehandicapten = 2000000
 demo.ggz = 800000
+demo.population = 17440000
+demo.part = 7000000000 / demo.population
 
 
 jaar = Object()
@@ -52,7 +53,7 @@ jaar["WvGGZ"] = 14206
 jaar["Pvp"] = 20088
 jaar["Wzd"] = 25000
 jaar["Wfz"] = 23820
-
+jaar["totaal"] = 168678
 
 oorzaken = Object()
 
@@ -140,7 +141,7 @@ def sts(e):
         delta = time.time() - starttime
         nrtimes = int(delta/needed)
         nryear = int(year/needed)
-        txt = "patient #%s gestorven aan %s (%s/jaar) elke %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
+        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
         Bus.announce(txt)
 
 
@@ -148,7 +149,8 @@ Commands.add(sts)
 
 
 def now(event):
-    txt = "%s " % elapsed(time.time() - starttime)
+    diff = time.time() - starttime
+    txt = "%.6s dead in %s " % (jaar.totaal*(diff/year), elapsed(diff))
     for name in sorted(oorzaken, key=lambda x: seconds(nr(x))):
         needed = seconds(nr(name))
         delta = time.time() - starttime

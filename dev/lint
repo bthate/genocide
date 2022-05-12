@@ -2,7 +2,17 @@
 # This file is placed in the Public Domain.
 
 
-import os
+import os, sys
+
+
+wd =  os.getcwd()
+
+
+sys.path.insert(0, wd)
+sys.path.insert(0, os.path.join(wd, "lib"))
+
+
+from genocide.scn import scan
 
 
 mns = ["lib", "genocide", "bin/genocide", "bin/genocided", "bin/genocidecmd"]
@@ -18,6 +28,7 @@ def popen(txt):
             yield line.replace("\n", "")          
 
 def main():
+    scan("genocide")
     for mn in mns:
         for line in popen("pylint --extension-pkg-whitelist=mdl -d %s %s" % (txt, mn)):
             print(line)

@@ -2,13 +2,24 @@
 
 .. raw:: html
 
-    <br><br>
+    <br>
+
+.. image:: skulllinesmall3.jpg
+    :width: 100%
+    :height: 2.2cm
+    :target: index.html
+
+
+.. raw:: html
+
+    <br><br><center><i>Prosecutor. Reconsider. OTP-CR-117/19.</i></center><br>
+
 
 .. title:: manpage
 
 **NAME**
 
- **GENOCIDE** -  article 15 needs to cooperation.
+ **GENOCIDE** -  article 15 needs to cooperation (:ref:`source <source>`)
 
 
 **SYNOPSIS**
@@ -24,7 +35,7 @@
  in a static, only code, no popen, no user imports and no reading modules from
  a directory, way. It can show genocide and suicide stats of king netherlands
  his genocide into a IRC channel, display rss feeds and log simple text
- messages. Source code is :ref:`here <source>`.
+ messages. 
 
  **GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
  written :ref:`response <guilty>` where king netherlands confirmed taking note

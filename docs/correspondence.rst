@@ -4,14 +4,6 @@
 
   <br><br>
 
-correspondence
-==============
-
-.. raw:: html
-
-    <br>
-
-
 | **From:** Bart Thate <bthate@dds.nl>
 | **To:** otp.informationdesk@icc-cpi.int
 | **Subject**:
@@ -30,9 +22,6 @@ correspondence
 
 .. _otp1:
 
-otp1
-----
-
 .. raw:: html
 
     <br>
@@ -41,9 +30,6 @@ otp1
 
 .. _otp2:
 
-
-otp2
-----
 
 .. raw:: html
 

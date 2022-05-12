@@ -6,24 +6,20 @@
 
 .. title:: evidence
 
-evidence
-========
 
-.. raw:: html
+informed
+--------
 
-  <br>
-
-.. _haldol:
 
 .. image:: informed.jpg
 
 
-.. raw:: html
-
-  <br>
+.. _haldol:
 
 haldol
 ------
+
+
 
 .. raw:: html
 
@@ -90,7 +86,6 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
   <br><br>
 
 .. _abilify:
-
 
 abilify
 -------

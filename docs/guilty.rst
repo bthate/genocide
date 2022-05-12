@@ -6,14 +6,6 @@
 
 .. title:: guilty
 
-quilty
-======
-
-.. raw:: html
-
-  <br>
-
-
 .. image:: informed.jpg
 
 
@@ -22,9 +14,6 @@ quilty
   <br>
 
 .. _chamber:
-
-chamber
--------
 
 .. raw:: html
 
@@ -39,17 +28,8 @@ chamber
 
 .. _king:
 
-king
-----
-
 .. raw:: html
 
   <br><br>
 
 .. image:: bevestigd.jpg
-
-
-.. raw:: html
-
-  <br>
-

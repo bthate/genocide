@@ -15,7 +15,7 @@ from rpt import Repeater, elapsed
 
 
 source = "https://github.com/bthate/genocide"
-startdate = "2018-10-05 00:00:00"
+startdate = "2020-01-01 00:00:00"
 starttime = time.mktime(time.strptime(startdate, "%Y-%m-%d %H:%M:%S"))
 
 
@@ -77,7 +77,7 @@ def stat(e):
 
 
 def sts(event):
-    txt = "Since %s\n" % time.ctime(starttime)
+    txt = "Since %s " % time.ctime(starttime).replace("  ", " ")
     delta = time.time() - starttime
     for _name, obj in items(wanted):
         for key, _val in items(obj):
@@ -85,7 +85,7 @@ def sts(event):
             if not needed:
                 continue
             nrtimes = int(delta/needed)
-            txt += "\n%s #%s %s %s" % (key, nrtimes, get(tags, key, ""), get(zorg, random.choice(list(keys(zorg))), ""))
+            txt += "%s people died by %s" % (nrtimes, key)
     event.reply(txt.strip())
 
 
@@ -115,10 +115,12 @@ cijfers.suicidegedachtes = 410000
 cijfers.psychosestoornis = 13076
 cijfers.oorzaak = cijfers.psychosestoornis + cijfers.suicide
 
+
 alarm = Object()
 alarm.politie = 0.30 * cijfers.crisis
 alarm.hap = 0.40 * cijfers.crisis
 alarm.keten = 0.30 * cijfers.crisis
+
 
 dbc = Object()
 dbc.middelgebondenstoornissen = 33060
@@ -151,14 +153,17 @@ demografie.arbeidshandicap = 103000
 demografie.huisartsen = 11345
 demografie.zorgmijder = 24000
 
+
 drugs = Object()
 drugs.speed = 20000
 drugs.cocaine = 50000
 drugs.alcohol = 400000
 drugs.wiet = 500000
 
+
 e33 = Object()
 e33.melding = 61000
+
 
 halfwaarde = Object()
 halfwaarde.zyprexa = 30
@@ -175,6 +180,7 @@ halfwaarde.quetiapine = 6
 halfwaarde.diazepam = 100
 halfwaarde.wiet = 7
 
+
 omdat = Object()
 omdat.blokkeren = "met antipsychotica de werking van receptoren BLOKKEREN en dat dat benadeling van de gezondheid is."
 omdat.wetboek = "het Wetboek van Strafrecht zegt dat mishandeling wordt gelijkgesteld aan opzettelijke benadeling van de gezondheid."
@@ -183,6 +189,7 @@ omdat.vergiftigt = "men vergiftigt kan worden door deze medicijnen."
 omdat.zolang = ", zolang een arts de bloedspiegel van een medicijn niet meet, de toestand van vergiftiging niet opgeheven word."
 omdat.toestand = "men met deze toestand de kans op overlijden geeft."
 omdat.dood = "men eraan dood gaat."
+
 
 omschrijving = Object()
 omschrijving.ibs = "inbewaringstelling"
@@ -261,6 +268,7 @@ omschrijving.seh = "spoedeisende hulp"
 omschrijving.psychosestoornis = "een door de psychose zelf overleden persoon"
 omschrijving.oorzaak = "oorzaak van overlijden"
 
+
 medicijnen = Object()
 medicijnen.amitriptyline = 189137
 medicijnen.paroxetine = 186028
@@ -273,19 +281,22 @@ medicijnen.diazepam = 72000
 medicijnen.sertraline = 68000
 medicijnen.haloperidol = 59825
 
+
 demo = Object()
 demo.dbc = dbc
 demo.medicijnen = medicijnen
 demo.drugs = drugs
+
 
 oordeel = Object()
 oordeel.verwijs = cijfers.crisis * 0.85
 oordeel.uitstroom = cijfers.crisis * 0.05
 oordeel.opname = cijfers.crisis * 0.10
 
+
 oorzaak = Object()
 oorzaak.suicide = 1800
-oorzaak.psychosestoornis = 12000
+
 
 nrsec = Object()
 nrsec.dag = 24 * 60 * 60.0
@@ -293,9 +304,11 @@ nrsec.jaar = 365 * nrsec.dag
 nrsec.weekend = 2 / 7 * (24 * 60 * 60.0 * 365) / 52
 nrsec.avond = 16 / 24 * (24 * 60 * 60.0)
 
+
 perdag = Object()
 perdag.medicijnen = medicijnen
 perdag.drugs = drugs
+
 
 periode = Object()
 periode.ibs = "voor 6 weken"
@@ -326,13 +339,16 @@ periode.oordeel = "buiten kantoor uren en in het weekend"
 periode.vergiftigingen = "elke dag"
 periode.neurotoxisch = "elke dag"
 
+
 attempt = Object()
 attempt.attempt = cijfers.attempt
+
 
 recepten = Object()
 recepten.antipsychotica = 150000
 recepten.antidepresiva = 600000
 recepten.slaapmiddel = 1000000
+
 
 rechter = Object()
 rechter.ibs = 8861
@@ -343,12 +359,14 @@ rechter.vm = 6690
 rechter.mev = 65
 rechter.zm = 3
 
+
 seh = Object()
 seh.y2010 = 13700
 seh.y2011 = 16000
 seh.y2012 = 15800
 seh.y2013 = 13300
 seh.y2014 = 14000
+
 
 suicidejaar = Object()
 suicidejaar.y2008 = 1435
@@ -361,6 +379,7 @@ suicidejaar.y2014 = 1839
 suicidejaar.y2015 = 1871
 suicidejaar.y2016 = 1894
 suicidejaar.y2017 = 1917
+
 
 show = Object()
 show.opnames = 24338
@@ -381,6 +400,7 @@ show.acuut = 8000
 show.spoedeisendpoging = 14000
 show.weguitkliniek = 2539
 show.bewindvoering = 295000
+
 
 soort = Object()
 soort.alarm = "patient"
@@ -423,6 +443,7 @@ soort.ambulant = "casemanager"
 soort.verslaafden = "gebruiker"
 soort.slaapmiddel = "insomnia patient"
 
+
 suicidejaar = Object()
 suicidejaar.y2008 = 1435
 suicidejaar.y2009 = 1525
@@ -435,8 +456,10 @@ suicidejaar.y2015 = 1871
 suicidejaar.y2016 = 1894
 suicidejaar.y2017 = 1917
 
+
 suicide = Object()
 suicide.suicide = suicidejaar.y2017
+
 
 tags = Object()
 tags.keten = "#burgemeester"
@@ -470,11 +493,13 @@ tags.mev = "#kieserzelfvoor"
 tags.om = "#ffkijken#"
 tags.zm = "#zelfwat?"
 
+
 times = Object()
 times.weekend = 2 / 7 * (24 * 60 * 60.0 * 365) / 52
 times.avond = 16 / 24 * (24 * 60 * 60.0)
 times.dag = 24 * 60 * 60.0
 times.jaar = 365 * 24 * 60 * 60.0
+
 
 urls = Object()
 urls.ibs = "http://www.tijdschriftvoorpsychiatrie.nl/assets/articles/57-2015-4-artikel-broer.pdf"
@@ -530,6 +555,7 @@ urls.epa = "https://www.zorgprismapubliek.nl/informatie-over/geestelijke-gezondh
 urls.rechter = "https://www.ggdghorkennisnet.nl/?file=43865&m=1541606110&action=file.download"
 urls.psychosestoornis = "https://www.volksgezondheidenzorg.info/echi-indicators/mortality#node-disease-specific-mortality"
 
+
 zorg = Object()
 zorg.interventie = "een interventie, bestaande uit een vorm van verzorging, bejegening, behandeling, begeleiding of bescherming"
 zorg.toediening = "toediening van medicatie, vocht en voeding, regelmatige medische controle of andere medische handelingen"
@@ -543,9 +569,10 @@ zorg.onderzoek = "onderzoek aan kleding of lichaam"
 zorg.controle = "controle op de aanwezigheid van gedrag beïnvloedende middelen"
 zorg.beperkingen = "beperkingen in de vrijheid het eigen leven in te richten, die tot gevolg hebben dat betrokkene iets moet doen of nalaten."
 
+
 wanted = Object()
 wanted.oorzaak = oorzaak
-wanted.attempt = attempt
+
 
 ziekenhuis = Object()
 ziekenhuis.y2010 = 7800
@@ -553,6 +580,7 @@ ziekenhuis.y2011 = 9600
 ziekenhuis.y2012 = 9200
 ziekenhuis.y2013 = 8300
 ziekenhuis.y2014 = 8500
+
 
 poging = Object()
 poging.ziekenhuis = ziekenhuis.y2014

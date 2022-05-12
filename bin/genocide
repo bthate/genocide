@@ -56,6 +56,7 @@ class Console(Console):
 
 def main():
     Callbacks.add("command", dispatch)
+    Callbacks.threaded = False
     c = Console()
     if "-s" in sys.argv:
         Config.services = True

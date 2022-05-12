@@ -42,7 +42,6 @@ from rss import Fetcher
 from genocide.scn import init, scan, wrap
 
 
-
 class Console(Console):
 
 

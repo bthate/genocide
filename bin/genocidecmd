@@ -36,7 +36,7 @@ from evt import Command
 from hdl import Callbacks, dispatch
 
 
-import genocide.all
+from genocide.scn import scan
 
 
 class CLI(CLI):
@@ -47,6 +47,7 @@ class CLI(CLI):
 
 
 def main():
+    scan("genocide")
     Callbacks.add("command", dispatch)
     c = CLI()
     c.cmd(" ".join(sys.argv[1:]))

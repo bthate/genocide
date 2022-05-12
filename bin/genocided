@@ -31,11 +31,12 @@ from irc import IRC
 from rss import Fetcher
 
 
-import genocide.all
+from genocide.scn import scan
 
 
 def main():
     Callbacks.add("command", dispatch)
+    scan("genocide")
     i = IRC()
     i.start()
     f = Fetcher()

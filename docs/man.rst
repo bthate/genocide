@@ -1,4 +1,4 @@
-.. _manpage:
+.. _manual:
 
 .. raw:: html
 
@@ -15,7 +15,8 @@
     <br><br><center><i>Prosecutor. Reconsider. OTP-CR-117/19.</i></center><br>
 
 
-.. title:: manpage
+.. title:: Manual
+
 
 **NAME**
 

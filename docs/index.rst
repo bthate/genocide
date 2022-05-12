@@ -4,7 +4,7 @@
 
     <br>
 
-.. title:: reconsider
+.. title:: Genocide
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**

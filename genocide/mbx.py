@@ -51,12 +51,12 @@ def to_date(date):
             raise ValueError
         int(res[3])
         ddd = "{:4}-{:#02}-{:#02} {:6}".format(res[3], monthint[res[2]], int(res[1]), res[4])
-    except (IndexError, KeyError, ValueError):
+    except (IndexError, KeyError, ValueError) as ex:
         try:
             if "+" in res[4]:
-                raise ValueError
+                raise ValueError from ex
             if "-" in res[4]:
-                raise ValueError
+                raise ValueError from ex
             int(res[4])
             ddd = "{:4}-{:#02}-{:02} {:6}".format(res[4], monthint[res[1]], int(res[2]), res[3])
         except (IndexError, KeyError, ValueError):

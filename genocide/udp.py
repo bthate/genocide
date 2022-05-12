@@ -1,15 +1,16 @@
-# OLIB - object library
-#
-#
+# This file is placed in the Public Domain.
+
 
 import select
 import socket
 import sys
 import time
 
-from obj import Object, last
-from hdl import Bus
+
+from obj import Class, Object, last
+from hdl import Bus, Commands
 from thr import launch
+
 
 def init(kernel):
     u = UDP()
@@ -23,6 +24,10 @@ class Cfg(Object):
         super().__init__()
         self.host = "localhost"
         self.port = 5500
+
+
+Class.add(Cfg)
+
 
 class UDP(Object):
 
@@ -62,9 +67,11 @@ class UDP(Object):
         last(self.cfg)
         launch(self.server)
 
+
 def toudp(host, port, txt):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(bytes(txt.strip(), "utf-8"), (host, port))
+
 
 def udp(event):
     cfg = Cfg()
@@ -77,7 +84,7 @@ def udp(event):
         return
     while 1:
         try:
-            (i, o, e) = select.select([sys.stdin,], [], [sys.stderr,])
+            (i, _o, e) = select.select([sys.stdin,], [], [sys.stderr,])
         except KeyboardInterrupt:
             return
         if e:
@@ -91,3 +98,6 @@ def udp(event):
             toudp(cfg.host, cfg.port, txt)
         if stop:
             break
+
+
+Commands.add(udp)

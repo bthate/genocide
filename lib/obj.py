@@ -543,7 +543,7 @@ def edit(o, setter):
         register(o, key, v)
 
 
-def format(o, args="", skip="_", sep=" ", empty=False, plain=False, **kwargs):
+def format(o, args="", skip="_", empty=False, plain=False, **kwargs):
     res = []
     if args:
         ks = spl(args)
@@ -563,7 +563,7 @@ def format(o, args="", skip="_", sep=" ", empty=False, plain=False, **kwargs):
         else:
             txt = '%s=%s' % (k, v)
         res.append(txt)
-    return sep.join(res)
+    return " ".join(res)
 
 
 def register(o, k, v):

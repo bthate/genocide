@@ -39,10 +39,8 @@ from obj import Object, format
 from rss import Fetcher
 
 
-import genocide.all
-import genocide.cmds
-import genocide.mdl
-import genocide.sui
+from genocide.scn import scan, wrap
+
 
 
 class Console(Console):
@@ -50,19 +48,6 @@ class Console(Console):
 
     def raw(self, txt):
         print(txt)
-
-
-def warp(func):
-    fd = sys.stdin.fileno()
-    old = termios.tcgetattr(fd)
-    try:
-        func()
-    except (EOFError, KeyboardInterrupt):
-        print("")
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old)
-        for err in Callbacks.errors:
-            traceback.print_exception(type(err), err, err.__traceback__)
 
 
 def main():
@@ -73,8 +58,10 @@ def main():
     if "-c" in sys.argv:
         Config.console = True
     elif len(sys.argv) > 1 and not Config.services:
+        scan("genocide")
         return c.cmd(" ".join(sys.argv[1:]))
     print("GENOCIDE started at %s" % time.ctime(time.time()).replace("  ", " "))
+    scan("genocide")
     if not Config.console:
         i = IRC()
         i.start()
@@ -88,4 +75,4 @@ def main():
     c.forever()
 
 
-warp(main)
+wrap(main)

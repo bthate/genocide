@@ -19,7 +19,7 @@ def popen(txt):
 
 def main():
     for mn in mns:
-        for line in popen("pylint -d %s %s" % (txt, mn)):
+        for line in popen("pylint --extension-pkg-whitelist=mdl -d %s %s" % (txt, mn)):
             print(line)
 
 main()

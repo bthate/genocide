@@ -24,7 +24,7 @@
 
 .. raw:: html
 
-    <br>
+    <br><br><br>
 
 .. image:: OTP1.png
 
@@ -33,6 +33,6 @@
 
 .. raw:: html
 
-    <br>
+    <br><br><br>
 
 .. image:: OTP2.png

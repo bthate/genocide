@@ -124,7 +124,7 @@ rst_prolog = '''.. image:: line.png
 
 .. raw:: html
 
-    <br>
+    <br><br><br>
 
 .. image:: skulllinesmall3.jpg
     :width: 100%

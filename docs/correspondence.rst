@@ -9,6 +9,11 @@
 correspondence
 ==============
 
+.. raw:: html
+
+    <br>
+
+
 .. image:: informed.jpg
 
 email

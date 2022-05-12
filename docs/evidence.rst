@@ -9,6 +9,11 @@
 evidence
 ========
 
+.. raw:: html
+
+    <br>
+
+
 .. image:: informed.jpg
 
 .. _haldol:

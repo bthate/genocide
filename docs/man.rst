@@ -7,12 +7,17 @@
 .. title:: Manual
 
 
-manpage
--------
+manual
+------
+
+.. raw:: html
+
+    <br>
+
 
 **NAME**
 
- **GENOCIDE** -  article 15 needs to cooperation (:ref:`source <source>`)
+ **GENOCIDE** -  article 15 needs no cooperation (:ref:`source <source>`)
 
 
 **SYNOPSIS**

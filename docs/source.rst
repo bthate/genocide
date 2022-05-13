@@ -12,10 +12,8 @@
     :template: module.rst
 
     genocide.cmds		commands
-    genocide.mbx		mailbox
     genocide.mdl		genocide model
     genocide.req		request
     genocide.slg		slug
     genocide.scn		scan
     genocide.trt		torture definition
-    genocide.udp		udp to irc

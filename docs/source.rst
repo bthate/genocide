@@ -2,19 +2,9 @@
 
 .. raw:: html
 
-    <br>
+    <br><br>
 
 .. title:: Source
-
-source
-======
-
-.. raw:: html
-
-    <br>
-
-
-the following modules are provided:
 
 
 .. autosummary::

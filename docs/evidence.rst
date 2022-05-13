@@ -2,19 +2,9 @@
 
 .. raw:: html
 
-  <br>
+  <br><br>
 
 .. title:: evidence
-
-evidence
-========
-
-.. raw:: html
-
-    <br>
-
-
-.. image:: informed.jpg
 
 .. _haldol:
 
@@ -103,6 +93,3 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.112.532
 .. image:: ECHAabilify.png
      :width: 100%
 
-.. raw:: html
-
-  <br>

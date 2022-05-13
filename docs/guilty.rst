@@ -2,24 +2,9 @@
 
 .. raw:: html
 
-  <br>
+  <br><br>
 
 .. title:: guilty
-
-guilty
-======
-
-.. raw:: html
-
-    <br>
-
-
-.. image:: informed.jpg
-
-
-.. raw:: html
-
-  <br>
 
 .. _chamber:
 

@@ -81,7 +81,7 @@ html_theme_options = {
     'link_hover': '#000',
     'nosidebar': True,
     'show_powered_by': False,
-    'show_relbar_top': True,
+    'show_relbar_top': False,
 }
 html_favicon = "skull3.jpg"
 html_extra_path = []
@@ -108,11 +108,11 @@ intersphinx_cache_limit=1
 rst_prolog = '''.. image:: line.png
     :width: 100%
     :height: 2.2cm
-    :target: man.html
+    :target: index.html
 
 .. raw:: html
 
-    <br><br><center><i>Elderly, Handicapped (Wzd) Psychatric Patients (WvGGZ) Criminals (Wfz)</i></center><br>
+    <br>
 
 '''
 

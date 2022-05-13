@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-  <br><br>
+  <br>
 
 .. title:: guilty
 
@@ -13,7 +13,7 @@ chamber
 
 .. raw:: html
 
-  <br><br>
+  <br>
 
 .. image:: kamer.png
 
@@ -29,6 +29,6 @@ king
 
 .. raw:: html
 
-  <br><br>
+  <br>
 
 .. image:: bevestigd.jpg

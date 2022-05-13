@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-  <br><br>
+  <br>
 
 .. title:: evidence
 
@@ -10,10 +10,6 @@
 
 haldol
 ------
-
-.. raw:: html
-
-  <br>
 
 https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
 
@@ -32,10 +28,6 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
 
 clozapine
 ---------
-
-.. raw:: html
-
-  <br>
 
 https://echa.europa.eu/substance-information/-/substanceinfo/100.024.831
 
@@ -58,9 +50,6 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.024.831
 zyprexa
 -------
 
-.. raw:: html
-
-  <br>
 
 https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
 
@@ -79,10 +68,6 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
 
 abilify
 -------
-
-.. raw:: html
-
-  <br>
 
 https://echa.europa.eu/substance-information/-/substanceinfo/100.112.532
 

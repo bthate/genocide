@@ -1,4 +1,5 @@
 .. _guilty:
+.. _chamber:
 
 .. raw:: html
 
@@ -6,7 +7,6 @@
 
 .. title:: guilty
 
-.. _chamber:
 
 chamber
 -------

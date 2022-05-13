@@ -1,4 +1,5 @@
 .. _evidence:
+.. _haldol:
 
 .. raw:: html
 
@@ -6,7 +7,6 @@
 
 .. title:: evidence
 
-.. _haldol:
 
 haldol
 ------

@@ -7,7 +7,7 @@ import os
 from setuptools import setup
 
 
-mods = ["csl", "evt", "hdl", "irc", "obj", "rpt",  "rss", "scn", "thr", "usr"]
+mods = ["csl", "evt", "hdl", "obj", "rpt", "thr", "tms", "usr"]
 
 
 def read():
@@ -31,11 +31,11 @@ def uploadlist(dir):
 
 setup(
     name='genocide',
-    version='66',
+    version='67',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate67@gmail.com', 
-    description="Prosector. Reconsider. OTP-CR-117/19.",
+    description="prosector. reconsider. OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
     package_dir={"": "lib",

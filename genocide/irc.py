@@ -39,16 +39,16 @@ saylock = _thread.allocate_lock()
 class Config(Object):
 
     cc = "!"
-    channel = "#botd"
-    nick = "botd"
+    channel = "#genocide"
+    nick = "genocide"
     password = ""
     port = 6667
-    realname = "24/7 channel daemon"
+    realname = "prosecutor. reconsider. OTP-CR-117/19."
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "botd"
+    username = "genocide"
     users = False
 
     def __init__(self):

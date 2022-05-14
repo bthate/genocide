@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"""Prosecutor. Reconsider. OTP-CR-117/19."""
+"""prosecutor. reconsider. OTP-CR-117/19."""
 
 
 from hdl import Commands

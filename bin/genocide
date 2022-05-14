@@ -27,7 +27,7 @@ Config.services = False
 Config.workdir = os.path.expanduser("~/.genocide")
 
 
-from irc import Config as IRCConfig
+from genocide.irc import Config as IRCConfig
 
 
 IRCConfig.channel = "#genocide"
@@ -39,11 +39,11 @@ IRCConfig.username = "genocide"
 from csl import Console
 from evt import Command
 from hdl import Callbacks, Commands, Handler, dispatch
-from irc import IRC
 from obj import Object, format
-from rss import Fetcher
 
 
+from genocide.irc import IRC
+from genocide.rss import Fetcher
 from genocide.scn import init, scan, wrap
 
 

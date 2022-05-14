@@ -140,9 +140,11 @@ class Object:
 
 class Config(Object):
 
-    debug = False
-    name = ""
-    workdir = ""
+
+    def __getattr__(self, k):
+        if k not in self:
+            self[k] = ""
+        return self.__getattribute__(k)
 
 
 def clear(o):

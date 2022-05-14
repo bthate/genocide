@@ -13,7 +13,9 @@ import unittest
 
 from evt import Event
 from obj import Object, edit, keys, spl, update
-from rss import Parser
+
+
+from genocide.rss import Parser
 
 
 items = "title,description,link,pubDate"

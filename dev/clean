@@ -1,13 +1,37 @@
-rm -fR bin/*~
-rm -fR *~ __pycache__
-rm -fR genocide/*~ genocide/__pycache__ 
-rm -fR __pycache__ build dist MANIFEST genocide.egg-info
-rm -fR lib/*~ lib/__pycache__ lib/genocide.egg-info
-rm -fR test/*~ test/__pycache__
-rm -fR files/*~ files/__pycache__
-rm -fR dev/*~ 
-rm -fR html
-rm -fR tar
-rm -fR .test
-rm -fR docs/*~ docs/_static/*~ docs/_templates/*~
-rm -fR docs/genocide.*.rst
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+
+
+import os
+import shutil
+
+
+mods = ["csl", "evt", "hdl", "obj", "rpt",  "rss", "tms", "thr", "usr"]
+
+
+def popen(txt):
+    for l in os.popen(txt).readlines():
+        print(l)
+
+
+popen("rm -fR files/*~ files/__pycache__")
+popen("rm -fR bin/*~ *~ __pycache__")
+popen("rm -fR build dist MANIFEST genocide.egg-info") 
+popen("rm -fR dev/*~ bin/*~ *~ files/*~")
+popen("rm -fR lib/*~ lib/__pycache__ lib/botlib.egg-info")
+popen("rm -fR genocide/*~ genocide/__pycache__")
+popen("rm -fR genocide/cmd/*~ genocide/cmd/__pycache__")
+popen("rm -fR .test test/__pycache__ test/*~")
+popen("rm -fR html tar")
+
+for mn in mods:
+    try:
+        os.unlink(os.path.join("docs", "%s.rst" % mn))
+    except:
+        pass
+
+popen("rm -fR docs/*~ docs/_static/*~ docs/_templates/*~")
+popen("rm -fR docs/bot*.rst docs/mod*.rst")
+popen("rm -fR html")
+popen("rm -fR docs/*~ docs/_static/*~ docs/_templates/*~")
+popen("rm -fR docs/genocide.*.rst")

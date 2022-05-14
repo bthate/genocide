@@ -46,18 +46,20 @@ class Event(Object):
             self.cmd = spl[0]
             args = []
             _nr = -1
+            hasarg = False
             for w in spl[1:]:
                 _nr += 1
                 try:
                     k, v = w.split("==")
                     self.gets[k] = v
                 except ValueError:
-                    args.append(w)
-                    continue
+                    hasarg = True
                 try:
                     k, v = w.split("=")
                     self.sets[k] = v
                 except ValueError:
+                    hasarg = True
+                if hasarg:
                     args.append(w)
             if args:
                 self.args = args

@@ -10,10 +10,12 @@ import time
 
 
 from hdl import Bus, Commands, starttime
-from irc import Config
 from obj import Class, Db, Object, edit, find, format, get, last, save, update
 from rpt import elapsed
 from thr import getname
+
+
+from genocide.irc import Config
 
 
 class Log(Object):

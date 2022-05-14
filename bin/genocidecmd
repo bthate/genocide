@@ -2,7 +2,7 @@
 # This file is placed in the Public Domain.
 
 
-"Prosector. Reconsider. OTP-CR-117/19."
+"prosector. court. reconsider OTP-CR-117/19 (article 15)."
 
 
 import os
@@ -27,7 +27,7 @@ from genocide.irc import Config as IRCConfig
 
 IRCConfig.channel = "#genocide"
 IRCConfig.nick = "genocide"
-IRCConfig.realname = "Prosector. Reconsider. OTP-CR-117/19."
+IRCConfig.realname = "prosector. court. reconsider OTP-CR-117/19 (article 15)."
 IRCConfig.username = "genocide"
 
 

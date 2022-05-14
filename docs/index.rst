@@ -6,9 +6,6 @@
 
 .. title:: Genocide
 
-reconsider
-==========
-
 .. raw:: html
 
     <br>

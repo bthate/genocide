@@ -136,8 +136,8 @@ def nr(name):
     return 0
 
 
-def iswanted(key, l):
-    for w in l:
+def iswanted(key, line):
+    for w in line:
         if w in key:
             return True
     return False

@@ -5,17 +5,20 @@
 "prosector. court. reconsider OTP-CR-117/19 (article 15)."
 
 
-import os, sys
-
-cwd = os.getcwd()
-sys.path.insert(0, cwd)
-sys.path.insert(0, os.path.join(cwd, "lib"))
+import os
+import sys
 
 
+import importlib
 import readline
 import termios
 import time
 import traceback
+
+
+#cwd = os.getcwd()
+#sys.path.insert(0, cwd)
+#sys.path.insert(0, os.path.join(cwd, "lib"))
 
 
 from obj import Config
@@ -39,7 +42,7 @@ IRCConfig.username = "genocide"
 from csl import Console
 from evt import Command
 from hdl import Callbacks, Commands, Handler, dispatch
-from obj import Object, format
+from obj import Object, format, spl
 
 
 from genocide.irc import IRC
@@ -54,6 +57,13 @@ class Console(Console):
 
     def raw(self, txt):
         print(txt)
+
+
+def init(pns):
+    for pn in spl(pns):
+        mod = importlib.import_module(pn)
+        if "init" in dir(mod):
+            mod.init()
 
 
 def wrap(func):
@@ -79,7 +89,6 @@ def main():
     if "-c" in sys.argv:
         Config.console = True
     elif len(sys.argv) > 1 and not Config.services:
-        scan("genocide", True)
         return c.cmd(" ".join(sys.argv[1:]))
     print("GENOCIDE started at %s" % time.ctime(time.time()).replace("  ", " "))
     if not Config.console:

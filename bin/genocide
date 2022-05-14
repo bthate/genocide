@@ -2,7 +2,7 @@
 # This file is placed in the Public Domain.
 
 
-"Prosector. Reconsider. OTP-CR-117/19."
+"prosector. court. reconsider OTP-CR-117/19 (article 15)."
 
 
 import os, sys
@@ -32,7 +32,7 @@ from genocide.irc import Config as IRCConfig
 
 IRCConfig.channel = "#genocide"
 IRCConfig.nick = "genocide"
-IRCConfig.realname = "Prosector. Reconsider. OTP-CR-117/19."
+IRCConfig.realname = "prosector. court. reconsider OTP-CR-117/19 (article 15)."
 IRCConfig.username = "genocide"
 
 
@@ -44,7 +44,9 @@ from obj import Object, format
 
 from genocide.irc import IRC
 from genocide.rss import Fetcher
-from genocide.scn import init, scan, wrap
+
+
+import genocide.cmd.all
 
 
 class Console(Console):
@@ -52,6 +54,20 @@ class Console(Console):
 
     def raw(self, txt):
         print(txt)
+
+
+def wrap(func):
+    fd = sys.stdin.fileno()
+    old = termios.tcgetattr(fd)
+    try:
+        func()
+    except (EOFError, KeyboardInterrupt):
+        print("")
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+        for err in Callbacks.errors:
+            traceback.print_exception(type(err), err, err.__traceback__)
+
 
 
 def main():
@@ -66,7 +82,6 @@ def main():
         scan("genocide", True)
         return c.cmd(" ".join(sys.argv[1:]))
     print("GENOCIDE started at %s" % time.ctime(time.time()).replace("  ", " "))
-    scan("genocide", True)
     if not Config.console:
         i = IRC()
         i.start()

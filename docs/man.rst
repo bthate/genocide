@@ -102,11 +102,9 @@ manual
  | ``req`` - request to the prosecutor
  | ``rss`` - adds a feed to fetch, fetcher runs every 5 minutes
  | ``slg`` - slogan
- | ``sts`` - suidicde stats
  | ``thr`` - show the running threads
  | ``tpc`` - set genocide stats in topic
  | ``trt`` - torture definition
- | ``wsd`` - wisdom
 
 
 **FILES**

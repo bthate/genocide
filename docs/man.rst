@@ -4,7 +4,14 @@
 
     <br>
 
-.. title:: Manual
+.. title:: manual
+
+manual
+======
+
+.. raw:: html
+
+    <br>
 
 
 **NAME**

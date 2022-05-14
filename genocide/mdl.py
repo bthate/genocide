@@ -21,7 +21,6 @@ oorzaak = Object()
 #oorzaak.Suicide = 1859
 update(oorzaak, zip(oor,aantal))
 
-
 aliases = Object()
 aliases["Nieuwvormingen"] = "cancer"
 aliases["Hart en vaatstelsel"] = "hart disease"

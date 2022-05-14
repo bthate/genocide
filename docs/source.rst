@@ -2,14 +2,20 @@
 
 .. raw:: html
 
-    <br><br>
+    <br>
 
 .. title:: Source
 
+source
+======
+
+.. raw:: html
+
+    <br><br>
 
 .. autosummary::
     :toctree: 
-    :template: module.rst
+    :template: base.rst
 
     genocide.cmds		commands
     genocide.mdl		genocide model

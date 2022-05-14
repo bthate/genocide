@@ -1,3 +1,5 @@
+.. _{{ fullname }}:
+
 .. raw:: html
 
     <br>
@@ -10,4 +12,6 @@
     <br>
 
 .. auto{{ objtype }}:: {{ fullname }}
-
+    :members:
+    :private-members:
+    :undoc-members:

@@ -82,7 +82,6 @@ manual
 
 **COMMANDS**
 
-
  | ``cmd`` - shows all commands
  | ``cfg`` - shows the irc configuration, also edits the config
  | ``dlt`` - removes a user from genocide
@@ -96,7 +95,6 @@ manual
  | ``mre`` - displays cached output, channel wise.
  | ``nck`` - changes nick on irc
  | ``now`` - show genocide stats
- | ``ops`` - tries to give you operator status (+o)
  | ``pwd`` - combines a nickserv name/password into a sasl password
  | ``rem`` - removes a rss feed by matching is to its url
  | ``req`` - request to the prosecutor

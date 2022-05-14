@@ -42,7 +42,7 @@ setup(
                  "genocide": "genocide"
                 },
     py_modules=mods,
-    packages=["genocide"],
+    packages=["genocide", "genocide.cmd"],
     zip_safe=True,
     include_package_data=True,
     data_files=[

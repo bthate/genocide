@@ -22,7 +22,7 @@ Config.services = False
 Config.workdir = "/var/lib/genocide/"
 
 
-from irc import Config as IRCConfig
+from genocide.irc import Config as IRCConfig
 
 
 IRCConfig.channel = "#genocide"
@@ -36,7 +36,7 @@ from evt import Command
 from hdl import Callbacks, dispatch
 
 
-from genocide.scn import scan
+import genocide.cmd.all
 
 
 class CLI(CLI):
@@ -47,7 +47,6 @@ class CLI(CLI):
 
 
 def main():
-    scan("genocide")
     Callbacks.add("command", dispatch)
     c = CLI()
     c.cmd(" ".join(sys.argv[1:]))

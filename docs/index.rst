@@ -2,9 +2,10 @@
 
 .. raw:: html
 
-    <br>
+  <br>
 
 .. title:: Genocide
+
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**

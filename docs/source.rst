@@ -6,15 +6,15 @@
 
 .. title:: Source
 
-source
-======
+
+the following modules are provided:
+
+
+*library*
 
 .. raw:: html
 
     <br>
-
-
-*library*
 
 
 .. autosummary::
@@ -30,8 +30,16 @@ source
     tms			times
     usr			user
 
+.. raw:: html
+
+    <br>
+
 
 *genocide*
+
+.. raw:: html
+
+    <br>
 
 
 .. autosummary::

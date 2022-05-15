@@ -6,13 +6,6 @@
 
 .. title:: manual
 
-manual
-======
-
-.. raw:: html
-
-    <br>
-
 
 **NAME**
 

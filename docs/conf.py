@@ -112,7 +112,18 @@ rst_prolog = '''.. image:: line.png
 
 .. raw:: html
 
-    <br>
+    <br><br>
+
+
+.. image:: skulllinesmall3.jpg
+    :width: 100%
+    :height: 2.2cm
+    :target: reconsider.html
+
+.. raw:: html
+
+    <br><br><center><i>Prosecutor. Court. Article 15. Reconsider OTP-CR-117/19.</i></center>
+
 '''
 
 autosummary_generate=True

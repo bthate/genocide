@@ -1,4 +1,4 @@
-.. _manual:
+.. _home:
 
 .. raw:: html
 
@@ -6,10 +6,9 @@
 
 .. title:: Manual
 
+
 manual
 ======
-
-.. image:: skullline3.jpg
 
 .. raw:: html
 

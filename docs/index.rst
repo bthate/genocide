@@ -9,6 +9,8 @@
 manual
 ======
 
+.. image:: skullline3.jpg
+
 .. raw:: html
 
     <br>

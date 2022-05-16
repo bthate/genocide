@@ -35,7 +35,7 @@ setup(
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate67@gmail.com', 
-    description="prosector. reconsider. OTP-CR-117/19.",
+    description="Prosecutor. Court. Article 15. Reconsider OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
     package_dir={"": "lib",

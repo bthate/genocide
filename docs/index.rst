@@ -52,7 +52,7 @@ manual
 
  ::
 
-  $ sudo pip3 install genocide --upgrade --force-reinstall
+  sudo pip3 install genocide --upgrade --force-reinstall
 
 
 **CONFIGURATION**
@@ -62,7 +62,7 @@ manual
 
  ::
 
-  $ sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>
+  sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>
   
   (*) default channel/server is #genocide on localhost
 
@@ -70,53 +70,55 @@ manual
 
  ::
 
-  $ sudo genocidectl pwd <nickservnick> <nickservpass>
-  $ sudo genocidectl cfg password=<outputfrompwd>
+  sudo genocidectl pwd <nickservnick> <nickservpass>
+  sudo genocidectl cfg password=<outputfrompwd>
 
  **users**
 
  ::
 
-  $ sudo genocidectl cfg users=True
-  $ sudo genocidectl met <userhost>
+  sudo genocidectl cfg users=True
+  sudo genocidectl met <userhost>
 
  **rss**
 
  ::
 
-  $ sudo genocidectl rss <url>
+  sudo genocidectl rss <url>
 
  **24/7**
 
  ::
 
-  $ sudo cp /usr/local/share/genocide/genocide.service/etc/systemd/system
-  $ sudo systemctl enable genocide --now
+  sudo cp /usr/local/share/genocide/genocide.service/etc/systemd/system
+  sudo systemctl enable genocide --now
 
 
 **COMMANDS**
 
- | ``cmd`` - shows all commands
- | ``cfg`` - shows the irc configuration, also edits the config
- | ``dlt`` - removes a user from genocide
- | ``dpl`` - sets display items for a rss feed
- | ``ftc`` - runs a rss feed fetching batch
- | ``fnd`` - allows you to display objects on the datastore, read-only json files on disk 
- | ``flt`` - shows a list of instances registered to the bus
- | ``log`` - logs some text
- | ``mdl`` - genocide model
- | ``met`` - adds a users with there irc userhost
- | ``mre`` - displays cached output, channel wise.
- | ``nck`` - changes nick on irc
- | ``now`` - show genocide stats
- | ``pwd`` - combines a nickserv name/password into a sasl password
- | ``rem`` - removes a rss feed by matching is to its url
- | ``req`` - request to the prosecutor
- | ``rss`` - adds a feed to fetch, fetcher runs every 5 minutes
- | ``slg`` - slogan
- | ``thr`` - show the running threads
- | ``tpc`` - set genocide stats in topic
- | ``trt`` - torture definition
+ ::
+
+  cmd - commands
+  cfg - irc configuration
+  dlt - remove a user
+  dpl - sets display items
+  ftc - runs a fetching batch
+  fnd - find objects 
+  flt - list of instances registered to the bus
+  log - log some text
+  mdl - genocide model
+  met - add a user
+  mre - displays cached output, channel wise.
+  nck - changes nick on irc
+  now - genocide stats
+  pwd - combines nickserv name/password into a sasl password
+  rem - removes a rss feed
+  req - request to the prosecutor
+  rss - add a feed
+  slg - slogan
+  thr - show the running threads
+  tpc - put genocide stats into topic
+  trt - torture definition
 
 
 **FILES**

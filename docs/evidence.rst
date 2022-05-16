@@ -1,11 +1,10 @@
 .. _evidence:
-.. _haldol:
 
 .. raw:: html
 
   <br><br>
 
-.. title:: evidence
+.. title:: Evidence
 
 evidence
 ========
@@ -13,6 +12,9 @@ evidence
 .. raw:: html
 
   <br>
+
+
+.. _haldol:
 
 haldol
 ------

@@ -1,11 +1,10 @@
 .. _guilty:
-.. _chamber:
 
 .. raw:: html
 
   <br><br>
 
-.. title:: guilty
+.. title:: Guilty
 
 guilty
 ======
@@ -14,6 +13,7 @@ guilty
 
   <br>
 
+.. _chamber:
 
 chamber
 -------

@@ -4,10 +4,12 @@
 
   <br><br>
 
-.. title:: Genocide
+.. title:: Reconsider
+
 
 reconsider
 ==========
+
 
 .. raw:: html
 

@@ -36,7 +36,7 @@ def now(event):
         needed = seconds(nr(name))
         nrtimes = int(delta/needed)
         txt += "%s: %s " % (get(aliases, name), nrtimes)
-    txt += " - http://genocide.rtfd.io"
+    txt += " http://genocide.rtfd.io"
     Bus.announce(txt)
 
 

@@ -8,7 +8,7 @@ import time
 
 
 from obj import Object, get, keys, update
-from hdl import Bus, Commands
+from hdl import Bus
 from evt import Event
 from rpt import Repeater, elapsed
 from thr import launch
@@ -143,21 +143,6 @@ def iswanted(key, line):
     return False
 
 
-def sts(e):
-    name = e.rest or "psyche"
-    needed = seconds(nr(name))
-    if needed:
-        delta = time.time() - starttime
-        nrtimes = int(delta/needed)
-        if nrtimes > 10000:
-            nryear = int(year/needed)
-            txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
-        Bus.announce(txt)
-
-
-Commands.add(sts)
-
-
 def now(event):
     delta = time.time() - starttime
     txt = elapsed(delta) + " "
@@ -166,28 +151,15 @@ def now(event):
         nrtimes = int(delta/needed)
         if nrtimes > 10000:
             txt += "%s: %s " % (get(aliases, name), nrtimes)
-    txt += " - http://genocide.rtfd.io"
     Bus.announce(txt)
 
 
-Commands.add(now)
-
-
-def tpc(event):
-    txt = "%ss " % elapsed(time.time() - starttime)
-    for name in sorted(oorzaken, key=lambda x: seconds(nr(x))):
-        needed = seconds(nr(name))
+def sts(e):
+    name = e.rest or "psyche"
+    needed = seconds(nr(name))
+    if needed:
         delta = time.time() - starttime
         nrtimes = int(delta/needed)
-        if nrtimes < 10000:
-            continue
-        txt += "%s %s " % (get(aliases, name), nrtimes)
-    for bot in Bus.objs:
-        try:
-            for channel in bot.channels:
-                bot.topic(channel, txt)
-        except AttributeError:
-            pass
-
-
-Commands.add(tpc)
+        nryear = int(year/needed)
+        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
+        Bus.announce(txt)

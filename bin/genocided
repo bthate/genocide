@@ -2,7 +2,7 @@
 # This file is placed in the Public Domain.
 
 
-"prosector. reconsider. OTP-CR-117/19."
+"Prosector. Reconsider. OTP-CR-117/19."
 
 
 import time
@@ -26,15 +26,20 @@ IRCConfig.realname = "prosector. court. reconsider OTP-CR-117/19 (article 15)."
 IRCConfig.username = "genocide"
 
 
-from hdl import Callbacks, dispatch
+from obj import keys
+from hdl import Callbacks, Commands, dispatch
 
 
 from genocide.irc import IRC
 from genocide.rss import Fetcher
+from genocide.scn import init
 
 
-import genocide.cmd.all
+def cmd(event):
+    event.reply(",".join(sorted(keys(Commands.cmd))))
 
+
+Commands.add(cmd)
 
 def main():
     Callbacks.add("command", dispatch)
@@ -42,6 +47,7 @@ def main():
     i.start()
     f = Fetcher()
     f.start()
+    init("genocide.mdl")
     while 1:
         time.sleep(1.0)
 

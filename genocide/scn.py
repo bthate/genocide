@@ -29,7 +29,14 @@ class Table():
         return Table.mod.get(nm, None)
 
 
-def init(mns):
+def init(pns):
+    for pn in spl(pns):
+        mod = importlib.import_module(pn)
+        if "init" in dir(mod):
+            mod.init()
+
+
+def init2(mns):
     for mn in spl(mns):
         mod = Table.get(mn)
         if mod and "init" in dir(mod):

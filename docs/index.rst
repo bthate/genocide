@@ -2,12 +2,16 @@
 
 .. raw:: html
 
-    <br>
+    <br><br>
 
-.. title:: manual
+.. title:: Manual
 
 manual
 ======
+
+.. raw:: html
+
+    <br>
 
 **NAME**
 

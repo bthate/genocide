@@ -118,7 +118,7 @@ rst_prolog = '''.. image:: line.png
 .. image:: skulllinesmall3.jpg
     :width: 100%
     :height: 2.2cm
-    :target: reconsider.html
+    :target: man.html
 
 .. raw:: html
 

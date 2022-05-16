@@ -6,7 +6,7 @@
 "Prosecutor. Reconsider. OTP-CR-117/19."
 
 
-__version__ = 66
+__version__ = 67
 
 
 import doctest
@@ -112,7 +112,7 @@ rst_prolog = '''.. image:: line.png
 
 .. raw:: html
 
-    <br><br>
+    <br><br><br>
 
 .. image:: skulllinesmall3.jpg
     :width: 100%

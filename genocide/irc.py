@@ -14,7 +14,7 @@ import time
 import _thread
 
 
-from obj import Class, Object, last, locked
+from obj import Class, Config, Object, last, locked
 from evt import Event
 from hdl import Handler
 from thr import launch
@@ -36,7 +36,7 @@ def __dir__():
 saylock = _thread.allocate_lock()
 
 
-class Config(Object):
+class Config(Config):
 
     cc = "!"
     channel = "#genocide"

@@ -16,11 +16,6 @@ import time
 import traceback
 
 
-#cwd = os.getcwd()
-#sys.path.insert(0, cwd)
-#sys.path.insert(0, os.path.join(cwd, "lib"))
-
-
 from obj import Config
 
 
@@ -98,7 +93,7 @@ def main():
         f = Fetcher()
         f.start()
     if Config.services:
-        init("mdl,sui")
+        init("genocide.mdl")
     c.start()
     c.forever()
 

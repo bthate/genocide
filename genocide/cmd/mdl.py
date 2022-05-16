@@ -4,11 +4,15 @@
 "model commands"
 
 
-from hdl import Commands
+import time
+
+
+from obj import get
+from hdl import Bus, Commands, starttime
 from tms import elapsed
 
 
-from genocide.mdl import aliases, seconds
+from genocide.mdl import aliases, nr, oorzaken, seconds, year
 
 
 def sts(e):

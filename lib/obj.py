@@ -43,6 +43,7 @@ def __dir__():
         'read',
         "register",
         'save',
+        'savetime',
         'search',
         'setdefault',
         'update',
@@ -526,6 +527,15 @@ def save(o, stime=None):
     os.chmod(opath, 0o444)
     return o.__stp__
 
+
+def savetime(o, stime=None):
+    assert Config.workdir
+    prv = os.sep.join(o.__stp__.split(os.sep)[:2])
+    o.__stp__ = os.path.join(prv, stime)
+    opath = os.path.join(Config.workdir, "store", o.__stp__)
+    dump(o, opath)
+    os.chmod(opath, 0o444)
+    return o.__stp__
 
 
 def spl(txt):

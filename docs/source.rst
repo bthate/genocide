@@ -41,9 +41,19 @@ the following modules are provided:
     :template: base.rst
 
     genocide.irc		internet relay chat
-    genocide.mdl		genocide model
-    genocide.req		request
+    genocide.mbx		mailbox
     genocide.rss		rich site syndicate
-    genocide.slg		slug
     genocide.scn		scan
-    genocide.trt		torture definition
+    genocide.udp		udp to irc
+
+*commands*
+
+
+.. autosummary::
+    :toctree: 
+    :template: base.rst
+
+    genocide.cmd.mdl		genocide model
+    genocide.cmd.req		request
+    genocide.cmd.slg		slug
+    genocide.cmd.trt		torture definition

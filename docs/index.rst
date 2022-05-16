@@ -6,6 +6,8 @@
 
 .. title:: manual
 
+manual
+======
 
 **NAME**
 

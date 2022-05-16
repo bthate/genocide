@@ -6,16 +6,13 @@
 
 .. title:: Source
 
+source
+======
 
 the following modules are provided:
 
 
 *library*
-
-.. raw:: html
-
-    <br>
-
 
 .. autosummary::
     :toctree: 
@@ -30,16 +27,8 @@ the following modules are provided:
     tms			times
     usr			user
 
-.. raw:: html
-
-    <br>
-
 
 *genocide*
-
-.. raw:: html
-
-    <br>
 
 
 .. autosummary::

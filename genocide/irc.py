@@ -43,7 +43,7 @@ class Config(Object):
     nick = "genocide"
     password = ""
     port = 6667
-    realname = "prosecutor. reconsider. OTP-CR-117/19."
+    realname = "rosecutor. Reconsider. OTP-CR-117/19."
     sasl = False
     server = "localhost"
     servermodes = ""

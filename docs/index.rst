@@ -15,13 +15,14 @@ manual
 
 **NAME**
 
- **GENOCIDE** -  article 15 needs no cooperation (:ref:`source <source>`)
+ **GENOCIDE** -  article 15 needs no cooperation 
 
 
 **SYNOPSIS**
 
+ ::
 
- | ``sudo genocidectl <cmd> [key=value] [key==value]``
+  genocidectl <cmd> [key=value] [key==value]
 
 
 **DESCRIPTION**
@@ -31,7 +32,7 @@ manual
  in a static, only code, no popen, no user imports and no reading modules from
  a directory, way. It can show genocide and suicide stats of king netherlands
  his genocide into a IRC channel, display rss feeds and log simple text
- messages. 
+ messages. Source is :ref:`here <source>`.
 
  **GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
  written :ref:`response <guilty>` where king netherlands confirmed taking note
@@ -49,8 +50,9 @@ manual
 
 **INSTALL**
 
+ ::
 
- | $ ``sudo pip3 install genocide --upgrade --force-reinstall``
+  $ sudo pip3 install genocide --upgrade --force-reinstall
 
 
 **CONFIGURATION**
@@ -58,24 +60,38 @@ manual
 
  **irc**
 
- | $ ``sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>``
- |
- | (*) default channel/server is #genocide on localhost
+ ::
+
+  $ sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>
+  
+  (*) default channel/server is #genocide on localhost
 
  **sasl**
 
- | $ ``sudo genocidectl pwd <nickservnick> <nickservpass>``
- | $ ``sudo genocidectl cfg password=<outputfrompwd>``
+ ::
+
+  $ sudo genocidectl pwd <nickservnick> <nickservpass>
+  $ sudo genocidectl cfg password=<outputfrompwd>
 
  **users**
 
- | $ ``sudo genocidectl cfg users=True``
- | $ ``sudo genocidectl met <userhost>``
+ ::
+
+  $ sudo genocidectl cfg users=True
+  $ sudo genocidectl met <userhost>
+
+ **rss**
+
+ ::
+
+  $ sudo genocidectl rss <url>
 
  **24/7**
 
- | $ ``sudo cp /usr/local/share/genocide/genocide.service /etc/systemd/system``
- | $ ``sudo systemctl enable genocide --now``
+ ::
+
+  $ sudo cp /usr/local/share/genocide/genocide.service/etc/systemd/system
+  $ sudo systemctl enable genocide --now
 
 
 **COMMANDS**

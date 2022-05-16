@@ -42,6 +42,7 @@ from obj import Object, format, spl
 
 from genocide.irc import IRC
 from genocide.rss import Fetcher
+from genocide.scn import wrap
 
 
 import genocide.cmd.all
@@ -59,20 +60,6 @@ def init(pns):
         mod = importlib.import_module(pn)
         if "init" in dir(mod):
             mod.init()
-
-
-def wrap(func):
-    fd = sys.stdin.fileno()
-    old = termios.tcgetattr(fd)
-    try:
-        func()
-    except (EOFError, KeyboardInterrupt):
-        print("")
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old)
-        for err in Callbacks.errors:
-            traceback.print_exception(type(err), err, err.__traceback__)
-
 
 
 def main():

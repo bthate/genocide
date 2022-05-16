@@ -18,8 +18,8 @@ oor = """"Totaal onderliggende doodsoorzaken (aantal)";"1 Infectieuze en parasit
 aantal = "168678;2974;32;1;34;23;2884;47089;45103;690;2013;1150;3395;1235;956;452;2942;205;10080;811;3083;230;560;1032;3006;923;1359;3636;7345;1986;560;3646;2799;847;11682;531;61;11090;8387;50;1792;6545;36622;8037;4718;3319;12682;8850;7053;10503;295;2726;5776;146;5630;1706;4882;138;948;433;515;3796;323;1067;333;734;3248;1958;1290;2;390;436;42;87;307;7664;11;4436;3217;9030;6433;633;590;43;5234;107;238;221;1823;107;28;639;20173;17495;2678".split(";")
 
 oorzaak = Object()
-#oorzaak.Suicide = 1859
 update(oorzaak, zip(oor,aantal))
+#oorzaak.Suicide = 1859
 
 aliases = Object()
 aliases["Nieuwvormingen"] = "cancer"
@@ -97,7 +97,7 @@ starttime = time.mktime(time.strptime(startdate, "%Y-%m-%d %H:%M:%S"))
 def init():
     for key in keys(oorzaken):
         val = get(oorzaken, key, None)
-        if val:
+        if val and int(val) > 10000:
             e = Event()
             e.txt = ""
             e.rest = key
@@ -149,8 +149,9 @@ def sts(e):
     if needed:
         delta = time.time() - starttime
         nrtimes = int(delta/needed)
-        nryear = int(year/needed)
-        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
+        if nrtimes > 10000:
+            nryear = int(year/needed)
+            txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
         Bus.announce(txt)
 
 
@@ -163,7 +164,8 @@ def now(event):
     for name in sorted(oorzaken, key=lambda x: seconds(nr(x))):
         needed = seconds(nr(name))
         nrtimes = int(delta/needed)
-        txt += "%s: %s " % (get(aliases, name), nrtimes)
+        if nrtimes > 10000:
+            txt += "%s: %s " % (get(aliases, name), nrtimes)
     txt += " - http://genocide.rtfd.io"
     Bus.announce(txt)
 
@@ -177,7 +179,7 @@ def tpc(event):
         needed = seconds(nr(name))
         delta = time.time() - starttime
         nrtimes = int(delta/needed)
-        if nrtimes < 30000:
+        if nrtimes < 10000:
             continue
         txt += "%s %s " % (get(aliases, name), nrtimes)
     for bot in Bus.objs:

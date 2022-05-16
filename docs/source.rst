@@ -21,7 +21,7 @@ the following modules are provided:
 
 .. autosummary::
     :toctree: 
-    :template: module.rst
+    :template: base.rst
 
     csl			command
     evt			event

@@ -22,7 +22,7 @@ from genocide.irc import Config as IRCConfig
 
 IRCConfig.channel = "#genocide"
 IRCConfig.nick = "genocide"
-IRCConfig.realname = "prosector. court. reconsider OTP-CR-117/19 (article 15)."
+IRCConfig.realname = "Prosector. Court. Article 15 need no cooperation. Reconsider OTP-CR-117/19."
 IRCConfig.username = "genocide"
 
 
@@ -34,12 +34,6 @@ from genocide.irc import IRC
 from genocide.rss import Fetcher
 from genocide.scn import init
 
-
-def cmd(event):
-    event.reply(",".join(sorted(keys(Commands.cmd))))
-
-
-Commands.add(cmd)
 
 def main():
     Callbacks.add("command", dispatch)

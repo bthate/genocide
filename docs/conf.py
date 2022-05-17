@@ -122,7 +122,7 @@ rst_prolog = '''.. image:: line.png
 
 .. raw:: html
 
-    <br><br><center><i>Prosecutor. Court. Reconsider OTP-CR-117/19.</i></center>
+    <br><br><br><i><center>"Article 15 needs no cooperation"</i></center>
 
 '''
 

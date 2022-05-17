@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-    <br><br>
+    <br>
 
 .. title:: Manual
 
@@ -16,7 +16,7 @@ manual
 
 **NAME**
 
- **GENOCIDE** -  article 15 needs no cooperation 
+ **GENOCIDE** - Prosecutor. Court. Reconsider OTP-CR-117/19.
 
 
 **SYNOPSIS**

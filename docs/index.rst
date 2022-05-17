@@ -2,18 +2,9 @@
 
 .. raw:: html
 
-  <br><br>
+  <br>
 
 .. title:: Reconsider
-
-
-reconsider
-==========
-
-
-.. raw:: html
-
-  <br>
 
 
 | **Information and Evidence Unit**

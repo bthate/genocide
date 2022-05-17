@@ -91,7 +91,7 @@ manual
 
  ::
 
-  sudo cp /usr/local/share/genocide/genocide.service/etc/systemd/system
+  sudo cp /usr/local/share/genocide/genocide.service /etc/systemd/system
   sudo systemctl enable genocide --now
 
 

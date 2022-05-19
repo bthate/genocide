@@ -5,11 +5,10 @@ import mailbox
 import os
 import time
 
-from obj import Db, find, fntime, format, savetime, update
-from hdl import Commands
-from tms import elapsed
 
-
+from genocide.obj import Db, find, fntime, format, save, update
+from genocide.hdl import Commands
+from genocide.rpt import elapsed
 from genocide.mbx import Email, to_date
 
 
@@ -65,16 +64,12 @@ def mbx(event):
     for m in thing:
         o = Email()
         update(o, m._headers)
-        try:
-            sdate = os.sep.join(to_date(o.Date).split())
-        except AttributeError:
-            sdate = None
         o.text = ""
         for payload in m.walk():
             if payload.get_content_type() == 'text/plain':
                 o.text += payload.get_payload()
         o.text = o.text.replace("\\n", "\n")
-        savetime(o, sdate)
+        save(o)
         nr += 1
     if nr:
         event.reply("ok %s" % nr)

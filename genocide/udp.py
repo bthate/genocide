@@ -9,9 +9,9 @@ import sys
 import time
 
 
-from obj import Class, Object, last
-from hdl import Bus, Commands
-from thr import launch
+from .obj import Class, Object, last
+from .hdl import Bus, Commands
+from .thr import launch
 
 
 def init(kernel):

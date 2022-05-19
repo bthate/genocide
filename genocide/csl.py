@@ -7,8 +7,8 @@
 import time
 
 
-from evt import Command
-from hdl import Handler
+from .evt import Command
+from .hdl import Handler
 
 
 class CLI(Handler):

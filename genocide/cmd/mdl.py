@@ -7,9 +7,9 @@
 import time
 
 
-from obj import get
-from hdl import Bus, Commands, starttime
-from tms import elapsed
+from ..obj import get
+from ..hdl import Bus, Commands, starttime
+from ..tms import elapsed
 
 
 from genocide.mdl import aliases, nr, oorzaken, seconds, year

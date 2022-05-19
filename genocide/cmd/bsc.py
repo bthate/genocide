@@ -8,11 +8,11 @@ import threading
 import time
 
 
-from hdl import Bus, Commands, starttime
-from obj import Db, Object, find, fntime, format, get, save, update
-from thr import getname
-from tms import elapsed
-from usr import User
+from ..hdl import Bus, Commands, starttime
+from ..obj import Db, Object, find, fntime, format, get, save, update
+from ..thr import getname
+from ..tms import elapsed
+from ..usr import User
 
 
 def __dir__():

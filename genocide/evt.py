@@ -7,8 +7,8 @@
 import threading
 
 
-from obj import Object
-from hdl import Bus
+from .obj import Object
+from .hdl import Bus
 
 
 def __dir__():

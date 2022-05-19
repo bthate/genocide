@@ -4,8 +4,8 @@
 "rss commands"
 
 
-from hdl import Commands
-from obj import Class, Db, edit, find, save
+from ..hdl import Commands
+from ..obj import Class, Db, edit, find, save
 
 
 from genocide.rss import Fetcher, Rss

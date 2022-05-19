@@ -38,10 +38,6 @@ setup(
     description="Prosecutor. Court. Reconsider OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
-    package_dir={"": "lib",
-                 "genocide": "genocide"
-                },
-    py_modules=mods,
     packages=["genocide", "genocide.cmd"],
     zip_safe=True,
     include_package_data=True,

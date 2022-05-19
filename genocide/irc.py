@@ -14,11 +14,11 @@ import time
 import _thread
 
 
-from obj import Class, Config, Object, last, locked
-from evt import Event
-from hdl import Handler
-from thr import launch
-from usr import Users
+from .obj import Class, Config, Object, last, locked
+from .evt import Event
+from .hdl import Handler
+from .thr import launch
+from .usr import Users
 
 
 Class.add(Users)

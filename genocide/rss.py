@@ -10,11 +10,11 @@ import threading
 import urllib
 
 
-from hdl import Bus
-from obj import Object, get, update
-from obj import Class, Config, find, last, save, spl
-from rpt import Repeater
-from thr import launch
+from .hdl import Bus
+from .obj import Object, get, update
+from .obj import Class, Config, find, last, save, spl
+from .rpt import Repeater
+from .thr import launch
 
 
 from urllib.error import HTTPError, URLError

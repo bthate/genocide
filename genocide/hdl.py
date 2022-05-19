@@ -9,8 +9,8 @@ import threading
 import time
 
 
-from obj import Object, get, register
-from thr import launch
+from .obj import Object, get, register
+from .thr import launch
 
 
 def __dir__():

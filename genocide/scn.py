@@ -12,8 +12,8 @@ import termios
 import traceback
 
 
-from obj import Class, spl
-from hdl import Callbacks, Commands
+from .obj import Class, spl
+from .hdl import Callbacks, Commands
 
 
 class Table():

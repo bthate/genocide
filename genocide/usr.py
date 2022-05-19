@@ -4,7 +4,7 @@
 "users"
 
 
-from obj import Class, Object, find, save, update
+from .obj import Class, Object, find, save, update
 
 
 def __dir__():

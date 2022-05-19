@@ -8,9 +8,9 @@ import threading
 import time
 
 
-from obj import Object
-from thr import getname, launch
-from tms import elapsed
+from .obj import Object
+from .thr import getname, launch
+from .tms import elapsed
 
 
 def __dir__():

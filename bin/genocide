@@ -8,6 +8,8 @@
 import os
 import sys
 
+sys.path.insert(0, os.getcwd())
+
 
 import importlib
 import readline
@@ -16,7 +18,7 @@ import time
 import traceback
 
 
-from obj import Config
+from genocide.obj import Config
 
 
 Config.console = False
@@ -34,12 +36,10 @@ IRCConfig.realname = "Prosector. Court. Stop Genocide. Article 15 needs no coope
 IRCConfig.username = "genocide"
 
 
-from csl import Console
-from evt import Command
-from hdl import Callbacks, Commands, Handler, dispatch
-from obj import Object, format, spl
-
-
+from genocide.csl import Console
+from genocide.evt import Command
+from genocide.hdl import Callbacks, Commands, Handler, dispatch
+from genocide.obj import Object, format, spl
 from genocide.irc import IRC
 from genocide.rss import Fetcher
 from genocide.scn import wrap

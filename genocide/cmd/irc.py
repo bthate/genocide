@@ -7,8 +7,8 @@
 import base64
 
 
-from hdl import Commands
-from obj import edit, format, last, save
+from ..hdl import Commands
+from ..obj import edit, format, last, save
 
 
 from genocide.irc import Config

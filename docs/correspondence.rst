@@ -6,13 +6,6 @@
 
 .. title:: Correspondence
 
-correspondence
-==============
-
-.. raw:: html
-
-  <br>
-
 .. _otp1:
 
 otp1

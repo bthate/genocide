@@ -1,4 +1,4 @@
-.. _reconsider:
+.. _home:
 
 .. raw:: html
 
@@ -67,7 +67,6 @@ netherlands and his government are :ref:`doing <correspondence>`.
     :hidden:
     :glob:
 
-    reconsider
     correspondence
     evidence
     guilty

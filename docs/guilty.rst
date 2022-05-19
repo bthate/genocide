@@ -6,13 +6,6 @@
 
 .. title:: Guilty
 
-guilty
-======
-
-.. raw:: html
-
-  <br>
-
 .. _chamber:
 
 chamber

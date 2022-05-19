@@ -1,4 +1,4 @@
-.. _home:
+.. _man:
 
 .. raw:: html
 
@@ -6,13 +6,6 @@
 
 .. title:: Manual
 
-
-manual
-======
-
-.. raw:: html
-
-    <br>
 
 **NAME**
 
@@ -46,7 +39,7 @@ manual
  International Criminal Court, asking for arrest of the king of the 
  netherlands, for the genocide he is committing with his new treatement laws.
  Current status is an outside the jurisdiction judgement of the prosecutor 
- which requires a :ref:`reconsider <reconsider>` to have the king actually
+ which requires a :ref:`reconsider <home>` to have the king actually
  arrested.
 
 **INSTALL**

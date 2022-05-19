@@ -108,21 +108,12 @@ intersphinx_cache_limit=1
 rst_prolog = '''.. image:: line.png
     :width: 100%
     :height: 2.2cm
-    :target: index.html
-
-.. raw:: html
-
-    <br><br>
-
-
-.. image:: skulllinesmall3.jpg
-    :width: 100%
-    :height: 2.2cm
     :target: man.html
 
 .. raw:: html
 
-    <br><br><br><i><center>Article 15 needs no cooperation.</i></center>
+    <br>
+
 
 '''
 

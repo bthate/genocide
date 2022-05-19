@@ -7,7 +7,7 @@
 import unittest
 
 
-from obj import Db, Object, dumps, loads
+from genocide.obj import Db, Object, dumps, loads
 
 
 class Composite(Object):

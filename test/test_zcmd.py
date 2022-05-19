@@ -9,12 +9,12 @@ import random
 import unittest
 
 
-from evt import Command
-from obj import Object, get
-from hdl import Commands
+from genocide.evt import Command
+from genocide.obj import Object, get
+from genocide.hdl import Commands
 
 
-import cmds
+import genocide.cmd.all
 
 
 events = []

@@ -15,7 +15,7 @@ sys.path.insert(0, os.getcwd())
 sys.path.insert(0, "lib")
 
 
-from obj import Config, format
+from genocide.obj import Config, format
 
 
 Config.debug = True
@@ -23,8 +23,8 @@ Config.verbose = False
 Config.workdir = ".test"
 
 
-from evt import Command
-from hdl import Callbacks, Handler, dispatch
+from genocide.evt import Command
+from genocide.hdl import Callbacks, Handler, dispatch
 
 
 Callbacks.threaded = False
@@ -41,6 +41,8 @@ class CLI(Handler):
         
          
 Callbacks.add("command", dispatch)
+
+
 c = CLI()
 c.start()
 
@@ -54,5 +56,6 @@ def main():
     pat = "test_%s*" % "*"
     suite = unittest.loader.TestLoader().discover("test", pattern=pat)
     unittest.TextTestRunner(verbosity=3).run(suite)
+
 
 main()

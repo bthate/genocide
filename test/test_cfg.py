@@ -11,8 +11,8 @@ import sys
 import unittest
 
 
-from evt import Event
-from obj import Object, edit, update
+from genocide.evt import Event
+from genocide.obj import Object, edit, update
 
 
 class Config(Object):

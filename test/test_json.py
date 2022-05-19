@@ -7,7 +7,7 @@
 import unittest
 
 
-from obj import Object, dumps, loads
+from genocide.obj import Object, dumps, loads
 
 
 validjson = '{"test": "bla"}'

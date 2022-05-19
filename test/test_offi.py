@@ -11,10 +11,8 @@ import sys
 import unittest
 
 
-from evt import Event
-from obj import Object, edit, keys, spl, update
-
-
+from genocide.evt import Event
+from genocide.obj import Object, edit, keys, spl, update
 from genocide.rss import Parser
 
 

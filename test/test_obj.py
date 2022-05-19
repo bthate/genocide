@@ -8,13 +8,13 @@ import os
 import unittest
 
 
-from obj import Config, Db, fns, hook, load, last, save
-from obj import cdir, edit, format, register
-from obj import loads
-from obj import Object, get, items, keys, update, values
+from genocide.obj import Config, Db, fns, hook, load, last, save
+from genocide.obj import cdir, edit, format, register
+from genocide.obj import loads
+from genocide.obj import Object, get, items, keys, update, values
 
 
-import obj
+import genocide.obj
 
 
 Config.workdir = ".test"
@@ -101,7 +101,7 @@ attrs2 = (
 class Test_Object(unittest.TestCase):
 
     def test_import(self):
-        self.assertEqual(tuple(dir(obj)), attrs1)
+        self.assertEqual(tuple(dir(genocide.obj)), attrs1)
 
     def test_attributes(self):
         o = Object()
@@ -219,7 +219,7 @@ class Test_Object(unittest.TestCase):
         self.assertTrue(o < oo)
 
     def test_Object__module__(self):
-        self.assertTrue(Object().__module__, "obj")
+        self.assertTrue(Object().__module__, "genocide.obj")
 
     def test_Object__ne__(self):
         o = Object()
@@ -233,7 +233,7 @@ class Test_Object(unittest.TestCase):
         self.assertEqual(o, oo)
 
     def test_Object__otype__(self):
-        self.assertEqual(Object().__otype__, "obj.Object")
+        self.assertEqual(Object().__otype__, "genocide.obj.Object")
 
     def test_Object__reduce__(self):
         o = Object()
@@ -267,7 +267,7 @@ class Test_Object(unittest.TestCase):
 
     def test_Object__stp__(self):
         o = Object()
-        self.assertTrue("obj.Object" in o.__stp__)
+        self.assertTrue("genocide.obj.Object" in o.__stp__)
 
     def test_Object__str__(self):
         o = Object()
@@ -297,11 +297,11 @@ class Test_Object(unittest.TestCase):
         self.assertEqual(format(o), "")
 
     def test_fns(self):
-        from obj import Config, Object, save
+        from genocide.obj import Config, Object, save
         Config.workdir = ".test"
         o = Object()
         save(o)
-        self.assertTrue("Object" in fns("obj.Object")[0])
+        self.assertTrue("Object" in fns("genocide.obj.Object")[0])
 
     def test_get(self):
         o = Object()

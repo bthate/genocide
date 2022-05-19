@@ -13,7 +13,7 @@ import time
 import traceback
 
 
-from obj import Config
+from genocide.obj import Config
 
 
 Config.console = False
@@ -31,9 +31,9 @@ IRCConfig.realname = "prosector. court. reconsider OTP-CR-117/19 (article 15)."
 IRCConfig.username = "genocide"
 
 
-from csl import CLI
-from evt import Command
-from hdl import Callbacks, dispatch
+from genocide.csl import CLI
+from genocide.evt import Command
+from genocide.hdl import Callbacks, dispatch
 
 
 import genocide.cmd.all

@@ -8,7 +8,7 @@
 import time
 
 
-from obj import Config
+from genocide.obj import Config
 
 
 Config.console = False
@@ -26,10 +26,8 @@ IRCConfig.realname = "Prosector. Court. Article 15 need no cooperation. Reconsid
 IRCConfig.username = "genocide"
 
 
-from obj import keys
-from hdl import Callbacks, Commands, dispatch
-
-
+from genocide.obj import keys
+from genocide.hdl import Callbacks, Commands, dispatch
 from genocide.irc import IRC
 from genocide.rss import Fetcher
 from genocide.scn import init

@@ -7,9 +7,6 @@ import os
 from setuptools import setup
 
 
-mods = ["csl", "evt", "hdl", "obj", "rpt", "thr", "tms", "usr"]
-
-
 def read():
     return open("README.rst", "r").read()
 

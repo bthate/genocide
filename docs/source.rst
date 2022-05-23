@@ -16,14 +16,14 @@ the following modules are provided:
     :toctree: 
     :template: base.rst
 
-    csl			command
-    evt			event
-    hdl			handler
-    obj			object
-    rpt			repeater
-    thr			thread
-    tms			times
-    usr			user
+    genocide.csl		command
+    genocide.evt		event
+    genocide.hdl		handler
+    genocide.obj		object
+    genocide.rpt		repeater
+    genocide.thr		thread
+    genocide.tms		times
+    genocide.usr		user
 
 
 *genocide*

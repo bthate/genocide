@@ -9,7 +9,7 @@
 
 **NAME**
 
- **GENOCIDE** - Special Law for Special People
+ **GENOCIDE** - special law for special people
 
 
 **SYNOPSIS**
@@ -26,7 +26,7 @@
  in a static, only code, no popen, no user imports and no reading modules from
  a directory, way. It can show genocide and suicide stats of king netherlands
  his genocide into a IRC channel, display rss feeds and log simple text
- messages. Source is :ref:`here <source>`.
+ messages, source is :ref:`here <source>`.
 
  **GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
  written :ref:`response <guilty>` where king netherlands confirmed taking note

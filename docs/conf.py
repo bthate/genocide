@@ -3,7 +3,7 @@
 #
 
 
-"Special Law for Special People"
+"OTP-CR-117/19"
 
 
 __version__ = 68
@@ -57,7 +57,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Special Law for Special People"
+html_title = "OTP-CR-117/19"
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]

@@ -1,5 +1,5 @@
 [Unit]
-Description=Special Law for Special People
+Description=OTP-CR-117/19
 After=multi-user.target
 
 [Service]

@@ -43,7 +43,7 @@ class Config(Config):
     nick = "genocide"
     password = ""
     port = 6667
-    realname = "Special Law for Special People"
+    realname = "OTP-CR-117/19"
     sasl = False
     server = "localhost"
     servermodes = ""
@@ -445,11 +445,13 @@ class IRC(Handler, Output):
 
 
 def AUTH(event):
+    time.sleep(1.0)
     bot = event.bot()
     bot.raw("AUTHENTICATE %s" % bot.cfg.password)
 
 
 def CAP(event):
+    time.sleep(1.0)
     bot = event.bot()
     if bot.cfg.password and "ACK" in event.arguments:
         bot.raw("AUTHENTICATE PLAIN")
@@ -458,11 +460,13 @@ def CAP(event):
 
 
 def h903(event):
+    time.sleep(1.0)
     bot = event.bot()
     bot.raw("CAP END")
 
 
 def h904(event):
+    time.sleep(1.0)
     bot = event.bot()
     bot.raw("CAP END")
 

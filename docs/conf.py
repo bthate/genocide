@@ -1,4 +1,4 @@
-# GENOCIDE OTP-CR-117/19
+# GENOCIDE Special Law for Special People
 # -*- coding: utf-8 -*-
 #
 

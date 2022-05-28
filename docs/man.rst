@@ -9,7 +9,7 @@
 
 **NAME**
 
- **GENOCIDE** - Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19.
+ **GENOCIDE** - Special Law for Special People
 
 
 **SYNOPSIS**

@@ -1,5 +1,5 @@
 [Unit]
-Description=Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19
+Description=Special Law for Special People
 After=multi-user.target
 
 [Service]

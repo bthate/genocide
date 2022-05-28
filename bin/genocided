@@ -2,7 +2,7 @@
 # This file is placed in the Public Domain.
 
 
-"Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
+"Special Law for Special People"
 
 
 import time
@@ -22,7 +22,7 @@ from genocide.irc import Config as IRCConfig
 
 IRCConfig.channel = "#genocide"
 IRCConfig.nick = "genocide"
-IRCConfig.realname = "Court. Prosector. Stop Genocide. Reconsider OTP-CR-117/19."
+IRCConfig.realname = "Special Law for Special People"
 IRCConfig.username = "genocide"
 
 

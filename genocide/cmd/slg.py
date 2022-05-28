@@ -13,7 +13,6 @@ txt3 = "Elderly & Handicapped/Wzd Psychatric Patients/WvGGZ Criminals/Wfz @IntlC
 txt4 = "Elderly & Handicapped/Wzd Psychatric Patients/WvGGZ Criminals/Wfz - @IntlCrimCourt @KarimKhanQC, article 15, reconsider OTP-CR-117/19 - http://genocide.rtfd.io"
 txt5 = "Stop Genocide. @KarimKhanQC @IntlCrimCourt, Reconsider OTP-CR-117/19 https://genocide.rtfd.io/ #ASP20 #ASP21 #ggz @Het_OM @adnl"
 txt6 = "Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19. @IntlCrimCourt @KarimKhanQC - https://pypi.org/project/genocide/ #ASP21 #stopgenocide #ggz"
-txt7 = "Special Law for Special People"
 
 
 def slg(event):

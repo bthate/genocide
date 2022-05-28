@@ -3,7 +3,7 @@
 #
 
 
-"Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19."
+"Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
 
 
 __version__ = 68
@@ -57,7 +57,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19."
+html_title = "Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]
@@ -113,7 +113,6 @@ rst_prolog = '''.. image:: line.png
 .. raw:: html
 
     <br>
-
 
 '''
 

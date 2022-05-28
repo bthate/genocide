@@ -9,7 +9,7 @@
 
 **NAME**
 
- **GENOCIDE** - Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19.
+ **GENOCIDE** - Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19.
 
 
 **SYNOPSIS**

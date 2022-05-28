@@ -2,11 +2,14 @@
 # This file is placed in the Public Domain.
 
 
-"Prosector. Court. Reconsider OTP-CR-117/19."
+"Prosector. Court. Stop Genocide. Reconsider OTP-CR-117/19."
 
 
 import os
 import sys
+
+
+sys.path.insert(0, os.getcwd())
 
 
 import importlib

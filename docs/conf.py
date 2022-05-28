@@ -110,10 +110,6 @@ rst_prolog = '''.. image:: line.png
     :height: 2.2cm
     :target: man.html
 
-.. raw:: html
-
-    <br><br><center><i>Special Law for Special People</i></center>
-
 
 .. raw:: html
 

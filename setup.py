@@ -32,7 +32,7 @@ setup(
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate67@gmail.com', 
-    description="Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19.",
+    description="Special Law for Special People",
     long_description=read(),
     license='Public Domain',
     packages=["genocide", "genocide.cmd"],

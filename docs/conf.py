@@ -3,7 +3,7 @@
 #
 
 
-"Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
+"Special Law for Special People"
 
 
 __version__ = 68
@@ -57,7 +57,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
+html_title = "Special Law for Special People"
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]
@@ -109,6 +109,11 @@ rst_prolog = '''.. image:: line.png
     :width: 100%
     :height: 2.2cm
     :target: man.html
+
+.. raw:: html
+
+    <br><br><center><i>Special Law for Special People</i></center>
+
 
 .. raw:: html
 

@@ -6,7 +6,7 @@
 
 .. image:: whitewall.jpg
     :width: 100%
-    :target: reconsider.html
+    :target: man.html
 
 
 .. toctree::

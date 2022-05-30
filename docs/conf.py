@@ -113,16 +113,6 @@ rst_prolog = '''.. image:: line.png
 
 .. raw:: html
 
-    <br><br>
-
-.. image:: skulllinesmall3.jpg
-    :width: 100%
-    :height: 2.2cm
-    :target: man.html
-
-
-.. raw:: html
-
     <br>
 
 '''

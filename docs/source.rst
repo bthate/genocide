@@ -7,7 +7,7 @@
 .. title:: Source
 
 source
-------
+======
 
 .. raw:: html
 
@@ -17,7 +17,13 @@ source
 the following modules are provided:
 
 
-*library*
+library
+-------
+
+.. raw:: html
+
+    <br>
+
 
 .. autosummary::
     :toctree: 
@@ -33,7 +39,13 @@ the following modules are provided:
     genocide.usr		user
 
 
-*genocide*
+genocide
+--------
+
+
+.. raw:: html
+
+    <br>
 
 
 .. autosummary::
@@ -46,7 +58,14 @@ the following modules are provided:
     genocide.scn		scan
     genocide.udp		udp to irc
 
-*commands*
+
+commands
+--------
+
+
+.. raw:: html
+
+    <br>
 
 
 .. autosummary::

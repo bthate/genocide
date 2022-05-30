@@ -7,7 +7,7 @@
 .. title:: home
 
 reconsider
-==========
+##########
 
 .. raw:: html
 
@@ -67,10 +67,6 @@ prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible here in the netherlands in
 the hope that it stops the mass torture with poison the king of the 
 netherlands and his government are :ref:`doing <correspondence>`.
-
-
-| (*) manual page is :ref:`here <man>`
-| (*) source is :ref:`here <source>`
 
 
 .. toctree::

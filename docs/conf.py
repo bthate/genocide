@@ -115,7 +115,7 @@ rst_prolog = '''.. image:: line.png
 
     <br>
     
-:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>` - :ref:`evidence <evidence>` - :ref:`correspondence <correspondence>` - :ref:`guilty <guilty>` - `icc <https://www.icc-cpi.int/>`_  - otp.informationdesk@icc-cpi.int
+:ref:`home <home>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`correspondence <correspondence>` - :ref:`manual <man>` - :ref:`source <source>` - `icc <https://www.icc-cpi.int/>`_  - otp.informationdesk@icc-cpi.int
 
 '''
 

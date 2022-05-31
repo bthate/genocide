@@ -13,9 +13,16 @@ correspondence
 
   <br>
 
-Since the members of the chamber and the king were aware that these medicine are poison at the time they voted for this law and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to prosecute the king for making the commiting of the above mentioned crimes (killing, torture and impotent making) possible here in the netherlands in the hope that it stops the mass torture with poison the king of the netherlands and his government are doing.
+| **From:** Bart Thate <bthate@dds.nl>
+| **To:** otp.informationdesk@icc-cpi.int
+| **Subject:** Information that the king of the netherlands is aware that the
+|          medicine administered with the use of new defines laws are proven
+|          to be poison and is commiting 3 of 5 genocide crimes on parts of
+|          the population here in the netherlands
+| **Message-ID:** <e49d02a2-6a8e-ad64-6c8d-9abd45cf5c0e@dds.nl>
+| **Date:** Mon, 21 Jan 2019 16:17:13 +0100
 
-written to otp.informationdesk@icc-cpi.int
+
 
 .. _otp1:
 

@@ -112,23 +112,9 @@ rst_prolog = '''.. image:: line.png
 
 .. raw:: html
 
-    <br><br>
+    <br>
 
-.. image:: skulllinesmall3.jpg
-    :width: 100%
-    :height: 2.2cm
-    :target: man.html
-
-.. raw:: html
-
-    <br><center>
-
-:ref:`manual <man>` - :ref:`guilty <guilty>` - :ref:`evidence <evidence>` - :ref:`writings <writings>` - :ref:`source <source>` 
-
-
-.. raw:: html
-
-    </center>
+:ref:`reconsider <reconsider>` - :ref:`guilty <guilty>` - :ref:`evidence <evidence>` - :ref:`request <request>` -  :ref:`writings <writings>` - :ref:`manual <man>` - :ref:`source <source>` 
 
 
 '''

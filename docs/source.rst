@@ -17,10 +17,6 @@ source
 
 the following modules are provided:
 
-.. raw:: html
-
-  <br>
-
 
 library
 -------

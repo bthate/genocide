@@ -1,6 +1,14 @@
 @import 'alabaster.css';
 
 
+div.body p, div.body dd, div.body li, div.body blockquote {
+    -moz-hyphens: false;
+    -ms-hyphens: false;
+    -webkit-hyphens: false;
+    hyphens: false;
+}
+
+
 body {
     font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva',
                  'Verdana', sans-serif;

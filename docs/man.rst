@@ -7,15 +7,16 @@
 .. title:: Manual
 
 manual
-------
+======
 
 .. raw:: html
 
     <br>
 
+
 **NAME**
 
- **GENOCIDE** - OTP-CR-117/19
+ **GENOCIDE** - article 15 needs no cooperation
 
 
 **SYNOPSIS**
@@ -27,7 +28,7 @@ manual
 
 **DESCRIPTION**
 
- **GENOCIDE** contains :ref:`correspondence <correspondence>` with the
+ **GENOCIDE** contains :ref:`correspondence <writings>` with the
  International Criminal Court, asking for arrest of the king of the 
  netherlands, for the genocide he is committing with his new treatement laws.
  Current status is an outside the jurisdiction judgement of the prosecutor 

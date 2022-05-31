@@ -4,7 +4,8 @@
 
   <br>
 
-.. title:: Evidence
+.. title:: evidence
+
 
 evidence
 ========
@@ -13,8 +14,12 @@ evidence
 
   <br>
 
+
 There is proof the medication used in forced treatements in the netherlands are poison, see copies of the ECHA <European Chemical Agency> website for:
 
+.. raw:: html
+
+  <br>
 
 .. _haldol:
 

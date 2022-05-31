@@ -70,4 +70,4 @@ Hello Office of the Prosecutor,
 | and impotent making) possible here in the
 | netherlands in the hope that it stops the mass
 | torture with poison the king of the netherlands
-| and his government are :ref:`doing <correspondence>`.
+| and his government are :ref:`doing <writings>`.

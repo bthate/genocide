@@ -114,7 +114,15 @@ rst_prolog = '''.. image:: line.png
 
     <br>
 
-otp.informationdesk@icc-cpi.int - :ref:`guilty <guilty>` - :ref:`evidence <evidence>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` -  :ref:`writings <writings>` - :ref:`manual <man>` - `pypi <http://pypi.org/project/genocide>`_
+.. raw:: html
+
+    <center>
+
+:ref:`guilty <guilty>` - :ref:`evidence <evidence>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` -  :ref:`writings <writings>` - :ref:`manual <man>` - `pypi <http://pypi.org/project/genocide>`_  
+
+.. raw:: html
+
+    </center>
 
 
 '''

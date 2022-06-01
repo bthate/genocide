@@ -14,6 +14,10 @@ writings
 otp1
 ----
 
+.. raw:: html
+
+   <br>
+
 | **From:** Bart Thate <bthate@dds.nl>
 | **To:** otp.informationdesk@icc-cpi.int
 | **Subject:** Information that the king of the netherlands is aware that the medicine administered with the use of new defines laws are proven to be poison and is commiting 3 of 5 genocide crimes on parts of the population here in the netherlands
@@ -23,7 +27,7 @@ otp1
 
 .. raw:: html
 
-   <br>
+   <br><br>
 
 
 .. image:: OTP1.png
@@ -31,13 +35,17 @@ otp1
 
 .. raw:: html
 
-   <br>
+   <br><br>
 
 
 .. _otp2:
 
 otp2
 ----
+
+.. raw:: html
+
+   <br>
 
 | **To:** OTP InformationDesk <OTP.InformationDesk@icc-cpi.int>
 | **From:** Bart Thate <bthate@dds.nl>
@@ -48,7 +56,7 @@ otp2
 
 .. raw:: html
 
-    <br>
+    <br><br>
 
 .. image:: OTP2.png
 

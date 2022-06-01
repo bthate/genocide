@@ -20,7 +20,7 @@
 
 .. raw:: html
 
-    <br><br>
+    <br>
     <center><h3>After 2002, as article 6, other groups than described</h3></center>
     <br>
 

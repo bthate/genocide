@@ -1,22 +1,24 @@
-.. _reconsider:
+.. _home:
+
 
 .. raw:: html
 
-    <br><br><br><br>
-
-.. title:: reconsider
+    <br><br>
 
 
+.. title:: home
 
-.. image:: skullwall.jpg
+
+.. image:: skull.jpg
     :width: 100%
     :target: reconsider.html
 
 .. raw:: html
 
-    <br><br><br><br>
+    <br><br><br>
 
 “Under the Rome Statute, the Court may only exercise jurisdicition over genocide, crimes against humanity and war crimes, as defined in the Rome Statute (Articles 6 to 8), when committed on or after 1 July 2002 (Article 11).”
+
 
 .. toctree::
     :hidden:

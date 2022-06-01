@@ -3,14 +3,13 @@
 .. title:: home
 
 
-.. image:: skullcrop.jpg
+.. image:: theskull2.jpg
     :width: 100%
     :target: reconsider.html
 
 
 .. raw:: html
 
-    <br>
     <center><i>After 2002, as article 6, other groups than described</i></center>
     <center><b><h2>OTP-CR-117/19</h2></b></center><br>
     <center>“Under the Rome Statute, the Court may only exercise jurisdicition over genocide, crimes against humanity and war crimes, as defined in the Rome Statute (Articles 6 to 8), when committed on or after 1 July 2002 (Article 11).”</center>

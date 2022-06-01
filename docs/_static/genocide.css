@@ -12,11 +12,11 @@ div.body p, div.body dd, div.body li, div.body blockquote {
 body {
     font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva',
                  'Verdana', sans-serif;
-    font-size: 110%;
+    font-size: 100%;
     background-color: #fff;
     color: #555;
     margin: 0px;
-    padding: 20px;
+    padding: 0px;
 }
 
 

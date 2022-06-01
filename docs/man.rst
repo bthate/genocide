@@ -6,8 +6,12 @@
 
 .. title:: Manual
 
-manual
-======
+
+.. raw:: html
+
+
+     <center><h1>manual</h1></center>
+
 
 .. raw:: html
 

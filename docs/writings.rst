@@ -6,8 +6,11 @@
 
 .. title:: writings
 
-writings
-========
+
+.. raw:: html
+
+
+    <center><h1>writings</h1></center>
 
 .. _otp1:
 

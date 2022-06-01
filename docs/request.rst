@@ -6,8 +6,11 @@
 
 .. title:: request
 
-request
-=======
+
+.. raw:: html
+
+    <center><h1>request</h1></center>
+
 
 .. raw:: html
 

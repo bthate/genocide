@@ -7,8 +7,10 @@
 .. title:: reconsider
 
 
-reconsider
-----------
+.. raw:: html
+
+    <center><h1>reconsider</h1></center>
+
 
 .. raw:: html
 

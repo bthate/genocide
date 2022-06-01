@@ -15,7 +15,7 @@
 .. _otp1:
 
 otp1
-----
+~~~~
 
 .. raw:: html
 
@@ -45,13 +45,13 @@ your reference **OTP-CR-117/19**
 
 .. raw:: html
 
-   <br><br>
+   <br><br><br>
 
 
 .. _otp2:
 
 otp2
-----
+~~~~
 
 .. raw:: html
 

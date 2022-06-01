@@ -2,16 +2,29 @@
 
 .. title:: home
 
-.. image:: skull.jpg
+
+.. raw:: html
+
+    <br><br>
+
+.. image:: skullcrop.jpg
     :width: 100%
     :target: reconsider.html
 
 
 .. raw:: html
 
+    <br><br><br>
     <center><i>“Under the Rome Statute, the Court may only exercise jurisdicition over genocide, crimes against humanity and war crimes, as defined in the Rome Statute (Articles 6 to 8), when committed on or after 1 July 2002 (Article 11).”</i></center>
+
+
+.. raw:: html
+
     <br><br>
-    <center>The court should define how to deal with genocides taking place on other groups than mentioned. Article 15 needs no cooperation. Court and Prosecutor can act together and arrest the king</center>
+    <center><h3>After 2002, as article 6, other groups than described</h3></center>
+    <br>
+
+
 
 .. toctree::
     :hidden:

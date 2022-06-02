@@ -5,16 +5,18 @@
 
 .. raw:: html
 
-    <br><br>
+    <br>
 
-.. image:: theskull3.jpg
+.. image:: skullsmall2.jpg
     :width: 100%
     :target: reconsider.html
 
 
 .. raw:: html
 
-    <br><center><h2><b>OTP-CR-117/19</b></h2></center><br>
+    <br><br>
+    <center><h2><b>OTP-CR-117/19</b></h2></center>
+    <br><br>
     <center>Court should define how to deal with genocide on other groups than described.</center>
     <center>Prosecutor and Court can act together and stop king netherlands his genocide.</center>
     <br>

@@ -17,14 +17,12 @@
 
 the following modules are provided:
 
-
 library
 -------
 
 .. raw:: html
 
     <br>
-
 
 .. autosummary::
     :toctree: 
@@ -38,6 +36,11 @@ library
     genocide.thr		thread
     genocide.tms		times
     genocide.usr		user
+
+
+.. raw:: html
+
+    <br>
 
 
 genocide
@@ -58,6 +61,12 @@ genocide
     genocide.rss		rich site syndicate
     genocide.scn		scan
     genocide.udp		udp to irc
+
+
+.. raw:: html
+
+    <br>
+
 
 
 commands

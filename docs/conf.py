@@ -114,7 +114,7 @@ rst_prolog = '''.. image:: line.png
 
     <center>
 
-:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`guilty <guilty>` - :ref:`evidence <evidence>` - :ref:`writing <writings>` - :ref:`manual <man>` - :ref:`source <source>` - `icc <https://www.icc-cpi.int/>`_ - `statute <https://www.icc-cpi.int/sites/default/files/Publications/Rome-Statute.pdf>`_ - `pypi <http://pypi.org/project/gneocide>`_ - `\! <http://github.com/bthate/genocide>`_
+:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`guilty <guilty>` - :ref:`evidence <evidence>` - :ref:`writing <writings>` - :ref:`source <source>` - :ref:`manual <man>`
 
 .. raw:: html
 

@@ -16,7 +16,6 @@
     <br>
     <center>Elderly and Handicapped (Wzd), Criminals (Wfz), Psychiatric Patients (WvGGZ)</center>
 
-
 .. toctree::
     :hidden:
     :glob:

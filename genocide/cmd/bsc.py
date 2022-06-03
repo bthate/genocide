@@ -127,6 +127,13 @@ def thr(event):
 Commands.add(thr)
 
 
+def upt(event):
+    event.reply(elapsed(time.time()-starttime))
+
+
+Commands.add(upt)
+
+
 def ver(event):
     event.reply("%s %s" % (Config.name.upper(), Config.version or "1"))
 

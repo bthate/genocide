@@ -8,11 +8,11 @@ import time
 
 
 from ..obj import get
-from ..hdl import Bus, Commands, starttime
+from ..hdl import Bus, Commands
 from ..tms import elapsed
 
 
-from genocide.mdl import aliases, nr, oorzaken, seconds, year
+from genocide.mdl import aliases, nr, oorzaken, seconds, starttime, year
 
 
 def sts(e):
@@ -27,20 +27,6 @@ def sts(e):
 
 
 Commands.add(sts)
-
-
-def now(event):
-    delta = time.time() - starttime
-    txt = elapsed(delta) + " "
-    for name in sorted(oorzaken, key=lambda x: seconds(nr(x))):
-        needed = seconds(nr(name))
-        nrtimes = int(delta/needed)
-        txt += "%s: %s " % (get(aliases, name), nrtimes)
-    txt += " http://genocide.rtfd.io"
-    Bus.announce(txt)
-
-
-Commands.add(now)
 
 
 def tpc(event):

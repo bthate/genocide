@@ -14,8 +14,8 @@
 
 .. _otp1:
 
-otp1
-~~~~
+
+**otp1**
 
 .. raw:: html
 
@@ -50,8 +50,7 @@ your reference **OTP-CR-117/19**
 
 .. _otp2:
 
-otp2
-~~~~
+**otp2**
 
 .. raw:: html
 

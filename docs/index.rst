@@ -11,12 +11,15 @@
 .. raw:: html
 
     <center><h3><b>OTP-CR-117/19</b></h3></center>
-    <br><br>
+    <br>
     <center>“Under the Rome Statute, the Court may only exercise jurisdicition over genocide, crimes against humanity and war crimes, as defined in the Rome Statute (Articles 6 to 8), when committed on or after 1 July 2002 (Article 11).”</center>
-    <br><br>
+    <br>
     <center>Elderly and Handicapped (Wzd), Criminals (Wfz), Psychiatric Patients (WvGGZ)</center>
-    <br><br>
-    <center><b><i>read it again, as defined, arrest that king</i></center>
+    <br>
+    <center><i>forced treatements using poison is killing, torture, castration</i></center>
+    <br>
+    <center><b>read it again, as defined, arrest that king</b></center>
+
 
 .. toctree::
     :hidden:

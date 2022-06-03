@@ -142,6 +142,7 @@ class Config(Object):
 
     debug = False
     name = ""
+    version = ""
     workdir = ""
 
 

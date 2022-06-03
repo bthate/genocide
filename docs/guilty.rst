@@ -25,8 +25,7 @@ Both the chamber suggesting these laws to the king and the king himself have bee
 
 .. _chamber:
 
-chamber
--------
+**chamber**
 
 .. raw:: html
 
@@ -41,8 +40,9 @@ chamber
 
 .. _king:
 
-king
-----
+
+**king**
+
 
 .. raw:: html
 

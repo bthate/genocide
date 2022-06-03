@@ -9,7 +9,7 @@ import time
 
 
 from ..hdl import Bus, Commands, starttime
-from ..obj import Db, Object, find, fntime, format, get, save, update
+from ..obj import Config, Db, Object, find, fntime, format, get, save, update
 from ..thr import getname
 from ..tms import elapsed
 from ..usr import User
@@ -128,8 +128,7 @@ Commands.add(thr)
 
 
 def ver(event):
-    bot = event.bot()
-    event.reply("BOTLIB %s" % (bot.cfg.version or "1"))
+    event.reply("%s %s" % (Config.name.upper(), Config.version or "1"))
 
 
 Commands.add(ver)

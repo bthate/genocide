@@ -17,8 +17,7 @@
 
 the following modules are provided:
 
-library
--------
+**library**
 
 .. raw:: html
 
@@ -43,8 +42,7 @@ library
     <br>
 
 
-genocide
---------
+**genocide**
 
 
 .. raw:: html
@@ -69,8 +67,7 @@ genocide
 
 
 
-commands
---------
+**commands**
 
 
 .. raw:: html

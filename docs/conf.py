@@ -57,7 +57,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19."
+html_title = "Genocide on other groups than defined."
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]
@@ -74,14 +74,16 @@ html_theme = "alabaster"
 html_theme_options = {
     'github_user': 'bthate',
     'github_repo': 'genocide',
-    'github_button': True,
+    'github_button': False,
     'github_banner': False,
     'logo': 'skull3.jpg',
     'link': '#000',
     'link_hover': '#000',
     'nosidebar': True,
+    'page_width': 
     'show_powered_by': False,
     'show_relbar_top': False,
+    'sidebar_width': 0,
 }
 html_favicon = "skull3.jpg"
 html_extra_path = []
@@ -106,7 +108,6 @@ intersphinx_cache_limit=1
 
 
 rst_prolog = '''.. image:: line.png
-    :width: 100%
     :height: 2.2cm
     :target: index.html
 

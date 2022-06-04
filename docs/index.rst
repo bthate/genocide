@@ -2,17 +2,16 @@
 
 .. title:: home
 
-.. image:: skullagain2.jpg
+.. image:: skullagain.jpg
     :width: 100%
     :target: man.html
 
 .. raw:: html
 
-    <br>
     <center><b>by law</b></center>
-    <br>
+    <br><br>
     <center>killing,torture,castrate</center>
-    <br>
+    <br><br>
     <center>Elderly and Handicapped (Wzd)</center>
     <center>Criminals (Wfz)</center>
     <center>Psychiatric Patients (WvGGZ)</center>

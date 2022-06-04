@@ -6,5 +6,8 @@ jobs:
     steps:
       - name: Prepare repo
         uses: actions/checkout@master
-      - name: Test
-        uses: genocide/dev/xmlrun@master
+      - uses: actions/setup-python@v2
+        with:
+           python-version: '3.9'
+      - run: dev/test
+        usees: bash

@@ -7,17 +7,6 @@
 .. title:: Manual
 
 
-.. raw:: html
-
-
-     <center><h1>manual</h1></center>
-
-
-.. raw:: html
-
-    <br>
-
-
 **NAME**
 
  **GENOCIDE** - article 15 needs no cooperation

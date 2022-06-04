@@ -7,15 +7,6 @@
 .. title:: reconsider
 
 
-.. raw:: html
-
-    <center><h1>reconsider</h1></center>
-
-
-.. raw:: html
-
-    <br>
-
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**

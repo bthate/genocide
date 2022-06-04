@@ -7,11 +7,6 @@
 .. title:: writings
 
 
-.. raw:: html
-
-
-    <center><h1>writings</h1></center>
-
 .. _otp1:
 
 
@@ -19,7 +14,8 @@
 
 .. raw:: html
 
-   <br>
+    <br>
+
 
 | **From:** Bart Thate <bthate@dds.nl>
 | **To:** otp.informationdesk@icc-cpi.int

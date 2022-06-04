@@ -7,20 +7,12 @@
 .. title:: request
 
 
-.. raw:: html
-
-    <center><h1>request</h1></center>
-
-
-.. raw:: html
-
-    <br>
-
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
 | **2500 CM The Hague**
 | **The Netherlands**
+|
 
 Dear Mister Mark P. Dillon,
 

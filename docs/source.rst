@@ -6,15 +6,6 @@
 
 .. title:: Source
 
-.. raw:: html
-
-     <center><h1>source</h1></center>
-
-.. raw:: html
-
-  <br>
-
-
 the following modules are provided:
 
 **library**

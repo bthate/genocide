@@ -4,7 +4,7 @@
 
 .. image:: skullagain2.jpg
     :width: 100%
-    :target: reconsider.html
+    :target: man.html
 
 .. raw:: html
 

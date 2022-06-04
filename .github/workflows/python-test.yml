@@ -7,4 +7,4 @@ jobs:
       - name: Prepare repo
         uses: actions/checkout@master
       - name: Test
-        uses: dev/xmlrun@master
+        uses: genocide/dev/xmlrun@master

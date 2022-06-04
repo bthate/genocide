@@ -13,15 +13,15 @@ Statute (Articles 6 to 8), when committed on or after 1 July 2002 (Article
 
 .. raw:: html
 
-    <center>killing,torture,castrate</center>
-    <br>
-    <center>Elderly and Handicapped (Wzd)</center>
-    <center>Criminals (Wfz)</center>
-    <center>Psychiatric Patients (WvGGZ)</center>
+    <center><h3><b><a href="reconsider.html">OTP-CR-117/19</a></b></h3></center>
 
 .. raw:: html
 
-    <center><h3><b><a href="reconsider.html">OTP-CR-117/19</a></b></h3></center>
+    <br><center>killing,torture,castrate</center>
+    <br><br>
+    <center>Elderly and Handicapped (Wzd)</center>
+    <center>Criminals (Wfz)</center>
+    <center>Psychiatric Patients (WvGGZ)</center>
 
 
 .. toctree::

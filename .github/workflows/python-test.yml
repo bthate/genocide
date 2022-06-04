@@ -6,7 +6,5 @@ jobs:
     steps:
       - name: Prepare repo
         uses: actions/checkout@master
-      - name: xmlrun
-        uses: dev/xmlrun
       - name: Test
-        uses: onichandame/python-test-action@master
+        uses: bthate/genocide@master

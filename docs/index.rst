@@ -9,7 +9,6 @@
 .. raw:: html
 
     <center><h2><b><a href="reconsider.html">OTP-CR-117/19</a></b></h2></center>
-    <br>
 
 "Under the Rome Statute, the Court may only exercise jurisdicition over
 genocide, crimes against humanity and war crimes, as defined in the Rome
@@ -18,8 +17,9 @@ Statute (Articles 6 to 8), when committed on or after 1 July 2002 (Article
 
 .. raw:: html
 
-    <center><b>killing,torture,castrate</b></center>
     <br>
+    <center><b>killing,torture,castrate</b></center>
+    <br><br>
     <center>Elderly and Handicapped (Wzd)</center>
     <center>Criminals (Wfz)</center>
     <center>Psychiatric Patients (WvGGZ)</center>

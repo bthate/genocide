@@ -2,13 +2,14 @@
 
 .. title:: home
 
-.. image:: skullnice2.jpg
+.. image:: skullagain2.jpg
     :width: 100%
     :target: reconsider.html
 
 .. raw:: html
 
-    <center>by law</center>
+    <br>
+    <center><b>by law</b></center>
     <br>
     <center>killing,torture,castrate</center>
     <br>
@@ -16,7 +17,7 @@
     <center>Criminals (Wfz)</center>
     <center>Psychiatric Patients (WvGGZ)</center>
     <br>
-    <center><h3><b>OTP-CR-117/19</b></h3></center>
+    <center><h3><b><a href="reconsider.html">OTP-CR-117/19</a></b></h3></center>
 
 .. toctree::
     :hidden:

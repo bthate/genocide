@@ -80,7 +80,7 @@ html_theme_options = {
     'link': '#000',
     'link_hover': '#000',
     'nosidebar': True,
-    'page_width': 
+    'page_width': 25,
     'show_powered_by': False,
     'show_relbar_top': False,
     'sidebar_width': 0,

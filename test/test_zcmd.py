@@ -17,13 +17,14 @@ from genocide.hdl import Commands
 import genocide.cmd.all
 
 
-events = []
 
+events = []
+skip = ["cfg",]
 
 param = Object()
 param.cmd = [""]
-param.cfg = ["nick=opbot", "server=localhost", "port=6699"]
-param.fnd = ["log", "log txt==test", "config", "config name=botd", "config server==localhost"]
+param.cfg = ["nick=genocide", "server=localhost", "port=6699"]
+param.fnd = ["log", "log txt==test", "config", "config name=genocide", "config server==localhost"]
 param.flt = ["0", ""]
 param.log = ["test1", "test2"]
 param.mre = [""]
@@ -54,15 +55,16 @@ class Test_Commands(unittest.TestCase):
     def test_commands(self):
         c = getmain("c")
         cmds = sorted(Commands.cmd)
-        random.shuffle(cmds)
         for cmd in cmds:
+            if cmd in skip:
+                continue
             for ex in get(param, cmd, ""):
                 e = Command()
-                e.channel = "#botd"
+                e.channel = "#genocide"
                 e.orig = repr(c)
                 txt = cmd + " " + ex
                 e.txt = txt.strip()
-                c.put(e)
+                c.handle(e)
                 events.append(e)
         consume(events)
         self.assertTrue(not events)

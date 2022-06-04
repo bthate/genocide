@@ -2,19 +2,21 @@
 
 .. title:: home
 
-
-.. image:: theskull2.jpg
+.. image:: skullnice2.jpg
     :width: 100%
     :target: reconsider.html
 
-
 .. raw:: html
 
-    <center><h3><b>OTP-CR-117/19</b></h3></center>
-    <br><br>
-    <center>Elderly and Handicapped (Wzd), Criminals (Wfz), Psychiatric Patients (WvGGZ)</center>
+    <center>by law</center>
     <br>
-    <center><b>Genocide on other groups than defined</b></center>
+    <center>killing,torture,castrate</center>
+    <br>
+    <center>Elderly and Handicapped (Wzd)</center>
+    <center>Criminals (Wfz)</center>
+    <center>Psychiatric Patients (WvGGZ)</center>
+    <br>
+    <center><h3><b>OTP-CR-117/19</b></h3></center>
 
 .. toctree::
     :hidden:

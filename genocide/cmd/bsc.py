@@ -51,8 +51,10 @@ Commands.add(dlt)
 def flt(event):
     try:
         index = int(event.args[0])
-        event.reply(Bus.objs[index])
-        return
+        bot = Bus.objs[index]
+        if "cfg" in bot:
+            event.reply(format(bot.cfg))
+            return
     except (KeyError, TypeError, IndexError, ValueError):
         pass
     event.reply(" | ".join([getname(o) for o in Bus.objs]))

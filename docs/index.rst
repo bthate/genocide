@@ -2,7 +2,7 @@
 
 .. title:: home
 
-.. image:: skullagain2.jpg
+.. image:: perfectsize2.jpg
     :width: 100%
     :target: man.html
 

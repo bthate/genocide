@@ -18,7 +18,8 @@
     <center>By law, with the use of poison, committing murder, torture 
     and castration thereby physically eliminating all elderly and all handicapped (Wzd),
     all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands in whole or in part.</center>
-    <br><br><center>Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19.</center>
+    <br><br><center><b>Prosecutor. Court. Stop Genocide. Reconsider
+    OTP-CR-117/19.</b></center>
 
 .. toctree::
     :hidden:

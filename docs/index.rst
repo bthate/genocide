@@ -22,7 +22,7 @@
     <br>
     <center>By law, with the use of poison, committing murder, torture 
     and castration thereby physically eliminating all elderly, all handicapped,
-    all criminals and all psychatric patients here in the netherlands in whole or in part.</center>
+    all criminals and all psychiatric patients here in the netherlands in whole or in part.</center>
     <br><br><b>
     <center>Elderly & Handicapped (Wzd), Criminals (Wfz), Psychiatric Patients (WvGGZ)</center></b>
     </center>    

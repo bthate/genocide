@@ -16,10 +16,9 @@
     <br><br><center><b>After 2002, as article 6, other groups than defined.</b></center>
     <br><br>
     <center>By law, with the use of poison, committing murder, torture 
-    and castration thereby physically eliminating all elderly and all handicapped (Wzd),
-    all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands in whole or in part.</center>
-    <br><br><center><b>Prosecutor. Court. Stop Genocide. Reconsider
-    OTP-CR-117/19.</b></center>
+    and castration, thereby destroying, in whole or in part, all elderly and all handicapped (Wzd),
+    all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands.</center>
+    <br><br><center><b>Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19.</b></center>
 
 .. toctree::
     :hidden:

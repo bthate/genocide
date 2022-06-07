@@ -30,6 +30,7 @@ class Event(Object):
         self.cmd = ""
         self.gets = Object()
         self.orig = ""
+        self.index = None
         self.rest = ""
         self.sets = Object()
         self.txt = ""

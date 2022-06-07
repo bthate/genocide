@@ -5,18 +5,25 @@
 
 
 from ..hdl import Commands
+from ..obj import Object, get
 
 
-txt1 = "@IntlCrimCourt @Europol @POL_DenHaag @Het_OM ask @KarimKhanQC to reconsider OTP-CR-117/19"
-txt2 = "Elderly Handicapped (Wzd) Psychatric Patients (WvGGZ) Criminals (Wfz)"
-txt3 = "Elderly & Handicapped/Wzd Psychatric Patients/WvGGZ Criminals/Wfz @IntlCrimCourt @KarimKhanQC article 15, reconsider OTP-CR-117/19"
-txt4 = "Elderly & Handicapped/Wzd Psychatric Patients/WvGGZ Criminals/Wfz - @IntlCrimCourt @KarimKhanQC, article 15, reconsider OTP-CR-117/19 - http://genocide.rtfd.io"
-txt5 = "Stop Genocide. @KarimKhanQC @IntlCrimCourt, Reconsider OTP-CR-117/19 https://genocide.rtfd.io/ #ASP20 #ASP21 #ggz @Het_OM @adnl"
-txt6 = "Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19. @IntlCrimCourt @KarimKhanQC - https://pypi.org/project/genocide/ #ASP21 #stopgenocide #ggz"
+txt = Object()
+txt[1] = "@IntlCrimCourt @Europol @POL_DenHaag @Het_OM ask @KarimKhanQC to reconsider OTP-CR-117/19"
+txt[2] = "Elderly Handicapped (Wzd) Psychatric Patients (WvGGZ) Criminals (Wfz)"
+txt[3] = "Elderly & Handicapped/Wzd Psychatric Patients/WvGGZ Criminals/Wfz @IntlCrimCourt @KarimKhanQC article 15, reconsider OTP-CR-117/19"
+txt[4] = "Elderly & Handicapped/Wzd Psychatric Patients/WvGGZ Criminals/Wfz - @IntlCrimCourt @KarimKhanQC, article 15, reconsider OTP-CR-117/19 - http://genocide.rtfd.io"
+txt[5] = "Stop Genocide. @KarimKhanQC @IntlCrimCourt, Reconsider OTP-CR-117/19 https://genocide.rtfd.io/ #ASP20 #ASP21 #ggz @Het_OM @adnl"
+txt[6] = "Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19. @IntlCrimCourt @KarimKhanQC - https://pypi.org/project/genocide/ #ASP21 #stopgenocide #ggz"
+txt[7] = "By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, ...."
+txt[8] = "all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands."
 
 
 def slg(event):
-    event.reply(txt6)
+    if event.args:
+        event.reply(get(txt, int(event.args[0])))
+        return
+    event.reply(get(txt, 7))
 
 
 Commands.add(slg)

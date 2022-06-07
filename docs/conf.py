@@ -120,7 +120,6 @@ rst_prolog = '''.. image:: line.png
 
     </center>
 
-
 '''
 
 autosummary_generate=True

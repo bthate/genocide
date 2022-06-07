@@ -1,10 +1,10 @@
 .. _man:
 
+.. title:: Manual
+
 .. raw:: html
 
-    <br>
-
-.. title:: Manual
+   <center><h2><b>manual</b></h2></center><br>
 
 
 **NAME**

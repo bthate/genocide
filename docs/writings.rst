@@ -1,10 +1,11 @@
 .. _writings:
 
+.. title:: writings
+
+
 .. raw:: html
 
-   <br>
-
-.. title:: writings
+   <center><h2><b>writings</b></h2></center><br>
 
 
 .. _otp1:

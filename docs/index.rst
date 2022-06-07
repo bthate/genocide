@@ -4,7 +4,7 @@
 
 .. raw:: html
 
-    <br>
+    <center><h2><b>OTP-CR-117/19</b></h2></center>
 
 .. image:: skullagain2.jpg
     :width: 100%
@@ -12,7 +12,6 @@
 
 .. raw:: html
 
-    <center><h2><b><a href="reconsider.html">OTP-CR-117/19</a></b></h2></center>
     <br><br><center><b>After 2002, as article 6, other groups than defined.</b></center>
     <br>
     <center>By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd),

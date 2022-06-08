@@ -1,7 +1,7 @@
 @import 'alabaster.css';
 
 
-div.body p, div.body dd, div.body li, div.body blockquote {
+div.body a:link, div.body h, div.body p, div.body dd, div.body li, div.body blockquote {
     -moz-hyphens: false;
     -ms-hyphens: false;
     -webkit-hyphens: false;
@@ -21,6 +21,19 @@ body {
 
 
 a {
+    -moz-hyphens: false;
+    -ms-hyphens: false;
+    -webkit-hyphens: false;
+    hyphens: false;
+    color: #004B6B;
+    text-decoration: none; 
+}
+
+a:link {
+    -moz-hyphens: false;
+    -ms-hyphens: false;
+    -webkit-hyphens: false;
+    hyphens: false;
     color: #004B6B;
     text-decoration: none; 
 }

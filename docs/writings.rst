@@ -7,7 +7,7 @@
 
    <center><h2><b>writings</b></h2></center><br>
 
-Correspondence with the court took place between 21-01-2019 and 26-6-2019.
+Correspondence with the court took place between 21-01-2019 and 8-8-2019.
 
 
 

@@ -102,7 +102,7 @@ def init():
             e.txt = ""
             e.rest = key
             sec = seconds(val)
-            repeater = Repeater(sec, now, e, name=get(aliases, key))
+            repeater = Repeater(sec, sts, e, name=get(aliases, key))
             repeater.start()
     launch(daily, name="daily")
     launch(hourly, name="hourly")
@@ -152,3 +152,15 @@ def now(e):
         txt += "%s: %s " % (get(aliases, name), nrtimes)
     txt += " http://genocide.rtfd.io"
     Bus.announce(txt)
+
+
+def sts(e):
+    name = e.rest or "psyche"
+    needed = seconds(nr(name))
+    if needed:
+        delta = time.time() - starttime
+        nrtimes = int(delta/needed)
+        nryear = int(year/needed)
+        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
+        Bus.announce(txt)
+

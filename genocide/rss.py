@@ -13,7 +13,7 @@ import urllib
 from .hdl import Bus
 from .obj import Object, get, update
 from .obj import Class, Config, find, last, save, spl
-from .rpt import Repeater
+from .tme import Repeater
 from .thr import launch
 
 

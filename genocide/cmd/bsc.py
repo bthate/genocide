@@ -11,7 +11,7 @@ import time
 from ..hdl import Bus, Commands, starttime
 from ..obj import Config, Db, Object, find, fntime, format, get, save, update
 from ..thr import getname
-from ..tms import elapsed
+from ..tme import elapsed
 from ..usr import User
 
 

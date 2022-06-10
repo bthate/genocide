@@ -6,7 +6,7 @@ import os
 import shutil
 
 
-mods = ["csl", "evt", "hdl", "obj", "rpt",  "rss", "tms", "thr", "usr"]
+mods = ["csl", "evt", "hdl", "obj", "rpt",  "rss", "tme", "thr", "usr"]
 
 
 def popen(txt):

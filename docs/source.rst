@@ -25,7 +25,7 @@ the following modules are provided:
     genocide.obj		object
     genocide.rpt		repeater
     genocide.thr		thread
-    genocide.tms		times
+    genocide.tme		time
     genocide.usr		user
 
 

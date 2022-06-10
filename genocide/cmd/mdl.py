@@ -9,7 +9,7 @@ import time
 
 from ..obj import get
 from ..hdl import Bus, Commands
-from ..tms import elapsed
+from ..tme import elapsed
 
 
 from genocide.mdl import aliases, nr, oorzaken, seconds, starttime, year

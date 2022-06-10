@@ -11,7 +11,7 @@ import time
 
 from genocide.obj import Class, Db, Object, find, fntime, format, save, update
 from genocide.hdl import Commands
-from genocide.rpt import elapsed
+from genocide.tme import elapsed
 
 
 bdmonths = ['Bo', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

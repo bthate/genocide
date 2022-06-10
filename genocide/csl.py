@@ -27,6 +27,7 @@ class CLI(Handler):
     def raw(self, txt):
         raise NotImplementedError
 
+
 class Console(CLI):
 
     def handle(self, e):

@@ -10,7 +10,7 @@ import time
 from .obj import Object, get, keys, update
 from .hdl import Bus
 from .evt import Event
-from .rpt import Repeater, elapsed
+from .tme import Repeater, elapsed
 from .thr import launch
 
 

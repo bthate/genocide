@@ -23,7 +23,6 @@ the following modules are provided:
     genocide.evt		event
     genocide.hdl		handler
     genocide.obj		object
-    genocide.rpt		repeater
     genocide.thr		thread
     genocide.tme		time
     genocide.usr		user

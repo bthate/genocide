@@ -9,7 +9,7 @@ import time
 
 
 from ..hdl import Bus, Commands, starttime
-from ..obj import Config, Db, Object, find, fntime, format, get, save, update
+from ..obj import Config, Db, Object, find, fntime, format, get, keys, save, update
 from ..thr import getname
 from ..tme import elapsed
 from ..usr import User
@@ -28,7 +28,7 @@ def __dir__():
 
 
 def cmd(event):
-    event.reply(",".join(sorted(Commands.cmd)))
+    event.reply(",".join(sorted(keys(Commands.cmd))))
 
 
 Commands.add(cmd)

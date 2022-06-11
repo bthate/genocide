@@ -58,6 +58,7 @@ class Object:
         "__stp__",
     )
 
+
     def __init__(self):
         object.__init__(self)
         self.__otype__ = str(type(self)).split()[-1][1:-2]

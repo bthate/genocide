@@ -8,9 +8,17 @@
 
 .. raw:: html
 
+    <br><br><center>2y164d cancer: 115409 hart disease: 89756 <b>mental illness</b>: 28631 breathing: 25741 externals: 22131</center>
+
+
+.. raw:: html
+
     <br><br><center>By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands.</center>
-    <br><br><center>14:40 < genocide> 2y164d cancer: 115409 hart disease: 89756 mental illness: 28631 breathing: 25741 externals: 22131 http://genocide.rtfd.io</center>
-    <br><br><br><center><b>Prosecutor. Court. Stop Genocide. <a href="reconsider.html">Reconsider OTP-CR-117/19<a></b></center>
+
+
+.. raw:: html
+
+    <br><br><center><b>Prosecutor. Court. Stop Genocide. <a href="reconsider.html">Reconsider OTP-CR-117/19<a></b></center>
 
 
 

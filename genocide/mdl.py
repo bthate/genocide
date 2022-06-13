@@ -148,6 +148,8 @@ def now(e):
     txt = elapsed(delta) + " "
     for name in sorted(oorzaken, key=lambda x: seconds(nr(x))):
         needed = seconds(nr(name))
+        if needed > 60*60:
+            continue
         nrtimes = int(delta/needed)
         txt += "%s: %s " % (get(aliases, name), nrtimes)
     txt += " http://genocide.rtfd.io"

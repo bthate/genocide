@@ -8,7 +8,7 @@
 
 .. raw:: html
 
-    <br><br><center>2y164d cancer: 115409 hart disease: 89756 <b>mental illness</b>: 28631 breathing: 25741 externals: 22131</center>
+    <br><br><center>2y164d cancer: 115409 hart disease: 89756 mental illness: <b>28631</b> breathing: 25741 externals: 22131</center>
 
 
 .. raw:: html

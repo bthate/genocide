@@ -4,7 +4,7 @@
 
 .. image:: skullagain.jpg
     :width: 100%
-    :target: man.html
+    :target: evidence.html
 
 .. raw:: html
 

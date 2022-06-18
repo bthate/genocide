@@ -19,7 +19,7 @@
 
 .. raw:: html
 
-    <br><br><center>Prosecutor. Court. Stop Genocide. <a href="reconsider.html">Reconsider <b>OTP-CR-117/19</b<</a></center>
+    <br><br><center>Prosecutor. Court. Stop Genocide. Reconsider. <a href="reconsider.html"><b>OTP-CR-117/19</b<</a></center>
 
 
 

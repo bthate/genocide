@@ -1,6 +1,6 @@
 .. _reconsider:
 
-.. title:: reconsider
+.. title:: Reconsider
 
 
 .. raw:: html

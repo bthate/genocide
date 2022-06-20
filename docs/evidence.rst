@@ -1,6 +1,6 @@
 .. _evidence:
 
-.. title:: evidence
+.. title:: Evidence
 
 .. raw:: html
 

@@ -1,6 +1,6 @@
 .. _request:
 
-.. title:: request
+.. title:: Request
 
 
 .. raw:: html

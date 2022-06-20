@@ -1,6 +1,6 @@
 .. _home:
 
-.. title:: home
+.. title:: Genocide
 
 .. image:: skullagain.jpg
     :width: 100%

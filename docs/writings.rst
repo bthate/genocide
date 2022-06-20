@@ -1,6 +1,6 @@
 .. _writings:
 
-.. title:: writings
+.. title:: Writings
 
 
 .. raw:: html

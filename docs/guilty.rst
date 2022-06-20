@@ -1,7 +1,7 @@
 .. _guilty:
 
 
-.. title:: guilty
+.. title:: Guilty
 
 
 .. raw:: html

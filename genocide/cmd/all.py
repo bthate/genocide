@@ -2,6 +2,7 @@
 
 
 import genocide.cmd.bsc
+import genocide.cmd.mbx
 import genocide.cmd.mdl
 import genocide.cmd.irc
 import genocide.cmd.req

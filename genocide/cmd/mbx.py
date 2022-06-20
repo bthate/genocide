@@ -1,6 +1,9 @@
 # This file is placed in the Public Domain.
 
 
+"mailbox commands"
+
+
 import mailbox
 import os
 import time
@@ -8,8 +11,8 @@ import time
 
 from genocide.obj import Db, find, fntime, format, save, update
 from genocide.hdl import Commands
-from genocide.rpt import elapsed
 from genocide.mbx import Email, to_date
+from genocide.tme import elapsed
 
 
 def cor(event):

@@ -13,7 +13,8 @@ from .hdl import Bus
 
 def __dir__():
     return (
-        "Event",
+        "Command",
+        "Event"
     )
 
 

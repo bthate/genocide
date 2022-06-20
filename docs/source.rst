@@ -70,7 +70,11 @@ the following modules are provided:
     :toctree: 
     :template: base.rst
 
-    genocide.cmd.mdl		genocide model
-    genocide.cmd.req		request
-    genocide.cmd.slg		slug
+    genocide.cmd.bsc		basic commands
+    genocide.cmd.irc		irc commands
+    genocide.cmd.mbx		mailbox commands
+    genocide.cmd.mdl		genocide model commands
+    genocide.cmd.req		request to the prosecutor
+    genocide.cmd.rss		rss commands
+    genocide.cmd.slg		slogan tek
     genocide.cmd.trt		torture definition

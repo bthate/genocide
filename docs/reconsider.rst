@@ -5,7 +5,7 @@
 
 .. raw:: html
 
-   <center><h2><b>reconsider</b></h2></center><br>
+   <center><h2><b>Reconsider</b></h2></center><br>
 
 
 | **Information and Evidence Unit**

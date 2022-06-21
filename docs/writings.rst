@@ -5,7 +5,7 @@
 
 .. raw:: html
 
-   <center><h2><b>writings</b></h2></center><br>
+   <center><h2><b>Writings</b></h2></center><br>
 
 Correspondence with the court took place between 21-01-2019 and 08-08-2019
 

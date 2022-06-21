@@ -4,7 +4,7 @@
 
 .. raw:: html
 
-   <center><h2><b>manual</b></h2></center><br>
+   <center><h2><b>Manual</b></h2></center><br>
 
 
 **NAME**

@@ -5,7 +5,7 @@
 
 .. raw:: html
 
-   <center><h2><b>request</b></h2></center><br>
+   <center><h2><b>Request</b></h2></center><br>
 
 
 | **Information and Evidence Unit**

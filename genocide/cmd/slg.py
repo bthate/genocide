@@ -17,13 +17,13 @@ txt[5] = "Stop Genocide. @KarimKhanQC @IntlCrimCourt, Reconsider OTP-CR-117/19 h
 txt[6] = "Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19. @IntlCrimCourt @KarimKhanQC - https://pypi.org/project/genocide/ #ASP21 #stopgenocide #ggz"
 txt[7] = "By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, ...."
 txt[8] = "all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands."
-
+txt[9] = "By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands."
 
 def slg(event):
     if event.args:
         event.reply(get(txt, int(event.args[0])))
         return
-    event.reply(get(txt, 7))
+    event.reply(get(txt, 9))
 
 
 Commands.add(slg)

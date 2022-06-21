@@ -114,7 +114,7 @@ rst_prolog = '''.. image:: line.png
 
     <center>
 
-:ref:`Manual <man>` - :ref:`Reconsider <reconsider>` - :ref:`Request <request>` - :ref:`Evidence <evidence>` - :ref:`Guilty <guilty>` - :ref:`Writings <writings>` - :ref:`Source <source>`
+:ref:`Manual <man>` - :ref:`Reconsider <home>` - :ref:`Evidence <evidence>` - :ref:`Guilty <guilty>` - :ref:`Writings <writings>` - :ref:`Source <source>`
 
 .. raw:: html
 

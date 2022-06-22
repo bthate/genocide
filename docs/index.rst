@@ -1,13 +1,10 @@
 .. _home:
 
-
-.. title:: Genocide
-
-
 .. raw:: html
 
-    <center><h2><b>Reconsider</b></h2></center>
-    <br>
+   <br>
+
+.. title:: Genocide
 
 
 | **Information and Evidence Unit**

@@ -1,11 +1,11 @@
 .. _reconsider:
 
-.. title:: Reconsider
-
-
 .. raw:: html
 
-   <center><h2><b>Reconsider</b></h2></center><br>
+   <br>
+
+
+.. title:: Reconsider
 
 
 | **Information and Evidence Unit**

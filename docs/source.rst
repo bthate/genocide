@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-   <center><h2><b>Source</b></h2></center><br>
+   <br>
 
 
 .. title:: Source

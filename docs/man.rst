@@ -2,14 +2,10 @@
 
 .. title:: Manual
 
-.. raw:: html
-
-   <center><h2><b>Manual</b></h2></center><br>
-
 
 **NAME**
 
- **GENOCIDE** - article 15 needs no cooperation
+ **GENOCIDE** - Article 15 needs no cooperation
 
 
 **SYNOPSIS**

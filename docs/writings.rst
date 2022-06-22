@@ -1,11 +1,12 @@
 .. _writings:
 
-.. title:: Writings
-
-
 .. raw:: html
 
-   <center><h2><b>Writings</b></h2></center><br>
+   <br>
+
+
+.. title:: Writings
+
 
 Correspondence with the court took place between 21-01-2019 and 08-08-2019
 

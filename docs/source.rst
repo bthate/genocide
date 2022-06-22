@@ -2,12 +2,23 @@
 
 .. raw:: html
 
-   <br>
-
+   <br><br><br>
 
 .. title:: Source
 
-the following modules are provided:
+.. raw:: html
+
+    <center><h1><b>source</b></h1></center>
+
+.. raw:: html
+
+   <br>
+
+**GENOCIDE** provides the following modules:
+
+.. raw:: html
+
+    <br>
 
 **library**
 

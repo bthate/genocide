@@ -2,14 +2,14 @@
 
 .. raw:: html
 
-    <br>
+    <br><br><br><br>
 
 {{ fullname }}
 {{ underline }}
 
 .. raw:: html
 
-    <br>
+    <br><br>
 
 .. automodule:: {{ fullname }}
     :members:

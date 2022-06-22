@@ -1,11 +1,24 @@
 .. _man:
 
+.. raw:: html
+
+    <br><br><br>
+
 .. title:: Manual
+
+.. raw:: html
+
+    <center><h1><b>manual</b></h1></center>
+
+
+.. raw:: html
+
+    <br>
 
 
 **NAME**
 
- **GENOCIDE** - Article 15 needs no cooperation
+ **GENOCIDE** - Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19.
 
 
 **SYNOPSIS**
@@ -21,7 +34,7 @@
  International Criminal Court, asking for arrest of the king of the 
  netherlands, for the genocide he is committing with his new treatement laws.
  Current status is an outside the jurisdiction judgement of the prosecutor 
- which requires a :ref:`reconsider <reconsider>` to have the king actually
+ which requires a :ref:`reconsider <home>` to have the king actually
  arrested.
 
 

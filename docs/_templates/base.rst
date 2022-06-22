@@ -2,13 +2,15 @@
 
 .. raw:: html
 
-    <br><br>
+    <br><br><br>
+    <center><b>
 
 {{ fullname }}
 {{ underline }}
 
 .. raw:: html
 
+    </b></center>
     <br>
 
 .. auto{{ objtype }}:: {{ fullname }}

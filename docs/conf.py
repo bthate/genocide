@@ -120,11 +120,6 @@ rst_prolog = '''.. image:: line.png
 
     </center>
 
-.. raw:: html
-
-    <br>
-    
-
 .. image:: skulllinesmall3.jpg
     :width: 100%
     :target: evidence.html

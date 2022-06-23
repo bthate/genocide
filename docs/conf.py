@@ -127,7 +127,6 @@ rst_prolog = '''.. image:: line.png
 .. raw:: html
 
     <center><h3><b>OTP-CR-117/19</b></h3></center>
-    <center><i>"read it again and arrest that king"</i></center>
 '''
 
 autosummary_generate=True

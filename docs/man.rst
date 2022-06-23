@@ -133,12 +133,6 @@
  | ``/usr/local/share/genocide/genocide.service``
 
 
-**SEE ALSO**
-
- | http://genocide.rtfd.io
- | http://pypi.org/project/genocide
-
-
 **AUTHOR**
 
  Bart Thate 

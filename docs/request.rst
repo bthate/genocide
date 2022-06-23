@@ -55,10 +55,6 @@ In chronological order:
 
 25-06-2019 I talk to members of ECHA on twitter and got the link to the proof restored.
 
-You can see the evidence that Haldol is a poison on https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
-You can see the email that informed of the chamber at https://kamer.rtfd.io/
-You can see the email that informed the king at https://koning.rtfd.io/
-The original correspondence to the Office of the Prosecution is at https://genoclaim.rtfd.io
 
 Knowing that the proof that Haldol is a poison was offline when you reached your conclusion to not to proceed, could you reconsider your conclusion now this proof is back online again ?
 

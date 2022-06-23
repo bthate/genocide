@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-   <br><br><br>
+   <br>
 
 .. title:: Reconsider
 
@@ -88,4 +88,3 @@ netherlands and his government are :ref:`doing <writings>`.
     source
     man
     mobile
-    conclusion

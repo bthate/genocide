@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-    <br><br><br>
+    <br>
 
 .. title:: Manual
 
@@ -18,7 +18,7 @@
 
 **NAME**
 
- **GENOCIDE** - Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19.
+ **GENOCIDE** - Prosecutor. Court. Reconsider OTP-CR-117/19.
 
 
 **SYNOPSIS**

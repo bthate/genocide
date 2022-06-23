@@ -28,11 +28,11 @@ def uploadlist(dir):
 
 setup(
     name='genocide',
-    version='68',
+    version='69',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate67@gmail.com', 
-    description="Prosecutor. Court. Stop Genocide. Reconsider OTP-CR-117/19.",
+    description="Prosecutor. Court. Reconsider OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
     packages=["genocide", "genocide.cmd"],
@@ -42,7 +42,7 @@ setup(
                 ("share/genocide", ["files/genocide.service",]),
                 ("share/doc/genocide", uploadlist("docs")),
                 ("share/doc/genocide/pdf", uploadlist("docs/pdf")),
-                ("share/doc/genocide/_templates", uploadlist("docs/_static")),
+                ("share/doc/genocide/_static", uploadlist("docs/_static")),
                 ("share/doc/genocide/_templates", uploadlist("docs/_templates")),
                ],
     scripts=["bin/genocide", "bin/genocided", "bin/genocidecmd", "bin/genocidectl"],

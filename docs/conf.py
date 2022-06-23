@@ -114,7 +114,7 @@ rst_prolog = '''.. image:: line.png
 
     <center>
 
-:ref:`reconsider <home>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`quilty <guilty>` - :ref:`writings <writings>` - :ref:`source <source>`
+:ref:`reconsider <home>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`quilty <guilty>` - :ref:`writings <writings>`
 
 .. raw:: html
 
@@ -127,6 +127,7 @@ rst_prolog = '''.. image:: line.png
 .. raw:: html
 
     <center><h3><b>OTP-CR-117/19</b></h3></center>
+    <center><i>"read it again and arrest that king"</i></center>
 '''
 
 autosummary_generate=True

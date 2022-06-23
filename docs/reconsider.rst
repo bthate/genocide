@@ -6,7 +6,7 @@
 
 .. raw:: html
 
-    <center><h1><b>recordins</b></h1></center>
+    <center><h1><b>reconsider</b></h1></center>
 
 
 .. title:: Reconsider

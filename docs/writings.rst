@@ -16,7 +16,7 @@
 .. title:: Writings
 
 
-Correspondence with the court took place between 21-01-2019 and 08-08-2019
+Correspondence took place between 21-01-2019 and 08-08-2019
 
 
 .. _otp1:

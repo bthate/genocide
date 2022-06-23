@@ -165,4 +165,3 @@ def sts(e):
         nryear = int(year/needed)
         txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
         Bus.announce(txt)
-

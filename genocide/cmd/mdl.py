@@ -30,7 +30,7 @@ Commands.add(now)
 
 
 def sts(event):
-    name = e.rest or "psyche"
+    name = event.rest or "psyche"
     needed = seconds(nr(name))
     if needed:
         delta = time.time() - starttime

@@ -29,8 +29,6 @@ There is proof the medication used in forced treatements in the netherlands are 
 **haldol**
 
 
-https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
-
 .. raw:: html
 
   <br>
@@ -46,9 +44,6 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
 
 
 **clozapine**
-
-
-https://echa.europa.eu/substance-information/-/substanceinfo/100.024.831
 
 
 .. raw:: html
@@ -70,8 +65,6 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.024.831
 **zyprexa**
 
 
-https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
-
 .. raw:: html
 
   <br>
@@ -88,8 +81,6 @@ https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
 
 **abilify**
 
-
-https://echa.europa.eu/substance-information/-/substanceinfo/100.112.532
 
 .. raw:: html
 

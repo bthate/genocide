@@ -19,19 +19,12 @@
 Correspondence with the court took place between 21-01-2019 and 08-08-2019
 
 
-.. raw:: html
-
-    <br>
-
 .. _otp1:
 
 
-**otp1**
-
 .. raw:: html
 
     <br>
-
 
 | **From:** Bart Thate <bthate@dds.nl>
 | **To:** otp.informationdesk@icc-cpi.int
@@ -62,14 +55,12 @@ your reference **OTP-CR-117/19**
 
 .. _otp2:
 
-**otp2**
-
 .. raw:: html
 
    <br>
 
-| **To:** OTP InformationDesk <OTP.InformationDesk@icc-cpi.int>
 | **From:** Bart Thate <bthate@dds.nl>
+| **To:** OTP InformationDesk <OTP.InformationDesk@icc-cpi.int>
 | **Subject:** Request to reconsider OTP-CR-117/19
 | **Message-ID:** <33777b52-6be9-72b2-f756-d5482d32f03d@dds.nl>
 | **Date:** Wed, 26 Jun 2019 21:05:13 +0200

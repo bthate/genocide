@@ -21,13 +21,12 @@
 
 **DESCRIPTION**
 
- **GENOCIDE** contains :ref:`correspondence <writings>` with the
- International Criminal Court, asking for arrest of the king of the 
- netherlands, for the genocide he is committing with his new treatement laws.
- Current status is an outside the jurisdiction judgement of the prosecutor 
- which requires a :ref:`reconsider <home>` to have the king actually
- arrested.
-
+ **GENOCIDE** is a solid, non hackable bot, that runs under systemd as a 
+ 24/7 background service starts after reboot and is intended to be programmable
+ in a static, only code, no popen, no user imports and no reading modules from
+ a directory, way. It can show genocide and suicide stats of king netherlands
+ his genocide into a IRC channel, display rss feeds and log simple text
+ messages, source is :ref:`here <source>`.
 
  **GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
  written :ref:`response <guilty>` where king netherlands confirmed taking note
@@ -36,13 +35,13 @@
  that make impotent, is both physical (contracted muscles) and mental (let 
  people hallucinate) torture and kills members of the victim groups. 
 
+ **GENOCIDE** contains :ref:`correspondence <writings>` with the
+ International Criminal Court, asking for arrest of the king of the 
+ netherlands, for the genocide he is committing with his new treatement laws.
+ Current status is an outside the jurisdiction judgement of the prosecutor 
+ which requires a :ref:`reconsider <home>` to have the king actually
+ arrested.
 
- **GENOCIDE** is a solid, non hackable bot, that runs under systemd as a 
- 24/7 background service starts after reboot and is intended to be programmable
- in a static, only code, no popen, no user imports and no reading modules from
- a directory, way. It can show genocide and suicide stats of king netherlands
- his genocide into a IRC channel, display rss feeds and log simple text
- messages, source is :ref:`here <source>`.
 
 **INSTALL**
 

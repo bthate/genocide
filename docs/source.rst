@@ -6,13 +6,6 @@
 
 .. title:: Source
 
-.. raw:: html
-
-    <center><h1><b>source</b></h1></center>
-
-.. raw:: html
-
-   <br>
 
 **GENOCIDE** provides the following modules:
 

@@ -6,15 +6,6 @@
 
 .. title:: Manual
 
-.. raw:: html
-
-    <center><h1><b>manual</b></h1></center>
-
-
-.. raw:: html
-
-    <br>
-
 
 **NAME**
 

@@ -108,7 +108,7 @@ intersphinx_cache_limit=1
 
 rst_prolog = '''.. image:: line.png
     :height: 2.2cm
-    :target: index.html
+    :target: man.html
 
 .. raw:: html
 
@@ -120,13 +120,6 @@ rst_prolog = '''.. image:: line.png
 
     </center>
 
-.. image:: banner.jpg
-    :width: 100%
-    :target: man.html
-
-.. raw:: html
-
-    <center><h3><b>OTP-CR-117/19</b></h3></center>
 '''
 
 autosummary_generate=True

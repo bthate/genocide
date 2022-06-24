@@ -27,14 +27,12 @@ IRCConfig.username = "genocide"
 
 
 from genocide.obj import keys
-from genocide.hdl import Callbacks, Commands, dispatch
 from genocide.irc import IRC
 from genocide.rss import Fetcher
 from genocide.scn import init
 
 
 def main():
-    Callbacks.add("command", dispatch)
     i = IRC()
     i.start()
     f = Fetcher()

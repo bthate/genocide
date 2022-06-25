@@ -25,7 +25,7 @@ from genocide.obj import Config
 Config.console = False
 Config.name = "genocide"
 Config.services = False
-Config.version = 69
+Config.version = 70
 Config.workdir = os.path.expanduser("~/.genocide")
 
 

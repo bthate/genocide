@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-    <br><br><center><h2><b>Prosecutor. Court. Reconsider</b></h2></center><br>
+    <br><br><center><h2><b>Prosecutor. Court. Reconsider.</b></h2></center><br>
 
 
 By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands.
@@ -10,7 +10,7 @@ By law, with the use of poison, killing, torturing, castrating, destroying, in w
 .. raw:: html
 
     <br>
-   <center><h2><b>OTP-CR-117/19</b></h2></center>
+   <center><h3><b>OTP-CR-117/19</b></h3></center>
 
 .. raw:: html
 
@@ -78,7 +78,7 @@ and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to
 prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible here in the netherlands in
 the hope that it stops the mass torture with poison the king of the 
-netherlands and his government are :ref:`doing <writings>`.
+netherlands and his government are doing.
 
 
 .. raw:: html
@@ -92,7 +92,7 @@ netherlands and his government are :ref:`doing <writings>`.
 .. raw:: html
 
    <br><br><br>
-   <center><h2><b>OTP-CR-117/19/001</b></h2></center>
+   <center><h3><b>OTP-CR-117/19/001</b></h3></center>
 
 .. raw:: html
 
@@ -166,9 +166,6 @@ Bart Thate
 
     evidence
     guilty
-    reconsider
-    request
-    writings
     source
     man
     mobile

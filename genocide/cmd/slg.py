@@ -19,6 +19,7 @@ txt[7] = "By law, with the use of poison, killing, torturing, castrating, destro
 txt[8] = "all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands."
 txt[9] = "By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands."
 
+
 def slg(event):
     if event.args:
         event.reply(get(txt, int(event.args[0])))

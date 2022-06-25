@@ -2,6 +2,8 @@
 
 .. raw:: html
 
+    <br><br>
+    <center><h2><b>MANUAL</b></h2></center>
     <br>
 
 .. title:: Manual
@@ -35,7 +37,7 @@
  that make impotent, is both physical (contracted muscles) and mental (let 
  people hallucinate) torture and kills members of the victim groups. 
 
- **GENOCIDE** contains :ref:`correspondence <writings>` with the
+ **GENOCIDE** contains :ref:`correspondence <home>` with the
  International Criminal Court, asking for arrest of the king of the 
  netherlands, for the genocide he is committing with his new treatement laws.
  Current status is an outside the jurisdiction judgement of the prosecutor 

@@ -6,7 +6,7 @@
 
 .. raw:: html
 
-    <center><h3><b>OTP-CR-117/19</b></h3>
+    <center><h3><a href="reconsider.html"><b>OTP-CR-117/19</b></a></h3>
     <br>
 
 .. title:: OTP-CR-117/19

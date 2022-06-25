@@ -6,17 +6,17 @@
     <center><h3><b>RECONSIDER</b></h3>
     <br>
 
-.. title:: OTP-CR-117/19
+.. title:: Reconsider
 
-.. raw:: html
 
-    <center><i>By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands.</i></center>
 
-.. raw:: html
+| **From**: Bart Thate <bthate@dds.nl>
+| **To**: otp.informationdesk@icc-cpi.int
+| **Subject**: Information that the king of the netherlands is aware that the medicine administered with the use of new defines laws are proven to be poison and is commiting 3 of 5 genocide crimes on parts of the population here in the netherlands
+| **Message-ID**: <e49d02a2-6a8e-ad64-6c8d-9abd45cf5c0e@dds.nl>
+| **Date**: Mon, 21 Jan 2019 16:17:13 +0100
 
-    </center>
-    <br>
-
+|
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
@@ -72,15 +72,3 @@ prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible here in the netherlands in
 the hope that it stops the mass torture with poison the king of the 
 netherlands and his government are doing.
-
-
-
-.. toctree::
-    :hidden:
-    :glob:
-
-    evidence
-    guilty
-    source
-    man
-    mobile

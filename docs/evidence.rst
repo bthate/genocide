@@ -3,7 +3,7 @@
 .. raw:: html
 
    <br><br>
-   <center><h2><b>EVIDENCE</b></h2></center>
+   <center><h3><b>EVIDENCE</b></h3></center>
    <br>
 
 .. title:: Evidence

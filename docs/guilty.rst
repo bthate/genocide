@@ -4,7 +4,7 @@
 .. raw:: html
 
     <br><br>
-    <center><h2><b>GUILTY</b></h2></center>
+    <center><h3><b>GUILTY</b></h3></center>
     <br>
 
 .. title:: Guilty

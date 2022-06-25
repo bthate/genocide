@@ -109,8 +109,16 @@ intersphinx_cache_limit=1
 rst_prolog = '''.. image:: line.png
     :width: 100%
     :height: 2.2cm
-    :target: man.html
+    :target: index.html
 
+.. raw:: html
+
+    <br><br>
+
+.. image:: banner.jpg
+    :width: 100%
+    :height: 2.2cm
+    :target: man.html
 '''
 
 autosummary_generate=True

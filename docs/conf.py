@@ -113,12 +113,14 @@ rst_prolog = '''.. image:: line.png
 
 .. raw:: html
 
-    <br><br>
+    <center><i>
 
-.. image:: banner.jpg
-    :width: 100%
-    :height: 2.2cm
-    :target: man.html
+:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>`
+
+.. raw:: html
+
+    </i></center>
+
 '''
 
 autosummary_generate=True

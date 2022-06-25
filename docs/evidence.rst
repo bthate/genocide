@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-   <br><br>
+   <br>
    <center><h3><b>EVIDENCE</b></h3></center>
    <br>
 

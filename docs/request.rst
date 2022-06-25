@@ -1,21 +1,13 @@
-.. _home:
+.. _request:
 
 .. raw:: html
 
-    <br><br>
+    <br>
     <center><h3><b>REQUEST</b></h3></center>
     <br>
 
 .. title:: Request
 
-
-| **From:** Bart Thate <bthate@dds.nl>
-| **To:** OTP InformationDesk <OTP.InformationDesk@icc-cpi.int>
-| **Subject:** Request to reconsider OTP-CR-117/19
-| **Message-ID:** <33777b52-6be9-72b2-f756-d5482d32f03d@dds.nl>
-| **Date:** Wed, 26 Jun 2019 21:05:13 +0200
-
-|
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
@@ -58,10 +50,3 @@ In chronological order:
 
 
 Knowing that the proof that Haldol is a poison was offline when you reached your conclusion to not to proceed, could you reconsider your conclusion now this proof is back online again ?
-
-
-.. raw:: html
-
-    <br><br>
-
-.. image:: OTP2.png

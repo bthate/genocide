@@ -7,10 +7,9 @@
 .. title:: Writings
 
 
-Correspondence took place between 21-01-2019 and 08-08-2019.
-
-
 .. _otp1:
+
+**first writing**
 
 
 .. raw:: html
@@ -45,6 +44,10 @@ your reference **OTP-CR-117/19**
 
 
 .. _otp2:
+
+
+**second writing**
+
 
 .. raw:: html
 

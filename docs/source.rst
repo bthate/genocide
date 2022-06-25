@@ -8,12 +8,6 @@
 
 .. title:: Source
 
-**GENOCIDE** provides the following modules:
-
-.. raw:: html
-
-    <br>
-
 **library**
 
 .. raw:: html

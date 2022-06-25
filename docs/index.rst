@@ -5,14 +5,15 @@
 .. raw:: html
 
     <br><br><center><h2><b>Prosecutor. Court. Reconsider.</b></h2></center><br>
-
+    <center>
 
 By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands.
 
 .. raw:: html
 
+    </center>
     <br>
-   <center><h3><b>OTP-CR-117/19</b></h3></center>
+    <center><h3><b>OTP-CR-117/19</b></h3></center>
 
 .. raw:: html
 
@@ -149,10 +150,6 @@ In chronological order:
 
 
 Knowing that the proof that Haldol is a poison was offline when you reached your conclusion to not to proceed, could you reconsider your conclusion now this proof is back online again ?
-
-thanks,
-
-Bart Thate
 
 
 .. raw:: html

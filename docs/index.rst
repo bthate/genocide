@@ -11,7 +11,8 @@
 
 .. raw:: html
 
-    <center>By law, with the use of poison,
+    <center>By law,</center>
+    <center>with the use of poison,</center>
     <center>killing, torturing, castrating, destroying, in whole or in part,</i></center>
     <center>all elderly and all handicapped (Wzd),</center>
     <center>all criminals (Wfz)</center>

@@ -1,23 +1,23 @@
 .. _home:
 
-.. image:: skullagain.jpg
-    :width: 100%
-    :target: evidence.html
-
-.. raw:: html
-
-    <center><h3><a href="reconsider.html"><b>OTP-CR-117/19</b></a></h3>
-    <br>
 
 .. title:: OTP-CR-117/19
 
 
+.. image:: skullagain.jpg
+    :width: 100%
+    :target: evidence.html
+
+
 .. raw:: html
 
-    <br><br>
-    <center><i>By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands.</i></center>
-    <br><br>
-
+    <center>By law, with the use of poison,
+    <center>killing, torturing, castrating, destroying, in whole or in part,</i></center>
+    <center>all elderly and all handicapped (Wzd),</center>
+    <center>all criminals (Wfz)</center>
+    <center>and all psychiatric patients (WvGGZ)</center>
+    <center>here in the Netherlands.</center><br><br>
+    <center><b>Prosecutor. Court. <a href="reconsider.html">Reconsider</a> OTP-CR-117/19.</b></center>
 
 .. toctree::
     :hidden:

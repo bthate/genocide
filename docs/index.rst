@@ -11,14 +11,13 @@
 
 .. raw:: html
 
-    <center>By law,</center>
-    <center>with the use of poison,</center>
-    <center>killing, torturing, castrating, destroying, in whole or in part,</i></center>
-    <center>all elderly and all handicapped (Wzd),</center>
-    <center>all criminals (Wfz)</center>
-    <center>and all psychiatric patients (WvGGZ)</center>
-    <center>here in the Netherlands.</center><br><br>
-    <center><b>Prosecutor. Court. <a href="reconsider.html">Reconsider</a> OTP-CR-117/19.</b></center>
+    <br><br>
+    <center>By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part,
+    all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ)
+    here in the Netherlands.</center>
+
+    <br><br><br>
+    <center><b>Prosecutor. Court. Reconsider <a href="reconsider.html">OTP-CR-117/19.</a></b></center>
 
 .. toctree::
     :hidden:

@@ -2,6 +2,7 @@
 
 .. raw:: html
 
+    <br>
     <center><h3><b>MANUAL</b></h3></center>
     <br>
 
@@ -15,9 +16,7 @@
 
 **SYNOPSIS**
 
- ::
-
-  genocidectl <cmd> [key=value] [key==value]
+ | ``genocidectl <cmd> [key=value] [key==value]``
 
 
 **DESCRIPTION**
@@ -46,48 +45,37 @@
 
 **INSTALL**
 
- ::
-
-  sudo pip3 install genocide --upgrade --force-reinstall
+  | ``sudo pip3 install genocide --upgrade --force-reinstall``
 
 
 **CONFIGURATION**
 
+ use sudo, ``genocidectl`` needs root privileges
 
  **irc**
 
- ::
-
-  sudo genocidectl cfg server=<server> channel=<channel> nick=<nick>
+  | ``genocidectl cfg server=<server> channel=<channel> nick=<nick>``
   
-  (*) default channel/server is #genocide on localhost
+  | ``(*) default channel/server is #genocide on localhost``
 
  **sasl**
 
- ::
-
-  sudo genocidectl pwd <nickservnick> <nickservpass>
-  sudo genocidectl cfg password=<outputfrompwd>
+  | ``genocidectl pwd <nickservnick> <nickservpass>``
+  | ``genocidectl cfg password=<outputfrompwd>``
 
  **users**
 
- ::
-
-  sudo genocidectl cfg users=True
-  sudo genocidectl met <userhost>
+  | ``genocidectl cfg users=True``
+  | ``genocidectl met <userhost>``
 
  **rss**
 
- ::
-
-  sudo genocidectl rss <url>
+  | ``genocidectl rss <url>``
 
  **24/7**
 
- ::
-
-  sudo cp /usr/local/share/genocide/genocide.service /etc/systemd/system
-  sudo systemctl enable genocide --now
+  | ``cp /usr/local/share/genocide/genocide.service /etc/systemd/system``
+  | ``systemctl enable genocide --now``
 
 
 **COMMANDS**

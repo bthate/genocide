@@ -2,6 +2,7 @@
 
 .. raw:: html
 
+    <br>
     <center><h3><b>WRITINGS</b></h3></center>
     <br>
 

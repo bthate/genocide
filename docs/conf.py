@@ -124,21 +124,17 @@ rst_prolog = '''.. image:: line.png
 '''
 
 rst_epilog = '''
-
 .. raw:: html
 
-    <br>
     <center>
 
 :ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>`
 
-
 .. raw:: html
 
+    <br><br>
     </center>
-
 '''
-
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
 autodoc_member_order='groupwise'

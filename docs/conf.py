@@ -115,7 +115,26 @@ rst_prolog = '''.. image:: line.png
 
     <center>
 
-:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>`
+:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>`
+
+.. raw:: html
+
+    </center>
+
+'''
+
+rst_epilog = '''
+
+.. raw:: html
+
+    <br>
+    
+
+.. raw:: html
+
+    <center>
+
+:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>`
 
 .. raw:: html
 

@@ -20,3 +20,18 @@
     :members:
     :private-members:
     :undoc-members:
+
+.. raw:: html
+
+    <br>
+    
+
+.. raw:: html
+
+    <center>
+
+:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>`
+
+.. raw:: html
+
+    </center>

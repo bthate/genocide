@@ -123,7 +123,7 @@ rst_prolog = '''.. image:: line.png
 
 '''
 
-rst_epilog = '''
+"""rst_epilog = '''
 
 .. raw:: html
 
@@ -141,6 +141,7 @@ rst_epilog = '''
     </center>
 
 '''
+"""
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
 autodoc_member_order='groupwise'

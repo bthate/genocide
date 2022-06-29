@@ -2,7 +2,6 @@
 # This file is placed in the Public Domain.
 
 
-import inspect
 import os
 import random
 import shutil
@@ -10,33 +9,41 @@ import sys
 import termios
 import time
 import traceback
-import unittest
+import _thread
 
 
 sys.path.insert(0, os.getcwd())
-sys.path.insert(0, "lib")
 
 
-from obs import Bus
-from ocb import Callback
-from ocl import Class
-from ocm import Command
-from oev import Event
-from odb import find, fntime, last, listfiles, save
-from obj import Object, get, items, keys, values, update
-from ofn import edit, format
-from ohd import Handler
-from okr import Config, boot
-from opr import aliases, elapsed, parse
-from otb import Table
-from oth import Thread, getname, launch
+from genocide.obj import Config
 
 
+Config.debug = True
+Config.threaded = False
+Config.verbose = False
+Config.version = 70
 Config.workdir = ".test"
+
+
+from genocide.csl import CLI
+from genocide.evt import Command, Event
+from genocide.hdl import Callbacks, Commands, Handler, dispatch
+from genocide.obj import Object, format, get, locked
+from genocide.thr import getname, launch
+from genocide.tme import elapsed
+
+
+import genocide.cmd.all
+
+
+Callbacks.add("command", dispatch)
 
 
 errors = []
 events = []
+results = []
+
+
 param = Object()
 param.add = ["test@shell", "bart", ""]
 param.cfg = ["server=localhost", ""]
@@ -48,8 +55,6 @@ param.flt = ["0", ""]
 param.fnd = ["cfg", "log", "rss", "log txt==test", "cfg server==localhost", "rss rss==reddit"]
 param.rss = ["https://www.reddit.com/r/python/.rss"]
 param.tdo = ["test4", ""]
-results = []
-starttime = time.time()
 
 
 def cprint(txt):
@@ -57,7 +62,7 @@ def cprint(txt):
     sys.stdout.flush()
 
 
-class CLI(Handler):
+class CLI(CLI):
 
      def __init__(self):
          Handler.__init__(self)
@@ -88,30 +93,33 @@ def from_exception(ex, txt="", sep=" "):
     return "%s(%s) %s" % (getname(ex), ex, " ".join(result))
 
 
+def parse_cli():
+    e = Event()
+    e.txt = " ".join(sys.argv[1:])
+    e.parse()
+    return e
+
+
 def payload(c):
     global events
-    cmds = sorted(Command.cmd)
+    cmds = sorted(Commands.cmd)
     random.shuffle(cmds)
+    nr = 0
     for cmd in cmds:
         for ex in get(param, cmd, [""]):
-            e = Event()
+            e = Command()
             e.txt = cmd + " " + ex
             e.orig = repr(c)
+            e.parse()
+            #c.put(e)
             try:
                 c.handle(e)
-            except Raise:
-                pass
+            except Exception as ex:
+                Callbacks.errors.add(ex)
             events.append(e)
-    for cmd in keys(aliases):
-        for ex in get(param, cmd, [""]):
-            e = Event()
-            e.txt = cmd + " " + ex
-            e.orig = repr(c)
-            try:
-                c.handle(e)
-            except Raise:
-                pass
-            events.append(e)
+            nr += 1
+    return nr
+
 
 def wrap(func):
     fd = sys.stdin.fileno()
@@ -122,30 +130,41 @@ def wrap(func):
         cprint("")
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
-    if errors:
-        cprint("\nthere are errors\n")
-        for err in errors:
+        for err in Callbacks.errors:
             traceback.print_exception(type(err), err, err.__traceback__)
-    cprint("\n%s events left (%s)" % (len(events), elapsed(time.time()-starttime)))
 
 
 def main():
     cprint("GENOCIDE tinder start at %s" % time.ctime(time.time()).replace("  ", " "))
-    if os.path.exists(".test"):
-        shutil.rmtree(".test")
+    Callbacks.threaded = False
+    cfg = parse_cli()
     if os.path.exists(Config.workdir):
         shutil.rmtree(Config.workdir)
-    boot(" ".join(sys.argv[1:]))
-    Config.debug = True
-    cprint(format(Config, "debug,verbose,index,workdir"))
+    if "-v" in sys.argv:
+        Config.verbose = True
+    if "-t" in sys.argv:
+        Config.threaded = True
+        Callbacks.threaded = True
+    cprint(format(Config))
     c = CLI()
     c.start()
-    c.threaded = True
+    nrs = cfg.index or 20
     thrs = []
-    nrs = Config.index or 20
+    starttime = time.time()
     for nr in range(nrs):
-        launch(payload, c)
+        if c.threaded:
+            thrs.append(launch(payload, c))
+        else:
+            payload(c)
+    if thrs:
+        res = 0
+        for thr in thrs:
+            res += thr.join()
+    else:
+        res = nrs * len(Commands.cmd) 
     consume(events)
+    endtime = time.time()
+    print("%s %s %s (%s remaining)" %  (elapsed(endtime - starttime), res, (endtime - starttime)/res, len(events)))
 
 
 wrap(main)

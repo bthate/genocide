@@ -45,12 +45,17 @@ class Event(Object):
         self.orig = orig or self.orig
         if self.txt:
             spl = self.txt.split()
-            self.cmd = spl[0]
             args = []
             _nr = -1
             hasarg = False
-            for w in spl[1:]:
+            for w in spl:
                 _nr += 1
+                if _nr == 0:
+                    try:
+                        self.index = int(w[1:])
+                    except ValueError:
+                        self.cmd = w
+                    continue
                 try:
                     k, v = w.split("==")
                     self.gets[k] = v

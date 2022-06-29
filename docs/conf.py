@@ -115,33 +115,13 @@ rst_prolog = '''.. image:: line.png
 
     <center>
 
-:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>`
+:ref:`home <home>` - :ref:`reconsider <reconsider>` - :ref:`manual <man>` - :ref:`source <source>`
 
 .. raw:: html
 
     </center>
 
 '''
-
-"""rst_epilog = '''
-
-.. raw:: html
-
-    <br>
-    
-
-.. raw:: html
-
-    <center>
-
-:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>`
-
-.. raw:: html
-
-    </center>
-
-'''
-"""
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
 autodoc_member_order='groupwise'

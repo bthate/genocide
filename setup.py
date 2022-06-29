@@ -41,6 +41,7 @@ setup(
     data_files=[
                 ("share/genocide", ["files/genocide.service",]),
                 ("share/doc/genocide", uploadlist("docs")),
+                ("share/doc/genocide/txt", uploadlist("docs/txt")),
                 ("share/doc/genocide/pdf", uploadlist("docs/pdf")),
                 ("share/doc/genocide/_static", uploadlist("docs/_static")),
                 ("share/doc/genocide/_templates", uploadlist("docs/_templates")),

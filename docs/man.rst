@@ -1,5 +1,9 @@
 .. _man:
 
+.. raw:: html
+
+     <br>
+
 .. title:: manual
 
 **NAME**

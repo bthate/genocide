@@ -125,7 +125,7 @@ rst_prolog = '''.. image:: genocidebig2.png
 rst_epilog = '''
 .. raw:: html
 
-    <br><br><br><br><br>
+    <br><br>
     <center><b>
 
 :ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`man <man>` - :ref:`source <source>`
@@ -134,11 +134,6 @@ rst_epilog = '''
 
     </b>
     </center>
-
-.. image:: genocidebig2.png
-    :width: 100%
-    :height: 2.2cm
-    :target: index.html
 
 '''
 autosummary_generate=True

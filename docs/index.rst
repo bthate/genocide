@@ -1,12 +1,6 @@
 .. _home:
 
-
-.. raw:: html
-
-    <br>
-
 .. title:: OTP-CR-117/19
-
 
 .. image:: skullagain.jpg
     :width: 100%

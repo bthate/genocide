@@ -2,9 +2,10 @@
 
 .. raw:: html
 
-    <br><br>
-    <center><b>
     <br>
+    <center><b>
+    <br><br>
+    </b>
 
 .. title:: {{ fullname }}
 

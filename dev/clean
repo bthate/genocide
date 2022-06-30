@@ -14,7 +14,7 @@ def popen(txt):
         print(l)
 
 
-popen("rm -fR files/*~ files/__pycache__")
+popen("rm -fR txt/*~ files/*~ files/__pycache__")
 popen("rm -fR bin/*~ *~ __pycache__")
 popen("rm -fR build dist MANIFEST genocide.egg-info") 
 popen("rm -fR dev/*~ bin/*~ *~ files/*~")

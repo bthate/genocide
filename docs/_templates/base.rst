@@ -31,7 +31,7 @@
 
     <center>
 
-:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>` - :ref:`writings <writings>`
+:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>`
 
 .. raw:: html
 

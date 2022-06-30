@@ -111,16 +111,6 @@ rst_prolog = '''.. image:: genocide.png
     :height: 2.2cm
     :target: index.html
 
-.. raw:: html
-
-    <center>
-
-:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>` - :ref:`writings <writings>`
-
-.. raw:: html
-
-    </center>
-
 '''
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]

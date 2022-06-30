@@ -3,10 +3,6 @@
 (f)act
 ======
 
-.. image:: clozastrip.jpg
-    :width: 100%
-
-
 Brengt het toedienen van gif levensgevaar, het nalaten de noodzakelijke verpleging te leveren brengt de dood:
 
 1. Off-label toedienen.

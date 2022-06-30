@@ -40,6 +40,7 @@ setup(
     include_package_data=True,
     data_files=[
                 ("share/genocide", ["files/genocide.service",]),
+                ("share/genocide/txt", uploadlist("txt")),
                 ("share/doc/genocide", uploadlist("docs")),
                 ("share/doc/genocide/txt", uploadlist("docs/txt")),
                 ("share/doc/genocide/pdf", uploadlist("docs/pdf")),

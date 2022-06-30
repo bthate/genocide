@@ -3,8 +3,8 @@
 .. raw:: html
 
   <br>
-  <center><h3><b>Mobile</b></h3></center>
-
+  <center><h2><b>MOBILE</b></h2></center>
+  <br><br>
 
 .. title:: Mobile
 

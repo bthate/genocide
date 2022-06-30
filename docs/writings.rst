@@ -4,6 +4,14 @@
 
     <br><br>
 
+.. title:: Writings
+
+.. raw:: html
+
+     <center><h2><b>WRITINGS</b></h2></center>
+     <br><br>
+
+
 **email 1**
 
 |

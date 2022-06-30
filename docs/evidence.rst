@@ -2,9 +2,15 @@
 
 .. raw:: html
 
-  <br><br>
+  <br>
 
 .. title:: Evidence
+
+.. raw:: html
+
+     <center><h2><b>EVIDENCE</b></h2></center>
+     <br><br>
+
 
 
 There is proof the medication used in forced treatements in the netherlands are poison, see copies of the ECHA <European Chemical Agency> website for:

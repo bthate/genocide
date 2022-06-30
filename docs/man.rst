@@ -1,5 +1,6 @@
 .. _man:
 
+.. title:: manual
 
 **NAME**
 

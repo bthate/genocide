@@ -106,21 +106,10 @@ intersphinx_mapping = {
 intersphinx_cache_limit=1
 
 
-rst_prolog = '''
-
-.. raw:: html
-
-    <br>
-
-.. image:: genocide.png
+rst_prolog = '''.. image:: genocide.png
     :width: 100%
     :height: 2.2cm
     :target: index.html
-
-.. raw:: html
-
-    <br><br>
-
 '''
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]

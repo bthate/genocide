@@ -1,16 +1,13 @@
 .. _reconsider:
 
-.. raw:: html
-
-    <br>
-
 .. title:: Reconsider
 
 
 .. raw:: html
 
+     <br>
      <center><h2><b>RECONSIDER</b></h2></center>
-     <br><br>
+     <br>
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**

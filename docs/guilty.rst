@@ -1,12 +1,6 @@
 .. _guilty:
 
 
-.. raw:: html
-
-    <br>
-    <center><h3><b>GUILTY</b></h3></center>
-    <br>
-
 .. title:: Guilty
 
 

@@ -1,11 +1,5 @@
 .. _request:
 
-.. raw:: html
-
-    <br>
-    <center><h3><b>REQUEST</b></h3></center>
-    <br>
-
 .. title:: Request
 
 

@@ -1,11 +1,5 @@
 .. _reconsider:
 
-.. raw:: html
-
-    <br>
-    <center><h3><b>RECONSIDER</b></h3></center>
-    <br>
-
 .. title:: Reconsider
 
 

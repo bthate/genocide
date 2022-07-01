@@ -14,7 +14,7 @@
     In 2018 i wrote the king of the netherlands that what he calls medicine in
     his laws are in fact not medicine but poison. Proof of being poison of these
     medicine were shown to the king, bringing him in the "knowing" was confirmed
-    by the king saying "he has taken note of what i have been writing".
+    by the king saying "he has taken note of what i have written (zyprexa is poison)".
     <br><br>
     This makes that the care laws the king employs are not care laws but genocide
     laws with which the king is killing groups of the population by giving them

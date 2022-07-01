@@ -4,7 +4,7 @@
 
   <br>
   <center><h2><b>MOBILE</b></h2></center>
-  <br><br>
+  <br>
 
 .. title:: Mobile
 

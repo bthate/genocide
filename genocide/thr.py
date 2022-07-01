@@ -36,10 +36,12 @@ class Thread(threading.Thread):
             yield k
 
     def join(self, timeout=None):
+        ""
         super().join(timeout)
         return self._result
 
     def run(self):
+        ""
         func, args = self.queue.get()
         if args:
             self._evt = args[0]

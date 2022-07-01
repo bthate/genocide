@@ -10,7 +10,7 @@
 .. raw:: html
 
      <center><h2><b>SOURCE</b></h2></center>
-     <br><br>
+     <br>
 
 
 **library**
@@ -51,6 +51,7 @@
 
     genocide.irc		internet relay chat
     genocide.mbx		mailbox
+    genocide.mdl		genocide model
     genocide.rss		rich site syndicate
     genocide.scn		scan
     genocide.udp		udp to irc

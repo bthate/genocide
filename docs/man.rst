@@ -9,7 +9,7 @@
 .. raw:: html
 
      <center><h2><b>MANUAL</b></h2></center>
-     <br><br>
+     <br>
 
 
 **NAME**

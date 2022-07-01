@@ -6,7 +6,7 @@
 "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
-__version__ = 70
+__version__ = 71
 
 
 import doctest

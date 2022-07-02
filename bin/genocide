@@ -63,15 +63,17 @@ def main():
         Config.threaded = True
     if isopt("v"):
         Config.verbose = True
-    irc = IRC()
-    irc.start()
-    init()
+    if isopt("i"):
+        irc = IRC()
+        irc.start()
     if isopt("c"):
         print("GENOCIDE shell started at %s" % time.ctime(starttime).replace("  ", " "))
         print(format(Config, skip="password"))
         c = Console()
         c.start()
         c.forever()
-    wait()
+    if isopt("ic"):
+        init()
+        wait()
 
 wrap(main)

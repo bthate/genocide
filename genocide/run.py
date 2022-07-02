@@ -9,6 +9,7 @@ import inspect
 import os
 import sys
 import termios
+import time
 import traceback
 
 
@@ -112,14 +113,25 @@ def skip(fn):
     return False
 
 
+def wait():
+    while 1:
+        time.sleep(1.0)
+        for err in Callbacks.errors:
+            traceback.print_exception(type(err), err, err.__traceback__)
+
 def wrap(func):
     fd = sys.stdin.fileno()
-    old = termios.tcgetattr(fd)
+    gotterm = True
+    try:
+        old = termios.tcgetattr(fd)
+    except termios.error:
+        gotterm = False
     try:
         func()
     except (EOFError, KeyboardInterrupt):
         print("")
     finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old)
-        for err in Callbacks.errors:
-            traceback.print_exception(type(err), err, err.__traceback__)
+        if gotterm:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old)
+            for err in Callbacks.errors:
+                traceback.print_exception(type(err), err, err.__traceback__)

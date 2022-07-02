@@ -5,86 +5,73 @@
 "OTP-CR-117/19"
 
 
+import importlib
+import inspect
 import os
+import queue
+import readline
 import sys
+import termios
+import threading
+import time
+import types
+import traceback
+import _thread
 
 
 sys.path.insert(0, os.getcwd())
 
 
-import importlib
-import readline
-import termios
-import time
-import traceback
-
-
-from genocide.obj import Config
-
-
-Config.console = False
-Config.name = "genocide"
-Config.services = False
-Config.version = "71"
-Config.workdir = os.path.expanduser("~/.genocide")
-
-
-from genocide.irc import Config as IRCConfig
-
-
-IRCConfig.channel = "#genocide"
-IRCConfig.nick = "genocide"
-IRCConfig.realname = "OTP-CR-117/19"
-IRCConfig.username = "genocide"
-
-
-from genocide.csl import Console
-from genocide.evt import Command
-from genocide.hdl import Callbacks, Commands, Handler, dispatch
-from genocide.obj import Object, format, spl
+from genocide.obj import Class, Config, Db, Object
+from genocide.obj import cdir, find, fntime, format, get, register, save, spl, update
+from genocide.hdl import Callbacks, CLI, Console, dispatch, starttime
 from genocide.irc import IRC
-from genocide.rss import Fetcher
-from genocide.scn import wrap
+from genocide.run import boot, isopt, scan, wait, wrap
+from genocide.mdl import init
 
 
-import genocide.cmd.all
+import genocide.bsc
 
 
-class Console(Console):
+Config.name = "genocide"
+Config.threaded = False
+Config.version = "71"
+Config.workdir = "/var/lib/genocide"
 
+
+class CLI(CLI):
 
     def raw(self, txt):
         print(txt)
 
 
-def init(pns):
-    for pn in spl(pns):
-        mod = importlib.import_module(pn)
-        if "init" in dir(mod):
-            mod.init()
+class Console(Console):
+
+    def raw(self, txt):
+        print(txt)
+
+
 
 
 def main():
-    Callbacks.add("command", dispatch)
-    Callbacks.threaded = False
-    c = Console()
-    if "-s" in sys.argv:
-        Config.services = True
-    if "-c" in sys.argv:
-        Config.console = True
-    elif len(sys.argv) > 1 and not Config.services:
+    boot()
+    cdir(Config.workdir)
+    if len(sys.argv) > 1 and not isopt("ic"):
+        c = CLI()
         return c.cmd(" ".join(sys.argv[1:]))
-    print("GENOCIDE started at %s" % time.ctime(time.time()).replace("  ", " "))
-    if not Config.console:
-        i = IRC()
-        i.start()
-        print(format(i.cfg, skip="realname,sleep,username"))
-        f = Fetcher()
-        f.start()
-    if Config.services:
-        init("genocide.mdl")
-    c.start()
-    c.forever()
-
+    if isopt("t"):
+        Config.threaded = True
+    if isopt("v"):
+        Config.verbose = True
+    irc = IRC()
+    irc.start()
+    init()
+    if isopt("c"):
+        print("GENOCIDE shell started at %s" % time.ctime(starttime).replace("  ", " "))
+        print(format(Config, skip="password"))
+        c = Console()
+        c.start()
+        c.forever()
+    wait()
 
 wrap(main)

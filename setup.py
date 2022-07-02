@@ -35,7 +35,7 @@ setup(
     description="Prosecutor. Court. Reonsider OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
-    packages=["genocide", "genocide.cmd"],
+    packages=["genocide"],
     zip_safe=True,
     include_package_data=True,
     data_files=[
@@ -45,7 +45,7 @@ setup(
                 ("share/doc/genocide/_static", uploadlist("docs/_static")),
                 ("share/doc/genocide/_templates", uploadlist("docs/_templates")),
                ],
-    scripts=["bin/genocide", "bin/genocided", "bin/genocidecmd", "bin/genocidectl"],
+    scripts=["bin/genocide", "bin/genocidectl"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: Public Domain',
                  'Operating System :: Unix',

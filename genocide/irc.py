@@ -43,16 +43,16 @@ class NoUser(Exception):
 class Config(Config):
 
     cc = "!"
-    channel = "#obl"
-    nick = "obl"
+    channel = "#genocide"
+    nick = "genocide"
     password = ""
     port = 6667
-    realname = "the object library"
+    realname = "OTP-CR-117/19"
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "ob"
+    username = "genocide"
     users = False
 
     def __init__(self):

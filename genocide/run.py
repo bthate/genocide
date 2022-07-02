@@ -12,21 +12,19 @@ import termios
 import traceback
 
 
-from .obj import Class, spl
-from .hdl import Callbacks, Commands
+from .obj import Class, Config, Default, items, spl
+from .hdl import Callbacks, Commands, Event, Table, getmain, launch
 
 
-class Table():
-
-    mod = {}
-
-    @staticmethod
-    def add(o):
-        Table.mod[o.__name__] = o
-
-    @staticmethod
-    def get(nm):
-        return Table.mod.get(nm, None)
+def boot():
+    e = Event()
+    e.parse(" ".join(sys.argv[1:]))
+    for k, v in items(e):
+        setattr(Config, k, v)
+    for o in Config.opts:
+        if o == "-v":
+           Config.verbose = True 
+    return e
 
 
 def init(pns):
@@ -53,6 +51,11 @@ def introspect(mod):
     for k, clz in inspect.getmembers(mod, inspect.isclass):
         Class.add(clz)
 
+
+def isopt(opts):
+    for o in opts:
+        if o in Config.opts:
+            return True
 
 def scan(dn, intro=False):
     mods = []

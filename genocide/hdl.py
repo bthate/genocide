@@ -1,41 +1,192 @@
 # This file is placed in the Public Domain.
 
 
-"handler"
+"program your own commands."
+
+
+## imports
 
 
 import queue
 import threading
 import time
+import types
 
 
-from .obj import Object, get, register
-from .thr import launch
+from .obj import Class, Config, Object, get, register
+
+
+## defines
 
 
 def __dir__():
     return (
-        "Callbacks",
-        "Commands",
-        "Handler",
+        'Bus',
+        'CLI',
+        'Callbacks',
+        'Class',
+        'Command',
+        'Commands',
+        'Config',
+        'Console',
+        'Event',
+        'Handler',
+        'Table',
+        'Thread',
+        'dispatch',
+        'getmain',
+        'getname',
+        'launch',
+        'starttime',
     )
-
-
+    
 starttime = time.time()
 
 
-def dispatch(e):
-    e.parse()
-    f = Commands.get(e.cmd)
-    if f:
-        f(e)
-        e.show()
-    e.ready()
+## threads
 
 
-class NotImplemented(Exception):
+class Thread(threading.Thread):
 
-    pass
+    def __init__(self, func, name, *args, daemon=True):
+        super().__init__(None, self.run, name, (), {}, daemon=daemon)
+        self._exc = None
+        self._evt = None
+        self.name = name
+        self.queue = queue.Queue()
+        self.queue.put_nowait((func, args))
+        self._result = None
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        for k in dir(self):
+            yield k
+
+    def join(self, timeout=None):
+        super().join(timeout)
+        return self._result
+
+    def run(self):
+        func, args = self.queue.get()
+        if args:
+            self._evt = args[0]
+        self.setName(self.name)
+        self._result = func(*args)
+        return self._result
+
+
+def getname(o):
+    t = type(o)
+    if isinstance(t, types.ModuleType):
+        return o.__name__
+    if "__self__" in dir(o):
+        return "%s.%s" % (o.__self__.__class__.__name__, o.__name__)
+    if "__class__" in dir(o) and "__name__" in dir(o):
+        return "%s.%s" % (o.__class__.__name__, o.__name__)
+    if "__class__" in dir(o):
+        return o.__class__.__name__
+    if "__name__" in dir(o):
+        return o.__name__
+    return None
+
+
+def launch(func, *args, **kwargs):
+    name = kwargs.get("name", getname(func))
+    t = Thread(func, name, *args)
+    t.start()
+    return t
+
+
+## events
+
+
+class Event(Object):
+
+    def __init__(self):
+        super().__init__()
+        self._exc = None
+        self._ready = threading.Event()
+        self._result = []
+        self._thrs = []
+        self.args = []
+        self.channel = ""
+        self.cmd = ""
+        self.gets = Object()
+        self.index = 0
+        self.opts = ""
+        self.orig = ""
+        self.rest = ""
+        self.sets = Object()
+        self.txt = ""
+        self.type = "event"
+
+    def bot(self):
+        return Bus.byorig(self.orig)
+
+    def parse(self, txt=None, orig=None):
+        self.otxt = txt or self.txt
+        self.orig = orig or self.orig
+        spl = self.otxt.split()
+        args = []
+        _nr = -1
+        for w in spl:
+            _nr += 1
+            if w.startswith("-"):
+                try:
+                    self.index = int(w[1:])
+                except ValueError:
+                    self.opts += w[1:2]
+                continue
+            if _nr == 0:
+                self.cmd = w
+                continue
+            try:
+                k, v = w.split("==")
+                self.gets[k] = v
+                continue
+            except ValueError:
+                pass
+            try:
+                k, v = w.split("=")
+                self.sets[k] = v
+                continue
+            except ValueError:
+                args.append(w)
+        if args:
+            self.args = args
+            self.rest = " ".join(args)
+            self.txt = self.cmd + " " + self.rest
+        else:
+            self.txt = self.cmd
+
+    def ready(self):
+        self._ready.set()
+
+    def reply(self, txt):
+        self._result.append(txt)
+
+    def show(self):
+        assert self.orig
+        for txt in self._result:
+            Bus.say(self.orig, self.channel, txt)
+
+    def wait(self):
+        self._ready.wait()
+        for thr in self._thrs:
+            thr.join()
+        return self._result
+
+
+class Command(Event):
+
+    def __init__(self):
+        Event.__init__(self)
+        self.type = "command"
+
+
+## handler
 
 
 class Bus(Object):
@@ -123,6 +274,7 @@ class Handler(Object):
     def __init__(self):
         Object.__init__(self)
         self.cache = Object()
+        self.cfg = Config()
         self.queue = queue.Queue()
         self.stopped = threading.Event()
         self.threaded = False
@@ -130,6 +282,10 @@ class Handler(Object):
 
     def announce(self, txt):
         self.raw(txt)
+
+    def forever(self):
+        while 1:
+            time.sleep(1.0)
 
     def handle(self, e):
         Callbacks.dispatch(e)
@@ -163,3 +319,80 @@ class Handler(Object):
 
     def stop(self):
         self.stopped.set()
+
+
+## consoles
+
+
+class CLI(Handler):
+
+    def announce(self, txt):
+        self.raw(txt)
+
+    def cmd(self, txt):
+        c = Command()
+        c.channel = ""
+        c.orig = repr(self)
+        c.txt = txt
+        self.handle(c)
+        c.wait()
+
+    def raw(self, txt):
+        pass
+
+
+class Console(CLI):
+
+    def handle(self, e):
+        Handler.handle(self, e)
+        e.wait()
+
+    def poll(self):
+        e = Command()
+        e.channel = ""
+        e.cmd = ""
+        e.txt = input("> ")
+        e.orig = repr(self)
+        if e.txt:
+            e.cmd = e.txt.split()[0]
+        return e
+
+    def forever(self):
+        while 1:
+            time.sleep(1.0)
+
+
+## table
+
+
+class Table():
+
+    mod = {}
+
+    @staticmethod
+    def add(o):
+        Table.mod[o.__name__] = o
+
+    @staticmethod
+    def get(nm):
+        return Table.mod.get(nm, None)
+
+
+## utilities
+
+
+def dispatch(e):
+    e.parse()
+    f = Commands.get(e.cmd)
+    if f:
+        f(e)
+        e.show()
+    e.ready()
+
+
+def getmain(name):
+    main = __import__("__main__")
+    return getattr(main, name, None)
+
+
+Callbacks.add("command", dispatch)

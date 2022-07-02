@@ -4,32 +4,25 @@
 "rich site syndicate"
 
 
+## imports
+
+
+import datetime
 import html.parser
+import time
 import re
 import threading
 import urllib
 
 
-from .hdl import Bus
-from .obj import Object, get, update
-from .obj import Class, Config, find, last, save, spl
-from .tme import Repeater
-from .thr import launch
-
+from .obj import Class, Config, Object
+from .obj import find, get, last, save, spl, update
+from .hdl import Bus, getname, launch
+from .tmr import Repeater, elapsed
 
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
-
-
-def __dir__():
-    return (
-        "Feed",
-        "Rss",
-        "Seen",
-        "Fetcher",
-        "display",
-    )
 
 
 class Feed(Object):
@@ -221,3 +214,4 @@ parser = Parser()
 Class.add(Feed)
 Class.add(Rss)
 Class.add(Seen)
+

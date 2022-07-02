@@ -10,7 +10,7 @@ import time
 
 
 from .obj import Object
-from .thr import getname, launch
+from .hdl import getname, launch
 
 
 def __dir__():

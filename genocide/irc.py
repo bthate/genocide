@@ -4,6 +4,7 @@
 "internet relay chat"
 
 
+import base64
 import os
 import queue
 import socket
@@ -14,14 +15,9 @@ import time
 import _thread
 
 
-from .obj import Class, Config, Object, last, locked
-from .evt import Event
-from .hdl import Handler
-from .thr import launch
-from .usr import Users
-
-
-Class.add(Users)
+from genocide.obj import Class, Config, Object
+from genocide.obj import edit, format, last, locked, save
+from genocide.hdl import Commands, Event, Handler, launch
 
 
 def __dir__():
@@ -36,19 +32,27 @@ def __dir__():
 saylock = _thread.allocate_lock()
 
 
+class NoUser(Exception):
+
+    pass
+
+
+## config
+
+
 class Config(Config):
 
     cc = "!"
-    channel = "#genocide"
-    nick = "genocide"
+    channel = "#obl"
+    nick = "obl"
     password = ""
     port = 6667
-    realname = "OTP-CR-117/19"
+    realname = "the object library"
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "genocide"
+    username = "ob"
     users = False
 
     def __init__(self):
@@ -70,6 +74,9 @@ class Config(Config):
 Class.add(Config)
 
 
+## IRC event
+
+
 class Event(Event):
 
     def __init__(self):
@@ -84,6 +91,9 @@ class Event(Event):
         self.sock = None
         self.type = "event"
         self.txt = ""
+
+
+## output
 
 
 class TextWrap(textwrap.TextWrapper):
@@ -153,6 +163,9 @@ class Output(Object):
     def stop(self):
         self.dostop.set()
         self.oqueue.put_nowait((None, None))
+
+
+## IRC 
 
 
 class IRC(Handler, Output):
@@ -518,3 +531,116 @@ def QUIT(event):
     bot = event.bot()
     if event.orig and event.orig in bot.zelf:
         bot.reconnect()
+
+
+## users
+
+
+class User(Object):
+
+    def __init__(self, val=None):
+        super().__init__()
+        self.user = ""
+        self.perms = []
+        if val:
+            update(self, val)
+
+
+Class.add(User)
+
+
+class Users(Object):
+
+    userhosts = Object()
+
+    def allowed(self, origin, perm):
+        perm = perm.upper()
+        origin = getattr(self.userhosts, origin, origin)
+        user = self.get_user(origin)
+        if user:
+            if perm in user.perms:
+                return True
+        return False
+
+    def delete(self, origin, perm):
+        for user in self.get_users(origin):
+            try:
+                user.perms.remove(perm)
+                save(user)
+                return True
+            except ValueError:
+                pass
+
+    def get_users(self, origin=""):
+        s = {"user": origin}
+        return find("user", s)
+
+    def get_user(self, origin):
+        u = list(self.get_users(origin))
+        if u:
+            return u[-1][-1]
+
+    def perm(self, origin, permission):
+        user = self.get_user(origin)
+        if not user:
+            raise NoUser(origin)
+        if permission.upper() not in user.perms:
+            user.perms.append(permission.upper())
+            save(user)
+        return user
+
+
+Class.add(Users)
+
+
+## commands
+
+
+def cfg(event):
+    c = Config()
+    last(c)
+    if not event.sets:
+        event.reply(format(c, skip="realname,sleep,username"))
+        return
+    edit(c, event.sets)
+    save(c)
+    event.reply("ok")
+
+
+Commands.add(cfg)
+
+
+def mre(event):
+    if not event.channel:
+        event.reply("channel is not set.")
+        return
+    bot = event.bot()
+    if "cache" not in dir(bot):
+        event.reply("bot is missing cache")
+        return
+    if event.channel not in bot.cache:
+        event.reply("no output in %s cache." % event.channel)
+        return
+    for _x in range(3):
+        txt = bot.get(event.channel)
+        if txt:
+            bot.say(event.channel, txt)
+    sz = bot.size(event.channel)
+    event.reply("%s more in cache" % sz)
+
+
+Commands.add(mre)
+
+
+def pwd(event):
+    if len(event.args) != 2:
+        event.reply("pwd <nick> <password>")
+        return
+    m = "\x00%s\x00%s" % (event.args[0], event.args[1])
+    mb = m.encode("ascii")
+    bb = base64.b64encode(mb)
+    bm = bb.decode("ascii")
+    event.reply(bm)
+
+
+Commands.add(pwd)

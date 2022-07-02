@@ -1,7 +1,10 @@
 # This file is placed in the Public Domain.
 
 
-"object"
+"program your own commands"
+
+
+## imports
 
 
 import copy as copying
@@ -9,9 +12,19 @@ import datetime
 import json
 import os
 import pathlib
+import queue
 import time
+import readline
+import termios
+import threading
+import time
+import types
+import traceback
 import uuid
 import _thread
+
+
+## defines
 
 
 def __dir__():
@@ -50,7 +63,21 @@ def __dir__():
     )
 
 
+## exceptions
+
+
+class ENOPATH(Exception):
+
+    pass
+
+
+## big object
+
+
 class Object:
+
+    "Big Object."
+
 
     __slots__ = (
         "__dict__",
@@ -139,12 +166,29 @@ class Object:
         return str(self.__dict__)
 
 
-class Config(Object):
+class Default(Object):
+
+
+    _default = ""
+
+
+    def __getattr__(self, k):
+        return self.__dict__.get(k, self._default)
+
+
+## configuration
+
+
+class Config(Default):
 
     debug = False
-    name = ""
-    version = ""
-    workdir = ""
+    name = "ob"
+    threaded = False
+    version = "1"
+    workdir = ".ob"
+
+
+## dict emulation functions
 
 
 def clear(o):
@@ -219,11 +263,12 @@ def values(o):
         return o.values()
 
 
+## json
+
 
 class ObjectDecoder(json.JSONDecoder):
 
     def decode(self, s, _w=None):
-        ""
         v = json.loads(s)
         o = Object()
         update(o, v)
@@ -233,7 +278,6 @@ class ObjectDecoder(json.JSONDecoder):
 class ObjectEncoder(json.JSONEncoder):
 
     def default(self, o):
-        ""
         if isinstance(o, dict):
             return o.items()
         if isinstance(o, Object):
@@ -266,6 +310,8 @@ def loads(s):
     return json.loads(s, cls=ObjectDecoder)
 
 
+## database
+
 
 dblock = _thread.allocate_lock()
 
@@ -294,12 +340,6 @@ def locked(obj):
         return lockedfunc
 
     return lockeddec
-
-
-
-class ENOPATH(Exception):
-
-    pass
 
 
 class Class():
@@ -531,6 +571,9 @@ def save(o, stime=None):
 
 def spl(txt):
     return [x for x in txt.split(",") if x]
+
+
+## object funtions
 
 
 def diff(o1, o2):

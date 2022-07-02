@@ -146,7 +146,7 @@ class Test_Object(unittest.TestCase):
 
     def test_Object__doc__(self):
         o = Object()
-        self.assertEqual(o.__doc__, None)
+        self.assertEqual(o.__doc__, "Big Object.")
 
     def test_Object__eq__(self):
         o = Object()

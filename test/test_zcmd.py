@@ -9,12 +9,11 @@ import random
 import unittest
 
 
-from genocide.evt import Command
 from genocide.obj import Object, get
-from genocide.hdl import Commands
+from genocide.hdl import Command, Commands
 
 
-import genocide.cmd.all
+import genocide.bsc
 
 
 

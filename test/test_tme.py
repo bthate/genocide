@@ -7,11 +7,12 @@
 import unittest
 
 
-from genocide.tme import Timer
+from genocide.tmr import Timer
 
 
 def test(event):
     pass
+
 
 class Test_Time(unittest.TestCase):
 

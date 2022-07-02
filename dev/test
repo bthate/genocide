@@ -23,8 +23,7 @@ Config.verbose = False
 Config.workdir = ".test"
 
 
-from genocide.evt import Command
-from genocide.hdl import Callbacks, Handler, dispatch
+from genocide.hdl import Callbacks, Command, Handler, dispatch
 
 
 Callbacks.threaded = False
@@ -40,9 +39,6 @@ class CLI(Handler):
              print(txt)
         
          
-Callbacks.add("command", dispatch)
-
-
 c = CLI()
 c.start()
 

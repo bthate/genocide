@@ -3,11 +3,14 @@ Description=OTP-CR-117/19
 After=multi-user.target
 
 [Service]
-DynamicUser=True
+Type=simple
 StateDirectory=genocide
 LogsDirectory=genocide
 CacheDirectory=genocide
-ExecStart=/usr/local/bin/genocided
+ExecStart=/usr/local/bin/genocide
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+Restart=on-failure
 CapabilityBoundingSet=CAP_NET_RAW
 
 [Install]

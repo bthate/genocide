@@ -164,20 +164,6 @@ def log(event):
 Commands.add(log)
 
 
-def met(event):
-    if not event.args:
-        event.reply("met <userhost>")
-        return
-    user = User()
-    user.user = event.rest
-    user.perms = ["USER"]
-    save(user)
-    event.reply("ok")
-
-
-Commands.add(met)
-
-
 def tdo(event):
     if not event.rest:
         nr = 0

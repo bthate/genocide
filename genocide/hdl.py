@@ -38,7 +38,8 @@ def __dir__():
         'launch',
         'starttime',
     )
-    
+
+
 starttime = time.time()
 
 
@@ -118,6 +119,7 @@ class Event(Object):
         self.orig = ""
         self.rest = ""
         self.sets = Default()
+        self.otxt = ""
         self.txt = ""
         self.type = "event"
 

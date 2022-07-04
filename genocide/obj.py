@@ -13,7 +13,6 @@ import json
 import os
 import pathlib
 import queue
-import time
 import readline
 import termios
 import threading

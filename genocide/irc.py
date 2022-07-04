@@ -16,7 +16,7 @@ import _thread
 
 
 from genocide.obj import Class, Config, Object
-from genocide.obj import edit, format, last, locked, save
+from genocide.obj import edit, find, format, last, locked, save, update
 from genocide.hdl import Commands, Event, Handler, launch
 
 
@@ -35,15 +35,20 @@ def init():
     i = IRC()
     i.start()
     return i
-    
+
+
 def register():
     Commands.add(cfg)
+    Commands.add(dlt)
+    Commands.add(met)
     Commands.add(mre)
     Commands.add(pwd)
 
 
 def remove():
     Commands.remove(cfg)
+    Commands.remove(dlt)
+    Commands.remove(met)
     Commands.remove(mre)
     Commands.remove(pwd)
 
@@ -184,7 +189,7 @@ class Output(Object):
         self.oqueue.put_nowait((None, None))
 
 
-## IRC 
+## IRC
 
 
 class IRC(Handler, Output):
@@ -627,6 +632,34 @@ def cfg(event):
 
 
 Commands.add(cfg)
+
+
+def dlt(event):
+    if not event.args:
+        event.reply("dlt <username>")
+        return
+    selector = {"user": event.args[0]}
+    for _fn, o in find("user", selector):
+        o._deleted = True
+        save(o)
+        event.reply("ok")
+        break
+
+Commands.add(dlt)
+
+
+def met(event):
+    if not event.args:
+        event.reply("met <userhost>")
+        return
+    user = User()
+    user.user = event.rest
+    user.perms = ["USER"]
+    save(user)
+    event.reply("ok")
+
+
+Commands.add(met)
 
 
 def mre(event):

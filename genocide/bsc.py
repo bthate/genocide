@@ -217,7 +217,7 @@ Commands.add(thr)
 
 
 def ver(event):
-    event.reply("OB %s" % (Config.version or "1"))
+    event.reply("%s %s" % (Config.name.upper(), Config.version or "1"))
 
 
 Commands.add(ver)

@@ -269,6 +269,11 @@ class Commands(Object):
         return f
 
 
+    @staticmethod
+    def remove(command):
+        del Commands.cmd[command]
+
+
 class Handler(Object):
 
     def __init__(self):

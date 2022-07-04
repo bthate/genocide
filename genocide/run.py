@@ -13,7 +13,7 @@ import time
 import traceback
 
 
-from .obj import Class, Config, Default, items, spl
+from .obj import Class, Config, Default, format, items, spl
 from .hdl import Callbacks, Commands, Event, Table, getmain, launch
 
 
@@ -23,27 +23,56 @@ def boot():
     for k, v in items(e):
         setattr(Config, k, v)
     for o in Config.opts:
+        if isopt("t"):
+            Config.threaded = True
         if o == "-v":
            Config.verbose = True 
     return e
 
 
-def init(pns):
+def cmdregister(mns, pn):
+    result = []
+    for mn in spl(mns):
+        mod = Table.get("%s.%s" % (pn, mn))
+        if mod and "register" in dir(mod):
+            try:
+                mod.register()
+                result.append(mod)
+            except Exception as ex:
+                Callbacks.errors.append(ex)
+    return result
+
+
+def cmdremove(mns, pn):
+    result = []
+    for mn in spl(mns):
+        mod = Table.get("%s.%s" % (pn, mn))
+        if mod and "remove" in dir(mod):
+            try:
+                mod.remove()
+                result.append(mod)
+            except Exception as ex:
+                Callbacks.errors.append(ex)
+    return result
+
+
+def init2(pns):
     for pn in spl(pns):
         mod = importlib.import_module(pn)
         if "init" in dir(mod):
             mod.init()
 
 
-def init2(mns):
+def init(mns, pn):
+    result = []
     for mn in spl(mns):
-        mod = Table.get(mn)
+        mod = Table.get("%s.%s" % (pn, mn))
         if mod and "init" in dir(mod):
             try:
-                mod.init()
+                result.append((launch(mod.init), mod))
             except Exception as ex:
                 Callbacks.errors.append(ex)
-
+    return result
 
 def introspect(mod):
     for k, o in inspect.getmembers(mod, inspect.isfunction):

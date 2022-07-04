@@ -26,17 +26,18 @@ from genocide.obj import Class, Config, Db, Object
 from genocide.obj import cdir, find, fntime, format, get, register, save, spl, update
 from genocide.hdl import Callbacks, CLI, Console, dispatch, starttime
 from genocide.irc import IRC
-from genocide.run import boot, isopt, scan, wait, wrap
+from genocide.run import boot, cmdregister, isopt, scan, wait, wrap
+from genocide.run import init as modinit
 from genocide.mdl import init
 
 
-import genocide.bsc
+import genocide.all
 
 
 Config.name = "genocide"
 Config.threaded = False
 Config.version = "71"
-Config.workdir = "/var/lib/genocide"
+Config.workdir = os.path.expanduser("~/.genocide")
 
 
 class CLI(CLI):
@@ -51,7 +52,10 @@ class Console(Console):
         print(txt)
 
 
-
+def cprint(txt):
+    print(txt)
+    sys.stdout.flush()
+    
 
 def main():
     boot()
@@ -59,21 +63,17 @@ def main():
     if len(sys.argv) > 1 and not isopt("ic"):
         c = CLI()
         return c.cmd(" ".join(sys.argv[1:]))
-    if isopt("t"):
-        Config.threaded = True
-    if isopt("v"):
-        Config.verbose = True
-    if isopt("i"):
-        irc = IRC()
-        irc.start()
     if isopt("c"):
-        print("GENOCIDE shell started at %s" % time.ctime(starttime).replace("  ", " "))
-        print(format(Config, skip="password"))
+        cprint("GENOCIDE shell started at %s" % time.ctime(starttime).replace("  ", " "))
+        cprint(format(Config, skip="password"))
         c = Console()
+        mods = Config.sets.mod
+        for thr, mod in modinit(mods, "genocide"):
+             cprint(mod)
+             thr.join()
+        cmdregister(mods, "genocide")
+        print("loaded %s" % mods)
         c.start()
         c.forever()
-    if isopt("ic"):
-        init()
-        wait()
 
 wrap(main)

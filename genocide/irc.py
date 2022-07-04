@@ -26,7 +26,26 @@ def __dir__():
         "Event",
         "IRC",
         "DCC",
+        "init",
+        "register",
+        "remove"
     )
+
+def init():
+    i = IRC()
+    i.start()
+    return i
+    
+def register():
+    Commands.add(cfg)
+    Commands.add(mre)
+    Commands.add(pwd)
+
+
+def remove():
+    Commands.remove(cfg)
+    Commands.remove(mre)
+    Commands.remove(pwd)
 
 
 saylock = _thread.allocate_lock()

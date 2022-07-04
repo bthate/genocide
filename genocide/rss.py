@@ -25,6 +25,33 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
+def __dir__():
+    return (
+        "init",
+        "register",
+        "remove"
+    )
+
+def init():
+    f = Fetcher()
+    f.start()
+    return f
+
+
+def register():
+    Commands.add(dpl)
+    Commands.add(ftc)
+    Commands.add(nme)
+    Commands.add(rem)
+    Commands.add(rss)
+
+
+def remove():
+    Commands.remove(dpl)
+    Commands.remove(ftc)
+    Commands.remove(nme)
+    Commands.remove(rem)
+    Commands.remove(rss)
 
 class Feed(Object):
 
@@ -215,7 +242,6 @@ parser = Parser()
 Class.add(Feed)
 Class.add(Rss)
 Class.add(Seen)
-
 
 def dpl(event):
     if len(event.args) < 2:

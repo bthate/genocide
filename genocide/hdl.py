@@ -13,7 +13,7 @@ import time
 import types
 
 
-from .obj import Class, Config, Object, get, register
+from .obj import Class, Config, Default, Object, get, register
 
 
 ## defines
@@ -34,7 +34,6 @@ def __dir__():
         'Table',
         'Thread',
         'dispatch',
-        'getmain',
         'getname',
         'launch',
         'starttime',
@@ -113,12 +112,12 @@ class Event(Object):
         self.args = []
         self.channel = ""
         self.cmd = ""
-        self.gets = Object()
+        self.gets = Default()
         self.index = 0
         self.opts = ""
         self.orig = ""
         self.rest = ""
-        self.sets = Object()
+        self.sets = Default()
         self.txt = ""
         self.type = "event"
 
@@ -393,11 +392,6 @@ def dispatch(e):
         f(e)
         e.show()
     e.ready()
-
-
-def getmain(name):
-    main = __import__("__main__")
-    return getattr(main, name, None)
 
 
 Callbacks.add("command", dispatch)

@@ -182,10 +182,10 @@ class Default(Object):
 class Config(Default):
 
     debug = False
-    name = "ob"
+    name = ""
     threaded = False
     version = "1"
-    workdir = ".ob"
+    workdir = ""
 
 
 ## dict emulation functions
@@ -590,6 +590,8 @@ def edit(o, setter):
 
 
 def format(o, args="", skip="_", empty=False, plain=False, **kwargs):
+    if not o:
+        return ""
     res = []
     if args:
         ks = spl(args)

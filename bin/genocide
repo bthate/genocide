@@ -20,6 +20,7 @@ import _thread
 
 
 sys.path.insert(0, os.getcwd())
+sys.path.insert(0, "run")
 
 
 from genocide.obj import Class, Config, Db, Object
@@ -72,7 +73,8 @@ def main():
              cprint(mod)
              thr.join()
         cmdregister(mods, "genocide")
-        print("loaded %s" % mods)
+        if mods:
+            print("loaded %s" % mods)
         c.start()
         c.forever()
 

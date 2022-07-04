@@ -25,15 +25,13 @@ Config.version = 70
 Config.workdir = ".test"
 
 
-from genocide.csl import CLI
-from genocide.evt import Command, Event
-from genocide.hdl import Callbacks, Commands, Handler, dispatch
+from genocide.hdl import Callbacks, CLI, Command, Commands, Event, Handler
+from genocide.hdl import dispatch, getname, launch
 from genocide.obj import Object, format, get, locked
-from genocide.thr import getname, launch
-from genocide.tme import elapsed
+from genocide.tmr import elapsed
 
 
-import genocide.cmd.all
+import genocide.all
 
 
 Callbacks.add("command", dispatch)

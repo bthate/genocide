@@ -14,7 +14,7 @@ import traceback
 
 
 from .obj import Class, Config, Default, format, items, spl
-from .hdl import Callbacks, Commands, Event, Table, getmain, launch
+from .hdl import Callbacks, Commands, Event, Table, launch
 
 
 def boot():
@@ -87,6 +87,7 @@ def isopt(opts):
         if o in Config.opts:
             return True
 
+
 def scan(dn, intro=False):
     mods = []
     for mod in scandir(dn):
@@ -147,6 +148,7 @@ def wait():
         time.sleep(1.0)
         for err in Callbacks.errors:
             traceback.print_exception(type(err), err, err.__traceback__)
+
 
 def wrap(func):
     fd = sys.stdin.fileno()

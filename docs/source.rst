@@ -6,22 +6,13 @@
 
 .. title:: Source
 
-
-.. raw:: html
-
-     <center><h2><b>SOURCE</b></h2></center>
-     <br>
-
-
-**genocide**
-
 .. raw:: html
 
     <br>
 
 .. autosummary::
     :toctree: 
-    :template: base.rst
+    :template: module.rst
 
     genocide.bsc		basic commands
     genocide.hdl		event handler

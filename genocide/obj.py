@@ -268,6 +268,7 @@ def values(o):
 class ObjectDecoder(json.JSONDecoder):
 
     def decode(self, s, _w=None):
+        ""
         v = json.loads(s)
         o = Object()
         update(o, v)
@@ -277,6 +278,7 @@ class ObjectDecoder(json.JSONDecoder):
 class ObjectEncoder(json.JSONEncoder):
 
     def default(self, o):
+        ""
         if isinstance(o, dict):
             return o.items()
         if isinstance(o, Object):

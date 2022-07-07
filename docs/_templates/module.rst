@@ -9,7 +9,7 @@
 
 .. raw:: html
 
-    <br><br>
+    <br>
 
 .. automodule:: {{ fullname }}
     :members:
@@ -24,6 +24,7 @@
     {%- endfor %}
     {% endif %}
     {% endblock %}
+
 
     {% block classes %}
     {% if classes %}

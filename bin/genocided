@@ -2,16 +2,13 @@
 # This file is placed in the Public Domain.
 
 
-"OTP-CR-117/19"
+"Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
-from genocide.irc import IRC
+import time
+
+
 from genocide.obj import Config
-from genocide.run import boot, wait
-from genocide.mdl import init
-
-
-import genocide.bsc
 
 
 Config.name = "genocide"
@@ -19,12 +16,34 @@ Config.threaded = False
 Config.version = "71"
 Config.workdir = "/var/lib/genocide"
 
+from genocide.irc import Config as IConfig
+
+IConfig.cc = "!"
+IConfig.channel = "#genocide"
+IConfig.nick = "genocide"
+IConfig.password = ""
+IConfig.port = 6667
+IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
+IConfig.sasl = False
+IConfig.server = "localhost"
+IConfig.servermodes = ""
+IConfig.sleep = 60
+IConfig.username = "genocide"
+IConfig.users = False
+
+
+from genocide.irc import IRC
+from genocide.mdl import init
+
+
+import genocide.all
+
 
 def main():
-    boot()
     irc = IRC()
     irc.start()
     init()
-    wait()
+    while 1:
+        time.sleep(1.0)
 
 main()

@@ -117,7 +117,7 @@ rst_prolog = '''.. image:: genocidebig2.png
 
     <center><b>
 
-:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`man <man>` - :ref:`source <source>`
+:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`manual <man>` - :ref:`source <source>`
 
 .. raw:: html
 
@@ -130,7 +130,7 @@ rst_epilog = '''
     <br>
     <center><b>
 
-:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`man <man>` - :ref:`source <source>`
+:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`manual <man>` - :ref:`source <source>`
 
 .. raw:: html
 

@@ -34,6 +34,7 @@ IConfig.users = False
 
 from genocide.irc import IRC
 from genocide.mdl import init
+from genocide.rss import Fetcher
 
 
 import genocide.all
@@ -42,6 +43,8 @@ import genocide.all
 def main():
     irc = IRC()
     irc.start()
+    f = Fetcher()
+    f.start()
     init()
     while 1:
         time.sleep(1.0)

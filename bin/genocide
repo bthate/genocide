@@ -165,7 +165,7 @@ Config.version = "161"
 Config.workdir = os.path.expanduser("~/.genocide")
 
 
-from bot.irc import Config as IConfig
+from genocide.irc import Config as IConfig
 
 
 IConfig.cc = "!"
@@ -187,6 +187,7 @@ from genocide.obj import cdir, find, fntime, format, get, register, save, spl, u
 from genocide.hdl import Callbacks, CLI, Console, dispatch, starttime
 from genocide.irc import IRC
 from genocide.mdl import init as ginit
+from genocide.rss import Fetcher
 
 
 import genocide.all
@@ -212,11 +213,13 @@ def main():
         return c.cmd(" ".join(sys.argv[1:]))
     print("GENOCIDE shell started at %s" % time.ctime(starttime).replace("  ", " "))
     print(format(Config, skip="password"))
-    c = Console()
-    c.start()
     irc = IRC()
     irc.start()
+    f = Fetcher()
+    f.start()
     ginit()
+    c = Console()
+    c.start()
     c.forever()
 
 

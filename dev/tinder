@@ -21,7 +21,7 @@ from genocide.obj import Config
 Config.debug = True
 Config.threaded = False
 Config.verbose = False
-Config.version = 70
+Config.version = 72
 Config.workdir = ".test"
 
 

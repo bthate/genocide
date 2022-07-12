@@ -13,7 +13,7 @@ from genocide.object import Config
 
 Config.name = "genocide"
 Config.threaded = False
-Config.version = "71"
+Config.version = "72"
 Config.workdir = "/var/lib/genocide"
 
 from genocide.irc import Config as IConfig

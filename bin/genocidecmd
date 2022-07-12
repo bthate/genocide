@@ -12,14 +12,12 @@ from genocide.object import Config, cdir
 from genocide.handler import CLI
 
 
-import genocide.bsc
-import genocide.irc
-import genocide.rss
+import genocide.all
 
 
 Config.name = "genocide"
 Config.threaded = False
-Config.version = "71"
+Config.version = "72"
 Config.workdir = "/var/lib/genocide"
 
 

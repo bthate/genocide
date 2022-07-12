@@ -6,7 +6,7 @@
 "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
-__version__ = 71
+__version__ = 72
 
 
 import doctest
@@ -78,7 +78,7 @@ html_theme_options = {
     'github_repo': 'genocide',
     'github_button': False,
     'github_banner': False,
-    'logo': 'skull3.jpg',
+    'logo': 'skull.jpg',
     'link': '#000',
     'link_hover': '#000',
     'nosidebar': True,
@@ -86,7 +86,7 @@ html_theme_options = {
     'show_relbar_top': False,
     'sidebar_width': 0,
 }
-html_favicon = "skull3.jpg"
+html_favicon = "skull.jpg"
 html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
 html_additional_pages = {}
@@ -108,7 +108,7 @@ intersphinx_mapping = {
 intersphinx_cache_limit=1
 
 
-rst_prolog = '''.. image:: genocidebig2.png
+rst_prolog = '''.. image:: genocide.png
     :width: 100%
     :height: 2.2cm
     :target: index.html

@@ -161,7 +161,7 @@ from genocide.object import Config
 
 Config.name = "genocide"
 Config.threaded = False
-Config.version = "161"
+Config.version = "72"
 Config.workdir = os.path.expanduser("~/.genocide")
 
 

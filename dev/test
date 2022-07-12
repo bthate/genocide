@@ -20,6 +20,7 @@ from genocide.object import Config, format
 
 Config.debug = True
 Config.verbose = False
+Config.version = 72
 Config.workdir = ".test"
 
 

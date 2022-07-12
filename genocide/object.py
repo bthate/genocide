@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"program your own commands"
+"Big Object."
 
 
 import copy as copying

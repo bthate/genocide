@@ -15,9 +15,9 @@ import time
 import _thread
 
 
-from genocide.obj import Class, Config, Object
-from genocide.obj import edit, find, format, last, locked, save, update
-from genocide.hdl import Commands, Event, Handler, launch
+from genocide.object import Class, Config, Object
+from genocide.object import edit, find, format, last, locked, save, update
+from genocide.handler import Commands, Event, Handler, launch
 
 
 def __dir__():
@@ -30,6 +30,7 @@ def __dir__():
         "register",
         "remove"
     )
+
 
 def init():
     i = IRC()
@@ -61,22 +62,20 @@ class NoUser(Exception):
     pass
 
 
-## config
-
 
 class Config(Config):
 
     cc = "!"
-    channel = "#genocide"
-    nick = "genocide"
+    channel = "#botlib"
+    nick = "botd"
     password = ""
     port = 6667
-    realname = "OTP-CR-117/19"
+    realname = "the python3 bot namespace"
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "genocide"
+    username = "botlib"
     users = False
 
     def __init__(self):
@@ -98,9 +97,6 @@ class Config(Config):
 Class.add(Config)
 
 
-## IRC event
-
-
 class Event(Event):
 
     def __init__(self):
@@ -115,9 +111,6 @@ class Event(Event):
         self.sock = None
         self.type = "event"
         self.txt = ""
-
-
-## output
 
 
 class TextWrap(textwrap.TextWrapper):
@@ -187,9 +180,6 @@ class Output(Object):
     def stop(self):
         self.dostop.set()
         self.oqueue.put_nowait((None, None))
-
-
-## IRC
 
 
 class IRC(Handler, Output):
@@ -557,9 +547,6 @@ def QUIT(event):
         bot.reconnect()
 
 
-## users
-
-
 class User(Object):
 
     def __init__(self, val=None):
@@ -615,9 +602,6 @@ class Users(Object):
 
 
 Class.add(Users)
-
-
-## commands
 
 
 def cfg(event):

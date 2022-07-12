@@ -7,9 +7,9 @@
 import time
 
 
-from .obj import Object, get, keys, update
-from .hdl import Bus, Commands, Event, launch
-from .tmr import Repeater, elapsed
+from genocide.object import Object, get, keys, update
+from genocide.handler import Bus, Commands, Event, launch
+from genocide.timer import Repeater, elapsed
 
 
 def __dir__():
@@ -124,8 +124,6 @@ year = 365*24*60*60
 source = "https://github.com/bthate/genocide"
 startdate = "2020-01-01 00:00:00"
 starttime = time.mktime(time.strptime(startdate, "%Y-%m-%d %H:%M:%S"))
-
-
 
 
 def daily():

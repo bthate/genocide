@@ -17,8 +17,8 @@ import traceback
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.obj import Class, Config, Default, items, spl
-from genocide.hdl import Callbacks, Commands, Event, Table, launch
+from genocide.object import Class, Config, Default, items, spl
+from genocide.handler import Callbacks, Commands, Event, Table, launch
 
 
 def boot():
@@ -156,7 +156,7 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.obj import Config
+from genocide.object import Config
 
 
 Config.name = "genocide"
@@ -182,11 +182,11 @@ IConfig.username = "genocide"
 IConfig.users = False
 
 
-from genocide.obj import Class, Db, Object
-from genocide.obj import cdir, find, fntime, format, get, register, save, spl, update
-from genocide.hdl import Callbacks, CLI, Console, dispatch, starttime
+from genocide.object import Class, Db, Object
+from genocide.object import cdir, find, fntime, format, get, register, save, spl, update
+from genocide.handler import Callbacks, CLI, Console, dispatch, starttime
 from genocide.irc import IRC
-from genocide.mdl import init as ginit
+from genocide.model import init as ginit
 from genocide.rss import Fetcher
 
 

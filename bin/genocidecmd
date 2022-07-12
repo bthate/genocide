@@ -8,9 +8,8 @@
 import sys
 
 
-from genocide.obj import Config, cdir
-from genocide.hdl import CLI
-from genocide.run import boot, wrap
+from genocide.object import Config, cdir
+from genocide.handler import CLI
 
 
 import genocide.bsc
@@ -31,10 +30,9 @@ class CLI(CLI):
 
 
 def main():
-    boot()
     cdir(Config.workdir)
     c = CLI()
     return c.cmd(" ".join(sys.argv[1:]))
 
 
-wrap(main)
+main()

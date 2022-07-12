@@ -8,7 +8,7 @@
 import time
 
 
-from genocide.obj import Config
+from genocide.object import Config
 
 
 Config.name = "genocide"
@@ -33,7 +33,7 @@ IConfig.users = False
 
 
 from genocide.irc import IRC
-from genocide.mdl import init
+from genocide.model import init
 from genocide.rss import Fetcher
 
 

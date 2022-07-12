@@ -9,7 +9,7 @@ import random
 import unittest
 
 
-from genocide.object import Object, get
+from genocide.object import Config, Object, get
 from genocide.handler import CLI, Command, Commands
 
 

@@ -15,7 +15,7 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.obj import Config
+from genocide.object import Config
 
 
 Config.debug = True
@@ -25,16 +25,13 @@ Config.version = 72
 Config.workdir = ".test"
 
 
-from genocide.hdl import Callbacks, CLI, Command, Commands, Event, Handler
-from genocide.hdl import dispatch, getname, launch
-from genocide.obj import Object, format, get, locked
-from genocide.tmr import elapsed
+from genocide.handler import Callbacks, CLI, Command, Commands, Event, Handler
+from genocide.handler import dispatch, getname, launch
+from genocide.object import Object, format, get, locked
+from genocide.timer import elapsed
 
 
 import genocide.all
-
-
-Callbacks.add("command", dispatch)
 
 
 errors = []

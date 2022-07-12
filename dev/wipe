@@ -1,3 +1,0 @@
-dev/clean
-rm -fR ~/.cache/pip/
-rm -fR env html

@@ -9,12 +9,11 @@ import random
 import unittest
 
 
-from genocide.obj import Object, get
-from genocide.hdl import Command, Commands
+from genocide.object import Object, get
+from genocide.handler import Command, Commands
 
 
-import genocide.bsc
-
+import genocide.basic
 
 
 events = []

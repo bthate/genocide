@@ -10,7 +10,7 @@ import unittest
 
 
 from genocide.object import Object, get
-from genocide.handler import Command, Commands
+from genocide.handler import CLI, Command, Commands
 
 
 import genocide.basic
@@ -29,9 +29,15 @@ param.mre = [""]
 param.thr = [""]
 
 
-def getmain(name):
-    main = __import__("__main__")
-    return getattr(main, name, None)
+class CLI(CLI):
+
+    def raw(self, txt):
+        if Config.verbose:
+            print(txt)
+
+
+c = CLI()
+c.start()
 
 
 def consume(events):
@@ -51,7 +57,6 @@ def consume(events):
 class Test_Commands(unittest.TestCase):
 
     def test_commands(self):
-        c = getmain("c")
         cmds = sorted(Commands.cmd)
         for cmd in cmds:
             if cmd in skip:

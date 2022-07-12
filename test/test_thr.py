@@ -10,12 +10,16 @@ import unittest
 from genocide.handler import Thread
 
 
-def test(event):
-     pass
-
-
 class Test_Threads(unittest.TestCase):
 
+    func = None
+
+    def setUp(self):
+        def test(event):
+            pass
+        self.func = test
+        
+
     def test_thread(self):
-        t = Thread(test, "test")
+        t = Thread(self.func, "test")
         self.assertEqual(type(t), Thread)

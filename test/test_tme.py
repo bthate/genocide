@@ -10,12 +10,14 @@ import unittest
 from genocide.timer import Timer
 
 
-def test(event):
-    pass
-
 
 class Test_Time(unittest.TestCase):
 
+    def setUp(self):
+        def test(event):
+            pass
+        self.func = test
+
     def test_timer(self):
-        t = Timer(60, test)
+        t = Timer(60, self.func)
         self.assertEqual(type(t), Timer)

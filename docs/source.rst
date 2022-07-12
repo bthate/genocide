@@ -21,10 +21,10 @@
     :toctree: 
     :template: module.rst
 
-    genocide.bsc		basic commands
-    genocide.hdl		event handler
+    genocide.basic		basic commands
+    genocide.handler		event handler
     genocide.irc		chat bot
-    genocide.mdl		genocide model
-    genocide.obj		object storage
+    genocide.model		genocide model
+    genocide.object		object storage
     genocide.rss		rss fetcher
-    genocide.tmr		timers
+    genocide.timer		timers

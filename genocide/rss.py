@@ -256,9 +256,6 @@ def dpl(event):
             event.reply("ok")
 
 
-Commands.add(dpl)
-
-
 def ftc(event):
     res = []
     thrs = []
@@ -270,9 +267,6 @@ def ftc(event):
     if res:
         event.reply(",".join([str(x) for x in res]))
         return
-
-
-Commands.add(ftc)
 
 
 def nme(event):
@@ -291,9 +285,6 @@ def nme(event):
     event.reply("ok")
 
 
-Commands.add(nme)
-
-
 def rem(event):
     if not event.args:
         event.reply("rem <stringinurl>")
@@ -308,9 +299,6 @@ def rem(event):
     for o in got:
         save(o)
     event.reply("ok")
-
-
-Commands.add(rem)
 
 
 def rss(event):
@@ -328,6 +316,3 @@ def rss(event):
     o.rss = event.args[0]
     save(o)
     event.reply("ok")
-
-
-Commands.add(rss)

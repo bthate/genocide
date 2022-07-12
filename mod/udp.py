@@ -3,9 +3,6 @@
 
 "udp to irc relay"
 
-import select
-import socket
-import sys
 import time
 
 
@@ -18,6 +15,13 @@ def init(kernel):
     u = UDP()
     u.start()
     return u
+
+def register():
+    Commands.add(udp)
+
+
+def remove():
+    Commands.remove(udp)
 
 
 class Cfg(Object):
@@ -76,6 +80,9 @@ def toudp(host, port, txt):
 
 
 def udp(event):
+    import select
+    import socket
+    import sys
     cfg = Cfg()
     last(cfg)
     if len(sys.argv) > 2:

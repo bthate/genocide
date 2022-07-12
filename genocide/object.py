@@ -4,9 +4,6 @@
 "program your own commands"
 
 
-## imports
-
-
 import copy as copying
 import datetime
 import json
@@ -21,9 +18,6 @@ import types
 import traceback
 import uuid
 import _thread
-
-
-## defines
 
 
 def __dir__():
@@ -62,15 +56,9 @@ def __dir__():
     )
 
 
-## exceptions
-
-
 class ENOPATH(Exception):
 
     pass
-
-
-## big object
 
 
 class Object:
@@ -175,9 +163,6 @@ class Default(Object):
         return self.__dict__.get(k, self._default)
 
 
-## configuration
-
-
 class Config(Default):
 
     debug = False
@@ -185,9 +170,6 @@ class Config(Default):
     threaded = False
     version = "1"
     workdir = ""
-
-
-## dict emulation functions
 
 
 def clear(o):
@@ -262,9 +244,6 @@ def values(o):
         return o.values()
 
 
-## json
-
-
 class ObjectDecoder(json.JSONDecoder):
 
     def decode(self, s, _w=None):
@@ -309,9 +288,6 @@ def load(s, f):
 
 def loads(s):
     return json.loads(s, cls=ObjectDecoder)
-
-
-## database
 
 
 dblock = _thread.allocate_lock()
@@ -572,9 +548,6 @@ def save(o, stime=None):
 
 def spl(txt):
     return [x for x in txt.split(",") if x]
-
-
-## object funtions
 
 
 def diff(o1, o2):

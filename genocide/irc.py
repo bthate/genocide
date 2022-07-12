@@ -66,16 +66,16 @@ class NoUser(Exception):
 class Config(Config):
 
     cc = "!"
-    channel = "#botlib"
-    nick = "botd"
+    channel = "#genocide"
+    nick = "genocide"
     password = ""
     port = 6667
-    realname = "the python3 bot namespace"
+    realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "botlib"
+    username = "genocide"
     users = False
 
     def __init__(self):
@@ -518,7 +518,7 @@ def NOTICE(event):
         txt = "\001VERSION %s %s - %s\001" % (
             "op",
             bot.cfg.version or "1",
-            bot.cfg.username or "OIRC",
+            bot.cfg.username or "genocide",
         )
         bot.command("NOTICE", event.channel, txt)
 
@@ -615,9 +615,6 @@ def cfg(event):
     event.reply("ok")
 
 
-Commands.add(cfg)
-
-
 def dlt(event):
     if not event.args:
         event.reply("dlt <username>")
@@ -629,9 +626,6 @@ def dlt(event):
         event.reply("ok")
         break
 
-Commands.add(dlt)
-
-
 def met(event):
     if not event.args:
         event.reply("met <userhost>")
@@ -641,9 +635,6 @@ def met(event):
     user.perms = ["USER"]
     save(user)
     event.reply("ok")
-
-
-Commands.add(met)
 
 
 def mre(event):
@@ -665,9 +656,6 @@ def mre(event):
     event.reply("%s more in cache" % sz)
 
 
-Commands.add(mre)
-
-
 def pwd(event):
     if len(event.args) != 2:
         event.reply("pwd <nick> <password>")
@@ -677,6 +665,3 @@ def pwd(event):
     bb = base64.b64encode(mb)
     bm = bb.decode("ascii")
     event.reply(bm)
-
-
-Commands.add(pwd)

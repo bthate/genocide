@@ -17,7 +17,7 @@ import _thread
 
 from genocide.object import Class, Config, Object
 from genocide.object import edit, find, format, last, locked, save, update
-from genocide.handler import Commands, Event, Handler, launch
+from genocide.handler import Callbacks, Commands, Event, Handler, launch
 
 
 def __dir__():
@@ -273,7 +273,7 @@ class IRC(Handler, Output):
                 if self.connect(server, port):
                     break
             except Exception as ex:
-                self.errors.append(ex)
+                Callbacks.errors.append(ex)
             time.sleep(self.cfg.sleep)
         self.logon(server, nck)
 

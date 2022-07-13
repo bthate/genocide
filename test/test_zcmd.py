@@ -13,7 +13,7 @@ from genocide.object import Config, Object, get
 from genocide.handler import CLI, Command, Commands
 
 
-import genocide.basic
+import genocide.all
 
 
 events = []

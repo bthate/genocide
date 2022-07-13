@@ -172,6 +172,7 @@ class Callbacks(Object):
             f(e)
         except Exception as ex:
             Callbacks.errors.append(ex)
+            e.ready()
 
     @staticmethod
     def get(cmd):

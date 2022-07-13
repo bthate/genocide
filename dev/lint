@@ -12,10 +12,11 @@ sys.path.insert(0, wd)
 sys.path.insert(0, os.path.join(wd, "lib"))
 
 
-mns = ["genocide"]
+mns = ["genocide", "bin"]
 
 
 mods = [
+        "genocide.basic",
         "genocide.handler",
         "genocide.irc",
         "genocide.model",
@@ -45,8 +46,10 @@ import genocide.all
 def main():
     for mn in mods:
         importlib.import_module(mn)
-    for mn in mns:
+    for mn in mods:
         for line in popen("pylint --extension-pkg-whitelist=mdl -d %s %s" % (txt, mn)):
+            if "10.00/10" in line:
+                continue
             print(line)
 
 main()

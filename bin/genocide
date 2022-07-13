@@ -59,6 +59,9 @@ class CLI(CLI):
 
 class Console(Console):
 
+    def announce(self, txt):
+        pass
+
     def raw(self, txt):
         print(txt)
 

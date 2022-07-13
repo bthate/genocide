@@ -124,8 +124,7 @@ rst_prolog = '''.. image:: genocide.png
     </b>
     </center>
 '''
-rst_epilog = '''
-.. raw:: html
+rst_epilog=""".. raw:: html
 
     <br>
     <center><b>
@@ -135,7 +134,7 @@ rst_epilog = '''
 .. raw:: html
 
     </b></center>
-'''
+"""
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
 autodoc_member_order='groupwise'

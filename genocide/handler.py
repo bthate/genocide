@@ -67,10 +67,10 @@ class Event(Object):
     def parse(self, txt=None, orig=None):
         self.otxt = txt or self.txt
         self.orig = orig or self.orig
-        spl = self.otxt.split()
+        splitted = self.otxt.split()
         args = []
         _nr = -1
-        for w in spl:
+        for w in splitted:
             _nr += 1
             if w.startswith("-"):
                 try:
@@ -348,7 +348,7 @@ def boot(txt):
         setattr(Config, k, v)
     for o in Config.opts:
         if o == "-v":
-           Config.verbose = True 
+            Config.verbose = True
     return e
 
 
@@ -376,17 +376,18 @@ def getname(o):
     return None
 
 
-def init(mns, pn=None, cmds=["init"]):
+def init(mns, pn=None, cmds="init"):
     for mn in spl(mns):
         if pn:
-           mn = pn + "." + mn
+            mn = pn + "." + mn
         mod = Table.get(mn)
         if not mod:
             continue
-        for cmd in cmds:
+        for cmd in spl(cmds):
             c = getattr(mod, cmd, None)
-            if c:
-                c()
+            if not c:
+                continue
+            c()
 
 
 def launch(func, *args, **kwargs):

@@ -26,9 +26,6 @@ def __dir__():
         "Event",
         "IRC",
         "DCC",
-        "init",
-        "reg",
-        "rem",
     )
 
 

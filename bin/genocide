@@ -75,7 +75,6 @@ def from_exception(ex, catch=None):
 
 
 def wait():
-    done = []
     while 1:
         time.sleep(1.0)
         for err in Callbacks.errors:

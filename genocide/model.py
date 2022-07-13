@@ -15,8 +15,8 @@ from genocide.timer import Repeater, elapsed
 def __dir__():
     return (
         "init",
-        "register",
-        "remove"
+        "reg",
+        "rem"
     )
 
 
@@ -34,13 +34,13 @@ def init():
     launch(hourly, name="hourly")
 
 
-def register():
+def reg():
     Commands.add(now)
     Commands.add(sts)
     Commands.add(tpc)
 
 
-def remove():
+def rem():
     Commands.remove(now)
     Commands.remove(sts)
     Commands.remove(tpc)

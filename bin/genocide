@@ -44,10 +44,8 @@ IConfig.users = False
 
 from genocide.object import Class, Db, Object
 from genocide.object import cdir, find, fntime, format, get, items, save, spl, update
-from genocide.handler import Callbacks, CLI, Console, Event, Table, dispatch, starttime
-from genocide.irc import IRC
-from genocide.model import init as ginit
-from genocide.rss import Fetcher
+from genocide.handler import Callbacks, CLI, Console, Event, Handler, Table
+from genocide.handler import boot, getname, init, starttime
 
 
 import genocide.all
@@ -65,72 +63,47 @@ class Console(Console):
         print(txt)
 
 
-def boot():
-    e = Event()
-    e.parse(" ".join(sys.argv[1:]))
-    for k, v in items(e):
-        setattr(Config, k, v)
-    for o in Config.opts:
-        if o == "-v":
-           Config.verbose = True 
-    return e
-
-
-def init(mns, pn="genocide"):
-    for mn in spl(mns):
-        mod = Table.get("%s.%s" % (pn, mn))
-        if mod:
-            try:
-                mod.init()
-            except Exception as ex:
-                Callbacks.errors.append(ex)
-
-
-def register(mns, pn="genocide"):
-    for mn in spl(mns):
-        mod = Table.get("%s.%s" % (pn, mn))
-        if mod:
-            try:
-                mod.register()
-            except Exception as ex:
-                Callbacks.errors.append(ex)
+def from_exception(ex, catch=None):
+    result = []
+    for fr in traceback.extract_tb(ex.__traceback__):
+        fnc = str(fr).split()[-1][:-1]
+        nme = os.sep.join(fr.filename.split(os.sep)[-2:])
+        if catch and catch not in nme:
+            continue
+        result.append("%s %s.%s" % (nme, fnc, fr.lineno))
+    return "\n%s -> %s %s" % (" -> ".join(result), getname(ex), ex)
 
 
 def wait():
+    done = []
     while 1:
         time.sleep(1.0)
         for err in Callbacks.errors:
-            traceback.print_exception(type(err), err, err.__traceback__)
+            print(from_exception(err, "genocide"))
+            Callbacks.errors.remove(err)
 
 
 def wrap(func):
     fd = sys.stdin.fileno()
-    gotterm = True
-    try:
-        old = termios.tcgetattr(fd)
-    except termios.error:
-        gotterm = False
+    old = termios.tcgetattr(fd)
     try:
         func()
     except (EOFError, KeyboardInterrupt):
         print("")
     finally:
-        if gotterm:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old)
-            for err in Callbacks.errors:
-                traceback.print_exception(type(err), err, err.__traceback__)
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+            
 
 def main():
-    boot()
+    boot(" ".join(sys.argv[1:]))
     cdir(Config.workdir)
-    register("irc,rss")
+    init("irc,model,rss", "genocide", "reg")
     if len(sys.argv) > 1:
         c = CLI()
         return c.cmd(" ".join(sys.argv[1:]))
     print("GENOCIDE shell started at %s" % time.ctime(starttime).replace("  ", " "))
     print(format(Config, skip="password"))
-    init("irc,rss")
-    ginit()
+    init("irc,model,rss", "genocide")
     c = Console()
     c.start()
     wait()

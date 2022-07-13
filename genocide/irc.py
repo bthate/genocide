@@ -27,8 +27,8 @@ def __dir__():
         "IRC",
         "DCC",
         "init",
-        "register",
-        "remove"
+        "reg",
+        "rem",
     )
 
 
@@ -38,7 +38,7 @@ def init():
     return i
 
 
-def register():
+def reg():
     Commands.add(cfg)
     Commands.add(dlt)
     Commands.add(met)
@@ -46,7 +46,7 @@ def register():
     Commands.add(pwd)
 
 
-def remove():
+def rem():
     Commands.remove(cfg)
     Commands.remove(dlt)
     Commands.remove(met)
@@ -183,6 +183,7 @@ class Output(Object):
 
 
 class IRC(Handler, Output):
+
 
     def __init__(self):
         Handler.__init__(self)
@@ -456,7 +457,7 @@ class IRC(Handler, Output):
         self.joined.clear()
         Output.start(self)
         Handler.start(self)
-        self.doconnect(self.cfg.server, self.cfg.nick, int(self.cfg.port))
+        launch(self.doconnect, self.cfg.server, self.cfg.nick, int(self.cfg.port))
         if not self.keeprunning:
             launch(self.keep)
 

@@ -26,9 +26,10 @@ from urllib.request import Request, urlopen
 def __dir__():
     return (
         "init",
-        "register",
-        "remove"
+        "reg",
+        "rem",
     )
+
 
 def init():
     f = Fetcher()
@@ -36,7 +37,7 @@ def init():
     return f
 
 
-def register():
+def reg():
     Commands.add(dpl)
     Commands.add(ftc)
     Commands.add(nme)
@@ -44,12 +45,13 @@ def register():
     Commands.add(rss)
 
 
-def remove():
+def rem():
     Commands.remove(dpl)
     Commands.remove(ftc)
     Commands.remove(nme)
     Commands.remove(rem)
     Commands.remove(rss)
+
 
 class Feed(Object):
 

@@ -7,7 +7,7 @@
 import time
 
 
-from genocide.object import Object, get, keys, update
+from genocide.object import Object, get, key, keys, update
 from genocide.handler import Bus, Commands, Event, launch
 from genocide.timer import Repeater, elapsed
 
@@ -175,7 +175,7 @@ def cbnow(e):
 
 
 def cbstats(e):
-    name = e.rest or "psyche"
+    name = e.rest or "psych"
     needed = seconds(nr(name))
     if needed:
         delta = time.time() - starttime
@@ -199,13 +199,13 @@ def now(event):
 
 
 def sts(event):
-    name = event.rest or "psyche"
+    name = event.rest or "psych"
     needed = seconds(nr(name))
     if needed:
         delta = time.time() - starttime
         nrtimes = int(delta/needed)
         nryear = int(year/needed)
-        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
+        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, key(aliases, name, name).lower(),  nryear, elapsed(needed))
         Bus.announce(txt)
 
 

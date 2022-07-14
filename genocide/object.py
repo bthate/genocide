@@ -40,6 +40,7 @@ def __dir__():
         'fromkeys',
         'get',
         'items',
+        'key',
         'keys',
         'last',
         'load',
@@ -196,6 +197,12 @@ def items(o):
         return o.__dict__.items()
     except AttributeError:
         return o.items()
+
+
+def key(o, k, default=None):
+    for kk in keys(o):
+        if k.lower() in kk.lower():
+            return kk
 
 
 def keys(o):

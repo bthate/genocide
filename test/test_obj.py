@@ -39,6 +39,7 @@ attrs1 = (
         'fromkeys',
         'get',
         'items',
+        'key',
         'keys',
         'last',
         'load',

@@ -117,24 +117,13 @@ rst_prolog = '''.. image:: genocide.png
 
     <center><b>
 
-:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`manual <man>` - :ref:`source <source>`
+:ref:`home <home>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`manual <man>` - :ref:`source <source>`
 
 .. raw:: html
 
     </b>
     </center>
 '''
-rst_epilog=""".. raw:: html
-
-    <br>
-    <center><b>
-
-:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`manual <man>` - :ref:`source <source>`
-
-.. raw:: html
-
-    </b></center>
-"""
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
 autodoc_member_order='groupwise'

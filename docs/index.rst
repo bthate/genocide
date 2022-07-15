@@ -1,5 +1,10 @@
 .. _home:
 
+
+.. raw:: html
+
+    <br>
+
 .. title:: OTP-CR-117/19
 
 .. image:: skullagain.jpg
@@ -8,15 +13,9 @@
 
 .. raw:: html
 
-    In 2018 i wrote the king of the netherlands that what he calls medicine in
-    his laws are in fact not medicine but poison. Proof of being poison of these
-    medicine were shown to the king, bringing him in the "knowing" was confirmed
-    by the king saying "he has taken note of what i have written (zyprexa is poison)".
-    <br><br>
-    This makes the care laws the king employs not care laws but genocide laws with 
-    which the king is killing groups of the population (elderly, handicapped, criminals
-    and psychiatric patients) by giving them poison instead of medicine in the "care" 
-    they are forced to undergo.
+    <center><i>
+    By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands.
+    </i><center>
     <br><br>
     I wrote the prosecutor asking for an arrest of the king (make him stop).
     Prosecutor decided to call it a "no basis to proceed", it requires a

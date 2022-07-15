@@ -85,3 +85,14 @@ There is proof the medication used in forced treatements in the netherlands are 
 .. image:: ECHAabilify.png
      :width: 100%
 
+
+.. raw:: html
+
+    <br>
+    <center><b>
+
+:ref:`home <home>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`manual <man>` - :ref:`source <source>`
+
+.. raw:: html
+
+    </b></center>

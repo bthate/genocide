@@ -28,3 +28,15 @@
     genocide.object		object storage
     genocide.rss		rss fetcher
     genocide.timer		timers
+
+
+.. raw:: html
+
+    <br>
+    <center><b>
+
+:ref:`home <home>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`manual <man>` - :ref:`source <source>`
+
+.. raw:: html
+
+    </b></center>

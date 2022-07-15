@@ -9,7 +9,7 @@ import sys
 
 
 from genocide.object import Config, cdir
-from genocide.handler import CLI
+from genocide.handler import CLI, init
 
 
 import genocide.all
@@ -29,6 +29,7 @@ class CLI(CLI):
 
 def main():
     cdir(Config.workdir)
+    init("irc,rss,model", "genocide", "reg")
     c = CLI()
     return c.cmd(" ".join(sys.argv[1:]))
 

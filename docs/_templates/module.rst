@@ -62,7 +62,7 @@
    <br>
    <center><b>
 
-:ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`manual <man>` - :ref:`source <source>`
+:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>`
 
 .. raw:: html
 

@@ -188,8 +188,8 @@ def fromkeys(iterable, value=None):
     return o
 
 
-def get(o, key, default=None):
-    return o.__dict__.get(key, default)
+def get(o, k, default=None):
+    return o.__dict__.get(k, default)
 
 
 def items(o):
@@ -230,10 +230,10 @@ def popitem(o):
     raise KeyError
 
 
-def setdefault(o, key, default=None):
-    if key not in o:
-        o[key] = default
-    return o[key]
+def setdefault(o, k, default=None):
+    if k not in o:
+        o[k] = default
+    return o[k]
 
 
 def update(o, data):
@@ -566,8 +566,8 @@ def diff(o1, o2):
 
 
 def edit(o, setter):
-    for key, v in items(setter):
-        register(o, key, v)
+    for k, v in items(setter):
+        register(o, k, v)
 
 
 def format(o, args="", skip="_", empty=False, plain=False, **kwargs):

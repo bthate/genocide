@@ -21,14 +21,14 @@ def __dir__():
 
 
 def init():
-    for key in keys(oorzaken):
-        val = get(oorzaken, key, None)
+    for k in keys(oorzaken):
+        val = get(oorzaken, k, None)
         if val and int(val) > 10000:
             e = Event()
             e.txt = ""
-            e.rest = key
+            e.rest = k
             sec = seconds(val)
-            repeater = Repeater(sec, cbstats, e, name=get(aliases, key))
+            repeater = Repeater(sec, cbstats, e, name=get(aliases, k))
             repeater.start()
     launch(daily, name="daily")
     launch(hourly, name="hourly")
@@ -92,13 +92,13 @@ oorzaken = Object()
 
 
 nr = -1
-for k in keys(oorzaak):
+for kk in keys(oorzaak):
     nr += 1
     if nr == 0:
         continue
-    if k.startswith('"'):
-        k = k[1:]
-    l = k.split("/")
+    if kk.startswith('"'):
+        kk = kk[1:]
+    l = kk.split("/")
     if len(l) > 1 and not l[1].startswith("Totaal"):
         continue
     a = l[0].replace('(aantal)"', "")
@@ -148,15 +148,15 @@ def seconds(nrs):
 
 
 def nr(name):
-    for key in keys(oorzaken):
-        if name.lower() in key.lower():
-            return int(get(oorzaken, key))
+    for k in keys(oorzaken):
+        if name.lower() in k.lower():
+            return int(get(oorzaken, k))
     return 0
 
 
-def iswanted(key, line):
+def iswanted(k, line):
     for w in line:
-        if w in key:
+        if w in k:
             return True
     return False
 

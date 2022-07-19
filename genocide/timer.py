@@ -9,8 +9,8 @@ import threading
 import time
 
 
-from genocide.object import Object
-from genocide.handler import getname, launch
+from object import Object
+from handler import getname, launch
 
 
 def __dir__():

@@ -15,9 +15,9 @@ import time
 import _thread
 
 
-from genocide.object import Class, Config, Object
-from genocide.object import edit, find, format, last, locked, save, update
-from genocide.handler import Callbacks, Commands, Event, Handler, launch
+from object import Class, Config, Object
+from object import edit, find, format, last, locked, save, update
+from handler import Callbacks, Commands, Event, Handler, launch
 
 
 def __dir__():
@@ -60,26 +60,29 @@ class NoUser(Exception):
 
 
 
+name = Config.name
+
+
 class Config(Config):
 
     cc = "!"
-    channel = "#genocide"
-    nick = "genocide"
+    channel = "#%s" % name
+    nick = name
     password = ""
     port = 6667
-    realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
+    realname = name
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "genocide"
+    username = name
     users = False
 
     def __init__(self):
         super().__init__()
         self.cc = Config.cc
         self.channel = Config.channel
-        self.nick = Config.nick
+        self.nick = Config.nick or name
         self.password = Config.password
         self.port = Config.port
         self.realname = Config.realname
@@ -328,7 +331,7 @@ class IRC(Handler, Output):
         self.raw("NICK %s" % nck)
         self.raw(
             "USER %s %s %s :%s"
-            % (self.cfg.username or "bot",
+            % (self.cfg.username,
                server,
                server,
                self.cfg.realname or "bot")
@@ -515,8 +518,8 @@ def NOTICE(event):
     if event.txt.startswith("VERSION"):
         txt = "\001VERSION %s %s - %s\001" % (
             "op",
-            bot.cfg.version or "1",
-            bot.cfg.username or "genocide",
+            bot.cfg.version,
+            bot.cfg.username,
         )
         bot.command("NOTICE", event.channel, txt)
 

@@ -2,23 +2,54 @@
 # This file is placed in the Public Domain.
 
 
-"OTP-CR-117/19"
+"Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
+name = "genocide"
+
+
+import os
 import sys
 
 
-from genocide.object import Config, cdir
-from genocide.handler import CLI, init
+mod = __import__(name)
 
 
-import genocide.all
+sys.path.insert(0, os.path.dirname(mod.__file__))
 
 
-Config.name = "genocide"
+from object import Config
+from version import __version__
+
+
+Config.name = name
 Config.threaded = False
-Config.version = "72"
-Config.workdir = "/var/lib/genocide"
+Config.version = __version__
+Config.workdir = "/var/lib/%s" % Config.name
+
+
+from handler import Table
+
+
+import basic
+import model
+import irc
+import rss
+
+
+Table.add(basic)
+Table.add(model)
+Table.add(irc)
+Table.add(rss)
+
+
+from irc import Config as IConfig
+
+
+IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
+
+
+from handler import CLI
 
 
 class CLI(CLI):
@@ -27,9 +58,13 @@ class CLI(CLI):
         print(txt)
 
 
+from object import cdir
+from handler import init
+
+
 def main():
     cdir(Config.workdir)
-    init("irc,rss,model", "genocide", "reg")
+    init("basic,irc,rss,model", None, "reg")
     c = CLI()
     return c.cmd(" ".join(sys.argv[1:]))
 

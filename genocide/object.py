@@ -427,8 +427,12 @@ class Db(Object):
 def fntime(daystr):
     daystr = daystr.replace("_", ":")
     datestr = " ".join(daystr.split(os.sep)[-2:])
-    datestr = datestr.split(".")[0]
-    return time.mktime(time.strptime(datestr, "%Y-%m-%d %H:%M:%S"))
+    datestr, rest = datestr.split(".")
+    t = time.mktime(time.strptime(datestr, "%Y-%m-%d %H:%M:%S"))
+    try:
+        return t + float("0.%s" % rest)
+    except ValueError:
+        return t
 
 
 @locked(dblock)

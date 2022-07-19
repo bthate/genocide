@@ -10,7 +10,7 @@ import time
 import types
 
 
-from genocide.object import Class, Config, Default, Object, get, items, register, spl
+from object import Class, Config, Default, Object, get, items, register, spl
 
 
 def __dir__():

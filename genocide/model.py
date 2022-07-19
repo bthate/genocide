@@ -7,9 +7,9 @@
 import time
 
 
-from genocide.object import Object, get, key, keys, update
-from genocide.handler import Bus, Commands, Event, launch
-from genocide.timer import Repeater, elapsed
+from object import Object, get, key, keys, update
+from handler import Bus, Commands, Event, launch
+from timer import Repeater, elapsed
 
 
 def __dir__():

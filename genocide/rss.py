@@ -12,10 +12,10 @@ import threading
 import urllib
 
 
-from genocide.object import Class, Config, Db, Object
-from genocide.object import edit, find, get, last, save, spl, update
-from genocide.handler import Bus, Commands, getname, launch
-from genocide.timer import Repeater, elapsed
+from object import Class, Config, Db, Object
+from object import edit, find, get, last, save, spl, update
+from handler import Bus, Commands, getname, launch
+from timer import Repeater, elapsed
 
 
 from urllib.error import HTTPError, URLError

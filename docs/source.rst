@@ -9,7 +9,7 @@
 
 .. title:: Source
 
-**GCID** provides the following modules:
+**GENOCIDE** provides the following modules:
 
 
 .. raw:: html
@@ -20,11 +20,11 @@
     :toctree: 
     :template: module.rst
 
-    gcid.basic		basic commands
-    gcid.handler	event handler
-    gcid.irc		chat bot
-    gcid.model		genocide model
-    gcid.object		object storage
-    gcid.rss		rss fetcher
-    gcid.timer		timers
+    genocide.basic		basic commands
+    genocide.handler		event handler
+    genocide.irc		chat bot
+    genocide.model		genocide model
+    genocide.object		object storage
+    genocide.rss		rss fetcher
+    genocide.timer		timers
 

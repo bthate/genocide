@@ -7,7 +7,7 @@
 
 
 __name__ = "genocide"
-__version__ = "72"
+__version__ = "73"
 
 
 import doctest

@@ -12,14 +12,8 @@ import os
 import sys
 
 
-mod = __import__(name)
-
-
-sys.path.insert(0, os.path.dirname(mod.__file__))
-
-
-from object import Config
-from version import __version__
+from genocide.object import Config
+from genocide.version import __version__
 
 
 Config.name = name
@@ -28,28 +22,28 @@ Config.version = __version__
 Config.workdir = "/var/lib/%s" % Config.name
 
 
-from handler import Table
+from genocide.handler import Table
 
 
-import basic
-import model
-import irc
-import rss
+import genocide.basic
+import genocide.model
+import genocide.irc
+import genocide.rss
 
 
-Table.add(basic)
-Table.add(model)
-Table.add(irc)
-Table.add(rss)
+Table.add(genocide.basic)
+Table.add(genocide.model)
+Table.add(genocide.irc)
+Table.add(genocide.rss)
 
 
-from irc import Config as IConfig
+from genocide.irc import Config as IConfig
 
 
 IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
-from handler import CLI
+from genocide.handler import CLI
 
 
 class CLI(CLI):
@@ -58,13 +52,13 @@ class CLI(CLI):
         print(txt)
 
 
-from object import cdir
-from handler import init
+from genocide.object import cdir
+from genocide.handler import init
 
 
 def main():
     cdir(Config.workdir)
-    init("basic,irc,rss,model", None, "reg")
+    init("basic,irc,rss,model", "genocide", "reg")
     c = CLI()
     return c.cmd(" ".join(sys.argv[1:]))
 

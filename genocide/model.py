@@ -7,9 +7,9 @@
 import time
 
 
-from object import Object, get, key, keys, update
-from handler import Bus, Commands, Event, launch
-from timer import Repeater, elapsed
+from .object import Object, get, key, keys, update
+from .handler import Bus, Commands, Event, launch
+from .timer import Repeater, elapsed
 
 
 def __dir__():
@@ -22,6 +22,8 @@ def __dir__():
 
 def init():
     for k in keys(oorzaken):
+        if "pysch" not in k:
+            continue
         val = get(oorzaken, k, None)
         if val and int(val) > 10000:
             e = Event()
@@ -31,7 +33,7 @@ def init():
             repeater = Repeater(sec, cbstats, e, name=get(aliases, k))
             repeater.start()
     launch(daily, name="daily")
-    launch(hourly, name="hourly")
+    #launch(hourly, name="hourly")
 
 
 def reg():

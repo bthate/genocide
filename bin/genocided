@@ -13,14 +13,8 @@ import sys
 import time
 
 
-mod = __import__(name)
-
-
-sys.path.insert(0, os.path.dirname(mod.__file__))
-
-
-from object import Config
-from version import __version__
+from genocide.object import Config
+from genocide.version import __version__
 
 
 Config.name = name
@@ -29,15 +23,15 @@ Config.version = __version__
 Config.workdir = "/var/lib/%s" % Config.name
 
 
-from irc import Config as IConfig
+from genocide.irc import Config as IConfig
 
 
 IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
-from irc import IRC
-from model import init
-from rss import Fetcher
+from genocide.irc import IRC
+from genocide.model import init
+from genocide.rss import Fetcher
 
 
 def main():

@@ -18,14 +18,8 @@ import traceback
 sys.path.insert(0, os.getcwd())
 
 
-mod = __import__(name)
-print(mod.__file__)
-
-sys.path.insert(0, os.path.dirname(mod.__file__))
-
-
-from object import Config
-from version import __version__
+from genocide.object import Config
+from genocide.version import __version__
 
 
 Config.name = name
@@ -34,28 +28,28 @@ Config.version = __version__
 Config.workdir = os.path.expanduser("~/.%s" % Config.name)
 
 
-from irc import Config as IConfig
+from genocide.irc import Config as IConfig
 
 
 IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
-from object import Class, Db, Object
-from object import cdir, find, fntime, format, get, items, save, spl, update
-from handler import Callbacks, CLI, Commands, Console, Event, Handler, Table
-from handler import boot, getname, init, starttime
+from genocide.object import Class, Db, Object
+from genocide.object import cdir, find, fntime, format, get, items, save, spl, update
+from genocide.handler import Callbacks, CLI, Commands, Console, Event, Handler, Table
+from genocide.handler import boot, getname, init, starttime
 
 
-import basic 
-import irc
-import model
-import rss
+import genocide.basic 
+import genocide.irc
+import genocide.model
+import genocide.rss
 
 
-Table.add(basic)
-Table.add(irc)
-Table.add(model)
-Table.add(rss)
+Table.add(genocide.basic)
+Table.add(genocide.irc)
+Table.add(genocide.model)
+Table.add(genocide.rss)
 
 
 class CLI(CLI):
@@ -111,8 +105,8 @@ def main():
         c = CLI()
         return c.cmd(" ".join(sys.argv[1:]))
     print("%s shell started at %s" % (Config.name.upper(), time.ctime(starttime).replace("  ", " ")))
-    init("basic,irc,model,rss", None, "reg")
-    init("irc,model,rss")
+    init("basic,irc,model,rss", "genocide", "reg")
+    init("irc,model,rss", "genocide")
     print(format(Config, skip="password,type"))
     c = Console()
     c.start()

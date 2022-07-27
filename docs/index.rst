@@ -19,9 +19,8 @@
     This makes the care laws used in the netherlands to provide care to elderly and handicapped, criminals and psychiatric patients not care laws but genocide laws with which the king is killing groups of the population by giving them poison instead of medicine in the "care" they are forced to undergo. 
     <br><br>
     <center>"By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands."</center>
-    <br><br>
+    <br>
     I wrote the prosecutor asking for an arrest of the king (make him stop). Prosecutor decided to call it a "no basis to proceed", it requires a <a href="reconsider.html">reconsider</a> of the prosecutor to get the king in his cell and his genocide, thereby, stopped.
-    <br><br>
 
 
 .. toctree::

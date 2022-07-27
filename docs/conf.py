@@ -18,6 +18,7 @@ import unittest
 
 curdir = os.getcwd()
 
+
 sys.path.insert(0, os.path.join(curdir, "..", __name__))
 sys.path.insert(0, curdir)
 sys.path.insert(0, os.path.join(curdir, ".."))
@@ -62,7 +63,7 @@ html_title = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]
-html_short_title = "GCID %s" % __version__
+html_short_title = "GENOCIDE %s" % __version__
 html_sidebars = {
     '**': [
         'about.html',
@@ -107,11 +108,7 @@ intersphinx_mapping = {
 intersphinx_cache_limit=1
 
 
-rst_prolog = '''.. raw:: html
-
-    <br>
-
-.. image:: genocide.png
+rst_prolog = '''.. image:: genocide.png
     :width: 100%
     :height: 2.2cm
     :target: index.html

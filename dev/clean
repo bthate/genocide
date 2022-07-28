@@ -6,13 +6,15 @@ import os
 import shutil
 
 
-mods = ["csl", "evt", "hdl", "obj", "rpt",  "rss", "tme", "thr", "usr"]
+mods = ["hdl", "obj"]
 
 
 def popen(txt):
     for l in os.popen(txt).readlines():
         print(l)
 
+for m in mods:
+    popen("rm docs/%s.rst" % m)
 
 popen("rm -fR txt/*~ files/*~ files/__pycache__")
 popen("rm -fR bin/*~ *~ __pycache__")

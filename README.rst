@@ -1,3 +1,8 @@
+"By law, with the use of poison, killing, torturing, castrating, destroying,
+ in whole or in part, all elderly and all handicapped (Wzd), all criminals 
+ (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands."
+
+
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
@@ -51,3 +56,6 @@ effect (1-1-2019), i ask the prosecutor to prosecute the king for making the
 commiting of the above mentioned crimes (killing, torture and impotent making)
 possible here in the netherlands in the hope that it stops the mass torture
 with poison the king of the netherlands and his government are doing.
+
+
+Prosecutor. Court. Reconsider OTP-CR-117/19.

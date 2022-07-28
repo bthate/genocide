@@ -7,6 +7,9 @@
 .. title:: Source
 
 
+**library**
+
+
 .. raw:: html
 
     <br>
@@ -15,10 +18,26 @@
     :toctree: 
     :template: module.rst
 
+    obj			objects
+    hdl			handler
+
+.. raw:: html
+
+    <br>
+
+
+**genocide**
+
+.. raw:: html
+
+    <br>
+
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
     genocide.basic		basic commands
-    genocide.hdl		event handler
     genocide.irc		chat bot
     genocide.model		genocide model
-    genocide.obj		object storage
     genocide.rss		rss fetcher
-    genocide.run		runtime error

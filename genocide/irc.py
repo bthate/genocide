@@ -167,9 +167,9 @@ class Output(Object):
                 c += 1
                 self.dosay(channel, t)
 
-    def size(self, name):
-        if name in self.cache:
-            return len(self.cache[name])
+    def size(self, k):
+        if k in self.cache:
+            return len(self.cache[k])
         return 0
 
     def start(self):

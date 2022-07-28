@@ -12,8 +12,8 @@ import termios
 import time
 
 
-from obj import Config, cdir, items, spl
-from hdl import Callbacks, Event, Table
+from .obj import Config, cdir, items, spl
+from .hdl import Callbacks, Event, Table
 
 
 def boot(txt):

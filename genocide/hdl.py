@@ -11,7 +11,7 @@ import time
 import types
 
 
-from obj import Class, Config, Default, Object, get, register
+from .obj import Class, Config, Default, Object, get, register
 
 
 def __dir__():

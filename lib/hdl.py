@@ -137,18 +137,17 @@ class Commands(Object):
     cmd = Object()
 
     @staticmethod
-    def add(command):
-        register(Commands.cmd, command.__name__, command)
+    def add(cmd):
+        register(Commands.cmd, cmd.__name__, cmd)
 
     @staticmethod
-    def get(command):
-        f =  get(Commands.cmd, command)
-        return f
+    def get(cmd):
+        return get(Commands.cmd, cmd)
 
 
     @staticmethod
-    def remove(command):
-        del Commands.cmd[command]
+    def remove(cmd):
+        del Commands.cmd[cmd]
 
 
 class Event(Object):
@@ -388,6 +387,7 @@ class CLI(Handler):
         c.orig = repr(self)
         c.txt = txt
         self.handle(c)
+        print(c)
         c.wait()
 
     def raw(self, txt):
@@ -418,6 +418,7 @@ class Console(CLI):
 def dispatch(e):
     e.parse()
     f = Commands.get(e.cmd)
+    print(f)
     if f:
         f(e)
         e.show()

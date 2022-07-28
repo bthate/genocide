@@ -6,15 +6,14 @@
 
 
 name = "genocide"
-
+__version__ = "73"
 
 import os
 import sys
 import time
 
 
-from genocide.object import Config
-from genocide.version import __version__
+from obj import Config
 
 
 Config.name = name

@@ -5,24 +5,23 @@
 "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
-name = "genocide"
+__version__ = "73"
 
 
 import os
 import sys
 
 
-from genocide.object import Config
-from genocide.version import __version__
+from obj import Config
 
 
-Config.name = name
+Config.name = "genocidecmd"
 Config.threaded = False
 Config.version = __version__
-Config.workdir = "/var/lib/%s" % Config.name
+Config.workdir = "/var/lib/genocide/"
 
 
-from genocide.handler import Table
+from hdl import Table
 
 
 import genocide.basic
@@ -43,17 +42,43 @@ from genocide.irc import Config as IConfig
 IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
-from genocide.handler import CLI
+from obj import cdir, format, items, spl
+from hdl import Callbacks, CLI
 
 
 class CLI(CLI):
 
     def raw(self, txt):
         print(txt)
+        sys.stdout.flush()
 
 
-from genocide.object import cdir
-from genocide.handler import init
+def from_exception(ex, catch=None):
+    result = []
+    for fr in traceback.extract_tb(ex.__traceback__):
+        fnc = str(fr).split()[-1][:-1]
+        nme = os.sep.join(fr.filename.split(os.sep)[-2:])
+        if catch and catch not in nme:
+            continue
+        result.append("%s %s.%s" % (nme, fnc, fr.lineno))
+    return "\n%s -> %s %s" % (" -> ".join(result), getname(ex), ex)
+
+
+def init(mns, pn=None, cmds="init"):
+    for mn in spl(mns):
+        if pn:
+            mn = pn + "." + mn
+        mod = Table.get(mn)
+        if not mod:
+            continue
+        for cmd in spl(cmds):
+            c = getattr(mod, cmd, None)
+            if not c:
+                continue
+            try:
+                c()
+            except Exception as ex:
+                Callbacks.errors.append(ex)
 
 
 def main():
@@ -64,3 +89,8 @@ def main():
 
 
 main()
+
+
+for err in Callbacks.errors:
+    print(from_exception(err, Config.name))
+    Callbacks.errors.remove(err)

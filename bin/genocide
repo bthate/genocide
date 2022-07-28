@@ -8,7 +8,7 @@
 name = "genocide"
 __version__ = "73"
 
-import importlib
+
 import os
 import readline
 import sys
@@ -77,25 +77,6 @@ def from_exception(ex, catch=None):
     return "\n%s -> %s %s" % (" -> ".join(result), getname(ex), ex)
 
 
-def wait():
-    while 1:
-        time.sleep(1.0)
-        for err in Callbacks.errors:
-            print(from_exception(err, Config.name))
-            Callbacks.errors.remove(err)
-
-
-def wrap(func):
-    fd = sys.stdin.fileno()
-    old = termios.tcgetattr(fd)
-    try:
-        func()
-    except (EOFError, KeyboardInterrupt):
-        print("")
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old)
-            
-
 
 def boot(txt):
     e = Event()
@@ -112,7 +93,7 @@ def init(mns, pn=None, cmds="init"):
     for mn in spl(mns):
         if pn:
             mn = pn + "." + mn
-        mod = importlib.import_module(mn)
+        mod = Table.get(mn)
         if not mod:
             continue
         for cmd in spl(cmds):
@@ -135,7 +116,8 @@ def wait():
     while 1:
         time.sleep(1.0)
         for err in Callbacks.errors:
-            traceback.print_exception(type(err), err, err.__traceback__)
+            print(from_exception(err, Config.name))
+            Callbacks.errors.remove(err)
 
 
 def wrap(func):

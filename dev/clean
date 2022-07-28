@@ -14,7 +14,9 @@ def popen(txt):
         print(l)
 
 for m in mods:
-    popen("rm docs/%s.rst" % m)
+    fn = "docs/%s.rst" % m
+    if os.path.exists(fn):
+        popen("rm " + fn)
 
 popen("rm -fR txt/*~ files/*~ files/__pycache__")
 popen("rm -fR bin/*~ *~ __pycache__")

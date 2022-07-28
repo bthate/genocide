@@ -387,7 +387,6 @@ class CLI(Handler):
         c.orig = repr(self)
         c.txt = txt
         self.handle(c)
-        print(c)
         c.wait()
 
     def raw(self, txt):
@@ -418,7 +417,6 @@ class Console(CLI):
 def dispatch(e):
     e.parse()
     f = Commands.get(e.cmd)
-    print(f)
     if f:
         f(e)
         e.show()

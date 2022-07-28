@@ -7,9 +7,9 @@
 import time
 
 
-from .object import Object, get, key, keys, update
-from .handler import Bus, Commands, Event, launch
-from .timer import Repeater, elapsed
+from obj import Object, get, key, keys, update
+from hdl import Bus, Commands, Event, Repeater
+from hdl import elapsed, launch
 
 
 def __dir__():
@@ -22,8 +22,6 @@ def __dir__():
 
 def init():
     for k in keys(oorzaken):
-        if "pysch" not in k:
-            continue
         val = get(oorzaken, k, None)
         if val and int(val) > 10000:
             e = Event()

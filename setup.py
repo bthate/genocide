@@ -34,7 +34,12 @@ setup(
     author_email='bthate67@gmail.com', 
     description="Prosecutor. Court. Reonsider OTP-CR-117/19.",
     long_description=read(),
+    package_dir={
+                 "": "lib",
+                 "genocide": "genocide"
+                },
     license='Public Domain',
+    py_modules=["obj", "hdl", "run"],
     packages=["genocide"],
     zip_safe=True,
     include_package_data=True,

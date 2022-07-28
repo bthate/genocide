@@ -8,9 +8,9 @@ import threading
 import time
 
 
-from .object import Class, Config, Db, Object
-from .object import find, fntime, format, get, save, update
-from .handler import Bus, Commands, getname, starttime
+from obj import Class, Config, Db, Object
+from obj import find, fntime, format, get, save, update
+from hdl import Bus, Commands, getname, starttime
 
 
 def reg():
@@ -161,14 +161,14 @@ def log(event):
     event.reply("ok")
 
 
-
-
 def tdo(event):
     if not event.rest:
         nr = 0
         for _fn, o in find("todo"):
             event.reply("%s %s %s" % (nr, o.txt, elapsed(time.time() - fntime(_fn))))
             nr += 1
+        else:
+            event.reply("no todo items yet.")
         return
     o = Todo()
     o.txt = event.rest

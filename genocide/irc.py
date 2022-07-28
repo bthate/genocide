@@ -15,9 +15,9 @@ import time
 import _thread
 
 
-from .object import Class, Config, Object
-from .object import edit, find, format, last, locked, save, update
-from .handler import Callbacks, Commands, Event, Handler, launch
+from obj import Class, Config, Object
+from obj import edit, find, format, last, locked, save, update
+from hdl import Callbacks, Commands, Event, Handler, launch
 
 
 def __dir__():

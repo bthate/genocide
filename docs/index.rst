@@ -10,15 +10,7 @@
     <br>
 
 In 2018 i informed the king of the netherlands that what he calls medicine in his care laws are not medicine but poison. 
-Poison, thus genocide laws.
-
-.. raw:: html
-
-    <center>
-    The prosecutor decided to call it a "no basis to proceed".
-    <br><br>
-    So call it a "basis to prosecute" and stop genocide !
-    </center>
+Poison thus genocide laws.
 
 .. raw:: html
 

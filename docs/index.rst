@@ -12,12 +12,10 @@
 In 2018 i informed the king of the netherlands that what he calls medicine in his care laws are not medicine but poison. 
 This makes the care laws used in the netherlands not care laws but genocide laws.
 
-I wrote the prosecutor asking for an arrest of the king of the netherlands (make him stop). Prosecutor decided to call it a "no basis to proceed", it requires a
-reconsider of the prosecutor to get the king in his cell and his genocide, thereby, stopped.
+The prosecutor decided to call it a "no basis to proceed", it requires a reconsider of the prosecutor to get the king in his cell and his genocide, thereby, stopped.
 
 .. raw:: html
 
-    <br>
     <center><b>Prosecutor. Court. <a href="reconsider.html">Reconsider OTP-CR-117/19.</a></b></center>
 
 

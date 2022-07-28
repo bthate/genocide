@@ -1,15 +1,10 @@
 .. _source:
 
-
 .. raw:: html
 
-     <br><br>
-     <center><h3><b>SOURCE</b></h3></center>
-     <br>
+    <br><br>
 
 .. title:: Source
-
-**GENOCIDE** provides the following modules:
 
 
 .. raw:: html

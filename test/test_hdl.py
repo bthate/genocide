@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.handler import Handler
+from genocide.hdl import Handler
 
 
 

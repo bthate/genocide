@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.handler import Table
+from genocide.hdl import Table
 
 
 

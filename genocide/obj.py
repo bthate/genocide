@@ -40,6 +40,7 @@ def __dir__():
         'fromkeys',
         'get',
         'items',
+        'key',
         'keys',
         'last',
         'load',

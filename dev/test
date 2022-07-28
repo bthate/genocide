@@ -12,10 +12,9 @@ import unittest
 
 
 sys.path.insert(0, os.getcwd())
-sys.path.insert(0, "lib")
 
 
-from genocide.object import Config, format
+from genocide.obj import Config, format
 
 
 Config.debug = True
@@ -24,7 +23,7 @@ Config.version = 72
 Config.workdir = ".test"
 
 
-from genocide.handler import Callbacks, Command, Handler, dispatch
+from genocide.hdl import Callbacks, Command, Handler, dispatch
 
 
 Callbacks.threaded = False

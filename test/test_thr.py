@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.handler import Thread
+from genocide.hdl import Thread
 
 
 class Test_Threads(unittest.TestCase):

@@ -16,10 +16,9 @@
     :template: module.rst
 
     genocide.basic		basic commands
-    genocide.handler		event handler
+    genocide.hdl		event handler
     genocide.irc		chat bot
     genocide.model		genocide model
-    genocide.object		object storage
+    genocide.obj		object storage
     genocide.rss		rss fetcher
-    genocide.timer		timers
-
+    genocide.run		runtime error

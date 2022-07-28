@@ -6,8 +6,9 @@
 
 
 name = "genocide"
+__version__ = "73"
 
-
+import importlib
 import os
 import readline
 import sys
@@ -21,9 +22,6 @@ sys.path.insert(0, "lib")
 
 
 from obj import Config
-
-
-from genocide.version import __version__
 
 
 Config.name = name
@@ -42,7 +40,6 @@ from obj import Class, Db, Object
 from obj import cdir, find, fntime, format, get, items, save, spl, update
 from hdl import Callbacks, CLI, Commands, Console, Event, Handler, Table
 from hdl import getname, starttime
-from run import boot, init
 
 
 import genocide.basic 
@@ -98,6 +95,66 @@ def wrap(func):
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
             
+
+
+def boot(txt):
+    e = Event()
+    e.parse(txt)
+    for k, v in items(e):
+        setattr(Config, k, v)
+    for o in Config.opts:
+        if o == "-v":
+           Config.verbose = True 
+    return e
+
+
+def init(mns, pn=None, cmds="init"):
+    for mn in spl(mns):
+        if pn:
+            mn = pn + "." + mn
+        mod = importlib.import_module(mn)
+        if not mod:
+            continue
+        for cmd in spl(cmds):
+            c = getattr(mod, cmd, None)
+            if not c:
+                continue
+            try:
+                c()
+            except Exception as ex:
+                Callbacks.errors.append(ex)
+
+
+def isopt(opts):
+    for o in opts:
+        if o in Config.opts:
+            return True
+
+
+def wait():
+    while 1:
+        time.sleep(1.0)
+        for err in Callbacks.errors:
+            traceback.print_exception(type(err), err, err.__traceback__)
+
+
+def wrap(func):
+    fd = sys.stdin.fileno()
+    gotterm = True
+    try:
+        old = termios.tcgetattr(fd)
+    except termios.error:
+        gotterm = False
+    try:
+        func()
+    except (EOFError, KeyboardInterrupt):
+        print("")
+    finally:
+        if gotterm:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old)
+            for err in Callbacks.errors:
+                traceback.print_exception(type(err), err, err.__traceback__)
+
 
 def main():
     boot(" ".join(sys.argv[1:]))

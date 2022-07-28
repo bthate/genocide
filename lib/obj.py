@@ -4,9 +4,6 @@
 "program your own commands"
 
 
-## imports
-
-
 import copy as copying
 import datetime
 import json
@@ -21,9 +18,6 @@ import types
 import traceback
 import uuid
 import _thread
-
-
-## defines
 
 
 def __dir__():
@@ -46,6 +40,7 @@ def __dir__():
         'fromkeys',
         'get',
         'items',
+        'key',
         'keys',
         'last',
         'load',
@@ -62,15 +57,9 @@ def __dir__():
     )
 
 
-## exceptions
-
-
 class ENOPATH(Exception):
 
     pass
-
-
-## big object
 
 
 class Object:
@@ -175,9 +164,6 @@ class Default(Object):
         return self.__dict__.get(k, self._default)
 
 
-## configuration
-
-
 class Config(Default):
 
     debug = False
@@ -185,9 +171,6 @@ class Config(Default):
     threaded = False
     version = "1"
     workdir = ""
-
-
-## dict emulation functions
 
 
 def clear(o):
@@ -205,8 +188,8 @@ def fromkeys(iterable, value=None):
     return o
 
 
-def get(o, key, default=None):
-    return o.__dict__.get(key, default)
+def get(o, k, default=None):
+    return o.__dict__.get(k, default)
 
 
 def items(o):
@@ -247,10 +230,10 @@ def popitem(o):
     raise KeyError
 
 
-def setdefault(o, key, default=None):
-    if key not in o:
-        o[key] = default
-    return o[key]
+def setdefault(o, k, default=None):
+    if k not in o:
+        o[k] = default
+    return o[k]
 
 
 def update(o, data):
@@ -266,9 +249,6 @@ def values(o):
         return o.__dict__.values()
     except TypeError:
         return o.values()
-
-
-## json
 
 
 class ObjectDecoder(json.JSONDecoder):
@@ -313,9 +293,6 @@ def load(s, f):
 
 def loads(s):
     return json.loads(s, cls=ObjectDecoder)
-
-
-## database
 
 
 dblock = _thread.allocate_lock()
@@ -578,9 +555,6 @@ def spl(txt):
     return [x for x in txt.split(",") if x]
 
 
-## object funtions
-
-
 def diff(o1, o2):
     d = Object()
     for k in keys(o2):
@@ -590,8 +564,8 @@ def diff(o1, o2):
 
 
 def edit(o, setter):
-    for key, v in items(setter):
-        register(o, key, v)
+    for k, v in items(setter):
+        register(o, k, v)
 
 
 def format(o, args="", skip="_", empty=False, plain=False, **kwargs):

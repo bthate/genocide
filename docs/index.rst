@@ -8,12 +8,6 @@
 
     <center><i>"By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands."</i></center>
     <br>
-    <center><b>Prosecutor. Court. Reconsider OTP-CR-117/19.</b></center>
-
-
-.. raw:: html
-
-     <br>
 
 
 | **Information and Evidence Unit**
@@ -70,6 +64,11 @@ prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible here in the netherlands in
 the hope that it stops the mass torture with poison the king of the 
 netherlands and his government are doing.
+
+.. raw:: html
+
+    <br>
+    <center><b>Prosecutor. Court. Reconsider OTP-CR-117/19.</b></center>
 
 
 .. toctree::

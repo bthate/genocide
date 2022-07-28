@@ -65,11 +65,6 @@ prosecute the king for making the commiting of the above mentioned crimes
 the hope that it stops the mass torture with poison the king of the 
 netherlands and his government are doing.
 
-.. raw:: html
-
-    <br>
-    <center><b>Prosecutor. Court. Reconsider OTP-CR-117/19.</b></center>
-
 
 .. toctree::
     :hidden:

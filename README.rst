@@ -1,7 +1,8 @@
 | "By law, with the use of poison, killing, torturing, castrating, destroying,
 | in whole or in part, all elderly and all handicapped (Wzd), all criminals 
 | (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands."
-
+|
+|
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**

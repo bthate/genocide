@@ -7,6 +7,8 @@
 
 .. raw:: html
 
+    <center><i>"poison is a basis to prosecute"</i></center>
+    <br><br>
     In 2018 i informed the king of the netherlands that what he calls medicine in his care laws are not medicine but poison. Proof of these medicine being poison were shown to the king, who's (personal) kabinet wrote back that "the king took note of what i have written".
     Not care but genocide laws.
     <br><br>

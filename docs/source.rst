@@ -7,25 +7,6 @@
 .. title:: Source
 
 
-**library**
-
-
-.. raw:: html
-
-    <br>
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    obj			objects
-    hdl			handler
-
-.. raw:: html
-
-    <br>
-
-
 **genocide**
 
 .. raw:: html
@@ -38,6 +19,8 @@
     :template: module.rst
 
     genocide.basic		basic commands
+    genocide.hdl		handler
     genocide.irc		chat bot
     genocide.model		genocide model
+    genocide.obj		objects
     genocide.rss		rss fetcher

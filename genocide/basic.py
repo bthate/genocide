@@ -8,9 +8,9 @@ import threading
 import time
 
 
-from obj import Class, Config, Db, Object
-from obj import find, fntime, format, get, save, update
-from hdl import Bus, Commands, getname, starttime
+from .obj import Class, Config, Db, Object
+from .obj import find, fntime, format, get, save, update
+from .hdl import Bus, Commands, getname, starttime
 
 
 def reg():

@@ -5,7 +5,6 @@
 "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
-name = "genocide"
 __version__ = "73"
 
 
@@ -18,16 +17,15 @@ import traceback
 
 
 sys.path.insert(0, os.getcwd())
-sys.path.insert(0, "lib")
 
 
-from obj import Config
+from genocide.obj import Config
 
 
-Config.name = name
+Config.name = "genocide"
 Config.threaded = False
 Config.version = __version__
-Config.workdir = os.path.expanduser("~/.%s" % Config.name)
+Config.workdir = os.path.expanduser("~/.genocide")
 
 
 from genocide.irc import Config as IConfig
@@ -35,11 +33,10 @@ from genocide.irc import Config as IConfig
 
 IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
-
-from obj import Class, Db, Object
-from obj import cdir, find, fntime, format, get, items, save, spl, update
-from hdl import Callbacks, CLI, Commands, Console, Event, Handler, Table
-from hdl import getname, starttime
+from genocide.obj import Class, Db, Object
+from genocide.obj import cdir, find, fntime, format, get, items, save, spl, update
+from genocide.hdl import Callbacks, CLI, Commands, Console, Event, Handler, Table
+from genocide.hdl import getname, starttime
 
 
 import genocide.basic 
@@ -61,6 +58,9 @@ class CLI(CLI):
 
 
 class Console(Console):
+
+    def announce(self, txt):
+        pass
 
     def raw(self, txt):
         print(txt)

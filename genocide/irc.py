@@ -15,9 +15,9 @@ import time
 import _thread
 
 
-from .obj import Class, Config, Object
-from .obj import edit, find, format, last, locked, save, update
-from .hdl import Callbacks, Commands, Event, Handler, launch
+from obj import Class, Config, Object
+from obj import edit, find, format, last, locked, save, update
+from obh import Callbacks, Commands, Event, Handler, launch
 
 
 def __dir__():
@@ -70,7 +70,7 @@ class Config(Config):
     nick = name
     password = ""
     port = 6667
-    realname = name
+    realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
     sasl = False
     server = "localhost"
     servermodes = ""

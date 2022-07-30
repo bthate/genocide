@@ -7,9 +7,9 @@
 import time
 
 
-from .obj import Object, get, key, keys, update
-from .hdl import Bus, Commands, Event, Repeater
-from .hdl import elapsed, launch
+from obj import Object, get, key, keys, update
+from obh import Bus, Commands, Event, Repeater
+from obh import elapsed, launch
 
 
 def __dir__():

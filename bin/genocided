@@ -8,24 +8,19 @@
 __version__ = "73"
 
 
-import time
+from obj import Config
+from obr import wait
 
 
-from genocide.obj import Config
-from genocide.irc import Config as IConfig
-
-from genocide.irc import IRC
-from genocide.model import init
-from genocide.rss import Fetcher
-
-
-Config.name = "genocided"
+Config.name = "genocide"
 Config.threaded = False
 Config.version = __version__
 Config.workdir = "/var/lib/genocide/"
 
 
-IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
+from genocide.irc import IRC
+from genocide.model import init
+from genocide.rss import Fetcher
 
 
 def main():
@@ -34,7 +29,6 @@ def main():
     f = Fetcher()
     f.start()
     init()
-    while 1:
-        time.sleep(1.0)
+    wait()
 
 main()

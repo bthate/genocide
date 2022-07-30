@@ -17,9 +17,10 @@ import traceback
 
 
 sys.path.insert(0, os.getcwd())
+sys.path.insert(0, "lib")
 
 
-from genocide.obj import Config
+from obj import Config
 
 
 Config.name = "genocide"
@@ -33,10 +34,12 @@ from genocide.irc import Config as IConfig
 
 IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
-from genocide.obj import Class, Db, Object
-from genocide.obj import cdir, find, fntime, format, get, items, save, spl, update
-from genocide.hdl import Callbacks, CLI, Commands, Console, Event, Handler, Table
-from genocide.hdl import getname, starttime
+
+from obj import Class, Db, Object
+from obj import cdir, find, fntime, format, get, items, save, spl, update
+from obh import Callbacks, CLI, Commands, Console, Event, Handler, Table
+from obh import getname, starttime
+from obr import boot, init, isopt, wait, wrap
 
 
 import genocide.basic 
@@ -64,78 +67,6 @@ class Console(Console):
 
     def raw(self, txt):
         print(txt)
-
-
-def from_exception(ex, catch=None):
-    result = []
-    for fr in traceback.extract_tb(ex.__traceback__):
-        fnc = str(fr).split()[-1][:-1]
-        nme = os.sep.join(fr.filename.split(os.sep)[-2:])
-        if catch and catch not in nme:
-            continue
-        result.append("%s %s.%s" % (nme, fnc, fr.lineno))
-    return "\n%s -> %s %s" % (" -> ".join(result), getname(ex), ex)
-
-
-
-def boot(txt):
-    e = Event()
-    e.parse(txt)
-    for k, v in items(e):
-        setattr(Config, k, v)
-    for o in Config.opts:
-        if o == "-v":
-           Config.verbose = True 
-    return e
-
-
-def init(mns, pn=None, cmds="init"):
-    for mn in spl(mns):
-        if pn:
-            mn = pn + "." + mn
-        mod = Table.get(mn)
-        if not mod:
-            continue
-        for cmd in spl(cmds):
-            c = getattr(mod, cmd, None)
-            if not c:
-                continue
-            try:
-                c()
-            except Exception as ex:
-                Callbacks.errors.append(ex)
-
-
-def isopt(opts):
-    for o in opts:
-        if o in Config.opts:
-            return True
-
-
-def wait():
-    while 1:
-        time.sleep(1.0)
-        for err in Callbacks.errors:
-            print(from_exception(err, Config.name))
-            Callbacks.errors.remove(err)
-
-
-def wrap(func):
-    fd = sys.stdin.fileno()
-    gotterm = True
-    try:
-        old = termios.tcgetattr(fd)
-    except termios.error:
-        gotterm = False
-    try:
-        func()
-    except (EOFError, KeyboardInterrupt):
-        print("")
-    finally:
-        if gotterm:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old)
-            for err in Callbacks.errors:
-                traceback.print_exception(type(err), err, err.__traceback__)
 
 
 def main():

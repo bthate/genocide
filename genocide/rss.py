@@ -12,10 +12,10 @@ import threading
 import urllib
 
 
-from .obj import Class, Config, Db, Object
-from .obj import edit, find, get, last, save, spl, update
-from .hdl import Bus, Commands, Repeater
-from .hdl import elapsed, getname, launch
+from obj import Class, Config, Db, Object
+from obj import edit, find, get, last, save, spl, update
+from obh import Bus, Commands, Repeater
+from obh import elapsed, getname, launch
 
 
 from urllib.error import HTTPError, URLError

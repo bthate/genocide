@@ -9,7 +9,7 @@
 
 **NAME**
 
- **GENOCIDE** - Prosecutor. Court. Reconsider OTP-CR-117/19.
+ **GENOCIDE** - Prosecutor. Court. Reconsider **OTP-CR-117/19**
 
 
 **SYNOPSIS**

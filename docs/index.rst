@@ -20,11 +20,7 @@
     <i>"By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the netherlands."</i>
     </center>
     <br>
-    Prosecutor decided to call it a "no basis to proceed", it requires a reconsider of the prosecutor to get the king in his cell and his genocide stopped.
-    <center>
-    <br>
-    <b>Prosecutor. Court. <a href="reconsider.html">Reconsider OTP-CR-117/19.</a></b>
-    </center>
+    Call it <a href="reconsider.html">"basis to prosecute"</a> to get the king in his cell, his genocide stopped.
 
 
 .. toctree::

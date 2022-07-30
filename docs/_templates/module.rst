@@ -62,7 +62,8 @@
     <br>
     <center><b>
     
-:ref:`source <source>` - :ref:`manual <man>`
+:ref:`home <home>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>` - :ref:`manual <man>` :ref:`\! <source>`
+
 
 .. raw:: html
 

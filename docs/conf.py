@@ -120,7 +120,6 @@ rst_prolog = '''.. image:: genocide.png
 :ref:`home <home>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>` - :ref:`manual <man>` **!**
 
 
-
 .. raw:: html
 
     </b></center>

@@ -22,7 +22,7 @@
     <br>
     Prosecutor decided to call it a "no basis to proceed", it requires a reconsider of the prosecutor to get the king in his cell and his genocide stopped.
     <center>
-    <br><br>
+    <br>
     <b>Prosecutor. Court. <a href="reconsider.html">Reconsider OTP-CR-117/19.</a></b>
     </center>
 

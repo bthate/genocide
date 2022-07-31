@@ -7,6 +7,16 @@
 .. title:: Source
 
 
+**library**
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+    obj				object
+    obh				handler
+    obr				run
+
 **genocide**
 
 .. raw:: html
@@ -19,8 +29,6 @@
     :template: module.rst
 
     genocide.basic		basic commands
-    genocide.hdl		handler
     genocide.irc		chat bot
     genocide.model		genocide model
-    genocide.obj		objects
     genocide.rss		rss fetcher

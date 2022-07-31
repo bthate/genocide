@@ -6,7 +6,7 @@ import os
 import shutil
 
 
-mods = ["hdl", "obj"]
+mods = ["obh", "obj", "obr"]
 
 
 def popen(txt):

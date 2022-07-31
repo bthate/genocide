@@ -7,7 +7,7 @@
 
 
 __name__ = "genocide"
-__version__ = "73"
+__version__ = "74"
 
 
 import doctest
@@ -117,7 +117,7 @@ rst_prolog = '''.. image:: genocide.png
 
     <center><b>
     
-:ref:`home <home>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>` - :ref:`manual <man>` :ref:`\! <source>`
+:ref:`home <home>` - :ref:`reconsider <reconsider>` - :ref:`request <request>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>` - :ref:`manual <man>`
 
 
 .. raw:: html

@@ -17,10 +17,10 @@ from obj import Config, cdir, items, spl
 from obh import Callbacks, Event, Table
 
 
-def boot(txt, pkgname="obm", mods=""):
+def boot(pkgname="obm", mods=""):
     cdir(Config.workdir)
     e = Event()
-    e.parse(txt)
+    e.parse(" ".join(sys.argv[1:]))
     for k, v in items(e):
         setattr(Config, k, v)
     for o in Config.opts:

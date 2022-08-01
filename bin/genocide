@@ -68,7 +68,7 @@ class Console(Console):
 
 
 def main():
-    boot(" ".join(sys.argv[1:]), "genocide", "basic,irc,model,rss,slg")
+    boot("genocide", "basic,irc,model,rss,slg")
     cdir(Config.workdir)
     if len(sys.argv) > 1:
         c = CLI()

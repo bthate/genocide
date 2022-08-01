@@ -17,10 +17,10 @@ from obj import Config, cdir, items, spl
 from obh import Callbacks, Event, Table
 
 
-def boot(pkgname="obm"):
+def boot(txt, pkgname="obm", mods=""):
     cdir(Config.workdir)
     e = Event()
-    e.parse(" ".join(sys.argv[1:]))
+    e.parse(txt)
     for k, v in items(e):
         setattr(Config, k, v)
     for o in Config.opts:
@@ -28,9 +28,8 @@ def boot(pkgname="obm"):
             Config.daemon = True
         if o == "v":
             Config.verbose = True
-    mns = Config.sets.mod
-    init(mns, pkgname, "reg")
-    init(mns, pkgname, "init")
+    init(mods, pkgname, "reg")
+    init(mods, pkgname, "init")
     return e
 
 

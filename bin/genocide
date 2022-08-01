@@ -42,16 +42,14 @@ from obh import getname, starttime
 from obr import boot, init, isopt, wait, wrap
 
 
-import genocide.basic 
-import genocide.irc
-import genocide.model
-import genocide.rss
+from genocide import basic, irc, model, rss, slg
 
 
-Table.add(genocide.basic)
-Table.add(genocide.irc)
-Table.add(genocide.model)
-Table.add(genocide.rss)
+Table.add(basic)
+Table.add(irc)
+Table.add(model)
+Table.add(rss)
+Table.add(slg)
 
 
 class CLI(CLI):
@@ -70,14 +68,12 @@ class Console(Console):
 
 
 def main():
-    boot(" ".join(sys.argv[1:]))
+    boot(" ".join(sys.argv[1:]), "genocide", "basic,irc,model,rss,slg")
     cdir(Config.workdir)
     if len(sys.argv) > 1:
-        init("basic,irc,model,rss", Config.name, "reg")
         c = CLI()
         return c.cmd(" ".join(sys.argv[1:]))
     print("%s shell started at %s" % (Config.name.upper(), time.ctime(starttime).replace("  ", " ")))
-    init("basic,irc,model,rss", "genocide", "reg")
     init("irc,model,rss", "genocide")
     print(format(Config, skip="password,type"))
     c = Console()

@@ -6,7 +6,7 @@ import os
 import shutil
 
 
-mods = ["obh", "obj", "obr"]
+mods = ["obb", "obe", "obh", "obj", "obr", "obt", "obu"]
 
 
 def popen(txt):
@@ -23,6 +23,7 @@ popen("rm -fR bin/*~ *~ __pycache__")
 popen("rm -fR build dist MANIFEST genocide.egg-info") 
 popen("rm -fR dev/*~ bin/*~ *~ files/*~")
 popen("rm -fR lib/*~ lib/__pycache__ lib/genocide.egg-info")
+popen("rm -fR lib2/*~ lib2/__pycache__ lib2/genocide.egg-info")
 popen("rm -fR genocide/*~ genocide/__pycache__")
 popen("rm -fR genocide/cmd/*~ genocide/cmd/__pycache__")
 popen("rm -fR .test test/__pycache__ test/*~")

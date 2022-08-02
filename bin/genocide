@@ -29,28 +29,36 @@ Config.version = __version__
 Config.workdir = os.path.expanduser("~/.genocide")
 
 
-from genocide.irc import Config as IConfig
+from obm.irc import Config as IConfig
 
-
+IConfig.nick = "genocide"
+IConfig.channel = "#genocide"
 IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
+IConfig.username = "genocide"
 
 
 from obc import Commands
 from obe import Event
 from obj import Class, Db, Object
-from obj import cdir, find, fntime, format, get, items, save, spl, update
+from obj import cdir, find, fntime, format, get, items, keys, save, spl, update
 from obh import Callbacks, Handler
 from obr import Console, CLI, Table, boot, init, isopt, starttime
 from obt import getname
 
-from genocide import basic, irc, model, rss, slg
+
+from obm import cmd, irc, rss
+from genocide import model
+
+from genocide.model import init as geninit
 
 
-Table.add(basic)
+Table.add(cmd)
 Table.add(irc)
 Table.add(model)
 Table.add(rss)
-Table.add(slg)
+
+
+allmod =  ",".join(keys(Table.mod))
 
 
 class CLI(CLI):
@@ -62,7 +70,8 @@ class CLI(CLI):
 class Console(Console):
 
     def announce(self, txt):
-        pass
+        if Config.verbose:
+            print(txt)
 
     def raw(self, txt):
         print(txt)
@@ -85,13 +94,13 @@ def wrap(func):
 
 
 def main():
-    boot(" ".join(sys.argv[1:]), "genocide", "basic,irc,model,rss,slg")
+    boot(" ".join(sys.argv[1:]), "obm", allmod)
     cdir(Config.workdir)
-    if len(sys.argv) > 1:
+    if not Config.console:
         c = CLI()
         return c.cmd(" ".join(sys.argv[1:]))
     print("%s shell started at %s" % (Config.name.upper(), time.ctime(starttime).replace("  ", " ")))
-    init("irc,model,rss", "genocide")
+    geninit()
     print(format(Config, skip="password,type"))
     c = Console()
     c.start()

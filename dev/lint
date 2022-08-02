@@ -9,7 +9,7 @@ import sys
 
 wd =  os.getcwd()
 sys.path.insert(0, wd)
-
+sys.path.insert(0, "lib")
 
 mns = ["genocide", "bin"]
 

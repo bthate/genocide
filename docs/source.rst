@@ -13,9 +13,14 @@
     :toctree: 
     :template: module.rst
 
+    obb				bus
+    obc				command
+    obe				event
     obj				object
     obh				handler
     obr				run
+    obt				thread
+    obu				utility
 
 **genocide**
 

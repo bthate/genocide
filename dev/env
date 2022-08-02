@@ -1,5 +1,7 @@
 # This file is placed in the Public Domain.
 
+PYTHONPATH="lib:."
+export PYTHONPATH
 bin/clean
 python3 setup.py sdist
 python3 -mvirtualenv --system-site-packages env

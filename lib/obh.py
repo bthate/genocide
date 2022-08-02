@@ -98,8 +98,9 @@ class Handler(Object):
     def stop(self):
         self.stopped.set()
 
+
 def dispatch(e):
-    print(e)
-        
+    pass
+
 
 Callbacks.add("event", dispatch)

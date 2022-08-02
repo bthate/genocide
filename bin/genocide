@@ -35,11 +35,12 @@ from genocide.irc import Config as IConfig
 IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
+from obe import Event
 from obj import Class, Db, Object
 from obj import cdir, find, fntime, format, get, items, save, spl, update
-from obh import Callbacks, CLI, Commands, Console, Event, Handler, Table
+from obh import Callbacks, Commands, Handler, Table
 from obh import getname, starttime
-from obr import boot, init, isopt, wait, wrap
+from obr import Console, CLI, boot, init, isopt
 
 
 from genocide import basic, irc, model, rss, slg
@@ -67,8 +68,24 @@ class Console(Console):
         print(txt)
 
 
+def wrap(func):
+    fd = sys.stdin.fileno()
+    gotterm = True
+    try:
+        old = termios.tcgetattr(fd)
+    except termios.error:
+        gotterm = False
+    try:
+        func()
+    except (EOFError, KeyboardInterrupt):
+        print("")
+    finally:
+        if gotterm:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+
 def main():
-    boot("genocide", "basic,irc,model,rss,slg")
+    boot(" ".join(sys.argv[1:]), "genocide", "basic,irc,model,rss,slg")
     cdir(Config.workdir)
     if len(sys.argv) > 1:
         c = CLI()
@@ -78,7 +95,7 @@ def main():
     print(format(Config, skip="password,type"))
     c = Console()
     c.start()
-    wait()
+    c.forever()
 
 
 wrap(main)

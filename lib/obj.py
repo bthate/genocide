@@ -9,13 +9,7 @@ import datetime
 import json
 import os
 import pathlib
-import queue
-import readline
-import termios
-import threading
 import time
-import types
-import traceback
 import uuid
 import _thread
 
@@ -166,6 +160,7 @@ class Default(Object):
 
 class Config(Default):
 
+    console = False
     daemon = False
     debug = False
     name = ""
@@ -346,6 +341,9 @@ class Class():
     def get(nm):
         return Class.cls.get(nm, None)
 
+    @staticmethod
+    def remove(mn):
+        del Class.cls[mn]
 
 
 class Db(Object):
@@ -553,7 +551,11 @@ def save(o, stime=None):
 
 
 def spl(txt):
-    return [x for x in txt.split(",") if x]
+    try:
+        l = txt.split(",")
+    except (TypeError, ValueError):
+        l = txt
+    return [x for x in l if x]
 
 
 def diff(o1, o2):

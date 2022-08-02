@@ -12,9 +12,10 @@ import threading
 import urllib
 
 
+from obb import Bus
 from obj import Class, Config, Db, Object
 from obj import edit, find, get, last, save, spl, update
-from obh import Bus, Commands, Repeater
+from obh import Commands, Repeater
 from obh import elapsed, getname, launch
 
 

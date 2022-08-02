@@ -1,35 +1,70 @@
 # This file is placed in the Public Domain.
 
 
-"scan modules"
+"runtime"
 
 
-import importlib
-import inspect
-import os
-import sys
-import termios
-import traceback
-import time
-
-
+from obb import Bus
+from obe import Command, Parsed
+from obh import Callbacks, Handler, Table, dispatch
 from obj import Config, cdir, items, spl
-from obh import Callbacks, Event, Table
 
 
-def boot(pkgname="obm", mods=""):
+class CLI(Handler):
+
+    def __init__(self):
+        Handler.__init__(self)
+        Bus.add(self)
+
+    def announce(self, txt):
+        self.raw(txt)
+
+    def cmd(self, txt):
+        c = Command()
+        c.channel = ""
+        c.orig = repr(self)
+        c.txt = txt
+        self.handle(c)
+        c.wait()
+
+    def raw(self, txt):
+        pass
+
+
+class Console(CLI):
+
+    def handle(self, e):
+        Handler.handle(self, e)
+        e.wait()
+
+    def poll(self):
+        e = Command()
+        e.channel = ""
+        e.cmd = ""
+        e.txt = input("> ")
+        e.orig = repr(self)
+        if e.txt:
+            e.cmd = e.txt.split()[0]
+        return e
+
+
+def boot(txt, pkgname="obm", mods=""):
+    Callbacks.add("command", dispatch)
     cdir(Config.workdir)
-    e = Event()
-    e.parse(" ".join(sys.argv[1:]))
+    e = Parsed()
+    e.parse(txt)
     for k, v in items(e):
         setattr(Config, k, v)
     for o in Config.opts:
+        if o == "c":
+            Config.console = True
         if o == "d":
             Config.daemon = True
         if o == "v":
             Config.verbose = True
-    init(mods, pkgname, "reg")
-    init(mods, pkgname, "init")
+    mns = mods or Config.sets.mods
+    init(mns, pkgname, "reg")
+    init(mns, pkgname, "init")
     return e
 
 
@@ -46,39 +81,7 @@ def init(mns, pn=None, cmds="init"):
                 continue
             c()
 
-
 def isopt(opts):
     for o in opts:
         if o in Config.opts:
             return True
-
-
-def skip(fn):
-    if not fn.endswith(".py"):
-        return True
-    if fn.endswith("~"):
-        return True
-    if fn.endswith("__.py"):
-        return True
-    return False
-
-
-def wait():
-    while 1:
-        time.sleep(1.0)
-
-
-def wrap(func):
-    fd = sys.stdin.fileno()
-    gotterm = True
-    try:
-        old = termios.tcgetattr(fd)
-    except termios.error:
-        gotterm = False
-    try:
-        func()
-    except (EOFError, KeyboardInterrupt):
-        print("")
-    finally:
-        if gotterm:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old)

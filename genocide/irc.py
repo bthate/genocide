@@ -15,9 +15,10 @@ import time
 import _thread
 
 
+from obe import Event
 from obj import Class, Config, Object
 from obj import edit, find, format, last, locked, save, update
-from obh import Callbacks, Commands, Event, Handler, launch
+from obh import Callbacks, Commands, Handler, launch
 
 
 def __dir__():

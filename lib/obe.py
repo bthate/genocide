@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"event"
+"object event"
 
 
 import threading
@@ -11,12 +11,20 @@ from obb import Bus
 from obj import Default, Object
 
 
+def __dir__():
+    return (
+        "Command",
+        "Event",
+        "Parsed"
+    )
+
+
+
 class Parsed(Object):
 
     def __init__(self):
         Object.__init__(self)
         self.args = []
-        self.channel = ""
         self.cmd = ""
         self.gets = Default()
         self.index = 0
@@ -74,6 +82,8 @@ class Event(Parsed):
         self._ready = threading.Event()
         self._result = []
         self._thrs = []
+        self.cmd = ""
+        self.channel = ""
         self.orig = None
         self.type = "event"
 

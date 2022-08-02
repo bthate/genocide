@@ -1,10 +1,16 @@
 # This file is placed in the Public Domain.
 
 
-"bus"
+"object bus"
 
 
 from obj import Object
+
+
+def __dir__():
+    return (
+        "Bus",
+    )
 
 
 class Bus(Object):

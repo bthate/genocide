@@ -1,13 +1,45 @@
 # This file is placed in the Public Domain.
 
 
-"runtime"
+"object runtime"
+
+
+import time
 
 
 from obb import Bus
+from obc import dispatch
 from obe import Command, Parsed
-from obh import Callbacks, Handler, Table, dispatch
+from obh import Callbacks, Handler
 from obj import Config, cdir, items, spl
+from obt import launch
+
+
+def __dir__():
+    return (
+        "CLI",
+        "Console",
+        "boot",
+        "init",
+        "isopt",
+        "starttime"
+    )
+
+
+starttime = time.time()
+
+
+class Table():
+
+    mod = {}
+
+    @staticmethod
+    def add(o):
+        Table.mod[o.__name__] = o
+
+    @staticmethod
+    def get(nm):
+        return Table.mod.get(nm, None)
 
 
 class CLI(Handler):
@@ -30,6 +62,10 @@ class CLI(Handler):
     def raw(self, txt):
         pass
 
+    def start(self):
+        Handler.start(self)
+        launch(self.loop)
+
 
 class Console(CLI):
 
@@ -49,7 +85,6 @@ class Console(CLI):
 
 
 def boot(txt, pkgname="obm", mods=""):
-    Callbacks.add("command", dispatch)
     cdir(Config.workdir)
     e = Parsed()
     e.parse(txt)
@@ -62,7 +97,7 @@ def boot(txt, pkgname="obm", mods=""):
             Config.daemon = True
         if o == "v":
             Config.verbose = True
-    mns = mods or Config.sets.mods
+    mns = Config.sets.mod + "," + mods
     init(mns, pkgname, "reg")
     init(mns, pkgname, "init")
     return e

@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"big object"
+"object"
 
 
 import copy as copying
@@ -165,7 +165,8 @@ class Config(Default):
     debug = False
     name = ""
     threaded = False
-    version = "1"
+    verbose = False
+    version = "3"
     workdir = ""
 
 

@@ -9,9 +9,11 @@ import time
 
 
 from obb import Bus
+from obc import Commands
 from obj import Class, Config, Db, Object
 from obj import find, fntime, format, get, save, update
-from obh import Commands, getname, starttime
+from obr import starttime
+from obt import getname
 
 
 def reg():

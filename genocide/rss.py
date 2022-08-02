@@ -13,10 +13,11 @@ import urllib
 
 
 from obb import Bus
+from obc import Commands
 from obj import Class, Config, Db, Object
 from obj import edit, find, get, last, save, spl, update
-from obh import Commands, Repeater
-from obh import elapsed, getname, launch
+from obt import Repeater, getname, launch
+from obu import elapsed
 
 
 from urllib.error import HTTPError, URLError

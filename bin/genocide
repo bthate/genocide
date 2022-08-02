@@ -35,13 +35,13 @@ from genocide.irc import Config as IConfig
 IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
+from obc import Commands
 from obe import Event
 from obj import Class, Db, Object
 from obj import cdir, find, fntime, format, get, items, save, spl, update
-from obh import Callbacks, Commands, Handler, Table
-from obh import getname, starttime
-from obr import Console, CLI, boot, init, isopt
-
+from obh import Callbacks, Handler
+from obr import Console, CLI, Table, boot, init, isopt, starttime
+from obt import getname
 
 from genocide import basic, irc, model, rss, slg
 

@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain
 
 
-from obh import Commands
+from obc import Commands
 
 
 def reg():

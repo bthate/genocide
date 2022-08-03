@@ -9,6 +9,10 @@
 
 **genocide package**
 
+.. raw:: html
+
+    <br>
+
 .. autosummary::
     :toctree: 
     :template: module.rst

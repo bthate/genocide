@@ -56,16 +56,3 @@
 
        <br><br>
 
-
-.. raw:: html
-
-    <br>
-    <center><b>
-    
-
-:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>`
-
-
-.. raw:: html
-
-    </b></center>

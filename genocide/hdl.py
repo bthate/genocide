@@ -9,10 +9,9 @@ import threading
 import time
 
 
-from obb import Bus
-from obj import Object
-from obj import get, register
-from obt import launch
+from .bus import Bus
+from .obj import Object, get, register
+from .thr import launch
 
 
 def __dir__():

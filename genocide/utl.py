@@ -1,7 +1,4 @@
-# This file is placed in the Public Domain
-
-
-"object utilities"
+# This file is placed in the Public Domain.
 
 
 def elapsed(seconds, short=True):

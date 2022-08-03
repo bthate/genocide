@@ -8,12 +8,13 @@ import threading
 import time
 
 
-from obb import Bus
-from obc import Commands
-from obj import Class, Config, Db, Object
-from obj import find, fntime, format, get, save, update
-from obr import starttime
-from obt import getname
+from .bus import Bus
+from .cmd import Commands
+from .dbs import Class, Db
+from .obj import Config, Object
+from .obj import find, fntime, format, get, save, update
+from .run import starttime
+from .thr import getname
 
 
 def reg():

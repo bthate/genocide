@@ -7,12 +7,11 @@
 import time
 
 
-from obb import Bus
-from obc import dispatch
-from obe import Command, Parsed
-from obh import Callbacks, Handler
-from obj import Config, cdir, items, spl
-from obt import launch
+from .bus import Bus
+from .dbs import cdir
+from .evt import Command, Parsed
+from .hdl import Handler
+from .obj import Config, items, spl
 
 
 def __dir__():
@@ -62,10 +61,6 @@ class CLI(Handler):
     def raw(self, txt):
         pass
 
-    def start(self):
-        Handler.start(self)
-        launch(self.loop)
-
 
 class Console(CLI):
 
@@ -84,7 +79,7 @@ class Console(CLI):
         return e
 
 
-def boot(txt, pkgname="obm", mods=""):
+def boot(txt, mods=""):
     cdir(Config.workdir)
     e = Parsed()
     e.parse(txt)
@@ -97,16 +92,14 @@ def boot(txt, pkgname="obm", mods=""):
             Config.daemon = True
         if o == "v":
             Config.verbose = True
-    mns = Config.sets.mod + "," + mods
-    init(mns, pkgname, "reg")
-    init(mns, pkgname, "init")
+    mns = mods or Config.sets.mod
+    init(mns, "reg")
+    init(mns, "init")
     return e
 
 
-def init(mns, pn=None, cmds="init"):
+def init(mns, cmds="init"):
     for mn in spl(mns):
-        if pn:
-            mn = pn + "." + mn
         mod = Table.get(mn)
         if not mod:
             continue

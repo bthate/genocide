@@ -4,8 +4,8 @@
 "object command"
 
 
-from obj import Object, get, register
-from obh import Callbacks
+from .obj import Object, get, register
+from .hdl import Callbacks
 
 def __dir__():
     return (

@@ -7,8 +7,8 @@
 import threading
 
 
-from obb import Bus
-from obj import Default, Object
+from .bus import Bus
+from .obj import Default, Object
 
 
 def __dir__():

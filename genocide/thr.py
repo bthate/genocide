@@ -10,7 +10,7 @@ import time
 import types
 
 
-from obj import Object
+from .obj import Object
 
 
 def __dir__():

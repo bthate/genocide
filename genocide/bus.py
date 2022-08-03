@@ -4,7 +4,7 @@
 "object bus"
 
 
-from obj import Object
+from .obj import Object
 
 
 def __dir__():

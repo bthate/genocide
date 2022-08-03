@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.hdl import Timer
+from genocide.thr import Timer
 
 
 

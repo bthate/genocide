@@ -8,7 +8,7 @@ import time
 
 
 from .bus import Bus
-from .cmd import Commands
+from .com import Commands
 from .evt import Event
 from .obj import Object, get, key, keys, update
 from .thr import Repeater, launch

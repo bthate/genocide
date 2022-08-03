@@ -8,7 +8,8 @@ import os
 import unittest
 
 
-from genocide.obj import Config, Db, fns, hook, load, last, save
+from genocide.dbs import Db, fns, hook, last
+from genocide.obj import Config, load, save
 from genocide.obj import cdir, edit, format, register
 from genocide.obj import loads
 from genocide.obj import Object, get, items, keys, update, values
@@ -147,7 +148,7 @@ class Test_Object(unittest.TestCase):
 
     def test_Object__doc__(self):
         o = Object()
-        self.assertEqual(o.__doc__, "Big Object.")
+        self.assertEqual(o.__doc__, "object")
 
     def test_Object__eq__(self):
         o = Object()

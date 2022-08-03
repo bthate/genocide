@@ -23,7 +23,9 @@ Config.version = 72
 Config.workdir = ".test"
 
 
-from genocide.hdl import Callbacks, Command, Handler, dispatch
+from genocide.com import dispatch
+from genocide.evt import Command
+from genocide.hdl import Callbacks, Handler
 
 
 Callbacks.threaded = False

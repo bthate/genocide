@@ -9,7 +9,7 @@ import os
 import time
 
 
-from .cmd import Commands
+from .com import Commands
 from .dbs import Class, Db, find, fntime, save
 from .obj import Object, format, update
 from .utl import elapsed

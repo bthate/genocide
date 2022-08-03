@@ -7,33 +7,30 @@
 .. title:: Source
 
 
-**library**
+**genocide package**
 
 .. autosummary::
     :toctree: 
     :template: module.rst
 
-    obb				bus
-    obc				command
-    obe				event
-    obj				object
-    obh				handler
-    obr				run
-    obt				thread
-    obu				utility
 
-**genocide**
-
-.. raw:: html
-
-    <br>
-
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    genocide.basic		basic commands
-    genocide.irc		chat bot
-    genocide.model		genocide model
-    genocide.rss		rss fetcher
+    genocide.bsc			basic
+    genocide.bus			bus
+    genocide.com			command
+    genocide.dbs			database
+    genocide.evt			event
+    genocide.flt			fleet
+    genocide.fnd			find
+    genocide.hdl			handler
+    genocide.irc			internet relay chat
+    genocide.log			log
+    genocide.mbx			mailbox
+    genocide.mdl			model
+    genocide.obj			object
+    genocide.rss			rich site syndicate
+    genocide.run			runtime
+    genocide.slg			slogan
+    genocide.tdo			todo
+    genocide.thr			thread
+    genocide.udp			udp to irc relay
+    genocide.utl			utility

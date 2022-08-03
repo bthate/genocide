@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain
 
 
-from .cmd import Commands
+from .com import Commands
 
 
 def reg():

@@ -37,7 +37,7 @@ IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 IConfig.username = "genocide"
 
 
-from genocide.cmd import Commands
+from genocide.com import Commands
 from genocide.evt import Event
 from genocide.dbs import Class, Db, find, fntime
 from genocide.obj import Object,  cdir, format, get, items
@@ -48,8 +48,6 @@ from genocide.thr import getname
 
 
 from genocide import bsc,irc, mdl, rss
-
-from genocide.mdl import init as geninit
 
 
 Table.add(bsc)
@@ -100,7 +98,6 @@ def main():
         c = CLI()
         return c.cmd(" ".join(sys.argv[1:]))
     print("%s shell started at %s" % (Config.name.upper(), time.ctime(starttime).replace("  ", " ")))
-    geninit()
     print(format(Config, skip="password,type"))
     c = Console()
     c.start()

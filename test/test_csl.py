@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.hdl import CLI, Console
+from genocide.run import CLI, Console
 
 
 class Test_Console(unittest.TestCase):

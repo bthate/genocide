@@ -19,8 +19,7 @@ import unittest
 curdir = os.getcwd()
 
 
-sys.path.insert(0, os.path.join(curdir, "..", __name__))
-sys.path.insert(0, curdir)
+sys.path.insert(0, os.path.join(curdir))
 sys.path.insert(0, os.path.join(curdir, ".."))
 sys.path.insert(0, os.path.join(curdir, "..", ".."))
 

@@ -5,7 +5,7 @@
 
 
 from .bus import Bus
-from .cmd import Commands
+from .com import Commands
 from .thr import getname
 
 

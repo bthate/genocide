@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.model import oorzaak
+from genocide.mdl import oorzaak
 from genocide.obj import Object
 
 

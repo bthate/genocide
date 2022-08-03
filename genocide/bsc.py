@@ -8,7 +8,7 @@ import threading
 import time
 
 
-from .cmd import Commands
+from .com import Commands
 from .obj import Object, get, update
 from .run import starttime
 from .utl import elapsed

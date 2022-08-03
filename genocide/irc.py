@@ -16,7 +16,7 @@ import _thread
 
 
 from .bus import Bus
-from .cmd import Commands
+from .com import Commands
 from .dbs import Class, find, last, locked, save
 from .evt import Event
 from .obj import Config, Object

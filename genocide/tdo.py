@@ -7,7 +7,7 @@
 import time
 
 
-from .cmd import Commands
+from .com import Commands
 from .dbs import Class, find, fntime
 from .obj import Object, save
 from .utl import elapsed

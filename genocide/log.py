@@ -4,7 +4,7 @@
 "log"
 
 
-from .cmd import Commands
+from .com import Commands
 from .dbs import Class
 from .obj import Object, save
 

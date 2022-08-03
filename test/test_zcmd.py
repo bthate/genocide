@@ -10,11 +10,13 @@ import unittest
 
 
 from genocide.obj import Config, Object, get
-from genocide.hdl import CLI, Command, Commands
-
+from genocide.com import Commands
+from genocide.evt import Command
+from genocide.run import CLI
 
 events = []
 skip = ["cfg",]
+
 
 param = Object()
 param.cmd = [""]

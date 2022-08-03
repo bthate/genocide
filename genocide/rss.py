@@ -11,7 +11,7 @@ import urllib
 
 
 from .bus import Bus
-from .cmd import Commands
+from .com import Commands
 from .dbs import Class, Db, find, last, save
 from .obj import Config, Object, edit, get, spl, update
 from .thr import Repeater, launch

@@ -7,7 +7,7 @@ from .com import Commands
 def reg():
     Commands.add(slg)
 
-    
+
 def rem():
     Commands.remove(slg)
 

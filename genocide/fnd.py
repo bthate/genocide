@@ -7,10 +7,10 @@
 import time
 
 
-from hx.cmd import Commands
-from hx.dbs import Db, find, fntime
-from hx.obj import format
-from hx.utl import elapsed
+from .com import Commands
+from .dbs import Db, find, fntime
+from .obj import format
+from .utl import elapsed
 
 
 def reg():

@@ -37,6 +37,7 @@ IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 IConfig.username = "genocide"
 
 
+from genocide.bus import Bus
 from genocide.com import Commands
 from genocide.evt import Event
 from genocide.dbs import Class, Db, find, fntime
@@ -89,6 +90,11 @@ def wrap(func):
     finally:
         if gotterm:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
+    if Config.verbose:
+        for b in Bus.objs:
+            if "errors" in b:
+                for err in b.errors:
+                    print(err)
 
 
 def main():

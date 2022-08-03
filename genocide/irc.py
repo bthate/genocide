@@ -406,11 +406,8 @@ class IRC(Handler, Output):
         if not self.buffer:
             try:
                 self.some()
-            except ConnectionResetError as ex:
-                e = IEvent()
-                e.txt = ex.args[0]
-                self.stop()
-                return e
+            except Exception as ex:
+                self.errors.append(ex)
         if self.buffer:
             return self.event(self.buffer.pop(0))
 

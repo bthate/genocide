@@ -4,9 +4,9 @@
 "log"
 
 
-from hx.cmd import Commands
-from hx.dbs import Class
-from hx.obj import Object, save
+from .cmd import Commands
+from .dbs import Class
+from .obj import Object, save
 
 
 def reg():

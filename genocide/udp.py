@@ -8,10 +8,10 @@ import socket
 import time
 
 
-from hx.bus import Bus
-from hx.dbs import Class, last
-from hx.obj import Object
-from hx.thr import launch
+from .bus import Bus
+from .dbs import Class, last
+from .obj import Object
+from .thr import launch
 
 
 def init():

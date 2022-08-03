@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain
 
 
-from obc import Commands
+from .cmd import Commands
 
 
 def reg():
@@ -28,6 +28,7 @@ reconsider OTP-CR-117/19
 
 http://genocide.rtfd.io 
 """
+
 
 def slg(event):
     event.reply(txt)

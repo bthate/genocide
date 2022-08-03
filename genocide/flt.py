@@ -4,9 +4,9 @@
 "fleet"
 
 
-from hx.bus import Bus
-from hx.cmd import Commands
-from hx.thr import getname
+from .bus import Bus
+from .cmd import Commands
+from .thr import getname
 
 
 def reg():

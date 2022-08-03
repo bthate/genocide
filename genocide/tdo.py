@@ -7,10 +7,10 @@
 import time
 
 
-from hx.cmd import Commands
-from hx.dbs import Class, find, fntime
-from hx.obj import Object, save
-from hx.utl import elapsed
+from .cmd import Commands
+from .dbs import Class, find, fntime
+from .obj import Object, save
+from .utl import elapsed
 
 
 def reg():

@@ -10,11 +10,11 @@ import threading
 import urllib
 
 
-from hx.bus import Bus
-from hx.cmd import Commands
-from hx.dbs import Class, Db, find, last, save
-from hx.obj import Config, Object, edit, get, spl, update
-from hx.thr import Repeater, launch
+from .bus import Bus
+from .cmd import Commands
+from .dbs import Class, Db, find, last, save
+from .obj import Config, Object, edit, get, spl, update
+from .thr import Repeater, launch
 
 
 from urllib.error import HTTPError, URLError

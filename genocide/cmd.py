@@ -4,22 +4,42 @@
 "command"
 
 
-from hx.cmd import Commands
+from .obj import Object, get, register
+from .hdl import Callbacks
 
 
 def __dir__():
     return (
-        "cmd",
+        "Commands",
+        "dispatch"
     )
 
 
-def reg():
-    Commands.add(cmd)
+class Commands(Object):
+
+    cmd = Object()
+
+    @staticmethod
+    def add(cmd):
+        register(Commands.cmd, cmd.__name__, cmd)
+
+    @staticmethod
+    def get(cmd):
+        return get(Commands.cmd, cmd)
 
 
-def rem():
-    Commands.remove(cmd)
+    @staticmethod
+    def remove(cmd):
+        del Commands.cmd[cmd]
 
 
-def cmd(event):
-    event.reply(",".join(sorted(Commands.cmd)))
+def dispatch(e):
+    e.parse()
+    f = Commands.get(e.cmd)
+    if f:
+        f(e)
+        e.show()
+    e.ready()
+
+
+Callbacks.add("command", dispatch)

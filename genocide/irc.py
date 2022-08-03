@@ -15,14 +15,14 @@ import time
 import _thread
 
 
-from hx.bus import Bus
-from hx.cmd import Commands
-from hx.dbs import Class, find, last, locked, save
-from hx.evt import Event
-from hx.obj import Config, Object
-from hx.obj import edit, format, update
-from hx.hdl import Handler
-from hx.thr import launch
+from .bus import Bus
+from .cmd import Commands
+from .dbs import Class, find, last, locked, save
+from .evt import Event
+from .obj import Config, Object
+from .obj import edit, format, update
+from .hdl import Handler
+from .thr import launch
 
 
 def __dir__():

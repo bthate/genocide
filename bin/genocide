@@ -17,10 +17,9 @@ import traceback
 
 
 sys.path.insert(0, os.getcwd())
-sys.path.insert(0, "lib")
 
 
-from obj import Config
+from genocide.obj import Config
 
 
 Config.name = "genocide"
@@ -29,7 +28,8 @@ Config.version = __version__
 Config.workdir = os.path.expanduser("~/.genocide")
 
 
-from obm.irc import Config as IConfig
+from genocide.irc import Config as IConfig
+
 
 IConfig.nick = "genocide"
 IConfig.channel = "#genocide"
@@ -37,24 +37,24 @@ IConfig.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
 IConfig.username = "genocide"
 
 
-from obc import Commands
-from obe import Event
-from obj import Class, Db, Object
-from obj import cdir, find, fntime, format, get, items, keys, save, spl, update
-from obh import Callbacks, Handler
-from obr import Console, CLI, Table, boot, init, isopt, starttime
-from obt import getname
+from genocide.cmd import Commands
+from genocide.evt import Event
+from genocide.dbs import Class, Db, find, fntime
+from genocide.obj import Object,  cdir, format, get, items
+from genocide.obj import  keys, save, spl, update
+from genocide.hdl import Callbacks, Handler
+from genocide.run import Console, CLI, Table, boot, init, isopt, starttime
+from genocide.thr import getname
 
 
-from obm import cmd, irc, rss
-from genocide import model
+from genocide import bsc,irc, mdl, rss
 
-from genocide.model import init as geninit
+from genocide.mdl import init as geninit
 
 
-Table.add(cmd)
+Table.add(bsc)
 Table.add(irc)
-Table.add(model)
+Table.add(mdl)
 Table.add(rss)
 
 
@@ -94,8 +94,8 @@ def wrap(func):
 
 
 def main():
-    boot(" ".join(sys.argv[1:]), "obm", allmod)
     cdir(Config.workdir)
+    boot(" ".join(sys.argv[1:]), allmod)
     if not Config.console:
         c = CLI()
         return c.cmd(" ".join(sys.argv[1:]))

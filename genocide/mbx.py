@@ -9,10 +9,10 @@ import os
 import time
 
 
-from hx.cmd import Commands
-from hx.dbs import Class, Db, find, fntime, save
-from hx.obj import Object, format, update
-from hx.utl import elapsed
+from .cmd import Commands
+from .dbs import Class, Db, find, fntime, save
+from .obj import Object, format, update
+from .utl import elapsed
 
 
 bdmonths = ['Bo', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

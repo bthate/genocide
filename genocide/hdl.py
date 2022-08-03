@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"object handler"
+"handler"
 
 
 import queue

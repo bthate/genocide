@@ -1,18 +1,18 @@
 # This file is placed in the Public Domain.
 
 
-"genocide stats"
+"model"
 
 
 import time
 
 
-from obb import Bus
-from obc import Commands
-from obe import Event
-from obj import Object, get, key, keys, update
-from obt import Repeater, launch
-from obu import elapsed
+from .bus import Bus
+from .cmd import Commands
+from .evt import Event
+from .obj import Object, get, key, keys, update
+from .thr import Repeater, launch
+from .utl import elapsed
 
 
 def __dir__():

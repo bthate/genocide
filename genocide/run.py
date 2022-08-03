@@ -79,7 +79,7 @@ class Console(CLI):
         return e
 
 
-def boot(txt, mods=""):
+def boot(txt, mods="", doinit=True):
     cdir(Config.workdir)
     e = Parsed()
     e.parse(txt)
@@ -94,7 +94,8 @@ def boot(txt, mods=""):
             Config.verbose = True
     mns = mods or Config.sets.mod
     init(mns, "reg")
-    init(mns, "init")
+    if doinit:
+        init(mns, "init")
     return e
 
 

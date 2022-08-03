@@ -12,7 +12,7 @@ import os
 import sys
 
 
-from obj import Config
+from genocide.obj import Config
 
 
 Config.name = "genocide"
@@ -21,22 +21,19 @@ Config.version = __version__
 Config.workdir = "/var/lib/genocide/"
 
 
-from obj import cdir, spl
-from obh import CLI, Table
-from obr import init
+from genocide.obj import cdir, keys, spl
+from genocide.run import CLI, Table, boot
 
 
-import genocide.basic
-import genocide.model
-import genocide.irc
-import genocide.rss
+from genocide import bsc, mdl, irc, rss
+
+Table.add(bsc)
+Table.add(mdl)
+Table.add(irc)
+Table.add(rss)
 
 
-Table.add(genocide.basic)
-Table.add(genocide.model)
-Table.add(genocide.irc)
-Table.add(genocide.rss)
-
+allmod =  ",".join(keys(Table.mod))
 
 
 class CLI(CLI):
@@ -48,7 +45,7 @@ class CLI(CLI):
 
 def main():
     cdir(Config.workdir)
-    init("basic,irc,rss,model", "genocide", "reg")
+    boot(" ".join(sys.argv[1:]), allmod, False)
     c = CLI()
     return c.cmd(" ".join(sys.argv[1:]))
 

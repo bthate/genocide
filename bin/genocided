@@ -8,8 +8,10 @@
 __version__ = "74"
 
 
-from obj import Config
-from obr import wait
+import time
+
+
+from genocide.obj import Config
 
 
 Config.name = "genocide"
@@ -19,7 +21,7 @@ Config.workdir = "/var/lib/genocide/"
 
 
 from genocide.irc import IRC
-from genocide.model import init
+from genocide.mdl import init
 from genocide.rss import Fetcher
 
 
@@ -29,6 +31,8 @@ def main():
     f = Fetcher()
     f.start()
     init()
-    wait()
+    while 1:
+        time.sleep(1.0)
+
 
 main()

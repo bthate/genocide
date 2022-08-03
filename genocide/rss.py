@@ -4,20 +4,17 @@
 "rich site syndicate"
 
 
-import datetime
 import html.parser
-import time
 import re
 import threading
 import urllib
 
 
-from obb import Bus
-from obc import Commands
-from obj import Class, Config, Db, Object
-from obj import edit, find, get, last, save, spl, update
-from obt import Repeater, getname, launch
-from obu import elapsed
+from hx.bus import Bus
+from hx.cmd import Commands
+from hx.dbs import Class, Db, find, last, save
+from hx.obj import Config, Object, edit, get, spl, update
+from hx.thr import Repeater, launch
 
 
 from urllib.error import HTTPError, URLError
@@ -84,7 +81,6 @@ class Seen(Object):
 class Fetcher(Object):
 
     dosave = False
-    errors = []
     seen = Seen()
 
     def __init__(self):
@@ -245,6 +241,7 @@ Class.add(Feed)
 Class.add(Rss)
 Class.add(Seen)
 
+
 def dpl(event):
     if len(event.args) < 2:
         event.reply("dpl <stringinurl> <item1,item2>")
@@ -261,6 +258,9 @@ def dpl(event):
 
 
 def ftc(event):
+    if Config.debug:
+        event.reply("not fetching, debug is enabled")
+        return
     res = []
     thrs = []
     fetcher = Fetcher()

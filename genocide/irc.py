@@ -15,12 +15,14 @@ import time
 import _thread
 
 
-from obc import Commands
-from obe import Event
-from obj import Class, Config, Object
-from obj import edit, find, format, last, locked, save, update
-from obh import Callbacks, Handler
-from obt import launch
+from hx.bus import Bus
+from hx.cmd import Commands
+from hx.dbs import Class, find, last, locked, save
+from hx.evt import Event
+from hx.obj import Config, Object
+from hx.obj import edit, format, update
+from hx.hdl import Handler
+from hx.thr import launch
 
 
 def __dir__():
@@ -73,7 +75,7 @@ class Config(Config):
     nick = name
     password = ""
     port = 6667
-    realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
+    realname = name
     sasl = False
     server = "localhost"
     servermodes = ""
@@ -100,10 +102,10 @@ class Config(Config):
 Class.add(Config)
 
 
-class Event(Event):
+class IEvent(Event):
 
     def __init__(self):
-        super().__init__()
+        Event.__init__(self)
         self.args = []
         self.arguments = []
         self.channel = ""
@@ -170,9 +172,9 @@ class Output(Object):
                 c += 1
                 self.dosay(channel, t)
 
-    def size(self, k):
-        if k in self.cache:
-            return len(self.cache[k])
+    def size(self, n):
+        if n in self.cache:
+            return len(self.cache[n])
         return 0
 
     def start(self):
@@ -195,6 +197,7 @@ class IRC(Handler, Output):
         self.cfg = Config()
         self.connected = threading.Event()
         self.channels = []
+        self.errors = []
         self.joined = threading.Event()
         self.keeprunning = False
         self.outqueue = queue.Queue()
@@ -221,6 +224,7 @@ class IRC(Handler, Output):
         self.register("NOTICE", NOTICE)
         self.register("PRIVMSG", PRIVMSG)
         self.register("QUIT", QUIT)
+        Bus.add(self)
 
     def announce(self, txt):
         for channel in self.channels:
@@ -277,7 +281,7 @@ class IRC(Handler, Output):
                 if self.connect(server, port):
                     break
             except Exception as ex:
-                Callbacks.errors.append(ex)
+                self.errors.append(ex)
             time.sleep(self.cfg.sleep)
         self.logon(server, nck)
 
@@ -344,7 +348,7 @@ class IRC(Handler, Output):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
-        o = Event()
+        o = IEvent()
         o.rawstr = rawstr
         o.command = ""
         o.arguments = []
@@ -403,9 +407,8 @@ class IRC(Handler, Output):
             try:
                 self.some()
             except ConnectionResetError as ex:
-                e = Event()
-                e._exc = ex
-                e.txt = "ConnectionResetError"
+                e = IEvent()
+                e.txt = ex.args[0]
                 self.stop()
                 return e
         if self.buffer:
@@ -453,14 +456,11 @@ class IRC(Handler, Output):
         last(self.cfg)
         if self.cfg.channel not in self.channels:
             self.channels.append(self.cfg.channel)
-        assert self.cfg.nick
-        assert self.cfg.server
-        assert self.cfg.channel
         self.connected.clear()
         self.joined.clear()
         Output.start(self)
         Handler.start(self)
-        launch(self.doconnect, self.cfg.server, self.cfg.nick, int(self.cfg.port))
+        launch(self.doconnect, self.cfg.server or "localhost", self.cfg.nick or "hx", int(self.cfg.port or "6667"))
         if not self.keeprunning:
             launch(self.keep)
 
@@ -530,7 +530,7 @@ def NOTICE(event):
 def PRIVMSG(event):
     if event.txt:
         bot = event.bot()
-        if event.txt[0] in [bot.cfg.cc, "!"]:
+        if event.txt[0] in [bot.cfg.cc, "!",]:
             event.txt = event.txt[1:]
         elif event.txt.startswith("%s:" % bot.cfg.nick):
             event.txt = event.txt[len(bot.cfg.nick)+1:]

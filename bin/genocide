@@ -14,10 +14,10 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-import op.all
+import gd.all
 
 
-op.obj.workdir = os.path.expanduser("~/.genocide")
+gd.obj.workdir = os.path.expanduser("~/.genocide")
 
 
 from gd.bus import Bus

@@ -2,43 +2,51 @@
 
 .. raw:: html
 
+    <br>
+
+.. title:: source
+
+
+the following modules are provided:
+
+.. raw:: html
+
+    <br>
+
+**object programming library**
+
+
+ .. raw:: html
+
+     <br>
+
+ .. autosummary::
+     :toctree: 
+     :template: module.rst
+
+     gd.all			import
+     gd.bus			bus
+     gd.evt			event
+     gd.hdl			handler
+     gd.obj			object
+     gd.run			runtime
+     gd.thr			thread
+     gd.tmr			timer
+     gd.utl			utility
+
+.. raw:: html
+
     <br><br>
 
-.. title:: Source
+**botlib**
 
+ .. autosummary::
+     :toctree: 
+     :template: module.rst
 
-**genocide package**
-
-.. raw:: html
-
-    <br>
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-
-    genocide.bsc			basic
-    genocide.bus			bus
-    genocide.com			command
-    genocide.dbs			database
-    genocide.evt			event
-    genocide.flt			fleet
-    genocide.fnd			find
-    genocide.hdl			handler
-    genocide.irc			internet relay chat
-    genocide.log			log
-    genocide.mbx			mailbox
-    genocide.mdl			model
-    genocide.obj			object
-    genocide.rss			rich site syndicate
-    genocide.run			runtime
-    genocide.slg			slogan
-    genocide.tdo			todo
-    genocide.thr			thread
-    genocide.udp			udp to irc relay
-    genocide.utl			utility
-
-.. raw:: html
-
-    <br>
+     genocide.irc			internet relay chat
+     genocide.fnd			find
+     genocide.log			log
+     genocide.rss			rich site syndicate
+     genocide.sts			stats
+     genocide.tdo			todo

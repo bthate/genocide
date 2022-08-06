@@ -65,7 +65,7 @@ class Config(Default):
     users = False
 
     def __init__(self):
-        Default.__init__()
+        Default.__init__(self)
         self.cc = Config.cc
         self.channel = Config.channel
         self.nick = Config.nick or name
@@ -108,9 +108,9 @@ class TextWrap(textwrap.TextWrapper):
         self.width = 450
 
 
-class Output(Object):
+class Output():
 
-    cache = Object()
+    cache = {}
 
     def __init__(self):
         Object.__init__(self)

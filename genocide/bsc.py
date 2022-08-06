@@ -9,7 +9,7 @@ import time
 
 
 from gd.obj import Object, get, update
-from gd.run import starttime
+from gd.run import Commands, starttime
 from gd.utl import elapsed
 
 

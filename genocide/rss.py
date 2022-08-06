@@ -10,12 +10,13 @@ import threading
 import urllib
 
 
-from .bus import Bus
-from .com import Commands
-from .dbs import Class, Db, find, last, save
-from .obj import Config, Object, edit, get, spl, update
-from .thr import Repeater, launch
-
+from gd.bus import Bus
+from gd.dbs import Class, Db, find, last, save
+from gd.obj import Object, edit, get, update
+from gd.run import Commands, Config
+from gd.thr import launch
+from gd.tmr import Repeater
+from gd.utl import spl
 
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
@@ -25,8 +26,6 @@ from urllib.request import Request, urlopen
 def __dir__():
     return (
         "init",
-        "reg",
-        "rem",
     )
 
 
@@ -34,22 +33,6 @@ def init():
     f = Fetcher()
     f.start()
     return f
-
-
-def reg():
-    Commands.add(dpl)
-    Commands.add(ftc)
-    Commands.add(nme)
-    Commands.add(rem)
-    Commands.add(rss)
-
-
-def rem():
-    Commands.remove(dpl)
-    Commands.remove(ftc)
-    Commands.remove(nme)
-    Commands.remove(rem)
-    Commands.remove(rss)
 
 
 class Feed(Object):
@@ -235,11 +218,6 @@ def useragent(txt):
 
 
 parser = Parser()
-
-
-Class.add(Feed)
-Class.add(Rss)
-Class.add(Seen)
 
 
 def dpl(event):

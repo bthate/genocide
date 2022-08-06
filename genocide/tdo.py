@@ -7,20 +7,10 @@
 import time
 
 
-from .com import Commands
-from .dbs import Class, find, fntime
-from .obj import Object, save
-from .utl import elapsed
-
-
-def reg():
-    Commands.add(dne)
-    Commands.add(tdo)
-
-
-def rem():
-    Commands.remove(dne)
-    Commands.remove(tdo)
+from gd.run import Commands
+from gd.dbs import Class, find, fntime
+from gd.obj import Object, save
+from gd.utl import elapsed
 
 
 class Todo(Object):
@@ -28,9 +18,6 @@ class Todo(Object):
     def __init__(self):
         super().__init__()
         self.txt = ""
-
-
-Class.add(Todo)
 
 
 def dne(event):

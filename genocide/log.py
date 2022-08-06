@@ -4,19 +4,9 @@
 "log"
 
 
-from .com import Commands
-from .dbs import Class
-from .obj import Object, save
-
-
-def reg():
-    Class.add(Log)
-    Commands.add(log)
-
-
-def rem():
-    Class.remove(Log)
-    Commands.remove(log)
+from gd.run import Commands
+from gd.dbs import Class
+from gd.obj import Object, save
 
 
 class Log(Object):

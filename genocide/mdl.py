@@ -7,19 +7,17 @@
 import time
 
 
-from .bus import Bus
-from .com import Commands
-from .evt import Event
-from .obj import Object, get, key, keys, update
-from .thr import Repeater, launch
-from .utl import elapsed
+from gd.bus import Bus
+from gd.run import Commands
+from gd.evt import Event
+from gd.obj import Object, get, key, keys, update
+from gd.thr import Repeater, launch
+from gd.utl import elapsed
 
 
 def __dir__():
     return (
         "init",
-        "reg",
-        "rem"
     )
 
 

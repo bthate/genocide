@@ -27,13 +27,14 @@ from gd.run import CLI, Console, Table, parse_cli
 from gd.utl import cdir
 
 
-from genocide import bsc, fnd, irc, log, rss, sts, tdo
+from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
 
 
 Table.add(bsc)
 Table.add(fnd)
 Table.add(irc)
 Table.add(log)
+Table.add(mdl)
 Table.add(rss)
 Table.add(sts)
 Table.add(tdo)

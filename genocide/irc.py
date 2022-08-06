@@ -15,14 +15,14 @@ import time
 import _thread
 
 
-from .bus import Bus
-from .com import Commands
-from .dbs import Class, find, last, locked, save
-from .evt import Event
-from .obj import Config, Object
-from .obj import edit, format, update
-from .hdl import Handler
-from .thr import launch
+from gd.bus import Bus
+from gd.run import Commands, Config
+from gd.dbs import Class, find, last, locked, save
+from gd.evt import Event
+from gd.obj import Default, Object
+from gd.obj import edit, format, update
+from gd.hdl import Handler
+from gd.thr import launch
 
 
 def __dir__():
@@ -40,22 +40,6 @@ def init():
     return i
 
 
-def reg():
-    Commands.add(cfg)
-    Commands.add(dlt)
-    Commands.add(met)
-    Commands.add(mre)
-    Commands.add(pwd)
-
-
-def rem():
-    Commands.remove(cfg)
-    Commands.remove(dlt)
-    Commands.remove(met)
-    Commands.remove(mre)
-    Commands.remove(pwd)
-
-
 saylock = _thread.allocate_lock()
 
 
@@ -65,26 +49,23 @@ class NoUser(Exception):
 
 
 
-name = Config.name
-
-
-class Config(Config):
+class Config(Default):
 
     cc = "!"
-    channel = "#%s" % name
-    nick = name
+    channel = "#%s" % "genocide"
+    nick = "genocide"
     password = ""
     port = 6667
-    realname = name
+    realname = "GENOCIDE - Prosecutor. Court. Reconsider OTP-CR-117/19."
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = name
+    username = "genocide"
     users = False
 
     def __init__(self):
-        super().__init__()
+        Default.__init__()
         self.cc = Config.cc
         self.channel = Config.channel
         self.nick = Config.nick or name
@@ -97,9 +78,6 @@ class Config(Config):
         self.sleep = Config.sleep
         self.username = Config.username
         self.users = Config.users
-
-
-Class.add(Config)
 
 
 class IEvent(Event):

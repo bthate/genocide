@@ -8,20 +8,9 @@ import threading
 import time
 
 
-from .com import Commands
-from .obj import Object, get, update
-from .run import starttime
-from .utl import elapsed
-
-
-def reg():
-    Commands.add(cmd)
-    Commands.add(thr)
-
-
-def rem():
-    Commands.remove(cmd)
-    Commands.remove(thr)
+from gd.obj import Object, get, update
+from gd.run import starttime
+from gd.utl import elapsed
 
 
 def cmd(event):

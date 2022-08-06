@@ -6,23 +6,27 @@ import os
 import shutil
 
 
-mods = ["obb", "obe", "obh", "obj", "obr", "obt", "obu"]
+mods1 = ["gd.all", "gd.bus", "gd.dbs", "gd.evt", "gd.hdl", "gd.obj", "gd.run", "gd.thr", "gd.tmr", "gd.utl"]
+mods2 = ["genocide.bsc", "genocide.flt", "genocide.fnd", "genocide.irc", "genocide.log", "genocide.mbx", "genocide.ndl", "genocide.rss", "genocide.slg", "genocide.tdo"]
 
 
 def popen(txt):
     for l in os.popen(txt).readlines():
         print(l)
 
-for m in mods:
+
+for m in mods1 + mods2:
     fn = "docs/%s.rst" % m
     if os.path.exists(fn):
         popen("rm " + fn)
+
 
 popen("rm -fR txt/*~ files/*~ files/__pycache__")
 popen("rm -fR bin/*~ *~ __pycache__")
 popen("rm -fR build dist MANIFEST genocide.egg-info") 
 popen("rm -fR dev/*~ bin/*~ *~ files/*~")
 popen("rm -fR lib/*~ lib/__pycache__ lib/genocide.egg-info")
+popen("rm -fR gd/*~ gd/__pycache__")
 popen("rm -fR lib2/*~ lib2/__pycache__ lib2/genocide.egg-info")
 popen("rm -fR genocide/*~ genocide/__pycache__")
 popen("rm -fR genocide/cmd/*~ genocide/cmd/__pycache__")

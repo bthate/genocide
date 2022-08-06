@@ -2,36 +2,56 @@
 # This file is placed in the Public Domain.
 
 
-"Prosecutor. Court. Reconsider OTP-CR-117/19."
-
-
-__version__ = "74"
+"bot command"
 
 
 import os
 import sys
+import termios
+import time
 
 
-from genocide.obj import Config
+import op.all
 
 
-Config.name = "genocide"
+op.obj.workdir = "/var/lib/botd/"
+
+
+from op.run import Config
+
+
+Config.name = "bot"
 Config.threaded = False
-Config.version = __version__
-Config.workdir = "/var/lib/genocide/"
+Config.version = "83"
 
 
-from genocide.obj import cdir, keys, spl
-from genocide.run import CLI, Table, boot
+from op.bus import Bus
+from op.run import Commands, dispatch
+from op.hdl import Callbacks, Handler
+from op.obj import format, keys
+from op.run import CLI, Console, Table, parse_cli
+from op.utl import cdir
 
 
-from genocide import bsc, mdl, irc, rss
+from bot import bsc, fnd, irc, log, rss, sts, tdo
+
 
 Table.add(bsc)
-Table.add(mdl)
+Table.add(fnd)
+Table.add(irc)
+Table.add(log)
+Table.add(rss)
+Table.add(sts)
+Table.add(tdo)
+
+
+from bot import bsc, irc, rss, sts
+
+
+Table.add(bsc)
 Table.add(irc)
 Table.add(rss)
-
+Table.add(sts)
 
 allmod =  ",".join(keys(Table.mod))
 
@@ -44,8 +64,8 @@ class CLI(CLI):
 
 
 def main():
-    cdir(Config.workdir)
-    boot(" ".join(sys.argv[1:]), allmod, False)
+    parse_cli(" ".join(sys.argv[1:]))
+    Table.scan()
     c = CLI()
     return c.cmd(" ".join(sys.argv[1:]))
 

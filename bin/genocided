@@ -2,33 +2,75 @@
 # This file is placed in the Public Domain.
 
 
-"Prosecutor. Court. Reconsider OTP-CR-117/19."
+"GENOCIDE - Prosecutor. Court. Reconsider OTP-CR-117/19"
 
 
-__version__ = "74"
-
-
+import os
+import signal
+import sys
+import termios
 import time
 
 
-from genocide.obj import Config
+import op.all
 
 
+op.obj.workdir = "/var/lib/genocide/"
+
+
+from op.run import Config
+
+
+Config.channel = "#genocide"
 Config.name = "genocide"
-Config.threaded = False
-Config.version = __version__
-Config.workdir = "/var/lib/genocide/"
+Config.version = "83"
 
 
-from genocide.irc import IRC
+from op.bus import Bus
+from op.run import Commands, dispatch
+from op.hdl import Callbacks, Handler
+from op.obj import format, keys
+from op.run import CLI, Console, Table
+from op.utl import cdir
+
 from genocide.mdl import init
-from genocide.rss import Fetcher
+from bot import irc, rss
+
+
+Table.add(irc)
+Table.add(rss)
+
+
+allmod =  ",".join(keys(Table.mod))
+
+
+def daemon():
+    pid = os.fork()
+    if pid != 0:
+        os._exit(0)
+    os.setsid()
+    os.umask(0)
+    si = open("/dev/null", 'r')
+    so = open("/dev/null", 'a+')
+    se = open("/dev/null", 'a+')
+    os.dup2(si.fileno(), sys.stdin.fileno())
+    os.dup2(so.fileno(), sys.stdout.fileno())
+    os.dup2(se.fileno(), sys.stderr.fileno())
+
+
+def signal_HUP(sig, frame):
+    print("signal 15 called")
+    sys.stdout.flush()
+
+
+#signal.signal(signal.SIGHUP, signal_HUP)
 
 
 def main():
-    irc = IRC()
-    irc.start()
-    f = Fetcher()
+    #daemon()
+    i = irc.IRC()
+    i.start()
+    f = rss.Fetcher()
     f.start()
     init()
     while 1:

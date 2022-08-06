@@ -7,18 +7,9 @@
 import time
 
 
-from .com import Commands
-from .dbs import Db, find, fntime
-from .obj import format
-from .utl import elapsed
-
-
-def reg():
-    Commands.add(fnd)
-
-
-def rem():
-    Commands.remove(fnd)
+from gd.dbs import Db, find, fntime
+from gd.obj import format
+from gd.utl import elapsed
 
 
 def fnd(event):

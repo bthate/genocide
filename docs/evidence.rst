@@ -72,4 +72,7 @@
 .. image:: ECHAabilify.png
      :width: 100%
 
+.. raw:: html
+
+  <br><br>
 

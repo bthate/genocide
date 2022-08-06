@@ -103,3 +103,7 @@
 
  **GENOCIDE** is placed in the Public Domain. No Copyright, No License.
 
+
+.. raw:: html
+
+    <br>

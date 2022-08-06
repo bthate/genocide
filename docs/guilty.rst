@@ -33,4 +33,7 @@
 
 .. image:: bevestigd.jpg
 
+.. raw:: html
+
+  <br><br>
 

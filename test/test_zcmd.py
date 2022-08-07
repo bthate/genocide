@@ -4,8 +4,6 @@
 "command"
 
 
-import inspect
-import random
 import unittest
 
 
@@ -14,7 +12,7 @@ from op.obj import Object, get
 from op.run import CLI, Commands, Config
 
 
-events = []
+evts = []
 skip = ["cfg",]
 
 
@@ -68,6 +66,6 @@ class Test_Commands(unittest.TestCase):
                 txt = cmd + " " + ex
                 e.txt = txt.strip()
                 c.handle(e)
-                events.append(e)
-        consume(events)
-        self.assertTrue(not events)
+                evts.append(e)
+        consume(evts)
+        self.assertTrue(not evts)

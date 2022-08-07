@@ -14,8 +14,7 @@ txt  = "grep -R %s %s"
 def main():
     for target in targets:
         for t in all:
-            greptxt = txt % (t, target) 
-            print(greptxt)
+            greptxt = txt % (t, target)
             for line in os.popen(greptxt).readlines():
                 print(line)
                 next = False
@@ -24,7 +23,7 @@ def main():
                         next = True
                         break
                 if next:
-                    continue 
+                    continue
                 print(line.rstrip())
 
 

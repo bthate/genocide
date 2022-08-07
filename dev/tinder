@@ -2,14 +2,11 @@
 # This file is placed in the Public Domain.
 
 
-import inspect
 import os
-import random
 import shutil
 import sys
 import termios
 import time
-import unittest
 import _thread
 
 
@@ -31,20 +28,19 @@ Config.verbose = True
 Config.workdir = ".test"
 
 
-from op.bus import Bus
-from op.run import Commands, dispatch
-from op.evt import Command, Event
-from op.dbs import Class, find, fntime, last, listfiles, locked
-from op.obj import Object, edit, format, get, items, keys, save, values, update
-from op.hdl import Callbacks, Handler
+from op.run import Commands
+from op.evt import Command
+from op.dbs import locked
+from op.obj import Object, get, keys
+from op.hdl import Handler
 from op.run import Table, parse_cli, starttime
-from op.thr import Thread, getname, launch
+from op.thr import launch
 from op.utl import cdir
 
 
-from genocide import bsc,fnd, irc, log, mdl, rss, sts, tdo
+from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
 
-
+Table.add(bsc)
 Table.add(fnd)
 Table.add(irc)
 Table.add(log)
@@ -78,18 +74,18 @@ param.tdo = ["test4", ""]
 
 
 errors = []
-events = []
+evts = []
 payloadlock = _thread.allocate_lock()
 results = []
 
 
 class CLI(Handler):
 
-     def raw(self, txt):
-         if Config.verbose:
-             print(txt)
-        
-         
+    def raw(self, txt):
+        if Config.verbose:
+            print(txt)
+
+
 def consume(events):
     fixed = []
     res = []
@@ -148,7 +144,7 @@ def elapsed(seconds, short=True):
 
 @locked(payloadlock)
 def payload(c):
-    global events
+    global evts
     cmds = sorted(Commands.cmd)
     cdir(op.obj.workdir)
     for cmd in cmds:
@@ -158,8 +154,8 @@ def payload(c):
             e.txt = cmd + " " + ex
             e.orig = repr(c)
             c.put(e)
-            events.append(e)
-    consume(events)
+            evts.append(e)
+    consume(evts)
     if os.path.exists(op.obj.workdir):
         shutil.rmtree(op.obj.workdir)
 
@@ -173,7 +169,7 @@ def wrap(func):
         print("")
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
-        print("\n%s events left (%s)" % (len(events), elapsed(time.time()-starttime)))
+        print("\n%s events left (%s)" % (len(evts), elapsed(time.time()-starttime)))
 
 
 def main():
@@ -181,9 +177,8 @@ def main():
     Table.scan()
     c = CLI()
     c.start()
-    thrs = []
     nrs = cfg.index or 20
-    for nr in range(nrs):
+    for _nr in range(nrs):
         thr = launch(payload, c)
         thr.join()
 

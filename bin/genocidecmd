@@ -5,10 +5,7 @@
 "bot command"
 
 
-import os
 import sys
-import termios
-import time
 
 
 import op.obj
@@ -25,12 +22,8 @@ Config.threaded = False
 Config.version = "83"
 
 
-from op.bus import Bus
-from op.run import Commands, dispatch
-from op.hdl import Callbacks, Handler
-from op.obj import format, keys
-from op.run import CLI, Console, Table, parse_cli
-from op.utl import cdir
+from op.obj import keys
+from op.run import CLI, Table, parse_cli
 
 
 from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo

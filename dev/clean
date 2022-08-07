@@ -3,7 +3,6 @@
 
 
 import os
-import shutil
 
 
 mods1 = ["gd.all", "gd.bus", "gd.dbs", "gd.evt", "gd.hdl", "gd.obj", "gd.run", "gd.thr", "gd.tmr", "gd.utl"]
@@ -23,7 +22,7 @@ for m in mods1 + mods2:
 
 popen("rm -fR txt/*~ files/*~ files/__pycache__")
 popen("rm -fR bin/*~ *~ __pycache__")
-popen("rm -fR build dist MANIFEST genocide.egg-info") 
+popen("rm -fR build dist MANIFEST genocide.egg-info")
 popen("rm -fR dev/*~ bin/*~ *~ files/*~")
 popen("rm -fR lib/*~ lib/__pycache__ lib/genocide.egg-info")
 popen("rm -fR gd/*~ gd/__pycache__")

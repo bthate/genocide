@@ -3,9 +3,7 @@
 
 
 import doctest
-import inspect
 import os
-import queue
 import shutil
 import sys
 import unittest
@@ -15,6 +13,8 @@ sys.path.insert(0, os.getcwd())
 
 
 import op.obj
+
+
 op.obj.workdir = ".test"
 
 
@@ -24,12 +24,10 @@ from op.run import Config
 Config.debug = True
 Config.verbose = False
 Config.version = 72
-Config.workdir = ".test"
 
 
-from op.run import Config, Table, dispatch
-from op.evt import Command
-from op.hdl import Callbacks, Handler
+from op.run import Table
+from op.hdl import Handler
 
 
 from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
@@ -50,11 +48,11 @@ flags = doctest.REPORT_NDIFF | doctest.FAIL_FAST | doctest.ELLIPSIS
 
 class CLI(Handler):
 
-     def raw(self, txt):
-         if Config.verbose:
-             print(txt)
-        
-         
+    def raw(self, txt):
+        if Config.verbose:
+            print(txt)
+
+
 c = CLI()
 c.start()
 

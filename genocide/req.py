@@ -1,14 +1,11 @@
 # This file is placed in the Public Domain.
 
 
-"request"
-
-
-txt = """Information and Evidence Unit
-|Office of the Prosecutor
-|Post Office Box 19519
-|2500 CM The Hague
-|The Netherlands
+"""| Information and Evidence Unit
+| Office of the Prosecutor
+| Post Office Box 19519
+| 2500 CM The Hague
+| The Netherlands
 
 Hello Office of the Prosecutor,
 
@@ -29,10 +26,22 @@ these laws are proven to be poison (1).
 There is proof the medication used in forced treatements in the
 netherlands are poison.
 
-(1) haloperiodol - https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
-(2) clozapine - https://echa.europa.eu/substance-information/-/substanceinfo/100.024.831
-(3) olanzapine - https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
-(4) aripriprazole - https://echa.europa.eu/substance-information/-/substanceinfo/100.112.532
+1) haloperidol
+
+https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
+
+2) clozapine
+
+https://echa.europa.eu/substance-information/-/substanceinfo/100.024.831
+
+3) olanzapine
+
+https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
+
+4) aripriprazole
+
+https://echa.europa.eu/substance-information/-/substanceinfo/100.112.532
+
 
 With the mass scale torture with poison the king of the netherlands and
 his chamber:
@@ -63,8 +72,9 @@ p.s.
 
 
 (1) provided are the confirmation letters of both the chamber and the king.
-(2) your reference: OTP-CR-117/19"""
+(2) your reference: OTP-CR-117/19
+"""
 
 
 def req(event):
-    event.reply(txt)
+    event.reply(__doc__)

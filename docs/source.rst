@@ -24,21 +24,20 @@ the following modules are provided:
      :toctree: 
      :template: module.rst
 
-     gd.all			import
-     gd.bus			bus
-     gd.evt			event
-     gd.hdl			handler
-     gd.obj			object
-     gd.run			runtime
-     gd.thr			thread
-     gd.tmr			timer
-     gd.utl			utility
+     op.bus			bus
+     op.evt			event
+     op.hdl			handler
+     op.obj			object
+     op.run			runtime
+     op.thr			thread
+     op.tmr			timer
+     op.utl			utility
 
 .. raw:: html
 
     <br><br>
 
-**botlib**
+**genocide package**
 
  .. autosummary::
      :toctree: 
@@ -47,6 +46,10 @@ the following modules are provided:
      genocide.irc			internet relay chat
      genocide.fnd			find
      genocide.log			log
+     genocide.mdl			model
+     genocide.mbx			mailbox
+     genocide.req			request
      genocide.rss			rich site syndicate
+     genocide.slg			slogan
      genocide.sts			stats
      genocide.tdo			todo

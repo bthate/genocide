@@ -14,17 +14,17 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-import gd.all
+import op.obj
 
 
-gd.obj.workdir = os.path.expanduser("~/.genocide")
+op.obj.workdir = os.path.expanduser("~/.genocide")
 
 
-from gd.bus import Bus
-from gd.hdl import Callbacks, Handler
-from gd.obj import format, keys
-from gd.run import CLI, Console, Table, parse_cli
-from gd.utl import cdir
+from op.bus import Bus
+from op.hdl import Callbacks, Handler
+from op.obj import format, keys
+from op.run import CLI, Console, Table, parse_cli
+from op.utl import cdir
 
 
 from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo

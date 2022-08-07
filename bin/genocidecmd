@@ -11,7 +11,7 @@ import termios
 import time
 
 
-import op.all
+import op.obj
 
 
 op.obj.workdir = "/var/lib/botd/"
@@ -33,25 +33,18 @@ from op.run import CLI, Console, Table, parse_cli
 from op.utl import cdir
 
 
-from bot import bsc, fnd, irc, log, rss, sts, tdo
+from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
 
 
 Table.add(bsc)
 Table.add(fnd)
 Table.add(irc)
 Table.add(log)
+Table.add(mdl)
 Table.add(rss)
 Table.add(sts)
 Table.add(tdo)
 
-
-from bot import bsc, irc, rss, sts
-
-
-Table.add(bsc)
-Table.add(irc)
-Table.add(rss)
-Table.add(sts)
 
 allmod =  ",".join(keys(Table.mod))
 

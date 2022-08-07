@@ -7,10 +7,10 @@
 import time
 
 
-from gd.run import Commands
-from gd.dbs import Class, find, fntime
-from gd.obj import Object, save
-from gd.utl import elapsed
+from op.run import Commands
+from op.dbs import Class, find, fntime
+from op.obj import Object, save
+from op.utl import elapsed
 
 
 class Todo(Object):

@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"command tests"
+"command"
 
 
 import inspect
@@ -9,10 +9,10 @@ import random
 import unittest
 
 
-from genocide.obj import Config, Object, get
-from genocide.com import Commands
-from genocide.evt import Command
-from genocide.run import CLI
+from op.evt import Command
+from op.obj import Object, get
+from op.run import CLI, Commands, Config
+
 
 events = []
 skip = ["cfg",]
@@ -51,6 +51,7 @@ def consume(events):
         except ValueError:
             continue
     return res
+
 
 
 class Test_Commands(unittest.TestCase):

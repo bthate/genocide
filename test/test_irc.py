@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"irc tests"
+"irc"
 
 
 import unittest

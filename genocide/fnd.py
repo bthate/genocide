@@ -7,9 +7,9 @@
 import time
 
 
-from gd.dbs import Db, find, fntime
-from gd.obj import format
-from gd.utl import elapsed
+from op.dbs import Db, find, fntime
+from op.obj import format
+from op.utl import elapsed
 
 
 def fnd(event):

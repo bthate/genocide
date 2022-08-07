@@ -14,7 +14,11 @@ import unittest
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.obj import Config, format
+import op.obj
+op.obj.workdir = ".test"
+
+
+from op.run import Config
 
 
 Config.debug = True
@@ -23,12 +27,22 @@ Config.version = 72
 Config.workdir = ".test"
 
 
-from genocide.com import dispatch
-from genocide.evt import Command
-from genocide.hdl import Callbacks, Handler
+from op.run import Config, Table, dispatch
+from op.evt import Command
+from op.hdl import Callbacks, Handler
 
 
-Callbacks.threaded = False
+from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
+
+
+Table.add(bsc)
+Table.add(fnd)
+Table.add(irc)
+Table.add(log)
+Table.add(mdl)
+Table.add(rss)
+Table.add(sts)
+Table.add(tdo)
 
 
 flags = doctest.REPORT_NDIFF | doctest.FAIL_FAST | doctest.ELLIPSIS
@@ -49,8 +63,9 @@ def main():
     if os.path.exists(Config.workdir):
         shutil.rmtree(Config.workdir)
     if "-v" in sys.argv:
+        print("Verbose")
         Config.verbose = True
-    print(format(Config))
+    Table.scan()
     pat = "test_%s*" % "*"
     suite = unittest.loader.TestLoader().discover("test", pattern=pat)
     unittest.TextTestRunner(verbosity=3).run(suite)

@@ -15,14 +15,14 @@ import time
 import _thread
 
 
-from gd.bus import Bus
-from gd.run import Commands, Config
-from gd.dbs import Class, find, last, locked, save
-from gd.evt import Event
-from gd.obj import Default, Object
-from gd.obj import edit, format, update
-from gd.hdl import Handler
-from gd.thr import launch
+from op.bus import Bus
+from op.run import Commands, Config
+from op.dbs import Class, find, last, locked, save
+from op.evt import Event
+from op.obj import Default, Object
+from op.obj import edit, format, update
+from op.hdl import Handler
+from op.thr import launch
 
 
 def __dir__():

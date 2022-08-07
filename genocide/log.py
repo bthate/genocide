@@ -4,9 +4,9 @@
 "log"
 
 
-from gd.run import Commands
-from gd.dbs import Class
-from gd.obj import Object, save
+from op.run import Commands
+from op.dbs import Class
+from op.obj import Object, save
 
 
 class Log(Object):

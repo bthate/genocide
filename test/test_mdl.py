@@ -1,14 +1,14 @@
 # This file is placed in the Public Domain.
 
 
-"model tests"
+"model"
 
 
 import unittest
 
 
+from op.obj import Object
 from genocide.mdl import oorzaak
-from genocide.obj import Object
 
 
 class Test_Composite(unittest.TestCase):

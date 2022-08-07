@@ -5,9 +5,9 @@ import threading
 import time
 
 
-from gd.obj import Object, get, update
-from gd.run import starttime
-from gd.utl import elapsed
+from op.obj import Object, get, update
+from op.run import starttime
+from op.utl import elapsed
 
 
 def thr(event):

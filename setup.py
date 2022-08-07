@@ -35,7 +35,8 @@ setup(
     description="Prosecutor. Court. Reonsider OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
-    packages=["gd", "genocide"],
+    install_requires=["oplib"],
+    packages=["genocide"],
     zip_safe=True,
     include_package_data=True,
     data_files=[

@@ -10,13 +10,13 @@ import threading
 import urllib
 
 
-from gd.bus import Bus
-from gd.dbs import Class, Db, find, last, save
-from gd.obj import Object, edit, get, update
-from gd.run import Commands, Config
-from gd.thr import launch
-from gd.tmr import Repeater
-from gd.utl import spl
+from op.bus import Bus
+from op.dbs import Class, Db, find, last, save
+from op.obj import Object, edit, get, update
+from op.run import Commands, Config
+from op.thr import launch
+from op.tmr import Repeater
+from op.utl import spl
 
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode

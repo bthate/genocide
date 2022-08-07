@@ -8,9 +8,9 @@ import threading
 import time
 
 
-from gd.obj import Object, get, update
-from gd.run import Commands, starttime
-from gd.utl import elapsed
+from op.obj import Object, get, update
+from op.run import Commands, starttime
+from op.utl import elapsed
 
 
 def cmd(event):

@@ -27,7 +27,7 @@ Config.version = "83"
 from op.obj import keys
 from op.run import Table
 
-from genocide  import irc, rss
+from genocide import irc, rss
 
 
 Table.add(irc)

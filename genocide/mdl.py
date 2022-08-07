@@ -10,7 +10,8 @@ import time
 from op.bus import Bus
 from op.evt import Event
 from op.obj import Object, get, key, keys, update
-from op.thr import Repeater, launch
+from op.thr import launch
+from op.tmr import Repeater
 from op.utl import elapsed
 
 

@@ -16,7 +16,7 @@ import _thread
 
 
 from op.bus import Bus
-from op.run import Commands, Config
+from op.run import Config
 from op.dbs import Class, find, last, locked, save
 from op.evt import Event
 from op.obj import Default, Object
@@ -68,7 +68,7 @@ class Config(Default):
         Default.__init__(self)
         self.cc = Config.cc
         self.channel = Config.channel
-        self.nick = Config.nick or name
+        self.nick = Config.nick
         self.password = Config.password
         self.port = Config.port
         self.realname = Config.realname
@@ -113,7 +113,6 @@ class Output():
     cache = {}
 
     def __init__(self):
-        Object.__init__(self)
         self.oqueue = queue.Queue()
         self.dostop = threading.Event()
 

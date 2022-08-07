@@ -4,17 +4,8 @@
 "fleet"
 
 
-from .bus import Bus
-from .com import Commands
-from .thr import getname
-
-
-def reg():
-    Commands.add(flt)
-
-
-def rem():
-    Commands.remove(flt)
+from op.bus import Bus
+from op.thr import getname
 
 
 def flt(event):

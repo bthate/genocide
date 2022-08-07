@@ -8,7 +8,6 @@ import time
 
 
 from op.bus import Bus
-from op.run import Commands
 from op.evt import Event
 from op.obj import Object, get, key, keys, update
 from op.thr import Repeater, launch

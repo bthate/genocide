@@ -9,10 +9,9 @@ import os
 import time
 
 
-from .com import Commands
-from .dbs import Class, Db, find, fntime, save
-from .obj import Object, format, update
-from .utl import elapsed
+from op.dbs import Db, find, fntime, save
+from op.obj import Object, format, update
+from op.utl import elapsed
 
 
 bdmonths = ['Bo', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -34,26 +33,11 @@ monthint = {
 }
 
 
-def reg():
-    Commands.add(cor)
-    Commands.add(eml)
-    Commands.add(mbx)
-
-
-def rem():
-    Commands.remove(cor)
-    Commands.remove(eml)
-    Commands.remove(mbx)
-
-
 class Email(Object):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.text = ""
-
-
-Class.add(Email)
 
 
 def to_date(date):

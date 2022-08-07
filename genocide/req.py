@@ -1,17 +1,7 @@
 # This file is placed in the Public Domain.
 
+
 "request"
-
-
-from hx.com import Commands
-
-
-def reg():
-    Commands.add(req)
-
-
-def rem():
-    Commands.add(req)
 
 
 txt = """Information and Evidence Unit

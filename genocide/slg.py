@@ -1,15 +1,7 @@
 # This file is placed in the Public Domain
 
 
-from .com import Commands
-
-
-def reg():
-    Commands.add(slg)
-
-
-def rem():
-    Commands.remove(slg)
+"slogan"
 
 
 txt = """GENOCIDE 73 released - http://pypi.org/project/genocide

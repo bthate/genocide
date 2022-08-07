@@ -15,6 +15,18 @@ from op.hdl import Callbacks, Handler
 from op.obj import Default, Object, get, register
 
 
+def __dir__():
+    return (
+        "Table",
+        "CLI",
+        "Commands",
+        "Config",
+        "Console",
+        "dispatch",
+        "parse_cli"
+    )
+
+
 starttime = time.time()
 
 

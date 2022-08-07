@@ -11,9 +11,7 @@ import types
 
 def __dir__():
     return (
-        "Repeater",
         "Thread",
-        "Timer",
         "getname",
         "launch"
     )

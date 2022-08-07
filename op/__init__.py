@@ -4,26 +4,19 @@
 "object programming library"
 
 
+__all__ = ["bus", "clt", "dbs", "evt", "hdl", "obj", "thr", "tmr", "utl"]
+
+
 def __dir__():
-    return (
-        "bus",
-        "dbs",
-        "evt",
-        "hdl",
-        "obj",
-        "run",
-        "thr",
-        "tmr",
-        "utl"
-    )
+    return __all__
 
 
-import op.bus as bus
-import op.dbs as dbs
-import op.evt as evt
-import op.hdl as hdl
-import op.obj as obj
-import op.run as run
-import op.thr as thr
-import op.tmr as tmr
-import op.utl as utl
+import op.bus
+import op.clt
+import op.dbs
+import op.evt
+import op.hdl
+import op.obj
+import op.thr
+import op.tmr
+import op.utl

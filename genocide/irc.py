@@ -17,7 +17,7 @@ import _thread
 
 from op.bus import Bus
 from op.run import Config
-from op.dbs import Class, find, last, locked, save
+from op.dbs import find, last, locked, save
 from op.evt import Event
 from op.obj import Default, Object
 from op.obj import edit, format, update
@@ -31,6 +31,11 @@ def __dir__():
         "Event",
         "IRC",
         "DCC",
+        "cfg",
+        "dlt",
+        "met",
+        "mre",
+        "pwd"
     )
 
 
@@ -535,9 +540,6 @@ class User(Object):
             update(self, val)
 
 
-Class.add(User)
-
-
 class Users(Object):
 
     userhosts = Object()
@@ -577,9 +579,6 @@ class Users(Object):
             user.perms.append(permission.upper())
             save(user)
         return user
-
-
-Class.add(Users)
 
 
 def cfg(event):

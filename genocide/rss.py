@@ -26,7 +26,17 @@ from urllib.request import Request, urlopen
 
 def __dir__():
     return (
+        "Feed",
+        "Fetcher",
+        "Parser",
+        "Rss",
+        "Seen",
         "init",
+        "dpl",
+        "ftc",
+        "nme",
+        "rem",
+        "rss"
     )
 
 

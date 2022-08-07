@@ -17,7 +17,7 @@ workdir = ""
 
 def __dir__():
     return (
-        'Config',
+        'NOPATH',
         'Object',
         'ObjectDecoder',
         'ObjectEncoder',
@@ -51,7 +51,7 @@ def __dir__():
 
 
 
-class ENOPATH(Exception):
+class NOPATH(Exception):
 
     pass
 
@@ -90,6 +90,8 @@ class Object:
             del self.__dict__[k]
 
     def __eq__(self, o):
+        if o == None:
+            return False
         return len(self.__dict__) == len(o.__dict__)
 
     def __getitem__(self, k):
@@ -279,7 +281,7 @@ def keys(o):
 
 def load(o, opath):
     if opath.count(os.sep) != 3:
-        raise ENOPATH(opath)
+        raise NOPATH(opath)
     assert workdir
     splitted = opath.split(os.sep)
     stp = os.sep.join(splitted[-4:])

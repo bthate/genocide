@@ -21,7 +21,6 @@ def __dir__():
     )
 
 
-
 class Callbacks(Object):
 
     cbs = Object()

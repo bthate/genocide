@@ -5,9 +5,9 @@
 import os
 
 
-all = ["__import__", "__main__", "__version__", '"## "', "popen", "pkgutil", "importlib", "print", "sys", "inspect", "traceback"]
+all = ["__import__", "__main__", "__version__", '"## "', "popen", "pkgutil", "importlib", "print", "sys", "traceback"]
 skip = ["env", "bin", "dev", "test", ".git", "README", "grep", "mod"]
-targets = ["genocide",]
+targets = ["genocide", "op"]
 txt  = "grep -R %s %s"
 
 
@@ -16,7 +16,6 @@ def main():
         for t in all:
             greptxt = txt % (t, target)
             for line in os.popen(greptxt).readlines():
-                print(line)
                 next = False
                 for s in skip:
                     if s in line:

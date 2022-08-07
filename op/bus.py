@@ -25,7 +25,8 @@ class Bus(Object):
     @staticmethod
     def announce(txt):
         for o in Bus.objs:
-            o.announce(txt)
+            if o and "announce" in dir(o):
+                o.announce(txt)
 
     @staticmethod
     def byorig(orig):
@@ -36,5 +37,5 @@ class Bus(Object):
     @staticmethod
     def say(orig, channel, txt):
         o = Bus.byorig(orig)
-        if o:
+        if o and "say" in dir(o):
             o.say(channel, txt)

@@ -57,6 +57,7 @@ class Test_Commands(unittest.TestCase):
     def test_commands(self):
         cmds = sorted(Commands.cmd)
         for cmd in cmds:
+            print(cmd)
             if cmd in skip:
                 continue
             for ex in get(param, cmd, ""):

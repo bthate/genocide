@@ -4,6 +4,7 @@
 "database"
 
 
+import op
 import os
 import time
 import _thread
@@ -13,15 +14,19 @@ from op.obj import Object, load, save, search, update
 from op.utl import locked
 
 
-import op.obj as obj
+def __dir__():
+    return (
+        "Class",
+        "Db",
+        "all",
+        "find",
+        "fntime",
+        "last"
+    )
 
 
 dblock = _thread.allocate_lock()
 
-
-class ENOPATH(Exception):
-
-    pass
 
 class Class():
 
@@ -117,8 +122,8 @@ class Db(Object):
 
     @staticmethod
     def types():
-        assert obj.workdir
-        path = os.path.join(obj.workdir, "store")
+        assert op.obj.workdir
+        path = os.path.join(op.obj.workdir, "store")
         if not os.path.exists(path):
             return []
         return sorted(os.listdir(path))
@@ -135,8 +140,8 @@ def fntime(daystr):
 def fns(name, timed=None):
     if not name:
         return []
-    assert obj.workdir
-    p = os.path.join(obj.workdir, "store", name) + os.sep
+    assert op.obj.workdir
+    p = os.path.join(op.obj.workdir, "store", name) + os.sep
     if not os.path.exists(p):
         return []
     res = []
@@ -187,8 +192,8 @@ def listfiles(workdir):
 
 
 def all(timed=None):
-    assert obj.workdir
-    p = os.path.join(obj.workdir, "store")
+    assert op.obj.workdir
+    p = os.path.join(op.obj.workdir, "store")
     for name in os.listdir(p):
         for fn in fns(name):
             yield fn

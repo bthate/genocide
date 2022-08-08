@@ -8,28 +8,16 @@
 import sys
 
 
-import op.obj
+from op.obj import Cfg, keys
+from op.run import CLI, Commands, Table, parse_cli
 
 
-op.obj.workdir = "/var/lib/botd/"
+Cfg.workdir = "/var/lib/genocide/"
 
 
-from op.run import Config
+from genocide import fnd, irc, log, mdl, rss, sts, tdo
 
 
-Config.name = "bot"
-Config.threaded = False
-Config.version = "83"
-
-
-from op.obj import keys
-from op.run import CLI, Table, parse_cli
-
-
-from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
-
-
-Table.add(bsc)
 Table.add(fnd)
 Table.add(irc)
 Table.add(log)
@@ -49,9 +37,14 @@ class CLI(CLI):
         sys.stdout.flush()
 
 
+def cmd(event):
+    event.reply(",".join(sorted(Commands.cmd)))
+
+
 def main():
-    parse_cli(" ".join(sys.argv[1:]))
     Table.scan()
+    Commands.add(cmd)
+    parse_cli(" ".join(sys.argv[1:]))
     c = CLI()
     return c.cmd(" ".join(sys.argv[1:]))
 

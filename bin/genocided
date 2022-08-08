@@ -10,22 +10,12 @@ import sys
 import time
 
 
-import op.obj
-
-
-op.obj.workdir = "/var/lib/genocide/"
-
-
-from op.run import Config
-
-
-Config.channel = "#genocide"
-Config.name = "genocide"
-Config.version = "83"
-
-
-from op.obj import keys
+from op.obj import Cfg, keys
 from op.run import Table
+
+
+Cfg.workdir = "/var/lib/genocide/"
+
 
 from genocide import irc, rss
 

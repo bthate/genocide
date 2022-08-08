@@ -15,14 +15,10 @@ import time
 import _thread
 
 
-from op.bus import Bus
-from op.run import Config
-from op.dbs import find, last, locked, save
-from op.evt import Event
+from op.hdl import Bus, Event, Handler, launch
+from op.obj import find, last, locked, save
 from op.obj import Default, Object
-from op.obj import edit, format, update
-from op.hdl import Handler
-from op.thr import launch
+from op.obj import edit, printable, update
 
 
 def __dir__():
@@ -585,7 +581,7 @@ def cfg(event):
     c = Config()
     last(c)
     if not event.sets:
-        event.reply(format(c, skip="realname,sleep,username"))
+        event.reply(printable(c, skip="realname,sleep,username"))
         return
     edit(c, event.sets)
     save(c)

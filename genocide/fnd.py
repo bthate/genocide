@@ -7,9 +7,9 @@
 import time
 
 
-from op.dbs import Db, find, fntime
-from op.obj import format
-from op.utl import elapsed
+from op.obj import Db, find, fntime
+from op.obj import printable
+from op.tmr import elapsed
 
 
 def fnd(event):
@@ -32,7 +32,7 @@ def fnd(event):
             return
     nr = 0
     for _fn, o in res:
-        txt = "%s %s %s" % (str(nr), format(o, event.sets.keys, event.toskip), elapsed(time.time()-fntime(_fn)))
+        txt = "%s %s %s" % (str(nr), printable(o, event.sets.keys, event.toskip), elapsed(time.time()-fntime(_fn)))
         nr += 1
         event.reply(txt)
     if not nr:

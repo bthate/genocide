@@ -9,8 +9,10 @@ import time
 
 
 from op.obj import Object, get, update
-from op.run import starttime
-from op.utl import elapsed
+from op.tmr import elapsed
+
+
+starttime = time.time()
 
 
 def thr(event):

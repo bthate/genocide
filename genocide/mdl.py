@@ -7,12 +7,9 @@
 import time
 
 
-from op.bus import Bus
-from op.evt import Event
-from op.obj import Object, get, key, keys, update
-from op.thr import launch
-from op.tmr import Repeater
-from op.utl import elapsed
+from op.hdl import Bus, Event, launch
+from op.obj import Object, get, matchkey, keys, update
+from op.tmr import Repeater, elapsed
 
 
 def __dir__():
@@ -193,7 +190,7 @@ def sts(event):
         delta = time.time() - starttime
         nrtimes = int(delta/needed)
         nryear = int(year/needed)
-        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, key(aliases, name, name).lower(),  nryear, elapsed(needed))
+        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, matchkey(aliases, name, name).lower(),  nryear, elapsed(needed))
         Bus.announce(txt)
 
 

@@ -7,9 +7,9 @@
 import time
 
 
-from op.dbs import find, fntime
+from op.obj import find, fntime
 from op.obj import Object, save
-from op.utl import elapsed
+from op.tmr import elapsed
 
 
 class Todo(Object):

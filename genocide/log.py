@@ -4,7 +4,7 @@
 "log"
 
 
-from op.obj import Object, save
+from .obj import Object, save
 
 
 class Log(Object):
@@ -18,7 +18,7 @@ def log(event):
     if not event.rest:
         event.reply("log <txt>")
         return
-    o = Log()
-    o.txt = event.rest
-    save(o)
+    obj = Log()
+    obj.txt = event.rest
+    save(obj)
     event.reply("ok")

@@ -9,9 +9,9 @@ import os
 import time
 
 
-from op.dbs import Db, find, fntime, save
-from op.obj import Object, format, update
-from op.utl import elapsed
+from .obj import Db, find, fntime, save
+from .obj import Object, printable, update
+from .tmr import elapsed
 
 
 bdmonths = ['Bo', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -88,7 +88,7 @@ def cor(event):
             txt = ",".join(event.args[1:])
         else:
             txt = "From,Subject"
-        event.reply("%s %s %s" % (nr, format(email, txt, plain=True), elapsed(time.time() - fntime(email.__stp__))))
+        event.reply("%s %s %s" % (nr, printable(email, txt, plain=True), elapsed(time.time() - fntime(email.__stp__))))
 
 
 def eml(event):
@@ -100,7 +100,7 @@ def eml(event):
     for fn, o in db.all("email"):
         if event.rest in o.text:
             nr += 1
-            event.reply("%s %s %s" % (nr, format(o, "From,Subject"), elapsed(time.time() - fntime(fn))))
+            event.reply("%s %s %s" % (nr, printable(o, "From,Subject"), elapsed(time.time() - fntime(fn))))
 
 
 def mbx(event):

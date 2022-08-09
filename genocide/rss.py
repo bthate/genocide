@@ -1,3 +1,4 @@
+# pylint: disable=E1101,C0116,R0912,R0915
 # This file is placed in the Public Domain.
 
 
@@ -10,24 +11,24 @@ import threading
 import urllib
 
 
-from op.hdl import Bus, launch
-from op.obj import Class, Db, find, last, save
-from op.obj import Object, edit, get, spl, update
-from op.tmr import Repeater
-
-
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
+
+
+from .hdl import Bus, Cfg, launch
+from .obj import Class, Db, find, last, save
+from .obj import Object, edit, get, spl, update
+from .tmr import Repeater
 
 
 def __dir__():
     return (
         "Feed",
         "Fetcher",
-        "Parser",
         "Rss",
         "Seen",
+        "debug",
         "init",
         "dpl",
         "ftc",
@@ -37,10 +38,11 @@ def __dir__():
     )
 
 
+
 def init():
-    f = Fetcher()
-    f.start()
-    return f
+    fetcher = Fetcher()
+    fetcher.start()
+    return fetcher
 
 
 class Feed(Object):
@@ -78,17 +80,18 @@ class Fetcher(Object):
         super().__init__()
         self.connected = threading.Event()
 
-    def display(self, o):
+    @staticmethod
+    def display(obj):
         result = ""
-        dl = []
+        displaylist = []
         try:
-            dl = o.display_list or "title,link"
+            displaylist = obj.display_list or "title,link"
         except AttributeError:
-            dl = "title,link,author"
-        for key in spl(dl):
+            displaylist = "title,link,author"
+        for key in spl(displaylist):
             if not key:
                 continue
-            data = get(o, key, None)
+            data = get(obj, key, None)
             if not data:
                 continue
             data = data.replace("\n", " ")
@@ -101,38 +104,38 @@ class Fetcher(Object):
     def fetch(self, feed):
         counter = 0
         objs = []
-        for o in reversed(list(getfeed(feed.rss, feed.display_list))):
-            f = Feed()
-            update(f, o)
-            update(f, feed)
-            if "link" in f:
-                u = urllib.parse.urlparse(f.link)
-                if u.path and not u.path == "/":
-                    url = "%s://%s/%s" % (u.scheme, u.netloc, u.path)
+        for obj in reversed(list(getfeed(feed.rss, feed.display_list))):
+            fed = Feed()
+            update(fed, obj)
+            update(fed, feed)
+            if "link" in fed:
+                url = urllib.parse.urlparse(fed.link)
+                if url.path and not url.path == "/":
+                    uurl = "%s://%s/%s" % (url.scheme, url.netloc, url.path)
                 else:
-                    url = f.link
-                if url in Fetcher.seen.urls:
+                    uurl = url.link
+                if uurl in Fetcher.seen.urls:
                     continue
-                Fetcher.seen.urls.append(url)
+                Fetcher.seen.urls.append(uurl)
             counter += 1
             if self.dosave:
-                save(f)
-            objs.append(f)
+                save(fed)
+            objs.append(fed)
         if objs:
             save(Fetcher.seen)
         txt = ""
         name = get(feed, "name")
         if name:
             txt = "[%s] " % name
-        for o in objs:
-            txt2 = txt + self.display(o)
+        for obj in objs:
+            txt2 = txt + self.display(obj)
             Bus.announce(txt2.rstrip())
         return counter
 
     def run(self):
         thrs = []
-        for _fn, o in find("rss"):
-            thrs.append(launch(self.fetch, o))
+        for _fn, obj in find("rss"):
+            thrs.append(launch(self.fetch, obj))
         return thrs
 
     def start(self, repeat=True):
@@ -142,22 +145,22 @@ class Fetcher(Object):
             repeater.start()
 
 
-
 class Parser(Object):
 
     @staticmethod
     def getitem(line, item):
+        lne = ""
         try:
-            i = line.index("<%s>" % item) + len(item) + 2
-            ii = line.index("</%s>" % item)
+            index1 = line.index("<%s>" % item) + len(item) + 2
+            index2 = line.index("</%s>" % item)
+            lne = line[index1:index2]
+            if "CDATA" in lne:
+                lne = lne.replace("![CDATA[", "")
+                lne = lne.replace("]]", "")
+                lne = lne[1:-1]
         except ValueError:
-            return
-        l = line[i:ii]
-        if "CDATA" in l:
-            l = l.replace("![CDATA[", "")
-            l = l.replace("]]", "")
-            l = l[1:-1]
-        return l
+            lne = None
+        return lne
 
 
     @staticmethod
@@ -165,16 +168,15 @@ class Parser(Object):
         res = []
         for line in txt.split("<item>"):
             line = line.strip()
-            o = Object()
+            obj = Object()
             for item in spl(items):
-                o[item] = Parser.getitem(line, item)
-            res.append(o)
+                obj[item] = Parser.getitem(line, item)
+            res.append(obj)
         return res
 
 
-
 def getfeed(url, items):
-    if Config.debug:
+    if Cfg.debug:
         return [Object(), Object()]
     try:
         result = geturl(url)
@@ -225,26 +227,23 @@ def useragent(txt):
     return "Mozilla/5.0 (X11; Linux x86_64) " + txt
 
 
-parser = Parser()
-
-
 def dpl(event):
     if len(event.args) < 2:
         event.reply("dpl <stringinurl> <item1,item2>")
         return
-    db = Db()
+    dbs = Db()
     setter = {"display_list": event.args[1]}
     names = Class.full("rss")
     if names:
-        _fn, o = db.lastmatch(names[0], {"rss": event.args[0]})
-        if o:
-            edit(o, setter)
-            save(o)
+        _fn, feed = dbs.lastmatch(names[0], {"rss": event.args[0]})
+        if feed:
+            edit(feed, setter)
+            save(feed)
             event.reply("ok")
 
 
 def ftc(event):
-    if Config.debug:
+    if Cfg.debug:
         event.reply("not fetching, debug is enabled")
         return
     res = []
@@ -252,8 +251,8 @@ def ftc(event):
     fetcher = Fetcher()
     fetcher.start(False)
     thrs = fetcher.run()
-    for t in thrs:
-        res.append(t.join())
+    for thr in thrs:
+        res.append(thr.join())
     if res:
         event.reply(",".join([str(x) for x in res]))
         return
@@ -264,14 +263,14 @@ def nme(event):
         event.reply("name <stringinurl> <name>")
         return
     selector = {"rss": event.args[0]}
-    nr = 0
+    _nr = 0
     got = []
-    for _fn, o in find("rss", selector):
-        nr += 1
-        o.name = event.args[1]
-        got.append(o)
-    for o in got:
-        save(o)
+    for _fn, feed in find("rss", selector):
+        _nr += 1
+        feed.name = event.args[1]
+        got.append(feed)
+    for feed in got:
+        save(feed)
     event.reply("ok")
 
 
@@ -280,14 +279,12 @@ def rem(event):
         event.reply("rem <stringinurl>")
         return
     selector = {"rss": event.args[0]}
-    nr = 0
     got = []
-    for _fn, o in find("rss", selector):
-        nr += 1
-        o._deleted = True
-        got.append(o)
-    for o in got:
-        save(o)
+    for _fn, feed in find("rss", selector):
+        feed._deleted = True
+        got.append(feed)
+    for feed in got:
+        save(feed)
     event.reply("ok")
 
 
@@ -302,7 +299,7 @@ def rss(event):
     res = list(find("rss", {"rss": url}))
     if res:
         return
-    o = Rss()
-    o.rss = event.args[0]
-    save(o)
+    feed = Rss()
+    feed.rss = event.args[0]
+    save(feed)
     event.reply("ok")

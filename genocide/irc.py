@@ -1,3 +1,4 @@
+# pylint: disable=E1101,C0116,R0912,R0915
 # This file is placed in the Public Domain.
 
 
@@ -15,10 +16,9 @@ import time
 import _thread
 
 
-from op.hdl import Bus, Event, Handler, launch
-from op.obj import find, last, locked, save
-from op.obj import Default, Object
-from op.obj import edit, printable, update
+from .obj import Default, Object, edit, printable, update
+from .obj import find, last, locked, save
+from .hdl import Cfg, Event, Handler, launch
 
 
 def __dir__():
@@ -27,6 +27,7 @@ def __dir__():
         "Event",
         "IRC",
         "DCC",
+        "init",
         "cfg",
         "dlt",
         "met",
@@ -37,7 +38,7 @@ def __dir__():
 
 def init():
     i = IRC()
-    i.start()
+    launch(i.start)
     return i
 
 
@@ -52,24 +53,24 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    cc = "!"
-    channel = "#%s" % "genocide"
-    nick = "genocide"
+    channel = Cfg.name or "bot"
+    control = "!"
+    nick = Cfg.name or "bot"
     password = ""
     port = 6667
-    realname = "GENOCIDE - Prosecutor. Court. Reconsider OTP-CR-117/19."
+    realname = Cfg.name or "bot"
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "genocide"
+    username = Cfg.name or "Bot"
     users = False
 
     def __init__(self):
-        Default.__init__(self)
-        self.cc = Config.cc
+        super().__init__()
+        self.control = Config.control
         self.channel = Config.channel
-        self.nick = Config.nick
+        self.nick = Config.nick or Config.name
         self.password = Config.password
         self.port = Config.port
         self.realname = Config.realname
@@ -109,11 +110,12 @@ class TextWrap(textwrap.TextWrapper):
         self.width = 450
 
 
-class Output():
+class Output(Object):
 
-    cache = {}
+    cache = Object()
 
     def __init__(self):
+        Object.__init__(self)
         self.oqueue = queue.Queue()
         self.dostop = threading.Event()
 
@@ -126,10 +128,12 @@ class Output():
         self.cache[channel].extend(txtlist)
 
     def get(self, channel):
+        value = None
         try:
-            return self.cache[channel].pop(0)
+            value = self.cache[channel].pop(0)
         except IndexError:
             pass
+        return value
 
     def oput(self, channel, txt):
         self.oqueue.put_nowait((channel, txt))
@@ -141,18 +145,18 @@ class Output():
                 break
             wrapper = TextWrap()
             txtlist = wrapper.wrap(txt)
-            c = -1
             if len(txtlist) > 3:
                 self.extend(channel, txtlist)
                 self.dosay(channel, "%s put in cache, use !mre to show more" % len(txtlist))
                 continue
-            for t in txtlist:
-                c += 1
-                self.dosay(channel, t)
+            _nr = -1
+            for txt in txtlist:
+                _nr += 1
+                self.dosay(channel, txt)
 
-    def size(self, n):
-        if n in self.cache:
-            return len(self.cache[n])
+    def size(self, name):
+        if name in self.cache:
+            return len(self.cache[name])
         return 0
 
     def start(self):
@@ -175,7 +179,6 @@ class IRC(Handler, Output):
         self.cfg = Config()
         self.connected = threading.Event()
         self.channels = []
-        self.errors = []
         self.joined = threading.Event()
         self.keeprunning = False
         self.outqueue = queue.Queue()
@@ -193,16 +196,15 @@ class IRC(Handler, Output):
         self.threaded = False
         self.users = Users()
         self.zelf = ""
-        self.register("903", h903)
-        self.register("904", h903)
-        self.register("AUTHENTICATE", AUTH)
-        self.register("CAP", CAP)
-        self.register("ERROR", ERROR)
-        self.register("LOG", LOG)
-        self.register("NOTICE", NOTICE)
-        self.register("PRIVMSG", PRIVMSG)
-        self.register("QUIT", QUIT)
-        Bus.add(self)
+        self.register("903", cb_h903)
+        self.register("904", cb_h903)
+        self.register("AUTHENTICATE", cb_auth)
+        self.register("CAP", cb_cap)
+        self.register("ERROR", cb_error)
+        self.register("LOG", cb_log)
+        self.register("NOTICE", cb_notice)
+        self.register("PRIVMSG", cb_privmsg)
+        self.register("QUIT", cb_quit)
 
     def announce(self, txt):
         for channel in self.channels:
@@ -255,11 +257,8 @@ class IRC(Handler, Output):
         self.state.nrconnect = 0
         while 1:
             self.state.nrconnect += 1
-            try:
-                if self.connect(server, port):
-                    break
-            except Exception as ex:
-                self.errors.append(ex)
+            if self.connect(server, port):
+                break
             time.sleep(self.cfg.sleep)
         self.logon(server, nck)
 
@@ -269,29 +268,27 @@ class IRC(Handler, Output):
         self.command("PRIVMSG", channel, txt)
 
     def event(self, txt, origin=None):
-        if not txt:
-            return
-        e = self.parsing(txt)
-        cmd = e.command
+        evt = self.parsing(txt)
+        cmd = evt.command
         if cmd == "PING":
             self.state.pongcheck = True
-            self.command("PONG", e.txt or "")
+            self.command("PONG", evt.txt or "")
         elif cmd == "PONG":
             self.state.pongcheck = False
         if cmd == "001":
             self.state.needconnect = False
             if self.cfg.servermodes:
                 self.raw("MODE %s %s" % (self.cfg.nick, self.cfg.servermodes))
-            self.zelf = e.args[-1]
+            self.zelf = evt.args[-1]
             self.joinall()
         elif cmd == "002":
-            self.state.host = e.args[2][:-1]
+            self.state.host = evt.args[2][:-1]
         elif cmd == "366":
             self.joined.set()
         elif cmd == "433":
             nck = self.cfg.nick + "_"
             self.raw("NICK %s" % nck)
-        return e
+        return evt
 
     def fileno(self):
         return self.sock.fileno()
@@ -315,31 +312,30 @@ class IRC(Handler, Output):
     def logon(self, server, nck):
         self.raw("NICK %s" % nck)
         self.raw(
-            "USER %s %s %s :%s"
-            % (self.cfg.username,
-               server,
-               server,
-               self.cfg.realname or "bot")
-        )
+                 "USER %s %s %s :%s" % (self.cfg.username,
+                 server,
+                 server,
+                 self.cfg.realname or "bot")
+                )
 
     def parsing(self, txt):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
-        o = IEvent()
-        o.rawstr = rawstr
-        o.command = ""
-        o.arguments = []
+        obj = IEvent()
+        obj.rawstr = rawstr
+        obj.command = ""
+        obj.arguments = []
         arguments = rawstr.split()
         if arguments:
-            o.origin = arguments[0]
+            obj.origin = arguments[0]
         else:
-            o.origin = self.cfg.server
-        if o.origin.startswith(":"):
-            o.origin = o.origin[1:]
+            obj.origin = self.cfg.server
+        if obj.origin.startswith(":"):
+            obj.origin = obj.origin[1:]
             if len(arguments) > 1:
-                o.command = arguments[1]
-                o.type = o.command
+                obj.command = arguments[1]
+                obj.type = obj.command
             if len(arguments) > 2:
                 txtlist = []
                 adding = False
@@ -351,43 +347,39 @@ class IRC(Handler, Output):
                     if adding:
                         txtlist.append(arg)
                     else:
-                        o.arguments.append(arg)
-                o.txt = " ".join(txtlist)
+                        obj.arguments.append(arg)
+                obj.txt = " ".join(txtlist)
         else:
-            o.command = o.origin
-            o.origin = self.cfg.server
+            obj.command = obj.origin
+            obj.origin = self.cfg.server
         try:
-            o.nick, o.origin = o.origin.split("!")
+            obj.nick, obj.origin = obj.origin.split("!")
         except ValueError:
-            o.nick = ""
+            obj.nick = ""
         target = ""
-        if o.arguments:
-            target = o.arguments[0]
+        if obj.arguments:
+            target = obj.arguments[0]
         if target.startswith("#"):
-            o.channel = target
+            obj.channel = target
         else:
-            o.channel = o.nick
-        if not o.txt:
-            o.txt = rawstr.split(":", 2)[-1]
-        if not o.txt and len(arguments) == 1:
-            o.txt = arguments[1]
-        spl = o.txt.split()
+            obj.channel = obj.nick
+        if not obj.txt:
+            obj.txt = rawstr.split(":", 2)[-1]
+        if not obj.txt and len(arguments) == 1:
+            obj.txt = arguments[1]
+        spl = obj.txt.split()
         if len(spl) > 1:
-            o.args = spl[1:]
-        o.type = o.command
-        o.orig = repr(self)
-        o.txt = o.txt.strip()
-        return o
+            obj.args = spl[1:]
+        obj.type = obj.command
+        obj.orig = repr(self)
+        obj.txt = obj.txt.strip()
+        return obj
 
     def poll(self):
         self.connected.wait()
         if not self.buffer:
-            try:
-                self.some()
-            except Exception as ex:
-                self.errors.append(ex)
-        if self.buffer:
-            return self.event(self.buffer.pop(0))
+            self.some()
+        return self.event(self.buffer.pop(0))
 
     def raw(self, txt):
         txt = txt.rstrip()
@@ -423,8 +415,8 @@ class IRC(Handler, Output):
             raise ConnectionResetError
         self.state.lastline += txt
         splitted = self.state.lastline.split("\r\n")
-        for s in splitted[:-1]:
-            self.buffer.append(s)
+        for line in splitted[:-1]:
+            self.buffer.append(line)
         self.state.lastline = splitted[-1]
 
     def start(self):
@@ -435,7 +427,11 @@ class IRC(Handler, Output):
         self.joined.clear()
         Output.start(self)
         Handler.start(self)
-        launch(self.doconnect, self.cfg.server or "localhost", self.cfg.nick or "hx", int(self.cfg.port or "6667"))
+        launch(
+               self.doconnect,
+               self.cfg.server or "localhost",
+               self.cfg.nick or "hx", int(self.cfg.port or "6667")
+              )
         if not self.keeprunning:
             launch(self.keep)
 
@@ -450,13 +446,13 @@ class IRC(Handler, Output):
         self.joined.wait()
 
 
-def AUTH(event):
+def cb_auth(event):
     time.sleep(1.0)
     bot = event.bot()
     bot.raw("AUTHENTICATE %s" % bot.cfg.password)
 
 
-def CAP(event):
+def cb_cap(event):
     time.sleep(1.0)
     bot = event.bot()
     if bot.cfg.password and "ACK" in event.arguments:
@@ -465,33 +461,33 @@ def CAP(event):
         bot.raw("CAP REQ :sasl")
 
 
-def h903(event):
+def cb_h903(event):
     time.sleep(1.0)
     bot = event.bot()
     bot.raw("CAP END")
 
 
-def h904(event):
+def cb_h904(event):
     time.sleep(1.0)
     bot = event.bot()
     bot.raw("CAP END")
 
 
-def ERROR(event):
+def cb_error(event):
     bot = event.bot()
     bot.state.nrerror += 1
     bot.state.error = event.txt
 
 
-def KILL(event):
+def cb_kill(event):
     pass
 
 
-def LOG(event):
+def cb_log(event):
     pass
 
 
-def NOTICE(event):
+def cb_notice(event):
     bot = event.bot()
     if event.txt.startswith("VERSION"):
         txt = "\001VERSION %s %s - %s\001" % (
@@ -502,10 +498,10 @@ def NOTICE(event):
         bot.command("NOTICE", event.channel, txt)
 
 
-def PRIVMSG(event):
+def cb_privmsg(event):
     if event.txt:
         bot = event.bot()
-        if event.txt[0] in [bot.cfg.cc, "!",]:
+        if event.txt[0] in [bot.cfg.control, "!",]:
             event.txt = event.txt[1:]
         elif event.txt.startswith("%s:" % bot.cfg.nick):
             event.txt = event.txt[len(bot.cfg.nick)+1:]
@@ -520,7 +516,7 @@ def PRIVMSG(event):
         bot.handle(event)
 
 
-def QUIT(event):
+def cb_quit(event):
     bot = event.bot()
     if event.orig and event.orig in bot.zelf:
         bot.reconnect()
@@ -544,28 +540,33 @@ class Users(Object):
         perm = perm.upper()
         origin = getattr(self.userhosts, origin, origin)
         user = self.get_user(origin)
-        if user:
-            if perm in user.perms:
-                return True
-        return False
+        val = False
+        if user and perm in user.perms:
+            val = True
+        return val
 
     def delete(self, origin, perm):
+        res = False
         for user in self.get_users(origin):
             try:
                 user.perms.remove(perm)
                 save(user)
-                return True
+                res = True
             except ValueError:
                 pass
+        return res
 
-    def get_users(self, origin=""):
-        s = {"user": origin}
-        return find("user", s)
+    @staticmethod
+    def get_users(origin=""):
+        user = {"user": origin}
+        return find("user", user)
 
     def get_user(self, origin):
-        u = list(self.get_users(origin))
-        if u:
-            return u[-1][-1]
+        user = list(self.get_users(origin))
+        res = None
+        if len(user) > 0:
+            res = user[-1][-1]
+        return res
 
     def perm(self, origin, permission):
         user = self.get_user(origin)
@@ -578,14 +579,14 @@ class Users(Object):
 
 
 def cfg(event):
-    c = Config()
-    last(c)
+    config = Config()
+    last(config)
     if not event.sets:
-        event.reply(printable(c, skip="realname,sleep,username"))
-        return
-    edit(c, event.sets)
-    save(c)
-    event.reply("ok")
+        event.reply(printable(config, skip="realname,sleep,username"))
+    else:
+        edit(config, event.sets)
+        save(config)
+        event.reply("ok")
 
 
 def dlt(event):
@@ -593,9 +594,9 @@ def dlt(event):
         event.reply("dlt <username>")
         return
     selector = {"user": event.args[0]}
-    for _fn, o in find("user", selector):
-        o._deleted = True
-        save(o)
+    for _fn, obj in find("user", selector):
+        obj._deleted = True
+        save(obj)
         event.reply("ok")
         break
 
@@ -625,16 +626,16 @@ def mre(event):
         txt = bot.get(event.channel)
         if txt:
             bot.say(event.channel, txt)
-    sz = bot.size(event.channel)
-    event.reply("%s more in cache" % sz)
+    size = bot.size(event.channel)
+    event.reply("%s more in cache" % size)
 
 
 def pwd(event):
     if len(event.args) != 2:
         event.reply("pwd <nick> <password>")
         return
-    m = "\x00%s\x00%s" % (event.args[0], event.args[1])
-    mb = m.encode("ascii")
-    bb = base64.b64encode(mb)
-    bm = bb.decode("ascii")
-    event.reply(bm)
+    txt = "\x00%s\x00%s" % (event.args[0], event.args[1])
+    enc = txt.encode("ascii")
+    base = base64.b64encode(enc)
+    dcd = base.decode("ascii")
+    event.reply(dcd)

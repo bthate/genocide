@@ -7,9 +7,9 @@
 import time
 
 
-from op.hdl import Bus, Event, launch
-from op.obj import Object, get, matchkey, keys, update
-from op.tmr import Repeater, elapsed
+from .hdl import Bus, Event, launch
+from .obj import Object, get, matchkey, keys, update
+from .tmr import Repeater, elapsed
 
 
 def __dir__():

@@ -8,45 +8,45 @@
 import sys
 
 
-from op.obj import Cfg, keys
-from op.run import CLI, Commands, Table, parse_cli
+from genocide.obj import Wd, keys
+from genocide.hdl import Client, Cfg, Command, Commands, parse, scan
 
 
-Cfg.workdir = "/var/lib/genocide/"
+Cfg.name = "genocide"
+Wd.workdir = "/var/lib/genocide/"
 
 
-from genocide import fnd, irc, log, mdl, rss, sts, tdo
+from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
 
 
-Table.add(fnd)
-Table.add(irc)
-Table.add(log)
-Table.add(mdl)
-Table.add(rss)
-Table.add(sts)
-Table.add(tdo)
+scan(bsc)
+scan(fnd)
+scan(irc)
+scan(log)
+scan(mdl)
+scan(rss)
+scan(sts)
+scan(tdo)
 
 
-allmod =  ",".join(keys(Table.mod))
+class CLI(Client):
 
-
-class CLI(CLI):
+    def cmd(self, txt):
+        cmd = Command()
+        cmd.channel = ""
+        cmd.orig = repr(self)
+        cmd.txt = txt
+        self.handle(cmd)
+        cmd.wait()
 
     def raw(self, txt):
         print(txt)
-        sys.stdout.flush()
-
-
-def cmd(event):
-    event.reply(",".join(sorted(Commands.cmd)))
 
 
 def main():
-    Table.scan()
-    Commands.add(cmd)
-    parse_cli(" ".join(sys.argv[1:]))
-    c = CLI()
-    return c.cmd(" ".join(sys.argv[1:]))
+    parse(" ".join(sys.argv[1:]))
+    cli = CLI()
+    return cli.cmd(Cfg.txt)
 
 
 main()

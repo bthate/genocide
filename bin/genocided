@@ -10,21 +10,20 @@ import sys
 import time
 
 
-from op.obj import Cfg, keys
-from op.run import Table
+from genocide.obj import Wd, keys
+from genocide.hdl import Cfg, scan
 
 
-Cfg.workdir = "/var/lib/genocide/"
+from genocide import mdl, irc, rss
 
 
-from genocide import irc, rss
+Cfg.name = "genocide"
+Wd.workdir = "/var/lib/genocide/"
 
 
-Table.add(irc)
-Table.add(rss)
-
-
-allmod =  ",".join(keys(Table.mod))
+scan(irc, False)
+scan(mdl, False)
+scan(rss, False)
 
 
 def daemon():
@@ -53,11 +52,9 @@ from genocide.mdl import init
 
 def main():
     #daemon()
-    i = irc.IRC()
-    i.start()
-    f = rss.Fetcher()
-    f.start()
-    init()
+    irc.init()
+    rss.init()
+    mdl.init()
     while 1:
         time.sleep(1.0)
 

@@ -12,17 +12,21 @@ import sys
 import termios
 
 
-from op.obj import Cfg, Class, Object, get, register
-from op.hdl import Bus, Callbacks, Command, Event, Handler
-from op.hdl import Commands, Client, parse, scan
+from genocide.obj import Wd, Class, Object, get, register
+from genocide.hdl import Bus, Callbacks, Command, Event, Handler
+from genocide.hdl import Cfg, Commands, Client, parse, scan
 
 
-from genocide import fnd, irc, log, mdl, rss, slg, sts, tdo
+Cfg.name = "genocide"
 
 
-Cfg.workdir = os.path.expanduser("~/.genocide")
+from genocide import bsc, fnd, irc, log, mdl, rss, slg, sts, tdo
 
 
+Wd.workdir = os.path.expanduser("~/.genocide")
+
+
+scan(bsc)
 scan(fnd)
 scan(irc)
 scan(log)
@@ -73,12 +77,8 @@ def wrap(func):
                 for err in b.errors:
                     print(err)
 
-def cmd(event):
-    event.reply(",".join(sorted(Commands.cmd)))
-
 
 def main():
-    Commands.add(cmd)
     parse(" ".join(sys.argv[1:]))
     irc.init()
     rss.init()

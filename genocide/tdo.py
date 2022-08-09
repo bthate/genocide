@@ -7,9 +7,8 @@
 import time
 
 
-from op.obj import find, fntime
-from op.obj import Object, save
-from op.tmr import elapsed
+from .obj import Object, find, fntime, save
+from .tmr import elapsed
 
 
 class Todo(Object):
@@ -23,21 +22,21 @@ def dne(event):
     if not event.args:
         return
     selector = {"txt": event.args[0]}
-    for _fn, o in find("todo", selector):
-        o._deleted = True
-        save(o)
+    for _fn, obj in find("todo", selector):
+        obj._deleted = True
+        save(obj)
         event.reply("ok")
         break
 
 
 def tdo(event):
     if not event.rest:
-        nr = 0
-        for _fn, o in find("todo"):
-            event.reply("%s %s %s" % (nr, o.txt, elapsed(time.time() - fntime(_fn))))
-            nr += 1
+        _nr = 0
+        for _fn, obj in find("todo"):
+            event.reply("%s %s %s" % (_nr, obj.txt, elapsed(time.time() - fntime(_fn))))
+            _nr += 1
         return
-    o = Todo()
-    o.txt = event.rest
-    save(o)
+    obj = Todo()
+    obj.txt = event.rest
+    save(obj)
     event.reply("ok")

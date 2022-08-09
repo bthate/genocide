@@ -1,3 +1,4 @@
+# pylint: disable=E1101,C0116
 # This file is placed in the Public Domain.
 
 
@@ -8,28 +9,43 @@ import threading
 import time
 
 
-from op.obj import Object, get, update
-from op.tmr import elapsed
+from .obj import Object, get, update
+from .hdl import Bus, getname, starttime
+from .tmr import elapsed
 
 
-starttime = time.time()
+def __dir__():
+    return (
+            "flt",
+            "thr"
+           )
+
+
+def flt(event):
+    try:
+        index = int(event.args[0])
+        event.reply(Bus.objs[index])
+        return
+    except (KeyError, TypeError, IndexError, ValueError):
+        pass
+    event.reply(" | ".join([getname(o) for o in Bus.objs]))
 
 
 def thr(event):
     result = []
-    for t in sorted(threading.enumerate(), key=lambda x: x.getName()):
-        if str(t).startswith("<_"):
+    for thread in sorted(threading.enumerate(), key=lambda x: x.getName()):
+        if str(thread).startswith("<_"):
             continue
-        o = Object()
-        update(o, vars(t))
-        if get(o, "sleep", None):
-            up = o.sleep - int(time.time() - o.state.latest)
+        obj = Object()
+        update(obj, vars(thread))
+        if get(obj, "sleep", None):
+            uptime = obj.sleep - int(time.time() - obj.state.latest)
         else:
-            up = int(time.time() - starttime)
-        result.append((up, t.getName()))
+            uptime = int(time.time() - starttime)
+        result.append((uptime, thread.getName()))
     res = []
-    for up, txt in sorted(result, key=lambda x: x[0]):
-        res.append("%s/%s" % (txt, elapsed(up)))
+    for uptime, txt in sorted(result, key=lambda x: x[0]):
+        res.append("%s/%s" % (txt, elapsed(uptime)))
     if res:
         event.reply(" ".join(res))
     else:

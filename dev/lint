@@ -2,48 +2,42 @@
 # This file is placed in the Public Domain.
 
 
-import os
+"lintify"
 
+
+import os
 
 os.environ["PYTHONPATH"] = "."
 
-
-from op.utl import spl
-
-
-skip = "rtfd,__,-,wipe,upenv,genocidectl"
-txt = "E1121,E1101,E0102,R0801,R0001,C0413,C0412,C0414,C0201,C0209,C0415,C0301,C0413,W1505,W0603,W0622,W0212,W0703,W0613,R0915,R0912,R1732,R1710,R0201,R0903,R0902,C0411,C0116,C0114,C0115,C0103"
+skip = ["***", "---", "===", "Your code", "bin/genocidectl", "dev/rtfd"]
+TXT = 'pylint -d "C0116,C0115,W0613,W0212,R0902,R0903,R0904" %s'
 
 
-def popen(text):
-    for line in os.popen(text).readlines():
-        l = line.strip()
-        if "Your code" in l:
+def doskip(txt):
+    for name in skip:
+        if name in txt:
+            return True
+    return False
+
+
+def payload(dname):
+    for fnm in os.listdir(dname):
+        if fnm.endswith("~") or fnm in skip:
             continue
-        if ":" in l:
-            yield l.replace("\n", "")
-
-
-def payload(pn):
-    for fn in os.listdir(pn):
-        if fn.endswith("~"):
-            continue
-        next = False
-        for s in spl(skip):
-            if s in fn:
-                next = True
-        if next:
-            continue
-        mn = fn.split(os.sep)[-1]
-        for line in popen("pylint -d %s %s/%s" % (txt, pn, mn)):
-            print(line)
+        fnn = "%s/%s" % (dname, fnm)
+        for line in os.popen(TXT % fnn).readlines():
+            if not line or doskip(line):
+                continue
+            liner = line.strip()
+            if liner:
+                print(liner)
 
 
 def main():
     payload("genocide")
     payload("test")
-    payload("bin")
     payload("dev")
+    payload("bin")
 
 
 main()

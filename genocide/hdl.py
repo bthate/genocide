@@ -25,8 +25,11 @@ def __dir__():
         'Handler',
         "Parsed"
         "Thread",
+        "docmd",
         "getname",
-        "launch"
+        "launch",
+        "parse",
+        "scan"
     )
 
 
@@ -321,6 +324,19 @@ def dispatch(event):
     event.ready()
 
 
+Callbacks.add("command", dispatch)
+
+
+def docmd(clt, txt):
+    cmd = Command()
+    cmd.channel = ""
+    cmd.orig = repr(clt)
+    cmd.txt = txt
+    clt.handle(cmd)
+    cmd.wait()
+    return cmd
+
+
 def getname(obj):
     typ = type(obj)
     if isinstance(typ, types.ModuleType):
@@ -358,6 +374,3 @@ def scan(mod, add=True):
                 Commands.add(obj)
     for _k, clz in inspect.getmembers(mod, inspect.isclass):
         Class.add(clz)
-
-
-Callbacks.add("command", dispatch)

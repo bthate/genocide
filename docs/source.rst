@@ -18,24 +18,7 @@ the following modules are provided:
 
  .. raw:: html
 
-     <br>
-
- .. autosummary::
-     :toctree: 
-     :template: module.rst
-
-     op.bus			bus
-     op.evt			event
-     op.hdl			handler
-     op.obj			object
-     op.run			runtime
-     op.thr			thread
-     op.tmr			timer
-     op.utl			utility
-
-.. raw:: html
-
-    <br><br>
+     <br><br>
 
 **genocide package**
 
@@ -43,13 +26,16 @@ the following modules are provided:
      :toctree: 
      :template: module.rst
 
-     genocide.irc			internet relay chat
-     genocide.fnd			find
-     genocide.log			log
-     genocide.mdl			model
-     genocide.mbx			mailbox
-     genocide.req			request
-     genocide.rss			rich site syndicate
-     genocide.slg			slogan
-     genocide.sts			stats
-     genocide.tdo			todo
+     genocide.hdl		handler
+     genocide.irc		internet relay chat
+     genocide.fnd		find
+     genocide.log		log
+     genocide.mdl		model
+     genocide.mbx		mailbox
+     genocide.obj		object
+     genocide.req		request
+     genocide.rss		rich site syndicate
+     genocide.slg		slogan
+     genocide.sts		stats
+     genocide.tdo		todo
+     genocide.tmr		timer

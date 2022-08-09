@@ -53,7 +53,7 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    channel = Cfg.name or "bot"
+    channel = "#%s" % Cfg.name or "bot"
     control = "!"
     nick = Cfg.name or "bot"
     password = ""

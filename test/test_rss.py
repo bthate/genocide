@@ -10,8 +10,8 @@ import unittest
 from genocide.rss import Fetcher
 
 
-class Test_RSS(unittest.TestCase):
+class TestRss(unittest.TestCase):
 
     def test_fetcher(self):
-        f = Fetcher()
-        self.assertEqual(type(f), Fetcher)
+        fetcher = Fetcher()
+        self.assertEqual(type(fetcher), Fetcher)

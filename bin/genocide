@@ -1,28 +1,26 @@
 #!/usr/bin/env python3
+# pylint: disable=E1101,C0116,E0611
 # This file is placed in the Public Domain.
 
 
 "bot"
 
 
-import inspect
 import os
 import readline
 import sys
 import termios
 
 
-from genocide.obj import Wd, Class, Object, get, register
-from genocide.hdl import Bus, Callbacks, Command, Event, Handler
-from genocide.hdl import Cfg, Commands, Client, parse, scan
-
-
-Cfg.name = "genocide"
+from genocide.obj import Wd
+from genocide.hdl import Command
+from genocide.hdl import Cfg, Client, parse, scan
 
 
 from genocide import bsc, fnd, irc, log, mdl, rss, slg, sts, tdo
 
 
+Cfg.name = "genocide"
 Wd.workdir = os.path.expanduser("~/.genocide")
 
 
@@ -59,10 +57,10 @@ class Console(Client):
 
 
 def wrap(func):
-    fd = sys.stdin.fileno()
+    fds = sys.stdin.fileno()
     gotterm = True
     try:
-        old = termios.tcgetattr(fd)
+        old = termios.tcgetattr(fds)
     except termios.error:
         gotterm = False
     try:
@@ -71,21 +69,18 @@ def wrap(func):
         print("")
     finally:
         if gotterm:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old)
-        for b in Bus.objs:
-            if "errors" in b:
-                for err in b.errors:
-                    print(err)
+            termios.tcsetattr(fds, termios.TCSADRAIN, old)
 
 
 def main():
+    readline.redisplay()
     parse(" ".join(sys.argv[1:]))
     irc.init()
     rss.init()
     mdl.init()
-    c = Console()
-    c.start()
-    c.forever()
+    csl = Console()
+    csl.start()
+    csl.forever()
 
 
 wrap(main)

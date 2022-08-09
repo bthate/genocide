@@ -1,186 +1,157 @@
 #!/usr/bin/env python3
+# pylint: disable=E1101,C0116
 # This file is placed in the Public Domain.
 
 
+"tinder"
+
+
 import os
+import random
 import shutil
 import sys
 import termios
 import time
+import traceback
 import _thread
 
 
-sys.path.insert(0, os.getcwd())
+from genocide.obj import Wd, Object, get, locked
+from genocide.hdl import Client, Command, Commands
+from genocide.hdl import Cfg, getname, launch, parse, scan
+from genocide.tmr import elapsed
 
 
-import op.obj
+from genocide import bsc, fnd, irc, log, rss, sts, tdo
 
 
-op.obj.workdir = ".tinder"
+paylock = _thread.allocate_lock()
 
 
-from op.run import Config
+Wd.workdir = ".test"
+Cfg.debug = True
 
 
-Config.debug = True
-Config.name = "heks"
-Config.verbose = True
-Config.workdir = ".test"
+scan(bsc)
+scan(fnd)
+scan(irc)
+scan(log)
+scan(rss)
+scan(sts)
+scan(tdo)
 
 
-from op.run import Commands
-from op.evt import Command
-from op.dbs import locked
-from op.obj import Object, get, keys
-from op.hdl import Handler
-from op.run import Table, parse_cli, starttime
-from op.thr import launch
-from op.utl import cdir
-
-
-from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
-
-Table.add(bsc)
-Table.add(fnd)
-Table.add(irc)
-Table.add(log)
-Table.add(mdl)
-Table.add(rss)
-Table.add(sts)
-Table.add(tdo)
-
-
-allmod =  ",".join(keys(Table.mod))
+errors = []
+events = []
+results = []
 
 
 param = Object()
+param.add = ["test@shell", "bart", ""]
 param.cfg = ["server=localhost", ""]
-param.cor = ["bthate@dds.nl"]
-param.dlt = ["user@shell"]
 param.dne = ["test4", ""]
 param.rem = ["reddit", ""]
 param.dpl = ["reddit title,summary,link", ""]
 param.log = ["test1", ""]
-param.mbx = ["~/25-1-2013"]
-param.met = ["user@shell"]
-param.mre = ["4", ""]
-param.nme = ["hnrss hacker news"]
 param.flt = ["0", ""]
-param.fnd = ["email From==bthate", "user", "todo", "cfg", "log", "rss", "log txt==test", "cfg server==localhost", "rss rss==reddit"]
-param.pwd = ["bart klokje"]
-param.rem = ["user@test"]
+param.fnd = [
+             "cfg",
+             "log",
+             "rss",
+             "log txt==test",
+             "cfg server==localhost",
+             "rss rss==reddit"
+            ]
 param.rss = ["https://www.reddit.com/r/python/.rss"]
 param.tdo = ["test4", ""]
 
 
-errors = []
-evts = []
-payloadlock = _thread.allocate_lock()
-results = []
+def cprint(txt):
+    print(txt)
+    sys.stdout.flush()
 
 
-class CLI(Handler):
+class CLI(Client):
 
     def raw(self, txt):
-        if Config.verbose:
-            print(txt)
+        if Cfg.verbose:
+            cprint(txt)
 
 
-def consume(events):
+def consume(evt):
     fixed = []
     res = []
-    for e in events:
-        e.wait()
-        fixed.append(e)
-    for f in fixed:
+    for _ev in evt:
+        _ev.wait()
+        fixed.append(_ev)
+    for fff in fixed:
         try:
-            events.remove(f)
+            evt.remove(fff)
         except ValueError:
             continue
     return res
 
 
-def elapsed(seconds, short=True):
-    txt = ""
-    nsec = float(seconds)
-    year = 365*24*60*60
-    week = 7*24*60*60
-    nday = 24*60*60
-    hour = 60*60
-    minute = 60
-    years = int(nsec/year)
-    nsec -= years*year
-    weeks = int(nsec/week)
-    nsec -= weeks*week
-    nrdays = int(nsec/nday)
-    nsec -= nrdays*nday
-    hours = int(nsec/hour)
-    nsec -= hours*hour
-    minutes = int(nsec/minute)
-    sec = nsec - minutes*minute
-    if years:
-        txt += "%sy" % years
-    if weeks:
-        nrdays += weeks * 7
-    if nrdays:
-        txt += "%sd" % nrdays
-    if years and short and txt:
-        return txt
-    if hours:
-        txt += "%sh" % hours
-    if nrdays and short and txt:
-        return txt
-    if minutes:
-        txt += "%sm" % minutes
-    if hours and short and txt:
-        return txt
-    if sec == 0:
-        txt += "0s"
-    else:
-        txt += "%ss" % int(sec)
-    txt = txt.strip()
-    return txt
+def from_exception(ex, txt="", sep=" "):
+    result = []
+    for frm in traceback.extract_tb(ex.__traceback__):
+        result.append("%s:%s" % (os.sep.join(frm.filename.split(os.sep)[-2:]), frm.lineno))
+    return "%s(%s) %s" % (getname(ex), ex, " ".join(result))
 
 
-@locked(payloadlock)
-def payload(c):
-    global evts
+
+@locked(paylock)
+def payload(clt):
     cmds = sorted(Commands.cmd)
-    cdir(op.obj.workdir)
+    random.shuffle(cmds)
+    _nr = 0
     for cmd in cmds:
         for ex in get(param, cmd, [""]):
-            e = Command()
-            e.channel = "#hx"
-            e.txt = cmd + " " + ex
-            e.orig = repr(c)
-            c.put(e)
-            evts.append(e)
-    consume(evts)
-    if os.path.exists(op.obj.workdir):
-        shutil.rmtree(op.obj.workdir)
+            evt = Command()
+            evt.txt = cmd + " " + ex
+            evt.orig = repr(clt)
+            evt.parse()
+            clt.handle(evt)
+            events.append(evt)
+            _nr += 1
+    return _nr
 
 
 def wrap(func):
-    fd = sys.stdin.fileno()
-    old = termios.tcgetattr(fd)
+    fds = sys.stdin.fileno()
+    old = termios.tcgetattr(fds)
     try:
         func()
     except (EOFError, KeyboardInterrupt):
-        print("")
+        cprint("")
     finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old)
-        print("\n%s events left (%s)" % (len(evts), elapsed(time.time()-starttime)))
+        termios.tcsetattr(fds, termios.TCSADRAIN, old)
 
 
 def main():
-    cfg = parse_cli(" ".join(sys.argv[1:]))
-    Table.scan()
-    c = CLI()
-    c.start()
-    nrs = cfg.index or 20
+    if os.path.exists(Cfg.workdir):
+        shutil.rmtree(Cfg.workdir)
+    parse(" ".join(sys.argv[1:]))
+    cli = CLI()
+    cli.start()
+    nrs = Cfg.index or 20
+    thrs = []
+    starttime = time.time()
     for _nr in range(nrs):
-        thr = launch(payload, c)
-        thr.join()
+        thrs.append(launch(payload, cli))
+    if thrs:
+        res = 0
+        for thr in thrs:
+            res += thr.join()
+    else:
+        res = nrs * len(Commands.cmd)
+    consume(events)
+    endtime = time.time()
+    print("%s %s %s (%s remaining)" %  (
+                                        elapsed(endtime - starttime),
+                                        res,
+                                        (endtime - starttime)/res, len(events))
+                                       )
 
 
 wrap(main)

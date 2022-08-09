@@ -1,2 +1,17 @@
-dev/clean
-rm -fR env
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+
+
+"also remove env directory"
+
+
+import os
+
+
+def popen(txt):
+    for line in os.popen(txt).readlines():
+        print(line)
+
+
+popen("dev/clean")
+popen("rm -fR env")

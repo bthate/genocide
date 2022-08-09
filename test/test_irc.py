@@ -10,7 +10,7 @@ import unittest
 from genocide.irc import IRC
 
 
-class Test_IRC(unittest.TestCase):
+class TestIRC(unittest.TestCase):
 
     def test_irc(self):
         i = IRC()

@@ -7,9 +7,8 @@
 import unittest
 
 
-from op.evt import Command
-from op.obj import Object, get
-from op.run import CLI, Commands, Config
+from genocide.hdl import Cfg, Client, Commands, docmd
+from genocide.obj import Object, get
 
 
 evts = []
@@ -26,33 +25,31 @@ param.mre = [""]
 param.thr = [""]
 
 
-class CLI(CLI):
+class CLI(Client):
 
     def raw(self, txt):
-        if Config.verbose:
+        if Cfg.verbose:
             print(txt)
 
 
 c = CLI()
-c.start()
 
 
 def consume(events):
     fixed = []
     res = []
-    for e in events:
-        e.wait()
-        fixed.append(e)
-    for f in fixed:
+    for evt in events:
+        evt.wait()
+        fixed.append(evt)
+    for evt in fixed:
         try:
-            events.remove(f)
+            events.remove(evt)
         except ValueError:
             continue
     return res
 
 
-
-class Test_Commands(unittest.TestCase):
+class TestCommands(unittest.TestCase):
 
     def test_commands(self):
         cmds = sorted(Commands.cmd)
@@ -60,12 +57,7 @@ class Test_Commands(unittest.TestCase):
             if cmd in skip:
                 continue
             for ex in get(param, cmd, ""):
-                e = Command()
-                e.channel = "#genocide"
-                e.orig = repr(c)
-                txt = cmd + " " + ex
-                e.txt = txt.strip()
-                c.handle(e)
-                evts.append(e)
+                evt = docmd(c, cmd + " " + ex)
+                evts.append(evt)
         consume(evts)
         self.assertTrue(not evts)

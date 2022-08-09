@@ -2,26 +2,54 @@
 # This file is placed in the Public Domain.
 
 
+"check"
+
+
 import os
 
 
-all = ["__import__", "__main__", "__version__", '"## "', "popen", "pkgutil", "importlib", "print", "sys", "traceback"]
-skip = ["env", "bin", "dev", "test", ".git", "README", "grep", "mod"]
-targets = ["genocide", "op"]
-txt  = "grep -R %s %s"
+allmod = [
+       "__import__",
+       "__main__",
+       "__version__",
+       '"## "',
+       "popen",
+       "pkgutil",
+       "importlib",
+       "print",
+       "sys",
+       "traceback"
+      ]
+
+skip = [
+        "env",
+        "bin",
+        "dev",
+        "test",
+        ".git",
+        "README",
+        "grep",
+        "mod"
+       ]
+
+targets = ["genocide",]
+
+TXT  = "grep -R %s %s"
+
+
+def doskip(txt):
+    for name in skip:
+        if name in txt:
+            return True
+    return False
 
 
 def main():
     for target in targets:
-        for t in all:
-            greptxt = txt % (t, target)
+        for txt in allmod:
+            greptxt = TXT % (txt, target)
             for line in os.popen(greptxt).readlines():
-                next = False
-                for s in skip:
-                    if s in line:
-                        next = True
-                        break
-                if next:
+                if doskip(line):
                     continue
                 print(line.rstrip())
 

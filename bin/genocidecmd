@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# pylint: disable=E1101,C0116,E0611
+
 # This file is placed in the Public Domain.
 
 
@@ -8,15 +10,15 @@
 import sys
 
 
-from genocide.obj import Wd, keys
-from genocide.hdl import Client, Cfg, Command, Commands, parse, scan
+from genocide.obj import Wd
+from genocide.hdl import Client, Cfg, docmd, parse, scan
+
+
+from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
 
 
 Cfg.name = "genocide"
 Wd.workdir = "/var/lib/genocide/"
-
-
-from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
 
 
 scan(bsc)
@@ -31,14 +33,6 @@ scan(tdo)
 
 class CLI(Client):
 
-    def cmd(self, txt):
-        cmd = Command()
-        cmd.channel = ""
-        cmd.orig = repr(self)
-        cmd.txt = txt
-        self.handle(cmd)
-        cmd.wait()
-
     def raw(self, txt):
         print(txt)
 
@@ -46,7 +40,7 @@ class CLI(Client):
 def main():
     parse(" ".join(sys.argv[1:]))
     cli = CLI()
-    return cli.cmd(Cfg.txt)
+    docmd(cli, Cfg.txt)
 
 
 main()

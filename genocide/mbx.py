@@ -14,7 +14,21 @@ from .obj import Object, printable, update
 from .tmr import elapsed
 
 
-bdmonths = ['Bo', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+bdmonths = [
+            'Bo',
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+           ]
 
 
 monthint = {
@@ -80,55 +94,63 @@ def cor(event):
     if not event.args:
         event.reply("cor <email>")
         return
-    nr = -1
+    _nr = -1
     for _fn, email in find("email", {"From": event.args[0]}):
-        nr += 1
+        _nr += 1
         txt = ""
         if len(event.args) > 1:
             txt = ",".join(event.args[1:])
         else:
             txt = "From,Subject"
-        event.reply("%s %s %s" % (nr, printable(email, txt, plain=True), elapsed(time.time() - fntime(email.__stp__))))
+        event.reply("%s %s %s" % (
+                                  _nr,
+                                  printable(email, txt, plain=True),
+                                  elapsed(time.time() - fntime(email.__stp__)))
+                                 )
 
 
 def eml(event):
     if not event.args:
         event.reply("eml <searchtxtinemail>")
         return
-    nr = -1
-    db = Db()
-    for fn, o in db.all("email"):
-        if event.rest in o.text:
-            nr += 1
-            event.reply("%s %s %s" % (nr, printable(o, "From,Subject"), elapsed(time.time() - fntime(fn))))
+    _nr = -1
+    dbs = Db()
+    for _fn, obj in dbs.all("email"):
+        if event.rest in obj.text:
+            _nr += 1
+            event.reply("%s %s %s" % (
+                                      _nr,
+                                      printable(obj, "From,Subject"),
+                                      elapsed(time.time() - fntime(_fn))
+                                     ))
 
 
 def mbx(event):
     if not event.args:
         event.reply("mbx <directory>")
         return
-    fn = os.path.expanduser(event.args[0])
-    event.reply("reading from %s" % fn)
-    nr = 0
-    if os.path.isdir(fn):
-        thing = mailbox.Maildir(fn, create=False)
-    elif os.path.isfile(fn):
-        thing = mailbox.mbox(fn, create=False)
+    _fn = os.path.expanduser(event.args[0])
+    event.reply("reading from %s" % _fn)
+    _nr = 0
+    if os.path.isdir(_fn):
+        thing = mailbox.Maildir(_fn, create=False)
+    elif os.path.isfile(_fn):
+        thing = mailbox.mbox(_fn, create=False)
     else:
         return
     try:
         thing.lock()
     except FileNotFoundError:
         pass
-    for m in thing:
-        o = Email()
-        update(o, m._headers)
-        o.text = ""
-        for payload in m.walk():
+    for mail in thing:
+        email = Email()
+        update(email, mail._headers)
+        email.text = ""
+        for payload in mail.walk():
             if payload.get_content_type() == 'text/plain':
-                o.text += payload.get_payload()
-        o.text = o.text.replace("\\n", "\n")
-        save(o)
-        nr += 1
-    if nr:
-        event.reply("ok %s" % nr)
+                email.text += payload.get_payload()
+        email.text = email.text.replace("\\n", "\n")
+        save(email)
+        _nr += 1
+    if _nr:
+        event.reply("ok %s" % _nr)

@@ -2,37 +2,21 @@
 # This file is placed in the Public Domain.
 
 
+"cleanup"
+
+
 import os
 
 
-mods1 = ["gd.all", "gd.bus", "gd.dbs", "gd.evt", "gd.hdl", "gd.obj", "gd.run", "gd.thr", "gd.tmr", "gd.utl"]
-mods2 = ["genocide.bsc", "genocide.flt", "genocide.fnd", "genocide.irc", "genocide.log", "genocide.mbx", "genocide.ndl", "genocide.rss", "genocide.slg", "genocide.tdo"]
-
-
 def popen(txt):
-    for l in os.popen(txt).readlines():
-        print(l)
+    for line in os.popen(txt).readlines():
+        print(line)
 
 
-for m in mods1 + mods2:
-    fn = "docs/%s.rst" % m
-    if os.path.exists(fn):
-        popen("rm " + fn)
-
-
-popen("rm -fR txt/*~ files/*~ files/__pycache__")
-popen("rm -fR bin/*~ *~ __pycache__")
-popen("rm -fR build dist MANIFEST genocide.egg-info")
-popen("rm -fR dev/*~ bin/*~ *~ files/*~")
-popen("rm -fR lib/*~ lib/__pycache__ lib/genocide.egg-info")
-popen("rm -fR op/*~ op/__pycache__")
-popen("rm -fR lib2/*~ lib2/__pycache__ lib2/genocide.egg-info")
-popen("rm -fR genocide/*~ genocide/__pycache__")
+popen("rm -fR build dist MANIFEST *~")
+popen("rm -fR genocide/*~ genocide/__pycache__ genocide.egg-info")
+popen("rm -fR bin/*~ bin/__pycache__")
+popen("rm -fR dev/*~")
 popen("rm -fR .test test/__pycache__ test/*~")
-popen("rm -fR html tar")
-popen("rm -fR docs/*~ docs/_static/*~ docs/_templates/*~")
-popen("rm -fR docs/op*.rst docs/genocide*.rst")
-popen("rm -fR html")
-popen("rm -fR docs/*~ docs/_static/*~ docs/_templates/*~")
-popen("rm -fR docs/genocide.*.rst")
-popen("rm -fR mod/*~ mod/__pycache__")
+popen("rm -fR testdir")
+popen("rm -fR docs/*~ docs/genocide.*.rst docs/_static/*~ docs/_templates/*~")

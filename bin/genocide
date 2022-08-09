@@ -14,7 +14,7 @@ import termios
 
 from op.obj import Cfg, Class, Object, get, register
 from op.hdl import Bus, Callbacks, Command, Event, Handler
-from op.run import Commands, CLI, Console, Table, parse_cli
+from op.hdl import Commands, Client, parse, scan
 
 
 from genocide import fnd, irc, log, mdl, rss, slg, sts, tdo
@@ -23,24 +23,31 @@ from genocide import fnd, irc, log, mdl, rss, slg, sts, tdo
 Cfg.workdir = os.path.expanduser("~/.genocide")
 
 
-Table.add(fnd)
-Table.add(irc)
-Table.add(log)
-Table.add(mdl)
-Table.add(rss)
-Table.add(slg)
-Table.add(sts)
-Table.add(tdo)
+scan(fnd)
+scan(irc)
+scan(log)
+scan(mdl)
+scan(rss)
+scan(slg)
+scan(sts)
+scan(tdo)
 
 
-class CLI(CLI):
+class Console(Client):
 
-    def raw(self, txt):
-        print(txt)
-        sys.stdout.flush()
+    def handle(self, event):
+        Client.handle(event)
+        event.wait()
 
-
-class Console(Console):
+    def poll(self):
+        event = Command()
+        event.channel = ""
+        event.cmd = ""
+        event.txt = input("> ")
+        event.orig = repr(self)
+        if event.txt:
+            event.cmd = event.txt.split()[0]
+        return event
 
     def raw(self, txt):
         print(txt)
@@ -71,14 +78,11 @@ def cmd(event):
 
 
 def main():
-    Table.scan()
     Commands.add(cmd)
-    txt = " ".join(sys.argv[1:])
-    cfg = parse_cli(txt)
-    if cfg.cmd:
-        c = CLI()
-        return c.cmd(txt)
-    Table.exec("init")
+    parse(" ".join(sys.argv[1:]))
+    irc.init()
+    rss.init()
+    mdl.init()
     c = Console()
     c.start()
     c.forever()

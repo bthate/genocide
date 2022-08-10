@@ -16,9 +16,9 @@ import time
 import _thread
 
 
-from .obj import Default, Object, edit, printable, update
-from .obj import find, last, locked, save
-from .hdl import Cfg, Event, Handler, launch
+from op.obj import Default, Object, edit, printable, update
+from op.obj import find, last, locked, save
+from op.hdl import Cfg, Event, Handler, launch
 
 
 def __dir__():
@@ -53,7 +53,7 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    channel = "#%s" % Cfg.name or "bot"
+    channel = "#%s" % (Cfg.name or "bot")
     control = "!"
     nick = Cfg.name or "bot"
     password = ""

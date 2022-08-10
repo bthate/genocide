@@ -16,10 +16,10 @@ from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
 
-from .hdl import Bus, Cfg, launch
-from .obj import Class, Db, find, last, save
-from .obj import Object, edit, get, spl, update
-from .tmr import Repeater
+from op.hdl import Bus, Cfg, launch
+from op.obj import Class, Db, find, last, save
+from op.obj import Object, edit, get, spl, update
+from op.tmr import Repeater
 
 
 def __dir__():

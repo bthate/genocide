@@ -35,6 +35,12 @@ scan(sts)
 scan(tdo)
 
 
+irc.Config.channel = "#genocide"
+irc.Config.nick = "genocide"
+irc.Config.username = "Prosector. Reconsider. Reconsider OTP-CR-117/19."
+irc.Config.realname = "genocide"
+
+
 class Console(Client):
 
     def handle(self, event):

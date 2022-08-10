@@ -16,9 +16,9 @@ import time
 import _thread
 
 
-from op.obj import Default, Object, edit, printable, update
-from op.obj import find, last, locked, save
-from op.hdl import Cfg, Event, Handler, launch
+from .obj import Default, Object, edit, printable, update
+from .obj import find, last, locked, save
+from .hdl import Cfg, Event, Handler, launch
 
 
 def __dir__():

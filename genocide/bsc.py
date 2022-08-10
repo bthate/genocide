@@ -7,8 +7,8 @@
 import time
 
 
-from op.hdl import Commands, starttime
-from op.tmr import elapsed
+from .hdl import Commands, starttime
+from .tmr import elapsed
 
 
 def cmd(event):

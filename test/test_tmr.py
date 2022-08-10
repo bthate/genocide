@@ -7,7 +7,7 @@
 import unittest
 
 
-from op.tmr import Timer
+from genocide.tmr import Timer
 
 
 def test():

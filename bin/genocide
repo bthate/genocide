@@ -12,12 +12,15 @@ import sys
 import termios
 
 
+sys.path.insert(0, os.getcwd())
+
+
 from genocide.obj import Wd
 from genocide.hdl import Command
 from genocide.hdl import Cfg, Client, parse, scan
 
 
-from genocide import bsc, fnd, irc, log, mdl, rss, slg, sts, tdo
+from genocide import bsc, fnd, irc, log, mdl, rss, slg
 
 
 Cfg.name = "genocide"
@@ -31,8 +34,6 @@ scan(log)
 scan(mdl)
 scan(rss)
 scan(slg)
-scan(sts)
-scan(tdo)
 
 
 irc.Config.channel = "#genocide"

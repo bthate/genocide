@@ -14,7 +14,7 @@ from genocide.obj import Wd
 from genocide.hdl import Client, Cfg, docmd, parse, scan
 
 
-from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
+from genocide import bsc, fnd, irc, log, mdl, rss
 
 
 Cfg.name = "genocide"
@@ -27,8 +27,6 @@ scan(irc)
 scan(log)
 scan(mdl)
 scan(rss)
-scan(sts)
-scan(tdo)
 
 
 class CLI(Client):
@@ -40,7 +38,7 @@ class CLI(Client):
 def main():
     parse(" ".join(sys.argv[1:]))
     cli = CLI()
-    docmd(cli, Cfg.txt)
+    docmd(cli, Cfg.otxt)
 
 
 main()

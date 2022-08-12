@@ -18,9 +18,10 @@ sys.path.insert(0, os.getcwd())
 from genocide.obj import Wd
 from genocide.hdl import Command
 from genocide.hdl import Cfg, Client, parse, scan
+from genocide.irc import Config
 
 
-from genocide import bsc, fnd, irc, log, mdl, rss, slg
+from genocide import bsc, fnd, irc, log, mdl, rss, slg, tdo
 
 
 Cfg.name = "genocide"
@@ -34,12 +35,13 @@ scan(log)
 scan(mdl)
 scan(rss)
 scan(slg)
+scan(tdo)
 
 
-irc.Config.channel = "#genocide"
-irc.Config.nick = "genocide"
-irc.Config.username = "Prosector. Reconsider. Reconsider OTP-CR-117/19."
-irc.Config.realname = "genocide"
+Config.channel = "#genocide"
+Config.nick = "genocide"
+Config.username = "Prosector. Reconsider. Reconsider OTP-CR-117/19."
+Config.realname = "genocide"
 
 
 class Console(Client):

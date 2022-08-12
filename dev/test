@@ -13,11 +13,14 @@ import sys
 import unittest
 
 
+sys.path.insert(0, os.getcwd())
+
+
 from genocide.obj import Wd
 from genocide.hdl import Cfg, Client, parse, scan
 
 
-from genocide import bsc, fnd, irc, log, mdl, rss, sts, tdo
+from genocide import bsc, fnd, irc, log, mdl, rss
 
 
 Wd.workdir = ".test"
@@ -33,8 +36,6 @@ scan(irc)
 scan(log)
 scan(mdl)
 scan(rss)
-scan(sts)
-scan(tdo)
 
 
 flags = doctest.REPORT_NDIFF | doctest.FAIL_FAST | doctest.ELLIPSIS

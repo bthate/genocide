@@ -1,7 +1,10 @@
 # This file is placed in the Public Domain
 
 
-"""GENOCIDE 73 released - http://pypi.org/project/genocide
+"slogans"
+
+
+txt = """GENOCIDE 73 released - http://pypi.org/project/genocide
 
 basis to prosecute are:
 
@@ -20,4 +23,4 @@ http://genocide.rtfd.io
 
 
 def slg(event):
-    event.reply(__doc__)
+    event.reply(txt)

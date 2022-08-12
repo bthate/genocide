@@ -1,8 +1,19 @@
+#!/usr/bin/env python3
 # This file is placed in the Public Domain.
 
-PYTHONPATH="lib:."
-export PYTHONPATH
-bin/clean
-python3 setup.py sdist
-python3 -mvirtualenv --system-site-packages env
-env/bin/pip3 install genocide -f dist --upgrade --force-reinstall --no-cache-dir --no-deps
+
+"create environment"
+
+
+import os
+
+
+def popen(txt):
+    for line in os.popen(txt).readlines():
+        print(line.rstrip())
+
+
+popen("dev/clean")
+popen("python3 setup.py sdist")
+popen("python3 -mvirtualenv --system-site-packages env")
+popen("env/bin/pip3 install genocide -f dist --upgrade --force-reinstall --no-cache-dir --no-deps")

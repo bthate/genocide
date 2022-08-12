@@ -22,7 +22,7 @@ from genocide.hdl import Cfg, getname, launch, parse, scan
 from genocide.tmr import elapsed
 
 
-from genocide import bsc, fnd, irc, log, rss, sts, tdo
+from genocide import bsc, fnd, irc, log, rss
 
 
 paylock = _thread.allocate_lock()
@@ -37,8 +37,6 @@ scan(fnd)
 scan(irc)
 scan(log)
 scan(rss)
-scan(sts)
-scan(tdo)
 
 
 errors = []

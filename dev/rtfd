@@ -1,6 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env python3
 # This file is placed in the Public Domain.
 
-dev/clean
-[ -d "env" ] && echo "environment is there" || (echo "creating environment" ; dev/upenv)
-env/bin/python3 env/bin/sphinx-build docs html
+
+"create website"
+
+
+import os
+
+
+def popen(txt):
+    for line in os.popen(txt).readlines():
+        print(line.rstrip())
+
+
+popen("dev/clean")
+
+if os.path.exists("env"):
+     print("environment is there")
+else:
+     print("creating environment")
+     popen("dev/upenv")
+
+popen("env/bin/python3 env/bin/sphinx-build docs html")

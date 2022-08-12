@@ -10,7 +10,7 @@ import os
 
 def popen(txt):
     for line in os.popen(txt).readlines():
-        print(line)
+        print(line.rstrip())
 
 
 popen("rm -fR build dist MANIFEST *~")

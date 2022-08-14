@@ -10,6 +10,7 @@ import os
 import readline
 import sys
 import termios
+import time
 
 
 sys.path.insert(0, os.getcwd())
@@ -17,7 +18,7 @@ sys.path.insert(0, os.getcwd())
 
 from genocide.obj import Wd
 from genocide.hdl import Command
-from genocide.hdl import Cfg, Client, docmd, parse, scan
+from genocide.hdl import Cfg, Client, docmd, parse, scan, starttime
 from genocide.irc import Config
 
 
@@ -91,10 +92,11 @@ def wrap(func):
 def main():
     readline.redisplay()
     parse(" ".join(sys.argv[1:]))
-    if Cfg.args:
+    if Cfg.txt:
         c = CLI()
         return docmd(c, Cfg.otxt)
     if Cfg.console:
+        print("%s shell started at %s" % (Cfg.name.upper(), time.ctime(starttime).replace("  ", " ")))
         irc.init()
         rss.init()
         mdl.init()

@@ -32,7 +32,7 @@ setup(
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate67@gmail.com', 
-    description="Prosecutor. Court. Reonsider OTP-CR-117/19.",
+    description="Prosecutor. Court. Reconsider OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
     packages=["genocide"],

@@ -17,7 +17,7 @@ sys.path.insert(0, os.getcwd())
 
 from genocide.obj import Wd
 from genocide.hdl import Command
-from genocide.hdl import Cfg, Client, parse, scan
+from genocide.hdl import Cfg, Client, docmd, parse, scan
 from genocide.irc import Config
 
 
@@ -42,6 +42,13 @@ Config.channel = "#genocide"
 Config.nick = "genocide"
 Config.username = "Prosector. Reconsider. Reconsider OTP-CR-117/19."
 Config.realname = "genocide"
+
+
+class CLI(Client):
+
+    def raw(self, txt):
+        print(txt)
+        sys.stdout.flush()
 
 
 class Console(Client):
@@ -84,12 +91,16 @@ def wrap(func):
 def main():
     readline.redisplay()
     parse(" ".join(sys.argv[1:]))
-    irc.init()
-    rss.init()
-    mdl.init()
-    csl = Console()
-    csl.start()
-    csl.forever()
+    if Cfg.args:
+        c = CLI()
+        return docmd(c, Cfg.otxt)
+    if Cfg.console:
+        irc.init()
+        rss.init()
+        mdl.init()
+        csl = Console()
+        csl.start()
+        csl.forever()
 
 
 wrap(main)

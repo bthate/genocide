@@ -37,6 +37,7 @@ starttime = time.time()
 
 
 Cfg = Default()
+Cfg.console = False
 Cfg.debug = False
 Cfg.name = ""
 Cfg.verbose = False
@@ -365,7 +366,8 @@ def parse(txt):
     update(Cfg, prs)
     if "v" in Cfg.opts:
         Cfg.verbose = True
-
+    if "c" in Cfg.opts:
+        Cfg.console = True
 
 def scan(mod, add=True):
     for _k, obj in inspect.getmembers(mod, inspect.isfunction):

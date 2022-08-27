@@ -1,5 +1,5 @@
-# pylint: disable=E1101,C0116,R0912,R0915
 # This file is placed in the Public Domain.
+# pylint: disable=E1101,C0116,R0912,R0915,C0411
 
 
 "internet relay chat"
@@ -16,9 +16,12 @@ import time
 import _thread
 
 
-from .obj import Default, Object, edit, printable, update
-from .obj import find, last, locked, save
-from .hdl import Cfg, Event, Handler, launch
+from .hdl import Callbacks, Client, Event, launch
+from .obj import Default, Object
+from .obj import edit, prt, save, update
+from .dbs import Class, Db
+from .tmr import elapsed
+from .utl import fntime, locked
 
 
 def __dir__():
@@ -53,17 +56,17 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    channel = "#%s" % (Cfg.name or "bot")
+    channel = "#botd"
     control = "!"
-    nick = Cfg.name or "bot"
+    nick = "botd"
     password = ""
     port = 6667
-    realname = Cfg.name or "bot"
+    realname = "24/7 channel daemon"
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = Cfg.name or "Bot"
+    username = "botd"
     users = False
 
     def __init__(self):
@@ -80,6 +83,9 @@ class Config(Default):
         self.sleep = Config.sleep
         self.username = Config.username
         self.users = Config.users
+
+
+Class.add(Config)
 
 
 class IEvent(Event):
@@ -169,11 +175,10 @@ class Output(Object):
         self.oqueue.put_nowait((None, None))
 
 
-class IRC(Handler, Output):
-
+class IRC(Client, Output):
 
     def __init__(self):
-        Handler.__init__(self)
+        Client.__init__(self)
         Output.__init__(self)
         self.buffer = []
         self.cfg = Config()
@@ -194,7 +199,6 @@ class IRC(Handler, Output):
         self.state.nrsend = 0
         self.state.pongcheck = False
         self.threaded = False
-        self.users = Users()
         self.zelf = ""
         self.register("903", cb_h903)
         self.register("904", cb_h903)
@@ -315,7 +319,7 @@ class IRC(Handler, Output):
                  "USER %s %s %s :%s" % (self.cfg.username,
                  server,
                  server,
-                 self.cfg.realname or "bot")
+                 self.cfg.realname or "opbot")
                 )
 
     def parsing(self, txt):
@@ -402,6 +406,9 @@ class IRC(Handler, Output):
         self.joined.clear()
         self.doconnect(self.cfg.server, self.cfg.nick, int(self.cfg.port))
 
+    def register(self, typ, cbs):
+        Callbacks.add(typ, cbs)
+
     def say(self, channel, txt):
         self.oput(channel, txt)
 
@@ -420,17 +427,18 @@ class IRC(Handler, Output):
         self.state.lastline = splitted[-1]
 
     def start(self):
-        last(self.cfg)
+        dbs = Db()
+        dbs.last(self.cfg)
         if self.cfg.channel not in self.channels:
             self.channels.append(self.cfg.channel)
         self.connected.clear()
         self.joined.clear()
         Output.start(self)
-        Handler.start(self)
+        Client.start(self)
         launch(
                self.doconnect,
                self.cfg.server or "localhost",
-               self.cfg.nick or "hx", int(self.cfg.port or "6667")
+               self.cfg.nick or "opbot", int(self.cfg.port or "6667")
               )
         if not self.keeprunning:
             launch(self.keep)
@@ -440,7 +448,7 @@ class IRC(Handler, Output):
             self.sock.shutdown(2)
         except OSError:
             pass
-        Handler.stop(self)
+        Client.stop(self)
 
     def wait(self):
         self.joined.wait()
@@ -499,20 +507,21 @@ def cb_notice(event):
 
 
 def cb_privmsg(event):
+    event.parse()
     if event.txt:
         bot = event.bot()
-        if event.txt[0] in [bot.cfg.control, "!",]:
+        if event.txt[0] in [bot.cfg.cc, "!"]:
             event.txt = event.txt[1:]
         elif event.txt.startswith("%s:" % bot.cfg.nick):
             event.txt = event.txt[len(bot.cfg.nick)+1:]
         else:
             return
-        if bot.cfg.users and not bot.users.allowed(event.origin, "USER"):
+        if bot.cfg.users and not Users.allowed(event.origin, "USER"):
             return
         splitted = event.txt.split()
         splitted[0] = splitted[0].lower()
         event.txt = " ".join(splitted)
-        event.type = "command"
+        event.type = "event"
         bot.handle(event)
 
 
@@ -532,22 +541,24 @@ class User(Object):
             update(self, val)
 
 
+Class.add(User)
+
+
 class Users(Object):
 
-    userhosts = Object()
-
-    def allowed(self, origin, perm):
+    @staticmethod
+    def allowed(origin, perm):
         perm = perm.upper()
-        origin = getattr(self.userhosts, origin, origin)
-        user = self.get_user(origin)
+        user = Users.get_user(origin)
         val = False
         if user and perm in user.perms:
             val = True
         return val
 
-    def delete(self, origin, perm):
+    @staticmethod
+    def delete(origin, perm):
         res = False
-        for user in self.get_users(origin):
+        for user in Users.get_users(origin):
             try:
                 user.perms.remove(perm)
                 save(user)
@@ -558,18 +569,21 @@ class Users(Object):
 
     @staticmethod
     def get_users(origin=""):
-        user = {"user": origin}
-        return find("user", user)
+        selector = {"user": origin}
+        dbs = Db()
+        return dbs.find("user", selector)
 
-    def get_user(self, origin):
-        user = list(self.get_users(origin))
+    @staticmethod
+    def get_user(origin):
+        users = list(Users.get_users(origin))
         res = None
-        if len(user) > 0:
-            res = user[-1][-1]
+        if len(users) > 0:
+            res = users[-1][-1]
         return res
 
-    def perm(self, origin, permission):
-        user = self.get_user(origin)
+    @staticmethod
+    def perm(origin, permission):
+        user = Users.get_user(origin)
         if not user:
             raise NoUser(origin)
         if permission.upper() not in user.perms:
@@ -580,9 +594,10 @@ class Users(Object):
 
 def cfg(event):
     config = Config()
-    last(config)
+    dbs = Db()
+    dbs.last(config)
     if not event.sets:
-        event.reply(printable(config, skip="realname,sleep,username"))
+        event.reply(prt(config, skip="realname,sleep,username"))
     else:
         edit(config, event.sets)
         save(config)
@@ -594,15 +609,26 @@ def dlt(event):
         event.reply("dlt <username>")
         return
     selector = {"user": event.args[0]}
-    for _fn, obj in find("user", selector):
+    dbs = Db()
+    for _fn, obj in dbs.find("user", selector):
         obj._deleted = True
         save(obj)
         event.reply("ok")
         break
 
+
 def met(event):
-    if not event.args:
-        event.reply("met <userhost>")
+    if not event.rest:
+        _nr = 0
+        dbs = Db()
+        for _fn, obj in dbs.find("user"):
+            event.reply("%s %s %s %s" % (
+                                         _nr,
+                                         obj.user,
+                                         obj.perms,
+                                         elapsed(time.time() - fntime(_fn)))
+                                        )
+            _nr += 1
         return
     user = User()
     user.user = event.rest

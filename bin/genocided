@@ -1,30 +1,42 @@
 #!/usr/bin/env python3
-# pylint: disable=E1101,C0116,E0611
+# pylint: disable=E1101,E0611,C0116,C0115,C0413,R0903
 # This file is placed in the Public Domain.
 
 
-"GENOCIDE - Prosecutor. Court. Reconsider OTP-CR-117/19"
+"GENOCIDE - Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
 import os
+import signal
 import sys
+import termios
 import time
 
 
+sys.path.insert(0, os.getcwd())
+
+
+from genocide.hdl import scancls
 from genocide.obj import Wd
-from genocide.hdl import Cfg, scan
+from genocide.irc import Config
 
 
-from genocide import mdl, irc, rss
+Config.channel = "#genocide"
+Config.nick = "genocide"
+Config.realname = "GENOCIDE - Prosecutor. Court. Reconsider OTP-CR-117/19."
+Config.username = "genocide"
 
 
-Cfg.name = "genocide"
-Wd.workdir = "/var/lib/genocide/"
+Wd.workdir = "/var/lib/genocide"
 
 
-scan(irc, False)
-scan(mdl, False)
-scan(rss, False)
+from genocide import irc, log, rss, tdo
+
+
+scancls(irc)
+scancls(log)
+scancls(rss)
+scancls(tdo)
 
 
 def daemon():
@@ -33,27 +45,26 @@ def daemon():
         os._exit(0)
     os.setsid()
     os.umask(0)
-    _si = open("/dev/null", 'r')
-    _so = open("/dev/null", 'a+')
-    _se = open("/dev/null", 'a+')
-    os.dup2(_si.fileno(), sys.stdin.fileno())
-    os.dup2(_so.fileno(), sys.stdout.fileno())
-    os.dup2(_se.fileno(), sys.stderr.fileno())
+    si = open("/dev/null", 'r')
+    so = open("/dev/null", 'a+')
+    se = open("/dev/null", 'a+')
+    os.dup2(si.fileno(), sys.stdin.fileno())
+    os.dup2(so.fileno(), sys.stdout.fileno())
+    os.dup2(se.fileno(), sys.stderr.fileno())
 
 
-def signal_hup(sig, frame):
+def signal_HUP(sig, frame):
     print("signal 15 called")
     sys.stdout.flush()
 
 
-#signal.signal(signal.SIGHUP, signal_hup)
+signal.signal(signal.SIGHUP, signal_HUP)
 
 
 def main():
-    #daemon()
+    daemon()
     irc.init()
     rss.init()
-    mdl.init()
     while 1:
         time.sleep(1.0)
 

@@ -1,44 +1,51 @@
 #!/usr/bin/env python3
-# pylint: disable=E1101,C0116,E0611
-
+# pylint: disable=E1101,E0611,C0116,C0115,C0413,R0903
 # This file is placed in the Public Domain.
 
 
-"bot command"
+"bot"
 
 
+import os
 import sys
 
 
-from genocide.obj import Wd
-from genocide.hdl import Client, Cfg, docmd, parse, scan
+from bot.hdl import Client, docmd, parse, scan
+from bot.irc import Config
+from bot.obj import Wd
+from bot.run import Cfg
 
 
-from genocide import bsc, fnd, irc, log, mdl, rss
+Config.channel = "#botd"
+Config.nick = "botd"
+Config.realname = "BOTD - 24/7 channel daemon"
+Config.username = "botd"
 
 
-Cfg.name = "genocide"
-Wd.workdir = "/var/lib/genocide/"
+Wd.workdir = "/var/lib/botd/"
+
+
+from bot import bsc, irc, log, rss, tdo
 
 
 scan(bsc)
-scan(fnd)
 scan(irc)
 scan(log)
-scan(mdl)
 scan(rss)
+scan(tdo)
 
 
 class CLI(Client):
 
-    def raw(self, txt):
+    @staticmethod
+    def raw(txt):
         print(txt)
 
 
 def main():
-    parse(" ".join(sys.argv[1:]))
+    cfg = parse(" ".join(sys.argv[1:]))
     cli = CLI()
-    docmd(cli, Cfg.otxt)
+    docmd(cli, cfg.otxt)
 
 
 main()

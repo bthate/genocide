@@ -7,7 +7,8 @@
 import time
 
 
-from .hdl import Commands, starttime
+from .hdl import Commands
+from .run import starttime
 from .tmr import elapsed
 
 
@@ -17,7 +18,3 @@ def cmd(event):
 
 def upt(event):
     event.reply(elapsed(time.time()-starttime))
-
-
-def ver(event):
-    event.reply("BOTLIB 163")

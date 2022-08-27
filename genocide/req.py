@@ -4,7 +4,7 @@
 "request to the prosecutor"
 
 
-txt = """| **Information and Evidence Unit**
+TXT = """| **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
 | **2500 CM The Hague**
@@ -81,4 +81,4 @@ p.s.
 
 
 def req(event):
-    event.reply(txt)
+    event.reply(TXT)

@@ -1,5 +1,5 @@
-# pylint: disable=E1101,C0116,C0301
 # This file is placed in the Public Domain.
+# pylint: disable=E1101,C0116,C0301
 
 
 "model"
@@ -9,7 +9,7 @@ import time
 
 
 from .hdl import Bus, Event, launch
-from .obj import Object, get, matchkey, keys, update
+from .obj import Object, get, keys
 from .tmr import Repeater, elapsed
 
 
@@ -227,11 +227,11 @@ aantal = """
           2678
          """.split(";")
 
-oorzaak = Object()
-update(oorzaak, zip(oor,aantal))
+oorzaak = {}
+oorzaak.update(zip(oor,aantal))
 #oorzaak.Suicide = 1859
 
-aliases = Object()
+aliases = {}
 aliases["Nieuwvormingen"] = "cancer"
 aliases["Hart en vaatstelsel"] = "hart disease"
 aliases["Psychische en gedragsstoornissen"] = "mental illness"
@@ -258,7 +258,7 @@ demo.population = 17440000
 demo.part = 7000000000 / demo.population
 
 
-jaar = Object()
+jaar = {}
 jaar["WvGGZ"] = 14206
 jaar["Pvp"] = 20088
 jaar["Wzd"] = 25000
@@ -266,7 +266,7 @@ jaar["Wfz"] = 23820
 jaar["totaal"] = 168678
 
 
-oorzaken = Object()
+oorzaken = {}
 
 
 def boot():
@@ -386,7 +386,7 @@ def sts(event):
         nryear = int(YEAR/needed)
         txt = "patient #%s died from %s (%s/year) every %s" % (
                                                                nrtimes,
-                                                               matchkey(aliases, name, name).lower(),
+                                                               name.lower(),
                                                                nryear,
                                                                elapsed(needed)
                                                               )

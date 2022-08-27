@@ -9,10 +9,10 @@ import os
 import unittest
 
 
-from genocide.obj import Db, Wd, cdir, fns, hook, last
-from genocide.obj import Object, edit, get, items, keys, save, update, values
-from genocide.obj import dumps, load, loads, printable, register
-
+from genocide.dbs import Db,  fns, hook
+from genocide.obj import Object, Wd, edit, get, items, keys, save, update, values
+from genocide.obj import dumps, load, loads, prt, register
+from genocide.utl import cdir
 
 import genocide.obj
 
@@ -47,7 +47,7 @@ attrs1 = (
         'matchkey',
         'pop',
         'popitem',
-        'printable',
+        'prt',
         'read',
         "register",
         'save',
@@ -63,7 +63,6 @@ attrs2 = (
     '__class_getitem__',
     '__contains__',
     '__delattr__',
-    '__delitem__',
     '__dict__',
     '__dir__',
     '__doc__',
@@ -71,7 +70,6 @@ attrs2 = (
     '__format__',
     '__ge__',
     '__getattribute__',
-    '__getitem__',
     '__gt__',
     '__hash__',
     '__init__',
@@ -92,7 +90,6 @@ attrs2 = (
     '__reversed__',
     '__ror__',
     '__setattr__',
-    '__setitem__',
     '__sizeof__',
     '__slots__',
     '__stp__',
@@ -140,12 +137,6 @@ class TestObject(unittest.TestCase):
         obj.__delattr__("key")
         self.assertTrue("key" not in obj)
 
-    def test_delitem(self):
-        obj = Object()
-        obj["key"] = "value"
-        obj.__delitem__("key")
-        self.assertTrue("key" not in obj)
-
     def test_dict(self):
         obj = Object()
         self.assertEqual(obj.__dict__, {})
@@ -179,10 +170,6 @@ class TestObject(unittest.TestCase):
         obj = Object()
         obj.key = "value"
         self.assertEqual(obj.__getattribute__("key"), "value")
-
-    def test_getitem(self):
-        obj = update(Object(), {"key": "value"})
-        self.assertEqual(obj.__getitem__("key"), "value")
 
     def test_gt(self):
         obj = Object()
@@ -266,15 +253,6 @@ class TestObject(unittest.TestCase):
         obj.__setattr__("key", "value")
         self.assertTrue(obj.key, "value")
 
-    def test_setitem(self):
-        obj = Object()
-        obj.__setitem__("key", "value")
-        self.assertTrue(obj["key"], "value")
-
-    def test_setitem2(self):
-        obj = Object()
-        obj.__setitem__("key", "value")
-        self.assertTrue(obj.key, "value")
 
     def test_sizeof(self):
         self.assertEqual(Object().__sizeof__(), 40)
@@ -316,9 +294,9 @@ class TestObject(unittest.TestCase):
         edit(obj, dta)
         self.assertEqual(obj.key, "value")
 
-    def test_printable(self):
+    def test_prt(self):
         obj = Object()
-        self.assertEqual(printable(obj), "")
+        self.assertEqual(prt(obj), "")
 
     def test_fns(self):
         Wd.workdir = ".test"
@@ -374,7 +352,8 @@ class TestObject(unittest.TestCase):
         oobj = Object()
         oobj.key = "value"
         save(oobj)
-        last(oobj)
+        dbs = Db()
+        dbs.last(oobj)
         self.assertEqual(oobj.key, "value")
 
     def test_load(self):

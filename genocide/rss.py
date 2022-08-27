@@ -1,5 +1,5 @@
-# pylint: disable=E1101,C0116,R0912,R0915
 # This file is placed in the Public Domain.
+# pylint: disable=E1101,E0611,C0116,C0413,C0411,W0406
 
 
 "rich site syndicate"
@@ -8,18 +8,21 @@
 import html.parser
 import re
 import threading
+import time
 import urllib
+
+
+from .hdl import Bus, launch
+from .obj import Object, edit, get, register, save, update
+from .dbs import Class, Db
+from .tmr import Repeater, elapsed
+from .run import Cfg
+from .utl import fntime, spl
 
 
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
-
-
-from .hdl import Bus, Cfg, launch
-from .obj import Class, Db, find, last, save
-from .obj import Object, edit, get, spl, update
-from .tmr import Repeater
 
 
 def __dir__():
@@ -113,7 +116,7 @@ class Fetcher(Object):
                 if url.path and not url.path == "/":
                     uurl = "%s://%s/%s" % (url.scheme, url.netloc, url.path)
                 else:
-                    uurl = url.link
+                    uurl = fed.link
                 if uurl in Fetcher.seen.urls:
                     continue
                 Fetcher.seen.urls.append(uurl)
@@ -134,12 +137,14 @@ class Fetcher(Object):
 
     def run(self):
         thrs = []
-        for _fn, obj in find("rss"):
+        dbs = Db()
+        for _fn, obj in dbs.find("rss"):
             thrs.append(launch(self.fetch, obj))
         return thrs
 
     def start(self, repeat=True):
-        last(Fetcher.seen)
+        dbs = Db()
+        dbs.last(Fetcher.seen)
         if repeat:
             repeater = Repeater(300.0, self.run)
             repeater.start()
@@ -170,7 +175,7 @@ class Parser(Object):
             line = line.strip()
             obj = Object()
             for item in spl(items):
-                obj[item] = Parser.getitem(line, item)
+                register(obj, item, Parser.getitem(line, item))
             res.append(obj)
         return res
 
@@ -260,12 +265,13 @@ def ftc(event):
 
 def nme(event):
     if len(event.args) != 2:
-        event.reply("name <stringinurl> <name>")
+        event.reply("nme <stringinurl> <name>")
         return
     selector = {"rss": event.args[0]}
     _nr = 0
     got = []
-    for _fn, feed in find("rss", selector):
+    dbs = Db()
+    for _fn, feed in dbs.find("rss", selector):
         _nr += 1
         feed.name = event.args[1]
         got.append(feed)
@@ -280,8 +286,9 @@ def rem(event):
         return
     selector = {"rss": event.args[0]}
     got = []
-    for _fn, feed in find("rss", selector):
-        feed._deleted = True
+    dbs = Db()
+    for _fn, feed in dbs.find("rss", selector):
+        feed.__deleted__ = True
         got.append(feed)
     for feed in got:
         save(feed)
@@ -289,14 +296,24 @@ def rem(event):
 
 
 def rss(event):
-    if not event.args:
-        event.reply("rss <url>")
+    dbs = Db()
+    if not event.rest:
+        _nr = 0
+        for _fn, feed in dbs.find("rss"):
+            event.reply("%s %s %s" % (
+                                      _nr,
+                                      feed.rss,
+                                      elapsed(time.time() - fntime(_fn)))
+                                     )
+            _nr += 1
+        if not _nr:
+            event.reply("no rss feed enterded yet.")
         return
     url = event.args[0]
     if "http" not in url:
         event.reply("i need an url")
         return
-    res = list(find("rss", {"rss": url}))
+    res = list(dbs.find("rss", {"rss": url}))
     if res:
         return
     feed = Rss()

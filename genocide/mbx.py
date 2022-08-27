@@ -9,10 +9,10 @@ import os
 import time
 
 
-from .obj import Db, find, fntime, save
-from .obj import Object, printable, update
+from .dbs import Class, Db
+from .obj import Object, prt, save, update
 from .tmr import elapsed
-
+from .utl import fntime
 
 bdmonths = [
             'Bo',
@@ -52,6 +52,9 @@ class Email(Object):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.text = ""
+
+
+Class.add(Email)
 
 
 def to_date(date):
@@ -95,7 +98,8 @@ def cor(event):
         event.reply("cor <email>")
         return
     _nr = -1
-    for _fn, email in find("email", {"From": event.args[0]}):
+    dbs = Db()
+    for _fn, email in dbs.find("email", {"From": event.args[0]}):
         _nr += 1
         txt = ""
         if len(event.args) > 1:
@@ -104,7 +108,7 @@ def cor(event):
             txt = "From,Subject"
         event.reply("%s %s %s" % (
                                   _nr,
-                                  printable(email, txt, plain=True),
+                                  prt(email, txt, plain=True),
                                   elapsed(time.time() - fntime(email.__stp__)))
                                  )
 
@@ -120,33 +124,33 @@ def eml(event):
             _nr += 1
             event.reply("%s %s %s" % (
                                       _nr,
-                                      printable(obj, "From,Subject"),
-                                      elapsed(time.time() - fntime(_fn))
-                                     ))
+                                      prt(obj, "From,Subject"),
+                                      elapsed(time.time() - fntime(_fn)))
+                                     )
 
 
 def mbx(event):
     if not event.args:
         event.reply("mbx <directory>")
         return
-    _fn = os.path.expanduser(event.args[0])
-    event.reply("reading from %s" % _fn)
+    fnm = os.path.expanduser(event.args[0])
+    event.reply("reading from %s" % fnm)
     _nr = 0
-    if os.path.isdir(_fn):
-        thing = mailbox.Maildir(_fn, create=False)
-    elif os.path.isfile(_fn):
-        thing = mailbox.mbox(_fn, create=False)
+    if os.path.isdir(fnm):
+        thing = mailbox.Maildir(fnm, create=False)
+    elif os.path.isfile(fnm):
+        thing = mailbox.mbox(fnm, create=False)
     else:
         return
     try:
         thing.lock()
     except FileNotFoundError:
         pass
-    for mail in thing:
+    for _em in thing:
         email = Email()
-        update(email, mail._headers)
+        update(email, _em._headers)
         email.text = ""
-        for payload in mail.walk():
+        for payload in _em.walk():
             if payload.get_content_type() == 'text/plain':
                 email.text += payload.get_payload()
         email.text = email.text.replace("\\n", "\n")

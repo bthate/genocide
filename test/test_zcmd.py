@@ -7,9 +7,9 @@
 import unittest
 
 
-from genocide.hdl import Cfg, Client, Commands, docmd
+from genocide.hdl import Client, Commands, docmd
 from genocide.obj import Object, get
-
+from genocide.run import Cfg
 
 evts = []
 skip = ["cfg",]

@@ -16,11 +16,12 @@ import traceback
 import _thread
 
 
-from genocide.obj import Wd, Object, get, locked
-from genocide.hdl import Client, Command, Commands
-from genocide.hdl import Cfg, getname, launch, parse, scan
+from genocide.obj import Wd, Object, get
+from genocide.hdl import Client, Commands, Event
+from genocide.hdl import getname, launch, parse, scan
+from genocide.run import Cfg
 from genocide.tmr import elapsed
-
+from genocide.utl import locked
 
 from genocide import bsc, fnd, irc, log, rss
 
@@ -105,7 +106,7 @@ def payload(clt):
     _nr = 0
     for cmd in cmds:
         for ex in get(param, cmd, [""]):
-            evt = Command()
+            evt = Event()
             evt.txt = cmd + " " + ex
             evt.orig = repr(clt)
             evt.parse()
@@ -129,10 +130,12 @@ def wrap(func):
 def main():
     if os.path.exists(Cfg.workdir):
         shutil.rmtree(Cfg.workdir)
-    parse(" ".join(sys.argv[1:]))
+    cfg = parse(" ".join(sys.argv[1:]))
+    if "v" in cfg.opts:
+        Cfg.verbose = True
     cli = CLI()
     cli.start()
-    nrs = Cfg.index or 20
+    nrs = cfg.index or 20
     thrs = []
     starttime = time.time()
     for _nr in range(nrs):

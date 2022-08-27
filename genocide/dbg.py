@@ -1,5 +1,5 @@
-# pylint: disable=E1101,C0116
 # This file is placed in the Public Domain.
+# pylint: disable=E1101,E0611,C0116,C0413,C0411,W0406
 
 
 "debug"
@@ -9,9 +9,11 @@ import threading
 import time
 
 
+from .hdl import Bus, getname
 from .obj import Object, get, update
-from .hdl import Bus, getname, starttime
+from .run import starttime
 from .tmr import elapsed
+
 
 
 def __dir__():

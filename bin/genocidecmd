@@ -13,14 +13,13 @@ from bot.hdl import Client, docmd, parse, scan
 from bot.irc import Config
 from bot.obj import Wd
 
+Config.nick = "genocide"
+Config.channel = "#genocide"
+Config.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
+Config.username = "genocide"
 
-Config.channel = "#botd"
-Config.nick = "botd"
-Config.realname = "BOTD - 24/7 channel daemon"
-Config.username = "botd"
 
-
-Wd.workdir = "/var/lib/botd/"
+Wd.workdir = "/var/lib/genocide/"
 
 
 from bot import bsc, irc, log, rss, tdo

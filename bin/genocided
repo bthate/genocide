@@ -62,7 +62,7 @@ signal.signal(signal.SIGHUP, hup)
 
 
 def main():
-    daemon()
+    #daemon()
     irc.init()
     rss.init()
     mdl.init()

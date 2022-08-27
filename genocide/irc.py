@@ -16,10 +16,11 @@ import time
 import _thread
 
 
-from .hdl import Callbacks, Client, Event, launch
+from .hdl import Callbacks, Client, Event
 from .obj import Default, Object
 from .obj import edit, prt, save, update
 from .dbs import Class, Db
+from .thr import launch
 from .tmr import elapsed
 from .utl import fntime, locked
 

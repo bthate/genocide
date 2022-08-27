@@ -17,7 +17,8 @@ sys.path.insert(0, os.getcwd())
 
 
 from genocide.obj import Wd
-from genocide.hdl import Cfg, Client, parse, scan
+from genocide.hdl import Client, parse, scan
+from genocide.run import Cfg
 
 
 from genocide import bsc, fnd, irc, log, mdl, rss

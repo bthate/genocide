@@ -9,9 +9,10 @@ import threading
 import time
 
 
-from .hdl import Bus, getname
+from .hdl import Bus
 from .obj import Object, get, update
 from .run import starttime
+from .thr import getname
 from .tmr import elapsed
 
 

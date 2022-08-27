@@ -1,111 +1,84 @@
-# pylint: disable=E1101,C0116
+# pylint: disable=E1101,C0116,C0411
 # This file is placed in the Public Domain.
 
 
 "object"
 
 
+import json
 import os
 import unittest
 
 
-from genocide.dbs import Db,  fns, hook
-from genocide.obj import Object, Wd, edit, get, items, keys, save, update, values
-from genocide.obj import dumps, load, loads, prt, register
-from genocide.utl import cdir
-
-import genocide.obj
-
+from bot.obj import Wd, Object, get, items, keys, register, update, values
+from bot.obj import load, otype, save
+from bot.obj import edit, prt
+from bot.obj import ObjectDecoder, ObjectEncoder
 
 Wd.workdir = ".test"
-
-
-attrs1 = (
-        'Class',
-        'Db',
-        'NOPATH',
-        'Object',
-        'ObjectDecoder',
-        'ObjectEncoder',
-        'Wd',
-        'all',
-        'clear',
-        'copy',
-        'diff',
-        'dump',
-        'dumps',
-        'edit',
-        'find',
-        'fntime',
-        'get',
-        'items',
-        'keys',
-        'last',
-        'lastfromkeys',
-        'load',
-        'loads',
-        'matchkey',
-        'pop',
-        'popitem',
-        'prt',
-        'read',
-        "register",
-        'save',
-        'search',
-        'setdefault',
-        'update',
-        'values'
-)
-
-
-attrs2 = (
-    '__class__',
-    '__class_getitem__',
-    '__contains__',
-    '__delattr__',
-    '__dict__',
-    '__dir__',
-    '__doc__',
-    '__eq__',
-    '__format__',
-    '__ge__',
-    '__getattribute__',
-    '__gt__',
-    '__hash__',
-    '__init__',
-    '__init_subclass__',
-    '__ior__',
-    '__iter__',
-    '__le__',
-    '__len__',
-    '__lt__',
-    '__module__',
-    '__ne__',
-    '__new__',
-    '__oqn__',
-    '__otype__',
-    '__reduce__',
-    '__reduce_ex__',
-    '__repr__',
-    '__reversed__',
-    '__ror__',
-    '__setattr__',
-    '__sizeof__',
-    '__slots__',
-    '__stp__',
-    '__str__',
-    '__subclasshook__'
-)
 
 
 VALIDJSON = '{"test": "bla"}'
 
 
-class Composite(Object):
+attrs1 = (
+         'Object',
+         'Wd',
+         'clear',
+         'copy',
+         'fromkeys',
+         'get',
+         'items',
+         'keys',
+         'matchkey',
+         'pop',
+         'popitem',
+         "register",
+         'save',
+         'setdefault',
+         'update',
+         'values',
+        )
 
-    def __init__(self):
-        super().__init__()
-        self.dbs = Db()
+attrs2 = (
+          '__class__',
+          '__delattr__',
+          '__dict__',
+          '__dir__',
+          '__doc__',
+          '__eq__',
+          '__format__',
+          '__ge__',
+          '__getattribute__',
+          '__gt__',
+          '__hash__',
+          '__init__',
+          '__init_subclass__',
+          '__iter__',
+          '__le__',
+          '__len__',
+          '__lt__',
+          '__module__',
+          '__ne__',
+          '__new__',
+          '__reduce__',
+          '__reduce_ex__',
+          '__repr__',
+          '__setattr__',
+          '__sizeof__',
+          '__slots__',
+          '__stp__',
+          '__str__',
+          '__subclasshook__',
+         )
+
+
+def dumps(name):
+    return json.dumps(name, cls=ObjectEncoder)
+
+
+def loads(name):
+    return json.loads(name, cls=ObjectDecoder)
 
 
 class TestObject(unittest.TestCase):
@@ -113,13 +86,6 @@ class TestObject(unittest.TestCase):
     def test_constructor(self):
         obj = Object()
         self.assertTrue(type(obj), Object)
-
-    def test_import(self):
-        self.assertEqual(tuple(dir(genocide.obj)), attrs1)
-
-    def test_attributes(self):
-        obj = Object()
-        self.assertEqual(tuple(dir(obj)), attrs2)
 
     def test__class(self):
         obj = Object()
@@ -149,33 +115,16 @@ class TestObject(unittest.TestCase):
 
     def test_doc(self):
         obj = Object()
-        self.assertEqual(obj.__doc__, "object")
-
-    def test_eq(self):
-        obj = Object()
-        oobj = Object()
-        self.assertTrue(obj == oobj)
+        self.assertEqual(obj.__doc__, "big Object")
 
     def test_format(self):
         obj = Object()
         self.assertEqual(obj.__format__(""), "{}")
 
-    def test_ge(self):
-        oobj1 = Object()
-        oobj2 = Object()
-        oobj2.key = "value"
-        self.assertTrue(oobj2 >= oobj1)
-
     def test_getattribute(self):
         obj = Object()
         obj.key = "value"
         self.assertEqual(obj.__getattribute__("key"), "value")
-
-    def test_gt(self):
-        obj = Object()
-        oobj = Object()
-        oobj.key = "value"
-        self.assertTrue(oobj > obj)
 
     def test_hash__(self):
         obj = Object()
@@ -185,11 +134,6 @@ class TestObject(unittest.TestCase):
     def test_init(self):
         obj = Object()
         self.assertTrue(type(Object.__init__(obj)), Object)
-
-    def test_init_subclass(self):
-        obj = Object()
-        scls = obj.__init_subclass__()
-        self.assertEqual(scls, None)
 
     def test_iter(self):
         obj = Object()
@@ -201,48 +145,15 @@ class TestObject(unittest.TestCase):
             ],
         )
 
-    def test_le(self):
-        obj = Object()
-        oobj = Object()
-        oobj.key = "value"
-        self.assertTrue(obj <= oobj)
-
     def test_len(self):
         obj = Object()
         self.assertEqual(len(obj), 0)
 
-    def test_lt(self):
-        obj = Object()
-        oobj = Object()
-        oobj.key = "value"
-        self.assertTrue(obj < oobj)
-
     def test_module(self):
-        self.assertTrue(Object().__module__, "genocide.obj")
-
-    def test_ne(self):
-        obj = Object()
-        oobj = Object()
-        oobj.key = "value"
-        self.assertTrue(obj != oobj)
-
-    def test_new(self):
-        obj = Object()
-        oobj = obj.__new__(Object)
-        self.assertEqual(obj, oobj)
+        self.assertTrue(Object().__module__, "op")
 
     def test_otype(self):
-        self.assertEqual(Object().__otype__, "genocide.obj.Object")
-
-    def test_reduce(self):
-        obj = Object()
-        obj.__reduce__()
-        self.assertTrue("obj" in str(type(obj)))
-
-    def test_reduce_ex(self):
-        obj = Object()
-        obj.__reduce_ex__("test")
-        self.assertTrue("obj" in str(type(obj)))
+        self.assertEqual(otype(Object()), "bot.obj.Object")
 
     def test_repr(self):
         self.assertTrue(update(Object(),
@@ -255,38 +166,21 @@ class TestObject(unittest.TestCase):
 
 
     def test_sizeof(self):
-        self.assertEqual(Object().__sizeof__(), 40)
+        self.assertEqual(Object().__sizeof__(), 32)
 
     def test_slots(self):
-        self.assertEqual(Object().__slots__, ("__dict__",
-                                              "__otype__",
-                                              "__stp__"))
+        self.assertEqual(Object().__slots__, (
+                                              "__dict__",
+                                              "__stp__",
+                                             ))
 
     def test_stp(self):
         obj = Object()
-        self.assertTrue("genocide.obj.Object" in obj.__stp__)
+        self.assertTrue("bot.obj.Object" in obj.__stp__)
 
     def test_str(self):
         obj = Object()
         self.assertEqual(str(obj), "{}")
-
-    def test_subclasshook(self):
-        obj = Object()
-        bus = obj.__subclasshook__()
-        self.assertEqual(bus, NotImplemented)
-
-    def test_dbs(self):
-        dbs = Db()
-        self.assertTrue(type(dbs), Db)
-
-    def test_cdir(self):
-        cdir(".test")
-        self.assertTrue(os.path.exists(".test"))
-
-    def test_composite(self):
-        com1 = Composite()
-        com2 = loads(dumps(com1))
-        self.assertEqual(type(com2.dbs), type({}))
 
     def test_edit(self):
         obj = Object()
@@ -298,23 +192,10 @@ class TestObject(unittest.TestCase):
         obj = Object()
         self.assertEqual(prt(obj), "")
 
-    def test_fns(self):
-        Wd.workdir = ".test"
-        obj = Object()
-        save(obj)
-        self.assertTrue("Object" in fns("genocide.obj.Object")[0])
-
     def test_get(self):
         obj = Object()
         obj.key = "value"
         self.assertEqual(get(obj, "key"), "value")
-
-    def test_hook(self):
-        obj = Object()
-        obj.key = "value"
-        pth = save(obj)
-        oobj = hook(pth)
-        self.assertEqual(oobj.key, "value")
 
     def test_keys(self):
         obj = Object()
@@ -348,14 +229,6 @@ class TestObject(unittest.TestCase):
         self.assertEqual(dumps(obj), VALIDJSON)
 
 
-    def test_last(self):
-        oobj = Object()
-        oobj.key = "value"
-        save(oobj)
-        dbs = Db()
-        dbs.last(oobj)
-        self.assertEqual(oobj.key, "value")
-
     def test_load(self):
         obj = Object()
         obj.key = "value"
@@ -373,10 +246,7 @@ class TestObject(unittest.TestCase):
         Wd.workdir = ".test"
         obj = Object()
         path = save(obj)
-        self.assertTrue(os.path.exists(os.path.join(Wd.workdir,
-                                                    "store",
-                                                    path
-                                                   )))
+        self.assertTrue(os.path.exists(os.path.join(Wd.workdir, "store", path)))
 
     def test_update(self):
         obj = Object()

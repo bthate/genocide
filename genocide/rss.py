@@ -12,9 +12,10 @@ import time
 import urllib
 
 
-from .hdl import Bus, launch
+from .hdl import Bus
 from .obj import Object, edit, get, register, save, update
 from .dbs import Class, Db
+from .thr import launch
 from .tmr import Repeater, elapsed
 from .run import Cfg
 from .utl import fntime, spl

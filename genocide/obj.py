@@ -87,9 +87,6 @@ class Object:
     def __len__(self):
         return len(self.__dict__)
 
-    def __repr__(self):
-        return self.__stp__
-
     def __str__(self):
         return str(self. __dict__)
 
@@ -185,7 +182,10 @@ def edit(o, setter):
 
 
 def get(o, key, default=None):
-    return o.__dict__.get(key, default)
+    try:
+        return o.__dict__.get(key, default)
+    except AttributeError:
+        return o.get(key)
 
 
 def items(o):

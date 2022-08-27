@@ -15,4 +15,4 @@ from genocide.mdl import oorzaak
 class TestComposite(unittest.TestCase):
 
     def test_composite(self):
-        self.assertEqual(type(oorzaak), Object)
+        self.assertEqual(type(oorzaak), dict)

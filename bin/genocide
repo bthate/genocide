@@ -18,7 +18,7 @@ from genocide.irc import IRC
 from genocide.rss import Fetcher
 
 
-from genocide import bsc, dbg, irc, log, rss, tdo
+from genocide import bsc, dbg, irc, log, mdl, rss, tdo
 from genocide.irc import Config
 
 Config.nick = "genocide"
@@ -34,6 +34,7 @@ scan(bsc)
 scan(dbg)
 scan(irc)
 scan(log)
+scan(mdl)
 scan(rss)
 scan(tdo)
 
@@ -87,6 +88,7 @@ def main():
         bot.start()
         fetcher = Fetcher()
         fetcher.start()
+        mdl.init()
         csl = Console()
         csl.start()
         csl.forever()

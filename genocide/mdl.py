@@ -8,8 +8,9 @@
 import time
 
 
-from .hdl import Bus, Event, launch
+from .hdl import Bus, Event
 from .obj import Object, get, keys
+from .thr import launch
 from .tmr import Repeater, elapsed
 
 

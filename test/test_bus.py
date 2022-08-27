@@ -10,34 +10,38 @@ import unittest
 from genocide.hdl import Bus, Client
 
 
+class MyClient(Client):
+
+    def __init__(self):
+        Client.__init__(self)
+        self.gotcha = False
+
+    def raW(self, txt):
+        self.gotcha = True
+
+
 class TestBus(unittest.TestCase):
 
-    def test_construct(self):
-        bus = Bus()
-        self.assertEqual(type(bus), Bus)
-
     def test_add(self):
-        bus = Bus()
-        clt = Client()
-        bus.add(clt)
-        self.assertTrue(clt in bus.objs)
+        clt = MyClient()
+        Bus.add(clt)
+        self.assertTrue(clt in Bus.objs)
 
     def test_announce(self):
-        bus = Bus()
-        clt = Client()
-        bus.add(clt)
-        bus.announce("test")
+        clt = MyClient()
+        clt.gotcha = False
+        Bus.add(clt)
+        Bus.announce("test")
         self.assertTrue(clt.gotcha)
 
     def test_byorig(self):
-        bus = Bus()
-        clt = Client()
-        bus.add(clt)
-        self.assertEqual(bus.byorig(clt.orig), clt)
+        clt = MyClient()
+        Bus.add(clt)
+        self.assertEqual(Bus.byorig(clt.orig), clt)
 
     def test_say(self):
-        bus = Bus()
-        clt = Client()
-        bus.add(clt)
-        bus.say(clt.orig, "#test", "test")
+        clt = MyClient()
+        clt.gotcha = False
+        Bus.add(clt)
+        Bus.say(clt.orig, "#test", "test")
         self.assertTrue(clt.gotcha)

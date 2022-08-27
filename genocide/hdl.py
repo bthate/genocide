@@ -10,7 +10,6 @@ import os
 import queue
 import threading
 import time
-import types
 
 
 from .dbs import Class

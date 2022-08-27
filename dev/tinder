@@ -18,10 +18,12 @@ import _thread
 
 from genocide.obj import Wd, Object, get
 from genocide.hdl import Client, Commands, Event
-from genocide.hdl import getname, launch, parse, scan
+from genocide.hdl import launch, parse, scan
 from genocide.run import Cfg
 from genocide.tmr import elapsed
+from genocide.thr import getname
 from genocide.utl import locked
+
 
 from genocide import bsc, fnd, irc, log, rss
 

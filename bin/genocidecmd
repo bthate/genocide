@@ -6,14 +6,12 @@
 "bot"
 
 
-import os
 import sys
 
 
 from bot.hdl import Client, docmd, parse, scan
 from bot.irc import Config
 from bot.obj import Wd
-from bot.run import Cfg
 
 
 Config.channel = "#botd"

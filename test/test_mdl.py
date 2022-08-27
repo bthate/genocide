@@ -8,7 +8,6 @@
 import unittest
 
 
-from genocide.obj import Object
 from genocide.mdl import oorzaak
 
 

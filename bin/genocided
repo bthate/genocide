@@ -9,7 +9,6 @@
 import os
 import signal
 import sys
-import termios
 import time
 
 
@@ -30,11 +29,12 @@ Config.username = "genocide"
 Wd.workdir = "/var/lib/genocide"
 
 
-from genocide import irc, log, rss, tdo
+from genocide import irc, log, mdl, rss, tdo
 
 
 scancls(irc)
 scancls(log)
+scancls(mdl)
 scancls(rss)
 scancls(tdo)
 
@@ -45,26 +45,27 @@ def daemon():
         os._exit(0)
     os.setsid()
     os.umask(0)
-    si = open("/dev/null", 'r')
-    so = open("/dev/null", 'a+')
-    se = open("/dev/null", 'a+')
-    os.dup2(si.fileno(), sys.stdin.fileno())
-    os.dup2(so.fileno(), sys.stdout.fileno())
-    os.dup2(se.fileno(), sys.stderr.fileno())
+    sis = open("/dev/null", 'r')
+    sos = open("/dev/null", 'a+')
+    ses = open("/dev/null", 'a+')
+    os.dup2(sis.fileno(), sys.stdin.fileno())
+    os.dup2(sos.fileno(), sys.stdout.fileno())
+    os.dup2(ses.fileno(), sys.stderr.fileno())
 
 
-def signal_HUP(sig, frame):
+def hup(sig, frame):
     print("signal 15 called")
     sys.stdout.flush()
 
 
-signal.signal(signal.SIGHUP, signal_HUP)
+signal.signal(signal.SIGHUP, hup)
 
 
 def main():
     daemon()
     irc.init()
     rss.init()
+    mdl.init()
     while 1:
         time.sleep(1.0)
 

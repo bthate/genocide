@@ -34,6 +34,5 @@ I :ref:`wrote <writings>` the prosecutor asking for an arrest of the king (make 
     guilty
     reconsider
     request
-    source
     man
     writings

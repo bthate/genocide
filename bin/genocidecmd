@@ -9,9 +9,9 @@
 import sys
 
 
-from bot.hdl import Client, docmd, parse, scan
-from bot.irc import Config
-from bot.obj import Wd
+from genocide.hdl import Client, docmd, parse, scan
+from genocide.irc import Config
+from genocide.obj import Wd
 
 Config.nick = "genocide"
 Config.channel = "#genocide"
@@ -22,7 +22,7 @@ Config.username = "genocide"
 Wd.workdir = "/var/lib/genocide/"
 
 
-from bot import bsc, irc, log, rss, tdo
+from genocide import bsc, irc, log, rss, tdo
 
 
 scan(bsc)

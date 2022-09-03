@@ -8,7 +8,7 @@
 
 .. image:: skullagain.jpg
     :width: 100%
-    :target: man.html
+    :target: evidence.html
 
 
 .. raw:: html
@@ -44,9 +44,4 @@ Prosecutor. Court. :ref:`Reconsider OTP-CR-117/19. <reconsider>`
     :hidden:
     :glob:
 
-    evidence
-    guilty
-    reconsider
-    request
-    man
-    writings
+    *

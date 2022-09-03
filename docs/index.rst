@@ -28,6 +28,7 @@ I :ref:`wrote <writings>` the prosecutor asking for an arrest of the king (make 
 
 .. raw:: html
 
+    <br>
     <center>
     <b>
 

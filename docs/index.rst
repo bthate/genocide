@@ -26,6 +26,19 @@ I :ref:`wrote <writings>` the prosecutor asking for an arrest of the king (make 
 :ref:`reconsider <reconsider>` of the prosecutor to get the king in his cell and his genocide, thereby, stopped.
 
 
+.. raw:: html
+
+    <center>
+    <b>
+
+Prosecutor. Court. :ref:`Reconsider OTP-CR-117/19. <reconsider>`
+
+.. raw:: html
+
+    </b>
+    </center>
+
+
 .. toctree::
     :hidden:
     :glob:

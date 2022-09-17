@@ -13,5 +13,5 @@ def popen(txt):
         print(line.rstrip())
 
 
-popen("dev/clean")
+popen("bin/clean")
 popen("rm -fR env")

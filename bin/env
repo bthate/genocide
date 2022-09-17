@@ -13,7 +13,7 @@ def popen(txt):
         print(line.rstrip())
 
 
-popen("dev/clean")
+popen("bin/clean")
 popen("python3 setup.py sdist")
 popen("python3 -mvirtualenv --system-site-packages env")
 popen("env/bin/pip3 install genocide -f dist --upgrade --force-reinstall --no-cache-dir --no-deps")

@@ -13,12 +13,12 @@ def popen(txt):
         print(line.rstrip())
 
 
-popen("dev/clean")
+popen("bin/clean")
 
 if os.path.exists("env"):
      print("environment is there")
 else:
      print("creating environment")
-     popen("dev/upenv")
+     popen("bin/upenv")
 
 popen("env/bin/python3 env/bin/sphinx-build docs html")

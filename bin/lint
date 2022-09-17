@@ -36,7 +36,6 @@ def payload(dname):
 def main():
     payload("genocide")
     payload("test")
-    payload("dev")
     payload("bin")
 
 

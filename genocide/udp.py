@@ -9,9 +9,9 @@ import socket
 import time
 
 
-from .dbs import Class, Db
-from .hdl import Bus, launch
-from .obj import Object
+from cid.dbs import Class, Db
+from cid.obj import Object
+from cide.hdl import Bus, launch
 
 
 def init():

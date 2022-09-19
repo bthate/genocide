@@ -8,10 +8,10 @@
 import time
 
 
-from .hdl import Bus, Event
-from .obj import Object, get, keys
-from .thr import launch
-from .tmr import Repeater, elapsed
+from cid.obj import Object, get, keys
+from cide.hdl import Bus, Event
+from cide.thr import launch
+from cide.tmr import Repeater, elapsed
 
 
 def __dir__():

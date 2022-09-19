@@ -1,10 +1,10 @@
-.. _About:
+.. _about:
 
 .. raw:: html
 
     <br>
 
-.. title:: about
+.. title:: About
 
 .. image:: skullagain.jpg
     :width: 100%

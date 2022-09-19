@@ -12,8 +12,11 @@ import sys
 import termios
 
 
-from genocide.hdl import Client, Event, docmd, parse, scan
-from genocide.obj import Wd
+sys.path.insert(0, os.getcwd())
+
+
+from cid.obj import Wd
+from cide.hdl import Client, Event, docmd, parse, scan
 from genocide.irc import IRC
 from genocide.rss import Fetcher
 

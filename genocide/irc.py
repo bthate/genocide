@@ -16,13 +16,13 @@ import time
 import _thread
 
 
-from .hdl import Callbacks, Client, Event
-from .obj import Default, Object
-from .obj import edit, prt, save, update
-from .dbs import Class, Db
-from .thr import launch
-from .tmr import elapsed
-from .utl import fntime, locked
+from cid.obj import Default, Object
+from cid.obj import edit, prt, save, update
+from cid.dbs import Class, Db
+from cid.utl import fntime, locked
+from cide.hdl import Callbacks, Client, Event
+from cide.thr import launch
+from cide.tmr import elapsed
 
 
 def __dir__():

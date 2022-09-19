@@ -8,7 +8,7 @@
 import time
 
 
-from .obj import Default
+from cid.obj import Default
 
 
 starttime = time.time()

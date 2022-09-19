@@ -12,13 +12,13 @@ import time
 import urllib
 
 
-from .hdl import Bus
-from .obj import Object, edit, get, register, save, update
-from .dbs import Class, Db
-from .thr import launch
-from .tmr import Repeater, elapsed
-from .run import Cfg
-from .utl import fntime, spl
+from cid.obj import Object, edit, get, register, save, update
+from cid.dbs import Class, Db
+from cid.utl import fntime, spl
+from cide.hdl import Bus
+from cide.thr import launch
+from cide.tmr import Repeater, elapsed
+from genocide.run import Cfg
 
 
 from urllib.error import HTTPError, URLError

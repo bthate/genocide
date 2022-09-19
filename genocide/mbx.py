@@ -9,10 +9,10 @@ import os
 import time
 
 
-from .dbs import Class, Db
-from .obj import Object, prt, save, update
-from .tmr import elapsed
-from .utl import fntime
+from cid.dbs import Class, Db
+from cid.obj import Object, prt, save, update
+from cid.utl import fntime
+from cide.tmr import elapsed
 
 bdmonths = [
             'Bo',

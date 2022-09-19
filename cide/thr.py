@@ -1,24 +1,34 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,E0611,C0116,C0413,W0105,W0201
-
-
-"thread"
+# pylint: disable=C0114,C0115,C0116,R0902,W0222
 
 
 import queue
 import threading
-import types
+import time
+
+
+from cid.obj import name
+
+
+def __dir__():
+    return (
+            'Thread',
+            'launch'
+           )
 
 
 class Thread(threading.Thread):
 
-    def __init__(self, func, name, *args, daemon=True):
+    def __init__(self, func, thrname, *args, daemon=True):
         super().__init__(None, self.run, name, (), {}, daemon=daemon)
         self._exc = None
         self._evt = None
-        self.name = name
+        self.name = thrname or name(func)
         self.queue = queue.Queue()
         self.queue.put_nowait((func, args))
+        self.sleep = None
+        self.starttime = time.time()
+        self.state = None
         self._result = None
 
     def __iter__(self):
@@ -32,32 +42,17 @@ class Thread(threading.Thread):
         super().join(timeout)
         return self._result
 
-    def run(self):
+    def run(self) -> None:
         func, args = self.queue.get()
         if args:
             self._evt = args[0]
         self.setName(self.name)
+        self.starttime = time.time()
         self._result = func(*args)
-        return self._result
-
-
-def getname(obj):
-    typ = type(obj)
-    if isinstance(typ, types.ModuleType):
-        return obj.__name__
-    if "__self__" in dir(obj):
-        return "%s.%s" % (obj.__self__.__class__.__name__, obj.__name__)
-    if "__class__" in dir(obj) and "__name__" in dir(obj):
-        return "%s.%s" % (obj.__class__.__name__, obj.__name__)
-    if "__class__" in dir(obj):
-        return obj.__class__.__name__
-    if "__name__" in dir(obj):
-        return obj.__name__
-    return None
 
 
 def launch(func, *args, **kwargs):
-    name = kwargs.get("name", getname(func))
-    thr = Thread(func, name, *args)
+    thrname = kwargs.get("name", name(func))
+    thr = Thread(func, thrname, *args)
     thr.start()
     return thr

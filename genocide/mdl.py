@@ -8,7 +8,7 @@
 import time
 
 
-from cide.spc import Object, elapsed, get, keys
+from cide.spc import Object, elapsed, get, keys, update
 from gcide.spc import Bus, Event, Repeater, launch
 
 
@@ -26,7 +26,7 @@ def init():
             evt.txt = ""
             evt.rest = key
             sec = seconds(val)
-            repeater = Repeater(sec, cbstats, evt, thrname=get(aliases, key))
+            repeater = Repeater(sec, cbstats, evt, thrname=aliases.get(key))
             repeater.start()
     launch(daily, name="daily")
 
@@ -226,8 +226,7 @@ aantal = """
           2678
          """.split(";")
 
-oorzaak = {}
-oorzaak.update(zip(oor,aantal))
+oorzaak = Object(zip(oor,aantal))
 #oorzaak.Suicide = 1859
 
 aliases = {}
@@ -265,7 +264,7 @@ jaar["Wfz"] = 23820
 jaar["totaal"] = 168678
 
 
-oorzaken = {}
+oorzaken = Object()
 
 
 def boot():
@@ -295,7 +294,7 @@ def boot():
         atl = atl.replace("Aandoeningen v.d. ", "")
         nms = " ".join(atl.split()[1:]).capitalize()
         nms = nms.strip()
-        oorzaken[nms] = aantal[_nr]
+        setattr(oorzaken, nms, aantal[_nr])
 
 
 YEAR = 365*24*60*60
@@ -347,7 +346,7 @@ def cbnow(evt):
         if needed > 60*60:
             continue
         nrtimes = int(delta/needed)
-        txt += "%s: %s " % (get(aliases, name), nrtimes)
+        txt += "%s: %s " % (aliases.get(name), nrtimes)
     txt += " http://genocide.rtfd.io"
     Bus.announce(txt)
 

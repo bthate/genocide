@@ -13,7 +13,7 @@ import urllib
 
 
 from cide.spc import Class, Db, Object, edit, get, register, save, update
-from cide.spc import elapsed, fntime, spl
+from cide.spc import elapsed, fntime, last, spl
 from gcide.spc import Bus, Repeater, launch
 from genocide.run import Cfg
 
@@ -141,8 +141,7 @@ class Fetcher(Object):
         return thrs
 
     def start(self, repeat=True):
-        dbs = Db()
-        dbs.last(Fetcher.seen)
+        last(Fetcher.seen)
         if repeat:
             repeater = Repeater(300.0, self.run)
             repeater.start()

@@ -10,7 +10,7 @@ from cide.dbs import Db, find, fns, fntime, hook, last, locked
 from cide.dft import Default
 from cide.jsn import dump, dumps, load, loads, save
 from cide.obj import *
-from cide.utl import cdir, elapsed
+from cide.utl import cdir, elapsed, spl
 from cide.wdr import Wd
 
 
@@ -38,6 +38,7 @@ def __dir__():
             'otype',
             'register',
             'save',
+            'spl',
             'update',
             'values',
            )

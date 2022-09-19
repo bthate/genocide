@@ -15,13 +15,13 @@ import termios
 sys.path.insert(0, os.getcwd())
 
 
-from cide.obj import Wd
-from gcide.hdl import Client, Event, docmd, parse, scan
+from cide.spc import Wd
+from gcide.spc import Client, Event, docmd, parse, scan
 from genocide.irc import IRC
 from genocide.rss import Fetcher
 
 
-from genocide import bsc, dbg, irc, log, mdl, rss, tdo
+from genocide import cmd, irc, mdl, rss
 from genocide.irc import Config
 
 Config.nick = "genocide"
@@ -33,13 +33,10 @@ Config.username = "genocide"
 Wd.workdir = os.path.expanduser("~/.genocide")
 
 
-scan(bsc)
-scan(dbg)
+scan(cmd)
 scan(irc)
-scan(log)
 scan(mdl)
 scan(rss)
-scan(tdo)
 
 
 class CLI(Client):

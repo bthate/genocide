@@ -6,8 +6,8 @@ import inspect
 import os
 
 
-from op.obj import Class
-from opr.com import Commands
+from cide.spc import Class
+from gcide.com import Commands
 
 
 def __dir__():

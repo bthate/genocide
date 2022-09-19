@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,C0116,C0301
+# pylint: disable=E1101,C0116,C0301,W0613
 
 
 "model"
@@ -8,10 +8,8 @@
 import time
 
 
-from cid.obj import Object, get, keys
-from cide.hdl import Bus, Event
-from cide.thr import launch
-from cide.tmr import Repeater, elapsed
+from cide.spc import Object, elapsed, get, keys
+from gcide.spc import Bus, Event, Repeater, launch
 
 
 def __dir__():
@@ -28,7 +26,7 @@ def init():
             evt.txt = ""
             evt.rest = key
             sec = seconds(val)
-            repeater = Repeater(sec, cbstats, evt, name=get(aliases, key))
+            repeater = Repeater(sec, cbstats, evt, thrname=get(aliases, key))
             repeater.start()
     launch(daily, name="daily")
 

@@ -5,7 +5,7 @@
 "callbacks"
 
 
-from cid.obj import Object
+from cide.spc import Object
 
 
 def __dir__():

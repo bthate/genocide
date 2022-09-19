@@ -6,7 +6,7 @@ import os
 import traceback
 
 
-from cid.obj import name
+from cide.spc import name
 
 
 def from_exception(exc):

@@ -5,7 +5,7 @@
 "list of Objects. Object should provides a say(channel, txt) method."
 
 
-from cid.obj import Object
+from cide.spc import Object
 
 
 def __dir__():

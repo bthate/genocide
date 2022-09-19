@@ -5,8 +5,7 @@
 "parse"
 
 
-from op.dft import Default
-from op.obj import register
+from cide.spc import Default, register
 
 
 def __dir__():

@@ -15,8 +15,8 @@ import termios
 sys.path.insert(0, os.getcwd())
 
 
-from cid.obj import Wd
-from cide.hdl import Client, Event, docmd, parse, scan
+from cide.obj import Wd
+from gcide.hdl import Client, Event, docmd, parse, scan
 from genocide.irc import IRC
 from genocide.rss import Fetcher
 

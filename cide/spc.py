@@ -1,49 +1,43 @@
 # This file is placed in the Public Domain.
-# pylint: disable=W0611
-
-"runtime"
+# pylint: disable=W0611,W0614,W0401,C0114,C0115,C0116
 
 
-import time
+"specification"
 
 
-from cide.bus import Bus
-from cide.cbs import Callbacks
-from cide.cfg import Config
-from cide.clt import Client
-from cide.com import Commands
-from cide.evt import Event, docmd
-from cide.hdl import Handler
-from cide.prs import parse
-from cide.scn import scan, scandir
-from cide.thr import Thread, launch
-from cide.tmr import Timer, Repeater
-from cide.utl import wait
-
-
-starttime = time.time()
-
-
-Cfg = Config()
+from cide.cls import Class
+from cide.dbs import Db, find, fns, fntime, hook, last, locked
+from cide.dft import Default
+from cide.jsn import dump, dumps, load, loads, save
+from cide.obj import *
+from cide.utl import cdir, elapsed
+from cide.wdr import Wd
 
 
 def __dir__():
     return (
-            'Bus',
-            'Callbacks',
-            'Client',
-            'Commands',
-            'Config',
-            'Event',
-            'Handler',
-            'Repeater',
-            'Thread',
-            'Timer',
-            'dispatch',
-            'launch',
-            'parse',
-            'scan',
-            'scandir',
-            'starttime',
-            'wait'
+            'Class',
+            'Db',
+            'Default',
+            'Object',
+            'Wd',
+            'delete',
+            'dump',
+            'dumps',
+            'edit',
+            'find',
+            'format',
+            'get',
+            'items',
+            'keys',
+            'last',
+            'load',
+            'loads',
+            'locked',
+            'name',
+            'otype',
+            'register',
+            'save',
+            'update',
+            'values',
            )

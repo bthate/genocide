@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,C0116,C0413,C0411
+# pylint: disable=E1101,C0413,C0411,C0114,C0115,C0116,R0903
 
 
 "udp to irc relay"
@@ -9,9 +9,8 @@ import socket
 import time
 
 
-from cid.dbs import Class, Db
-from cid.obj import Object
-from cide.hdl import Bus, launch
+from cide.spc import Class, Db, Object
+from gcide.spc import Bus, launch
 
 
 def init():
@@ -44,7 +43,7 @@ class UDP(Object):
         self.cfg = Cfg()
 
     @staticmethod
-    def output(txt, addr):
+    def output(txt):
         Bus.announce(txt.replace("\00", ""))
 
     def server(self):
@@ -53,13 +52,13 @@ class UDP(Object):
         except socket.gaierror:
             return
         while not self.stopped:
-            (txt, addr) = self._sock.recvfrom(64000)
+            (txt, _addr) = self._sock.recvfrom(64000)
             if self.stopped:
                 break
             data = str(txt.rstrip(), "utf-8")
             if not data:
                 break
-            self.output(data, addr)
+            self.output(data)
 
     def exit(self):
         self.stopped = True

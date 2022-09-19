@@ -7,7 +7,7 @@ import threading
 import time
 
 
-from cid.obj import name
+from cide.spc import name
 
 
 def __dir__():

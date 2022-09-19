@@ -1,4 +1,5 @@
 # This file is placed in the Public Domain.
+# pylint: disable=C0114,C0115,C0116
 
 
 "json"
@@ -12,9 +13,9 @@ import os
 from json import JSONDecoder, JSONEncoder
 
 
-from cid.obj import Object, update
-from cid.utl import cdir
-from cid.wdr import Wd
+from cide.obj import Object, update
+from cide.utl import cdir
+from cide.wdr import Wd
 
 
 def __dir__():
@@ -31,19 +32,14 @@ def __dir__():
 
 class ObjectDecoder(JSONDecoder):
 
-    "object decoder (text to object)."
-
     def  __init__(self, *args, **kwargs):
-        "decoder constructor"
         JSONDecoder.__init__(self, *args, **kwargs)
 
     def decode(self, s, _w=None):
-        "decode string ``s`` into an Object."
         value = json.loads(s)
         return Object(value)
 
     def raw_decode(self, s, *args, **kwargs):
-        "return object and index into the string at it's end."
         return JSONDecoder.raw_decode(self, s, *args, **kwargs)
 
 
@@ -52,15 +48,12 @@ class ObjectEncoder(JSONEncoder):
     "object encoder (object to text)."
 
     def  __init__(self, *args, **kwargs):
-        "encoder constructor"
         JSONEncoder.__init__(self, *args, **kwargs)
 
     def encode(self, o):
-        "encode object ``o`` to a json string."
         return JSONEncoder.encode(self, o)
 
     def default(self, o):
-        "return string representation object ``o``."
         if isinstance(o, dict):
             return o.items()
         if isinstance(o, Object):
@@ -78,12 +71,10 @@ class ObjectEncoder(JSONEncoder):
             return str(o)
 
     def iterencode(self, o, *args, **kwargs):
-        "return strings while parsing object ``o``."
         return JSONEncoder.iterencode(self, o, *args, **kwargs)
 
 
 def dump(obj, opath):
-    "save object to file with path ``opath``."
     cdir(opath)
     with open(opath, "w", encoding="utf-8") as ofile:
         json.dump(
@@ -93,22 +84,16 @@ def dump(obj, opath):
 
 
 def dumps(obj):
-    "return json string representation."
     return json.dumps(obj, cls=ObjectEncoder)
 
 
 def hook(path):
-    "reconstruct object from json file ."
-    #splitted = hfn.split(os.sep)
-    #cname = fnclass(hfn)
-    #cls = Class.get(cname)
     obj = Object()
     load(obj, path)
     return obj
 
 
 def load(obj, opath):
-    "load object from path ``opath``."
     splitted = opath.split(os.sep)
     stp = os.sep.join(splitted[-4:])
     lpath = os.path.join(Wd.workdir, "store", stp)
@@ -120,12 +105,10 @@ def load(obj, opath):
 
 
 def loads(jss):
-    "create object from json string."
     return json.loads(jss, cls=ObjectDecoder)
 
 
 def save(obj):
-    "save the object."
     prv = os.sep.join(obj.__stp__.split(os.sep)[:1])
     obj.__stp__ = os.path.join(
                        prv,

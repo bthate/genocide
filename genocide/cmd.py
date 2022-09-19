@@ -9,14 +9,10 @@ import threading
 import time
 
 
-from cid.cls import Class
-from cid.dbs import find, fntime
-from cid.obj import Object, get, name, printable, update
-from cid.jsn import save
-from cid.utl import elapsed
-from cide.bus import Bus
-from cide.com import Commands
-from cide.run import starttime
+from cide.spc import Class, Object, find, fntime, get, name, printable, update
+from cide.spc import save, elapsed
+from gcide.spc import Bus, Commands
+from genocide.run import starttime
 
 
 def __dir__():

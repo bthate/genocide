@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,E0611,C0116,C0413,C0411,W0406
+# pylint: disable=E1101,E0611,C0413,C0411,W0406,C0114,C0115,C0116,R0903
 
 
 "rich site syndicate"
@@ -12,12 +12,9 @@ import time
 import urllib
 
 
-from cid.obj import Object, edit, get, register, save, update
-from cid.dbs import Class, Db
-from cid.utl import fntime, spl
-from cide.hdl import Bus
-from cide.thr import launch
-from cide.tmr import Repeater, elapsed
+from cide.spc import Class, Db, Object, edit, get, register, save, update
+from cide.spc import elapsed, fntime, spl
+from gcide.spc import Bus, Repeater, launch
 from genocide.run import Cfg
 
 

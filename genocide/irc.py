@@ -1,8 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,C0116,R0912,R0915,C0411
-
-
-"internet relay chat"
+# pylint: disable=E1101,C0114,C0115,C0116,W0622,R0902,R0903,R0904,R0912,R0913,R0915
 
 
 import base64
@@ -16,13 +13,10 @@ import time
 import _thread
 
 
-from cid.obj import Default, Object
-from cid.obj import edit, prt, save, update
-from cid.dbs import Class, Db
-from cid.utl import fntime, locked
-from cide.hdl import Callbacks, Client, Event
-from cide.thr import launch
-from cide.tmr import elapsed
+from cide.spc import Class, Default, save
+from cide.spc import Object, edit, elapsed, keys, printable, update
+from cide.spc import find, fntime, locked, last
+from gcide.spc import Callbacks, Client, Event, launch
 
 
 def __dir__():
@@ -54,20 +48,19 @@ class NoUser(Exception):
     pass
 
 
-
 class Config(Default):
 
-    channel = "#botd"
+    channel = "#operbot"
     control = "!"
-    nick = "botd"
+    nick = "operbot"
     password = ""
     port = 6667
-    realname = "24/7 channel daemon"
+    realname = "operbot"
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "botd"
+    username = "operbot"
     users = False
 
     def __init__(self):
@@ -89,7 +82,7 @@ class Config(Default):
 Class.add(Config)
 
 
-class IEvent(Event):
+class IrcEvent(Event):
 
     def __init__(self):
         Event.__init__(self)
@@ -148,6 +141,8 @@ class Output(Object):
     def output(self):
         while not self.dostop.isSet():
             (channel, txt) = self.oqueue.get()
+            if channel is None and txt is None:
+                break
             if self.dostop.isSet():
                 break
             wrapper = TextWrap()
@@ -235,6 +230,7 @@ class IRC(Client, Output):
         self.state.last = time.time()
 
     def connect(self, server, port=6667):
+        self.state.nrconnect += 1
         self.connected.clear()
         if self.cfg.password:
             self.cfg.sasl = True
@@ -259,20 +255,22 @@ class IRC(Client, Output):
         self.sock.shutdown(2)
 
     def doconnect(self, server, nck, port=6667):
-        self.state.nrconnect = 0
         while 1:
-            self.state.nrconnect += 1
-            if self.connect(server, port):
-                break
+            try:
+                if self.connect(server, port):
+                    break
+            except (OSError, ConnectionResetError) as ex:
+                self.state.error = str(ex)
             time.sleep(self.cfg.sleep)
         self.logon(server, nck)
 
     def dosay(self, channel, txt):
+        self.joined.wait()
         txt = str(txt).replace("\n", "")
         txt = txt.replace("  ", " ")
         self.command("PRIVMSG", channel, txt)
 
-    def event(self, txt, origin=None):
+    def event(self, txt):
         evt = self.parsing(txt)
         cmd = evt.command
         if cmd == "PING":
@@ -289,6 +287,7 @@ class IRC(Client, Output):
         elif cmd == "002":
             self.state.host = evt.args[2][:-1]
         elif cmd == "366":
+            self.state.error = ""
             self.joined.set()
         elif cmd == "433":
             nck = self.cfg.nick + "_"
@@ -311,7 +310,7 @@ class IRC(Client, Output):
             self.command("PING", self.cfg.server)
             time.sleep(10.0)
             if self.state.pongcheck:
-                #self.keeprunning = False
+                self.keeprunning = False
                 self.restart()
 
     def logon(self, server, nck):
@@ -320,14 +319,14 @@ class IRC(Client, Output):
                  "USER %s %s %s :%s" % (self.cfg.username,
                  server,
                  server,
-                 self.cfg.realname or "opbot")
+                 self.cfg.realname or "operbot")
                 )
 
     def parsing(self, txt):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
-        obj = IEvent()
+        obj = IrcEvent()
         obj.rawstr = rawstr
         obj.command = ""
         obj.arguments = []
@@ -383,7 +382,16 @@ class IRC(Client, Output):
     def poll(self):
         self.connected.wait()
         if not self.buffer:
-            self.some()
+            try:
+                self.some()
+            except (socket.timeout, ConnectionResetError) as ex:
+                self.joined.clear()
+                time.sleep(5.0)
+                evt = IrcEvent()
+                evt.txt = str(ex)
+                evt.type = "ERROR"
+                evt.orig = repr(self)
+                return evt
         return self.event(self.buffer.pop(0))
 
     def raw(self, txt):
@@ -396,13 +404,18 @@ class IRC(Client, Output):
         if self.sock:
             try:
                 self.sock.send(txt)
-            except BrokenPipeError:
+            except (ConnectionResetError, BrokenPipeError) as ex:
+                time.sleep(5.0)
+                self.state.error = str(ex)
                 self.stop()
         self.state.last = time.time()
         self.state.nrsend += 1
 
     def reconnect(self):
-        self.disconnect()
+        try:
+            self.disconnect()
+        except OSError:
+            pass
         self.connected.clear()
         self.joined.clear()
         self.doconnect(self.cfg.server, self.cfg.nick, int(self.cfg.port))
@@ -428,8 +441,7 @@ class IRC(Client, Output):
         self.state.lastline = splitted[-1]
 
     def start(self):
-        dbs = Db()
-        dbs.last(self.cfg)
+        last(self.cfg)
         if self.cfg.channel not in self.channels:
             self.channels.append(self.cfg.channel)
         self.connected.clear()
@@ -439,7 +451,7 @@ class IRC(Client, Output):
         launch(
                self.doconnect,
                self.cfg.server or "localhost",
-               self.cfg.nick or "opbot", int(self.cfg.port or "6667")
+               self.cfg.nick or "operbot", int(self.cfg.port or "6667")
               )
         if not self.keeprunning:
             launch(self.keep)
@@ -450,6 +462,7 @@ class IRC(Client, Output):
         except OSError:
             pass
         Client.stop(self)
+        #Output.stop(self)
 
     def wait(self):
         self.joined.wait()
@@ -485,7 +498,8 @@ def cb_h904(event):
 def cb_error(event):
     bot = event.bot()
     bot.state.nrerror += 1
-    bot.state.error = event.txt
+    #bot.state.error = event.txt
+    bot.stop()
 
 
 def cb_kill(event):
@@ -571,8 +585,7 @@ class Users(Object):
     @staticmethod
     def get_users(origin=""):
         selector = {"user": origin}
-        dbs = Db()
-        return dbs.find("user", selector)
+        return find("user", selector)
 
     @staticmethod
     def get_user(origin):
@@ -595,10 +608,13 @@ class Users(Object):
 
 def cfg(event):
     config = Config()
-    dbs = Db()
-    dbs.last(config)
+    last(config)
     if not event.sets:
-        event.reply(prt(config, skip="realname,sleep,username"))
+        event.reply(printable(
+                              config,
+                              keys(config),
+                              skip="control,password,realname,sleep,username")
+                             )
     else:
         edit(config, event.sets)
         save(config)
@@ -610,9 +626,8 @@ def dlt(event):
         event.reply("dlt <username>")
         return
     selector = {"user": event.args[0]}
-    dbs = Db()
-    for _fn, obj in dbs.find("user", selector):
-        obj._deleted = True
+    for _fn, obj in find("user", selector):
+        obj.__deleted__ = True
         save(obj)
         event.reply("ok")
         break
@@ -621,8 +636,7 @@ def dlt(event):
 def met(event):
     if not event.rest:
         _nr = 0
-        dbs = Db()
-        for _fn, obj in dbs.find("user"):
+        for _fn, obj in find("user"):
             event.reply("%s %s %s %s" % (
                                          _nr,
                                          obj.user,

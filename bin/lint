@@ -1,42 +1,29 @@
 #!/usr/bin/env python3
-# This file is placed in the Public Domain.
-
-
-"lintify"
 
 
 import os
+import sys
+
 
 os.environ["PYTHONPATH"] = "."
 
-skip = ["***", "---", "===", "Your code", "bin/genocidectl", "dev/rtfd"]
-TXT = 'pylint -d "C0116,C0115,W0613,W0212,R0902,R0903,R0904" %s'
+
+SKIP = ["Your code", "---"]
 
 
-def doskip(txt):
-    for name in skip:
-        if name in txt:
-            return True
-    return False
-
-
-def payload(dname):
-    for fnm in os.listdir(dname):
-        if fnm.endswith("~") or fnm in skip:
+def popen(txt):
+    for line in os.popen(txt).readlines():
+        doskip = False
+        for skip in SKIP:
+            if skip in line:
+                doskip = True
+        if doskip:
             continue
-        fnn = "%s/%s" % (dname, fnm)
-        for line in os.popen(TXT % fnn).readlines():
-            if not line or doskip(line):
-                continue
-            liner = line.strip()
-            if liner:
-                print(liner)
+        res = line.rstrip()
+        if res:
+            print(res)
 
 
-def main():
-    payload("genocide")
-    payload("test")
-    payload("bin")
-
-
-main()
+popen("pylint cide")
+popen("pylint gcide")
+popen("pylint genocide")

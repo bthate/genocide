@@ -1,5 +1,6 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,W0613
+# pylint: disable=E1101,W0613,C0114,C0115,C0116
+
 
 "database"
 
@@ -7,12 +8,12 @@
 import _thread
 
 
-from cid.obj import get, items, otype, update
-from cid.cls import Class
-from cid.jsn import hook
-from cid.sel import Selector
-from cid.wdr import Wd
-from cid.utl import fns, fntime
+from cide.obj import get, items, otype, update
+from cide.cls import Class
+from cide.jsn import hook
+from cide.sel import Selector
+from cide.wdr import Wd
+from cide.utl import fns, fntime
 
 
 dblock = _thread.allocate_lock()
@@ -28,8 +29,6 @@ def __dir__():
 
 
 def locked(lock):
-
-    "lock decorator."
 
     def lockeddec(func, *args, **kwargs):
 
@@ -51,11 +50,8 @@ def locked(lock):
 
 class Db():
 
-    "database interface."
-
     @staticmethod
     def all(otp, timed=None):
-        "return all object of type ``otp``."
         result = []
         for fnm in fns(Wd.getpath(otp), timed):
             obj = hook(fnm)
@@ -68,7 +64,6 @@ class Db():
 
     @staticmethod
     def find(otp, selector=None, index=None, timed=None):
-        "find specific object of type ``otp`` matching fields in the selector."
         if selector is None:
             selector = {}
         _nr = -1
@@ -87,7 +82,6 @@ class Db():
 
     @staticmethod
     def last(otp):
-        "return last saved object of type ``otp``."
         fnm = fns(Wd.getpath(otp))
         if fnm:
             fnn = fnm[-1]
@@ -96,7 +90,6 @@ class Db():
 
     @staticmethod
     def match(otp, selector=None, index=None, timed=None):
-        "return last saved matching object of type ``otp``."
         res = sorted(
                      Db.find(otp, selector, index, timed), key=lambda x: fntime(x[0]))
         if res:
@@ -105,7 +98,6 @@ class Db():
 
 
 def find(name, selector=None, index=None, timed=None):
-    "search for objects over all types that match ``name``."
     names = Class.full(name)
     if not names:
         names = Wd.types(name)
@@ -118,7 +110,6 @@ def find(name, selector=None, index=None, timed=None):
 
 
 def last(obj):
-    "update this object to it's latest version."
     dbs = Db()
     _path, _obj = dbs.last(otype(obj))
     if _obj:
@@ -126,7 +117,6 @@ def last(obj):
 
 
 def search(obj, selector):
-    "see if selector matches on this object."
     res = False
     select = Selector(selector)
     for key, value in items(select):

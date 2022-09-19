@@ -6,8 +6,8 @@ import threading
 import time
 
 
-from op.obj import Object, name
-from opr.thr import launch
+from cide.spc import Object, name
+from gcide.thr import launch
 
 
 def __dir__():

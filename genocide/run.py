@@ -8,7 +8,7 @@
 import time
 
 
-from cid.obj import Default
+from cide.spc import Default
 
 
 starttime = time.time()

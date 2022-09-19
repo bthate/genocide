@@ -10,10 +10,10 @@ import threading
 import time
 
 
-from cid.obj import Object
-from cide.bus import Bus
-from cide.cbs import Callbacks
-from cide.thr import launch
+from cide.spc import Object
+from gcide.bus import Bus
+from gcide.cbs import Callbacks
+from gcide.thr import  launch
 
 
 def __dir__():

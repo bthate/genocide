@@ -5,7 +5,7 @@
 "config"
 
 
-from cid.dft import Default
+from cide.spc import Default
 
 
 def __dir__():

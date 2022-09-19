@@ -14,6 +14,8 @@ def popen(txt):
 
 
 popen("rm -fR build dist MANIFEST *~")
+popen("rm -fR cid/*~ cid/__pycache__")
+popen("rm -fR cide/*~ cide/__pycache__")
 popen("rm -fR genocide/*~ genocide/__pycache__ genocide.egg-info")
 popen("rm -fR bin/*~ bin/__pycache__")
 popen("rm -fR .test test/__pycache__ test/*~ testdir")

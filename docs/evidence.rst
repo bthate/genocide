@@ -18,6 +18,23 @@
     <br>
 
 
+.. _informed:
+
+
+**informed**
+
+
+.. raw:: html
+
+  <br>
+
+.. image:: informed.jpg
+    :width: 100%
+
+.. raw:: html
+
+  <br><br>
+
 .. _haldol:
 
 

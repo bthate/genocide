@@ -30,7 +30,7 @@
 **DESCRIPTION**
 
  **GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
- written :ref:`response <guilty>` where king netherlands confirmed taking note
+ written :ref:`response <king>` where king netherlands confirmed taking note
  of “what i have written”, namely :ref:`proof <evidence>` that medicine he
  uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
  that make impotent, is both physical (contracted muscles) and mental (let 

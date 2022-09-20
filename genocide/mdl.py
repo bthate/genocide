@@ -358,7 +358,7 @@ def cbstats(evt):
         delta = time.time() - STARTTIME
         nrtimes = int(delta/needed)
         nryear = int(YEAR/needed)
-        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, get(aliases, name),  nryear, elapsed(needed))
+        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, aliases.get(name),  nryear, elapsed(needed))
         Bus.announce(txt)
 
 
@@ -370,7 +370,7 @@ def now(event):
         if needed > 60*60:
             continue
         nrtimes = int(delta/needed)
-        txt += "%s: %s " % (get(aliases, name), nrtimes)
+        txt += "%s: %s " % (aliases.get(name), nrtimes)
     txt += " http://genocide.rtfd.io"
     Bus.announce(txt)
 
@@ -399,7 +399,7 @@ def tpc(event):
         nrtimes = int(delta/needed)
         if needed > 60*60:
             continue
-        txt += "%s %s " % (get(aliases, name), nrtimes)
+        txt += "%s %s " % (aliases.get(name), nrtimes)
     for bot in Bus.objs:
         try:
             for channel in bot.channels:

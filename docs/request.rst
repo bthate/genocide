@@ -1,12 +1,21 @@
 .. _request:
 
+.. raw:: html
+
+     <br><br>
+
+.. title:: Request
 
 .. raw:: html
 
-    <br><br>
+    <center><b>
 
+**R E Q U E S T**
 
-.. title:: Request
+.. raw:: html
+
+    </b></center>
+    <br>
 
 
 | **Information and Evidence Unit**

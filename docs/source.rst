@@ -2,50 +2,60 @@
 
 .. raw:: html
 
+     <br><br>
+
+.. title:: Source
+
+.. raw:: html
+
+    <center><b>
+
+**SOURCE**
+
+.. raw:: html
+
+    </b></center>
     <br>
 
-.. title:: source
-
-
-**CID**
+**cide**
 
 .. autosummary::
     :toctree: 
     :template: module.rst
 
-    cid.cls		classes
-    cid.dbs		database
-    cid.dft 		default
-    cid.jsn		json
-    cid.obj		object
-    cid.sel		selector
-    cid.spc		specification
-    cid.utl		utility
-    cid.wdr		workdir
-
-**CIDE**
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    cide.bus 		bus
-    cide.cbs		callbacks
-    cide.cfg		config
-    cide.clt		client
-    cide.com		commands
-    cide.evt		event
-    cide.hdl		handler
-    cide.prs		parse
-    cide.scn		scan
-    cide.spc 		specification
-    cide.thr		thread
-    cide.tmr		timer/repeater
-    cide.trc		trace
+    cide.cls		classes
+    cide.dbs		database
+    cide.dft 		default
+    cide.jsn		json
+    cide.obj		object
+    cide.sel		selector
+    cide.spc		specification
     cide.utl		utility
+    cide.wdr		workdir
+
+**gcide**
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+    gcide.bus 		bus
+    gcide.cbs		callbacks
+    gcide.cfg		config
+    gcide.clt		client
+    gcide.com		commands
+    gcide.evt		event
+    gcide.hdl		handler
+    gcide.prs		parse
+    gcide.scn		scan
+    gcide.spc 		specification
+    gcide.thr		thread
+    gcide.tmr		timer/repeater
+    gcide.trc		trace
+    gcide.utl		utility
 
 
-**GENOCIDE**
+**genocide**
 
 .. autosummary::
     :toctree: 

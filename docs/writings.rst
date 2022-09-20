@@ -1,11 +1,21 @@
 .. _writings:
 
+.. raw:: html
+
+     <br><br>
+
+.. title:: Writings
 
 .. raw:: html
 
-    <br><br>
+    <center><b>
 
-.. title:: writings
+**W R I T I N G S**
+
+.. raw:: html
+
+    </b></center>
+    <br>
 
 
 **email 1**

@@ -10,15 +10,12 @@
 
     <center><b>
 
-MANUAL
-======
+**M A N U A L**
 
 .. raw:: html
 
     </b></center>
     <br>
-
-
 
 **NAME**
 

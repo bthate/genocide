@@ -2,9 +2,21 @@
 
 .. raw:: html
 
-    <br><br>
+     <br><br>
 
 .. title:: Evidence
+
+.. raw:: html
+
+    <center><b>
+
+**E V I D E N C E**
+
+.. raw:: html
+
+    </b></center>
+    <br>
+
 
 .. _haldol:
 

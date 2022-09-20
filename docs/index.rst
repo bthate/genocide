@@ -1,14 +1,14 @@
-.. _about:
+.. _home:
 
 .. raw:: html
 
     <br>
 
-.. title:: About
+.. title:: Home
 
 .. image:: skullagain.jpg
     :width: 100%
-    :target: man.html
+    :target: manual.html
 
 .. raw:: html
 
@@ -38,3 +38,10 @@ This makes the care laws used in the netherlands to provide care to elderly and 
 
 I :ref:`wrote <writings>` the prosecutor asking for an arrest of the king (make him stop), the prosecutor decided to call it a "no basis to proceed". It requires a
 :ref:`reconsider <reconsider>` of the prosecutor to get the king in his cell and his genocide, thereby, stopped.
+
+
+.. toctree::
+    :hidden:
+    :glob:
+
+    *

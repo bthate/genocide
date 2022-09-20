@@ -2,9 +2,20 @@
 
 .. raw:: html
 
-    <br>
+     <br><br>
 
-.. title:: about
+.. title:: About
+
+.. raw:: html
+
+    <center><b>
+
+**ABOUT**
+
+.. raw:: html
+
+    </b></center>
+    <br>
 
 .. image:: skullagain.jpg
     :width: 100%

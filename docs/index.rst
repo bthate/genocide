@@ -4,7 +4,7 @@
 
     <br>
 
-.. title:: Home
+.. title:: Genocide
 
 .. image:: skullagain.jpg
     :width: 100%

@@ -28,7 +28,7 @@ def uploadlist(dir):
 
 setup(
     name='genocide',
-    version='82',
+    version='83',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate67@gmail.com', 

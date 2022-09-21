@@ -240,7 +240,7 @@ def dpl(event):
         _fn, feed = db.match(names[0], {"rss": event.args[0]})
         if feed:
             edit(feed, setter)
-            p = save(feed)
+            save(feed)
             event.reply("ok")
 
 
@@ -265,10 +265,10 @@ def nme(event):
         event.reply("nme <stringinurl> <name>")
         return
     selector = {"rss": event.args[0]}
-    _nr = 0
+    nrs = 0
     got = []
     for _fn, feed in find("rss", selector):
-        _nr += 1
+        nrs += 1
         feed.name = event.args[1]
         got.append(feed)
     for feed in got:

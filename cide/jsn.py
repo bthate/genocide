@@ -85,7 +85,6 @@ def dumps(obj):
 
 
 def hook(path):
-    splitted = path.split(os.sep)
     cname = fnclass(path)
     cls = Class.get(cname)
     if cls:

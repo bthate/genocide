@@ -7,7 +7,7 @@ import os
 
 
 from cide.cls import Class
-from gcide.com import Commands
+from .com import Commands
 
 
 def __dir__():

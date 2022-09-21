@@ -8,10 +8,13 @@
 import unittest
 
 
+from cide.spc import Object
+
+
 from genocide.mdl import oorzaak
 
 
-class TestComposite(unittest.TestCase):
+class TestModel(unittest.TestCase):
 
-    def test_composite(self):
-        self.assertEqual(type(oorzaak), dict)
+    def test_model(self):
+        self.assertEqual(type(oorzaak), Object)

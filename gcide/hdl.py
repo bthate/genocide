@@ -11,9 +11,9 @@ import time
 
 
 from cide.spc import Object
-from gcide.bus import Bus
-from gcide.cbs import Callbacks
-from gcide.thr import  launch
+from .bus import Bus
+from .cbs import Callbacks
+from .thr import  launch
 
 
 def __dir__():

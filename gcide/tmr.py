@@ -7,7 +7,7 @@ import time
 
 
 from cide.spc import Object, name
-from gcide.thr import launch
+from .thr import launch
 
 
 def __dir__():

@@ -9,8 +9,8 @@ import threading
 
 
 from cide.spc import Default, update
-from gcide.bus import Bus
-from gcide.prs import parse
+from .bus import Bus
+from .prs import parse
 
 
 def __dir__():

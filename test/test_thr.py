@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.thr import Thread
+from gcide.spc import Thread
 
 
 def test():

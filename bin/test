@@ -1,61 +1,19 @@
 #!/usr/bin/env python3
-# pylint: disable=E1101,C0116,E0611,C0413
-# This file is placed in the Public Domain.
 
 
-"unittest"
-
-
-import doctest
 import os
-import shutil
 import sys
-import unittest
+
+
+os.environ["PYTHONPATH"] = os.getcwd()
 
 
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.obj import Wd
-from genocide.hdl import Client, parse, scan
-from genocide.run import Cfg
+def popen(txt):
+    for line in os.popen(txt).readlines():
+        print(line.rstrip())
 
 
-from genocide import bsc, fnd, irc, log, mdl, rss
-
-
-Wd.workdir = ".test"
-Cfg.debug = True
-Cfg.name = "genocide"
-Cfg.verbose = False
-Cfg.version = 72
-
-
-scan(bsc)
-scan(fnd)
-scan(irc)
-scan(log)
-scan(mdl)
-scan(rss)
-
-
-flags = doctest.REPORT_NDIFF | doctest.FAIL_FAST | doctest.ELLIPSIS
-
-
-class CLI(Client):
-
-    def raw(self, txt):
-        if Cfg.verbose:
-            print(txt)
-
-
-def main():
-    if os.path.exists(Wd.workdir):
-        shutil.rmtree(Wd.workdir)
-    parse(" ".join(sys.argv[1:]))
-    pat = "test_%s*" % "*"
-    suite = unittest.loader.TestLoader().discover("test", pattern=pat)
-    unittest.TextTestRunner(verbosity=3).run(suite)
-
-
-main()
+popen("python3 -m pytest")

@@ -4,8 +4,6 @@
 # obj.py - object
 
 
-import datetime
-import os
 import types
 
 
@@ -50,9 +48,6 @@ class Object:
 
     def __len__(self):
         return len(self.__dict__)
-
-    def __repr__(self):
-        return repr(self.__dict__)
 
     def __str__(self):
         return str(self. __dict__)

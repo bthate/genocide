@@ -8,7 +8,7 @@
 import time
 
 
-from cide.spc import Object, elapsed, get, keys, update
+from cide.spc import Object, elapsed, get, keys
 from gcide.spc import Bus, Event, Repeater, launch
 
 

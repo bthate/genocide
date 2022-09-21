@@ -3,8 +3,8 @@
 
 
 
-from gcide.com import dispatch
-from gcide.hdl import Handler
+from .com import dispatch
+from .hdl import Handler
 
 
 def __dir__():

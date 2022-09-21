@@ -10,10 +10,12 @@ import os
 import unittest
 
 
-from bot.obj import Wd, Object, get, items, keys, register, update, values
-from bot.obj import load, otype, save
-from bot.obj import edit, prt
-from bot.obj import ObjectDecoder, ObjectEncoder
+from cide.spc import Object, get, items, keys, register, update, values
+from cide.spc import load, otype, save
+from cide.spc import edit, printable
+from cide.spc import ObjectDecoder, ObjectEncoder
+from cide.wdr import Wd
+
 
 Wd.workdir = ".test"
 
@@ -66,9 +68,9 @@ attrs2 = (
           '__repr__',
           '__setattr__',
           '__sizeof__',
-          '__slots__',
           '__str__',
           '__subclasshook__',
+          '__weakref__'
          )
 
 
@@ -114,7 +116,7 @@ class TestObject(unittest.TestCase):
 
     def test_doc(self):
         obj = Object()
-        self.assertEqual(obj.__doc__, "big Object")
+        self.assertEqual(obj.__doc__, None)
 
     def test_format(self):
         obj = Object()
@@ -152,7 +154,7 @@ class TestObject(unittest.TestCase):
         self.assertTrue(Object().__module__, "op")
 
     def test_otype(self):
-        self.assertEqual(otype(Object()), "bot.obj.Object")
+        self.assertEqual(otype(Object()), "cide.obj.Object")
 
     def test_repr(self):
         self.assertTrue(update(Object(),
@@ -176,9 +178,9 @@ class TestObject(unittest.TestCase):
         edit(obj, dta)
         self.assertEqual(obj.key, "value")
 
-    def test_prt(self):
+    def test_printable(self):
         obj = Object()
-        self.assertEqual(prt(obj), "")
+        self.assertEqual(printable(obj), "")
 
     def test_get(self):
         obj = Object()

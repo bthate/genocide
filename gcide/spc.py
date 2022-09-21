@@ -5,18 +5,18 @@
 "gcide specification"
 
 
-from gcide.bus import Bus
-from gcide.cbs import Callbacks
-from gcide.cfg import Config
-from gcide.clt import Client
-from gcide.com import Commands, dispatch
-from gcide.evt import Event, docmd
-from gcide.hdl import Handler
-from gcide.prs import parse
-from gcide.scn import scan, scandir
-from gcide.thr import Thread, launch
-from gcide.tmr import Timer, Repeater
-from gcide.utl import wait
+from .bus import Bus
+from .cbs import Callbacks
+from .cfg import Config
+from .clt import Client
+from .com import Commands, dispatch
+from .evt import Event, docmd
+from .hdl import Handler
+from .prs import parse
+from .scn import scan, scandir
+from .thr import Thread, launch
+from .tmr import Timer, Repeater
+from .utl import wait
 
 
 def __dir__():

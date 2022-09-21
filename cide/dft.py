@@ -1,11 +1,10 @@
 # This file is placed in the Public Domain.
 # pylint: disable=R0903,C0114,C0115,C0116
+#
+# dft.py - default
 
 
-"default"
-
-
-from cide.obj import Object
+from .obj import Object
 
 
 def __dir__():

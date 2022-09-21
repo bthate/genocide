@@ -1,17 +1,16 @@
 # This file is placed in the Public Domain.
 # pylint: disable=W0611,W0614,W0401,C0114,C0115,C0116
+#
+# spc.py - specification
 
 
-"specification"
-
-
-from cide.cls import Class
-from cide.dbs import Db, find, fns, fntime, hook, last, locked
-from cide.dft import Default
-from cide.jsn import dump, dumps, load, loads, save
-from cide.obj import *
-from cide.utl import cdir, elapsed, spl
-from cide.wdr import Wd
+from .cls import Class
+from .dbs import Db, find, fns, fntime, hook, last, locked
+from .dft import Default
+from .jsn import dump, dumps, load, loads, save
+from .obj import *
+from .utl import cdir, elapsed, spl
+from .wdr import Wd
 
 
 def __dir__():

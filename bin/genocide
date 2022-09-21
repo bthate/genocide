@@ -10,12 +10,13 @@ import os
 import readline
 import sys
 import termios
+import time
 
 
 sys.path.insert(0, os.getcwd())
 
 
-from cide.spc import Wd
+from cide.spc import Wd, printable
 from gcide.spc import Client, Event, docmd, parse, scan
 from genocide.irc import IRC
 from genocide.rss import Fetcher
@@ -23,6 +24,7 @@ from genocide.rss import Fetcher
 
 from genocide import cmd, irc, mdl, rss
 from genocide.irc import Config
+
 
 Config.nick = "genocide"
 Config.channel = "#genocide"
@@ -60,6 +62,15 @@ class Console(CLI):
         return event
 
 
+def banner(cfg):
+    print(
+          "GENOCIDE started at %s %s" % (
+                                     time.ctime(time.time()).replace("  ", " "),
+                                     printable(cfg, "debug,verbose")
+                                    )
+         )
+
+
 def wrap(func):
     fds = sys.stdin.fileno()
     gotterm = True
@@ -84,8 +95,10 @@ def main():
         cli = CLI()
         docmd(cli, cfg.otxt)
     elif "c" in cfg.opts:
+        banner(cfg)
         bot = IRC()
         bot.start()
+        print(printable(bot.cfg, "nick,channel,server,port,sasl"))
         fetcher = Fetcher()
         fetcher.start()
         mdl.init()

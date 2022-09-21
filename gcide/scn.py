@@ -6,7 +6,7 @@ import inspect
 import os
 
 
-from cide.spc import Class
+from cide.cls import Class
 from gcide.com import Commands
 
 

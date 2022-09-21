@@ -1,8 +1,7 @@
 # This file is placed in the Public Domain.
 # pylint: disable=W0613,C0114,C0115,C0116
-
-
-"object"
+#
+# obj.py - object
 
 
 import datetime
@@ -10,7 +9,7 @@ import os
 import types
 
 
-from cide.cls import Class
+from .cls import Class
 
 
 def __dir__():
@@ -38,14 +37,8 @@ def __dir__():
 
 class Object:
 
-    __slots__ = ('__dict__','__stp__')
-
     def __init__(self, *args, **kwargs):
         object.__init__(self)
-        self.__stp__ = os.path.join(
-            otype(self),
-            os.sep.join(str(datetime.datetime.now()).split()),
-        )
         if args:
             try:
                 self.__dict__.update(vars(args[0]))

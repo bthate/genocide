@@ -1,8 +1,7 @@
 # This file is placed in the Public Domain.
 # pylint: disable=C0114,C0115,C0116
-
-
-"utility"
+#
+# utl.py - utility
 
 
 import os

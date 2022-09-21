@@ -1,8 +1,7 @@
 # This file is placed in the Public Domain.
 # pylint: disable=C0114,C0115,C0116
-
-
-"json"
+#
+# jsn.py - json
 
 
 import datetime
@@ -13,9 +12,10 @@ import os
 from json import JSONDecoder, JSONEncoder
 
 
-from cide.obj import Object, update
-from cide.utl import cdir
-from cide.wdr import Wd
+from .cls import Class
+from .obj import Object, otype, update
+from .utl import cdir, fnclass
+from .wdr import Wd
 
 
 def __dir__():
@@ -44,8 +44,6 @@ class ObjectDecoder(JSONDecoder):
 
 
 class ObjectEncoder(JSONEncoder):
-
-    "object encoder (object to text)."
 
     def  __init__(self, *args, **kwargs):
         JSONEncoder.__init__(self, *args, **kwargs)
@@ -80,7 +78,6 @@ def dump(obj, opath):
         json.dump(
             obj.__dict__, ofile, cls=ObjectEncoder, indent=4, sort_keys=True
         )
-    return obj.__stp__
 
 
 def dumps(obj):
@@ -88,7 +85,13 @@ def dumps(obj):
 
 
 def hook(path):
-    obj = Object()
+    splitted = path.split(os.sep)
+    cname = fnclass(path)
+    cls = Class.get(cname)
+    if cls:
+        obj = cls()
+    else:
+        obj = Object()
     load(obj, path)
     return obj
 
@@ -101,7 +104,6 @@ def load(obj, opath):
         with open(lpath, "r", encoding="utf-8") as ofile:
             res = json.load(ofile, cls=ObjectDecoder)
             update(obj, res)
-    obj.__stp__ = stp
 
 
 def loads(jss):
@@ -109,12 +111,11 @@ def loads(jss):
 
 
 def save(obj):
-    prv = os.sep.join(obj.__stp__.split(os.sep)[:1])
-    obj.__stp__ = os.path.join(
-                       prv,
+    stp = os.path.join(
+                       otype(obj),
                        os.sep.join(str(datetime.datetime.now()).split())
                       )
-    opath = Wd.getpath(obj.__stp__)
+    opath = Wd.getpath(stp)
     dump(obj, opath)
     os.chmod(opath, 0o444)
-    return obj.__stp__
+    return stp

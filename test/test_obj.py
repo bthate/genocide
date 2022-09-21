@@ -67,7 +67,6 @@ attrs2 = (
           '__setattr__',
           '__sizeof__',
           '__slots__',
-          '__stp__',
           '__str__',
           '__subclasshook__',
          )
@@ -164,19 +163,8 @@ class TestObject(unittest.TestCase):
         obj.__setattr__("key", "value")
         self.assertTrue(obj.key, "value")
 
-
     def test_sizeof(self):
         self.assertEqual(Object().__sizeof__(), 32)
-
-    def test_slots(self):
-        self.assertEqual(Object().__slots__, (
-                                              "__dict__",
-                                              "__stp__",
-                                             ))
-
-    def test_stp(self):
-        obj = Object()
-        self.assertTrue("bot.obj.Object" in obj.__stp__)
 
     def test_str(self):
         obj = Object()

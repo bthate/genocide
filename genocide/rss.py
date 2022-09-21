@@ -1,9 +1,8 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,E0611,C0413,C0411,W0406,C0114,C0115,C0116,R0903
+# pylint: disable=R0903,C0103,C0114,C0115,C0116
 
 
 "rich site syndicate"
-
 
 import html.parser
 import re
@@ -12,15 +11,20 @@ import time
 import urllib
 
 
-from cide.spc import Class, Db, Object, edit, get, register, save, update
-from cide.spc import elapsed, fntime, last, spl
-from gcide.spc import Bus, Repeater, launch
-from genocide.run import Cfg
-
-
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
+
+
+from cide.dbs import Class, Db, find, last, fntime
+from cide.dft import Default
+from cide.obj import Object, edit, get, register, update
+from cide.jsn import save
+from cide.utl import elapsed, spl
+from gcide.bus import Bus
+from gcide.tmr import Repeater
+from gcide.thr import launch
+from genocide.run import Cfg
 
 
 def __dir__():
@@ -46,14 +50,9 @@ def init():
     return fetcher
 
 
-class Feed(Object):
+class Feed(Default):
 
-    def __getattr__(self, key):
-        try:
-            return super().__getitem__(key)
-        except KeyError:
-            self[key] = ""
-            return self[key]
+    pass
 
 
 class Rss(Object):
@@ -135,12 +134,12 @@ class Fetcher(Object):
 
     def run(self):
         thrs = []
-        dbs = Db()
-        for _fn, obj in dbs.find("rss"):
+        for _fn, obj in find("rss"):
             thrs.append(launch(self.fetch, obj))
         return thrs
 
     def start(self, repeat=True):
+        "start the rss fetching loop."
         last(Fetcher.seen)
         if repeat:
             repeater = Repeater(300.0, self.run)
@@ -207,6 +206,7 @@ def gettinyurl(url):
 
 
 def geturl(url):
+    "http url fetcher."
     url = urllib.parse.urlunparse(urllib.parse.urlparse(url))
     req = urllib.request.Request(url)
     req.add_header("User-agent", useragent("oirc"))
@@ -233,14 +233,14 @@ def dpl(event):
     if len(event.args) < 2:
         event.reply("dpl <stringinurl> <item1,item2>")
         return
-    dbs = Db()
     setter = {"display_list": event.args[1]}
     names = Class.full("rss")
     if names:
-        _fn, feed = dbs.lastmatch(names[0], {"rss": event.args[0]})
+        db = Db()
+        _fn, feed = db.match(names[0], {"rss": event.args[0]})
         if feed:
             edit(feed, setter)
-            save(feed)
+            p = save(feed)
             event.reply("ok")
 
 
@@ -267,8 +267,7 @@ def nme(event):
     selector = {"rss": event.args[0]}
     _nr = 0
     got = []
-    dbs = Db()
-    for _fn, feed in dbs.find("rss", selector):
+    for _fn, feed in find("rss", selector):
         _nr += 1
         feed.name = event.args[1]
         got.append(feed)
@@ -283,8 +282,7 @@ def rem(event):
         return
     selector = {"rss": event.args[0]}
     got = []
-    dbs = Db()
-    for _fn, feed in dbs.find("rss", selector):
+    for _fn, feed in find("rss", selector):
         feed.__deleted__ = True
         got.append(feed)
     for feed in got:
@@ -293,24 +291,23 @@ def rem(event):
 
 
 def rss(event):
-    dbs = Db()
     if not event.rest:
-        _nr = 0
-        for _fn, feed in dbs.find("rss"):
+        nrs = 0
+        for fnm, feed in find("rss"):
             event.reply("%s %s %s" % (
-                                      _nr,
-                                      feed.rss,
-                                      elapsed(time.time() - fntime(_fn)))
+                                      nrs,
+                                      feed,
+                                      elapsed(time.time() - fntime(fnm)))
                                      )
-            _nr += 1
-        if not _nr:
-            event.reply("no rss feed enterded yet.")
+            nrs += 1
+        if not nrs:
+            event.reply("no rss feed found.")
         return
     url = event.args[0]
     if "http" not in url:
         event.reply("i need an url")
         return
-    res = list(dbs.find("rss", {"rss": url}))
+    res = list(find("rss", {"rss": url}))
     if res:
         return
     feed = Rss()

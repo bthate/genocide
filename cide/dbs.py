@@ -1,19 +1,18 @@
 # This file is placed in the Public Domain.
 # pylint: disable=E1101,W0613,C0114,C0115,C0116
-
-
-"database"
+#
+# dbs.py - database
 
 
 import _thread
 
 
-from cide.obj import get, items, otype, update
-from cide.cls import Class
-from cide.jsn import hook
-from cide.sel import Selector
-from cide.wdr import Wd
-from cide.utl import fns, fntime
+from .obj import get, items, otype, update
+from .cls import Class
+from .jsn import hook
+from .sel import Selector
+from .wdr import Wd
+from .utl import fns, fntime
 
 
 dblock = _thread.allocate_lock()
@@ -82,10 +81,10 @@ class Db():
 
     @staticmethod
     def last(otp):
-        fnm = fns(Wd.getpath(otp))
-        if fnm:
-            fnn = fnm[-1]
-            return (fnn, hook(fnn))
+        objs = Db.all(otp)
+        if objs:
+            fnn, obj =  objs[-1]
+            return (fnn, obj)
         return (None, None)
 
     @staticmethod

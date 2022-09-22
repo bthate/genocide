@@ -1,14 +1,10 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0114,C0115,C0116
-
-
-"working directory"
 
 
 import os
 
 
-from cide.utl import cdir
+from .utl import cdir
 
 
 def __dir__():
@@ -19,7 +15,7 @@ def __dir__():
 
 class Wd:
 
-    workdir = ".genocide"
+    workdir = ".op"
 
     @staticmethod
     def get():

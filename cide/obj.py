@@ -1,7 +1,4 @@
 # This file is placed in the Public Domain.
-# pylint: disable=W0613,C0114,C0115,C0116
-#
-# obj.py - object
 
 
 import types
@@ -136,6 +133,7 @@ def register(obj, key, value):
 def update(obj, data):
     for key, value in items(data):
         setattr(obj, key, value)
+
 
 def values(obj):
     return obj.__dict__.values()

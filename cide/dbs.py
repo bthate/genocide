@@ -1,7 +1,4 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,W0613,C0114,C0115,C0116
-#
-# dbs.py - database
 
 
 import _thread

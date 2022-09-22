@@ -20,6 +20,7 @@
 
     <center>
     <b>
+    <br>
 
 Prosecutor. Court. :ref:`Reconsider OTP-CR-117/19. <reconsider>`
 
@@ -27,6 +28,7 @@ Prosecutor. Court. :ref:`Reconsider OTP-CR-117/19. <reconsider>`
 
     </b>
     </center>
+    <br>
 
 In 2018 i informed the king of the netherlands that what he calls medicine in his "care" laws are not medicine but poison. Proof of these medicine being poison were shown to the king, who's (personal) kabinet wrote back that "the king took note of what i have written".
 

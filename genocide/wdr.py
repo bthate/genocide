@@ -18,15 +18,16 @@ def __dir__():
 
 class Wd:
 
-    workdir = ".op"
+    workdir = ""
 
     @staticmethod
     def get():
+        assert Wd.workdir
         return Wd.workdir
 
     @staticmethod
     def getpath(path):
-        return os.path.join(Wd.workdir, "store", path)
+        return os.path.join(Wd.get(), "store", path)
 
     @staticmethod
     def set(path):
@@ -34,7 +35,7 @@ class Wd:
 
     @staticmethod
     def storedir():
-        sdr =  os.path.join(Wd.workdir, "store", '')
+        sdr =  os.path.join(Wd.get(), "store", '')
         if not os.path.exists(sdr):
             cdir(sdr)
         return sdr

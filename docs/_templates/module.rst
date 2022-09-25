@@ -6,8 +6,10 @@
     <center><b>
 
 
-{{ fullname }}
-{{ underline }}
+.. title:: {{ fullname }}
+
+
+**{{ fullname }}**
 
 .. raw:: html
 

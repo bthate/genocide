@@ -13,5 +13,6 @@ def popen(txt):
         print(line.rstrip())
 
 
+popen("rm -fR ~/.cache/pip")
 popen("bin/clean")
 popen("rm -fR env")

@@ -11,11 +11,8 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from cide.cls import Class
-from cide.obj import Object, keys, printable, update
-from cide.dbs import Db, find, fntime
-from cide.wdr import Wd
-from cide.utl import cdir, elapsed, fns
+from genocide.gcd import Class, Db, Object, Wd, keys, printable, update
+from genocide.gcd import find, fntime, cdir, elapsed, fns
 
 
 def fnd():

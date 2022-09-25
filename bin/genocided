@@ -15,8 +15,8 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.hdl import scancls
-from genocide.obj import Wd
+from genocide.gcd import Wd
+from genocide.gcd.scn import scancls
 from genocide.irc import Config
 
 
@@ -29,14 +29,13 @@ Config.username = "genocide"
 Wd.workdir = "/var/lib/genocide"
 
 
-from genocide import irc, log, mdl, rss, tdo
+from genocide import cmd, irc, mdl, rss
 
 
+scancls(cmd)
 scancls(irc)
-scancls(log)
 scancls(mdl)
 scancls(rss)
-scancls(tdo)
 
 
 def daemon():

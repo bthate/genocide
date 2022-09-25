@@ -8,8 +8,8 @@
 import time
 
 
-from cide.spc import Object, elapsed, get, keys
-from gcide.spc import Bus, Event, Repeater, launch
+from genocide.gcd import Object, elapsed, get, keys
+from genocide.gcd import Bus, Event, Repeater, launch
 
 
 def __dir__():

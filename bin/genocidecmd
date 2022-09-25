@@ -9,9 +9,9 @@
 import sys
 
 
-from genocide.hdl import Client, docmd, parse, scan
+from genocide.gcd import Client, Wd, docmd, parse, scan
 from genocide.irc import Config
-from genocide.obj import Wd
+
 
 Config.nick = "genocide"
 Config.channel = "#genocide"

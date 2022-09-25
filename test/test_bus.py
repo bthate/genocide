@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.gcd import Bus, Client
+from genocide import Bus, Client
 
 
 class MyClient(Client):

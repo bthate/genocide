@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.gcd import Event
+from genocide import Event
 
 
 class TestEvent(unittest.TestCase):

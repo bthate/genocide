@@ -9,8 +9,8 @@ import sys
 import unittest
 
 
-from genocide.gcd import Client, Command, Object, get
-from genocide.gcd.run import Cfg, docmd
+from genocide import Client, Command, Object, get
+from genocide.run import Cfg, docmd
 
 
 evts = []

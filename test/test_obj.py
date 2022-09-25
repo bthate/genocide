@@ -10,11 +10,11 @@ import os
 import unittest
 
 
-from genocide.gcd import Object, get, items, keys, register, update, values
-from genocide.gcd import load, otype, save
-from genocide.gcd import edit, printable
-from genocide.gcd import ObjectDecoder, ObjectEncoder
-from genocide.gcd import Wd
+from genocide import Object, get, items, keys, register, update, values
+from genocide import load, otype, save
+from genocide import edit, printable
+from genocide import ObjectDecoder, ObjectEncoder
+from genocide import Wd
 
 
 Wd.workdir = ".test"
@@ -154,7 +154,7 @@ class TestObject(unittest.TestCase):
         self.assertTrue(Object().__module__, "op")
 
     def test_otype(self):
-        self.assertEqual(otype(Object()), "genocide.gcd.obj.Object")
+        self.assertEqual(otype(Object()), "genocide.obj.Object")
 
     def test_repr(self):
         self.assertTrue(update(Object(),

@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.gcd import Handler
+from genocide import Handler
 
 
 class TestHandler(unittest.TestCase):

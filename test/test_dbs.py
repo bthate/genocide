@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.gcd import Db
+from genocide import Db
 
 
 class TestDbs(unittest.TestCase):

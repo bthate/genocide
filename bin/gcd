@@ -11,8 +11,8 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.gcd import Class, Db, Object, Wd, keys, printable, update
-from genocide.gcd import find, fntime, cdir, elapsed, fns
+from genocide import Class, Db, Object, Wd, keys, printable, update
+from genocide import find, fntime, cdir, elapsed, fns
 
 
 def fnd():

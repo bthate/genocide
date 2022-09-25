@@ -3,7 +3,7 @@
 # This file is placed in the Public Domain.
 
 
-"GENOCIDE - Prosecutor. Court. Reconsider OTP-CR-117/19."
+"Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
 import os
@@ -15,8 +15,8 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.gcd import Wd
-from genocide.gcd.scn import scancls
+from genocide import Wd
+from genocide.scn import scancls
 from genocide.irc import Config
 
 

@@ -3,14 +3,14 @@
 # This file is placed in the Public Domain.
 
 
-"bot"
+"command"
 
 
 import sys
 
 
-from genocide.gcd import Client, Wd, parse, scan
-from genocide.gcd.run import docmd
+from genocide import Client, Wd, parse, scan
+from genocide.run import docmd
 from genocide.irc import Config
 
 

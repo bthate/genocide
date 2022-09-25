@@ -1,10 +1,13 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,C0114,C0115,C0116,W0622,R0902,R0903,R0904,R0912,R0913,R0915
+
+
+"internet relay chat"
 
 
 import base64
 import os
 import queue
+import random
 import socket
 import ssl
 import textwrap
@@ -13,10 +16,9 @@ import time
 import _thread
 
 
-from cide.spc import Class, Default, save
-from cide.spc import Object, edit, elapsed, keys, printable, update
-from cide.spc import find, fntime, locked, last
-from gcide.spc import Callbacks, Client, Event, launch
+from .gcd import Callbacks, Class, Client, Default, Event, Object
+from .gcd import edit, elapsed, keys, printable, save, update
+from .gcd import find, fntime, locked, last, launch
 
 
 def __dir__():
@@ -50,17 +52,17 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    channel = "#operbot"
+    channel = ""
     control = "!"
-    nick = "operbot"
+    nick = ""
     password = ""
     port = 6667
-    realname = "operbot"
+    realname = ""
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "operbot"
+    username = ""
     users = False
 
     def __init__(self):
@@ -290,8 +292,9 @@ class IRC(Client, Output):
             self.state.error = ""
             self.joined.set()
         elif cmd == "433":
-            nck = self.cfg.nick + "_"
-            self.raw("NICK %s" % nck)
+            self.state.error = txt
+            nck = self.cfg.nick + "_" + str(random.randint(1,10))
+            self.command("NICK", nck)
         return evt
 
     def fileno(self):
@@ -314,12 +317,16 @@ class IRC(Client, Output):
                 self.restart()
 
     def logon(self, server, nck):
+        assert server
+        assert nck
+        assert self.cfg.username
+        assert self.cfg.realname
         self.raw("NICK %s" % nck)
         self.raw(
                  "USER %s %s %s :%s" % (self.cfg.username,
                  server,
                  server,
-                 self.cfg.realname or "operbot")
+                 self.cfg.realname)
                 )
 
     def parsing(self, txt):
@@ -441,6 +448,8 @@ class IRC(Client, Output):
         self.state.lastline = splitted[-1]
 
     def start(self):
+        assert self.cfg.nick
+        assert self.cfg.server
         last(self.cfg)
         if self.cfg.channel not in self.channels:
             self.channels.append(self.cfg.channel)
@@ -450,8 +459,8 @@ class IRC(Client, Output):
         Client.start(self)
         launch(
                self.doconnect,
-               self.cfg.server or "localhost",
-               self.cfg.nick or "operbot", int(self.cfg.port or "6667")
+               self.cfg.server,
+               self.cfg.nick, int(self.cfg.port or "6667")
               )
         if not self.keeprunning:
             launch(self.keep)

@@ -1,12 +1,14 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0114,C0115,C0116
+
+
+"timer"
 
 
 import threading
 import time
 
 
-from cide.spc import Object, name
+from .obj import Object, name
 from .thr import launch
 
 

@@ -16,8 +16,9 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from cide.spc import Wd, printable
-from gcide.spc import Client, Event, docmd, parse, scan
+from genocide.gcd import Wd, printable
+from genocide.gcd import Client, Event, parse, scan
+from genocide.gcd.run import docmd
 from genocide.irc import IRC
 from genocide.rss import Fetcher
 

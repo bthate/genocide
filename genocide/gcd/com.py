@@ -1,11 +1,10 @@
 # This file is placed in the Public Domain.
-# pylint: disable=W0613,W0221,W0201,C0112,C0103,C0114,C0115,C0116,R0902,R0903
 
 
-"commands"
+"command"
 
 
-from cide.spc import Object
+from .obj import Object
 
 
 def __dir__():
@@ -15,26 +14,26 @@ def __dir__():
            )
 
 
-class Commands(Object):
+class Command(Object):
 
-    cmds = {}
+    cmd = {}
 
     @staticmethod
     def add(cmd):
-        Commands.cmds[cmd.__name__] = cmd
+        Command.cmd[cmd.__name__] = cmd
 
     @staticmethod
     def get(cmd):
-        return Commands.cmds.get(cmd)
+        return Command.cmd.get(cmd)
 
     @staticmethod
     def remove(cmd):
-        del Commands.cmds[cmd]
+        del Command.cmd[cmd]
 
 
 def dispatch(evt):
     evt.parse()
-    func = Commands.get(evt.cmd)
+    func = Command.get(evt.cmd)
     if func:
         func(evt)
         evt.show()

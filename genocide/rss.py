@@ -1,8 +1,8 @@
 # This file is placed in the Public Domain.
-# pylint: disable=R0903,C0103,C0114,C0115,C0116
 
 
 "rich site syndicate"
+
 
 import html.parser
 import re
@@ -16,15 +16,10 @@ from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
 
-from cide.dbs import Class, Db, find, last, fntime
-from cide.dft import Default
-from cide.obj import Object, edit, get, register, update
-from cide.jsn import save
-from cide.utl import elapsed, spl
-from gcide.bus import Bus
-from gcide.tmr import Repeater
-from gcide.thr import launch
-from genocide.run import Cfg
+from .gcd import Bus, Class, Db, Default, Object, Repeater
+from .gcd import find, fntime, last, launch, save
+from .gcd import edit, elapsed, get, register, spl, update
+from .gcd.run import Cfg
 
 
 def __dir__():
@@ -265,10 +260,10 @@ def nme(event):
         event.reply("nme <stringinurl> <name>")
         return
     selector = {"rss": event.args[0]}
-    nrs = 0
+    _nr = 0
     got = []
     for _fn, feed in find("rss", selector):
-        nrs += 1
+        _nr += 1
         feed.name = event.args[1]
         got.append(feed)
     for feed in got:
@@ -292,15 +287,15 @@ def rem(event):
 
 def rss(event):
     if not event.rest:
-        nrs = 0
-        for fnm, feed in find("rss"):
+        _nr = 0
+        for _fn, feed in find("rss"):
             event.reply("%s %s %s" % (
-                                      nrs,
+                                      _nr,
                                       feed,
-                                      elapsed(time.time() - fntime(fnm)))
+                                      elapsed(time.time() - fntime(_fn)))
                                      )
-            nrs += 1
-        if not nrs:
+            _nr += 1
+        if not _nr:
             event.reply("no rss feed found.")
         return
     url = event.args[0]

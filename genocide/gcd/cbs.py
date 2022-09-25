@@ -1,11 +1,10 @@
 # This file is placed in the Public Domain.
-# pylint: disable=W0613,W0221,W0201,C0112,C0103,C0114,C0115,C0116,R0902,R0903
 
 
 "callbacks"
 
 
-from cide.spc import Object
+from .obj import Object
 
 
 def __dir__():

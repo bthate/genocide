@@ -1,4 +1,8 @@
 # This file is placed in the Public Domain.
+# pylint: disable=W0622
+
+
+"database"
 
 
 import _thread
@@ -91,6 +95,18 @@ class Db():
         if res:
             return res[-1]
         return (None, None)
+
+
+def all(name, timed=None):
+    names = Class.full(name)
+    if not names:
+        names = Wd.types(name)
+    result = []
+    dbs = Db()
+    for nme in names:
+        for fnm, obj in dbs.all(nme, timed):
+            result.append((fnm, obj))
+    return result
 
 
 def find(name, selector=None, index=None, timed=None):

@@ -1,5 +1,7 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0114,C0115,C0116,R0902,W0222
+
+
+"thread"
 
 
 import queue
@@ -7,7 +9,7 @@ import threading
 import time
 
 
-from cide.spc import name
+from .obj import name
 
 
 def __dir__():

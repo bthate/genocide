@@ -1,5 +1,4 @@
 # This file is placed in the Public Domain.
-# pylint: disable=W0613,W0221,W0201,C0112,C0103,C0114,C0115,C0116,R0902,R0903
 
 
 "handler"
@@ -10,9 +9,9 @@ import threading
 import time
 
 
-from cide.spc import Object
 from .bus import Bus
 from .cbs import Callbacks
+from .obj import Object
 from .thr import  launch
 
 

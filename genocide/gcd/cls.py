@@ -1,6 +1,9 @@
 # This file is placed in the Public Domain.
 
 
+"class"
+
+
 def __dir__():
     return (
             "Class",

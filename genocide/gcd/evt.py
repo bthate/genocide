@@ -1,5 +1,4 @@
 # This file is placed in the Public Domain.
-# pylint: disable=W0613,W0221,W0201,C0112,C0103,C0114,C0115,C0116,R0902,R0903
 
 
 "event"
@@ -8,15 +7,15 @@
 import threading
 
 
-from cide.spc import Default, update
 from .bus import Bus
+from .dft import Default
+from .obj import update
 from .prs import parse
 
 
 def __dir__():
     return (
             "Event",
-            "docmd"
            )
 
 
@@ -49,13 +48,3 @@ class Event(Default):
     def wait(self):
         self._ready.wait()
         return self._result
-
-
-def docmd(clt, txt):
-    cmd = Event()
-    cmd.channel = ""
-    cmd.orig = repr(clt)
-    cmd.txt = txt
-    clt.handle(cmd)
-    cmd.wait()
-    return cmd

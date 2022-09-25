@@ -1,5 +1,4 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0114,C0115,C0116,R0903,W0212
 
 
 "mailbox"
@@ -10,8 +9,17 @@ import os
 import time
 
 
-from cide.spc import Class, Db, Object, elapsed, fntime, printable, save
-from cide.spc import update
+from opr import Class, Db, Object
+from opr import elapsed, find, fntime, printable, save, update
+
+
+def __dir__():
+    return (
+            "Email",
+            "cor",
+            "eml",
+            "mbx"
+           )
 
 
 bdmonths = [
@@ -98,8 +106,7 @@ def cor(event):
         event.reply("cor <email>")
         return
     _nr = -1
-    dbs = Db()
-    for _fn, email in dbs.find("email", {"From": event.args[0]}):
+    for _fn, email in find("email", {"From": event.args[0]}):
         _nr += 1
         txt = ""
         if len(event.args) > 1:

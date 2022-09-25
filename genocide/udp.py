@@ -1,16 +1,19 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,C0413,C0411,C0114,C0115,C0116,R0903
-
-
-"udp to irc relay"
 
 
 import socket
 import time
 
 
-from cide.spc import Class, Db, Object
-from gcide.spc import Bus, launch
+from opr import Bus, Class, Object, launch, last
+
+
+def __dir__():
+    return (
+            "Cfg",
+            "UDP",
+            "init",
+           )
 
 
 def init():
@@ -66,6 +69,5 @@ class UDP(Object):
         self._sock.sendto(bytes("exit", "utf-8"), (self.cfg.host, self.cfg.port))
 
     def start(self):
-        dbs = Db()
-        dbs.last(self.cfg)
+        last(self.cfg)
         launch(self.server)

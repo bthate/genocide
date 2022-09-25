@@ -13,7 +13,7 @@ def popen(txt):
         print(line.rstrip())
 
 
-popen("rm -fR build dist MANIFEST *~")
+popen("rm -fR build dist MANIFEST *~ genocide.egg-info")
 popen("rm -fR genocide/*~ genocide/__pycache__")
 popen("rm -fR bin/*~ bin/__pycache__")
 popen("rm -fR .test test/__pycache__ test/*~ testdir")

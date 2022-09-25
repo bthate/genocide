@@ -9,7 +9,8 @@
 import sys
 
 
-from genocide.gcd import Client, Wd, docmd, parse, scan
+from genocide.gcd import Client, Wd, parse, scan
+from genocide.gcd.run import docmd
 from genocide.irc import Config
 
 
@@ -22,14 +23,12 @@ Config.username = "genocide"
 Wd.workdir = "/var/lib/genocide/"
 
 
-from genocide import bsc, irc, log, rss, tdo
+from genocide import cmd, irc, rss
 
 
-scan(bsc)
+scan(cmd)
 scan(irc)
-scan(log)
 scan(rss)
-scan(tdo)
 
 
 class CLI(Client):

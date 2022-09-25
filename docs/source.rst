@@ -10,7 +10,7 @@
 
     <center><b>
 
-**SOURCE**
+**S O U R C E**
 
 .. raw:: html
 

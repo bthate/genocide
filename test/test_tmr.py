@@ -7,7 +7,7 @@
 import unittest
 
 
-from gcide.tmr import Timer
+from genocide.gcd import Timer
 
 
 def test():

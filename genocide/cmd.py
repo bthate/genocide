@@ -8,10 +8,10 @@ import threading
 import time
 
 
-from .gcd import Bus, Command, Object
-from .gcd import elapsed, get, name, printable, update
-from .gcd import find, fntime, save
-from .gcd.run import starttime
+from . import Bus, Command, Object
+from . import elapsed, get, name, printable, update
+from . import find, fntime, save
+from .run import starttime
 
 def __dir__():
     return (

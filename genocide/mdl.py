@@ -8,8 +8,8 @@
 import time
 
 
-from genocide.gcd import Object, elapsed, get, keys
-from genocide.gcd import Bus, Event, Repeater, launch
+from . import Object, elapsed, get, keys
+from . import Bus, Event, Repeater, launch
 
 
 def __dir__():

@@ -35,7 +35,7 @@ setup(
     description="Prosecutor. Court. Reconsider OTP-CR-117/19.",
     long_description=read(),
     license='Public Domain',
-    packages=["genocide", "genocide.gcd"],
+    packages=["genocide"],
     zip_safe=True,
     include_package_data=True,
     data_files=[

@@ -8,9 +8,7 @@
 import unittest
 
 
-from cide.spc import Object
-
-
+from genocide.gcd import Object
 from genocide.mdl import oorzaak
 
 

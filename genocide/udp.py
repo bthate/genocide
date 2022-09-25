@@ -1,11 +1,14 @@
 # This file is placed in the Public Domain.
 
 
+"udp to irc relay"
+
+
 import socket
 import time
 
 
-from opr import Bus, Class, Object, launch, last
+from genocide import Bus, Class, Object, launch, last
 
 
 def __dir__():

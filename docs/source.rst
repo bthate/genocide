@@ -17,51 +17,33 @@
     </b></center>
     <br>
 
-**cide**
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    cide.cls		classes
-    cide.dbs		database
-    cide.dft 		default
-    cide.jsn		json
-    cide.obj		object
-    cide.sel		selector
-    cide.spc		specification
-    cide.utl		utility
-    cide.wdr		workdir
-
-**gcide**
-
-.. autosummary::
-    :toctree: 
-    :template: module.rst
-
-    gcide.bus 		bus
-    gcide.cbs		callbacks
-    gcide.cfg		config
-    gcide.clt		client
-    gcide.com		commands
-    gcide.evt		event
-    gcide.hdl		handler
-    gcide.prs		parse
-    gcide.scn		scan
-    gcide.spc 		specification
-    gcide.thr		thread
-    gcide.tmr		timer/repeater
-    gcide.trc		trace
-    gcide.utl		utility
-
-
 **genocide**
 
 .. autosummary::
     :toctree: 
     :template: module.rst
 
-    genocide.cmd 	commands
+    genocide.cls	classes
+    genocide.dbs	database
+    genocide.dft 	default
+    genocide.jsn	json
+    genocide.obj	object
+    genocide.sel	selector
+    genocide.utl	utility
+    genocide.wdr	workdir
+    genocide.bus 	bus
+    genocide.cbs	callbacks
+    genocide.cfg	config
+    genocide.clt	client
+    genocide.com	commands
+    genocide.evt	event
+    genocide.hdl	handler
+    genocide.prs	parse
+    genocide.scn	scan
+    genocide.thr	thread
+    genocide.tmr	timer/repeater
+    genocide.utl	utility
+    genocide.cmd 	command
     genocide.irc	internet relay chat
     genocide.mbx	email analysis
     genocide.mdl	genocide model

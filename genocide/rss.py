@@ -16,10 +16,10 @@ from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
 
-from .gcd import Bus, Class, Db, Default, Object, Repeater
-from .gcd import find, fntime, last, launch, save
-from .gcd import edit, elapsed, get, register, spl, update
-from .gcd.run import Cfg
+from . import Bus, Class, Db, Default, Object, Repeater
+from . import find, fntime, last, launch, save
+from . import edit, elapsed, get, register, spl, update
+from .run import Cfg
 
 
 def __dir__():

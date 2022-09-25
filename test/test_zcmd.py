@@ -9,11 +9,9 @@ import sys
 import unittest
 
 
-from cide.obj import Object, get
-from gcide.clt import Client
-from gcide.com import Commands
-from gcide.evt import docmd
-from genocide.run import Cfg
+from genocide.gcd import Client, Command, Object, get
+from genocide.gcd.run import Cfg, docmd
+
 
 evts = []
 skip = ["cfg",]
@@ -62,7 +60,7 @@ class TestCommands(unittest.TestCase):
     "commands test class."
 
     def test_commands(self):
-        cmds = sorted(Commands.cmds)
+        cmds = sorted(Command.cmd)
         for cmd in cmds:
             if cmd in skip:
                 continue

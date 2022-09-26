@@ -34,7 +34,7 @@ I :ref:`wrote <writings>` the prosecutor asking for an arrest of the king (make 
 :ref:`basis to prosecute <reconsider>` of the prosecutor to get the king in his cell and his genocide, thereby, stopped.
 
 
-Article 15 allows for a cooperation between court and prosecutor to "act on their own" and have this arrest also happening.
+Article 15 allows for a cooperation between court and prosecutor to "act on their own" and have the king arrested.
 
 
 .. raw:: html

@@ -52,6 +52,10 @@ class CLI(Client):
 class Console(CLI):
 
     @staticmethod
+    def announce(txt):
+        pass
+
+    @staticmethod
     def handle(event):
         Client.handle(event)
         event.wait()

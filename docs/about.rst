@@ -10,17 +10,12 @@
 
     <center><b>
 
-**ABOUT**
+**A B O U T**
 
 .. raw:: html
 
     </b></center>
     <br>
-
-.. image:: skullagain.jpg
-    :width: 100%
-    :target: evidence.html
-
 
 .. raw:: html
 

@@ -8,17 +8,6 @@
 
 .. raw:: html
 
-    <center><b>
-
-**A B O U T**
-
-.. raw:: html
-
-    </b></center>
-    <br>
-
-.. raw:: html
-
 
      <center><i>By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands.</i></center>
      <br>
@@ -29,7 +18,7 @@ This makes the care laws used in the netherlands to provide care to elderly and 
 
 
 I :ref:`wrote <writings>` the prosecutor asking for an arrest of the king (make him stop), the prosecutor decided to call it a "no basis to proceed". It requires a
-:ref:`reconsider <reconsider>` of the prosecutor to get the king in his cell and his genocide, thereby, stopped.
+:ref:`basis to prosecute <reconsider>` of the prosecutor to get the king in his cell and his genocide, thereby, stopped.
 
 
 .. raw:: html

@@ -6,34 +6,6 @@
 
 .. title:: Evidence
 
-.. raw:: html
-
-    <center><b>
-
-**E V I D E N C E**
-
-.. raw:: html
-
-    </b></center>
-    <br>
-
-
-.. _informed:
-
-
-**informed**
-
-
-.. raw:: html
-
-  <br>
-
-.. image:: informed.jpg
-    :width: 100%
-
-.. raw:: html
-
-  <br><br>
 
 .. _haldol:
 

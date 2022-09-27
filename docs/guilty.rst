@@ -6,17 +6,22 @@
 
 .. title:: Guilty
 
+.. _informed:
+
+
+**informed**
+
+
 .. raw:: html
 
-    <center><b>
+  <br>
 
-**G U I L T Y**
+.. image:: informed.jpg
+    :width: 100%
 
 .. raw:: html
 
-    </b></center>
-    <br>
-
+    <br><br>
 
 .. _chamber:
 

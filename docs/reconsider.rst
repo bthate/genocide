@@ -4,7 +4,7 @@
 
      <br><br>
 
-.. title:: Manual
+.. title:: Reconsider
 
 
 | **Information and Evidence Unit**

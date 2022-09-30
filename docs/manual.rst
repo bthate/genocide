@@ -6,6 +6,20 @@
 
 .. title:: Manual
 
+.. raw:: html
+
+    <center>
+    <b>
+
+**M A N U A L**
+
+.. raw:: html
+
+    </b>
+    </center>
+    <br>
+
+
 **NAME**
 
  **GENOCIDE** - Prosecutor. Court. Reconsider OTP-CR-117/19.
@@ -116,13 +130,3 @@
 
  **GENOCIDE** is placed in the Public Domain. No Copyright, No License.
 
-.. raw:: html
-
-    <br>
-    <center><b>
-
-:ref:`home <home>` - :ref:`manual <man>` - :ref:`source <source>` - :ref:`about <about>`
-
-.. raw:: html
-
-     </b></center>

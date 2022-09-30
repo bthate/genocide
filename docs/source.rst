@@ -6,6 +6,20 @@
 
 .. title:: Source
 
+.. raw:: html
+
+    <center>
+    <b>
+
+**S O U R C E**
+
+.. raw:: html
+
+    </b>
+    </center>
+    <br>
+
+
 **genocide**
 
 .. autosummary::

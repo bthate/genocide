@@ -53,7 +53,7 @@ class Console(CLI):
 
     @staticmethod
     def announce(txt):
-        pass
+        CLI.raw(txt)
 
     @staticmethod
     def handle(event):

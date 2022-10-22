@@ -15,6 +15,8 @@ from . import Bus, Event, Repeater, launch
 def __dir__():
     return (
         "init",
+        "mdl",
+        "now",        
     )
 
 
@@ -249,6 +251,12 @@ aliases["Zwangerschap"] = "pregnancy"
 aliases["Suicide"] = "suicide"
 
 
+def getalias(txt):
+    for ali in aliases.keys():
+        if txt.lower() in ali.lower():
+            return aliases[ali]
+
+
 demo = Object()
 demo.gehandicapten = 2000000
 demo.ggz = 800000
@@ -297,7 +305,8 @@ def boot():
         setattr(oorzaken, nms, aantal[_nr])
 
 
-YEAR = 365*24*60*60
+DAY=24*60*60
+YEAR = 365*DAY
 SOURCE = "https://github.com/bthate/genocide"
 STARTDATE = "2020-01-01 00:00:00"
 STARTTIME = time.mktime(time.strptime(STARTDATE, "%Y-%m-%d %H:%M:%S"))
@@ -324,6 +333,9 @@ def seconds(nrs):
     return 60*60*24*365 / float(nrs)
 
 
+def getday():
+    return datatime.datetime.now()
+
 def getnr(name):
     for k in keys(oorzaken):
         if name.lower() in k.lower():
@@ -346,19 +358,29 @@ def cbnow(evt):
         if needed > 60*60:
             continue
         nrtimes = int(delta/needed)
-        txt += "%s: %s " % (aliases.get(name), nrtimes)
+        txt += "%s: %s " % (getalias(name), nrtimes)
     txt += " http://genocide.rtfd.io"
     Bus.announce(txt)
 
 
 def cbstats(evt):
-    name = evt.rest or "psych"
+    name = evt.rest or "Psych"
     needed = seconds(getnr(name))
     if needed:
         delta = time.time() - STARTTIME
         nrtimes = int(delta/needed)
         nryear = int(YEAR/needed)
-        txt = "patient #%s died from %s (%s/year) every %s" % (nrtimes, aliases.get(name),  nryear, elapsed(needed))
+        nrday = int(DAY/needed)
+        delta2 = time.time() - getnow()
+        thisday = int(DAY % needed)
+        txt = "patient #%s died from %s (%s/%s/%s) every %s" % (
+                                                               nrtimes,
+                                                               getalias(name),
+                                                               thisday,
+                                                               nrday,
+                                                               nryear,
+                                                               elapsed(needed)
+                                                              )
         Bus.announce(txt)
 
 
@@ -370,21 +392,25 @@ def now(event):
         if needed > 60*60:
             continue
         nrtimes = int(delta/needed)
-        txt += "%s: %s " % (aliases.get(name), nrtimes)
+        txt += "%s: %s " % (getalias(name), nrtimes)
     txt += " http://genocide.rtfd.io"
     Bus.announce(txt)
 
 
-def sts(event):
-    name = event.rest or "psych"
+def mdl(event):
+    name = event.rest or "Psych"
     needed = seconds(getnr(name))
     if needed:
         delta = time.time() - STARTTIME
         nrtimes = int(delta/needed)
         nryear = int(YEAR/needed)
-        txt = "patient #%s died from %s (%s/year) every %s" % (
+        nrday = int(DAY/needed)
+        thisday = int(DAY % needed)
+        txt = "patient #%s died from %s (%s/%s/%s) every %s" % (
                                                                nrtimes,
-                                                               name.lower(),
+                                                               getalias(name),
+                                                               thisday,
+                                                               nrday,
                                                                nryear,
                                                                elapsed(needed)
                                                               )
@@ -399,7 +425,7 @@ def tpc(event):
         nrtimes = int(delta/needed)
         if needed > 60*60:
             continue
-        txt += "%s %s " % (aliases.get(name), nrtimes)
+        txt += "%s %s " % (getalias(name), nrtimes)
     for bot in Bus.objs:
         try:
             for channel in bot.channels:

@@ -4,7 +4,8 @@
 "udp to irc relay"
 
 
-## imports
+## import
+
 
 import socket
 import time
@@ -15,7 +16,7 @@ from .obj import Class, Object, last
 from .thr import launch
 
 
-## defines
+## define
 
 def __dir__():
     return (
@@ -31,7 +32,7 @@ def init():
     return udp
 
 
-## classes
+## class
 
 
 class Cfg(Object):

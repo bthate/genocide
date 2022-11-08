@@ -5,7 +5,7 @@
 "handler"
 
 
-## imports
+## import
 
 
 import datetime
@@ -31,7 +31,7 @@ from .thr import launch
 from. utl import elapsed
 
 
-## classes
+## class
 
 
 class Bus(Object):

@@ -5,7 +5,7 @@
 "model"
 
 
-## imports
+## import
 
 import time
 
@@ -16,7 +16,7 @@ from .thr import Repeater, launch
 from .utl import elapsed
 
 
-## defines
+## define
 
 def __dir__():
     return (
@@ -235,8 +235,7 @@ aantal = """
          """.split(";")
 
 
-
-##  model
+## model
 
 
 oorzaak = Object(zip(oor,aantal))
@@ -393,6 +392,9 @@ def cbstats(evt):
                                                                elapsed(needed)
                                                               )
         Bus.announce(txt)
+
+
+## command
 
 
 def now(event):

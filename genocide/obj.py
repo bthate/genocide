@@ -5,7 +5,7 @@
 "object"
 
 
-## imports
+## import
 
 
 import datetime
@@ -26,7 +26,7 @@ import uuid
 from stat import ST_UID, ST_MODE, S_IMODE
 
 
-## defines
+## define
 
 
 def __dir__():
@@ -492,6 +492,9 @@ class Wd:
             if fnm not in res:
                 res.append(fnm)
         return res
+
+
+## utility
 
 
 def cdir(path):

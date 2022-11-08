@@ -18,6 +18,9 @@ from genocide.run import command
 from genocide.irc import Config
 
 
+from genocide import cmds, irc, rss
+
+
 ## define
 
 Config.nick = "genocide"
@@ -27,9 +30,6 @@ Config.username = "genocide"
 
 
 Wd.workdir = "/var/lib/genocide/"
-
-
-from genocide import cmds, irc, rss
 
 
 scan(cmds)

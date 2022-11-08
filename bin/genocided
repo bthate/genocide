@@ -15,7 +15,7 @@ import sys
 import time
 
 
-from genocide import Wd
+from genocide.obj import Wd
 from genocide.run import scancls
 from genocide.irc import Config
 

@@ -4,7 +4,8 @@
 "rich site syndicate"
 
 
-## imports
+## import
+
 
 import html.parser
 import re
@@ -27,7 +28,7 @@ from .thr import Repeater, launch
 from .utl import elapsed, spl
 
 
-## defines
+## define
 
 
 def __dir__():
@@ -53,7 +54,7 @@ def init():
     return fetcher
 
 
-## classes
+## class
 
 
 class Feed(Default):
@@ -181,7 +182,6 @@ class Parser(Object):
         return res
 
 
-
 ## utility
 
 
@@ -238,7 +238,7 @@ def useragent(txt):
     return "Mozilla/5.0 (X11; Linux x86_64) " + txt
 
 
-## commands
+## command
 
 
 def dpl(event):

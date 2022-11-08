@@ -1,8 +1,10 @@
 # This file is placed in the Public Domain.
 
 
-"commands"
+"command"
 
+
+## import
 
 import threading
 import time
@@ -13,8 +15,13 @@ from .obj import Class, Object, find, fntime, items, save, update
 from .utl import elapsed
 
 
+## define
+
+
 starttime = time.time()
 
+
+## classes
 
 class Log(Object):
 
@@ -32,6 +39,9 @@ class Todo(Log):
 
 
 Class.add(Todo)
+
+
+## command
 
 
 def cmd(event):

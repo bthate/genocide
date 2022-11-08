@@ -4,6 +4,8 @@
 "mailbox"
 
 
+## import
+
 import mailbox
 import os
 import time
@@ -13,6 +15,8 @@ from genocide.obj import Class, Db, Object
 from genocide.obj import find, fntime, printable, save, update
 from genocide.utl import elapsed
 
+
+## define
 
 def __dir__():
     return (
@@ -56,6 +60,9 @@ monthint = {
 }
 
 
+## class
+
+
 class Email(Object):
 
     def __init__(self, *args, **kwargs):
@@ -64,6 +71,9 @@ class Email(Object):
 
 
 Class.add(Email)
+
+
+## utility
 
 
 def to_date(date):
@@ -100,6 +110,9 @@ def to_date(date):
                         except (IndexError, KeyError):
                             ddd = ""
     return ddd
+
+
+## command
 
 
 def cor(event):

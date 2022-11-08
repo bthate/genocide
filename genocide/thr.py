@@ -5,7 +5,7 @@
 "thread"
 
 
-## imports
+## import
 
 
 import queue
@@ -14,7 +14,7 @@ import time
 import types
 
 
-## classes
+## class
 
 
 class Thread(threading.Thread):

@@ -5,7 +5,7 @@
 "runtime"
 
 
-## imports
+## import
 
 
 import inspect
@@ -31,7 +31,7 @@ def __dir__():
 __all__ = __dir__()
 
 
-## defines
+## define
 
 
 Cfg = Default()
@@ -66,15 +66,24 @@ def savepid(name=None):
     k.close()
 
 
-def scan(mod):
+def scancls(mod):
     for _k, clz in inspect.getmembers(mod, inspect.isclass):
         Class.add(clz)
+
+
+def scan(mod):
+    scancls(mod)
     for key, cmd in inspect.getmembers(mod, inspect.isfunction):
         if key.startswith("cb"):
             continue
         names = cmd.__code__.co_varnames
         if "event" in names:
             Command.add(cmd)
+
+
+def scancls(mod):
+    for _k, clz in inspect.getmembers(mod, inspect.isclass):
+        Class.add(clz)
 
 
 def scandir(path, func):

@@ -6,7 +6,7 @@
 "irc"
 
 
-## imports
+## import
 
 
 import base64
@@ -30,7 +30,8 @@ from .thr import launch
 from .utl import elapsed, locked
 
 
-## defines
+## define
+
 
 saylock = _thread.allocate_lock()
 
@@ -41,7 +42,7 @@ def init():
     return irc
 
 
-## classes
+## class
 
 
 class NoUser(Exception):
@@ -594,7 +595,7 @@ class User(Object):
 Class.add(User)
 
 
-## commands
+## command
 
 
 def cfg(event):

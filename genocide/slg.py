@@ -2,8 +2,10 @@
 # pylint: disable=C0114,C0115,C0116
 
 
-"slogans"
+"slogan"
 
+
+## define
 
 TXT = """GENOCIDE 73 released - http://pypi.org/project/genocide
 
@@ -22,6 +24,8 @@ reconsider OTP-CR-117/19
 http://genocide.rtfd.io
 """
 
+
+## command
 
 def slg(event):
     event.reply(TXT)

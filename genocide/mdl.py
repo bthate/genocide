@@ -5,12 +5,18 @@
 "model"
 
 
+## imports
+
 import time
 
 
-from . import Object, elapsed, get, keys
-from . import Bus, Event, Repeater, launch
+from .obj import Object,  keys
+from .hdl import Bus, Event
+from .thr import Repeater, launch
+from .utl import elapsed
 
+
+## defines
 
 def __dir__():
     return (
@@ -22,7 +28,7 @@ def __dir__():
 
 def init():
     for key in keys(oorzaken):
-        val = get(oorzaken, key, None)
+        val = getattr(oorzaken, key, None)
         if val and int(val) > 10000:
             evt = Event()
             evt.txt = ""
@@ -228,6 +234,11 @@ aantal = """
           2678
          """.split(";")
 
+
+
+##  model
+
+
 oorzaak = Object(zip(oor,aantal))
 #oorzaak.Suicide = 1859
 
@@ -339,7 +350,7 @@ def getday():
 def getnr(name):
     for k in keys(oorzaken):
         if name.lower() in k.lower():
-            return int(get(oorzaken, k))
+            return int(getattr(oorzaken, k))
     return 0
 
 

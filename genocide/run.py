@@ -1,29 +1,93 @@
 # This file is placed in the Public Domain.
+# pylint: disable=R,C,W,C0302
 
 
 "runtime"
 
 
-import time
+## imports
 
 
-starttime = time.time()
+import inspect
+import os
+import traceback
 
 
-from .cfg import Config
+from .obj import Class, Default, Wd, name
+from .hdl import Command, Event
+from .thr import launch
 
 
-Cfg = Config()
+def __dir__():
+    return (
+            'Cfg',
+            'command',
+            'launch',
+            'scan',
+            'scandir',
+           )
 
 
-from .evt import Event
+__all__ = __dir__()
 
 
-def docmd(clt, txt):
-    cmd = Event()
-    cmd.channel = ""
-    cmd.orig = repr(clt)
-    cmd.txt = txt
-    clt.handle(cmd)
-    cmd.wait()
-    return cmd
+## defines
+
+
+Cfg = Default()
+
+
+## utility
+
+
+def command(cli, txt, event=None):
+    evt = event and event() or Event()
+    evt.parse(txt)
+    evt.orig = repr(cli)
+    cli.handle(evt)
+    return evt
+
+
+def from_exception(exc, txt="", sep=" "):
+    result = []
+    for frm in traceback.extract_tb(exc.__traceback__):
+        fnm = os.sep.join(frm.filename.split(os.sep)[-2:])
+        result.append(f"{fnm}:{frm.lineno}")
+    nme = name(exc)
+    res = sep.join(result)
+    return f"{txt} {res} {nme}: {exc}"
+
+
+def savepid(name=None):
+    if not name:
+        name = sys.argv[0]
+    k = open(os.path.join(Wd.workdir, '%s.pid' % name), "w", encoding='utf-8')
+    k.write(str(os.getpid()))
+    k.close()
+
+
+def scan(mod):
+    for _k, clz in inspect.getmembers(mod, inspect.isclass):
+        Class.add(clz)
+    for key, cmd in inspect.getmembers(mod, inspect.isfunction):
+        if key.startswith("cb"):
+            continue
+        names = cmd.__code__.co_varnames
+        if "event" in names:
+            Command.add(cmd)
+
+
+def scandir(path, func):
+    res = []
+    if not os.path.exists(path):
+        return res
+    for _fn in os.listdir(path):
+        if _fn.endswith("~") or _fn.startswith("__"):
+            continue
+        try:
+            pname = _fn.split(os.sep)[-2]
+        except IndexError:
+            pname = path
+        mname = _fn.split(os.sep)[-1][:-3]
+        res.append(func(pname, mname))
+    return res

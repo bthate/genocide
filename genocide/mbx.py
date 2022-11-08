@@ -9,8 +9,9 @@ import os
 import time
 
 
-from genocide import Class, Db, Object
-from genocide import elapsed, find, fntime, printable, save, update
+from genocide.obj import Class, Db, Object
+from genocide.obj import find, fntime, printable, save, update
+from genocide.utl import elapsed
 
 
 def __dir__():

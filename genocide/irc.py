@@ -1,7 +1,12 @@
 # This file is placed in the Public Domain.
+# pylint: disable=C0115,C0116,R0201,C0413,R0902,R0903,W0201,W0613
+# pylint: disable=R0912,R0915,R0904,W0221 
+
+ 
+"irc"
 
 
-"internet relay chat"
+## imports
 
 
 import base64
@@ -10,39 +15,33 @@ import queue
 import random
 import socket
 import ssl
+import time
 import textwrap
 import threading
-import time
 import _thread
 
 
-from . import Callbacks, Class, Client, Default, Event, Object
-from . import edit, elapsed, keys, printable, save, update
-from . import find, fntime, locked, last, launch
+from .obj import Class, Default, Object
+from .obj import items, keys, last, printable
+from .obj import edit, fntime, find, save, update
+from .obj import register
+from .hdl import Command, Event, Handler
+from .thr import launch
+from .utl import elapsed, locked
 
 
-def __dir__():
-    return (
-        "Config",
-        "Event",
-        "IRC",
-        "DCC",
-        "init",
-        "cfg",
-        "dlt",
-        "met",
-        "mre",
-        "pwd"
-    )
+## defines
+
+saylock = _thread.allocate_lock()
 
 
 def init():
-    i = IRC()
-    launch(i.start)
-    return i
+    irc = IRC()
+    irc.start()
+    return irc
 
 
-saylock = _thread.allocate_lock()
+## classes
 
 
 class NoUser(Exception):
@@ -52,17 +51,17 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    channel = ""
+    channel = "#genocide"
     control = "!"
-    nick = ""
+    nick = "genocide"
     password = ""
     port = 6667
-    realname = ""
+    realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = ""
+    username = "genocide"
     users = False
 
     def __init__(self):
@@ -84,7 +83,7 @@ class Config(Default):
 Class.add(Config)
 
 
-class IrcEvent(Event):
+class IEvent(Event):
 
     def __init__(self):
         Event.__init__(self)
@@ -95,7 +94,6 @@ class IrcEvent(Event):
         self.nick = ""
         self.origin = ""
         self.rawstr = ""
-        self.sock = None
         self.type = "event"
         self.txt = ""
 
@@ -114,7 +112,7 @@ class TextWrap(textwrap.TextWrapper):
 
 class Output(Object):
 
-    cache = Object()
+    cache = {}
 
     def __init__(self):
         Object.__init__(self)
@@ -141,11 +139,11 @@ class Output(Object):
         self.oqueue.put_nowait((channel, txt))
 
     def output(self):
-        while not self.dostop.isSet():
+        while not self.dostop.is_set():
             (channel, txt) = self.oqueue.get()
             if channel is None and txt is None:
                 break
-            if self.dostop.isSet():
+            if self.dostop.is_set():
                 break
             wrapper = TextWrap()
             txtlist = wrapper.wrap(txt)
@@ -173,10 +171,10 @@ class Output(Object):
         self.oqueue.put_nowait((None, None))
 
 
-class IRC(Client, Output):
+class IRC(Handler, Output):
 
     def __init__(self):
-        Client.__init__(self)
+        Handler.__init__(self)
         Output.__init__(self)
         self.buffer = []
         self.cfg = Config()
@@ -189,7 +187,7 @@ class IRC(Client, Output):
         self.speed = "slow"
         self.state = Object()
         self.state.needconnect = False
-        self.state.error = ""
+        self.state.errors = []
         self.state.last = 0
         self.state.lastline = ""
         self.state.nrconnect = 0
@@ -198,19 +196,31 @@ class IRC(Client, Output):
         self.state.pongcheck = False
         self.threaded = False
         self.zelf = ""
-        self.register("903", cb_h903)
-        self.register("904", cb_h903)
-        self.register("AUTHENTICATE", cb_auth)
-        self.register("CAP", cb_cap)
-        self.register("ERROR", cb_error)
-        self.register("LOG", cb_log)
-        self.register("NOTICE", cb_notice)
-        self.register("PRIVMSG", cb_privmsg)
-        self.register("QUIT", cb_quit)
-
+        self.register("903", self.h903)
+        self.register("904", self.h903)
+        self.register("AUTHENTICATE", self.auth)
+        self.register("CAP", self.cap)
+        self.register("ERROR", self.error)
+        self.register("LOG", self.log)
+        self.register("NOTICE", self.notice)
+        self.register("PRIVMSG", self.privmsg)
+        self.register("QUIT", self.quit)
+        self.register("command", Command.handle)
+        
     def announce(self, txt):
         for channel in self.channels:
             self.say(channel, txt)
+
+    def auth(self, event):
+        time.sleep(1.0)
+        self.raw("AUTHENTICATE %s" % self.cfg.password)
+
+    def cap(self, event):
+        time.sleep(1.0)
+        if self.cfg.password and "ACK" in event.arguments:
+            self.raw("AUTHENTICATE PLAIN")
+        else:
+            self.raw("CAP REQ :sasl")
 
     @locked(saylock)
     def command(self, cmd, *args):
@@ -262,7 +272,7 @@ class IRC(Client, Output):
                 if self.connect(server, port):
                     break
             except (OSError, ConnectionResetError) as ex:
-                self.state.error = str(ex)
+                self.state.errors.append(str(ex))
             time.sleep(self.cfg.sleep)
         self.logon(server, nck)
 
@@ -271,6 +281,11 @@ class IRC(Client, Output):
         txt = str(txt).replace("\n", "")
         txt = txt.replace("  ", " ")
         self.command("PRIVMSG", channel, txt)
+
+    def error(self, event):
+        self.state.nrerror += 1
+        self.state.errors.append(event.txt)
+        self.stop()
 
     def event(self, txt):
         evt = self.parsing(txt)
@@ -289,16 +304,24 @@ class IRC(Client, Output):
         elif cmd == "002":
             self.state.host = evt.args[2][:-1]
         elif cmd == "366":
-            self.state.error = ""
+            self.state.errors = []
             self.joined.set()
         elif cmd == "433":
-            self.state.error = txt
+            self.state.errors.append(txt)
             nck = self.cfg.nick + "_" + str(random.randint(1,10))
             self.command("NICK", nck)
         return evt
 
     def fileno(self):
         return self.sock.fileno()
+
+    def h903(self, event):
+        time.sleep(1.0)
+        self.raw("CAP END")
+
+    def h904(self, event):
+        time.sleep(1.0)
+        self.raw("CAP END")
 
     def joinall(self):
         for channel in self.channels:
@@ -329,11 +352,26 @@ class IRC(Client, Output):
                  self.cfg.realname)
                 )
 
+    def kill(self, event):
+        pass
+
+    def log(self, event):
+        pass
+
+    def notice(self, event):
+        if event.txt.startswith("VERSION"):
+            txt = "\001VERSION %s %s - %s\001" % (
+                "op",
+                self.cfg.version,
+                self.cfg.username,
+            )
+            self.command("NOTICE", event.channel, txt)
+
     def parsing(self, txt):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
-        obj = IrcEvent()
+        obj = IEvent()
         obj.rawstr = rawstr
         obj.command = ""
         obj.arguments = []
@@ -394,12 +432,34 @@ class IRC(Client, Output):
             except (socket.timeout, ConnectionResetError) as ex:
                 self.joined.clear()
                 time.sleep(5.0)
-                evt = IrcEvent()
+                evt = IEvent()
                 evt.txt = str(ex)
                 evt.type = "ERROR"
                 evt.orig = repr(self)
                 return evt
         return self.event(self.buffer.pop(0))
+
+    def privmsg(self, event):
+        if event.txt:
+            if event.txt[0] in [self.cfg.control, "!"]:
+                event.txt = event.txt[1:]
+            elif event.txt.startswith("%s:" % self.cfg.nick):
+                event.txt = event.txt[len(self.cfg.nick)+1:]
+            else:
+                return
+            if self.cfg.users and not Users.allowed(event.origin, "USER"):
+                return
+            splitted = event.txt.split()
+            splitted[0] = splitted[0].lower()
+            event.txt = " ".join(splitted)
+            event.type = "command"
+            event.orig = repr(self)
+            event.parse()
+            Command.handle(event)
+
+    def quit(self, event):
+        if event.orig and event.orig in self.zelf:
+            self.reconnect()
 
     def raw(self, txt):
         txt = txt.rstrip()
@@ -413,7 +473,7 @@ class IRC(Client, Output):
                 self.sock.send(txt)
             except (ConnectionResetError, BrokenPipeError) as ex:
                 time.sleep(5.0)
-                self.state.error = str(ex)
+                self.state.errors.append(str(ex))
                 self.stop()
         self.state.last = time.time()
         self.state.nrsend += 1
@@ -428,7 +488,7 @@ class IRC(Client, Output):
         self.doconnect(self.cfg.server, self.cfg.nick, int(self.cfg.port))
 
     def register(self, typ, cbs):
-        Callbacks.add(typ, cbs)
+        register(self.cbs, typ, cbs)
 
     def say(self, channel, txt):
         self.oput(channel, txt)
@@ -456,11 +516,12 @@ class IRC(Client, Output):
         self.connected.clear()
         self.joined.clear()
         Output.start(self)
-        Client.start(self)
+        Handler.start(self)
         launch(
                self.doconnect,
                self.cfg.server,
-               self.cfg.nick, int(self.cfg.port or "6667")
+               self.cfg.nick,
+               int(self.cfg.port or "6667")
               )
         if not self.keeprunning:
             launch(self.keep)
@@ -470,102 +531,7 @@ class IRC(Client, Output):
             self.sock.shutdown(2)
         except OSError:
             pass
-        Client.stop(self)
-        #Output.stop(self)
-
-    def wait(self):
-        self.joined.wait()
-
-
-def cb_auth(event):
-    time.sleep(1.0)
-    bot = event.bot()
-    bot.raw("AUTHENTICATE %s" % bot.cfg.password)
-
-
-def cb_cap(event):
-    time.sleep(1.0)
-    bot = event.bot()
-    if bot.cfg.password and "ACK" in event.arguments:
-        bot.raw("AUTHENTICATE PLAIN")
-    else:
-        bot.raw("CAP REQ :sasl")
-
-
-def cb_h903(event):
-    time.sleep(1.0)
-    bot = event.bot()
-    bot.raw("CAP END")
-
-
-def cb_h904(event):
-    time.sleep(1.0)
-    bot = event.bot()
-    bot.raw("CAP END")
-
-
-def cb_error(event):
-    bot = event.bot()
-    bot.state.nrerror += 1
-    #bot.state.error = event.txt
-    bot.stop()
-
-
-def cb_kill(event):
-    pass
-
-
-def cb_log(event):
-    pass
-
-
-def cb_notice(event):
-    bot = event.bot()
-    if event.txt.startswith("VERSION"):
-        txt = "\001VERSION %s %s - %s\001" % (
-            "op",
-            bot.cfg.version,
-            bot.cfg.username,
-        )
-        bot.command("NOTICE", event.channel, txt)
-
-
-def cb_privmsg(event):
-    event.parse()
-    if event.txt:
-        bot = event.bot()
-        if event.txt[0] in [bot.cfg.cc, "!"]:
-            event.txt = event.txt[1:]
-        elif event.txt.startswith("%s:" % bot.cfg.nick):
-            event.txt = event.txt[len(bot.cfg.nick)+1:]
-        else:
-            return
-        if bot.cfg.users and not Users.allowed(event.origin, "USER"):
-            return
-        splitted = event.txt.split()
-        splitted[0] = splitted[0].lower()
-        event.txt = " ".join(splitted)
-        event.type = "event"
-        bot.handle(event)
-
-
-def cb_quit(event):
-    bot = event.bot()
-    if event.orig and event.orig in bot.zelf:
-        bot.reconnect()
-
-
-class User(Object):
-
-    def __init__(self, val=None):
-        super().__init__()
-        self.user = ""
-        self.perms = []
-        if val:
-            update(self, val)
-
-
-Class.add(User)
+        Handler.stop(self)
 
 
 class Users(Object):
@@ -615,6 +581,22 @@ class Users(Object):
         return user
 
 
+class User(Object):
+
+    def __init__(self, val=None):
+        super().__init__()
+        self.user = ""
+        self.perms = []
+        if val:
+            update(self, val)
+
+
+Class.add(User)
+
+
+## commands
+
+
 def cfg(event):
     config = Config()
     last(config)
@@ -627,7 +609,7 @@ def cfg(event):
     else:
         edit(config, event.sets)
         save(config)
-        event.reply("ok")
+        event.ok()
 
 
 def dlt(event):
@@ -635,30 +617,30 @@ def dlt(event):
         event.reply("dlt <username>")
         return
     selector = {"user": event.args[0]}
-    for _fn, obj in find("user", selector):
+    for obj in find("user", selector):
         obj.__deleted__ = True
         save(obj)
-        event.reply("ok")
+        event.ok()
         break
 
 
 def met(event):
     if not event.rest:
-        _nr = 0
-        for _fn, obj in find("user"):
+        nmr = 0
+        for obj in find("user"):
             event.reply("%s %s %s %s" % (
-                                         _nr,
+                                         nmr,
                                          obj.user,
                                          obj.perms,
-                                         elapsed(time.time() - fntime(_fn)))
+                                         elapsed(time.time() - fntime(obj.__fnm__)))
                                         )
-            _nr += 1
+            nmr += 1
         return
     user = User()
     user.user = event.rest
     user.perms = ["USER"]
     save(user)
-    event.reply("ok")
+    event.ok()
 
 
 def mre(event):

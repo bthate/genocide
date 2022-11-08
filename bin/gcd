@@ -11,8 +11,9 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide import Class, Db, Object, Wd, keys, printable, update
-from genocide import find, fntime, cdir, elapsed, fns
+from genocide.obj import Class, Db, Object, Wd, keys, printable, update
+from genocide.obj import find, fntime, cdir, fns
+from genocide.utl import elapsed
 
 
 def fnd():
@@ -35,13 +36,13 @@ def fnd():
     dbs = Db()
     nrs = 0
     for otp in Wd.types():
-        if otype not in otype:
+        if otype not in otp.split(".")[-1].lower():
             continue
-        for fnm, obj in dbs.all(otp):
+        for obj in dbs.find(otp):
             txt = "%s %s %s" % (
                                 str(nrs),
                                 printable(obj, keys(obj)),
-                                elapsed(time.time()-fntime(fnm))
+                                elapsed(time.time()-fntime(obj.__fnm__))
                                )
             nrs += 1
             print(txt)

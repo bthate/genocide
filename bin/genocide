@@ -5,8 +5,7 @@
 
 "Prosecutor. Court. Reconsider OTP-CR-!17/19."
 
-
-__version__ = "84"
+## import
 
 
 import atexit
@@ -36,6 +35,8 @@ from genocide.irc import IRC
 from genocide.rss import Fetcher
 
 
+## define
+
 scan(cmds)
 scan(irc)
 scan(mdl)
@@ -51,6 +52,9 @@ starttime = time.time()
 def cprint(txt):
     print(txt)
     sys.stdout.flush()
+
+
+## class
 
 
 class CLI(Handler):
@@ -102,6 +106,9 @@ class Evt(Event):
         Event.wait(self)
         if self._exc:
             cprint(from_exception(self._exc))
+
+
+## utility
 
 
 def banner(cfg):
@@ -174,6 +181,9 @@ def wrap(func):
             termios.tcsetattr(fds, termios.TCSADRAIN, old)
     for err in Callback.errors:
         cprint(from_exception(err))
+
+
+## runtime
 
 
 def main():

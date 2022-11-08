@@ -6,13 +6,19 @@
 "command"
 
 
+## import
+
+
 import sys
 
 
-from genocide import Client, Wd, parse, scan
-from genocide.run import docmd
+from genocide.obj import Wd, parse, scan
+from genocide.hdl import Handler
+from genocide.run import command
 from genocide.irc import Config
 
+
+## define
 
 Config.nick = "genocide"
 Config.channel = "#genocide"
@@ -23,13 +29,15 @@ Config.username = "genocide"
 Wd.workdir = "/var/lib/genocide/"
 
 
-from genocide import cmd, irc, rss
+from genocide import cmds, irc, rss
 
 
-scan(cmd)
+scan(cmds)
 scan(irc)
 scan(rss)
 
+
+## class
 
 class CLI(Client):
 
@@ -38,10 +46,13 @@ class CLI(Client):
         print(txt)
 
 
+## runtime
+
+
 def main():
     cfg = parse(" ".join(sys.argv[1:]))
     cli = CLI()
-    docmd(cli, cfg.otxt)
+    command(cli, cfg.otxt)
 
 
 main()

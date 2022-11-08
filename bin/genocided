@@ -6,18 +6,23 @@
 "Prosecutor. Court. Reconsider OTP-CR-117/19."
 
 
+# import
+
+
 import os
 import signal
 import sys
 import time
 
 
-sys.path.insert(0, os.getcwd())
-
-
 from genocide import Wd
-from genocide.scn import scancls
+from genocide.run import scancls
 from genocide.irc import Config
+
+
+from genocide import cmds, irc, mdl, rss
+
+## define
 
 
 Config.channel = "#genocide"
@@ -29,13 +34,13 @@ Config.username = "genocide"
 Wd.workdir = "/var/lib/genocide"
 
 
-from genocide import cmd, irc, mdl, rss
-
-
-scancls(cmd)
+scancls(cmds)
 scancls(irc)
 scancls(mdl)
 scancls(rss)
+
+
+## utility
 
 
 def daemon():
@@ -58,6 +63,9 @@ def hup(sig, frame):
 
 
 signal.signal(signal.SIGHUP, hup)
+
+
+## runtime
 
 
 def main():

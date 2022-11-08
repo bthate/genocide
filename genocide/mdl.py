@@ -39,6 +39,13 @@ def init():
     launch(daily, name="daily")
 
 
+DAY=24*60*60
+YEAR = 365*DAY
+SOURCE = "https://github.com/bthate/genocide"
+STARTDATE = "2020-01-01 00:00:00"
+STARTTIME = time.mktime(time.strptime(STARTDATE, "%Y-%m-%d %H:%M:%S"))
+
+
 oor = """"Totaal onderliggende doodsoorzaken (aantal)";
          "1 Infectieuze en parasitaire ziekten/Totaal infectieuze en parasitaire zktn (aantal)";
          "1 Infectieuze en parasitaire ziekten/1.1 Tuberculose (aantal)";
@@ -235,10 +242,12 @@ aantal = """
          """.split(";")
 
 
+oorzaak = Object(zip(oor,aantal))
+
+
 ## model
 
 
-oorzaak = Object(zip(oor,aantal))
 #oorzaak.Suicide = 1859
 
 aliases = {}
@@ -315,13 +324,6 @@ def boot():
         setattr(oorzaken, nms, aantal[_nr])
 
 
-DAY=24*60*60
-YEAR = 365*DAY
-SOURCE = "https://github.com/bthate/genocide"
-STARTDATE = "2020-01-01 00:00:00"
-STARTTIME = time.mktime(time.strptime(STARTDATE, "%Y-%m-%d %H:%M:%S"))
-
-
 def daily():
     time.sleep(10.0)
     while 1:
@@ -346,6 +348,7 @@ def seconds(nrs):
 def getday():
     return datatime.datetime.now()
 
+
 def getnr(name):
     for k in keys(oorzaken):
         if name.lower() in k.lower():
@@ -363,7 +366,7 @@ def iswanted(k, line):
 def cbnow(evt):
     delta = time.time() - STARTTIME
     txt = elapsed(delta) + " "
-    for name in sorted(oorzaken, key=lambda x: seconds(getnr(x))):
+    for name in sorted(keys(oorzaken), key=lambda x: seconds(getnr(x))):
         needed = seconds(getnr(name))
         if needed > 60*60:
             continue
@@ -381,7 +384,7 @@ def cbstats(evt):
         nrtimes = int(delta/needed)
         nryear = int(YEAR/needed)
         nrday = int(DAY/needed)
-        delta2 = time.time() - getnow()
+        delta2 = time.time() - getday()
         thisday = int(DAY % needed)
         txt = "patient #%s died from %s (%s/%s/%s) every %s" % (
                                                                nrtimes,
@@ -400,7 +403,7 @@ def cbstats(evt):
 def now(event):
     delta = time.time() - STARTTIME
     txt = elapsed(delta) + " "
-    for name in sorted(oorzaken, key=lambda x: seconds(getnr(x))):
+    for name in sorted(keys(oorzaken), key=lambda x: seconds(getnr(x))):
         needed = seconds(getnr(name))
         if needed > 60*60:
             continue

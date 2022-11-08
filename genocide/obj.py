@@ -81,7 +81,9 @@ class Object:
         )
         if args:
             val = args[0]
-            if isinstance(val, dict):
+            if isinstance(val, zip):
+                update(self, dict(val))
+            elif isinstance(val, dict):
                 update(self, val)
             elif isinstance(val, Object):
                 update(self, vars(val))

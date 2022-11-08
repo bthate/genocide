@@ -28,8 +28,8 @@ def debian():
 
 def elapsed(seconds, short=True):
     txt = ""
-    nsec = float(seconds)
-    remainder = str(nsec).split(".")[-1][-4:]
+    nsec = int(float(seconds))
+    remainder = str(nsec).split(".")[-1][:3]
     year = 365*24*60*60
     week = 7*24*60*60
     nday = 24*60*60
@@ -51,13 +51,13 @@ def elapsed(seconds, short=True):
         nrdays += weeks * 7
     if nrdays:
         txt += "%sd" % nrdays
-    #if years and short and txt:
-    #    return txt
+    if years and short and txt:
+        return txt
     if hours:
         txt += "%sh" % hours
     if minutes:
         txt += "%sm" % minutes
-    txt = txt + "0.%ss" % remainder
+    txt += "%ss%sms" % (sec, remainder)
     txt = txt.strip()
     return txt
 

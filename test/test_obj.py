@@ -10,11 +10,10 @@ import os
 import unittest
 
 
-from genocide import Object, get, items, keys, register, update, values
-from genocide import load, otype, save
-from genocide import edit, printable
-from genocide import ObjectDecoder, ObjectEncoder
-from genocide import Wd
+from genocide.obj import Object, Wd, items, keys, register, update, values
+from genocide.obj import edit, kind, load, save
+from genocide.obj import ObjectDecoder, ObjectEncoder
+from genocide.obj import printable
 
 
 Wd.workdir = ".test"
@@ -45,13 +44,16 @@ attrs1 = (
 attrs2 = (
           '__class__',
           '__delattr__',
+          '__delitem__',
           '__dict__',
           '__dir__',
           '__doc__',
           '__eq__',
+          '__fnm__',
           '__format__',
           '__ge__',
           '__getattribute__',
+          '__getitem__',
           '__gt__',
           '__hash__',
           '__init__',
@@ -67,10 +69,11 @@ attrs2 = (
           '__reduce_ex__',
           '__repr__',
           '__setattr__',
+          '__setitem__',
           '__sizeof__',
+          '__slots__',
           '__str__',
           '__subclasshook__',
-          '__weakref__'
          )
 
 
@@ -153,8 +156,8 @@ class TestObject(unittest.TestCase):
     def test_module(self):
         self.assertTrue(Object().__module__, "op")
 
-    def test_otype(self):
-        self.assertEqual(otype(Object()), "genocide.obj.Object")
+    def test_kind(self):
+        self.assertEqual(kind(Object()), "genocide.obj.Object")
 
     def test_repr(self):
         self.assertTrue(update(Object(),
@@ -182,10 +185,10 @@ class TestObject(unittest.TestCase):
         obj = Object()
         self.assertEqual(printable(obj), "")
 
-    def test_get(self):
+    def test_getattr(self):
         obj = Object()
         obj.key = "value"
-        self.assertEqual(get(obj, "key"), "value")
+        self.assertEqual(getattr(obj, "key"), "value")
 
     def test_keys(self):
         obj = Object()

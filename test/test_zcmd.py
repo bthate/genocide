@@ -9,8 +9,9 @@ import sys
 import unittest
 
 
-from genocide import Client, Command, Object, get
-from genocide.run import Cfg, docmd
+from genocide.obj import Object
+from genocide.hdl import Command, Handler
+from genocide.run import Cfg, command
 
 
 evts = []
@@ -27,7 +28,7 @@ param.mre = [""]
 param.thr = [""]
 
 
-class CLI(Client):
+class CLI(Handler):
 
     "test cli class"
 
@@ -64,8 +65,8 @@ class TestCommands(unittest.TestCase):
         for cmd in cmds:
             if cmd in skip:
                 continue
-            for ex in get(param, cmd, ""):
-                evt = docmd(cli, cmd + " " + ex)
+            for ex in getattr(param, cmd, ""):
+                evt = command(cli, cmd + " " + ex)
                 evts.append(evt)
         consume(evts)
         self.assertTrue(not evts)

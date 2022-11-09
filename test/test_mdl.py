@@ -8,8 +8,8 @@
 import unittest
 
 
-from genocide import Object
 from genocide.mdl import oorzaak
+from genocide.obj import Object
 
 
 class TestModel(unittest.TestCase):

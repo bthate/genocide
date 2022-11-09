@@ -32,6 +32,7 @@
     genocide.irc	internet relay chat
     genocide.obj	object
     genocide.mbx	mailbox
+    genocide.req	request
     genocide.rss	rich site syndicate
     genocide.run 	runtime
     genocide.slg	slogan

@@ -10,6 +10,7 @@
 
 import inspect
 import os
+import sys
 import traceback
 
 
@@ -64,11 +65,6 @@ def savepid(name=None):
     k = open(os.path.join(Wd.workdir, '%s.pid' % name), "w", encoding='utf-8')
     k.write(str(os.getpid()))
     k.close()
-
-
-def scancls(mod):
-    for _k, clz in inspect.getmembers(mod, inspect.isclass):
-        Class.add(clz)
 
 
 def scan(mod):

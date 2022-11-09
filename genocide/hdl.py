@@ -64,6 +64,61 @@ class Bus(Object):
             bot.say(channel, txt)
 
 
+class Callback(Object):
+
+    cbs = Object()
+    errors = []
+    
+    def register(self, typ, cbs):
+        if typ not in self.cbs:
+            setattr(self.cbs, typ, cbs)
+
+    def callback(self, event):
+        func = getattr(self.cbs, event.type, None)
+        if not func:
+            event.ready()
+            return
+        try:
+            func(event)
+        except Exception as ex:
+            Callback.errors.append(ex)
+            event._exc = ex
+            event.ready()
+            
+    def dispatch(self, event):
+        self.callback(event)
+
+    def get(self, typ):
+        return getattr(self.cbs, typ)
+
+
+class Command(Object):
+
+    cmd = Object()
+
+    @staticmethod
+    def add(cmd):
+        setattr(Command.cmd, cmd.__name__, cmd)
+
+    @staticmethod
+    def get(cmd):
+        return getattr(Command.cmd, cmd, None)
+
+    @staticmethod
+    def handle(evt):
+        if not evt.isparsed:
+            evt.parse()
+        func = Command.get(evt.cmd)
+        if func:
+            func(evt)
+            evt.show()
+        evt.ready()
+
+    @staticmethod
+    def remove(cmd):
+        delattr(Command.cmd, cmd)
+
+
 class Parsed(Default):
 
     def __init__(self):
@@ -153,61 +208,6 @@ class Event(Parsed):
 
     def wait(self):
         self.__ready__.wait()
-
-
-class Callback(Object):
-
-    cbs = Object()
-    errors = []
-    
-    def register(self, typ, cbs):
-        if typ not in self.cbs:
-            setattr(self.cbs, typ, cbs)
-
-    def callback(self, event):
-        func = getattr(self.cbs, event.type, None)
-        if not func:
-            event.ready()
-            return
-        try:
-            func(event)
-        except Exception as ex:
-            Callback.errors.append(ex)
-            event._exc = ex
-            event.ready()
-            
-    def dispatch(self, event):
-        self.callback(event)
-
-    def get(self, typ):
-        return getattr(self.cbs, typ)
-
-
-class Command(Object):
-
-    cmd = Object()
-
-    @staticmethod
-    def add(cmd):
-        setattr(Command.cmd, cmd.__name__, cmd)
-
-    @staticmethod
-    def get(cmd):
-        return getattr(Command.cmd, cmd, None)
-
-    @staticmethod
-    def handle(evt):
-        if not evt.isparsed:
-            evt.parse()
-        func = Command.get(evt.cmd)
-        if func:
-            func(evt)
-            evt.show()
-        evt.ready()
-
-    @staticmethod
-    def remove(cmd):
-        delattr(Command.cmd, cmd)
 
 
 class Handler(Callback):

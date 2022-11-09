@@ -11,7 +11,7 @@ import time
 
 
 from .hdl import Command
-from .obj import Class, Object, find, fntime, items, save, update
+from .obj import Class, Object, find, fntime, save, update
 from .utl import elapsed
 
 

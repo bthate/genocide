@@ -11,6 +11,7 @@
 import getpass
 import os
 import pwd
+import sys
 import time
 import traceback
 import types
@@ -57,7 +58,8 @@ def elapsed(seconds, short=True):
         txt += "%sh" % hours
     if minutes:
         txt += "%sm" % minutes
-    txt += "%ss%sms" % (sec, remainder)
+    if not short:
+        txt += "%ss%sms" % (sec, remainder)
     txt = txt.strip()
     return txt
 

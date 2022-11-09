@@ -20,8 +20,8 @@ from urllib.request import Request, urlopen
 
 
 from .obj import Class, Db, Default, Object
-from .obj import find, fntime, items, last, printable, save
-from .obj import edit, register, update, values
+from .obj import find, fntime, last, printable, save
+from .obj import edit, register, update
 from .hdl import Bus
 from .run import Cfg
 from .thr import Repeater, launch

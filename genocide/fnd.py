@@ -25,7 +25,6 @@ def fnd(event):
         else:
             event.reply("no types yet.")
         return
-    bot = event.bot()
     otype = event.args[0]
     nmr = 0
     for obj in find(otype, event.gets):

@@ -7,6 +7,8 @@
 
 ## import
 
+
+import datetime
 import time
 
 
@@ -346,9 +348,11 @@ def seconds(nrs):
 
 
 def getday():
-    return datatime.datetime.now()
+    day = datetime.datetime.now()
+    day.replace(hour=0, minute=0, second=0, microsecond=0)
+    return datetime.timestamp(day)
 
-
+    
 def getnr(name):
     for k in keys(oorzaken):
         if name.lower() in k.lower():
@@ -385,7 +389,7 @@ def cbstats(evt):
         nryear = int(YEAR/needed)
         nrday = int(DAY/needed)
         delta2 = time.time() - getday()
-        thisday = int(DAY % needed)
+        thisday = int(delta2/needed)
         txt = "patient #%s died from %s (%s/%s/%s) every %s" % (
                                                                nrtimes,
                                                                getalias(name),

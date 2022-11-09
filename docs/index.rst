@@ -7,7 +7,7 @@
 .. title:: OTP-CR-117/19
 
 
-.. image:: skullnr.jpg
+.. image:: skullnr2.jpg
     :width: 100%
     :target: manual.html
 

@@ -303,6 +303,7 @@ class Db:
         nmr = -1
         res = []
         for fnm in fns(otp, timed):
+            print(fnm)
             obj = hook(fnm)
             if deleted and "__deleted__" in obj and obj.__deleted__:
                 continue
@@ -390,7 +391,6 @@ def find(otp, selector=None, index=None, timed=None, deleted=False):
     if not names:
         names = Wd.types(otp)
     result = []
-    print(names)
     for nme in names:
         res = Db.find(nme, selector, index, timed, deleted)
         result.extend(res)

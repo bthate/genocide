@@ -12,21 +12,15 @@
 import sys
 
 
-from genocide.obj import Wd, parse, scan
-from genocide.hdl import Handler
-from genocide.run import command
-from genocide.irc import Config
+from genocide.obj import Wd
+from genocide.hdl import Event, Handler, parse
+from genocide.run import command, from_exception, scancls, scan
 
 
 from genocide import cmds, irc, rss
 
 
 ## define
-
-Config.nick = "genocide"
-Config.channel = "#genocide"
-Config.realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
-Config.username = "genocide"
 
 
 Wd.workdir = "/var/lib/genocide/"
@@ -39,12 +33,19 @@ scan(rss)
 
 ## class
 
-class CLI(Client):
+class CLI(Handler):
 
     @staticmethod
     def raw(txt):
         print(txt)
 
+
+class Evt(Event):
+
+    def wait(self):
+        Event.wait(self)
+        if self._exc:
+            cprint(from_exception(self._exc))
 
 ## runtime
 
@@ -52,7 +53,7 @@ class CLI(Client):
 def main():
     cfg = parse(" ".join(sys.argv[1:]))
     cli = CLI()
-    command(cli, cfg.otxt)
+    command(cli, cfg.otxt, Evt)
 
 
 main()

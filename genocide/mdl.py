@@ -349,8 +349,8 @@ def seconds(nrs):
 
 def getday():
     day = datetime.datetime.now()
-    day.replace(hour=0, minute=0, second=0, microsecond=0)
-    return datetime.timestamp(day)
+    day = day.replace(hour=0, minute=0, second=0, microsecond=0)
+    return day.timestamp()
 
     
 def getnr(name):
@@ -389,14 +389,16 @@ def cbstats(evt):
         nryear = int(YEAR/needed)
         nrday = int(DAY/needed)
         delta2 = time.time() - getday()
+        print(delta2)
         thisday = int(delta2/needed)
-        txt = "patient #%s died from %s (%s/%s/%s) every %s" % (
+        onday = (24*60*60/needed)
+        txt = "patient #%s died from %s (%s/%s) every %s (%s/year)" % (
                                                                nrtimes,
                                                                getalias(name),
                                                                thisday,
                                                                nrday,
+                                                               elapsed(needed),
                                                                nryear,
-                                                               elapsed(needed)
                                                               )
         Bus.announce(txt)
 

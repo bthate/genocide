@@ -26,32 +26,15 @@
     :toctree: 
     :template: module.rst
 
-    genocide.cls	classes
-    genocide.dbs	database
-    genocide.dft 	default
-    genocide.jsn	json
-    genocide.obj	object
-    genocide.sel	selector
-    genocide.utl	utility
-    genocide.wdr	workdir
-    genocide.bus 	bus
-    genocide.cbs	callbacks
-    genocide.cfg	config
-    genocide.clt	client
-    genocide.com	commands
-    genocide.evt	event
-    genocide.hdl	handler
-    genocide.prs	parse
-    genocide.scn	scan
-    genocide.thr	thread
-    genocide.tmr	timer/repeater
-    genocide.utl	utility
-    genocide.cmd 	command
+    genocide.cmds	command
+    genocide.fnd	find
+    genocide.hdl 	handler
     genocide.irc	internet relay chat
-    genocide.mbx	email analysis
-    genocide.mdl	genocide model
-    genocide.req	request to the prosecutor
+    genocide.obj	object
+    genocide.mbx	mailbox
     genocide.rss	rich site syndicate
-    genocide.run	runtime
+    genocide.run 	runtime
     genocide.slg	slogan
+    genocide.thr 	thread
     genocide.udp	udp to irc relay
+    genocide.utl	utility

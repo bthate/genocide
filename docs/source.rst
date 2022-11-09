@@ -38,3 +38,4 @@
     genocide.thr 	thread
     genocide.udp	udp to irc relay
     genocide.utl	utility
+    genocide.wsd	wisdom

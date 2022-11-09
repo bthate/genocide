@@ -303,7 +303,6 @@ class Db:
         nmr = -1
         res = []
         for fnm in fns(otp, timed):
-            print(fnm)
             obj = hook(fnm)
             if deleted and "__deleted__" in obj and obj.__deleted__:
                 continue

@@ -19,11 +19,10 @@ from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
 
-from .obj import Class, Db, Default, Object
+from .obj import Class, Db, Default, Object, write
 from .obj import find, fntime, last, printable, save
 from .obj import edit, register, update
 from .hdl import Bus
-from .run import Cfg
 from .thr import Repeater, launch
 from .utl import elapsed, spl
 
@@ -129,7 +128,7 @@ class Fetcher(Object):
                 save(fed)
             objs.append(fed)
         if objs:
-            save(Fetcher.seen)
+            write(Fetcher.seen)
         txt = ""
         name = getattr(feed, "name")
         if name:
@@ -186,8 +185,6 @@ class Parser(Object):
 
 
 def getfeed(url, item):
-    if Cfg.debug:
-        return [Object(), Object()]
     try:
         result = geturl(url)
     except (ValueError, HTTPError, URLError):
@@ -252,13 +249,10 @@ def dpl(event):
         if feed:
             edit(feed, setter)
             save(feed)
-            event.ok()
+            event.done()
 
 
 def ftc(event):
-    if Cfg.debug:
-        event.reply("not fetching, debug is enabled")
-        return
     res = []
     thrs = []
     fetcher = Fetcher()
@@ -282,7 +276,7 @@ def nme(event):
         got.append(feed)
     for feed in got:
         save(feed)
-    event.ok()
+    event.done()
 
 
 def rem(event):
@@ -293,7 +287,7 @@ def rem(event):
     for feed in find("rss", selector):
         feed.__deleted__ = True
         save(feed)
-    event.ok()
+    event.done()
 
 
 def rss(event):
@@ -320,4 +314,4 @@ def rss(event):
     feed = Rss()
     feed.rss = event.args[0]
     save(feed)
-    event.ok()
+    event.done()

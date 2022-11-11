@@ -2,48 +2,7 @@
 # pylint: disable=R,C,W,C0302
 
 
-"""Big Object is a load/saveable python object
-
-This module contains a big Object class that provides a clean, no methods,
-namespace for json data to be read into. This is necessary so that methods
-don't get overwritten by __dict__ updating and, without methods defined on
-the object, is easily being updated from a on disk stored json (dict).
-
-basic usage is this::
-
- >>> import opl
- >>> o = opl.Object()
- >>> o.key = "value"
- >>> o.key
- 'value'
-
-Some hidden methods are provided, methods are factored out into functions
-like get, items, keys, register, set, update and values.
-
-load/save from/to disk::
-
- >>> import opl
- >>> o = opl.Object()
- >>> o.key = "value"
- >>> p = opl.save(o)
- >>> oo = opl.Object()
- >>> opl.load(oo, p)
- >>> oo.key
- 'value'
-
-Big Objects can be searched with database functions and uses read-only files
-to improve persistence and a type in filename for reconstruction::
-
- 'opl.obj.Object/2021-08-31/15:31:05.717063'
-
- >>> import opl
- >>> o = opl.Object()
- >>> opl.save(o)  # doctest: +ELLIPSIS
- 'opl.obj.Object/...'
-
-Great for giving objects peristence by having their state stored in files.
-
-"""
+"object"
 
 
 ## import
@@ -59,12 +18,9 @@ import pwd
 import queue
 import threading
 import time
-import traceback
 import types
 import uuid
-
-
-from stat import ST_UID, ST_MODE, S_IMODE
+import _thread
 
 
 ## define
@@ -94,39 +50,50 @@ def __dir__():
             'load',
             'loads',
             'match',
-            'name',
             'printable',
             'register',
             'save',
             'update',
             'values',
+            'write'
            )
 
 
 __all__ = __dir__()
 
 
+
+def locked(lock):
+
+    noargs = False
+
+    def lockeddec(func, *args, **kwargs):
+
+        def lockedfunc(*args, **kwargs):
+            lock.acquire()
+            if args or kwargs:
+                locked.noargs = True
+            res = None
+            try:
+                res = func(*args, **kwargs)
+            finally:
+                lock.release()
+            return res
+
+        lockeddec.__wrapped__ = func
+        lockeddec.__doc__ = func.__doc__
+        return lockedfunc
+
+    return lockeddec
+
+
+disklock = _thread.allocate_lock()
+
+
 ## object
 
 
 class Object:
-
-    """Big Objects load/save themselves to/from disk.
-
-       It has no methods, it's __dict__ is clean on start (clean namespace).
-       Method are implemented as functions with the object as the first
-       argument, a trick to mimic object method calls.
-
-       >>> import opl
-       >>> o = opl.Object()
-       >>> o.test = "try"
-       >>> opl.format(o)
-       'test=try'
-
-       Some hidden methods are provided, methods are factored out into functions
-       like get, items, keys, register, set, update and values.
-
-    """
 
 
     __slots__ = ("__dict__", "__fnm__")
@@ -203,21 +170,6 @@ def kind(obj):
     return kin
 
 
-def name(obj):
-    typ = type(obj)
-    if isinstance(typ, types.ModuleType):
-        return obj.__name__
-    if "__self__" in dir(obj):
-        return "%s.%s" % (obj.__self__.__class__.__name__, obj.__name__)
-    if "__class__" in dir(obj) and "__name__" in dir(obj):
-        return "%s.%s" % (obj.__class__.__name__, obj.__name__)
-    if "__class__" in dir(obj):
-        return obj.__class__.__name__
-    if "__name__" in dir(obj):
-        return obj.__name__
-    return None
-
-
 def printable(obj, args="", skip="", plain=False):
     res = []
     keyz = []
@@ -246,7 +198,7 @@ def printable(obj, args="", skip="", plain=False):
             txt = '%s=%s' % (key, value)
         res.append(txt)
     txt = " ".join(res)
-    return txt.rstrip()
+    return txt.strip()
 
 
 def register(obj, key, value):
@@ -314,12 +266,14 @@ class ObjectEncoder(json.JSONEncoder):
         return json.JSONEncoder.iterencode(self, o, *args, **kwargs)
 
 
+@locked(disklock)
 def dump(obj, opath):
     cdir(opath)
     with open(opath, "w", encoding="utf-8") as ofile:
         json.dump(
             obj.__dict__, ofile, cls=ObjectEncoder, indent=4, sort_keys=True
         )
+    os.chmod(opath, 0o444)
     return opath
 
 
@@ -327,6 +281,7 @@ def dumps(obj):
     return json.dumps(obj, cls=ObjectEncoder)
 
 
+@locked(disklock)
 def load(obj, opath):
     splitted = opath.split(os.sep)
     fnm = os.sep.join(splitted[-4:])
@@ -347,8 +302,21 @@ def save(obj):
     obj.__fnm__ = os.path.join(prv, os.sep.join(str(datetime.datetime.now()).split()))
     opath = Wd.getpath(obj.__fnm__)
     dump(obj, opath)
-    os.chmod(opath, 0o444)
     return obj.__fnm__
+
+
+@locked(disklock)
+def write(obj):
+    opath = Wd.getpath(obj.__fnm__)
+    cdir(opath)
+    if os.path.exists(opath):
+        os.chmod(opath, 0o666)
+    with open(opath, "w", encoding="utf-8") as ofile:
+        json.dump(
+            obj.__dict__, ofile, cls=ObjectEncoder, indent=4, sort_keys=True
+        )
+    os.chmod(opath, 0o444)
+    return opath
 
 
 ## database
@@ -460,6 +428,7 @@ def last(obj):
     ooo = Db.last(kind(obj))
     if ooo:
         update(obj, ooo)
+        obj.__fnm__ = ooo.__fnm__
 
 
 def match(otp, selector=None):
@@ -521,7 +490,7 @@ class Class:
 
 class Wd:
 
-    workdir = ""
+    workdir = ".op"
 
     @staticmethod
     def get():

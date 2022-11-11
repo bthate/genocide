@@ -30,13 +30,12 @@ sys.path.insert(0, os.getcwd())
 from genocide.hdl import Callback, Command, Event, Handler, parse
 from genocide.obj import Class, Object, Wd, keys, last, printable, update
 from genocide.obj import find, fntime, items, save, update
-from genocide.run import Cfg, command, scan, scandir, from_exception
+from genocide.hdl import command, scan, scandir
 from genocide.utl import elapsed
+from genocide.run import Cfg
 
 
 from genocide import cmds, irc, mdl, rss
-from genocide.irc import IRC
-from genocide.rss import Fetcher
 
 
 ## define
@@ -104,14 +103,6 @@ class Completer(rlcompleter.Completer):
             return None
 
 
-class Evt(Event):
-
-    def wait(self):
-        Event.wait(self)
-        if self._exc:
-            cprint(from_exception(self._exc))
-
-
 ## utility
 
 
@@ -131,6 +122,17 @@ def boot():
     cfg = parse(txt)
     update(Cfg, cfg)
     return cfg
+
+
+def from_exception(exc, txt="", sep=" "):
+    result = []
+    for frm in traceback.extract_tb(exc.__traceback__):
+        fnm = os.sep.join(frm.filename.split(os.sep)[-2:])
+        result.append(f"{fnm}:{frm.lineno}")
+    nme = name(exc)
+    res = sep.join(result)
+
+    return f"{txt} {res} {nme}: {exc}"
 
 
 def hup(_sig, _frame):
@@ -192,19 +194,15 @@ def wrap(func):
 
 def main():
     cfg = boot()
-    scandir("mod", importer)
     Command.add(ver)
     if cfg.txt:
         cli = CLI()
         return command(cli, cfg.txt)
     if Cfg.console:
         banner(cfg)
-        scandir("mod", init)
-        bot = IRC()
-        bot.start()
+        bot = irc.init()
         print(printable(bot.cfg, "nick,channel,server,port,sasl"))
-        fetcher = Fetcher()
-        fetcher.start()
+        rss.init()
         mdl.init()
         csl = Console()
         csl.start()

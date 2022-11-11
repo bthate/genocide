@@ -33,6 +33,24 @@ from .utl import elapsed, locked
 ## define
 
 
+def __dir__():
+    return (
+            'Config',
+            'IRC',
+            'cfg',
+            'dlt',
+            'init',
+            'met',
+            'mre',
+            'pwd'
+           )
+
+
+__all__ = __dir__()            
+
+
+name = "bot"
+realname = "The Python3 ``bot`` Namespace"
 saylock = _thread.allocate_lock()
 
 
@@ -52,17 +70,17 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    channel = "#genocide"
+    channel = "#%s" % name
     control = "!"
-    nick = "genocide"
+    nick = "%s" % name
     password = ""
     port = 6667
-    realname = "Prosecutor. Court. Reconsider OTP-CR-117/19."
+    realname = "%s" % realname
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "genocide"
+    username = "%s" % name
     users = False
 
     def __init__(self):
@@ -79,9 +97,6 @@ class Config(Default):
         self.sleep = Config.sleep
         self.username = Config.username
         self.users = Config.users
-
-
-Class.add(Config)
 
 
 class IEvent(Event):
@@ -157,9 +172,9 @@ class Output(Object):
                 _nr += 1
                 self.dosay(channel, txt)
 
-    def size(self, name):
+    def size(self, channel):
         if name in self.cache:
-            return len(self.cache[name])
+            return len(self.cache[channel])
         return 0
 
     def start(self):
@@ -592,9 +607,6 @@ class User(Object):
             update(self, val)
 
 
-Class.add(User)
-
-
 ## command
 
 
@@ -610,7 +622,7 @@ def cfg(event):
     else:
         edit(config, event.sets)
         save(config)
-        event.ok()
+        event.done()
 
 
 def dlt(event):
@@ -621,7 +633,7 @@ def dlt(event):
     for obj in find("user", selector):
         obj.__deleted__ = True
         save(obj)
-        event.ok()
+        event.done()
         break
 
 
@@ -641,7 +653,7 @@ def met(event):
     user.user = event.rest
     user.perms = ["USER"]
     save(user)
-    event.ok()
+    event.done()
 
 
 def mre(event):
@@ -672,3 +684,10 @@ def pwd(event):
     base = base64.b64encode(enc)
     dcd = base.decode("ascii")
     event.reply(dcd)
+
+
+## runtime
+
+
+Class.add(Config)
+Class.add(User)

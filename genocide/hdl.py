@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=R,C,W,C0302
+# pylint: disable=C0115,C0116,W0703,W0201,R0902,R0903
 
 
 "handler"
@@ -8,27 +8,36 @@
 ## import
 
 
-import datetime
-import getpass
 import inspect
-import json
 import os
-import pathlib
-import pwd
 import queue
 import threading
 import time
-import traceback
-import types
-import uuid
 
 
-from stat import ST_UID, ST_MODE, S_IMODE
-
-
-from .obj import Default, Object, register
+from .obj import Class, Default, Object, register
 from .thr import launch
-from. utl import elapsed
+from .utl import elapsed
+
+## define
+
+
+def __dir__():
+    return (
+            'Bus',
+            'Callback',
+            'Command',
+            'Parsed',
+            'Event',
+            'Handler',
+            'command',
+            'parse',
+            'scan',
+            'scandir'
+           )
+
+
+__all__ = __dir__()
 
 
 ## class
@@ -68,7 +77,7 @@ class Callback(Object):
 
     cbs = Object()
     errors = []
-    
+
     def register(self, typ, cbs):
         if typ not in self.cbs:
             setattr(self.cbs, typ, cbs)
@@ -82,9 +91,8 @@ class Callback(Object):
             func(event)
         except Exception as ex:
             Callback.errors.append(ex)
-            event._exc = ex
             event.ready()
-            
+  
     def dispatch(self, event):
         self.callback(event)
 
@@ -129,9 +137,6 @@ class Parsed(Default):
         self.sets = Default()
         self.toskip = Default()
         self.txt = ""
-
-    def default(self, key, default=""):
-        register(self, key, default)
 
     def parse(self, txt=None):
         self.isparsed = True
@@ -182,9 +187,7 @@ class Event(Parsed):
         self.__ready__ = threading.Event()
         self.control = "!"
         self.createtime = time.time()
-        self.errors = []
         self.result = []
-        self.txt = ""
         self.type = "event"
 
     def bot(self):
@@ -193,8 +196,9 @@ class Event(Parsed):
     def error(self):
         pass
 
-    def ok(self):
-        Bus.say(self.orig, self.channel, 'ok %s' % elapsed(time.time()-self.createtime))
+    def done(self):
+        diff = elapsed(time.time()-self.createtime)
+        Bus.say(self.orig, self.channel, f'ok {diff}')
 
     def ready(self):
         self.__ready__.set()
@@ -248,7 +252,7 @@ class Handler(Callback):
         self.start()
 
     def say(self, channel, txt):
-        self.raw(txt)
+        pass
 
     def stop(self):
         self.stopped.set()
@@ -265,6 +269,14 @@ class Handler(Callback):
 ## utility
 
 
+def command(cli, txt, event=None):
+    evt = event and event() or Event()
+    evt.parse(txt)
+    evt.orig = repr(cli)
+    cli.handle(evt)
+    return evt
+
+
 def parse(txt):
     prs = Parsed()
     prs.parse(txt)
@@ -274,3 +286,29 @@ def parse(txt):
         prs.verbose = True
     return prs
 
+
+def scan(mod):
+    for key, clz in inspect.getmembers(mod, inspect.isclass):
+        Class.add(clz)
+    for key, cmd in inspect.getmembers(mod, inspect.isfunction):
+        if key.startswith("cb"):
+            continue
+        names = cmd.__code__.co_varnames
+        if "event" in names:
+            Command.add(cmd)
+
+
+def scandir(path, func):
+    res = []
+    if not os.path.exists(path):
+        return res
+    for fnm in os.listdir(path):
+        if fnm.endswith("~") or fnm.startswith("__"):
+            continue
+        try:
+            pname = fnm.split(os.sep)[-2]
+        except IndexError:
+            pname = path
+        mname = fnm.split(os.sep)[-1][:-3]
+        res.append(func(pname, mname))
+    return res

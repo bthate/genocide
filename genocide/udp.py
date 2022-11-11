@@ -18,12 +18,16 @@ from .thr import launch
 
 ## define
 
+
 def __dir__():
     return (
             "Cfg",
             "UDP",
             "init",
            )
+
+
+__all__ = __dir__()
 
 
 def init():
@@ -41,9 +45,6 @@ class Cfg(Object):
         super().__init__()
         self.host = "localhost"
         self.port = 5500
-
-
-Class.add(Cfg)
 
 
 class UDP(Object):
@@ -84,3 +85,9 @@ class UDP(Object):
     def start(self):
         last(self.cfg)
         launch(self.server)
+
+
+## runtime
+
+
+Class.add(Cfg)

@@ -8,10 +8,27 @@
 ## import
 
 
+import os
 import queue
 import threading
 import time
 import types
+
+
+## define
+
+
+def __dir__():
+    return (
+            'Thread',
+            'Timer',
+            'Repeater',
+            'launch',
+            'name'
+           ) 
+
+
+__all__ = __dir__()
 
 
 ## class

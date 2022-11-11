@@ -11,9 +11,9 @@ import os
 import time
 
 
-from genocide.obj import Class, Db, Object
-from genocide.obj import find, fntime, printable, save, update
-from genocide.utl import elapsed
+from .obj import Class, Db, Object
+from .obj import find, fntime, printable, save, update
+from .utl import elapsed
 
 
 ## define

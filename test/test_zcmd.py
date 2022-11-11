@@ -10,8 +10,8 @@ import unittest
 
 
 from genocide.obj import Object
-from genocide.hdl import Command, Handler
-from genocide.run import Cfg, command
+from genocide.hdl import Command, Handler, command
+from genocide.run import Cfg
 
 
 evts = []

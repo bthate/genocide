@@ -49,8 +49,8 @@ def __dir__():
 __all__ = __dir__()            
 
 
-name = "bot"
-realname = "The Python3 ``bot`` Namespace"
+name = "genocide"
+realname = "Court. Prosecutor. Reconsider OTP-CR-117/19."
 saylock = _thread.allocate_lock()
 
 

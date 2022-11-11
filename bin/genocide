@@ -71,6 +71,9 @@ class CLI(Handler):
         cprint(txt)
 
 
+    def say(self, channel, txt):
+        self.raw(txt)
+
 class Console(CLI):
 
     @staticmethod

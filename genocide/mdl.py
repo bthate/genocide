@@ -389,9 +389,8 @@ def cbstats(evt):
         nryear = int(YEAR/needed)
         nrday = int(DAY/needed)
         delta2 = time.time() - getday()
-        print(delta2)
         thisday = int(delta2/needed)
-        onday = (24*60*60/needed)
+        #onday = (24*60*60/needed)
         txt = "patient #%s died from %s (%s/%s) every %s (%s/year)" % (
                                                                nrtimes,
                                                                getalias(name),

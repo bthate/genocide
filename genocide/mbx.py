@@ -11,7 +11,7 @@ import os
 import time
 
 
-from .obj import Class, Db, Object
+from .obj import Class, Object, find
 from .obj import find, fntime, printable, save, update
 from .utl import elapsed
 
@@ -139,14 +139,13 @@ def eml(event):
         event.reply("eml <searchtxtinemail>")
         return
     _nr = -1
-    dbs = Db()
-    for _fn, obj in dbs.all("email"):
+    for obj in find("email"):
         if event.rest in obj.text:
             _nr += 1
             event.reply("%s %s %s" % (
                                       _nr,
                                       printable(obj, "From,Subject"),
-                                      elapsed(time.time() - fntime(_fn)))
+                                      elapsed(time.time() - fntime(obj.__fnm__)))
                                      )
 
 
@@ -156,7 +155,7 @@ def mbx(event):
         return
     fnm = os.path.expanduser(event.args[0])
     event.reply("reading from %s" % fnm)
-    _nr = 0
+    nmr = 0
     if os.path.isdir(fnm):
         thing = mailbox.Maildir(fnm, create=False)
     elif os.path.isfile(fnm):
@@ -167,15 +166,15 @@ def mbx(event):
         thing.lock()
     except FileNotFoundError:
         pass
-    for _em in thing:
+    for ema in thing:
         email = Email()
-        update(email, _em._headers)
+        update(email, ema._headers)
         email.text = ""
-        for payload in _em.walk():
+        for payload in ema.walk():
             if payload.get_content_type() == 'text/plain':
                 email.text += payload.get_payload()
         email.text = email.text.replace("\\n", "\n")
         save(email)
-        _nr += 1
-    if _nr:
-        event.reply("ok %s" % _nr)
+        nmr += 1
+    if nmr:
+        event.reply("ok %s" % nmr)

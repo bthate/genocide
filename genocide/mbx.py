@@ -11,7 +11,7 @@ import os
 import time
 
 
-from .obj import Class, Object, find
+from .obj import Class, Object
 from .obj import find, fntime, printable, save, update
 from .utl import elapsed
 

@@ -34,7 +34,7 @@ setup(
     author_email='bthate67@gmail.com', 
     description="Prosecutor. Court. Reconsider OTP-CR-117/19.",
     long_description=read(),
-    long_description_content_type='text/x-rst`,
+    long_description_content_type='text/x-rst',
     license='Public Domain',
     packages=["genocide"],
     zip_safe=True,

@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,C0116,C0301,W0613
+# pylint: disable=E1101,C0116,C0301,W0613,R1710,C0209
 
 
 "model"
@@ -24,7 +24,7 @@ def __dir__():
     return (
         "init",
         "mdl",
-        "now",        
+        "now"
     )
 
 
@@ -273,9 +273,9 @@ aliases["Suicide"] = "suicide"
 
 
 def getalias(txt):
-    for ali in aliases.keys():
-        if txt.lower() in ali.lower():
-            return aliases[ali]
+    for key, value in aliases.items():
+        if txt.lower() in key.lower():
+            return value
 
 
 demo = Object()
@@ -352,7 +352,7 @@ def getday():
     day = day.replace(hour=0, minute=0, second=0, microsecond=0)
     return day.timestamp()
 
-    
+
 def getnr(name):
     for k in keys(oorzaken):
         if name.lower() in k.lower():

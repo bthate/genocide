@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
-# pylint: disable=R,C,W,C0302
+# pylint: disable=R,C,W,C0302,E0611
 
 
-"Prosecutor. Court. Reconsider OTP-CR-!17/19."
+"Court. Prosecutor. Reconsider OTP-CR-!17/19."
 
 
-__version__ = "84"
+__version__ = "85"
 
 
 ## import
@@ -21,6 +21,7 @@ import signal
 import sys
 import termios
 import threading
+import traceback
 import time
 
 
@@ -31,6 +32,7 @@ from genocide.hdl import Callback, Command, Event, Handler, parse
 from genocide.obj import Class, Object, Wd, keys, last, printable, update
 from genocide.obj import find, fntime, items, save, update
 from genocide.hdl import command, scan, scandir
+from genocide.thr import name
 from genocide.utl import elapsed
 from genocide.run import Cfg
 
@@ -200,7 +202,7 @@ def main():
     Command.add(ver)
     if cfg.txt:
         cli = CLI()
-        return command(cli, cfg.txt)
+        return command(cli, cfg.otxt)
     if Cfg.console:
         banner(cfg)
         bot = irc.init()

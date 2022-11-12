@@ -1,8 +1,8 @@
 # This file is placed in the Public Domain.
 # pylint: disable=C0115,C0116,R0201,C0413,R0902,R0903,W0201,W0613
-# pylint: disable=R0912,R0915,R0904,W0221 
+# pylint: disable=E1101,R0912,R0915,R0904,W0221,C0209
 
- 
+
 "irc"
 
 
@@ -46,11 +46,11 @@ def __dir__():
            )
 
 
-__all__ = __dir__()            
+__all__ = __dir__()
 
 
-name = "genocide"
-realname = "Court. Prosecutor. Reconsider OTP-CR-117/19."
+NAME = "genocide"
+REALNAME = "Court. Prosecutor. Reconsider OTP-CR-117/19."
 saylock = _thread.allocate_lock()
 
 
@@ -70,17 +70,17 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    channel = "#%s" % name
+    channel = "#%s" % NAME
     control = "!"
-    nick = "%s" % name
+    nick = "%s" % NAME
     password = ""
     port = 6667
-    realname = "%s" % realname
+    realname = "%s" % REALNAME
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = "%s" % name
+    username = "%s" % NAME
     users = False
 
     def __init__(self):
@@ -222,7 +222,7 @@ class IRC(Handler, Output):
         self.register("PRIVMSG", self.privmsg)
         self.register("QUIT", self.quit)
         self.register("command", Command.handle)
-        
+
     def announce(self, txt):
         for channel in self.channels:
             self.say(channel, txt)

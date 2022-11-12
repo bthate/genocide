@@ -92,7 +92,7 @@ class Callback(Object):
         except Exception as ex:
             Callback.errors.append(ex)
             event.ready()
-  
+
     def dispatch(self, event):
         self.callback(event)
 

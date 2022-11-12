@@ -21,11 +21,11 @@ from genocide import update
 
 Wd.workdir = ".test"
 
-stopmarkers = ['python', 'genocide']
 
 events = []
 results = []
 starttime = time.time()
+stopmarkers = ['python', 'genocide', 'src', 'lib', 'bin']
 
 
 param = Object()
@@ -71,24 +71,22 @@ class CLI(Handler):
 def callstack(frame):
     result = []
     loopframe = frame
-    marker = ""
     while 1:
         try:
             filename = loopframe.f_back.f_code.co_filename
             plugfile = filename.split(os.sep)
             if plugfile:
                 mod = []
+                stop = False
                 for i in plugfile[::-1]:
                     next = False
                     for stp in stopmarkers:
                         if stp in i:
-                            next = True
-                        marker = i
+                            stop = True
+                            break
+                    if stop:
                         break
-                    if next:
-                        continue
                     mod.append(i)
-                #modstr = '.'.join(mod[::-1])[:-3]
                 modstr = os.sep.join(mod[::-1])
                 if not modstr:
                     modstr = plugfile

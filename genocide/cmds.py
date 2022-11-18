@@ -2,26 +2,18 @@
 # pylint: disable=E1101,R0903,C0209
 
 
-"commands"
-
-
-## import
+"command"
 
 
 import threading
 import time
 
 
-from .hdl import Bus, Command
-from .obj import Class, Object, find, fntime, save, update
-from .thr import name
-from .utl import elapsed
-
-
-## define
-
-
-starttime = time.time()
+from .handler import Bus, Command
+from .object import Class, Object, find, fntime, save, update
+from .run import starttime
+from .thread import name
+from .util import elapsed
 
 
 def __dir__():
@@ -35,7 +27,6 @@ def __dir__():
             'thr',
             'upt'
            )
-## class
 
 
 class Log(Object):
@@ -54,9 +45,6 @@ class Todo(Log):
 
 
 Class.add(Todo)
-
-
-## command
 
 
 def cmd(event):

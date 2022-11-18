@@ -3,7 +3,7 @@
 # pylint: disable=R,C,W,C0302,E0611
 
 
-"Court. Prosecutor. Reconsider OTP-CR-!17/19."
+"Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-!17/19."
 
 
 __version__ = "85"
@@ -28,12 +28,12 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.hdl import Callback, Command, Event, Handler, parse
-from genocide.obj import Class, Object, Wd, keys, last, printable, update
-from genocide.obj import find, fntime, items, save, update
-from genocide.hdl import command, scan, scandir
-from genocide.thr import name
-from genocide.utl import elapsed
+from genocide.handler import Callback, Command, Event, Handler, parse
+from genocide.object import Class, Object, Wd, keys, last, printable, update
+from genocide.object import find, fntime, items, save, update
+from genocide.handler import command, scan, scandir
+from genocide.thread import name
+from genocide.util import elapsed
 from genocide.run import Cfg
 
 

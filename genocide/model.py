@@ -5,9 +5,6 @@
 "model"
 
 
-## import
-
-
 import datetime
 import time
 
@@ -17,8 +14,6 @@ from .hdl import Bus, Event
 from .thr import Repeater, launch
 from .utl import elapsed
 
-
-## define
 
 def __dir__():
     return (
@@ -247,9 +242,6 @@ aantal = """
 oorzaak = Object(zip(oor,aantal))
 
 
-## model
-
-
 #oorzaak.Suicide = 1859
 
 aliases = {}
@@ -400,9 +392,6 @@ def cbstats(evt):
                                                                nryear,
                                                               )
         Bus.announce(txt)
-
-
-## command
 
 
 def now(event):

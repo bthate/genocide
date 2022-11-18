@@ -28,11 +28,11 @@ import traceback
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.hdl import Callback, Command, Event, Handler, parse
-from genocide.obj import Class, Object, Wd, keys, last, printable, update
-from genocide.obj import find, fntime, items, save, update
-from genocide.hdl import command, scan, scandir
-from genocide.utl import elapsed, wait
+from genocide.handler import Callback, Command, Event, Handler, parse
+from genocide.object import Class, Object, Wd, keys, last, printable, update
+from genocide.object import find, fntime, items, save, update
+from genocide.handler import command, scan, scandir
+from genocide.util import elapsed, wait
 
 
 from genocide import cmds, irc, mdl, rss

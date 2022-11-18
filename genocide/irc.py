@@ -6,9 +6,6 @@
 "irc"
 
 
-## import
-
-
 import base64
 import os
 import queue
@@ -28,9 +25,6 @@ from .obj import register
 from .hdl import Command, Event, Handler
 from .thr import launch
 from .utl import elapsed, locked
-
-
-## define
 
 
 def __dir__():
@@ -58,9 +52,6 @@ def init():
     irc = IRC()
     irc.start()
     return irc
-
-
-## class
 
 
 class NoUser(Exception):
@@ -607,9 +598,6 @@ class User(Object):
             update(self, val)
 
 
-## command
-
-
 def cfg(event):
     config = Config()
     last(config)
@@ -684,9 +672,6 @@ def pwd(event):
     base = base64.b64encode(enc)
     dcd = base.decode("ascii")
     event.reply(dcd)
-
-
-## runtime
 
 
 Class.add(Config)

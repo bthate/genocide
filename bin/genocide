@@ -6,10 +6,7 @@
 "Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-!17/19."
 
 
-__version__ = "85"
-
-
-## import
+__version__ = "86"
 
 
 import atexit
@@ -37,14 +34,12 @@ from genocide.util import elapsed
 from genocide.run import Cfg
 
 
-from genocide import cmds, irc, mdl, rss
+from genocide import cmds, irc, model, rss
 
-
-## define
 
 scan(cmds)
 scan(irc)
-scan(mdl)
+scan(model)
 scan(rss)
 
 
@@ -57,9 +52,6 @@ starttime = time.time()
 def cprint(txt):
     print(txt)
     sys.stdout.flush()
-
-
-## class
 
 
 class CLI(Handler):
@@ -106,9 +98,6 @@ class Completer(rlcompleter.Completer):
             return self.matches[state]
         except IndexError:
             return None
-
-
-## utility
 
 
 def banner(cfg):
@@ -194,9 +183,6 @@ def wrap(func):
         cprint(from_exception(err))
 
 
-## runtime
-
-
 def main():
     cfg = boot()
     Command.add(ver)
@@ -208,7 +194,7 @@ def main():
         bot = irc.init()
         print(printable(bot.cfg, "nick,channel,server,port,sasl"))
         rss.init()
-        mdl.init()
+        model.init()
         csl = Console()
         csl.start()
         csl.wait()

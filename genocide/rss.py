@@ -1,11 +1,8 @@
 # This file is placed in the Public Domain.
-# pylint: disable=R0903,C0209
+# pylint: disable=R0903,C0115,C0116
 
 
 "rich site syndicate"
-
-
-## import
 
 
 import html.parser
@@ -20,15 +17,12 @@ from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
 
-from .obj import Class, Db, Default, Object, write
-from .obj import find, fntime, last, printable, save
-from .obj import edit, register, update
-from .hdl import Bus
-from .thr import Repeater, launch
-from .utl import elapsed, spl
-
-
-## define
+from .object import Class, Db, Default, Object, write
+from .object import find, fntime, last, printable, save
+from .object import edit, register, update
+from .handler import Bus
+from .thread import Repeater, launch
+from .util import elapsed, spl
 
 
 def __dir__():
@@ -52,9 +46,6 @@ def init():
     fetcher = Fetcher()
     fetcher.start()
     return fetcher
-
-
-## class
 
 
 class Feed(Default):
@@ -182,9 +173,6 @@ class Parser(Object):
         return res
 
 
-## utility
-
-
 def getfeed(url, item):
     try:
         result = geturl(url)
@@ -234,9 +222,6 @@ def unescape(text):
 
 def useragent(txt):
     return "Mozilla/5.0 (X11; Linux x86_64) " + txt
-
-
-## command
 
 
 def dpl(event):

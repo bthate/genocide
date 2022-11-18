@@ -36,7 +36,7 @@ setup(
     long_description=read(),
     long_description_content_type='text/x-rst',
     license='Public Domain',
-    packages=["gci", "genocide"],
+    packages=["genocide"],
     zip_safe=True,
     include_package_data=True,
     data_files=[

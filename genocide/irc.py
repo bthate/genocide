@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 # pylint: disable=C0115,C0116,R0201,C0413,R0902,R0903,W0201,W0613
-# pylint: disable=E1101,R0912,R0915,R0904,W0221,C0209
+# pylint: disable=E1101,R0912,R0915,R0904,W0221
 
 
 "irc"
@@ -18,13 +18,13 @@ import threading
 import _thread
 
 
-from .obj import Class, Default, Object
-from .obj import keys, last, printable
-from .obj import edit, fntime, find, save, update
-from .obj import register
-from .hdl import Command, Event, Handler
-from .thr import launch
-from .utl import elapsed, locked
+from .object import Class, Default, Object
+from .object import keys, last, printable
+from .object import edit, fntime, find, save, update
+from .object import locked, register
+from .handler import Command, Event, Handler
+from .thread import launch
+from .util import elapsed
 
 
 def __dir__():
@@ -163,9 +163,9 @@ class Output(Object):
                 _nr += 1
                 self.dosay(channel, txt)
 
-    def size(self, channel):
-        if name in self.cache:
-            return len(self.cache[channel])
+    def size(self, chan):
+        if chan in self.cache:
+            return len(self.cache[chan])
         return 0
 
     def start(self):

@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.hdl import Bus, Handler
+from genocide.handler import Bus, Handler
 
 
 class Client(Handler):

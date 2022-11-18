@@ -3,13 +3,10 @@
 # pylint: disable=R,C,W,C0302
 
 
-"""Court. Prosecutor. Reconsider OTP-CR-117/19."""
+"""Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."""
 
 
 __version__ = "116"
-
-
-## import
 
 
 import atexit
@@ -35,10 +32,7 @@ from genocide.handler import command, scan, scandir
 from genocide.util import elapsed, wait
 
 
-from genocide import cmds, irc, mdl, rss
-
-
-## define
+from genocide import cmds, irc, model, rss
 
 
 Wd.workdir = os.path.expanduser("/var/lib/genocide/")
@@ -49,11 +43,8 @@ starttime = time.time()
 
 scan(cmds)
 scan(irc)
-scan(mdl)
+scan(model)
 scan(rss)
-
-
-## class
 
 
 class CLI(Handler):
@@ -70,9 +61,6 @@ class CLI(Handler):
         self.raw(txt)
 
 
-## utiltiy
-
-
 def daemon():
     pid = os.fork()
     if pid != 0:
@@ -87,28 +75,14 @@ def daemon():
     os.dup2(ses.fileno(), sys.stderr.fileno())
 
 
-def hup(_sig, _frame):
-    print("signal 15 called")
-    sys.stdout.flush()
-
-
-## command
-
-
 def ver(event):
     event.reply("GENOCIDE %s" % __version__)
-
-
-## runtime
-
-
-signal.signal(signal.SIGHUP, hup)
 
 
 if __name__ == "__main__":
     daemon()
     Command.add(ver)
     irc.init()
-    mdl.init()
+    model.init()
     rss.init()
     wait()

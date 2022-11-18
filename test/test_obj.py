@@ -10,10 +10,10 @@ import os
 import unittest
 
 
-from genocide.obj import Object, Wd, items, keys, register, update, values
-from genocide.obj import edit, kind, load, save
-from genocide.obj import ObjectDecoder, ObjectEncoder
-from genocide.obj import printable
+from genocide.object import Object, Wd, items, keys, register, update, values
+from genocide.object import edit, kind, load, save
+from genocide.object import ObjectDecoder, ObjectEncoder
+from genocide.object import printable
 
 
 Wd.workdir = ".test"

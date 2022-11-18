@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,C0116,C0301,W0613,R1710,C0209
+# pylint: disable=E1101,C0116,C0301,W0613,R1710
 
 
 "model"
@@ -9,10 +9,10 @@ import datetime
 import time
 
 
-from .obj import Object,  keys
-from .hdl import Bus, Event
-from .thr import Repeater, launch
-from .utl import elapsed
+from .object import Object,  keys
+from .handler import Bus, Event
+from .thread import Repeater, launch
+from .util import elapsed
 
 
 def __dir__():

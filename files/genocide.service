@@ -1,5 +1,5 @@
 [Unit]
-Description=Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19.
+Description=Assembly. Court. Prosecutor. Reconsider OTP-CR-117/19.
 After=multi-user.target
 
 [Service]

@@ -30,7 +30,7 @@
     genocide.handler	handler
     genocide.irc	internet relay chat
     genocide.object	object
-    genocide.req	request
+    genocide.request	request
     genocide.rss	rich site syndicate
     genocide.run 	runtime
     genocide.slogan	slogan

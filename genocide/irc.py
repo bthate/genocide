@@ -222,14 +222,14 @@ class IRC(Handler, Output):
 
     def auth(self, event):
         time.sleep(1.0)
-        self.raw("AUTHENTICATE %s" % self.cfg.password)
+        self.command("AUTHENTICATE %s" % self.cfg.password)
 
     def cap(self, event):
         time.sleep(1.0)
         if self.cfg.password and "ACK" in event.arguments:
-            self.raw("AUTHENTICATE PLAIN")
+            self.command("AUTHENTICATE PLAIN")
         else:
-            self.raw("CAP REQ :sasl")
+            self.command("CAP REQ :sasl")
 
     @locked(saylock)
     def command(self, cmd, *args):
@@ -260,7 +260,7 @@ class IRC(Handler, Output):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock = ctx.wrap_socket(sock)
             self.sock.connect((server, port))
-            self.raw("CAP LS 302")
+            self.command("CAP LS 302")
         else:
             addr = socket.getaddrinfo(server, port, socket.AF_INET)[-1][-1]
             self.sock = socket.create_connection(addr)
@@ -307,7 +307,7 @@ class IRC(Handler, Output):
         if cmd == "001":
             self.state.needconnect = False
             if self.cfg.servermodes:
-                self.raw("MODE %s %s" % (self.cfg.nick, self.cfg.servermodes))
+                self.command("MODE %s %s" % (self.cfg.nick, self.cfg.servermodes))
             self.zelf = evt.args[-1]
             self.joinall()
         elif cmd == "002":
@@ -326,11 +326,11 @@ class IRC(Handler, Output):
 
     def h903(self, event):
         time.sleep(1.0)
-        self.raw("CAP END")
+        self.command("CAP END")
 
     def h904(self, event):
         time.sleep(1.0)
-        self.raw("CAP END")
+        self.command("CAP END")
 
     def joinall(self):
         for channel in self.channels:
@@ -353,8 +353,8 @@ class IRC(Handler, Output):
         assert nck
         assert self.cfg.username
         assert self.cfg.realname
-        self.raw("NICK %s" % nck)
-        self.raw(
+        self.command("NICK %s" % nck)
+        self.command(
                  "USER %s %s %s :%s" % (self.cfg.username,
                  server,
                  server,

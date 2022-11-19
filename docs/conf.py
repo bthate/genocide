@@ -3,11 +3,11 @@
 #
 
 
-"Prosecutor. Court. Reconsider OTP-CR-117/19."
+"Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
 
 
 __name__ = "genocide"
-__version__ = "83"
+__version__ = "86"
 
 
 import doctest

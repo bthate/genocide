@@ -3,9 +3,9 @@ Description=Assembly. Court. Prosecutor. Reconsider OTP-CR-117/19.
 After=multi-user.target
 
 [Service]
-Type=forking
+#Type=forking
 KillMode=mixed
-PrivateTmp=true
+#PrivateTmp=true
 DynamicUser=True
 StateDirectory=genocide
 LogsDirectory=genocide

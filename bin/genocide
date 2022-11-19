@@ -28,13 +28,14 @@ from genocide.thread import name
 from genocide.run import Cfg
 
 
-from genocide import cmds, irc, model, rss
+from genocide import cmds, debug, irc, model, rss
 
 
 __version__ = "87"
 
 
 scan(cmds)
+scan(debug)
 scan(irc)
 scan(model)
 scan(rss)

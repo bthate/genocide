@@ -32,7 +32,7 @@ from genocide.handler import command, scan, scandir
 from genocide.util import elapsed, wait
 
 
-from genocide import cmds, irc, model, rss
+from genocide import cmds, debug, irc, model, rss
 
 
 Wd.workdir = os.path.expanduser("/var/lib/genocide/")
@@ -42,6 +42,7 @@ starttime = time.time()
 
 
 scan(cmds)
+scan(debug)
 scan(irc)
 scan(model)
 scan(rss)
@@ -61,18 +62,24 @@ class CLI(Handler):
         self.raw(txt)
 
 
-def daemon():
+def cprint(txt):
+    print(txt)
+    sys.stdout.flush()
+
+
+def daemon(silent=False):
     pid = os.fork()
     if pid != 0:
         os._exit(0)
     os.setsid()
     os.umask(0)
     sis = open("/dev/null", 'r')
-    sos = open("/dev/null", 'a+')
-    ses = open("/dev/null", 'a+')
     os.dup2(sis.fileno(), sys.stdin.fileno())
-    os.dup2(sos.fileno(), sys.stdout.fileno())
-    os.dup2(ses.fileno(), sys.stderr.fileno())
+    if silent:
+        sos = open("/dev/null", 'a+')
+        ses = open("/dev/null", 'a+')
+        os.dup2(sos.fileno(), sys.stdout.fileno())
+        os.dup2(ses.fileno(), sys.stderr.fileno())
 
 
 def ver(event):
@@ -80,7 +87,7 @@ def ver(event):
 
 
 if __name__ == "__main__":
-    daemon()
+    #daemon()
     Command.add(ver)
     irc.init()
     model.init()

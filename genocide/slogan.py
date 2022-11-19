@@ -5,8 +5,8 @@
 "slogan"
 
 
-TXT = "Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-!17/19."
+TXT = "Assembly. Court. Prosecutor. Reconsider OTP-CR-!17/19."
 
 
-def slg(event):
+def slogan(event):
     event.reply(TXT)

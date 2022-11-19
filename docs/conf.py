@@ -3,7 +3,7 @@
 #
 
 
-"Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
+"Assembly. Court. Prosecutor. Reconsider OTP-CR-117/19."
 
 
 __name__ = "genocide"
@@ -58,7 +58,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
+html_title = "Assembly. Court. Prosecutor. Reconsider OTP-CR-117/19."
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]

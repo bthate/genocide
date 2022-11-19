@@ -44,7 +44,7 @@ __all__ = __dir__()
 
 
 NAME = "genocide"
-REALNAME = "Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
+REALNAME = "Assembly. Court. Prosecutor. Reconsider OTP-CR-117/19."
 
 
 saylock = _thread.allocate_lock()
@@ -246,8 +246,8 @@ class IRC(Handler, Output):
                                   args[1],
                                   " ".join(args[2:]))
             )
-        if (time.time() - self.state.last) < 4.0:
-            time.sleep(4.0)
+        if (time.time() - self.state.last) < 5.0:
+            time.sleep(5.0)
         self.state.last = time.time()
 
     def connect(self, server, port=6667):
@@ -482,7 +482,7 @@ class IRC(Handler, Output):
                 self.sock.send(txt)
             except (ConnectionResetError, BrokenPipeError) as ex:
                 time.sleep(5.0)
-                self.state.errors.append(str(ex))
+                self.errors.append(ex)
                 self.stop()
         self.state.last = time.time()
         self.state.nrsend += 1

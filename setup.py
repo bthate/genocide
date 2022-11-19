@@ -46,7 +46,7 @@ setup(
                 ("share/doc/genocide/_static", uploadlist("docs/_static")),
                 ("share/doc/genocide/_templates", uploadlist("docs/_templates")),
                ],
-    scripts=["bin/gci", "bin/genocide", "bin/genocidecmd", "bin/genocidectl", "bin/genocided"],
+    scripts=["bin/genocide", "bin/genocidecmd", "bin/genocidectl", "bin/genocided"],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: Public Domain',
                  'Operating System :: Unix',

@@ -3,10 +3,10 @@
 # pylint: disable=R,C,W,C0302
 
 
-"""Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."""
+"Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
 
 
-__version__ = "116"
+__version__ = "86"
 
 
 import atexit

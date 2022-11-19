@@ -22,7 +22,7 @@
 
 **NAME**
 
- **GENOCIDE** - Prosecutor. Court. Reconsider OTP-CR-117/19.
+ **GENOCIDE** - Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19.
 
 
 **SYNOPSIS**

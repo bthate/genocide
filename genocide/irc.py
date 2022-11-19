@@ -44,7 +44,9 @@ __all__ = __dir__()
 
 
 NAME = "genocide"
-REALNAME = "Court. Prosecutor. Reconsider OTP-CR-117/19."
+REALNAME = "Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
+
+
 saylock = _thread.allocate_lock()
 
 

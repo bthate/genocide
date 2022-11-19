@@ -27,16 +27,12 @@
     :template: module.rst
 
     genocide.cmds	command
-    genocide.fnd	find
-    genocide.hdl 	handler
+    genocide.handler	handler
     genocide.irc	internet relay chat
-    genocide.obj	object
-    genocide.mbx	mailbox
+    genocide.object	object
     genocide.req	request
     genocide.rss	rich site syndicate
     genocide.run 	runtime
-    genocide.slg	slogan
-    genocide.thr 	thread
-    genocide.udp	udp to irc relay
-    genocide.utl	utility
-    genocide.wsd	wisdom
+    genocide.slogan	slogan
+    genocide.thread 	thread
+    genocide.util	utility

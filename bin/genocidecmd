@@ -3,13 +3,10 @@
 # pylint: disable=R,C,W,C0302
 
 
-"""Court. Prosecutor. Reconsider OTP=CR-117/19."""
+"Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-117/19."
 
 
-__version__ = "85"
-
-
-## import
+__version__ = "86"
 
 
 import atexit
@@ -39,9 +36,6 @@ from genocide.util import elapsed
 from genocide import cmds, irc, rss
 
 
-## define
-
-
 Wd.workdir = os.path.expanduser("/var/lib/genocide/")
 
 
@@ -51,9 +45,6 @@ starttime = time.time()
 scan(cmds)
 scan(irc)
 scan(rss)
-
-
-## class
 
 
 class CLI(Handler):
@@ -105,14 +96,8 @@ def isopt(cfg, ostr):
     return False
 
 
-## command
-
-
 def ver(event):
     event.reply("GENOCIDE %s" % __version__)
-
-
-## runtime
 
 
 if __name__ == "__main__":

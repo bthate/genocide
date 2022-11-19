@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
-# pylint: disable=R,C,W,C0302,E0611
+# pylint: disable=E0611,C0413,C0115,C0116
 
 
 "Assembly. Court. Prosecutor. Stop Genocide. Reconsider OTP-CR-!17/19."
-
-
-__version__ = "86"
 
 
 import atexit
@@ -17,7 +14,6 @@ import rlcompleter
 import signal
 import sys
 import termios
-import threading
 import traceback
 import time
 
@@ -26,15 +22,16 @@ sys.path.insert(0, os.getcwd())
 
 
 from genocide.handler import Callback, Command, Event, Handler, parse
-from genocide.object import Class, Object, Wd, keys, last, printable, update
-from genocide.object import find, fntime, items, save, update
-from genocide.handler import command, scan, scandir
+from genocide.object import Wd, keys, printable, update
+from genocide.handler import command, scan
 from genocide.thread import name
-from genocide.util import elapsed
 from genocide.run import Cfg
 
 
 from genocide import cmds, irc, model, rss
+
+
+__version__ = "86"
 
 
 scan(cmds)
@@ -86,8 +83,9 @@ class Completer(rlcompleter.Completer):
 
     def __init__(self, options):
         super().__init__()
+        self.matches = []
         self.options = options
- 
+
     def complete(self, text, state):
         if state == 0:
             if text:
@@ -144,8 +142,9 @@ def init(pname, mname):
     modname = "%s.%s" % (pname, mname)
     mod = importlib.import_module(modname, pname)
     if "init" in dir(mod):
-        mod.init()    
-        
+        mod.init()
+
+
 def isopt(ostr):
     for opt in ostr:
         if opt in Cfg.opts:
@@ -198,6 +197,7 @@ def main():
         csl = Console()
         csl.start()
         csl.wait()
+    return None
 
 
 wrap(main)

@@ -31,7 +31,7 @@ from genocide.run import Cfg
 from genocide import cmds, irc, model, rss
 
 
-__version__ = "86"
+__version__ = "87"
 
 
 scan(cmds)

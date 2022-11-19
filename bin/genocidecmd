@@ -22,7 +22,7 @@ from genocide.thread import name
 from genocide import cmds, irc, rss
 
 
-__version__ = "86"
+__version__ = "87"
 
 
 Wd.workdir = os.path.expanduser("/var/lib/genocide/")

@@ -9,13 +9,9 @@ import datetime
 import json
 import os
 import pathlib
-import pwd
 import time
 import uuid
 import _thread
-
-
-from stat import ST_UID, S_IMODE, ST_MODE
 
 
 def __dir__():
@@ -41,9 +37,7 @@ def __dir__():
             'last',
             'load',
             'loads',
-            'lower',
             'match',
-            'permission',
             'printable',
             'register',
             'save',
@@ -252,6 +246,7 @@ class ObjectEncoder(json.JSONEncoder):
         return json.JSONEncoder.iterencode(self, o, *args, **kwargs)
 
 
+
 @locked(disklock)
 def dump(obj, opath):
     cdir(opath)
@@ -259,8 +254,6 @@ def dump(obj, opath):
         json.dump(
             obj.__dict__, ofile, cls=ObjectEncoder, indent=4, sort_keys=True
         )
-    os.chmod(opath, 0o444)
-    #permission(opath, "gci", 0o444)
     return opath
 
 
@@ -296,13 +289,10 @@ def save(obj):
 def write(obj):
     opath = Wd.getpath(obj.__fnm__)
     cdir(opath)
-    if os.path.exists(opath):
-        os.chmod(opath, 0o666)
     with open(opath, "w", encoding="utf-8") as ofile:
         json.dump(
             obj.__dict__, ofile, cls=ObjectEncoder, indent=4, sort_keys=True
         )
-    os.chmod(opath, 0o444)
     return opath
 
 
@@ -468,7 +458,7 @@ class Class:
 
 class Wd:
 
-    workdir = ".gci"
+    workdir = ""
 
     @staticmethod
     def get():
@@ -486,8 +476,7 @@ class Wd:
     @staticmethod
     def storedir():
         sdr =  os.path.join(Wd.get(), "store", '')
-        if not os.path.exists(sdr):
-            cdir(sdr)
+        cdir(sdr)
         return sdr
 
     @staticmethod
@@ -503,50 +492,10 @@ class Wd:
 
 
 def cdir(path):
-    if os.path.exists(path):
-        return
-    if not path.endswith(os.sep):
+    if not os.path.isdir(path):
         path = os.path.dirname(path)
-    try:
-        pathlib.Path(path).mkdir(parents=True, exist_ok=True)
-    except (FileExistsError, PermissionError):
-        pass
-
-def lower(username):
-    try:
-        pwdline = pwd.getpwnam(username)
-        uid = pwdline.pw_uid
-        gid = pwdline.pw_gid
-    except KeyError:
-        uid = os.getuid()
-        gid = os.getgid()
-    os.setuid(uid)
-    os.setgid(gid)
-
-
-def permission(ddir, username, group=None, umode=0o444):
-    group = group or username
-    try:
-        pwdline = pwd.getpwnam(username)
-        uid = pwdline.pw_uid
-        gid = pwdline.pw_gid
-    except KeyError:
-        uid = os.getuid()
-        gid = os.getgid()
-    if os.path.isdir(ddir):
-        umode = 0x700
-    stats = os.stat(ddir)
-    if stats[ST_UID] != uid:
-        try:
-            os.chown(ddir, uid, gid)
-        except PermissionError:
-            return False
-    if S_IMODE(stats[ST_MODE]) != umode:
-        try:
-            os.chmod(ddir, umode)
-        except PermissionError:
-            return False
-    return True
+    ppp = pathlib.Path(path)
+    ppp.mkdir(parents=True, exist_ok=True)
 
 
 Class.add(Object)

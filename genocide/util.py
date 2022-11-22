@@ -38,7 +38,7 @@ def elapsed(seconds, short=True):
     txt = ""
     nsec = float(seconds)
     if nsec < 1:
-        return f"{nsec:.2f}s"
+        return f"{nsec:.4f}s"
     year = 365*24*60*60
     week = 7*24*60*60
     nday = 24*60*60
@@ -69,6 +69,8 @@ def elapsed(seconds, short=True):
         txt += "%sm" % minutes
     if sec:
         txt += "%ss" % sec
+    else:
+        txt += "0s"
     txt = txt.strip()
     return txt
 

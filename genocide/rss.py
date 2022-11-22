@@ -21,6 +21,7 @@ from .object import Class, Db, Default, Object, write
 from .object import find, fntime, last, printable, save
 from .object import edit, register, update
 from .handler import Bus
+from .run import Cfg
 from .thread import Repeater, launch
 from .util import elapsed, spl
 
@@ -174,6 +175,9 @@ class Parser(Object):
 
 
 def getfeed(url, item):
+    if Cfg.debug:
+        print("not fetching")
+        return []
     try:
         result = geturl(url)
     except (ValueError, HTTPError, URLError):

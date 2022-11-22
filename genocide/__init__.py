@@ -11,8 +11,8 @@ the object, is easily being updated from a on disk stored json (dict).
 
 basic usage is this:
 
->>> import gci
->>> o = gci.Object()
+>>> import bot
+>>> o = bot.Object()
 >>> o.key = "value"
 >>> o.key
 'value'
@@ -22,7 +22,7 @@ like get, items, keys, register, set, update and values.
 
 load/save from/to disk:
 
->>> from gci import Object, load, save
+>>> from bot import Object, load, save
 >>> o = Object()
 >>> o.key = "value"
 >>> p = save(o)
@@ -36,10 +36,10 @@ to improve persistence and a type in filename for reconstruction:
 
 'gci.object.Object/11ee5f11bd874f1eaa9005980f9d7a94/2021-08-31/15:31:05.717063'
 
->>> from gci import Object, save
+>>> from bot import Object, save
 >>> o = Object()
 >>> save(o)  # doctest: +ELLIPSIS
-'gci.object.Object/...'
+'bot.object.Object/...'
 
 great for giving objects peristence by having their state stored in files.
 

@@ -80,7 +80,7 @@ class Callback(Object):
         if not func:
             event.ready()
             return
-        func(event)
+        event.__thr__ = launch(func, event)
 
     def dispatch(self, event):
         self.callback(event)

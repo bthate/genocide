@@ -43,8 +43,8 @@ def __dir__():
 __all__ = __dir__()
 
 
-NAME = "genocide"
-REALNAME = "Assembly. Court. Prosecutor. Reconsider OTP-CR-117/19."
+NAME = "bot"
+REALNAME = "botlib"
 
 
 saylock = _thread.allocate_lock()
@@ -222,14 +222,14 @@ class IRC(Handler, Output):
 
     def auth(self, event):
         time.sleep(1.0)
-        self.command("AUTHENTICATE %s" % self.cfg.password)
+        self.direct("AUTHENTICATE %s" % self.cfg.password)
 
     def cap(self, event):
         time.sleep(1.0)
         if self.cfg.password and "ACK" in event.arguments:
-            self.command("AUTHENTICATE PLAIN")
+            self.direct("AUTHENTICATE PLAIN")
         else:
-            self.command("CAP REQ :sasl")
+            self.direct("CAP REQ :sasl")
 
     @locked(saylock)
     def command(self, cmd, *args):
@@ -271,6 +271,9 @@ class IRC(Handler, Output):
             self.connected.set()
             return True
         return False
+
+    def direct(self, txt):
+        self.sock.send(bytes(txt+"\n", "utf-8"))
 
     def disconnect(self):
         self.sock.shutdown(2)
@@ -353,8 +356,8 @@ class IRC(Handler, Output):
         assert nck
         assert self.cfg.username
         assert self.cfg.realname
-        self.command("NICK %s" % nck)
-        self.command(
+        self.direct("NICK %s" % nck)
+        self.direct(
                  "USER %s %s %s :%s" % (self.cfg.username,
                  server,
                  server,

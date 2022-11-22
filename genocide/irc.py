@@ -43,8 +43,8 @@ def __dir__():
 __all__ = __dir__()
 
 
-NAME = "bot"
-REALNAME = "botlib"
+NAME = "genocide"
+REALNAME = "Assembly. Court. Prosecutor. Reconsider OTP-CR-117/19."
 
 
 saylock = _thread.allocate_lock()

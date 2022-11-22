@@ -27,21 +27,13 @@ from genocide.run import Cfg
 from genocide import cmds, irc, model, rss
 
 
+Wd.workdir = os.path.expanduser("~/.genocide")
+
+
 scan(cmds)
 scan(irc)
 scan(model)
 scan(rss)
-
-
-Wd.workdir = os.path.expanduser("~/.genocide")
-
-
-starttime = time.time()
-
-
-def cprint(txt):
-    print(txt)
-    sys.stdout.flush()
 
 
 class CLI(Handler):
@@ -104,6 +96,11 @@ def boot():
     cfg = parse(txt)
     update(Cfg, cfg)
     return cfg
+
+
+def cprint(txt):
+    print(txt)
+    sys.stdout.flush()
 
 
 def setcompleter(optionlist):

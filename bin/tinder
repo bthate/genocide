@@ -18,8 +18,9 @@ sys.path.insert(0, os.getcwd())
 
 
 from genocide.handler import Command, Event, Handler, parse, scandir, scan, launch
-from genocide.object import Default, Object, Wd, elapsed
+from genocide.object import Default, Object, Wd
 from genocide.run import Cfg
+from genocide.util import elapsed
 
 
 Wd.workdir = ".test"
@@ -52,10 +53,6 @@ param.sts = [""]
 param.tdo = ["test4", ""]
 param.thr = [""]
 param.upt = [""]
-
-
-
-Cfg = Default()
 
 
 def cprint(txt):
@@ -93,7 +90,6 @@ def importer(packagename, modulename, path=None):
 def payload(cli):
     cmds = sorted(Command.cmd)
     _nr = 0
-    print(cmds)
     for cmd in cmds:
         for ex in getattr(param, cmd, [""]):
             evt = Event()
@@ -122,6 +118,7 @@ def main():
     if os.path.exists(Wd.workdir):
         shutil.rmtree(Wd.workdir)
     parse(" ".join(sys.argv[1:]))
+    print(Cfg)
     scandir("genocide", importer)
     cli = CLI()
     cli.start()

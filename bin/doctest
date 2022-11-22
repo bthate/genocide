@@ -14,9 +14,6 @@ sys.path.insert(0, os.getcwd())
 TODO = ["genocide", "test"]
 
 
-import genocide
-
-
 def popen(txt):
     for line in os.popen(txt).readlines():
         print(line.rstrip())
@@ -25,3 +22,4 @@ def popen(txt):
 for i in TODO:
     os.chdir(i)
     popen("python3 -m doctest -o ELLIPSIS *.py")
+    os.chdir("..")

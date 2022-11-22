@@ -287,7 +287,7 @@ def scan(mod):
         if key.startswith("cb"):
             continue
         names = cmd.__code__.co_varnames
-        if "event" in names:
+        if names and names[0] == "event":
             Command.add(cmd)
 
 def scancls(mod):

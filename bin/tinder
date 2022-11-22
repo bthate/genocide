@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
+# pylint: disable=E0401,C0115,C0116,C0413,R0201,R0903,W0613
+
+
+"tinder"
 
 
 import importlib
@@ -8,15 +12,14 @@ import shutil
 import sys
 import termios
 import time
-import traceback
 
 
 sys.path.insert(0, os.getcwd())
 
 
-from genocide import Callback, Default, Object, Wd,  elapsed, keys, name, printable
-from genocide import Command, Event, Handler, parse, scandir, scan, launch
-from genocide import update
+from genocide.handler import Command, Event, Handler, parse, scandir, scan, launch
+from genocide.object import Default, Object, Wd, elapsed
+from genocide.run import Cfg
 
 
 Wd.workdir = ".test"
@@ -25,7 +28,6 @@ Wd.workdir = ".test"
 events = []
 results = []
 starttime = time.time()
-stopmarkers = ['python', 'genocide', 'src', 'lib', 'bin']
 
 
 param = Object()
@@ -63,39 +65,9 @@ def cprint(txt):
 
 class CLI(Handler):
 
-    def say(self, channel, txt):
+    def raw(self, txt):
         if Cfg.verbose:
             cprint(txt)
-
-
-def callstack(frame):
-    result = []
-    loopframe = frame
-    while 1:
-        try:
-            filename = loopframe.f_back.f_code.co_filename
-            plugfile = filename.split(os.sep)
-            if plugfile:
-                mod = []
-                stop = False
-                for i in plugfile[::-1]:
-                    next = False
-                    for stp in stopmarkers:
-                        if stp in i:
-                            stop = True
-                            break
-                    if stop:
-                        break
-                    mod.append(i)
-                modstr = os.sep.join(mod[::-1])
-                if not modstr:
-                    modstr = plugfile
-            result.append("%s:%s" % (modstr, loopframe.f_back.f_lineno))
-            loopframe = loopframe.f_back
-        except:
-            break
-    del frame
-    return result
 
 
 def consume(evts):
@@ -112,31 +84,16 @@ def consume(evts):
     return res
 
 
-def from_exception(exc, txt="", sep=" "):
-    result = []
-    for frm in traceback.extract_tb(exc.__traceback__):
-        fnm = os.sep.join(frm.filename.split(os.sep)[-2:])
-        result.append(f"{fnm}:{frm.lineno}")
-    nme = name(exc)
-    res = sep.join(result)
-    fromm = where(exc.__traceback__.tb_frame)
-    if txt:
-        return f"{fromm} {txt} {res} {nme}: {exc}"
-    return f"{fromm} {res} {nme}: {exc}"
-    
-
-def importer(packagename, modulename):
-    name = "%s.%s" % (packagename, modulename)
-    try:
-        mod = importlib.import_module(name, packagename)
-        scan(mod)
-    except Exception as ex:
-        Callback.errors.append(ex)
+def importer(packagename, modulename, path=None):
+    nme = "%s.%s" % (packagename, modulename)
+    mod = importlib.import_module(nme, packagename)
+    scan(mod)
 
 
 def payload(cli):
     cmds = sorted(Command.cmd)
     _nr = 0
+    print(cmds)
     for cmd in cmds:
         for ex in getattr(param, cmd, [""]):
             evt = Event()
@@ -150,10 +107,6 @@ def payload(cli):
     return _nr
 
 
-def where(frm=None, depth=0):
-    return " ".join(callstack(frm or sys._getframe(depth)))
-
-
 def wrap(func):
     fds = sys.stdin.fileno()
     old = termios.tcgetattr(fds)
@@ -163,22 +116,16 @@ def wrap(func):
         cprint("")
     finally:
         termios.tcsetattr(fds, termios.TCSADRAIN, old)
-    for err in Callback.errors:
-        cprint(from_exception(err))
 
 
 def main():
     if os.path.exists(Wd.workdir):
         shutil.rmtree(Wd.workdir)
-    txt = " ".join(sys.argv[1:])
-    cfg = parse(txt)
-    update(Cfg, cfg)
-    if "v" in cfg.opts:
-        Cfg.verbose = True
+    parse(" ".join(sys.argv[1:]))
     scandir("genocide", importer)
     cli = CLI()
     cli.start()
-    nrs = cfg.index or 1
+    nrs = Cfg.index or 1
     res = 1
     thrs = []
     for _nr in range(nrs):

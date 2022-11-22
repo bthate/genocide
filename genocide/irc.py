@@ -214,7 +214,7 @@ class IRC(Handler, Output):
         self.register("NOTICE", self.notice)
         self.register("PRIVMSG", self.privmsg)
         self.register("QUIT", self.quit)
-        self.register("command", Command.handle)
+        #self.register("command", Command.handle)
 
     def announce(self, txt):
         for channel in self.channels:

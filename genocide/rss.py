@@ -176,7 +176,6 @@ class Parser(Object):
 
 def getfeed(url, item):
     if Cfg.debug:
-        print("not fetching")
         return []
     try:
         result = geturl(url)

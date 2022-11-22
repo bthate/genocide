@@ -62,6 +62,7 @@ class Thread(threading.Thread):
         self.starttime = time.time()
         self._result = func(*args)
 
+
 class Timer:
 
     def __init__(self, sleep, func, *args, thrname=None):

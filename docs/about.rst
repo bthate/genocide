@@ -9,20 +9,6 @@
 
 .. raw:: html
 
-    <center>
-    <b>
-
-**A B O U T**
-
-.. raw:: html
-
-    </b>
-    </center>
-    <br>
-
-
-.. raw:: html
-
     <br>
 
 

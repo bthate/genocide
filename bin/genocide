@@ -24,7 +24,7 @@ from genocide.handler import command, scan
 from genocide.run import Cfg
 
 
-from genocide import cmds, irc, model, rss
+from genocide import cmds, irc, model, rss, slogan
 
 
 Wd.workdir = os.path.expanduser("~/.genocide")
@@ -34,7 +34,7 @@ scan(cmds)
 scan(irc)
 scan(model)
 scan(rss)
-
+scan(slogan)
 
 class CLI(Handler):
 

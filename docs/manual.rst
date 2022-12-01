@@ -1,4 +1,4 @@
-.. _man:
+.. _manual:
 
 .. raw:: html
 
@@ -22,7 +22,7 @@
 
 **NAME**
 
- **GENOCIDE** - Assembly. Court. Prosecutor. Reconsider OTP-CR-117/19.
+ **GENOCIDE** - Prosecutor. Reconsider OTP-CR-117/19.
 
 
 **SYNOPSIS**

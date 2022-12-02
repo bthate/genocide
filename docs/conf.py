@@ -118,7 +118,7 @@ rst_epilog = '''.. raw:: html
     <br>
     <center><b>
 
-`about <about.html>`_ - :ref:`admin <manual>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`correspondence <writings>` - `pypi <http://pypi.org/project/genocide>`_ - `github <http://github.com/bthate/genocide>`_ - `index <genindex-all.html>`_ 
+`about <about.html>`_ - :ref:`admin <manual>` - :ref:`source <source>` - :ref:`correspondence <writings>` - `index <genindex-all.html>`_ 
 
 .. raw:: html
 

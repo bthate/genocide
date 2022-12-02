@@ -6,19 +6,6 @@
 
 .. title:: Reconsider
 
-.. raw:: html
-
-    <center>
-    <b>
-
-**R E C O N S I D E R**
-
-.. raw:: html
-
-    </b>
-    </center>
-    <br>
-
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**

@@ -115,10 +115,10 @@ rst_prolog = '''.. image:: genocide.png
 '''
 rst_epilog = '''.. raw:: html
 
-    <br>
+    <br><br>
     <center><b>
 
-`about <about.html>`_ - :ref:`admin <manual>` - :ref:`source <source>` - :ref:`correspondence <writings>` - `index <genindex-all.html>`_ 
+:ref:`about <about>` - :ref:`correspondence <writings>` - :ref:`admin <manual>` - :ref:`source <source>` - `index <genindex-all.html>`_
 
 .. raw:: html
 

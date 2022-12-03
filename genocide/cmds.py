@@ -9,11 +9,11 @@ import threading
 import time
 
 
-from .handler import Bus, Command
-from .object import Class, Object, find, fntime, save, update
-from .run import starttime
-from .thread import name
-from .util import elapsed
+from genocide.handler import Bus, Command
+from genocide.object import Class, Object, find, fntime, save, update
+from genocide.run import starttime
+from genocide.thread import name
+from genocide.util import elapsed
 
 
 def __dir__():

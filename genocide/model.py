@@ -9,10 +9,10 @@ import datetime
 import time
 
 
-from .object import Object,  keys
-from .handler import Bus, Event
-from .thread import Repeater, launch
-from .util import elapsed
+from genocide.object import Object,  keys
+from genocide.handler import Bus, Event
+from genocide.thread import Repeater, launch
+from genocide.util import elapsed
 
 
 def __dir__():

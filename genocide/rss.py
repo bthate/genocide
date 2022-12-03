@@ -17,13 +17,13 @@ from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
 
-from .object import Class, Db, Default, Object, write
-from .object import find, fntime, last, printable, save
-from .object import edit, register, update
-from .handler import Bus
-from .run import Cfg
-from .thread import Repeater, launch
-from .util import elapsed, spl
+from genocide.object import Class, Db, Default, Object, write
+from genocide.object import find, fntime, last, printable, save
+from genocide.object import edit, register, update
+from genocide.handler import Bus
+from genocide.run import Cfg
+from genocide.thread import Repeater, launch
+from genocide.util import elapsed, spl
 
 
 def __dir__():

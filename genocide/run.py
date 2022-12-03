@@ -7,7 +7,7 @@
 import time
 
 
-from .object import Default
+from genocide.object import Default
 
 
 Cfg = Default()

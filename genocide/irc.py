@@ -18,13 +18,13 @@ import threading
 import _thread
 
 
-from .object import Class, Default, Object
-from .object import keys, last, printable
-from .object import edit, fntime, find, save, update
-from .object import locked, register
-from .handler import Command, Event, Handler
-from .thread import launch
-from .util import elapsed
+from genocide.object import Class, Default, Object
+from genocide.object import keys, last, printable
+from genocide.object import edit, fntime, find, save, update
+from genocide.object import locked, register
+from genocide.handler import Command, Event, Handler
+from genocide.thread import launch
+from genocide.util import elapsed
 
 
 def __dir__():

@@ -12,10 +12,10 @@ import threading
 import time
 
 
-from .object import Class, Default, Object, register, update
-from .run import Cfg
-from .thread import launch
-from .util import elapsed
+from genocide.object import Class, Default, Object, register, update
+from genocide.run import Cfg
+from genocide.thread import launch
+from genocide.util import elapsed
 
 
 def __dir__():

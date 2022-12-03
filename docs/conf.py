@@ -77,7 +77,7 @@ html_theme_options = {
     'github_repo': __name__,
     'github_button': False,
     'github_banner': False,
-    'logo': 'genocide.png',
+    'logo': 'skull.jpg',
     'link': '#000',
     'link_hover': '#000',
     'nosidebar': True,
@@ -85,7 +85,7 @@ html_theme_options = {
     'show_relbar_top': False,
     'sidebar_width': 0,
 }
-html_favicon = "genocide.png"
+html_favicon = "skull.jpg"
 html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
 html_additional_pages = {}

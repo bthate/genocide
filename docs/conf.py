@@ -113,6 +113,7 @@ rst_prolog = '''.. image:: genocide.png
     :target: index.html
 
 '''
+
 rst_epilog = '''.. raw:: html
 
     <br><br>

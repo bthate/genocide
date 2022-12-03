@@ -6,7 +6,16 @@
 
 .. title:: Guilty
 
-.. _informed:
+
+.. raw:: html
+
+
+    <center>
+    <b>
+    G U I L T Y
+    </b>
+    </center>
+    <br>
 
 
 **informed**
@@ -53,4 +62,3 @@
 .. raw:: html
 
   <br><br>
-

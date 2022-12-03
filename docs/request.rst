@@ -9,13 +9,10 @@
 
 .. raw:: html
 
+
     <center>
     <b>
-
-**R E Q U E S T**
-
-.. raw:: html
-
+    R E Q U E S T
     </b>
     </center>
     <br>

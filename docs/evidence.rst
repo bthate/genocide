@@ -7,6 +7,17 @@
 .. title:: Evidence
 
 
+.. raw:: html
+
+
+    <center>
+    <b>
+    E V I D E N C E
+    </b>
+    </center>
+    <br>
+
+
 .. _haldol:
 
 

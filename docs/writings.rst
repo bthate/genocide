@@ -7,6 +7,17 @@
 .. title:: Writings
 
 
+.. raw:: html
+
+
+    <center>
+    <b>
+    W R I T I N G S
+    </b>
+    </center>
+    <br>
+
+
 **email 1**
 
 |

@@ -7,6 +7,17 @@
 .. title:: Manual
 
 
+.. raw:: html
+
+
+    <center>
+    <b>
+    M A N U A L
+    </b>
+    </center>
+    <br>
+
+
 **NAME**
 
  **GENOCIDE** - Prosecutor. Reconsider OTP-CR-117/19.

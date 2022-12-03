@@ -5,7 +5,7 @@
 "slogan"
 
 
-TXT = "Prosecutor @KarimKhanQC. Reconsider OTP-CR-117/19. http://pypi.org/project/genocide @IntlCrimCourt @Europol @POL_DenHaag @OM_DenHaag #ASP21 #ggz"
+TXT = "@KarimKhanQC reconsider OTP-CR-117/19 - http://genocide.rtfd.io - http://pypi.org/project/genocide"
 
 
 def slogan(event):

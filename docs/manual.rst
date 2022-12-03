@@ -20,7 +20,7 @@
 
 **NAME**
 
- **GENOCIDE** - @KarimKhanQC reconsider OTP-CR-117/19 - http://pypi.org/project/genocide
+ @KarimKhanQC reconsider OTP-CR-117/19 - http://pypi.org/project/genocide
 
 
 **SYNOPSIS**

@@ -2,17 +2,26 @@
 # This file is placed in the Public Domain.
 
 
-"also remove env directory"
+"wipe"
+
+
+## import
 
 
 import os
 
 
+## utility
+
+
 def popen(txt):
+    "run command"
     for line in os.popen(txt).readlines():
-        print(line.rstrip())
+        print(line.strip())
 
 
-popen("rm -fR ~/.cache/pip")
-popen("bin/clean")
+## runtime
+
+
+popen("fin/clean")
 popen("rm -fR env")

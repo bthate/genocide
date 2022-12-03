@@ -3,8 +3,7 @@
 #
 
 
-"Prosecutor. Reconsider OTP-CR-117/19."
-
+"@KarimKhanQC reconsider OTP-CR-117/19 - http://genocide.rtfd.io - http://pypi.org/project/genocide"
 
 __name__ = "genocide"
 __version__ = "89"
@@ -58,7 +57,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Prosecutor. Reconsider OTP-CR-117/19."
+html_title = '@KarimKhanQC reconsider OTP-CR-117/19 - http://genocide.rtfd.io - http://pypi.org/project/genocide'
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]

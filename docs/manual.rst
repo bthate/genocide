@@ -20,7 +20,7 @@
 
 **NAME**
 
- **GENOCIDE** - Prosecutor. Reconsider OTP-CR-117/19.
+ **GENOCIDE** - @KarimKhanQC reconsider OTP-CR-117/19 - http://pypi.org/project/genocide
 
 
 **SYNOPSIS**

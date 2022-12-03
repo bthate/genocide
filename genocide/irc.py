@@ -44,8 +44,7 @@ __all__ = __dir__()
 
 
 NAME = "genocide"
-REALNAME = "Prosecutor. Reconsider OTP-CR-117/19."
-
+REALNAME = '@KarimKhanQC reconsider OTP-CR-117/19 - http://genocide.rtfd.io - http://pypi.org/project/genocide'
 
 saylock = _thread.allocate_lock()
 

@@ -6,18 +6,19 @@
 
 
 import os
+import sys
 
 
 def popen(txt):
     for line in os.popen(txt).readlines():
         print(line.rstrip())
+        sys.stdout.flush()
 
-
-if os.path.exists("env"):
-     print("environment is there")
-else:
-     print("creating environment")
+if not os.path.exists("env"):
      popen("fin/env")
 
-popen("env/bin/pip3 install -r docs/requirements.txt --upgrade --force-reinstall --no-cache-dir --no-deps")
+
+if not os.path.exists("env/bin/sphinx-build"):
+    popen("env/bin/pip3 install -r docs/requirements.txt --upgrade --force-reinstall --no-cache-dir --no-deps")
+
 popen("env/bin/python3 env/bin/sphinx-build docs html")

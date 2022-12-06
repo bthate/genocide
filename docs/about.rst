@@ -7,17 +7,6 @@
 .. title:: About
 
 
-.. raw:: html
-
-
-    <center>
-    <b>
-    A B O U T
-    </b>
-    </center>
-    <br>
-
-
 .. image:: skullagain.jpg
     :width: 100%
     :target: manual.html

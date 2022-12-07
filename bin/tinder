@@ -118,7 +118,6 @@ def main():
     if os.path.exists(Wd.workdir):
         shutil.rmtree(Wd.workdir)
     parse(" ".join(sys.argv[1:]))
-    print(Cfg)
     scandir("genocide", importer)
     cli = CLI()
     cli.start()

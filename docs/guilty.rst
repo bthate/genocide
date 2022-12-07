@@ -18,6 +18,8 @@
     <br>
 
 
+.. _informed:
+
 **informed**
 
 

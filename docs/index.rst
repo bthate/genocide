@@ -26,6 +26,7 @@ I :ref:`wrote <writings>` the prosecutor asking for an arrest of the king (make 
 
 .. raw:: html
 
+     <br>
      <center><b>@KarimKhanQC reconsider <a href="reconsider.html">OTP-CR-117/19</a>.</b></center>
 
 

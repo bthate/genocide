@@ -20,7 +20,7 @@
 
 **NAME**
 
- **GENOCIDE** - **@KarimKhanQC** reconsider OTP-CR-117/19.
+ @KarimKhanQC reconsider OTP-CR-117/19
 
 
 **SYNOPSIS**
@@ -53,8 +53,8 @@
 
 **INSTALL**
 
-  | ``sudo pip3 install genocide --upgrade --force-reinstall``
-
+  | ``sudo pip3 install genocide``
+  |
 
 **CONFIGURATION**
 
@@ -62,29 +62,35 @@
 
  **irc**
 
-  | ``genocidectl cfg server=<server> channel=<channel> nick=<nick>``
-  
-  | ``(*) default channel/server is #genocide on localhost``
+  | ``genocidectl cfg server=<server>``
+  | ``genocidectl channel=<channel>``
+  | ``genocidectl cfg nick=<nick> port=<port>``
+  |  
+  | ``(*) default is #genocide on localhost``
+  |
 
  **sasl**
 
   | ``genocidectl pwd <nickservnick> <nickservpass>``
   | ``genocidectl cfg password=<outputfrompwd>``
+  |
 
  **users**
 
   | ``genocidectl cfg users=True``
   | ``genocidectl met <userhost>``
+  |
 
  **rss**
 
   | ``genocidectl rss <url>``
+  |
 
  **24/7**
 
-  | ``cp /usr/local/share/genocide/genocide.service /etc/systemd/system``
-  | ``systemctl enable genocide --now``
-
+  | ``systemctl enable <servicefile> --now``
+  |
+  | ``* /usr/local/share/genocide/genocide.service``
 
 **COMMANDS**
 
@@ -96,14 +102,14 @@
   dpl - sets display items
   ftc - runs a fetching batch
   fnd - find objects 
-  flt - list of instances registered to the bus
+  flt - list of bus listeners
   log - log some text
   mdl - genocide model
   met - add a user
   mre - displays cached output, channel wise.
   nck - changes nick on irc
   now - genocide stats
-  pwd - combines nickserv name/password into a sasl password
+  pwd - create SASL passwd from nickserv creds
   rem - removes a rss feed
   req - request to the prosecutor
   rss - add a feed
@@ -115,16 +121,15 @@
 
 **FILES**
 
-
  | ``/usr/local/share/doc/genocide/*``
  | ``/usr/local/share/genocide/genocide.service``
-
+ |
 
 **AUTHOR**
 
- Bart Thate 
+ | Bart Thate 
+ |
 
 **COPYRIGHT**
 
- **GENOCIDE** is placed in the Public Domain. No Copyright, No License.
-
+ **GENOCIDE** is placed in the Public Domain.

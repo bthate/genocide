@@ -23,7 +23,7 @@ def popen(txt):
 ## runtime
 
 
-name = os.getcwd()
+name = os.getcwd().split(os.sep)[-1]
 
 
 if not os.path.exists("dist"):

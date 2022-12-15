@@ -14,11 +14,13 @@ def popen(txt):
         print(line.rstrip())
         sys.stdout.flush()
 
+
 if not os.path.exists("env"):
      popen("fin/env")
 
 
 if not os.path.exists("env/bin/sphinx-build"):
-    popen("env/bin/pip3 install -r docs/requirements.txt --upgrade --force-reinstall --no-cache-dir --no-deps")
+    popen("fin/upenv")
 
+#popen("env/bin/python3 -m pip install . --upgrade --force-reinstall --no-cache-dir --no-deps")
 popen("env/bin/python3 env/bin/sphinx-build docs html")

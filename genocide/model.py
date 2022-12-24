@@ -404,7 +404,7 @@ def now(event):
         nrtimes = int(delta/needed)
         txt += "%s: %s " % (getalias(name), nrtimes)
     txt += " http://genocide.rtfd.io"
-    Bus.announce(txt)
+    event.reply(txt)
 
 
 def mdl(event):
@@ -424,7 +424,7 @@ def mdl(event):
                                                                nryear,
                                                                elapsed(needed)
                                                               )
-        Bus.announce(txt)
+        event.reply(txt)
 
 
 def tpc(event):

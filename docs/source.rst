@@ -32,5 +32,4 @@
     genocide.slogan	slogan
     genocide.thread 	thread
     genocide.util	utility
-    genocide.wisdom	the trip in between
 

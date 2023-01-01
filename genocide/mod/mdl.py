@@ -9,10 +9,8 @@ import datetime
 import time
 
 
-from genocide.object import Object,  keys
-from genocide.handler import Bus, Event
-from genocide.thread import Repeater, launch
-from genocide.util import elapsed
+from gcid import Bus, Event, Object, Repeater
+from gcid import elapsed, keys, launch
 
 
 def __dir__():
@@ -404,7 +402,7 @@ def now(event):
         nrtimes = int(delta/needed)
         txt += "%s: %s " % (getalias(name), nrtimes)
     txt += " http://genocide.rtfd.io"
-    event.reply(txt)
+    Bus.announce(txt)
 
 
 def mdl(event):
@@ -424,7 +422,7 @@ def mdl(event):
                                                                nryear,
                                                                elapsed(needed)
                                                               )
-        event.reply(txt)
+        Bus.announce(txt)
 
 
 def tpc(event):

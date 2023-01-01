@@ -78,5 +78,5 @@ p.s.
 """
 
 
-def request(event):
+def req(event):
     event.reply(__doc__)

@@ -1,40 +1,55 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
-# pylint: disable=E0611,C0413,C0115,C0116,R1710
+# pylint: disable=C0103,C0115,C0116,C0413,W0212,C0301,W0613,E0611,E0401
 
 
-"@KarimKhanQC reconsider OTP-CR-117/19 - http://pypi.org/project/genocide"
+"reconsider OTP-CR-117/19"
+
+
+## imports
 
 
 import atexit
+import importlib
+import importlib.util
+import inspect
 import os
 import readline
 import rlcompleter
 import sys
-import termios
+import shutil
 import time
+import termios
+import traceback
 
 
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.handler import Command, Event, Handler, parse
-from genocide.object import Wd, keys, printable, update
-from genocide.handler import command, scan
-from genocide.run import Cfg
+from genocide import Cfg, Command, Event, Handler, User, Wd
+from genocide import Wd, cdir, edit, find, keys, last, printable, save, write
+from genocide import elapsed, fntime, launch, match
+from genocide import boot, command, scandir, scanpkg, wait
 
 
-from genocide import cmds, irc, model, rss, slogan
+import genocide.mod
+
+
+## defines
+
+
+Cfg.banner = "reconsider OTP-CR-117/19"
+Cfg.name = "genocide"
+Cfg.version = "91"
 
 
 Wd.workdir = os.path.expanduser("~/.genocide")
 
 
-scan(cmds)
-scan(irc)
-scan(model)
-scan(rss)
-scan(slogan)
+date = time.ctime(time.time()).replace("  ", " ")
+
+
+## classes
 
 
 class CLI(Handler):
@@ -45,15 +60,19 @@ class CLI(Handler):
 
     @staticmethod
     def raw(txt):
-        cprint(txt)
+        print(txt)
+        sys.stdout.flush()
 
-    def say(self, channel, txt):
-        self.raw(txt)
 
-class Console(CLI):
+class Console(Handler):
 
-    def handle(self, event):
-        CLI.handle(self, event)
+    @staticmethod
+    def announce(txt):
+        pass
+
+    @staticmethod
+    def handle(event):
+        Command.handle(event)
         event.wait()
 
     def poll(self):
@@ -62,18 +81,26 @@ class Console(CLI):
         event.orig = repr(self)
         return event
 
+    @staticmethod
+    def raw(txt):
+        print(txt)
+        sys.stdout.flush()
+
 
 class Completer(rlcompleter.Completer):
 
     def __init__(self, options):
-        super().__init__()
+        rlcompleter.Completer.__init__(self)
         self.matches = []
         self.options = options
 
     def complete(self, text, state):
         if state == 0:
             if text:
-                self.matches = [s for s in self.options if s and s.startswith(text)]
+                self.matches = [
+                                s for s in self.options
+                                if s and s.startswith(text)
+                               ]
             else:
                 self.matches = self.options[:]
         try:
@@ -82,26 +109,60 @@ class Completer(rlcompleter.Completer):
             return None
 
 
-def banner(cfg):
-    cprint(
-          "GENOCIDE started at %s %s" % (
-                                     time.ctime(time.time()).replace("  ", " "),
-                                     printable(cfg, "debug,verbose")
-                                    )
-         )
+## utilities
 
 
-def boot():
-    setcompleter(keys(Command.cmd))
-    txt = ' '.join(sys.argv[1:])
-    cfg = parse(txt)
-    update(Cfg, cfg)
-    return cfg
+def daemon():
+    pid = os.fork()
+    if pid != 0:
+        os._exit(0)
+    os.setsid()
+    os.umask(0)
+    sis = open("/dev/null", 'r')
+    os.dup2(sis.fileno(), sys.stdin.fileno())
+    if not Cfg.verbose:
+        sos = open("/dev/null", 'a+')
+        ses = open("/dev/null", 'a+')
+        os.dup2(sos.fileno(), sys.stdout.fileno())
+        os.dup2(ses.fileno(), sys.stderr.fileno())
 
 
-def cprint(txt):
-    print(txt)
-    sys.stdout.flush()
+def importer(mname, path=None):
+    if path is None:
+        spec = importlib.util.find_spec(mname)
+    else:
+        spec = importlib.util.spec_from_file_location(mname, path)
+    if spec:
+        mods = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mods)
+        return mods
+    return None
+
+
+def initer(mname, path=None):
+    mods = importer(mname, path)
+    if mods and "init" in dir(mods):
+        thr = launch(mods.init)
+        thr.join()
+    scan(mods)
+
+
+def scan(mod):
+    for key, cmd in inspect.getmembers(mod, inspect.isfunction):
+        if key.startswith("cb"):
+            continue
+        names = cmd.__code__.co_varnames
+        if "event" in names:
+            Command.add(cmd)
+
+
+def scanner(mname, path=None):
+    mods = importer(mname, path)
+    scan(mods)
+
+
+def print_exc(ex):
+    traceback.print_exception(type(ex), ex, ex.__traceback__)
 
 
 def setcompleter(optionlist):
@@ -118,34 +179,47 @@ def wrap(func):
         old = termios.tcgetattr(fds)
     except termios.error:
         gotterm = False
-    readline.redisplay()
     try:
         func()
     except (EOFError, KeyboardInterrupt):
-        cprint("")
+        print("")
     finally:
         if gotterm:
             termios.tcsetattr(fds, termios.TCSADRAIN, old)
+        for evt in Command.errors:
+            print_exc(evt.__exc__)
+
+
+## runtime
 
 
 def main():
-    boot()
-    if Cfg.txt:
+    boot(" ".join(sys.argv[1:]))
+    scanpkg(genocide.mod, scanner)
+    if Cfg.prs.txt:
         cli = CLI()
-        evt = command(cli, Cfg.otxt)
-        evt.wait()
-        return
+        return command(cli, Cfg.prs.otxt)
+    if Cfg.daemon:
+        daemon()
+        Cfg.wait = True
+    scanpkg(genocide.mod, initer)
     if Cfg.console:
-        banner(Cfg)
-        bot = irc.init()
-        print(printable(bot.cfg, "nick,channel,server,port,sasl"))
-        rss.init()
-        model.init()
-        csl = Console()
-        csl.start()
-        csl.wait()
+        print("%s started at %s %s" % (
+                                       Cfg.name.upper(),
+                                       date,
+                                       printable(
+                                                 Cfg,
+                                                 skip="banner,name",
+                                                 plain=True)
+                                                )
+                                      )
+        setcompleter(Command.cmd)
+        cli = Console()
+        cli.start()
+        Cfg.wait = True
+    if Cfg.wait:
+        wait()
     return None
 
 
 wrap(main)
- 

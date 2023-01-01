@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101,C0116,C0301,W0613,R1710
+# pylint: disable=E1101,C0116,C0301,W0613,R1710,E0402
 
 
 "model"
@@ -9,8 +9,8 @@ import datetime
 import time
 
 
-from gcid import Bus, Event, Object, Repeater
-from gcid import elapsed, keys, launch
+from .. import Bus, Event, Object, Repeater
+from .. import elapsed, keys, launch
 
 
 def __dir__():
@@ -402,7 +402,7 @@ def now(event):
         nrtimes = int(delta/needed)
         txt += "%s: %s " % (getalias(name), nrtimes)
     txt += " http://genocide.rtfd.io"
-    Bus.announce(txt)
+    event.reply(txt)
 
 
 def mdl(event):
@@ -422,7 +422,7 @@ def mdl(event):
                                                                nryear,
                                                                elapsed(needed)
                                                               )
-        Bus.announce(txt)
+        event.reply(txt)
 
 
 def tpc(event):

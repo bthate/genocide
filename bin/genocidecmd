@@ -3,29 +3,19 @@
 # pylint: disable=C0115,C0116
 
 
-"@KarimKhanQC reconsider OTP-CR-117/19 - http://pypi.org/project/genocide"
+"Reconsider OTP-CR-117/19 - http://pypi.org/project/genocide"
 
 
+import inspect
 import os
 import sys
 
 
-from genocide.handler import Handler, parse
-from genocide.object import Wd
-from genocide.handler import command, scan
-from genocide.run import Cfg
-
-
-from genocide import cmds, irc, model, rss
+from genocide import Cfg, Command, Handler, Wd, command, parse
+from genocide.mod import cmd, irc, mdl, rss
 
 
 Wd.workdir = os.path.expanduser("/var/lib/genocide/")
-
-
-scan(cmds)
-scan(irc)
-scan(model)
-scan(rss)
 
 
 class CLI(Handler):
@@ -47,10 +37,23 @@ def cprint(txt):
     sys.stdout.flush()
 
 
+def scan(mod):
+    for key, cmd in inspect.getmembers(mod, inspect.isfunction):
+        if key.startswith("cb"):
+            continue
+        names = cmd.__code__.co_varnames
+        if "event" in names:
+            Command.add(cmd)
+
+
 def main():
     parse(' '.join(sys.argv[1:]))
+    scan(cmd)
+    scan(irc)
+    scan(mdl)
+    scan(rss)
     cli = CLI()
-    evt = command(cli, Cfg.otxt)
+    evt = command(cli, Cfg.prs.otxt)
     evt.wait()
 
 

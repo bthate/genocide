@@ -8,7 +8,7 @@
 import unittest
 
 
-from genocide.thread import Thread
+from genocide.threads import Thread
 
 
 def test():

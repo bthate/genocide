@@ -10,10 +10,10 @@ import os
 import unittest
 
 
-from genocide.object import Object, Wd, items, keys, register, update, values
-from genocide.object import edit, kind, load, save
-from genocide.object import ObjectDecoder, ObjectEncoder
-from genocide.object import printable
+from genocide.objects import Object, Wd, items, keys, register, update, values
+from genocide.objects import edit, kind, load, save
+from genocide.objects import ObjectDecoder, ObjectEncoder
+from genocide.objects import printable
 
 
 Wd.workdir = ".test"
@@ -157,7 +157,7 @@ class TestObject(unittest.TestCase):
         self.assertTrue(Object().__module__, "op")
 
     def test_kind(self):
-        self.assertEqual(kind(Object()), "genocide.object.Object")
+        self.assertEqual(kind(Object()), "genocide.objects.Object")
 
     def test_repr(self):
         self.assertTrue(update(Object(),

@@ -2,23 +2,12 @@
 
 .. raw:: html
 
-     <br><br>
+     <br>
 
 .. title:: Guilty
 
-
-.. raw:: html
-
-
-    <center>
-    <b>
-    G U I L T Y
-    </b>
-    </center>
-    <br>
-
-
 .. _informed:
+
 
 **informed**
 
@@ -64,3 +53,4 @@
 .. raw:: html
 
   <br><br>
+

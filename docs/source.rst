@@ -2,34 +2,52 @@
 
 .. raw:: html
 
-     <br><br>
+     <br>
 
 .. title:: Source
 
-.. raw:: html
 
+.. raw:: html
 
     <center>
     <b>
     S O U R C E
     </b>
     </center>
-    <br><br>
 
 
+.. raw:: html
+
+     <br>
+
+
+**genocide**
 
 .. autosummary::
     :toctree: 
     :template: module.rst
 
-    genocide.cmds	command
-    genocide.handler	handler
-    genocide.irc	internet relay chat
-    genocide.object	object
-    genocide.request	request
-    genocide.rss	rich site syndicate
-    genocide.run 	runtime
-    genocide.slogan	slogan
-    genocide.thread 	thread
-    genocide.util	utility
+    genocide.message	messages 
+    genocide.handler	event handler
+    genocide.objects	save/load/locate objects
+    genocide.running	runtime allocations
+    genocide.threads	threading
+    genocide.usersdb	user management
 
+
+**genocide.mod**
+
+.. autosummary::
+    :toctree: 
+    :template: module.rst
+
+    genocide.mod.cfg	config
+    genocide.mod.cmd	commands list
+    genocide.mod.fnd	locate objects
+    genocide.mod.irc	internet relay chat
+    genocide.mod.log	logging
+    genocide.mod.mdl	model
+    genocide.mod.req	request
+    genocide.mod.rss	rich site syndicate
+    genocide.mod.sts	status
+    genocide.mod.tdo	a bit later

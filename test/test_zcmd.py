@@ -9,9 +9,9 @@ import sys
 import unittest
 
 
-from genocide.object import Object
+from genocide.objects import Object
 from genocide.handler import Command, Handler, command
-from genocide.run import Cfg
+from genocide.running import Cfg
 
 
 evts = []

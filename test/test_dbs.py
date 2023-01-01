@@ -8,7 +8,7 @@
 import unittest
 
 
-from genocide.object import Db
+from genocide.objects import Db
 
 
 class TestDbs(unittest.TestCase):

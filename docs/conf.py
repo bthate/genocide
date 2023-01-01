@@ -1,13 +1,13 @@
-# GENOCIDE OTP-CR-117/19
+# GCID OTP-CR-117/19
 # -*- coding: utf-8 -*-
 #
 
 
-"@KarimKhanQC reconsider OTP-CR-117/19 - http://pypi.org/project/genocide"
+"Reconsider OTP-CR-117/19"
 
 
 __name__ = "genocide"
-__version__ = "89"
+__version__ = "91"
 
 
 import doctest
@@ -19,9 +19,9 @@ import unittest
 curdir = os.getcwd()
 
 
-sys.path.insert(0, os.path.join(curdir))
-sys.path.insert(0, os.path.join(curdir, ".."))
 sys.path.insert(0, os.path.join(curdir, "..", ".."))
+sys.path.insert(0, os.path.join(curdir, ".."))
+sys.path.insert(0, os.path.join(curdir))
 
 
 # -- Options for GENERIC output ---------------------------------------------
@@ -31,7 +31,7 @@ project = __name__
 master_doc = 'index'
 version = '%s' % __version__
 release = '%s' % __version__
-language = ''
+language = 'en'
 today = ''
 today_fmt = '%B %d, %Y'
 needs_sphinx='1.7'
@@ -58,7 +58,7 @@ extensions=[
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = '@KarimKhanQC reconsider OTP-CR-117/19 - http://pypi.org/project/genocide'
+html_title = "Reconsider OTP-CR-117/19"
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]
@@ -83,7 +83,7 @@ html_theme_options = {
     'nosidebar': True,
     'show_powered_by': False,
     'show_relbar_top': False,
-    'sidebar_width': 0,
+    'sidebar_width': 10,
 }
 html_favicon = "skull.jpg"
 html_extra_path = []
@@ -106,12 +106,29 @@ intersphinx_mapping = {
                       }
 intersphinx_cache_limit=1
 
+
 rst_prolog = '''.. image:: genocide.png
     :width: 100%
     :height: 2.2cm
     :target: index.html
-'''
 
+.. raw:: html
+
+    <br>
+'''
+rst_epilog = '''.. raw:: html
+
+    <br>
+    <center>
+    <b>
+
+:ref:`home <home>` - :ref:`manual <manual>` - :ref:`source <source>` - :ref:`about <about>`
+
+.. raw:: html
+
+    </b>
+    </center>
+'''
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
 autodoc_member_order='groupwise'

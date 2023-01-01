@@ -3,17 +3,17 @@
 # pylint: disable=C0116
 
 
-"@KarimKhanQC reconsider OTP-CR-117/19 - http://pypi.org/project/genocide"
+"Reconsider OTP-CR-117/19 - http://pypi.org/project/genocide"
 
 
 import os
 
 
-from genocide.object import Wd
-from genocide.util import wait
+from genocide.objects import Wd
+from genocide.running import wait
 
 
-from genocide import irc, model, rss
+from genocide.mod import irc, mdl, rss
 
 
 Wd.workdir = os.path.expanduser("/var/lib/genocide/")
@@ -21,7 +21,7 @@ Wd.workdir = os.path.expanduser("/var/lib/genocide/")
 
 def main():
     irc.init()
-    model.init()
+    mdl.init()
     rss.init()
     wait()
 

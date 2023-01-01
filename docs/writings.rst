@@ -2,17 +2,20 @@
 
 .. raw:: html
 
-     <br><br>
+     <br>
 
 .. title:: Writings
 
 
 .. raw:: html
 
-
     <center>
     <b>
-    W R I T I N G S
+
+**W R I T I N G S**
+
+.. raw:: html
+
     </b>
     </center>
     <br>

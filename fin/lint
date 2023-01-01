@@ -9,33 +9,34 @@ import os
 import sys
 
 
-SKIP = ["---", "Your code"]
-
-
-def doskip(txt):
-    if not txt.strip():
-        return True
-    for skp in SKIP:
-        if skp in txt:
-            return True
-    return False
-
+TODO = ["genocide", "genocide.mod"]
 
 def loop(path, txt):
+    old = os.getcwd()
+    os.chdir(path)
     for fnn in os.listdir(path):
-        if not os.path.isdir(fnn):
+        if fnn not in TODO:
             continue
-        if not os.path.exists("%s/__init__.py" % fnn):
+        old = os.getcwd()
+        fpath = os.path.abspath(os.path.join(path, fnn))
+        if os.path.isdir(fpath):
+            loop(fpath, txt)
+        if not os.path.isdir(fpath):
             continue
-        os.chdir(fnn)
-        for line in os.popen(txt).readlines():
-            if doskip(line):
-                continue
-            print(line.rstrip())
-            sys.stdout.flush()
-        os.chdir("..")
+        print(fpath)
+        os.chdir(fpath)
+        popen(txt)
+        os.chdir(old)
+        #os.chdir("..")
+    os.chdir(old)
+
+
+def popen(txt):
+    for line in os.popen(txt).readlines():
+        print(line.rstrip())
+        sys.stdout.flush()
 
 
 if __name__ == "__main__":
-    os.popen("fin/clean").readlines()
+    popen("fin/clean")
     loop(os.getcwd(), "pylint *")

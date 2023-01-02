@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-    <br><br>
+    <br>
     <center><b>
 
 
@@ -15,7 +15,6 @@
 
     </b>
     </center>
-    <br>
 
 .. automodule:: {{ fullname }}
     :members:

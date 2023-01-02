@@ -7,19 +7,9 @@
 
      <br>
 
-.. raw:: html
-
-    <center>
-    <b>
-    M A N U A L
-    </b>
-    </center>
-    <br>
-
-
 ``NAME``
 
- | ``GENOCIDE`` - **reconsider OTP-CR-117/19**
+ | **GENOCIDE** - reconsider OTP-CR-117/19
 
 ``SYNOPSIS``
 

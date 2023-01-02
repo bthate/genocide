@@ -202,8 +202,8 @@ def dis(event):
         event.reply("i won't disable myself")
         return
     name += ".py"
-    gcp = genocide.mod.__path__[0]
-    path = os.path.join(gcp, name)
+    gcp = genocide.__path__[0]
+    path = os.path.join(gcp, "mod", name)
     if not os.path.exists(path):
         event.reply("can't find %s to disable" % name)
         return
@@ -228,7 +228,7 @@ def ena(event):
     if not os.path.exists(path):
         event.reply("missing %s" % name)
         return
-    dest = os.path.join(Wd.moddir(), name)
+    dest = os.path.join(gcp, "mod", name)
     shutil.move(path, dest)
     event.ok()
 

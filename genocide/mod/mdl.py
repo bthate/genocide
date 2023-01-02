@@ -9,8 +9,8 @@ import datetime
 import time
 
 
-from .. import Bus, Event, Object, Repeater
-from .. import elapsed, keys, launch
+from genocide import Bus, Event, Object, Repeater
+from genocide import elapsed, keys, launch
 
 
 def __dir__():

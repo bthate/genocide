@@ -92,6 +92,8 @@ def scandir(path, importer, pname=None, mods=None):
     if pname is None:
         pname = path.split(os.sep)[-1]
     for modname in listmod(path):
+        if not modname:
+            continue
         if mods and not include(modname, spl(mods)):
             continue
         mname = "%s.%s" % (pname, modname)

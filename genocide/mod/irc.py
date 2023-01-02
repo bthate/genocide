@@ -18,9 +18,9 @@ import threading
 import _thread
 
 
-from .. import Class, Command, Default, Event, Handler, Object, Users
-from .. import edit, keys, last, printable, save
-from .. import launch, locked, register
+from genocide import Class, Command, Default, Event, Handler, Object, Users
+from genocide import edit, keys, last, printable, save
+from genocide import launch, locked, register
 
 
 def __dir__():

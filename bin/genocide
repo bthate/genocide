@@ -32,6 +32,7 @@ from genocide import elapsed, fntime, launch, match
 from genocide import boot, command, scandir, scanpkg, wait
 
 
+import genocide
 import genocide.mod
 
 
@@ -190,6 +191,47 @@ def wrap(func):
             print_exc(evt.__exc__)
 
 
+## commands
+
+def dis(event):
+    if not event.args:
+        event.reply("dis <modname>")
+        return
+    name = event.args[0]
+    if name == "disable":
+        event.reply("i won't disable myself")
+        return
+    name += ".py"
+    gcp = genocide.mod.__path__[0]
+    path = os.path.join(gcp, name)
+    if not os.path.exists(path):
+        event.reply("can't find %s to disable" % name)
+        return
+    nmd = os.path.join(gcp, "notmod")
+    cdir(nmd)
+    dest = os.path.join(nmd, name)
+    shutil.move(path, dest)
+    event.ok()
+
+
+def ena(event):
+    if not event.args:
+        event.reply("enable <modname>")
+        return
+    name = event.args[0]
+    if name == "enable":
+        event.reply("i won't enable myself")
+        return
+    name += ".py"
+    gcp = genocide.__path__[0]
+    path = os.path.join(gcp, "notmod", name)
+    if not os.path.exists(path):
+        event.reply("missing %s" % name)
+        return
+    dest = os.path.join(Wd.moddir(), name)
+    shutil.move(path, dest)
+    event.ok()
+
 ## runtime
 
 
@@ -197,12 +239,13 @@ def main():
     boot(" ".join(sys.argv[1:]))
     scanpkg(genocide.mod, scanner)
     if Cfg.prs.txt:
+        Command.add(dis)
+        Command.add(ena)
         cli = CLI()
         return command(cli, Cfg.prs.otxt)
     if Cfg.daemon:
         daemon()
         Cfg.wait = True
-    scanpkg(genocide.mod, initer)
     if Cfg.console:
         print("%s started at %s %s" % (
                                        Cfg.name.upper(),
@@ -215,11 +258,12 @@ def main():
                                       )
         setcompleter(Command.cmd)
         cli = Console()
-        cli.start()
+        launch(cli.start)
         Cfg.wait = True
     if Cfg.wait:
+        scanpkg(genocide.mod, initer)
+    if Cfg.wait:
         wait()
-    return None
 
 
 wrap(main)

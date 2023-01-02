@@ -7,16 +7,16 @@
 
      <br>
 
-``NAME``
+**NAME**
 
- | **GENOCIDE** - reconsider OTP-CR-117/19
+ | ``GENOCIDE`` - reconsider ``OTP-CR-117/19``
 
-``SYNOPSIS``
+**SYNOPSIS**
 
  | ``genocidectl <cmd> [key=value] [key==value]``
 
 
-``DESCRIPTION``
+**DESCRIPTION**
 
  ``GENOCIDE`` is a solid, non hackable bot, that runs under systemd as a 
  24/7 background service starts after reboot and is intended to be programmable
@@ -39,14 +39,14 @@
  which requires a :ref:`reconsider <home>` to have the king actually
  arrested.
 
-``INSTALL``
+**INSTALL**
 
 
  | ``sudo python3 -m pip install genocide``
  | ``sudo systemctl enable /usr/local/genocide/genocide.service --now``
 
 
-``CONFIGURATION``
+**CONFIGURATION**
 
 
  use sudo, ``genocidectl`` needs root privileges
@@ -77,7 +77,7 @@
   | ``systemctl enable /usr/local/genocide/genocide.service --now``
 
 
-``COMMANDS``
+**COMMANDS**
 
  ::
 
@@ -103,20 +103,20 @@
   tpc - put genocide stats into topic
 
 
-``FILES``
+**FILES**
 
 
  | ``/usr/local/share/doc/genocide/*``
  | ``/usr/local/genocide/``
 
 
-``AUTHOR``
+**AUTHOR**
 
 
  Bart Thate 
 
 
-``COPYRIGHT``
+**COPYRIGHT**
 
 
  ``GENOCIDE`` is placed in the Public Domain.

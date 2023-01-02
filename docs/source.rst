@@ -9,6 +9,10 @@
 
 **genocide**
 
+.. raw:: html
+
+     <br>
+
 .. autosummary::
     :toctree: 
     :template: module.rst
@@ -20,8 +24,18 @@
     genocide.threads	threading
     genocide.usersdb	user management
 
+.. raw:: html
+
+     <br>
+
 
 **genocide.mod**
+
+
+.. raw:: html
+
+     <br>
+
 
 .. autosummary::
     :toctree: 

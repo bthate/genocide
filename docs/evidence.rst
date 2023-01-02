@@ -2,23 +2,11 @@
 
 .. title:: Evidence
 
-
-.. raw:: html
-
-    <center>
-    <b>
-
-**E V I D E N C E**
-
-.. raw:: html
-
-    </b>
-    </center>
-    <br>
-
-
 .. _haldol:
 
+.. raw:: html
+
+  <br>
 
 **haldol**
 
@@ -82,8 +70,4 @@
 
 .. image:: ECHAabilify.png
      :width: 100%
-
-.. raw:: html
-
-  <br><br>
 

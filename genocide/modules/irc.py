@@ -27,7 +27,7 @@ def __dir__():
     return (
             'Config',
             'IRC',
-            'icfg',
+            'cfg',
             'init',
             'mre',
             'pwd'
@@ -540,7 +540,7 @@ class IRC(Handler, Output):
         Handler.stop(self)
 
 
-def icfg(event):
+def cfg(event):
     config = Config()
     last(config)
     if not event.sets:

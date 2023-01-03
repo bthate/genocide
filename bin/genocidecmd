@@ -3,16 +3,21 @@
 # pylint: disable=C0115,C0116
 
 
-"Reconsider OTP-CR-117/19 - http://pypi.org/project/genocide"
+"@KarimKhanQC reconsider OTP-CR-117/19"
 
 
 import inspect
 import os
 import sys
+import termios
+import traceback
+
+
+sys.path.insert(0, os.getcwd())
 
 
 from genocide import Cfg, Command, Handler, Wd, command, parse
-from genocide.mod import cmd, irc, mdl, rss
+from genocide.modules import cmd, irc, mdl, rss
 
 
 Wd.workdir = os.path.expanduser("/var/lib/genocide/")
@@ -46,6 +51,30 @@ def scan(mod):
             Command.add(cmd)
 
 
+def scanner(mname, path=None):
+    mods = importer(mname, path)
+    scan(mods)
+
+
+def wrap(func):
+    fds = sys.stdin.fileno()
+    gotterm = True
+    try:
+        old = termios.tcgetattr(fds)
+    except termios.error:
+        gotterm = False
+    try:
+        func()
+    except (EOFError, KeyboardInterrupt):
+        print("")
+    finally:
+        if gotterm:
+            termios.tcsetattr(fds, termios.TCSADRAIN, old)
+        for evt in Command.errors:
+            ex = evt.__exc__
+            traceback.print_exception(type(ex), ex, ex.__traceback__)
+
+
 def main():
     parse(' '.join(sys.argv[1:]))
     scan(cmd)
@@ -57,4 +86,4 @@ def main():
     evt.wait()
 
 
-main()
+wrap(main)

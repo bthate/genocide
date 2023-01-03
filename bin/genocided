@@ -3,17 +3,19 @@
 # pylint: disable=C0116
 
 
-"Reconsider OTP-CR-117/19 - http://pypi.org/project/genocide"
+"@KarimKhanQC reconsider OTP-CR-117/19"
 
 
 import os
+import sys
+
+
+sys.path.insert(0, os.getcwd())
 
 
 from genocide.objects import Wd
-from genocide.running import wait
-
-
-from genocide.mod import irc, mdl, rss
+from genocide.modules import irc, mdl, rss
+from genocide.runtime import wait
 
 
 Wd.workdir = os.path.expanduser("/var/lib/genocide/")

@@ -1,5 +1,5 @@
 [Unit]
-Description=@KarimKhanQC reconsider OTP-CR-117/19 - http://pypi.org/project/genocide
+Description=GENOCIDE - @KarimKhanQC reconsider OTP-CR-117/19
 After=multi-user.target
 
 [Service]

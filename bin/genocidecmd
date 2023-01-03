@@ -76,6 +76,10 @@ def wrap(func):
 
 
 def main():
+    print(os.environ)
+    if not os.environ.get("INVOCATION_ID"):
+        print("genocidecmd is to used from genocidectl")
+        return
     parse(' '.join(sys.argv[1:]))
     scan(cmd)
     scan(irc)

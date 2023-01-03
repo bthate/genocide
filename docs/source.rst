@@ -43,11 +43,9 @@
 
     genocide.mod.cfg	config
     genocide.mod.cmd	commands list
-    genocide.mod.fnd	locate objects
     genocide.mod.irc	internet relay chat
-    genocide.mod.log	logging
     genocide.mod.mdl	model
     genocide.mod.req	request
     genocide.mod.rss	rich site syndicate
     genocide.mod.sts	status
-    genocide.mod.tdo	a bit later
+    genocide.mod.usr	users

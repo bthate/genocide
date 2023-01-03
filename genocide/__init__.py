@@ -5,13 +5,13 @@
 "object programming"
 
 
-from genocide import message, handler, objects, running, threads, usersdb
+from genocide import message, handler, objects, runtime, threads, usersdb
 
 
 from genocide.message import *
 from genocide.handler import *
 from genocide.objects import *
-from genocide.running import *
+from genocide.runtime import *
 from genocide.threads import *
 from genocide.usersdb import *
 

@@ -11,7 +11,7 @@ import time
 
 
 from .. import Bus, Object, elapsed, name, update
-from .. import mod as gmod
+from .. import modules as gmod
 
 def __dir__():
     return (

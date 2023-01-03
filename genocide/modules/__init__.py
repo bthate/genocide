@@ -5,4 +5,4 @@
 "reconsider OTP-CR-117/19"
 
 
-from genocide.mod import *
+from genocide.modules import *

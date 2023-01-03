@@ -8,7 +8,7 @@
 import unittest
 
 
-from genocide.handler import Event
+from genocide.message import Event
 
 
 class TestEvent(unittest.TestCase):

@@ -3,7 +3,7 @@
 # pylint: disable=C0103,C0115,C0116,C0413,W0212,C0301,W0613,E0611,E0401
 
 
-"reconsider OTP-CR-117/19"
+"""@KarimKhanQC reconsider OTP-CR-117/19"""
 
 
 ## imports
@@ -33,13 +33,13 @@ from genocide import boot, command, scandir, scanpkg, wait
 
 
 import genocide
-import genocide.mod
+import genocide.modules
 
 
 ## defines
 
 
-Cfg.banner = "reconsider OTP-CR-117/19"
+Cfg.banner = "@KarimKhanQC reconsider OTP-CR-117/19"
 Cfg.name = "genocide"
 Cfg.version = "91"
 
@@ -65,11 +65,7 @@ class CLI(Handler):
         sys.stdout.flush()
 
 
-class Console(Handler):
-
-    @staticmethod
-    def announce(txt):
-        pass
+class Console(CLI):
 
     @staticmethod
     def handle(event):
@@ -82,10 +78,8 @@ class Console(Handler):
         event.orig = repr(self)
         return event
 
-    @staticmethod
-    def raw(txt):
-        print(txt)
-        sys.stdout.flush()
+
+## completer
 
 
 class Completer(rlcompleter.Completer):
@@ -108,6 +102,13 @@ class Completer(rlcompleter.Completer):
             return self.matches[state]
         except IndexError:
             return None
+
+
+def setcompleter(optionlist):
+    completer = Completer(optionlist)
+    readline.set_completer(completer.complete)
+    readline.parse_and_bind("tab: complete")
+    atexit.register(lambda: readline.set_completer(None))
 
 
 ## utilities
@@ -145,7 +146,6 @@ def initer(mname, path=None):
     if mods and "init" in dir(mods):
         thr = launch(mods.init)
         thr.join()
-    scan(mods)
 
 
 def scan(mod):
@@ -160,17 +160,6 @@ def scan(mod):
 def scanner(mname, path=None):
     mods = importer(mname, path)
     scan(mods)
-
-
-def print_exc(ex):
-    traceback.print_exception(type(ex), ex, ex.__traceback__)
-
-
-def setcompleter(optionlist):
-    completer = Completer(optionlist)
-    readline.set_completer(completer.complete)
-    readline.parse_and_bind("tab: complete")
-    atexit.register(lambda: readline.set_completer(None))
 
 
 def wrap(func):
@@ -188,64 +177,25 @@ def wrap(func):
         if gotterm:
             termios.tcsetattr(fds, termios.TCSADRAIN, old)
         for evt in Command.errors:
-            print_exc(evt.__exc__)
+            ex = evt.__exc__
+            traceback.print_exception(type(ex), ex, ex.__traceback__)
 
-
-## commands
-
-def dis(event):
-    if not event.args:
-        event.reply("dis <modname>")
-        return
-    name = event.args[0]
-    if name == "disable":
-        event.reply("i won't disable myself")
-        return
-    name += ".py"
-    gcp = genocide.__path__[0]
-    path = os.path.join(gcp, "mod", name)
-    if not os.path.exists(path):
-        event.reply("can't find %s to disable" % name)
-        return
-    nmd = os.path.join(gcp, "notmod")
-    cdir(nmd)
-    dest = os.path.join(nmd, name)
-    shutil.move(path, dest)
-    event.ok()
-
-
-def ena(event):
-    if not event.args:
-        event.reply("enable <modname>")
-        return
-    name = event.args[0]
-    if name == "enable":
-        event.reply("i won't enable myself")
-        return
-    name += ".py"
-    gcp = genocide.__path__[0]
-    path = os.path.join(gcp, "notmod", name)
-    if not os.path.exists(path):
-        event.reply("missing %s" % name)
-        return
-    dest = os.path.join(gcp, "mod", name)
-    shutil.move(path, dest)
-    event.ok()
 
 ## runtime
 
 
 def main():
     boot(" ".join(sys.argv[1:]))
-    scanpkg(genocide.mod, scanner)
-    if Cfg.prs.txt:
-        Command.add(dis)
-        Command.add(ena)
-        cli = CLI()
-        return command(cli, Cfg.prs.otxt)
     if Cfg.daemon:
         daemon()
         Cfg.wait = True
+    if Cfg.mod:
+        scanpkg(genocide.modules, scanner, Cfg.mod)
+        scanpkg(genocide.modules, initer, Cfg.mod)
+    if Cfg.prs.txt:
+        scanpkg(genocide.modules, scanner)
+        cli = CLI()
+        return command(cli, Cfg.prs.otxt)
     if Cfg.console:
         print("%s started at %s %s" % (
                                        Cfg.name.upper(),
@@ -260,8 +210,6 @@ def main():
         cli = Console()
         launch(cli.start)
         Cfg.wait = True
-    if Cfg.wait:
-        scanpkg(genocide.mod, initer)
     if Cfg.wait:
         wait()
 

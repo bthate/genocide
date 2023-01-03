@@ -76,7 +76,7 @@ def __dir__():
             'message',
             'handler',
             'objects',
-            'running',
+            'runtime',
             'threads',
             'usersdb'
            )

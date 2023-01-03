@@ -8,7 +8,7 @@
 import unittest
 
 
-from genocide.mod.irc import IRC
+from genocide.modules.irc import IRC
 
 
 class TestIRC(unittest.TestCase):

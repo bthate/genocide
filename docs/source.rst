@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-     <br>
+     <br><br>
 
 .. title:: Source
 
@@ -20,7 +20,7 @@
     genocide.message	messages 
     genocide.handler	event handler
     genocide.objects	save/load/locate objects
-    genocide.running	runtime allocations
+    genocide.runtime	runtime allocations
     genocide.threads	threading
     genocide.usersdb	user management
 
@@ -29,7 +29,7 @@
      <br>
 
 
-**genocide.mod**
+**genocide.modules**
 
 
 .. raw:: html
@@ -41,11 +41,11 @@
     :toctree: 
     :template: module.rst
 
-    genocide.mod.cfg	config
-    genocide.mod.cmd	commands list
-    genocide.mod.irc	internet relay chat
-    genocide.mod.mdl	model
-    genocide.mod.req	request
-    genocide.mod.rss	rich site syndicate
-    genocide.mod.sts	status
-    genocide.mod.usr	users
+    genocide.modules.cmd	commands list
+    genocide.modules.irc	internet relay chat
+    genocide.modules.krn	kernel
+    genocide.modules.mdl	model
+    genocide.modules.req	request
+    genocide.modules.rss	rich site syndicate
+    genocide.modules.sts	status
+    genocide.modules.usr	users

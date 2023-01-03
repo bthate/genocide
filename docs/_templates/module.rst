@@ -1,20 +1,23 @@
 .. _{{ fullname }}:
 
-.. raw:: html
-
-    <br>
-    <center><b>
-
-
 .. title:: {{ fullname }}
 
+.. raw:: html
 
-**{{ fullname }}**
+    <center>
+    <h3>
+    <b>
+
+
+{{ fullname }}
+
 
 .. raw:: html
 
     </b>
+    </h3>
     </center>
+    <br>
 
 .. automodule:: {{ fullname }}
     :members:
@@ -29,7 +32,6 @@
     {%- endfor %}
     {% endif %}
     {% endblock %}
-
 
     {% block classes %}
     {% if classes %}
@@ -55,5 +57,6 @@
 
     .. raw:: html
 
-       <br><br>
+       <br><br><br><br>
 
+.. currentmodule:: {{ fullname }}

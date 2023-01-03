@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,E0402
+# pylint: disable=C0115,C0116,E0402,E1101
 
 
 "kernel"
@@ -13,7 +13,7 @@ def __dir__():
             "dis",
             "ena",
             "krn"
-           ) 
+           )
 
 def krn(event):
     last(Cfg)

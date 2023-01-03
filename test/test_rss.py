@@ -8,7 +8,7 @@
 import unittest
 
 
-from genocide.mod.rss import Fetcher
+from genocide.modules.rss import Fetcher
 
 
 class TestRss(unittest.TestCase):

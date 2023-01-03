@@ -13,6 +13,8 @@ def popen(txt):
     for line in os.popen(txt).readlines():
         print(line.rstrip())
         sys.stdout.flush()
+        
+popen("rm -fR html")
 
 
 if not os.path.exists("env"):

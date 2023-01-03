@@ -2,7 +2,7 @@
 # pylint: disable=C0115,C0116,E0402,R0903
 
 
-"users database"
+"users"
 
 
 from .objects import Class, Object, find, save, update

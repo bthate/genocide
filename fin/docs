@@ -14,8 +14,6 @@ def popen(txt):
         print(line.rstrip())
         sys.stdout.flush()
         
-popen("rm -fR html")
-
 
 if not os.path.exists("env"):
      popen("fin/env")

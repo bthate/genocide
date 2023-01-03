@@ -2,7 +2,10 @@
 # pylint: disable=C0112,C0115,C0116,W0613,W0108,R0903
 
 
-"""this module contains a big Object class that provides a clean, no methods,
+"""objects
+
+
+this module contains a big Object class that provides a clean, no methods,
 namespace for json data to be read into. this is necessary so that methods
 don't get overwritten by __dict__ updating and, without methods defined on
 the object, is easily being updated from a on disk stored json (dict).

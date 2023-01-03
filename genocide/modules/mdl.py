@@ -2,7 +2,7 @@
 # pylint: disable=E1101,C0116,C0301,W0613,R1710,E0402
 
 
-"model"
+"dutch genocide model"
 
 
 import datetime

@@ -36,11 +36,11 @@ setup(
     long_description=read(),
     long_description_content_type='text/x-rst',
     license='Public Domain',
-    packages=["genocide"],
+    packages=["genocide", "genocide.modules"],
     zip_safe=True,
     include_package_data=True,
     data_files=[
-                ("share/genocide", ["files/genocide.service",]),
+                ("genocide", ["files/genocide.service",]),
                 ("share/doc/genocide", uploadlist("docs")),
                 ("share/doc/genocide/pdf", uploadlist("docs/pdf")),
                 ("share/doc/genocide/_static", uploadlist("docs/_static")),

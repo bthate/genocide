@@ -8,9 +8,7 @@
     <h3>
     <b>
 
-
-{{ fullname }}
-
+{{ fullname }} 
 
 .. raw:: html
 

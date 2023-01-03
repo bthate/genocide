@@ -2,7 +2,7 @@
 # pylint: disable=C0115,C0116,E0402,E1101
 
 
-"kernel"
+"enable/disable modules"
 
 
 from genocide import Cfg, edit, keys, last, printable, write

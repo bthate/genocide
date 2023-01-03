@@ -2,7 +2,7 @@
 # pylint: disable=C0115,C0116,E0402
 
 
-"commands"
+"list of commands"
 
 
 from .. import Command

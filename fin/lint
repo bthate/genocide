@@ -9,7 +9,18 @@ import os
 import sys
 
 
-TODO = ["genocide", "genocide.mod"]
+SKIP = ["---", "Your code"]
+TODO = ["genocide", "modules"]
+
+
+def doskip(txt):
+    if not txt.rstrip():
+        return True
+    for skp in SKIP:
+        if skp in txt:
+            return True
+    return False
+
 
 def loop(path, txt):
     old = os.getcwd()
@@ -33,6 +44,8 @@ def loop(path, txt):
 
 def popen(txt):
     for line in os.popen(txt).readlines():
+        if doskip(line):
+            continue
         print(line.rstrip())
         sys.stdout.flush()
 

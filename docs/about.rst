@@ -7,7 +7,7 @@
 .. title:: About
 
 
-.. image:: skullagain.jpg
+.. image:: skull3.jpg
     :width: 100%
     :target: manual.html
 

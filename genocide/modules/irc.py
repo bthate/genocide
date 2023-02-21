@@ -55,17 +55,17 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    channel = '#opq'
+    channel = '#genocide'
     control = '!'
-    nick = 'opq'
+    nick = 'genocide'
     password = ''
     port = 6667
-    realname = 'object programming queue'
+    realname = 'genocide'
     sasl = False
     server = 'localhost'
     servermodes = ''
     sleep = 60
-    username = 'opq'
+    username = 'genocide'
     users = False
 
     def __init__(self):

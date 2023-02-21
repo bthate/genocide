@@ -80,6 +80,7 @@ def main():
     cli = CLI()
     cli.scan(cmd)
     cli.scan(log)
+    cli.scan(mdl)
     cli.scan(tdo)
     if evt.txt:
         cli.scan(irc)
@@ -91,6 +92,7 @@ def main():
         bot = irc.init()
         bot.clone(cli) 
         rss.init()
+        mdl.init()
         csl = Console()
         csl.clone(cli)
         csl.scan(irc)

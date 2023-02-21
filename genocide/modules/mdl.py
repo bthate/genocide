@@ -25,7 +25,7 @@ def init():
     for key in keys(oorzaken):
         val = getattr(oorzaken, key, None)
         if val and int(val) > 10000:
-            evt = Event()
+            evt = Message()
             evt.txt = ""
             evt.rest = key
             sec = seconds(val)
@@ -319,7 +319,7 @@ def boot():
 def daily():
     time.sleep(10.0)
     while 1:
-        event = Event()
+        event = Message()
         cbnow(event)
         time.sleep(24*60*60)
 
@@ -327,7 +327,7 @@ def daily():
 def hourly():
     while 1:
         time.sleep(60*60)
-        event = Event()
+        event = Message()
         cbnow(event)
 
 
@@ -367,7 +367,7 @@ def cbnow(evt):
         nrtimes = int(delta/needed)
         txt += "%s: %s " % (getalias(name), nrtimes)
     txt += " http://genocide.rtfd.io"
-    Bus.announce(txt)
+    Listens.announce(txt)
 
 
 def cbstats(evt):
@@ -389,7 +389,7 @@ def cbstats(evt):
                                                                elapsed(needed),
                                                                nryear,
                                                               )
-        Bus.announce(txt)
+        Listens.announce(txt)
 
 
 def now(event):
@@ -434,7 +434,7 @@ def tpc(event):
         if needed > 60*60:
             continue
         txt += "%s %s " % (getalias(name), nrtimes)
-    for bot in Bus.objs:
+    for bot in Listens.objs:
         try:
             for channel in bot.channels:
                 bot.topic(channel, txt)

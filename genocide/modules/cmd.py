@@ -1,11 +1,7 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,E0402
 
 
-"list of commands"
-
-
-from .. import Command
+from ..listens import Listens
 
 
 def __dir__():
@@ -14,5 +10,9 @@ def __dir__():
            )
 
 
+__all__ = __dir__()
+
+
 def cmd(event):
-    event.reply(",".join(sorted(Command.cmd)))
+    bot = Listens.byorig(event.orig)
+    event.reply(','.join(sorted(bot.cmds)))

@@ -1,84 +1,29 @@
-# This file is placed in the Public Domain.
-# pylint: disable=W0622
+# This is file is placed in the Public Domain.
 
 
-"object programming"
+"object programming version"
 
 
-from genocide import message, handler, objects, runtime, threads, usersdb
+from . import decoder, default, encoder, objects
 
 
-from genocide.message import *
-from genocide.handler import *
-from genocide.objects import *
-from genocide.runtime import *
-from genocide.threads import *
-from genocide.usersdb import *
+from .decoder import load, loads
+from .encoder import dump, dumps
+from .objects import *
 
 
 def __dir__():
     return (
-            'Bus',
-            'Callback',
-            'Cfg',
-            'Class',
-            'Command',
-            'Config',
-            'Db',
-            'Default',
-            'Event',
-            'Handler',
-            'NoUser',
             'Object',
-            'ObjectDecoder',
-            'ObjectEncoder',
-            'Parsed',
-            'Repeater',
-            'Thread',
-            'Timer',
-            'User',
-            'Users',
-            'Wd',
-            'boot',
-            'cdir',
-            'command',
-            'dump',
-            'dumps',
-            'edit',
-            'elapsed',
-            'find',
-            'fns',
-            'fntime',
-            'hook',
-            'include',
+            'format',
             'items',
             'keys',
             'kind',
-            'last',
-            'launch',
-            'listmod',
-            'load',
-            'loads',
-            'locked',
-            'match',
             'name',
-            'parse',
-            'printable',
-            'register',
-            'save',
-            'scandir',
-            'scanpkg',
-            'spl',
+            'oid',
+            'search',
             'update',
-            'values',
-            'wait',
-            'write',
-            'message',
-            'handler',
-            'objects',
-            'runtime',
-            'threads',
-            'usersdb'
+            'values'
            )
 
 

@@ -2,16 +2,8 @@
 # This file is placed in the Public Domain.
 
 
-"clean"
-
-
 import os
-
-
-cwd = os.getcwd()
-
-
-SKIPDIR = [".git", ".pytest_cache", "env"]
+import sys
 
 
 def popen(txt, silent=False):
@@ -19,7 +11,7 @@ def popen(txt, silent=False):
         if silent:
             continue
         print(line.strip())
-
+        sys.stdout.flush()
 
 def main():
     popen("rm -fR build dist MANIFEST *.egg-info")
@@ -27,6 +19,8 @@ def main():
     popen("rm -fR .test .opr .opq")
     popen("din/loop . rm -fR *~")
     popen("din/loop . rm -fR __pycache__")
+    if os.path.exists("cin/clean"):
+        popen("cin/clean")
 
 
 if __name__ == "__main__":

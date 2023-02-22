@@ -2,11 +2,11 @@
 # This file is placed in the Public Domain.
 
 
-"all"
-
-
 import os
 import time
+
+
+os.environ["PYTHONUNBUFFERED"] = "1"
 
 
 starttime = time.time()

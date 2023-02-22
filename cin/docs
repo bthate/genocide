@@ -13,7 +13,7 @@ def popen(txt):
         
 
 if not os.path.exists("env"):
-     popen("din/env")
+    popen("din/env")
 
 
 if not os.path.exists("env/bin/sphinx-build"):

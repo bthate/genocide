@@ -14,22 +14,22 @@
 
      <br>
 
+
 .. autosummary::
     :toctree: 
     :template: module.rst
 
     genocide.clocked	timer/repeater
-    genocide.decoder	json decoder
-    genocide.default	object with defaults
-    genocide.encoder	json encoder
     genocide.handler	event handler
-    genocide.listens	bus of listeners
-    genocide.message	messages 
+    genocide.loggers 	logging
     genocide.modules	plugins
-    genocide.objects	save/load/locate objects
-    genocide.storage	json files on disk
+    genocide.objects	objects
+    genocide.persist	storage
+    genocide.runtime	configuration
+    genocide.scanner	scan modules
     genocide.threads	threading
-    genocide.utility	utilities
+    genocide.utility	utils
+
 
 .. raw:: html
 
@@ -49,12 +49,12 @@
     :template: module.rst
 
     genocide.modules.cmd	commands list
+    genocide.modules.err	errors
     genocide.modules.flt	list of bots
     genocide.modules.fnd	locate objects
     genocide.modules.irc	internet relay chat
     genocide.modules.log	log text
-    genocide.modules.mdl	model
-    genocide.modules.opt	output cache
+    genocide.modules.mdl	genocide model
     genocide.modules.req	request
     genocide.modules.rss	rich site syndicate
     genocide.modules.tdo	things todo

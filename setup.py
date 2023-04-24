@@ -28,7 +28,7 @@ def uploadlist(dir):
 
 setup(
     name='genocide',
-    version='100',
+    version='101',
     url='https://github.com/bthate/genocide',
     author='Bart Thate',
     author_email='bthate67@gmail.com', 
@@ -40,12 +40,18 @@ setup(
     zip_safe=True,
     include_package_data=True,
     data_files=[
+                ('genocide', ['files/genocide.service']),
                 ("share/doc/genocide", uploadlist("docs")),
                 ("share/doc/genocide/pdf", uploadlist("docs/pdf")),
                 ("share/doc/genocide/_static", uploadlist("docs/_static")),
                 ("share/doc/genocide/_templates", uploadlist("docs/_templates")),
                ],
-    scripts=["bin/genocide"],
+    scripts=[
+             "bin/genocide",
+             "bin/genocided",
+             "bin/genocidecmd", 
+             "bin/genocidectl"
+            ],
     classifiers=['Development Status :: 3 - Alpha',
                  'License :: Public Domain',
                  'Operating System :: Unix',

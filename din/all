@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
+# pylint: disable=C0116
+
+
+"make all"
 
 
 import os
+import subprocess
+import sys
 import time
 
 
@@ -53,22 +59,33 @@ def elapsed(seconds, short=True):
 
 
 def popen(txt):
-    for line in os.popen(txt).readlines():
-        print(line.strip())
+    proc = subprocess.Popen(
+                            txt.split(),
+                            stdin=sys.stdin,
+                            stdout=sys.stdout,
+                            stderr=sys.stderr,
+                            close_fds=False
+                           )
+    proc.communicate()
+    proc.wait()
 
 
 print("FIN started at %s" % time.ctime(time.time()).replace("  ", " "))
 print("running in %s" % os.getcwd())
-print("\ncleaning")
-popen("din/clean")
-print("\ntesting")
-popen("din/test")
-print("\nlinting")
+print("\nCLEAN")
+popen("din/wipe")
+print("\nLINT")
 popen("din/lint")
-print("\nbuilding")
+print("\nTEST")
+popen("din/test")
+if os.path.exists("cin/tinder"):
+    popen("cin/tinder -v")
+print("\nBUILD")
 popen("din/build")
-print("\ncreating environment")
+print("\nENVIRONMENT")
 popen("din/env")
-print("\nTWINING")
+popen("env/bin/operbot cmd")
+print("\nTWINE")
 popen("twine check dist/*")
+
 print("\ndone %s" % elapsed(time.time() - starttime))

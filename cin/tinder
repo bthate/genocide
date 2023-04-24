@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
+# pylint: disable=C0115,C0116,W0603,C0413,E0401,C0103
 
 
 "tinder"
 
 
 import os
-import random
 import shutil
 import sys
 import termios
@@ -18,42 +18,36 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from opq.default import Default
-from opq.message import Message
-from opq.objects import Object, format, update
-from opq.handler import Handler, dispatch, scan
-from opq.modules import cmd, fnd, irc, rss, tdo
-from opq.storage import Storage
-from opq.threads import launch
-from opq.utility import consume, elapsed, locked, include, spl, wait
+import genocide.modules
 
 
-paylock = _thread.allocate_lock()
+from genocide.clocked import elapsed
+from genocide.objects import Default, Object, update
+from genocide.persist import Persist
+from genocide.handler import Client, Command, Error, parse
+from genocide.scanner import scandir, scanpkg, importer
+from genocide.threads import launch
+
+
+Persist.workdir = ".test"
 
 
 Cfg = Default()
-
-
 Cfg.debug = True
 Cfg.name = "tinder"
 
 
-scan(cmd)
-scan(fnd)
-scan(irc)
-scan(rss)
-scan(tdo)
+SKIP = ["debug",]
 
 
-Storage.workdir = ".test"
+date = time.ctime(time.time()).replace("  ", " ")
+paylock = _thread.allocate_lock()
+starttime = time.time()
 
 
 errors = []
 events = []
-results = []
-
-
-SKIP = ["debug",]
+result = 1
 
 
 param = Object()
@@ -80,7 +74,7 @@ param.tdo = ["test4", ""]
 param.thr = [""]
 
 
-class CLI(Handler):
+class CLI(Client):
 
     @staticmethod
     def announce(txt):
@@ -89,69 +83,86 @@ class CLI(Handler):
     @staticmethod
     def raw(txt):
         if txt and "v" in Cfg.opts:
-            cprint(txt)
+            print(txt)
+            sys.stdout.flush()
 
 
-def cprint(txt):
-    print(txt)
-    sys.stdout.flush()
+def consume(evts):
+    fixed = []
+    res = []
+    for evt in evts:
+        res.append(evt.wait())
+        fixed.append(evt)
+    for fff in fixed:
+        try:
+            evts.remove(fff)
+        except ValueError:
+            continue
+    return res
 
 
-@locked(paylock)
 def payload(clt):
-    cmds = sorted(Handler.cmds)
-    random.shuffle(cmds)
-    nmr = 0
-    for cmnd in cmds:
-        for ex in getattr(param, cmnd, [""]):
-            evt = Message()
-            evt.txt = cmnd + " " + ex
-            evt.orig = repr(clt)
-            dispatch(evt)
-            events.append(evt)
-            nmr += 1
-    return nmr
+    with paylock:
+        nmr = 0
+        for cmnd in sorted(Command.cmds):
+            for ex in getattr(param, cmnd, [""]):
+                evt = clt.event(cmnd + " " + ex)
+                evt.orig = repr(clt)
+                clt.put(evt)
+                events.append(evt)
+                nmr += 1
+        return nmr
+
+
+def waiter():
+    got = []
+    for ex in Error.errors:
+        traceback.print_exception(type(ex), ex, ex.__traceback__)
+        got.append(ex)
+    for exc in got:
+        Error.errors.remove(exc)
 
 
 def wrap(func):
-    fds = sys.stdin.fileno()
-    old = termios.tcgetattr(fds)
+    old = termios.tcgetattr(sys.stdin.fileno())
     try:
         func()
     except (EOFError, KeyboardInterrupt):
-        cprint("")
+        print("")
+        sys.stdout.flush()
     finally:
-        termios.tcsetattr(fds, termios.TCSADRAIN, old)
-        for ex in Handler.errors:
-            traceback.print_exception(type(ex), ex, ex.__traceback__)
+        termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old)
+        waiter()
 
 
 def main():
-    date = time.ctime(time.time()).replace("  ", " ")
+    global result
     print(f"TINDER started {date}")
-    cfg = Message()
-    cfg.parse(" ".join(sys.argv[1:]))
+    if os.path.exists(Persist.workdir):
+        shutil.rmtree(Persist.workdir)
+    cfg = parse(" ".join(sys.argv[1:]))
     update(Cfg, cfg)
-    if os.path.exists(Storage.workdir):
-        shutil.rmtree(Storage.workdir)
-    rss.debug = True
-    cli = CLI()
+    Cfg.debug = True
     nrs = Cfg.index or 1
-    starttime = time.time()
     waiters = []
-    res = 1
+    cli = CLI()
+    cli.start()
+    for mod in scanpkg(genocide.modules, importer, doall=True):
+        mod.debug = True
+    for mod in scandir("modules", importer, doall=True):
+        mod.debug = True
     for _nr in range(nrs):
         waiters.append(launch(payload, cli, name=_nr))
-    consume(events)
     for wtr in waiters:
-        res += wtr.join() or 0
+        result += wtr.join() or 1
+    consume(events)
     endtime = time.time()
-    print("%s %s %s (%s remaining)" %  (
-                                        elapsed(endtime - starttime),
-                                        res,
-                                        (endtime - starttime)/res, len(events))
-                                       )
-    print(format(Cfg))
+    print("%s %s %s" %  (
+                         elapsed(endtime - starttime),
+                         result,
+                         (endtime - starttime)/result)
+                        )
 
 
 wrap(main)
+waiter()

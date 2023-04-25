@@ -84,7 +84,7 @@ print("\nBUILD")
 popen("din/build")
 print("\nENVIRONMENT")
 popen("din/env")
-popen("env/bin/operbot cmd")
+popen("env/bin/genocide cmd")
 print("\nTWINE")
 popen("twine check dist/*")
 

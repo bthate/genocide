@@ -56,7 +56,7 @@ class Class:
         mtc = mtc.lower()
         for clz in Class.cls:
             if mtc == clz.split(".")[-1].lower():
-               yield clz
+                yield clz
 
     @staticmethod
     def remove(cmd):
@@ -155,10 +155,10 @@ def write(obj) -> str:
     return strip(pth)
 
 
-def find(match, selector=None) -> []:
+def find(mtc, selector=None) -> []:
     if selector is None:
         selector = {}
-    for fnm in fns(match):
+    for fnm in fns(mtc):
         obj = hook(fnm)
         if '__deleted__' in obj:
             continue

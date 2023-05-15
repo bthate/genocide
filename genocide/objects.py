@@ -1,30 +1,23 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0112,C0115,C0116,R0903,E0402
+# pylint: disable=C,I,R,W,E0402
 
 
-"a clean namespace"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import datetime
-import json
 import os
 import uuid
-import _thread
-
-
-from json import JSONDecoder, JSONEncoder
 
 
 def __dir__():
     return (
-            'Default',
             'Object',
-            'dumps',
             'edit',
             'items',
             'keys',
             'kind',
-            'loads',
             'prt',
             'search',
             'update',
@@ -35,28 +28,13 @@ def __dir__():
 __all__ = __dir__()
 
 
-lock = _thread.allocate_lock()
-
-
 class Object:
 
     __slots__ = ('__dict__', '__oid__')
 
     def __init__(self, *args, **kwargs):
         self.__oid__ = ident(self)
-        if args:
-            val = args[0]
-            if isinstance(val, list):
-                update(self, dict(val))
-            elif isinstance(val, zip):
-                update(self, dict(val))
-            elif isinstance(val, dict):
-                update(self, val)
-            elif isinstance(val, Object):
-                update(self, vars(val))
-        if kwargs:
-            self.__dict__.update(kwargs)
-
+ 
     def __iter__(self):
         return iter(self.__dict__)
 
@@ -67,7 +45,18 @@ class Object:
         return str(self.__dict__)
 
 
-def edit(obj, setter, skip=False):
+def copy(obj, val):
+    if isinstance(val, list):
+        update(obj, dict(val))
+    elif isinstance(val, zip):
+        update(obj, dict(val))
+    elif isinstance(val, dict):
+        update(obj, val)
+    elif isinstance(val, Object):
+        update(obj, vars(val))
+
+
+def edit(obj, setter, skip=False) -> None:
     try:
         setter = vars(setter)
     except (TypeError, ValueError):
@@ -102,7 +91,7 @@ def ident(obj):
     return os.path.join(
                         kind(obj),
                         str(uuid.uuid4().hex),
-                        os.sep.join(str(datetime.datetime.now()).split()),
+                        os.sep.join(str(datetime.datetime.now()).split())
                        )
 
 
@@ -123,7 +112,7 @@ def kind(obj) -> str:
     return kin
 
 
-def prt(obj, args="", skip="", plain=False):
+def prt(obj, args="", skip="", plain=False) -> str:
     res = []
     keyz = []
     if "," in args:
@@ -176,77 +165,3 @@ def update(obj, data) -> None:
 
 def values(obj) -> []:
     return obj.__dict__.values()
-
-
-class Default(Object):
-
-    __slots__ = ("__default__",)
-
-    def __init__(self, *args, **kwargs):
-        Object.__init__(self, *args, **kwargs)
-        self.__default__ = ""
-
-    def __getattr__(self, key):
-        return self.__dict__.get(key, self.__default__)
-
-
-class ObjectDecoder(JSONDecoder):
-
-    errors = []
-
-    def __init__(self):
-        ""
-        JSONDecoder.__init__(self)
-
-    def decode(self, s, _w=None) -> Object:
-        ""
-        val = JSONDecoder.decode(self, s)
-        if not val:
-            val = {}
-        return Object(val)
-
-    def raw_decode(self, s, idx=0) -> (int, Object):
-        ""
-        return JSONDecoder.raw_decode(self, s, idx)
-
-
-def loads(string, *args, **kw) -> Object:
-    return json.loads(string, *args, cls=ObjectDecoder, **kw)
-
-
-class ObjectEncoder(JSONEncoder):
-
-    def __init__(self, *args, **kw):
-        ""
-        JSONEncoder.__init__(self, *args, **kw)
-
-    def default(self, o) -> str:
-        ""
-        if isinstance(o, dict):
-            return o.items()
-        if isinstance(o, Object):
-            return vars(o)
-        if isinstance(o, list):
-            return iter(o)
-        if isinstance(o,
-                      (type(str), type(True), type(False),
-                       type(int), type(float))
-                     ):
-            return str(o)
-        try:
-            return JSONEncoder.default(self, o)
-        except TypeError:
-            return str(o)
-
-    def encode(self, o) -> str:
-        ""
-        return JSONEncoder.encode(self, o)
-
-    def iterencode(self, o, _one_shot=False) -> str:
-        ""
-        return JSONEncoder.iterencode(self, o, _one_shot)
-
-
-def dumps(*args, **kw) -> str:
-    kw["cls"] = ObjectEncoder
-    return json.dumps(*args, **kw)

@@ -1,8 +1,9 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0116,E0401,E0402
+# pylint: disable=C,I,R,W,E0402
 
 
-"introspection"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import importlib
@@ -11,7 +12,9 @@ import inspect
 import os
 
 
-from .handler import Command, spl
+from .command import Command
+from .threads import launch
+from .utility import spl
 
 
 def __dir__():
@@ -53,6 +56,13 @@ def starter(mname, path=None):
     return mod
 
 
+def threader(mname, path=None):
+    mod = doimport(mname, path)
+    if "start" in dir(mod):
+        mod._thr = launch(mod.start)
+    return mod
+
+
 def listmods(path):
     return sorted([x[:-3] for x in os.listdir(path) if not x.startswith("__")])
 
@@ -71,21 +81,25 @@ def scanpkg(pkg, func, mods=None, doall=False):
     return scandir(path, func, mods, doall)
 
 
-def scandir(pth, func, mods=None, doall=False):
-    pname = ".".join(pth.split(os.sep)[-2:])
-    if mods is None:
-        mods = []
-    else:
-        mods = spl(mods)
+def scandir(path, func, mods=None, doall=False, starter=starter):
     res = []
-    if not os.path.exists(pth):
-        return res
-    for fnm in os.listdir(pth):
-        if fnm.endswith("~") or fnm.startswith("__"):
-            continue
-        if not doall and not include(fnm, mods):
-            continue
-        mname = "%s.%s" % (pname, fnm.split(os.sep)[-1][:-3])
-        path2 = os.path.join(pth, fnm)
-        res.append(func(mname, path2))
+    for pth in spl(path):
+        pname = ".".join(pth.split(os.sep)[-2:])
+        if mods is None:
+            mods = []
+        else:
+            mods = spl(mods)
+        if not os.path.exists(pth):
+            return res
+        for fnm in os.listdir(pth):
+            if fnm.endswith("~") or fnm.startswith("__"):
+                continue
+            if not doall and not include(fnm, mods):
+                continue
+            mnm = fnm.split(os.sep)[-1][:-3]
+            mname = f"{pname}.{mnm}"
+            path2 = os.path.join(pth, fnm)
+            res.append(func(mname, path2))
+            if starter:
+                starter(mname, path2)
     return res

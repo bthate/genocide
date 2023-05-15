@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0114,C0115,C0116
+# pylint: disable=C,I,R,W,E0402
 
 
 """| **Information and Evidence Unit**
@@ -76,6 +76,10 @@ p.s.
 (1) provided are the confirmation letters of both the chamber and the king.
 (2) your reference: OTP-CR-117/19
 """
+
+
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 def req(event):

@@ -1,44 +1,32 @@
-#!/usr/bin/env python3
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,C0413,W0212,E0611,E0401,I1101
+# pylint: disable=C,I,R,E0402
 
 
-'OTP-CR-117/19'
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
-import os
 import readline
 import sys
 import termios
-import time
 import traceback
-
-
-sys.path.insert(0, os.getcwd())
-
-
-import genocide.modules
-
-
-from genocide.handler import Client, Error, command, parse
-from genocide.loggers import Logging
-from genocide.objects import update
-from genocide.persist import Persist
-from genocide.runtime import Cfg
-from genocide.scanner import importer, scandir, scanpkg, starter
-from genocide.threads import launch
 
 
 readline.redisplay()
 
 
-MOD = "cmd,err,irc,log,rss,sts,tdo,thr"
+from bsd.clients import Client
+from bsd.command import command
+from bsd.errored import Errors
+from bsd.loggers import Logging
+from bsd.message import parse
+from bsd.objects import update
+from bsd.persist import Persist
+from bsd.scanner import importer, scandir, scanpkg, threader
+from bsd.runtime import Cfg
 
 
-Persist.workdir = os.path.expanduser("~/.%s" % Cfg.name)
-
-
-date = time.ctime(time.time()).replace('  ', ' ')
+import bsd.modules
 
 
 def cprint(txt):
@@ -47,7 +35,7 @@ def cprint(txt):
         sys.stdout.flush()
 
 
-Logging.debug = cprint
+Logging.raw = cprint
 
 
 class CLI(Client):
@@ -60,37 +48,23 @@ class CLI(Client):
         sys.stdout.flush()
 
 
-class Console(CLI):
-
-    def handle(self, evt):
-        CLI.handle(self, evt)
-        evt.wait()
-
-    def poll(self):
-        return self.event(input("> "))
-
-
-def daemon():
-    pid = os.fork()
-    if pid != 0:
-        os._exit(0)
-    os.setsid()
-    os.umask(0)
-    sis = open('/dev/null', 'r')
-    os.dup2(sis.fileno(), sys.stdin.fileno())
-    sos = open('/dev/null', 'a+')
-    ses = open('/dev/null', 'a+')
-    os.dup2(sos.fileno(), sys.stdout.fileno())
-    os.dup2(ses.fileno(), sys.stderr.fileno())
+def main():
+    cfg = parse(' '.join(sys.argv[1:]))
+    update(Cfg, cfg)
+    scanpkg(bsd.modules, importer, Cfg.sets.mod or Cfg.mod, threader)
+    scandir(Persist.moddir(), importer, Cfg.sets.mod or Cfg.mod, threader)
+    scandir("mod", importer, Cfg.sets.mod or Cfg.mod, threader)
+    cli = CLI()
+    command(cli, Cfg.otxt)
 
 
 def waiter():
     got = []
-    for ex in Error.errors:
+    for ex in Errors.errors:
         traceback.print_exception(type(ex), ex, ex.__traceback__)
         got.append(ex)
     for exc in got:
-        Error.errors.remove(exc)
+        Errors.errors.remove(exc)
 
 
 def wrap(func):
@@ -103,40 +77,12 @@ def wrap(func):
     try:
         func()
     except (EOFError, KeyboardInterrupt):
-        print('')
+        print("")
     finally:
         if gotterm:
             termios.tcsetattr(fds, termios.TCSADRAIN, old)
         waiter()
 
 
-def main():
-    dowait = False
-    cfg = parse(' '.join(sys.argv[1:]))
-    update(Cfg, cfg)
-    if os.path.exists("modules"):
-        scandir("modules", importer, cfg.mod or MOD)
-    scanpkg(genocide.modules, importer, cfg.mod or MOD)
-    if cfg.txt:
-        cli = CLI()
-        command(cli, cfg.otxt)
-    elif 'd' in cfg.opts:
-        daemon()
-        dowait = True
-    elif 'c' in cfg.opts:
-        print(f'{Cfg.name.upper()} started {date}')
-        dowait = True
-    if dowait:
-        scanpkg(genocide.modules, starter, cfg.mod or MOD)
-        scandir("modules", starter, cfg.mod or MOD)
-        if "c" in cfg.opts:
-            csl = Console()
-            launch(csl.loop)
-        while 1:
-            time.sleep(1.0)
-            waiter()
-
-
 if __name__ == "__main__":
     wrap(main)
-    waiter()

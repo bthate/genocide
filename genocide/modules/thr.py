@@ -1,16 +1,17 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0114,C0115,C0116,E1101,E0402
+# pylint: disable=C,I,R,W,E0402,E1101
 
 
-"list running threads."
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import threading
 import time
 
 
-from ..clocked import elapsed
 from ..objects import Object, update
+from ..utility import elapsed
 
 
 def __dir__():
@@ -41,7 +42,8 @@ def thr(event):
         result.append((uptime, thread.name))
     res = []
     for uptime, txt in sorted(result, key=lambda x: x[0]):
-        res.append('%s/%s' % (txt, elapsed(uptime)))
+        lap = elapsed(uptime)
+        res.append(f'{txt}/{lap}')
     if res:
         event.reply(' '.join(res))
     else:

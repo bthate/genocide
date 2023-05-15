@@ -1,45 +1,29 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,W0212,R0201,R0902,W0613,W0703,E0402,W0201,R0903
+# pylint: disable=C,I,R,W,E0402
 
 
-'handler'
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
-import inspect
 import queue
 import ssl
 import threading
 
 
-from .objects import Default, Object
+from .errored import Errors
+from .objects import Object
+from .message import Message
 from .threads import launch
 
 
 def __dir__():
     return (
-            'Client',
-            'Command',
-            'Error',
-            'Event',
             'Handler',
-            'Listens',
-            'command',
-            'parse',
-            'scan'
            )
 
 
 __all__ = __dir__()
-
-
-class Error(Object):
-
-    errors = []
-
-    @staticmethod
-    def handle(ex):
-        exc = ex.with_traceback(ex.__traceback__)
-        Error.errors.append(exc)
 
 
 class Handler(Object):
@@ -51,16 +35,9 @@ class Handler(Object):
         self.stopped = threading.Event()
         self.register('command', self.handle)
 
-    def dispatch(self, func, evt):
-        try:
-            func(evt)
-        except Exception as ex:
-            exc = ex.with_traceback(ex.__traceback__)
-            Error.errors.append(exc)
-            evt.ready()
 
     def event(self, txt):
-        msg = Event()
+        msg = Message()
         msg.type = 'command'
         msg.orig = repr(self)
         msg.parse(txt)
@@ -69,7 +46,7 @@ class Handler(Object):
     def handle(self, evt):
         func = getattr(self.cbs, evt.type, None)
         if func:
-            evt._thr = launch(self.dispatch, func, evt, name=evt.cmd)
+            evt._thr = launch(dispatch, func, evt, name=evt.cmd)
         return evt
 
     def loop(self):
@@ -77,7 +54,7 @@ class Handler(Object):
             try:
                 self.handle(self.poll())
             except (ssl.SSLError, EOFError, KeyboardInterrupt) as ex:
-                Error.handle(ex)
+                Errors.handle(ex)
                 self.restart()
 
     def one(self, txt):
@@ -104,177 +81,10 @@ class Handler(Object):
         self.queue.put_nowait(None)
 
 
-class Command(Object):
-
-    cmds = Object()
-
-    @staticmethod
-    def add(cmd, func):
-        setattr(Command.cmds, cmd, func)
-
-    @staticmethod
-    def handle(evt):
-        evt.parse(evt.txt)
-        func = getattr(Command.cmds, evt.cmd, None)
-        if func:
-            try:
-                func(evt)
-                evt.show()
-            except Exception as ex:
-                Error.handle(ex)
-        evt.ready()
-        return evt
-
-
-class Client(Handler):
-
-    def __init__(self):
-        Handler.__init__(self)
-        Listens.add(self)
-        self.register('command', Command.handle)
-
-    def announce(self, txt):
-        self.raw(txt)
-
-    def raw(self, txt):
-        pass
-
-    def say(self, channel, txt):
-        self.raw(txt)
-
-
-class Event(Default):
-
-    __slots__ = ('_ready', '_thr')
-
-    def __init__(self, *args, **kwargs):
-        Default.__init__(self, *args, **kwargs)
-        self._ready = threading.Event()
-        self._thr = None
-        self.args = []
-        self.gets = Default()
-        self.opts = ""
-        self.orig = None
-        self.result = []
-        self.sets = Default()
-
-    def parse(self, txt):
-        self.otxt = txt
-        splitted = self.otxt.split()
-        args = []
-        _nr = -1
-        for word in splitted:
-            if word.startswith('-'):
-                try:
-                    self.index = int(word[1:])
-                except ValueError:
-                    self.opts = self.opts + word[1:2]
-                continue
-            try:
-                key, value = word.split('==')
-                if value.endswith('-'):
-                    value = value[:-1]
-                    setattr(self.skip, value, '')
-                setattr(self.gets, key, value)
-                continue
-            except ValueError:
-                pass
-            try:
-                key, value = word.split('=')
-                setattr(self.sets, key, value)
-                continue
-            except ValueError:
-                pass
-            _nr += 1
-            if _nr == 0:
-                self.cmd = word
-                continue
-            args.append(word)
-        if args:
-            self.args = args
-            self.rest = ' '.join(args)
-            self.txt = self.cmd + ' ' + self.rest
-        else:
-            self.txt = self.cmd
-
-    def ready(self):
-        self._ready.set()
-
-    def reply(self, txt):
-        self.result.append(txt)
-
-    def show(self):
-        for txt in self.result:
-            Listens.say(self.orig, txt, self.channel)
-
-    def wait(self):
-        if self._thr:
-            self._thr.join()
-        self._ready.wait()
-        return self._result
-
-
-class Listens(Object):
-
-    objs = []
-
-    @staticmethod
-    def add(obj):
-        Listens.objs.append(obj)
-
-    @staticmethod
-    def announce(txt):
-        for obj in Listens.objs:
-            obj.announce(txt)
-
-    @staticmethod
-    def byorig(orig):
-        for obj in Listens.objs:
-            if repr(obj) == orig:
-                return obj
-        return None
-
-    @staticmethod
-    def remove(bot):
-        try:
-            Listens.objs.remove(bot)
-        except ValueError:
-            pass
-
-    @staticmethod
-    def say(orig, txt, channel=None):
-        bot = Listens.byorig(orig)
-        if bot:
-            if channel:
-                bot.say(channel, txt)
-            else:
-                bot.raw(txt)
-
-
-def command(cli, txt):
-    evt = cli.event(txt)
-    Command.handle(evt)
-    evt.ready()
-    return evt
-
-
-def parse(txt):
-    cfg = Event()
-    cfg.parse(txt)
-    if "v" in cfg.opts:
-        cfg.verbose = True
-    return cfg
-
-
-def scan(mod):
-    for _key, cmd in inspect.getmembers(mod, inspect.isfunction):
-        if 'event' in cmd.__code__.co_varnames:
-            Command.add(cmd.__name__, cmd)
-
-
-def spl(txt):
+def dispatch(func, evt):
     try:
-        res = txt.split(',')
-    except (TypeError, ValueError):
-        res = txt
-    return [x for x in res if x]
+        func(evt)
+    except Exception as ex:
+        exc = ex.with_traceback(ex.__traceback__)
+        Errors.errors.append(exc)
+        evt.ready()

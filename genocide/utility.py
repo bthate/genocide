@@ -1,13 +1,15 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,E0402
+# pylint: disable=C,I,R,W,E0402
 
 
-'utility'
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 def __dir__():
     return (
             'elapsed',
+            'spl'
            )
 
 
@@ -51,3 +53,11 @@ def elapsed(seconds, short=True):
         txt += "%ss" % sec
     txt = txt.strip()
     return txt
+
+
+def spl(txt):
+    try:
+        res = txt.split(',')
+    except (TypeError, ValueError):
+        res = txt
+    return [x for x in res if x]

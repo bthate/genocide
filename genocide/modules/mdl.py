@@ -1,18 +1,21 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,W0613,E1101,R1710,E0401,E0402
+# pylint: disable=C,I,R,W,E0402
 
 
-"genocide model"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import datetime
 import time
 
 
-from genocide.clocked import Repeater, elapsed
-from genocide.handler import Event, Listens
-from genocide.objects import Object, keys
-from genocide.threads import launch
+from ..listens import Listens
+from ..message import Message
+from ..objects import Object, keys
+from ..repeats import Repeater
+from ..threads import launch
+from ..utility import elapsed
 
 
 def __dir__():
@@ -27,7 +30,7 @@ def start():
     for key in keys(oorzaken):
         val = getattr(oorzaken, key, None)
         if val and int(val) > 10000:
-            evt = Event()
+            evt = Message()
             evt.txt = ""
             evt.rest = key
             sec = seconds(val)
@@ -321,7 +324,7 @@ def boot():
 def daily():
     time.sleep(10.0)
     while 1:
-        event = Event()
+        event = Message()
         cbnow(event)
         time.sleep(24*60*60)
 
@@ -329,7 +332,7 @@ def daily():
 def hourly():
     while 1:
         time.sleep(60*60)
-        event = Event()
+        event = Message()
         cbnow(event)
 
 

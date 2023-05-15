@@ -1,12 +1,13 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,E0402
+# pylint: disable=C,I,R,W,E0402
 
 
-"list of bots"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
-from ..handler import Listens
-from ..objects import kind
+from bsd.listens import Listens
+from bsd.objects import kind
 
 
 def __dir__():

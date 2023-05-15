@@ -1,19 +1,20 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,R0903,E0402,W0120
+# pylint: disable=C,I,R,W,E0402
 
 
-'errors'
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import io
 import traceback
 
 
-from ..handler import Error
+from ..errored import Errors
 
 
 def err(event):
-    for ex in Error.errors:
+    for ex in Errors.errors:
         stream = io.StringIO(traceback.print_exception(type(ex), ex, ex.__traceback__))
         for line in stream.readlines():
             event.reply(line)

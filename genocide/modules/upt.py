@@ -1,14 +1,15 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,E0402
+# pylint: disable=C,I,R,W,E0402
 
 
-"uptime"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import time
 
 
-from ..clocked import elapsed
+from bsd.utility import elapsed
 
 
 def __dir__():

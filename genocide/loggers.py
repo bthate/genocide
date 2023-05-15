@@ -1,8 +1,9 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,R0903,E0402
+# pylint: disable=C,I,R,W,E0402
 
 
-"logging"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import logging
@@ -10,9 +11,9 @@ import logging.handlers
 import os
 
 
-from .handler import spl
 from .persist import Persist, cdir, touch
 from .runtime import Cfg
+from .utility import spl
 
 
 LEVELS = {'debug': logging.DEBUG,

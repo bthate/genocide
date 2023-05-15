@@ -1,9 +1,47 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,R0902,R0903,W0613,E1101,R0912,R0904,R0915
-# pylint: disable=E0402,E0401
+# pylint: disable=C,I,R,E0402,E1101,W0613
 
 
-'internet relay chat'
+"""internet relay chat
+
+IRC
+
+::
+
+ $ genocide icfg server=<server> channel=<channel> nick=<nick>
+
+ (*) default channel/server is #opb on localhost
+
+
+SASL
+
+::
+
+ $ genocide pwd <nickservnick> <nickservpass>
+ $ genocide icfg password=<outputfrompwd>
+
+
+USERS
+
+as default the user's userhost is not checked when a user types a command in a
+channel. To enable userhost checking enable users with the ``cfg`` command::
+
+ $ genocide icfg users=True
+
+
+To add a user to the bot use the met command::
+
+ $ genocide met <userhost>
+
+to delete a user use the del command with a substring of the userhost::
+
+ $ genocide del <substring>
+
+"""
+
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
+
 
 
 import base64
@@ -18,22 +56,32 @@ import threading
 import _thread
 
 
-from ..handler import Client, Command, Error, Event, Listens
+from ..classes import Classes
+from ..clients import Client
+from ..command import Command
+from ..default import Default
+from ..errored import Errors
+from ..message import Message
+from ..listens import Listens
 from ..loggers import Logging
-from ..objects import Default, Object, edit, keys, prt
-from ..persist import Class, last, write
+from ..objects import Object, copy, edit, keys, prt, update
+from ..persist import find, fntime, last, write
 from ..runtime import Cfg
 from ..threads import launch
-
-
-from .usr import Users
+from ..utility import elapsed
 
 
 def __dir__():
     return (
             'Config',
             'IRC',
+            'NoUser',
+            'Users',
+            'User',
             'cfg',
+            'dlt',
+            'irc',
+            'met'
             'mre',
             'pwd',
             'start'
@@ -63,7 +111,7 @@ class Config(Default):
     nick = Cfg.name
     password = ''
     port = 6667
-    realname = Cfg.name
+    realname = "write your own commands"
     sasl = False
     server = 'localhost'
     servermodes = ''
@@ -87,7 +135,7 @@ class Config(Default):
         self.users = Config.users
 
 
-Class.add(Config)
+Classes.add(Config)
 
 
 class TextWrap(textwrap.TextWrapper):
@@ -282,7 +330,7 @@ class IRC(Client, Output):
                 OSError,
                 BrokenPipeError
                ) as ex:
-            Error.errors.append(ex)
+            Errors.errors.append(ex)
 
     def docommand(self, evt):
         evt.orig = repr(self)
@@ -398,7 +446,7 @@ class IRC(Client, Output):
         rawstr = str(txt)
         rawstr = rawstr.replace('\u0001', '')
         rawstr = rawstr.replace('\001', '')
-        obj = Event()
+        obj = Message()
         obj.rawstr = rawstr
         obj.command = ''
         obj.arguments = []
@@ -467,7 +515,7 @@ class IRC(Client, Output):
                     ConnectionResetError,
                     BrokenPipeError
                    ) as ex:
-                Error.errors.append(ex)
+                Errors.errors.append(ex)
                 self.stop()
                 return self.event(str(ex))
         return self.event(self.buffer.pop(0))
@@ -482,7 +530,8 @@ class IRC(Client, Output):
                 return
             if self.cfg.users and not Users.allowed(event.origin, 'USER'):
                 return
-            msg = Event(event)
+            msg = Message()
+            copy(msg, event)
             msg.type = 'command'
             msg.parse(event.txt)
             self.handle(msg)
@@ -508,7 +557,7 @@ class IRC(Client, Output):
                     ConnectionResetError,
                     BrokenPipeError
                    ) as ex:
-                Error.errors.append(ex)
+                Errors.errors.append(ex)
                 self.stop()
                 return
         self.state.last = time.time()
@@ -565,6 +614,71 @@ class IRC(Client, Output):
         self.disconnect()
 
 
+class NoUser(Exception):
+
+    pass
+
+
+class Users(Object):
+
+    @staticmethod
+    def allowed(origin, perm):
+        perm = perm.upper()
+        user = Users.get_user(origin)
+        val = False
+        if user and perm in user.perms:
+            val = True
+        return val
+
+    @staticmethod
+    def delete(origin, perm):
+        res = False
+        for user in Users.get_users(origin):
+            try:
+                user.perms.remove(perm)
+                write(user)
+                res = True
+            except ValueError:
+                pass
+        return res
+
+    @staticmethod
+    def get_users(origin=''):
+        selector = {'user': origin}
+        return find('user', selector)
+
+    @staticmethod
+    def get_user(origin):
+        users = list(Users.get_users(origin))
+        res = None
+        if len(users) > 0:
+            res = users[-1]
+        return res
+
+    @staticmethod
+    def perm(origin, permission):
+        user = Users.get_user(origin)
+        if not user:
+            raise NoUser(origin)
+        if permission.upper() not in user.perms:
+            user.perms.append(permission.upper())
+            write(user)
+        return user
+
+
+class User(Object):
+
+    def __init__(self, val=None):
+        Object.__init__(self)
+        self.user = ''
+        self.perms = []
+        if val:
+            update(self, val)
+
+
+Classes.add(User)
+
+
 def cfg(event):
     config = Config()
     last(config)
@@ -579,6 +693,34 @@ def cfg(event):
         write(config)
         event.reply('ok')
 
+
+def dlt(event):
+    if not event.args:
+        event.reply('dlt <username>')
+        return
+    selector = {'user': event.args[0]}
+    for obj in find('user', selector):
+        obj.__deleted__ = True
+        write(obj)
+        event.reply('ok')
+        break
+
+
+def met(event):
+    if not event.args:
+        nmr = 0
+        for obj in find('user'):
+            lap = elapsed(time.time() - fntime(obj.__fnm__))
+            event.reply(f'{nmr} {obj.user} {obj.perms} {lap}s')
+            nmr += 1
+        if not nmr:
+            event.reply('no user')
+        return
+    user = User()
+    user.user = event.rest
+    user.perms = ['USER']
+    write(user)
+    event.reply('ok')
 
 def mre(event):
     if not event.channel:

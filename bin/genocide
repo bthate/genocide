@@ -20,8 +20,11 @@ sys.path.insert(0, os.getcwd())
 import genocide.modules
 
 
-from genocide.handler import Client, Error, command, parse
+from genocide.clients import Client
+from genocide.command import command
+from genocide.errored import Errors
 from genocide.loggers import Logging
+from genocide.message import parse
 from genocide.objects import update
 from genocide.persist import Persist
 from genocide.runtime import Cfg
@@ -86,11 +89,11 @@ def daemon():
 
 def waiter():
     got = []
-    for ex in Error.errors:
+    for ex in Errors.errors:
         traceback.print_exception(type(ex), ex, ex.__traceback__)
         got.append(ex)
     for exc in got:
-        Error.errors.remove(exc)
+        Errors.errors.remove(exc)
 
 
 def wrap(func):
@@ -115,8 +118,8 @@ def main():
     cfg = parse(' '.join(sys.argv[1:]))
     update(Cfg, cfg)
     mod = Cfg.sets.mod
-    if os.path.exists("modules"):
-        scandir("modules", importer, mod + MOD)
+    if os.path.exists("mod"):
+        scandir("mod", importer, mod + MOD)
     scanpkg(genocide.modules, importer, mod + MOD)
     if cfg.txt:
         cli = CLI()

@@ -1,8 +1,9 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,R0903,E1101,E0402
+# pylint: disable=C,I,R,W,E0402,E1101
 
 
-'rich site syndicate'
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import html.parser
@@ -18,12 +19,14 @@ from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
 
-from ..clocked import Repeater, elapsed
-from ..handler import Listens, spl
+from ..classes import Classes
+from ..listens import Listens
 from ..objects import Object, prt, update
-from ..persist import Class, find, fntime, last, write
+from ..persist import find, fntime, last, write
+from ..repeats import Repeater
 from ..runtime import Cfg
 from ..threads import launch, threaded
+from ..utility import elapsed, spl
 
 
 def __dir__():
@@ -67,7 +70,7 @@ class Rss(Object):
         self.rss = ''
 
 
-Class.add(Rss)
+Classes.add(Rss)
 
 
 class Seen(Object):
@@ -77,7 +80,7 @@ class Seen(Object):
         self.urls = []
 
 
-Class.add(Seen)
+Classes.add(Seen)
 
 
 class Fetcher(Object):
@@ -213,21 +216,22 @@ def gettinyurl(url):
     req = Request('http://tinyurl.com/create.php',
                   data=bytes(postdata, 'UTF-8'))
     req.add_header('User-agent', useragent(url))
-    for txt in urlopen(req).readlines():
-        line = txt.decode('UTF-8').strip()
-        i = re.search('data-clipboard-text="(.*?)"', line, re.M)
-        if i:
-            return i.groups()
+    with urlopen(req) as htm:
+        for txt in htm.readlines():
+            line = txt.decode('UTF-8').strip()
+            i = re.search('data-clipboard-text="(.*?)"', line, re.M)
+            if i:
+                return i.groups()
     return []
 
 
 def geturl(url):
     url = urllib.parse.urlunparse(urllib.parse.urlparse(url))
     req = urllib.request.Request(url)
-    req.add_header('User-agent', useragent('OPERBOT - operator bot'))
-    response = urllib.request.urlopen(req)
-    response.data = response.read()
-    return response
+    req.add_header('User-agent', useragent(Cfg.name.upper()))
+    with urllib.request.urlopen(req) as response:
+        response.data = response.read()
+        return response
 
 
 def striphtml(text):

@@ -6,8 +6,8 @@ __author__ = "B.H.J. Thate <thatebhj@gmail.com>"
 __version__ = 1
 
 
-from bsd.listens import Listens
-from bsd.objects import kind
+from genocide.listens import Listens
+from genocide.objects import kind
 
 
 def __dir__():

@@ -3,7 +3,8 @@
 # pylint: disable=C0115,C0116,W0603,C0413,E0401,C0103
 
 
-"tinder"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import os
@@ -18,15 +19,19 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-import genocide.modules
-
-
-from genocide.clocked import elapsed
-from genocide.objects import Default, Object, update
+from genocide.clients import Client
+from genocide.command import Command
+from genocide.default import Default
+from genocide.errored import Errors
+from genocide.message import parse
+from genocide.objects import Object, update
 from genocide.persist import Persist
-from genocide.handler import Client, Command, Error, parse
 from genocide.scanner import scandir, scanpkg, importer
 from genocide.threads import launch
+from genocide.utility import elapsed
+
+
+import genocide.modules
 
 
 Persist.workdir = ".test"
@@ -116,11 +121,11 @@ def payload(clt):
 
 def waiter():
     got = []
-    for ex in Error.errors:
+    for ex in Errors.errors:
         traceback.print_exception(type(ex), ex, ex.__traceback__)
         got.append(ex)
     for exc in got:
-        Error.errors.remove(exc)
+        Errors.errors.remove(exc)
 
 
 def wrap(func):
@@ -137,7 +142,7 @@ def wrap(func):
 
 def main():
     global result
-    print(f"TINDER started {date}")
+    print(f"started {date}")
     if os.path.exists(Persist.workdir):
         shutil.rmtree(Persist.workdir)
     cfg = parse(" ".join(sys.argv[1:]))
@@ -149,7 +154,7 @@ def main():
     cli.start()
     for mod in scanpkg(genocide.modules, importer, doall=True):
         mod.debug = True
-    for mod in scandir("modules", importer, doall=True):
+    for mod in scandir("mod", importer, doall=True):
         mod.debug = True
     for _nr in range(nrs):
         waiters.append(launch(payload, cli, name=_nr))

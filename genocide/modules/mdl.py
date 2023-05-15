@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,W,E0402
+# pylint: disable=C,I,R,W,E0402,E1101
 
 
 __author__ = "B.H.J. Thate <thatebhj@gmail.com>"
@@ -11,8 +11,8 @@ import time
 
 
 from ..listens import Listens
-from ..message import Message
-from ..objects import Object, keys
+from ..message import Message, parse
+from ..objects import Object, copy, keys, update
 from ..repeats import Repeater
 from ..threads import launch
 from ..utility import elapsed
@@ -242,7 +242,8 @@ aantal = """
          """.split(";")
 
 
-oorzaak = Object(zip(oor,aantal))
+oorzaak = Object()
+copy(oorzaak, zip(oor,aantal))
 
 
 #oorzaak.Suicide = 1859

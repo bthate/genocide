@@ -92,6 +92,7 @@ def scandir(path, func, mods=None, doall=False, starter=starter):
         if not os.path.exists(pth):
             return res
         for fnm in os.listdir(pth):
+            print(fnm)
             if fnm.endswith("~") or fnm.startswith("__"):
                 continue
             if not doall and not include(fnm, mods):

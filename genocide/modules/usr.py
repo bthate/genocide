@@ -2,15 +2,17 @@
 # pylint: disable=C0115,C0116,R0902,R0903,W0613,E1101,R0912,R0904,R0915,E0402
 
 
-'users'
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import time
 
 
-from ..clocked import elapsed
+from ..classes import Classes
 from ..objects import Object, update
-from ..persist import Class, find, fntime, write
+from ..persist import find, fntime, write
+from ..utility import elapsed
 
 
 def __dir__():
@@ -25,7 +27,7 @@ def __dir__():
 
 class NoUser(Exception):
 
-    "user not found"
+    pass
 
 
 class Users(Object):
@@ -85,7 +87,7 @@ class User(Object):
             update(self, val)
 
 
-Class.add(User)
+Classes.add(User)
 
 
 def dlt(event):

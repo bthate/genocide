@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,C0413,W0212,E0611,E0401,I1101
+# pylint: disable=C,I,R,W,E0402
 
 
-'@KarimKhanQC reconsider OTP-CR-117/19'
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import os
@@ -17,9 +18,6 @@ import traceback
 sys.path.insert(0, os.getcwd())
 
 
-import genocide.modules
-
-
 from genocide.clients import Client
 from genocide.command import command
 from genocide.errored import Errors
@@ -28,14 +26,14 @@ from genocide.message import parse
 from genocide.objects import update
 from genocide.persist import Persist
 from genocide.runtime import Cfg
-from genocide.scanner import importer, scandir, scanpkg, starter
+from genocide.scanner import importer, scandir, scanpkg, starter, threader
 from genocide.threads import launch
 
 
+import genocide.modules
+
+
 readline.redisplay()
-
-
-MOD = ",cmd,err,irc,log,mdl,req,rss,sts,tdo,thr"
 
 
 Persist.workdir = os.path.expanduser("~/.%s" % Cfg.name)
@@ -117,10 +115,10 @@ def main():
     dowait = False
     cfg = parse(' '.join(sys.argv[1:]))
     update(Cfg, cfg)
-    mod = Cfg.sets.mod
+    print(f'{Cfg.name.upper()} started {date} mod={cfg.mod}')
     if os.path.exists("mod"):
-        scandir("mod", importer, mod + MOD)
-    scanpkg(genocide.modules, importer, mod + MOD)
+        scandir("mod", importer, Cfg.mod)
+    scanpkg(genocide.modules, importer, Cfg.mod, threader)
     if cfg.txt:
         cli = CLI()
         command(cli, cfg.otxt)
@@ -128,11 +126,8 @@ def main():
         daemon()
         dowait = True
     elif 'c' in cfg.opts:
-        print(f'{Cfg.name.upper()} started {date}')
         dowait = True
     if dowait:
-        scanpkg(genocide.modules, starter, mod + MOD)
-        scandir("modules", starter, mod + MOD)
         if "c" in cfg.opts:
             csl = Console()
             launch(csl.loop)

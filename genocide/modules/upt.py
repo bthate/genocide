@@ -9,7 +9,7 @@ __version__ = 1
 import time
 
 
-from bsd.utility import elapsed
+from genocide.utility import elapsed
 
 
 def __dir__():

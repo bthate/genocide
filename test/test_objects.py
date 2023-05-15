@@ -2,7 +2,8 @@
 # pylint: disable=C0114,C0115,C0116,E1101,R0904
 
 
-"object tests"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import unittest
@@ -135,7 +136,7 @@ class TestObject(unittest.TestCase):
         self.assertEqual(len(obj), 0)
 
     def test_module(self):
-        self.assertTrue(Object().__module__, "genocide")
+        self.assertTrue(Object().__module__, "bsd")
 
     def test_kind(self):
         self.assertEqual(kind(Object()), "genocide.objects.Object")

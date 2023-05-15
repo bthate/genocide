@@ -1,8 +1,9 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0115,C0116,C0103,R0903
+# pylint: disable=C,I,R
 
 
-"inheritence tests"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import unittest

@@ -3,7 +3,8 @@
 # pylint: disable=C0115,C0116,C0413,W0212,E0611
 
 
-'@KarimKhanQC reconsider OTP-CR-117/19'
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import os
@@ -12,7 +13,8 @@ import time
 import traceback
 
 
-from genocide.handler import Error, scan
+from genocide.command import scan
+from genocide.errored import Errors
 from genocide.modules import cmd, err, irc, rss, log, mdl, req, sts, tdo, thr
 from genocide.persist import Persist
 
@@ -21,14 +23,10 @@ Persist.workdir = "/var/lib/genocide/"
 
 
 scan(cmd)
-scan(err)
 scan(irc)
-scan(log)
 scan(mdl)
 scan(req)
 scan(rss)
-scan(sts)
-scan(tdo)
 scan(thr)
 
 

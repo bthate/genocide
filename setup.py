@@ -28,11 +28,11 @@ def uploadlist(dir):
 
 setup(
     name='genocide',
-    version='101',
-    url='https://github.com/bthate/genocide',
+    version='110',
+    url='https://github.com/thatebhj/genocide',
     author='Bart Thate',
-    author_email='bthate67@gmail.com', 
-    description="@KarimKhanQC reconsider OTP-CR-117/19",
+    author_email='thatebhj@gmail.com', 
+    description="Reconsider OTP-CR-117/19",
     long_description=read(),
     long_description_content_type='text/x-rst',
     license='Public Domain',

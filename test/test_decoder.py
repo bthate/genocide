@@ -1,14 +1,17 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0114,C0115,C0116,W1503
+# pylint: disable=C,I,R,W,E0402
 
 
-"decoder tests"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
 
 
 import unittest
 
 
-from genocide.objects import Object, dumps, loads
+from genocide.objects import Object
+from genocide.decoder import loads
+from genocide.encoder import dumps
 
 
 class TestDecoder(unittest.TestCase):
@@ -21,7 +24,7 @@ class TestDecoder(unittest.TestCase):
 
     def test_doctest(self):
         """
-            >>> from genocide.objects import Object, dumps, loads
+            >>> from bsd.objects import Object, dumps, loads
             >>> obj = Object()
             >>> obj.test = "bla"
             >>> oobj = loads(dumps(obj))

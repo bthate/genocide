@@ -115,7 +115,8 @@ def main():
     dowait = False
     cfg = parse(' '.join(sys.argv[1:]))
     update(Cfg, cfg)
-    print(f'{Cfg.name.upper()} started {date} mod={cfg.mod}')
+    if "c" in cfg.opts:
+        print(f'{Cfg.name.upper()} started {date} mod={Cfg.mod}')
     if os.path.exists("mod"):
         scandir("mod", importer, Cfg.mod)
     scanpkg(genocide.modules, importer, Cfg.mod, threader)

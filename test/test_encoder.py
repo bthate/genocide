@@ -2,13 +2,16 @@
 # pylint: disable=C0114,C0115,C0116
 
 
-"encoder tests"
+__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
+__version__ = 1
+
 
 
 import unittest
 
 
-from genocide.objects import Object, dumps
+from genocide.objects import Object
+from genocide.encoder import dumps
 
 
 VALIDJSON = '{"test": "bla"}'

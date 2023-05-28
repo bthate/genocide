@@ -33,11 +33,12 @@ def loop(path, txt):
 
 def popen(txt):
     proc = subprocess.Popen(
-                            txt.split(),
+                            txt,
                             stdin=sys.stdin,
                             stdout=sys.stdout,
                             stderr=sys.stderr,
                             close_fds=False,
+                            shell=True,
                             text=True
                            )
     proc.communicate()

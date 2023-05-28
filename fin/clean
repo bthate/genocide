@@ -20,7 +20,7 @@ def popen(txt):
 def main():
     popen("rm -fR build dist MANIFEST *.egg-info")
     popen("rm -fR .pytest_cache .test  __pycache__ *~")
-    popen('rm -fR html')
+    popen('rm -fR html docs/genocide.*.rst')
     popen("loop . rm -fR *~")
     popen("loop . rm -fR __pycache__")
 

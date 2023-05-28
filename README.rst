@@ -1,7 +1,7 @@
 **NAME**
 
 
-    GENOCIDE - Reconsider ``OTP-CR-117/19``
+**GENOCIDE** - Reconsider ``OTP-CR-117/19``
 
 
 **SYNOPSIS**
@@ -22,21 +22,20 @@
 in a static, only code, no popen, no user imports and no reading modules from
 a directory, way. It can show genocide and suicide stats of king netherlands
 his genocide into a IRC channel, display rss feeds and log simple text
-messages, source is :ref:`here <source>`.
+messages.
 
 **GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
-written :ref:`response <king>` where king netherlands confirmed taking note
-of “what i have written”, namely :ref:`proof <evidence>` that medicine he
-uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
-that make impotent, is both physical (contracted muscles) and mental (let 
-people hallucinate) torture and kills members of the victim groups. 
+written where king netherlands confirmed taking note of “what i have
+written”, namely that medicine he uses in treatement laws like zyprexa, 
+haldol, abilify and clozapine are poison that make impotent, is both physical
+(contracted muscles) and mental (let  people hallucinate) torture and kills
+members of the victim groups. 
 
-**GENOCIDE** contains :ref:`correspondence <writings>` with the
-International Criminal Court, asking for arrest of the king of the 
-netherlands, for the genocide he is committing with his new treatement laws.
-Current status is an outside the jurisdiction judgement of the prosecutor 
-which requires a :ref:`reconsider <home>` to have the king actually
-arrested.
+**GENOCIDE** contains correspondence with the International Criminal
+Court, asking for arrest of the king of the  netherlands, for the genocide
+he is committing with his new treatement laws. Current status is an outside
+the jurisdiction judgement of the prosecutor  which requires a reconsider to
+ have the king actually arrested.
 
 
 **INSTALL**
@@ -83,25 +82,25 @@ start as daemon::
 **CONFIGURATION**
 
 
- *irc*
+*irc*
 
 
- ::
+::
 
     $ gcd cfg server=<server>
     $ gcd cfg channel=<channel>
     $ gcd cfg nick=<nick>
 
- *sasl*
+*sasl*
 
- ::
+::
 
     $ gcd pwd <nsvnick> <nspass>
     $ gcd cfg password=<frompwd>
 
- *rss*
+*rss*
 
- ::
+::
 
     $ gcd rss <url>
     $ gcd dpl <str_in_url> <i1,i2>
@@ -112,7 +111,7 @@ start as daemon::
 **COMMANDS**
 
 
- ::
+::
 
     cmd - commands
     cfg - irc configuration
@@ -138,11 +137,13 @@ start as daemon::
 
 **AUTHOR**
 
+::
 
     Bart Thate <bthate@dds.nl>
 
 
 **COPYRIGHT**
 
+::
 
     GENCOIDE is placed in the Public Domain.

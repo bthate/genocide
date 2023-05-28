@@ -39,8 +39,8 @@ class Config(Default):
 
 Cfg = Config()
 Cfg.debug = False
-Cfg.mod = "cmd,err,flt,mod,sts,thr,upt,ver"
-Cfg.name = "nopaths"
+Cfg.mod = "cmd,err,flt,mdl,mod,req,slg,sts,thr,upt,ver"
+Cfg.name = "genocide"
 Cfg.threaded = False
 Cfg.version = "1"
 

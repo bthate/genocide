@@ -1,7 +1,8 @@
 # This file is placed in the Public Domain.
 
 
-from . import cmd, err, flt, fnd, irc, log, mod, rss, sts, tdo, thr, upt, ver
+from . import cmd, err, flt, fnd, irc, log, mdl, mod, req, rss, slg, sts, tdo
+from . import thr, upt, ver
 
 
 def __dir__():
@@ -12,8 +13,11 @@ def __dir__():
             "fnd",
             "irc",
             "log",
+            "mdl",
             "mod",
+            "req",
             "rss",
+            "slg",
             "sts",
             "tdo",
             "thr",

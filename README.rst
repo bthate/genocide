@@ -1,11 +1,13 @@
 **NAME**
 
 
-    **GENOCIDE** - Reconsider ``OTP-CR-117/19``
+**GENOCIDE** - Reconsider ``OTP-CR-117/19``
 
 
 **SYNOPSIS**
 
+
+::
 
     python3 -m genocide <cmd> [key=val]
     python3 -m genocide <cmd> [key==val]
@@ -108,7 +110,7 @@ start as daemon::
 **COMMANDS**
 
 
-::
+ ::
 
     cmd - commands
     cfg - irc configuration
@@ -135,10 +137,10 @@ start as daemon::
 **AUTHOR**
 
 
-    Bart Thate <bthate@dds.nl>
+Bart Thate <bthate@dds.nl>
 
 
 **COPYRIGHT**
 
 
-    **GENCOIDE** is placed in the Public Domain.
+**GENCOIDE** is placed in the Public Domain.

@@ -1,7 +1,7 @@
 **NAME**
 
 
-**GENOCIDE** - Reconsider ``OTP-CR-117/19``
+**GENOCIDE** - Reconsider **OTP-CR-117/19**
 
 
 **SYNOPSIS**
@@ -35,7 +35,7 @@ members of the victim groups.
 Court, asking for arrest of the king of the  netherlands, for the genocide
 he is committing with his new treatement laws. Current status is an outside
 the jurisdiction judgement of the prosecutor  which requires a reconsider to
- have the king actually arrested.
+have the king actually arrested.
 
 
 **INSTALL**
@@ -56,7 +56,7 @@ use an alias for easier typing::
 list of commands::
 
     $ gcd cmd
-    cmd,err,flt,sts,thr,upt
+    cfg,cmd,dlt,dpl,err,flt,mdl,met,mod,mre,nme,now,pwd,rem,req,rss,slg,sts,thr,upt,ver
 
 start a console::
 
@@ -72,6 +72,7 @@ list of modules::
 
     $ gcd mod
     cmd,err,flt,fnd,irc,log,mod,rss,sts,tdo,thr,upt
+
 
 start as daemon::
 

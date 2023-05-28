@@ -1,9 +1,4 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,W,E0402
-
-
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
 
 
 import queue
@@ -14,16 +9,13 @@ import threading
 from .errored import Errors
 from .objects import Object
 from .message import Message
-from .threads import launch
+from .runtime import Cfg, launch
 
 
 def __dir__():
     return (
             'Handler',
            )
-
-
-__all__ = __dir__()
 
 
 class Handler(Object):
@@ -33,23 +25,25 @@ class Handler(Object):
         self.cbs = Object()
         self.queue = queue.Queue()
         self.stopped = threading.Event()
-        self.register('command', self.handle)
+        self.threaded = True
 
-
-    def event(self, txt):
+    def event(self, txt) -> Message:
         msg = Message()
         msg.type = 'command'
         msg.orig = repr(self)
         msg.parse(txt)
         return msg
 
-    def handle(self, evt):
+    def handle(self, evt) -> Message:
         func = getattr(self.cbs, evt.type, None)
         if func:
-            evt._thr = launch(dispatch, func, evt, name=evt.cmd)
+            if "t" in Cfg.opts:
+                evt._thr = launch(dispatch, func, evt, name=evt.cmd)
+            else:
+                dispatch(func, evt)
         return evt
 
-    def loop(self):
+    def loop(self) -> None:
         while not self.stopped.is_set():
             try:
                 self.handle(self.poll())
@@ -57,31 +51,34 @@ class Handler(Object):
                 Errors.handle(ex)
                 self.restart()
 
-    def one(self, txt):
+    def one(self, txt) -> Message:
         return self.handle(self.event(txt))
 
-    def poll(self):
+    def poll(self) -> Message:
         return self.queue.get()
 
-    def put(self, evt):
+    def put(self, evt) -> None:
         self.queue.put_nowait(evt)
 
-    def register(self, cmd, func):
+    def register(self, cmd, func) -> None:
         setattr(self.cbs, cmd, func)
 
-    def restart(self):
+    def restart(self) -> None:
         self.stop()
         self.start()
 
-    def start(self):
+    def start(self) -> None:
         launch(self.loop)
 
-    def stop(self):
+    def stop(self) -> None:
         self.stopped.set()
         self.queue.put_nowait(None)
 
 
-def dispatch(func, evt):
+## HANDLERS
+
+
+def dispatch(func, evt) -> None:
     try:
         func(evt)
     except Exception as ex:

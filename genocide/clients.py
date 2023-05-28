@@ -1,23 +1,15 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,W,E0402
 
 
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
-
-
-from .command import Command
+from .command import Commands
 from .handler import Handler
 from .listens import Listens
 
 
 def __dir__():
-    return (
-            "Client",
+    return ( 
+            'Client',
            )
-
-
-__all__ = __dir__()
 
 
 class Client(Handler):
@@ -25,13 +17,13 @@ class Client(Handler):
     def __init__(self):
         Handler.__init__(self)
         Listens.add(self)
-        self.register('command', Command.handle)
+        self.register('command', Commands.handle)
 
-    def announce(self, txt):
+    def announce(self, txt) -> None:
         self.raw(txt)
 
-    def raw(self, txt):
+    def raw(self, txt) -> None:
         pass
 
-    def say(self, channel, txt):
+    def say(self, channel, txt) -> None:
         self.raw(txt)

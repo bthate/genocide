@@ -1,9 +1,4 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,W,E0402
-
-
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
 
 
 import datetime
@@ -14,18 +9,14 @@ import uuid
 def __dir__():
     return (
             'Object',
-            'edit',
+            'copy',
+            'indet',
             'items',
             'keys',
             'kind',
-            'prt',
-            'search',
             'update',
-            'values',
+            'values'
            )
-
-
-__all__ = __dir__()
 
 
 class Object:
@@ -34,7 +25,7 @@ class Object:
 
     def __init__(self, *args, **kwargs):
         self.__oid__ = ident(self)
- 
+
     def __iter__(self):
         return iter(self.__dict__)
 
@@ -45,7 +36,7 @@ class Object:
         return str(self.__dict__)
 
 
-def copy(obj, val):
+def copy(obj, val) -> None:
     if isinstance(val, list):
         update(obj, dict(val))
     elif isinstance(val, zip):
@@ -56,38 +47,7 @@ def copy(obj, val):
         update(obj, vars(val))
 
 
-def edit(obj, setter, skip=False) -> None:
-    try:
-        setter = vars(setter)
-    except (TypeError, ValueError):
-        pass
-    if not setter:
-        setter = {}
-    count = 0
-    for key, val in setter.items():
-        if skip and val == "":
-            continue
-        count += 1
-        try:
-            setattr(obj, key, int(val))
-            continue
-        except ValueError:
-            pass
-        try:
-            setattr(obj, key, float(val))
-            continue
-        except ValueError:
-            pass
-        if val in ["True", "true"]:
-            setattr(obj, key, True)
-        elif val in ["False", "false"]:
-            setattr(obj, key, False)
-        else:
-            setattr(obj, key, val)
-    return count
-
-
-def ident(obj):
+def ident(obj) -> str:
     return os.path.join(
                         kind(obj),
                         str(uuid.uuid4().hex),
@@ -112,54 +72,10 @@ def kind(obj) -> str:
     return kin
 
 
-def prt(obj, args="", skip="", plain=False) -> str:
-    res = []
-    keyz = []
-    if "," in args:
-        keyz = args.split(",")
-    if not keyz:
-        keyz = keys(obj)
-    for key in sorted(keyz):
-        if key.startswith("_"):
-            continue
-        if skip:
-            skips = skip.split(",")
-            if key in skips:
-                continue
-        value = getattr(obj, key, None)
-        if not value:
-            continue
-        if " object at " in str(value):
-            continue
-        txt = ""
-        if plain:
-            value = str(value)
-            txt = f'{value}'
-        elif isinstance(value, str) and len(value.split()) >= 2:
-            txt = f'{key}="{value}"'
-        else:
-            txt = f'{key}={value}'
-        res.append(txt)
-    txt = " ".join(res)
-    return txt.strip()
-
-
-def search(obj, selector) -> bool:
-    res = False
-    select = Object(selector)
-    for key, value in items(select):
-        try:
-            val = getattr(obj, key)
-        except AttributeError:
-            continue
-        if str(value) in str(val):
-            res = True
-            break
-    return res
-
-
-def update(obj, data) -> None:
+def update(obj, data, empty=True) -> None:
     for key, value in items(data):
+        if not empty and not value:
+            continue
         setattr(obj, key, value)
 
 

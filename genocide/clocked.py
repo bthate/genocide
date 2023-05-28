@@ -1,9 +1,4 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,W,E0402
-
-
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
 
 
 import threading
@@ -11,16 +6,13 @@ import time
 
 
 from .objects import Object
-from .threads import launch
+from .runtime import launch
 
 
 def __dir__():
     return (
             'Timer',
            )
-
-
-__all__ = __dir__()
 
 
 class Timer:
@@ -34,11 +26,11 @@ class Timer:
         self.state = Object
         self.timer = None
 
-    def run(self):
+    def run(self) -> None:
         self.state.latest = time.time()
         launch(self.func, *self.args)
 
-    def start(self):
+    def start(self) -> None:
         timer = threading.Timer(self.sleep, self.run)
         timer.name = self.name
         timer.daemon = True
@@ -49,8 +41,7 @@ class Timer:
         timer.func = self.func
         timer.start()
         self.timer = timer
-        return timer
 
-    def stop(self):
+    def stop(self) -> None:
         if self.timer:
             self.timer.cancel()

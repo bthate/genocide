@@ -1,9 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,W,E0402,E1101
-
-
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
+# pylint: disable=E1101
 
 
 import html.parser
@@ -19,31 +15,13 @@ from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
 
-from ..classes import Classes
 from ..listens import Listens
-from ..objects import Object, prt, update
-from ..persist import find, fntime, last, write
+from ..objects import Object, update
+from ..objfunc import prt
+from ..persist import Persist, last, write
 from ..repeats import Repeater
-from ..runtime import Cfg
-from ..threads import launch, threaded
-from ..utility import elapsed, spl
-
-
-def __dir__():
-    return (
-        'Feed',
-        'Fetcher',
-        'Repeater',
-        'Rss',
-        'Seen',
-        'Timer',
-        'dpl',
-        'ftc',
-        'nme',
-        'rem',
-        'rss',
-        'start'
-    )
+from ..runtime import Cfg, launch, threaded
+from ..utility import elapsed, fntime, spl
 
 
 def start():
@@ -52,7 +30,6 @@ def start():
     return fetcher
 
 
-DEBUG = False
 fetchlock = _thread.allocate_lock()
 
 
@@ -70,7 +47,7 @@ class Rss(Object):
         self.rss = ''
 
 
-Classes.add(Rss)
+Persist.add(Rss)
 
 
 class Seen(Object):
@@ -80,7 +57,7 @@ class Seen(Object):
         self.urls = []
 
 
-Classes.add(Seen)
+Persist.add(Seen)
 
 
 class Fetcher(Object):
@@ -154,7 +131,7 @@ class Fetcher(Object):
 
     def run(self):
         thrs = []
-        for feed in find('rss'):
+        for feed in Persist.find('rss'):
             thrs.append(launch(self.fetch, feed))
         return thrs
 
@@ -195,6 +172,9 @@ class Parser(Object):
         return res
 
 
+## UTILITIES
+
+
 def getfeed(url, item):
     if Cfg.debug:
         return [Object(), Object()]
@@ -228,7 +208,7 @@ def gettinyurl(url):
 def geturl(url):
     url = urllib.parse.urlunparse(urllib.parse.urlparse(url))
     req = urllib.request.Request(url)
-    req.add_header('User-agent', useragent(Cfg.name.upper()))
+    req.add_header('User-agent', useragent(Cfg.name))
     with urllib.request.urlopen(req) as response:
         response.data = response.read()
         return response
@@ -248,12 +228,15 @@ def useragent(txt):
     return 'Mozilla/5.0 (X11; Linux x86_64) ' + txt
 
 
+## COMMANDS
+
+
 def dpl(event):
     if len(event.args) < 2:
         event.reply('dpl <stringinurl> <item1,item2>')
         return
     setter = {'display_list': event.args[1]}
-    for feed in find('rss', {'rss': event.args[0]}):
+    for feed in Persist.find('rss', {'rss': event.args[0]}):
         if feed:
             update(feed, setter)
             write(feed)
@@ -279,7 +262,7 @@ def nme(event):
         event.reply('name <stringinurl> <name>')
         return
     selector = {'rss': event.args[0]}
-    for feed in find('rss', selector):
+    for feed in Persist.find('rss', selector):
         if feed:
             feed.name = event.args[1]
             write(feed)
@@ -291,7 +274,7 @@ def rem(event):
         event.reply('rem <stringinurl>')
         return
     selector = {'rss': event.args[0]}
-    for feed in find('rss', selector):
+    for feed in Persist.find('rss', selector):
         if feed:
             feed.__deleted__ = True
             write(feed)
@@ -301,7 +284,7 @@ def rem(event):
 def rss(event):
     if not event.rest:
         nrs = 0
-        for feed in find('rss'):
+        for feed in Persist.find('rss'):
             event.reply('%s %s %s' % (
                                    nrs,
                                    prt(feed),
@@ -316,7 +299,7 @@ def rss(event):
     if 'http' not in url:
         event.reply('i need an url')
         return
-    for res in find('rss', {'rss': url}):
+    for res in Persist.find('rss', {'rss': url}):
         if res:
             event.reply('already got %s' % url)
             return

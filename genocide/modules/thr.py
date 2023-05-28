@@ -1,9 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,W,E0402,E1101
-
-
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
+# pylint: disable=E1101
 
 
 import threading
@@ -11,19 +7,11 @@ import time
 
 
 from ..objects import Object, update
+from ..runtime import STARTTIME
 from ..utility import elapsed
 
 
-def __dir__():
-    return (
-            'thr',
-           )
-
-
-__all__ = __dir__()
-
-
-starttime = time.time()
+## COMMANDS
 
 
 def thr(event):
@@ -38,7 +26,7 @@ def thr(event):
         elif getattr(obj, 'starttime', None):
             uptime = int(time.time() - obj.starttime)
         else:
-            uptime = int(time.time() - starttime)
+            uptime = int(time.time() - STARTTIME)
         result.append((uptime, thread.name))
     res = []
     for uptime, txt in sorted(result, key=lambda x: x[0]):

@@ -1,28 +1,18 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,W,E0402
 
 
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
+from ..listens import Listens
+from ..objects import kind
+from ..objfunc import prt
 
 
-from genocide.listens import Listens
-from genocide.objects import kind
-
-
-def __dir__():
-    return (
-            'flt',
-           )
-
-
-__all__ = __dir__()
+## COMMANDS
 
 
 def flt(event):
     try:
         index = int(event.args[0])
-        event.reply(Listens.objs[index])
+        event.reply(prt(Listens.objs[index]))
         return
     except (KeyError, TypeError, IndexError, ValueError):
         pass

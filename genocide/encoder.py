@@ -1,9 +1,4 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,W,E0402
-
-
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
 
 
 import json
@@ -15,11 +10,9 @@ from .objects import Object
 def __dir__():
     return (
             'ObjectEncoder',
+            'dump',
             'dumps'
            )
-
-
-__all__ = __dir__()
 
 
 class ObjectEncoder(json.JSONEncoder):
@@ -47,6 +40,11 @@ class ObjectEncoder(json.JSONEncoder):
 
     def iterencode(self, o, _one_shot=False) -> str:
         return json.JSONEncoder.iterencode(self, o, _one_shot)
+
+
+def dump(*args, **kw) -> None:
+    kw["cls"] = ObjectEncoder
+    return json.dump(*args, **kw)
 
 
 def dumps(*args, **kw) -> str:

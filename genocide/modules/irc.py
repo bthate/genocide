@@ -1,47 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C,I,R,E0402,E1101,W0613
-
-
-"""internet relay chat
-
-IRC
-
-::
-
- $ genocide icfg server=<server> channel=<channel> nick=<nick>
-
- (*) default channel/server is #opb on localhost
-
-
-SASL
-
-::
-
- $ genocide pwd <nickservnick> <nickservpass>
- $ genocide icfg password=<outputfrompwd>
-
-
-USERS
-
-as default the user's userhost is not checked when a user types a command in a
-channel. To enable userhost checking enable users with the ``cfg`` command::
-
- $ genocide icfg users=True
-
-
-To add a user to the bot use the met command::
-
- $ genocide met <userhost>
-
-to delete a user use the del command with a substring of the userhost::
-
- $ genocide del <substring>
-
-"""
-
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
-
+# pylint: disable=E1101
 
 
 import base64
@@ -50,42 +8,25 @@ import queue
 import random
 import socket
 import ssl
+import sys
 import time
 import textwrap
 import threading
 import _thread
 
 
-from ..classes import Classes
 from ..clients import Client
-from ..command import Command
+from ..command import Commands
 from ..default import Default
 from ..errored import Errors
 from ..message import Message
 from ..listens import Listens
-from ..loggers import Logging
-from ..objects import Object, copy, edit, keys, prt, update
-from ..persist import find, fntime, last, write
-from ..runtime import Cfg
-from ..threads import launch
-from ..utility import elapsed
-
-
-def __dir__():
-    return (
-            'Config',
-            'IRC',
-            'NoUser',
-            'Users',
-            'User',
-            'cfg',
-            'dlt',
-            'irc',
-            'met'
-            'mre',
-            'pwd',
-            'start'
-           )
+from ..logging import Logging
+from ..objects import Object, copy, keys, update
+from ..objfunc import edit, prt
+from ..persist import Persist, last, write
+from ..runtime import Cfg, launch
+from ..utility import elapsed, fntime
 
 
 saylock = _thread.allocate_lock()
@@ -94,14 +35,16 @@ saylock = _thread.allocate_lock()
 def start():
     irc = IRC()
     irc.start()
-    if "v" in Cfg.opts:
-        Logging.debug(prt(
-                          irc.cfg,
-                          ",".join(keys(irc.cfg)),
-                          skip='control,password,realname,sleep,username')
-                         )
-        irc.joined.wait()
+    irc.joined.wait()
     return irc
+
+
+class NoUser(Exception):
+
+    pass
+
+
+## CONFIG
 
 
 class Config(Default):
@@ -111,13 +54,14 @@ class Config(Default):
     nick = Cfg.name
     password = ''
     port = 6667
-    realname = "write your own commands"
+    realname = Cfg.name
     sasl = False
     server = 'localhost'
     servermodes = ''
     sleep = 60
     username = Cfg.name
     users = False
+    verbose = False
 
     def __init__(self):
         Default.__init__(self)
@@ -133,9 +77,13 @@ class Config(Default):
         self.sleep = Config.sleep
         self.username = Config.username
         self.users = Config.users
+        self.verbose = Config.verbose
 
 
-Classes.add(Config)
+Persist.add(Config)
+
+
+## OUTPUT
 
 
 class TextWrap(textwrap.TextWrapper):
@@ -220,6 +168,9 @@ class Output(Object):
         self.oqueue.put_nowait((None, None))
 
 
+## IRC
+
+
 class IRC(Client, Output):
 
     def __init__(self):
@@ -298,6 +249,7 @@ class IRC(Client, Output):
         self.state.nrconnect += 1
         self.connected.clear()
         if self.cfg.password:
+            Logging.debug("using SASL")
             self.cfg.sasl = True
             ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
             ctx.check_hostname = False
@@ -334,7 +286,7 @@ class IRC(Client, Output):
 
     def docommand(self, evt):
         evt.orig = repr(self)
-        Command.handle(evt)
+        Commands.handle(evt)
 
     def doconnect(self, server, nck, port=6667):
         while 1:
@@ -347,6 +299,7 @@ class IRC(Client, Output):
                     ConnectionResetError
                    ) as ex:
                 self.state.errors = str(ex)
+            Logging.debug(f"sleeping {self.cfg.sleep} seconds")
             time.sleep(self.cfg.sleep)
         self.logon(server, nck)
 
@@ -359,7 +312,8 @@ class IRC(Client, Output):
     def error(self, event):
         self.state.nrerror += 1
         self.state.errors.append(event.txt)
-        self.stop()
+        Logging.debug(event.txt)
+        #self.stop()
 
     def event(self, txt):
         evt = self.parsing(txt)
@@ -409,6 +363,7 @@ class IRC(Client, Output):
             self.state.pongcheck = True
             self.command('PING', self.cfg.server)
             if self.state.pongcheck:
+                Logging.debug("failed pongcheck, restarting")
                 self.state.pongcheck = False
                 self.keeprunning = False
                 self.connected.clear()
@@ -446,6 +401,7 @@ class IRC(Client, Output):
         rawstr = str(txt)
         rawstr = rawstr.replace('\u0001', '')
         rawstr = rawstr.replace('\001', '')
+        Logging.debug(txt)
         obj = Message()
         obj.rawstr = rawstr
         obj.command = ''
@@ -497,7 +453,6 @@ class IRC(Client, Output):
         obj.orig = repr(self)
         obj.txt = obj.txt.strip()
         obj.type = obj.command
-        Logging.debug(rawstr)
         return obj
 
     def poll(self):
@@ -516,7 +471,7 @@ class IRC(Client, Output):
                     BrokenPipeError
                    ) as ex:
                 Errors.errors.append(ex)
-                self.stop()
+                #self.stop()
                 return self.event(str(ex))
         return self.event(self.buffer.pop(0))
 
@@ -530,6 +485,7 @@ class IRC(Client, Output):
                 return
             if self.cfg.users and not Users.allowed(event.origin, 'USER'):
                 return
+            Logging.debug(f"command from {event.orig}: {event.txt}")
             msg = Message()
             copy(msg, event)
             msg.type = 'command'
@@ -537,6 +493,7 @@ class IRC(Client, Output):
             self.handle(msg)
 
     def quit(self, event):
+        Logging.debug(f"quit from {self.cfg.server}")
         if event.orig and event.orig in self.zelf:
             self.stop()
 
@@ -564,6 +521,7 @@ class IRC(Client, Output):
         self.state.nrsend += 1
 
     def reconnect(self):
+        Logging.debug(f"reconnecting to {self.cfg.server}")
         try:
             self.disconnect()
         except (ssl.SSLError, OSError):
@@ -607,16 +565,26 @@ class IRC(Client, Output):
             launch(self.keep)
 
     def stop(self):
-        Logging.debug("stopping")
         Listens.remove(self)
         Client.stop(self)
         Output.stop(self)
         self.disconnect()
 
 
-class NoUser(Exception):
+## USERS
 
-    pass
+
+class User(Object):
+
+    def __init__(self, val=None):
+        Object.__init__(self)
+        self.user = ''
+        self.perms = []
+        if val:
+            update(self, val)
+
+
+Persist.add(User)
 
 
 class Users(Object):
@@ -645,7 +613,7 @@ class Users(Object):
     @staticmethod
     def get_users(origin=''):
         selector = {'user': origin}
-        return find('user', selector)
+        return Persist.find('user', selector)
 
     @staticmethod
     def get_user(origin):
@@ -666,17 +634,7 @@ class Users(Object):
         return user
 
 
-class User(Object):
-
-    def __init__(self, val=None):
-        Object.__init__(self)
-        self.user = ''
-        self.perms = []
-        if val:
-            update(self, val)
-
-
-Classes.add(User)
+## COMMANDS
 
 
 def cfg(event):
@@ -699,7 +657,7 @@ def dlt(event):
         event.reply('dlt <username>')
         return
     selector = {'user': event.args[0]}
-    for obj in find('user', selector):
+    for obj in Persist.find('user', selector):
         obj.__deleted__ = True
         write(obj)
         event.reply('ok')
@@ -709,7 +667,7 @@ def dlt(event):
 def met(event):
     if not event.args:
         nmr = 0
-        for obj in find('user'):
+        for obj in Persist.find('user'):
             lap = elapsed(time.time() - fntime(obj.__fnm__))
             event.reply(f'{nmr} {obj.user} {obj.perms} {lap}s')
             nmr += 1

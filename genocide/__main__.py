@@ -5,6 +5,7 @@
 
 
 import os
+import readline
 import sys
 import termios
 import time

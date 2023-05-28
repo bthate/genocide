@@ -1,32 +1,33 @@
 **NAME**
 
-| ``GENOCIDE`` - <name> reconsider ``OTP-CR-117/19``
+| **GENOCIDE** - Reconsider ``OTP-CR-117/19``
 
 **SYNOPSIS**
 
 ::
 
-    python3 -m genocide <cmd> [key=val] [key==val]
+    python3 -m genocide <cmd> [key=val]
+    python3 -m genocide <cmd> [key==val]
     python3 -m genocide [-c] [-d] [-v]
 
 
 **DESCRIPTION**
 
-``GENOCIDE`` is a solid, non hackable bot, that runs under systemd as a 
+**GENOCIDE** is a solid, non hackable bot, that runs under systemd as a 
 24/7 background service starts after reboot and is intended to be programmable
 in a static, only code, no popen, no user imports and no reading modules from
 a directory, way. It can show genocide and suicide stats of king netherlands
 his genocide into a IRC channel, display rss feeds and log simple text
 messages, source is :ref:`here <source>`.
 
-``GENOCIDE`` holds evidence that king netherlands is doing a genocide, a 
+**GENOCIDE** holds evidence that king netherlands is doing a genocide, a 
 written :ref:`response <king>` where king netherlands confirmed taking note
 of “what i have written”, namely :ref:`proof <evidence>` that medicine he
 uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
 that make impotent, is both physical (contracted muscles) and mental (let 
 people hallucinate) torture and kills members of the victim groups. 
 
-``GENOCIDE`` contains :ref:`correspondence <writings>` with the
+**GENOCIDE** contains :ref:`correspondence <writings>` with the
 International Criminal Court, asking for arrest of the king of the 
 netherlands, for the genocide he is committing with his new treatement laws.
 Current status is an outside the jurisdiction judgement of the prosecutor 
@@ -36,71 +37,74 @@ arrested.
 
 **INSTALL**
 
-install from pypi::
 
     $ sudo python3 -m pip install genocide
 
-or download the tarball from https://github.com/bthate/genocide/releases/
 
 **USAGE**
 
+
 use an alias for easier typing::
 
-    $ alias gc="python3 -m genocide"
+    $ alias gcd="python3 -m genocide"
 
 list of commands::
 
-    $ gc cmd
+    $ gcd cmd
     cmd,err,flt,sts,thr,upt
 
 start a console::
 
-    $ gc -c
+    $ gcd -c
     >
 
 start additional modules::
 
-    $ gc mod=<mod1,mod2> -c
+    $ gcd mod=<mod1,mod2> -c
     >
 
 list of modules::
 
-    $ gc mod
+    $ gcd mod
     cmd,err,flt,fnd,irc,log,mod,rss,sts,tdo,thr,upt
 
 start as daemon::
 
-    $ gc mod=cmd,irc,rss -d
+    $ gcd -d
     $ 
 
+
 **CONFIGURATION**
+
 
 *irc*
 
 
 ::
 
-    $ gc cfg server=<server>
-    $ gc cfg channel=<channel>
-    $ gc cfg nick=<nick>
+    $ gcd cfg server=<server>
+    $ gcd cfg channel=<channel>
+    $ gcd cfg nick=<nick>
 
 *sasl*
 
 ::
 
-    $ gc pwd <nsvnick> <nspass>
-    $ gc cfg password=<frompwd>
+    $ gcd pwd <nsvnick> <nspass>
+    $ gcd cfg password=<frompwd>
 
 *rss*
 
 ::
 
-    $ gc rss <url>
-    $ gc dpl <str_in_url> <i1,i2>
-    $ gc rem <str_in_url>
-    $ gc nme <str_in_url< <name>
+    $ gcd rss <url>
+    $ gcd dpl <str_in_url> <i1,i2>
+    $ gcd rem <str_in_url>
+    $ gcd nme <str_in_url< <name>
+
 
 **COMMANDS**
+
 
 ::
 
@@ -125,7 +129,9 @@ start as daemon::
     thr - show the running threads
     tpc - genocide stats into topic
 
+
 **AUTHOR**
+
 
 ::
 
@@ -134,6 +140,7 @@ start as daemon::
 
 **COPYRIGHT**
 
+
 ::
 
-    genocide is placed in the Public Domain.
+    **GENCOIDE** is placed in the Public Domain.

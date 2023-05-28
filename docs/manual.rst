@@ -10,18 +10,21 @@
 
 **NAME**
 
- | ``GENOCIDE`` - <name> reconsider ``OTP-CR-117/19``
+ | ``GENOCIDE`` - Reconsider ``OTP-CR-117/19``
+
 
 **SYNOPSIS**
 
- | ``genocidectl <cmd> [key=value] [key==value]``
+::
+
+    python3 -m genocide <cmd> [key=val] [key==val]
+    python3 -m genocide [-c] [-d] [-v]
 
 
 **DESCRIPTION**
 
- ``GENOCIDE`` is a solid, non hackable bot, that runs under systemd as a 
- 24/7 background service starts after reboot and is intended to be programmable
- in a static, only code, no popen, no user imports and no reading modules from
+ ``GENOCIDE`` is a python3 IRC bot is intended to be programmable  in a
+ static, only code, no popen, no user imports and no reading modules from
  a directory, way. It can show genocide and suicide stats of king netherlands
  his genocide into a IRC channel, display rss feeds and log simple text
  messages, source is :ref:`here <source>`.
@@ -40,68 +43,96 @@
  which requires a :ref:`reconsider <home>` to have the king actually
  arrested.
 
+
 **INSTALL**
 
+::
 
- | ``sudo python3 -m pip install genocide``
- | ``sudo systemctl enable /usr/local/genocide/genocide.service --now``
+ $ sudo python3 -m pip install genocide
 
+
+**USAGE**
+
+ use an alias for easier typing::
+
+    $ alias gc="python3 -m genocide"
+
+ list of commands::
+
+    $ gc cmd
+    cmd,err,flt,sts,thr,upt
+
+ start a console::
+
+    $ gc -c
+    >
+
+ start additional modules::
+
+    $ gc mod=<mod1,mod2> -c
+    >
+
+ list of modules::
+
+    $ gc mod
+    cmd,err,flt,fnd,irc,log,mod,rss,sts,tdo,thr,upt
+
+ start as daemon::
+
+    $ gc -d
+    $ 
 
 **CONFIGURATION**
 
+ *irc*
 
- use sudo, ``genocidectl`` needs root privileges
 
+ ::
 
- ``irc``
+    $ gc cfg server=<server>
+    $ gc cfg channel=<channel>
+    $ gc cfg nick=<nick>
 
-  | ``genocidectl cfg server=<server> channel=<channel> nick=<nick>``
-  
-  | ``(*) default channel/server is #genocide on localhost``
+ *sasl*
 
- ``sasl``
+ ::
 
-  | ``genocidectl pwd <nickservnick> <nickservpass>``
-  | ``genocidectl cfg password=<outputfrompwd>``
+    $ gc pwd <nsvnick> <nspass>
+    $ gc cfg password=<frompwd>
 
- ``users``
+ *rss*
 
-  | ``genocidectl cfg users=True``
-  | ``genocidectl met <userhost>``
+ ::
 
- ``rss``
-
-  | ``genocidectl rss <url>``
-
- ``24/7``
-
-  | ``systemctl enable /usr/local/genocide/genocide.service --now``
-
+    $ gc rss <url>
+    $ gc dpl <str_in_url> <i1,i2>
+    $ gc rem <str_in_url>
+    $ gc nme <str_in_url< <name>
 
 **COMMANDS**
 
  ::
 
-  cmd - commands
-  cfg - irc configuration
-  dlt - remove a user
-  dpl - sets display items
-  ftc - runs a fetching batch
-  fnd - find objects 
-  flt - list of instances registered to the bus
-  log - log some text
-  mdl - genocide model
-  met - add a user
-  mre - displays cached output, channel wise.
-  nck - changes nick on irc
-  now - genocide stats
-  pwd - combines nickserv name/password into a sasl password
-  rem - removes a rss feed
-  req - request to the prosecutor
-  rss - add a feed
-  slg - slogan
-  thr - show the running threads
-  tpc - put genocide stats into topic
+    cmd - commands
+    cfg - irc configuration
+    dlt - remove a user
+    dpl - sets display items
+    ftc - runs a fetching batch
+    fnd - find objects 
+    flt - instances registered
+    log - log some text
+    mdl - genocide model
+    met - add a user
+    mre - displays cached output
+    nck - changes nick on irc
+    now - genocide stats
+    pwd - sasl nickserv name/pass
+    rem - removes a rss feed
+    req - reconsider
+    rss - add a feed
+    slg - slogan
+    thr - show the running threads
+    tpc - genocide stats into topic
 
 
 **FILES**
@@ -114,11 +145,10 @@
 **AUTHOR**
 
 
- Bart Thate 
+ | Bart Thate <bthate@dds.nl>
 
 
 **COPYRIGHT**
 
 
- ``GENOCIDE`` is placed in the Public Domain.
-
+ | ``GENOCIDE`` is placed in the Public Domain.

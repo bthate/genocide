@@ -85,9 +85,7 @@ start as daemon::
 
 *irc*
 
-to start irc, add mod=irc to the command given:
-
-::
+to start irc, add mod=irc when starting::
 
     $ gcd mod=irc -c
 

@@ -24,6 +24,7 @@
 
 **DESCRIPTION**
 
+
  **GENOCIDE** is a python3 IRC bot is intended to be programmable  in a
  static, only code, no popen, no user imports and no reading modules from
  a directory, way. It can show genocide and suicide stats of king netherlands
@@ -47,12 +48,14 @@
 
 **INSTALL**
 
+
 ::
 
  $ sudo python3 -m pip install genocide
 
 
 **USAGE**
+
 
  use an alias for easier typing::
 
@@ -79,18 +82,24 @@
     cmd,err,flt,fnd,irc,log,mdl,mod,req,
     rss,slg,sts,tdo,thr,upt,ver
 
+ to start irc, add mod=irc when starting::
+
+     $ gcd mod=irc -c
+
+ to start rss, also add mod=rss when starting::
+
+     $ gcd mod=irc,rss -c
+
  start as daemon::
 
-    $ gcd -d
+    $ gcd mod=irc,rss -d
     $ 
+
 
 **CONFIGURATION**
 
+
  *irc*
-
- to start irc, add mod=irc to the command given::
-
-     $ gcd mod=irc -c
 
  ::
 
@@ -107,10 +116,6 @@
 
  *rss*
 
- to start irc, add mod=irc to the command given::
-
-      $ gcd mod=irc,rss -c
-
  ::
 
     $ gcd rss <url>
@@ -118,7 +123,9 @@
     $ gcd rem <str_in_url>
     $ gcd nme <str_in_url< <name>
 
+
 **COMMANDS**
+
 
  ::
 

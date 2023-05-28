@@ -39,9 +39,9 @@ class Config(Default):
 
 Cfg = Config()
 Cfg.debug = False
-Cfg.mod = "cmd,err,flt,irc,mdl,mod,req,rss,slg,sts,thr,upt,ver"
+Cfg.mod = "cmd,err,flt,mdl,mod,req,slg,sts,thr,upt,ver"
 Cfg.name = "genocide"
-Cfg.skip = "PING,POMG"
+Cfg.skip = "PING,PONG"
 Cfg.threaded = False
 Cfg.version = "1"
 
@@ -63,7 +63,7 @@ def launch(func, *args, **kwargs):
 def parse_cli(txt) -> Message:
     msg = Message()
     msg.parse(txt)
-    update(Cfg, msg)
+    update(Cfg, msg, False)
     Cfg.mod += msg.mods
     return Cfg
 

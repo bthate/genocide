@@ -6,6 +6,9 @@ import os
 import sys
 
 
+os.environ["PATH"] += ":fin"
+
+
 def popen(txt):
     for line in os.popen(txt).readlines():
         print(line.rstrip())
@@ -13,11 +16,11 @@ def popen(txt):
         
 
 if not os.path.exists("env"):
-    popen("din/env")
+    popen("mkenv")
 
 
 if not os.path.exists("env/bin/sphinx-build"):
-    popen("cin/upenv")
+    popen("upenv")
 
 #popen("env/bin/python3 -m pip install . --upgrade --force-reinstall --no-cache-dir --no-deps")
 popen("env/bin/python3 env/bin/sphinx-build docs html")

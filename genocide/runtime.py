@@ -41,6 +41,7 @@ Cfg = Config()
 Cfg.debug = False
 Cfg.mod = "cmd,err,flt,irc,mdl,mod,req,rss,slg,sts,thr,upt,ver"
 Cfg.name = "genocide"
+Cfg.skip = "PING,POMG"
 Cfg.threaded = False
 Cfg.version = "1"
 

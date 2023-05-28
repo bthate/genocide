@@ -15,11 +15,11 @@
 
 **SYNOPSIS**
 
-::
+ ::
 
-    python3 -m genocide <cmd> [key=val] 
-    python3 -m genocide <cmd> [key==val]
-    python3 -m genocide [-c] [-d] [-v]
+  python3 -m genocide <cmd> [key=val] 
+  python3 -m genocide <cmd> [key==val]
+  python3 -m genocide [-c] [-d] [-v]
 
 
 **DESCRIPTION**
@@ -49,7 +49,7 @@
 **INSTALL**
 
 
-::
+ ::
 
  $ sudo python3 -m pip install genocide
 
@@ -59,7 +59,7 @@
 
  use an alias for easier typing::
 
-    $ alias gcd="python3 -m genocide"
+ $ alias gcd="python3 -m genocide"
 
  list of commands::
 
@@ -155,7 +155,6 @@
 
 
  | ``/usr/local/share/doc/genocide/*``
- | ``/usr/local/genocide/``
 
 
 **AUTHOR**

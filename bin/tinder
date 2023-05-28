@@ -15,18 +15,18 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from nopaths.clients import Client
-from nopaths.command import Commands
-from nopaths.default import Default
-from nopaths.errored import Errors
-from nopaths.logging import Logging
-from nopaths.objects import Object, keys, update
-from nopaths.persist import Persist
-from nopaths.runtime import DATE, STARTTIME, Cfg, launch, parse_cli
-from nopaths.utility import elapsed, spl
+from genocide.clients import Client
+from genocide.command import Commands
+from genocide.default import Default
+from genocide.errored import Errors
+from genocide.logging import Logging
+from genocide.objects import Object, keys, update
+from genocide.persist import Persist
+from genocide.runtime import DATE, STARTTIME, Cfg, launch, parse_cli
+from genocide.utility import elapsed, spl
 
 
-import nopaths.modules
+import genocide.modules
 
 
 NAME = "tinder"
@@ -118,9 +118,9 @@ def payload(clt) -> None:
 def scanstr(mods, init=None, doall=False) -> None:
     res = []
     if doall:
-        mods = ",".join(nopaths.modules.__all__)
+        mods = ",".join(genocide.modules.__all__)
     for modname in spl(mods):
-        mod = getattr(nopaths.modules, modname)
+        mod = getattr(genocide.modules, modname)
         if not mod:
             continue
         Commands.scan(mod)
@@ -160,7 +160,7 @@ def main() -> None:
     parse_cli(" ".join(sys.argv[1:]))
     if "v" in Cfg.opts:
         Logging.debug = cprint
-    scanstr(",".join(nopaths.modules.__all__), doall=True)
+    scanstr(",".join(genocide.modules.__all__), doall=True)
     nrs = Cfg.index or 1
     cli = CLI()
     cli.start()

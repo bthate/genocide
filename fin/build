@@ -1,12 +1,24 @@
 #!/usr/bin/env python3
+# This file is placed in the Public Domain.
 
 
 import os
+import subprocess
+import sys
 
 
 def popen(txt):
-    for line in os.popen(txt).readlines():
-        print(line.strip())
+    proc = subprocess.Popen(
+                            txt,
+                            stdin=sys.stdin,
+                            stdout=sys.stdout,
+                            stderr=sys.stderr,
+                            close_fds=False,
+                            shell=True,
+                            text=True
+                           )
+    proc.communicate()
+    proc.wait()
 
 
 popen("python3 setup.py sdist")

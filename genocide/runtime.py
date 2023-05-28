@@ -53,7 +53,7 @@ def command(cli, txt) -> Message:
     return evt
 
 
-def launch(func, *args, **kwargs):
+def launch(func, *args, **kwargs) -> Thread:
     thrname = kwargs.get('name', '')
     thr = Thread(func, thrname, *args)
     thr.start()
@@ -68,7 +68,7 @@ def parse_cli(txt) -> Message:
     return Cfg
 
 
-def threaded(func, *args, **kwargs):
+def threaded(func, *args, **kwargs) -> None:
 
     @functools.wraps(func)
     def threadedfunc(*args, **kwargs):

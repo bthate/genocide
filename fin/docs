@@ -3,6 +3,7 @@
 
 
 import os
+import subprocess
 import sys
 
 
@@ -10,10 +11,17 @@ os.environ["PATH"] += ":fin"
 
 
 def popen(txt):
-    for line in os.popen(txt).readlines():
-        print(line.rstrip())
-        sys.stdout.flush()
-        
+    proc = subprocess.Popen(
+                            txt.split(),
+                            stdin=sys.stdin,
+                            stdout=sys.stdout,
+                            stderr=sys.stderr,
+                            close_fds=False,
+                            text=True
+                           )
+    proc.communicate()
+    proc.wait()
+
 
 if not os.path.exists("env"):
     popen("mkenv")

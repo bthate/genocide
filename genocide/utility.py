@@ -99,7 +99,7 @@ def fntime(daystr) -> float:
     return tme
 
 
-def name(obj):
+def name(obj) -> str:
     typ = type(obj)
     if isinstance(typ, types.ModuleType):
         return obj.__name__

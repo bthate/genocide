@@ -1,4 +1,4 @@
-# GCID OTP-CR-117/19
+# GENOCIDE - Reconsider OTP-CR-117/19
 # -*- coding: utf-8 -*-
 #
 
@@ -12,6 +12,7 @@ __version__ = "91"
 
 import doctest
 import os
+import re
 import sys
 import unittest
 
@@ -119,7 +120,7 @@ rst_epilog = '''.. raw:: html
     <center>
     <b>
 
-:ref:`home <home>` - :ref:`manual <manual>` - :ref:`source <source>` - :ref:`about <about>` 
+:ref:`home <home>` - :ref:`manual <manual>` - `index <genindex-all.html>`_ - :ref:`source <source>` - :ref:`about <about>` 
 
 .. raw:: html
 
@@ -140,3 +141,19 @@ doctest_flags=doctest.REPORT_UDIFF
 nitpick_ignore=[
                 ('py:class', 'builtins.BaseException'),
                ]
+
+
+def strip_signatures(app, what, name, obj, options, signature, return_annotation):
+    sig = None                                                                  
+    if signature is not None:                                                   
+        sig = re.sub('genocide\.[^.]*\.', '', signature)                           
+                                                                                
+    ret = None                                                                  
+    if return_annotation is not None:                                           
+        ret = re.sub('genocide\.[^.]*\.', '', signature)                           
+                                                                                
+    return sig, ret                                                             
+                                                                                
+                                                                                
+def setup(app):                                                                 
+    app.connect('autodoc-process-signature', strip_signatures)

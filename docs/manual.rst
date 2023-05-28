@@ -10,7 +10,7 @@
 
 **NAME**
 
- | ``GENOCIDE`` - @KarimKhanQC reconsider ``OTP-CR-117/19``
+ | ``GENOCIDE`` - <name> reconsider ``OTP-CR-117/19``
 
 **SYNOPSIS**
 

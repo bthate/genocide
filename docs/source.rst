@@ -19,16 +19,22 @@
     :toctree: 
     :template: module.rst
 
+    genocide.clients	users
     genocide.clocked	timer/repeater
+    genocide.decoder	json decoder
+    genocide.default	use default values
+    genocide.encoder	json encoder
+    genocide.errored	error handling
     genocide.handler	event handler
-    genocide.loggers 	logging
+    genocide.logging 	logging
+    genocide.message	events
     genocide.modules	plugins
     genocide.objects	objects
     genocide.persist	storage
+    genocide.repeats	repeaters
     genocide.runtime	configuration
-    genocide.scanner	scan modules
     genocide.threads	threading
-    genocide.utility	utils
+    genocide.utility 	utils
 
 
 .. raw:: html

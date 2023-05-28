@@ -76,7 +76,7 @@ list of modules::
 
 start as daemon::
 
-    $ gcd -d
+    $ gcd mod=irc,rss -d
     $ 
 
 
@@ -85,6 +85,11 @@ start as daemon::
 
 *irc*
 
+to start irc, add mod=irc to the command given:
+
+::
+
+    $ gcd mod=irc -c
 
 ::
 
@@ -100,6 +105,12 @@ start as daemon::
     $ gcd cfg password=<frompwd>
 
 *rss*
+
+to start rss, add mod=irc,rss to the command given:
+
+::
+
+    $ gcd mod=irc,rss -c
 
 ::
 

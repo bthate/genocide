@@ -88,6 +88,9 @@
 
  *irc*
 
+ to start irc, add mod=irc to the command given::
+
+     $ gcd mod=irc -c
 
  ::
 
@@ -103,6 +106,10 @@
     $ gcd cfg password=<frompwd>
 
  *rss*
+
+ to start irc, add mod=irc to the command given::
+
+      $ gcd mod=irc,rss -c
 
  ::
 

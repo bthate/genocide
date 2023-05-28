@@ -1,7 +1,7 @@
 **NAME**
 
 
-**GENOCIDE** - Reconsider ``OTP-CR-117/19``
+    GENOCIDE - Reconsider ``OTP-CR-117/19``
 
 
 **SYNOPSIS**
@@ -41,6 +41,8 @@ arrested.
 
 **INSTALL**
 
+
+::
 
     $ sudo python3 -m pip install genocide
 
@@ -137,10 +139,10 @@ start as daemon::
 **AUTHOR**
 
 
-Bart Thate <bthate@dds.nl>
+    Bart Thate <bthate@dds.nl>
 
 
 **COPYRIGHT**
 
 
-**GENCOIDE** is placed in the Public Domain.
+    GENCOIDE is placed in the Public Domain.

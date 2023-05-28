@@ -1,10 +1,11 @@
 **NAME**
 
-| **GENOCIDE** - Reconsider ``OTP-CR-117/19``
+
+    **GENOCIDE** - Reconsider ``OTP-CR-117/19``
+
 
 **SYNOPSIS**
 
-::
 
     python3 -m genocide <cmd> [key=val]
     python3 -m genocide <cmd> [key==val]
@@ -12,6 +13,7 @@
 
 
 **DESCRIPTION**
+
 
 **GENOCIDE** is a solid, non hackable bot, that runs under systemd as a 
 24/7 background service starts after reboot and is intended to be programmable
@@ -77,25 +79,25 @@ start as daemon::
 **CONFIGURATION**
 
 
-*irc*
+ *irc*
 
 
-::
+ ::
 
     $ gcd cfg server=<server>
     $ gcd cfg channel=<channel>
     $ gcd cfg nick=<nick>
 
-*sasl*
+ *sasl*
 
-::
+ ::
 
     $ gcd pwd <nsvnick> <nspass>
     $ gcd cfg password=<frompwd>
 
-*rss*
+ *rss*
 
-::
+ ::
 
     $ gcd rss <url>
     $ gcd dpl <str_in_url> <i1,i2>
@@ -133,14 +135,10 @@ start as daemon::
 **AUTHOR**
 
 
-::
-
     Bart Thate <bthate@dds.nl>
 
 
 **COPYRIGHT**
 
-
-::
 
     **GENCOIDE** is placed in the Public Domain.

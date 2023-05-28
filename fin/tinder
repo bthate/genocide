@@ -1,0 +1,180 @@
+#!/usr/bin/env python3
+# This file is placed in the Public Domain.
+
+
+import os
+import random
+import shutil
+import sys
+import termios
+import time
+import traceback
+import _thread
+
+
+sys.path.insert(0, os.getcwd())
+
+
+from nopaths.clients import Client
+from nopaths.command import Commands
+from nopaths.default import Default
+from nopaths.errored import Errors
+from nopaths.logging import Logging
+from nopaths.objects import Object, keys, update
+from nopaths.persist import Persist
+from nopaths.runtime import DATE, STARTTIME, Cfg, launch, parse_cli
+from nopaths.utility import elapsed, spl
+
+
+import nopaths.modules
+
+
+NAME = "tinder"
+
+
+Cfg.debug = True
+Cfg.name = "tinder"
+Cfg.silent = False
+Cfg.skip = ["debug",]
+
+
+Persist.workdir = ".test"
+
+
+paylock = _thread.allocate_lock()
+outlock = _thread.allocate_lock()
+
+
+errors = []
+events = []
+result = 1
+
+
+param = Object()
+param.add = ["test@shell", "bart", ""]
+param.cfg = ["server=localhost", ""]
+param.dne = ["test4", ""]
+param.rem = ["reddit", ""]
+param.dpl = ["reddit title,summary,link", ""]
+param.flt = ["0", ""]
+param.fnd = [
+             "cfg",
+             "tdo",
+             "rss",
+             "tdo txt==test",
+             "cfg server==localhost",
+             "rss rss==reddit"
+            ]
+param.log = ["test1", ""]
+param.nme = ["reddit reddit"]
+param.dpl = ["reddit title,link"]
+param.rem = ["reddit"]
+param.rss = ["https://www.reddit.com/r/python/.rss"]
+param.tdo = ["test4", ""]
+param.thr = [""]
+
+
+def cprint(txt):
+    print(txt)
+    sys.stdout.flush()
+
+
+class CLI(Client):
+
+    def raw(self, txt):
+        with outlock:
+            if txt and "v" in Cfg.opts:
+                cprint(txt.rstrip())
+
+
+def consume(evts):
+    fixed = []
+    res = []
+    for evt in evts:
+        res.append(evt.wait())
+        fixed.append(evt)
+    for fff in fixed:
+        try:
+            evts.remove(fff)
+        except ValueError:
+            continue
+    return res
+
+
+def payload(clt) -> None:
+    cmds = list(keys(Commands.cmds))
+    random.shuffle(cmds)
+    with paylock:
+        nmr = 0
+        for cmnd in cmds:
+            for ex in getattr(param, cmnd, [""]):
+                evt = clt.event(cmnd + " " + ex)
+                clt.put(evt)
+                events.append(evt)
+                nmr += 1
+        return nmr
+
+
+def scanstr(mods, init=None, doall=False) -> None:
+    res = []
+    if doall:
+        mods = ",".join(nopaths.modules.__all__)
+    for modname in spl(mods):
+        mod = getattr(nopaths.modules, modname)
+        if not mod:
+            continue
+        Commands.scan(mod)
+        if init and "start" in dir(mod):
+            mod._thr = launch(mod.start)
+        res.append(mod)
+    return res
+
+
+def waiter() -> None:
+    got = []
+    for ex in Errors.errors:
+        if not Cfg.silent:
+            traceback.print_exception(type(ex), ex, ex.__traceback__)
+        got.append(ex)
+    for exc in got:
+        Errors.errors.remove(exc)
+
+
+def wrap(func) -> None:
+    old = termios.tcgetattr(sys.stdin.fileno())
+    try:
+        func()
+    except (EOFError, KeyboardInterrupt):
+        print("")
+        sys.stdout.flush()
+    finally:
+        termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old)
+        waiter()
+
+
+def main() -> None:
+    global result
+    print(f"{NAME.upper()} started {DATE}")
+    if os.path.exists(Persist.workdir):
+        shutil.rmtree(Persist.workdir)
+    parse_cli(" ".join(sys.argv[1:]))
+    if "v" in Cfg.opts:
+        Logging.debug = cprint
+    scanstr(",".join(nopaths.modules.__all__), doall=True)
+    nrs = Cfg.index or 1
+    cli = CLI()
+    cli.start()
+    waiters = []
+    for _nr in range(nrs):
+        waiters.append(launch(payload, cli, name=_nr))
+    for wtr in waiters:
+        result += wtr.join() or 1
+    consume(events)
+    endtime = time.time()
+    lap = elapsed(endtime - STARTTIME)
+    percall = (endtime - STARTTIME)/result
+    waiter()
+    print(f"{lap} {result} {percall}")
+
+
+wrap(main)

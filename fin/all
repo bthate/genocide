@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+
+
+"This file is placed in the Public Domain."
+
+
+import os
+import subprocess
+import sys
+import time
+
+
+os.environ["PATH"] += ":fin"
+print(os.environ["PATH"])
+os.environ["PYTHONPATH"] = "."
+os.environ["PYTHONUNBUFFERED"] = "1"
+
+
+name = os.getcwd().split(os.sep)[-1]
+
+
+starttime = time.time()
+
+
+def elapsed(seconds, short=True):
+    txt = ""
+    nsec = float(seconds)
+    if nsec < 1:
+        return f"{nsec:.2f}s"
+    year = 365*24*60*60
+    week = 7*24*60*60
+    nday = 24*60*60
+    hour = 60*60
+    minute = 60
+    years = int(nsec/year)
+    nsec -= years*year
+    weeks = int(nsec/week)
+    nsec -= weeks*week
+    nrdays = int(nsec/nday)
+    nsec -= nrdays*nday
+    hours = int(nsec/hour)
+    nsec -= hours*hour
+    minutes = int(nsec/minute)
+    nsec -= int(minute*minutes)
+    sec = int(nsec)
+    if years:
+        txt += "%sy" % years
+    if weeks:
+        nrdays += weeks * 7
+    if nrdays:
+        txt += "%sd" % nrdays
+    if years and short and txt:
+        return txt.strip()
+    if hours:
+        txt += "%sh" % hours
+    if minutes:
+        txt += "%sm" % minutes
+    if sec:
+        txt += "%ss" % sec
+    txt = txt.strip()
+    return txt
+
+
+def popen(txt):
+    proc = subprocess.Popen(
+                            txt.split(),
+                            stdin=sys.stdin,
+                            stdout=sys.stdout,
+                            stderr=sys.stderr,
+                            close_fds=False,
+                            text=True
+                           )
+    proc.communicate()
+    proc.wait()
+
+
+print("FIN started at %s" % time.ctime(time.time()).replace("  ", " "))
+print("running in %s" % os.getcwd())
+print("\nCLEAN")
+popen("wipe")
+print("\nLINT")
+popen("lint")
+print("\nTEST")
+popen("tests")
+print("\nBUILD")
+popen("build")
+print("\nENVIRONMENT")
+popen("mkenv")
+#popen("env/bin/%s cmd" % name)
+print("\ndone %s" % elapsed(time.time() - starttime))

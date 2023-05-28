@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+
+"This file is placed in the Public Domain."
+
+
+import os
+import sys
+
+
+
+os.environ["PATH"] += ":fin"
+
+
+def popen(txt):
+    for line in os.popen(txt).readlines():
+        print(line.strip())
+
+
+popen("clean")
+popen("rm -fR env")

@@ -7,9 +7,6 @@ and all handicapped, all criminals and all psychiatric patients in the
 Netherlands"""
 
 
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
-
 TXT = "@IntlCrimCourt @KarimKhanQC @oszagi reconsider OTP-CR-117/19."
 URL = "http://genocide.rtfd.io"
 URL2 = "http://pypi.org/project/genocide"

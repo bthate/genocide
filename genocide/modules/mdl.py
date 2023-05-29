@@ -2,10 +2,6 @@
 # pylint: disable=C,I,R,W,E0402,E1101
 
 
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
-
-
 import datetime
 import time
 

@@ -2,10 +2,6 @@
 # pylint: disable=C,I,R
 
 
-__author__ = "B.H.J. Thate <thatebhj@gmail.com>"
-__version__ = 1
-
-
 from genocide.objects import edit, keys, prt
 from genocide.persist import last, write
 from genocide.runtime import Cfg

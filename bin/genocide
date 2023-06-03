@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
-
-
-"Reconsider OTP-CR-117/19"
+#
+# pylint: disable=E0012,C0114,C0115,C0116,C0413,E0401,W0212,W0611,W1514,R1732
+# pylint: disable=E0611
+# flake8: noqa: E402
+# pylama: ignore=W0611,E402
 
 
 import os
@@ -10,28 +12,24 @@ import readline
 import sys
 import termios
 import time
-import traceback
+
+
+sys.path.insert(0, os.getcwd())
 
 
 from genocide.clients import Client
 from genocide.command import Commands
-from genocide.errored import Errors
 from genocide.logging import Logging
-from genocide.objects import update
-from genocide.persist import Persist, write
-from genocide.runtime import DATE, Cfg, command, launch, parse_cli
-from genocide.utility import spl
+from genocide.persist import Persist
+from genocide.runtime import Cfg, banner, command, parse_cli
+from genocide.runtime import scanstr, waiter
 
 
 import genocide.modules
+Commands.modules = genocide.modules
 
 
 Persist.workdir = os.path.expanduser(f"~/.{Cfg.name}")
-
-
-def cprint(txt):
-    print(txt)
-    sys.stdout.flush()
 
 
 class CLI(Client):
@@ -40,7 +38,7 @@ class CLI(Client):
         pass
 
     def raw(self, txt):
-        cprint(txt)
+        print(txt)
 
 
 class Console(CLI):
@@ -52,13 +50,6 @@ class Console(CLI):
     def poll(self):
         return self.event(input("> "))
 
-
-## UTILITY
-
-
-def banner():
-    cprint(f"{Cfg.name.upper()} started at {DATE}")
-    
 
 def daemon():
     pid = os.fork()
@@ -72,30 +63,6 @@ def daemon():
     ses = open('/dev/null', 'a+')
     os.dup2(sos.fileno(), sys.stdout.fileno())
     os.dup2(ses.fileno(), sys.stderr.fileno())
-
-
-def scanstr(mods, init=None, doall=False) -> None:
-    res = []
-    if doall:
-        mods = ",".join(genocide.modules.__all__)
-    for modname in spl(mods):
-        mod = getattr(genocide.modules, modname)
-        if not mod:
-            continue
-        Commands.scan(mod)
-        if init and "start" in dir(mod):
-            mod._thr = launch(mod.start)
-        res.append(mod)
-    return res
-
-
-def waiter():
-    got = []
-    for ex in Errors.errors:
-        traceback.print_exception(type(ex), ex, ex.__traceback__)
-        got.append(ex)
-    for exc in got:
-        Errors.errors.remove(exc)
 
 
 def wrap(func):
@@ -115,17 +82,14 @@ def wrap(func):
         waiter()
 
 
-## RUNTIME
-
-
 def main():
     parse_cli(' '.join(sys.argv[1:]))
     if "v" in Cfg.opts and "d" not in Cfg.opts:
-        Logging.debug = cprint
+        Logging.verbose = True
+        Logging.raw = print
         banner()
     dowait = False
     if Cfg.txt:
-        scanstr(Cfg.mod, "a" in Cfg.opts)
         cli = CLI()
         command(cli, Cfg.otxt)
     elif 'd' in Cfg.opts:
@@ -134,7 +98,7 @@ def main():
     if "c" in Cfg.opts:
         dowait = True
     if dowait:
-        scanstr(Cfg.mod, True)
+        scanstr(genocide.modules, Cfg.mod, True, wait=True)
         if 'c' in Cfg.opts and "d" not in Cfg.opts:
             csl = Console()
             csl.start()

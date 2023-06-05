@@ -7,12 +7,12 @@ import datetime
 import time
 
 
-from opr.evented import Event
-from opr.listens import Listens
-from opr.objects import Object, copy, keys
-from opr.repeats import Repeater
-from opr.runtime import launch
-from opr.utility import elapsed
+from ..evented import Event
+from ..listens import Listens
+from ..objects import Object, copy, keys
+from ..repeats import Repeater
+from ..runtime import launch
+from ..utility import elapsed
 
 
 def __dir__():

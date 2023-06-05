@@ -40,8 +40,8 @@ STARTTIME = time.time()
 
 
 Cfg.debug = False
-Cfg.mod = "cmd,err,flt,mod,sts,thr,upt,ver"
-Cfg.name = "opr"
+Cfg.mod = "cmd,err,flt,irc,mdl,mod,rss,sts,thr,upt,ver"
+Cfg.name = "genocide"
 Cfg.skip = "PING,PONG,PRIVMSG"
 Cfg.threaded = False
 Cfg.version = "101"

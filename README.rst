@@ -45,7 +45,7 @@ on the following victim groups here in the Netherlands:
 (4) criminelen (criminials)
 (5) gehandicapten (handicapped)
 
-Since the members of the :ref:`chamber <chamber>` and the :ref:`king <king>`
+Since the members of the chamber <chamber> and the king <king>
 were aware that these medicine are poison at the time they voted for this law
 and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to
 prosecute the king for making the commiting of the above mentioned crimes

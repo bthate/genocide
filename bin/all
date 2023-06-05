@@ -10,7 +10,7 @@ import sys
 import time
 
 
-NAME = "opr"
+NAME = "genocide"
 
 
 os.environ["PATH"] += ":bin"
@@ -25,7 +25,7 @@ def popen2(txt):
 
 
 def popen(txt):
-    print("\n## " + txt.upper() +"\n")
+    print("\n" + txt +"\n")
     proc = subprocess.Popen(
                             txt.split(),
                             stdin=sys.stdin,

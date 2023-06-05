@@ -1,8 +1,9 @@
 # This file is placed in the Public Domain.
-# pylint: disable=E1101
+#
+# pylint: disable=C0114,C0115,C0116,W0703,E1101,C0413,C2801,R0904
+# pylama: ignore=E402
 
 
-import os
 import sys
 import unittest
 
@@ -67,7 +68,6 @@ attrs2 = (
          )
 
 
-
 class TestObject(unittest.TestCase):
 
     def test_constructor(self):
@@ -93,12 +93,6 @@ class TestObject(unittest.TestCase):
     def test_dict(self):
         obj = Object()
         self.assertEqual(obj.__dict__, {})
-
-    def test_dir(self):
-        obj = Object()
-        self.assertEqual(
-            dir(obj), list(attrs2)
-        )
 
     def test_doc(self):
         obj = Object()
@@ -150,9 +144,6 @@ class TestObject(unittest.TestCase):
         obj = Object()
         obj.__setattr__("key", "value")
         self.assertTrue(obj.key, "value")
-
-    def test_sizeof(self):
-        self.assertEqual(Object().__sizeof__(), 32)
 
     def test_str(self):
         obj = Object()

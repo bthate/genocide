@@ -46,7 +46,7 @@ def main():
     popen("python3 -m pytest --doctest-modules")
     popen("python3 setup.py sdist")
     popen("python3 -mvirtualenv --system-site-packages env")
-    popen("env/bin/pip3 install %s -f dist --upgrade --force-reinstall --no-cache-dir --no-deps" % NAME)
+    popen("env/bin/pip3 install %s -f dist --upgrade --force-reinstall --no-cache-dir" % NAME)
     popen("env/bin/%s cmd" % NAME)
     popen("twine check dist/*")
 

@@ -1,4 +1,7 @@
 # This file is placed in the Public Domain.
+#
+# pylint: disable=C0114,C0115,C0116,W0703,C0413
+# pylama: ignore=E402
 
 
 import os
@@ -7,7 +10,6 @@ import unittest
 
 
 sys.path.insert(0, "..")
-
 
 
 from genocide.objects import Object
@@ -24,7 +26,8 @@ ATTRS1 = (
           'Persist',
           'last',
           'read',
-          'write'
+          'write',
+          'writerec'
          )
 
 

@@ -1,7 +1,9 @@
 # This file is placed in the Public Domain.
+#
+# pylint: disable=C0114,C0115,C0116,W0703,C0413
+# pylama: ignore=E402
 
 
-import os
 import sys
 import unittest
 
@@ -17,7 +19,6 @@ VALIDJSON = '{"test": "bla"}'
 
 
 class TestEncoder(unittest.TestCase):
-
 
     def test_dumps(self):
         obj = Object()

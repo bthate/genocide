@@ -1,7 +1,9 @@
 # This file is placed in the Public Domain.
+#
+# pylint: disable=C0114,C0115,C0116,W0703,C0413,C0103,R0903,C0103
+# pylama: ignore=E402,E302,E265
 
 
-import os
 import sys
 import unittest
 

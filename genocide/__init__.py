@@ -35,7 +35,6 @@ from .persist import *
 
 def __dir__():
     return (
-            'Cfg',
             'Object',
             'copy',
             'dump',

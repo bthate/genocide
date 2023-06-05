@@ -146,11 +146,11 @@ nitpick_ignore=[
 def strip_signatures(app, what, name, obj, options, signature, return_annotation):
     sig = None                                                                  
     if signature is not None:                                                   
-        sig = re.sub('genocide\.[^.]*\.', '', signature)                           
+        sig = re.sub(r'genocide\.[^.]*\.', '', signature)                           
                                                                                 
     ret = None                                                                  
     if return_annotation is not None:                                           
-        ret = re.sub('genocide\.[^.]*\.', '', signature)                           
+        ret = re.sub(r'genocide\.[^.]*\.', '', signature)                           
                                                                                 
     return sig, ret                                                             
                                                                                 

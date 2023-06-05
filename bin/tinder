@@ -2,6 +2,7 @@
 # This file is placed in the Public Domain.
 #
 # pylint: disable=C0114,C0115,C0116,W0703,C0209,C0303,C0301,W0603,C0413,C0103
+# pylint: disable-E0401
 
 
 import os
@@ -17,18 +18,18 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from opr.clients import Client
-from opr.command import Commands
-from opr.errored import Errors
-from opr.logging import Logging
-from opr.objects import Object, keys
-from opr.persist import Persist
-from opr.runtime import DATE, STARTTIME, Cfg, launch, parse_cli, scanstr
-from opr.utility import elapsed
+from genocide.clients import Client
+from genocide.command import Commands
+from genocide.errored import Errors
+from genocide.logging import Logging
+from genocide.objects import Object, keys
+from genocide.persist import Persist
+from genocide.runtime import DATE, STARTTIME, Cfg, launch, parse_cli, scanstr
+from genocide.utility import elapsed
 
 
-import opr.modules
-Commands.modules = opr.modules
+import genocide.modules
+Commands.modules = genocide.modules
 
 
 NAME = "tinder"
@@ -148,7 +149,7 @@ def main() -> None:
     parse_cli(" ".join(sys.argv[1:]))
     if "v" in Cfg.opts:
         Logging.verbose = True
-    scanstr(opr.modules, Cfg.mod, doall=True)
+    scanstr(genocide.modules, Cfg.mod, doall=True)
     nrs = Cfg.index or 1
     cli = CLI()
     cli.start()

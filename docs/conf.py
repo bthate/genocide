@@ -110,22 +110,23 @@ intersphinx_cache_limit=1
 
 rst_prolog = '''.. image:: genocide.png
     :width: 100%
-    :height: 2.2cm
+    :height: 2.0cm
     :target: index.html
-
 '''
+
 rst_epilog = '''.. raw:: html
 
     <br>
     <center>
     <b>
 
-:ref:`home <home>` - :ref:`writings <writings>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`about <about>` 
+:ref:`about <about>` - :ref:`manual <manual>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>`
 
 .. raw:: html
 
-    <b>
-    <center>
+    </b>
+    </center>
+    <br>
 '''
 
 autosummary_generate=True

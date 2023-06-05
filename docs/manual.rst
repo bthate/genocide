@@ -1,11 +1,12 @@
 .. _manual:
 
-.. title:: Manual
-
 
 .. raw:: html
 
-     <br><br>
+    <br>
+
+
+.. title:: Manual
 
 
 **NAME**

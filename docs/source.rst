@@ -1,23 +1,19 @@
 .. _source:
 
-.. raw:: html
-
-     <br><br>
-
-.. title:: Source
-
-
-**genocide**
-
 
 .. raw:: html
 
      <br>
 
+.. title:: Source
+
+
+**GENOCIDE**
+
 
 .. autosummary::
     :toctree: 
-    :template: module.rst
+    :template: base.rst
 
     genocide.clients	users
     genocide.clocked	timer/repeater
@@ -42,7 +38,7 @@
      <br>
 
 
-**genocide.modules**
+**MODULES**
 
 
 .. raw:: html
@@ -52,7 +48,7 @@
 
 .. autosummary::
     :toctree: 
-    :template: module.rst
+    :template: base.rst
 
     genocide.modules.cmd	commands list
     genocide.modules.err	errors

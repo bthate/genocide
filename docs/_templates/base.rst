@@ -3,19 +3,21 @@
 .. raw:: html
 
     <br>
-    <center><b>
-    <br><br>
-    </b>
-
 .. title:: {{ fullname }}
-
-{{ fullname }}
-{{ underline }}
 
 .. raw:: html
 
-    </b></center>
-    <br>
+    <center>
+    <b>
+    <span>
+
+{{ fullname }}
+
+.. raw:: html
+
+    </span>
+    </b>
+    </center>
 
 .. auto{{ objtype }}:: {{ fullname }}
     :members:

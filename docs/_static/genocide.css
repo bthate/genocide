@@ -15,7 +15,7 @@ body {
     font-size: 130%;
     background-color: #fff;
     color: #555;
-    margin: 30px;
+    margin: 15px;
     padding: 0px;
 }
 
@@ -48,3 +48,5 @@ style {
     text-decoration: none;
 }
 
+
+<span style="text-transform:uppercase;"> 

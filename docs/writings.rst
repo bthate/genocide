@@ -2,14 +2,13 @@
 
 .. raw:: html
 
-     <br><br>
+     <br>
 
 .. title:: Writings
 
 
-**email 1**
+**EMAIL 1**
 
-|
 
 | **From**: Bart Thate <bthate@dds.nl>
 | **To**: otp.informationdesk@icc-cpi.int
@@ -17,22 +16,23 @@
 | **Message-ID**: <e49d02a2-6a8e-ad64-6c8d-9abd45cf5c0e@dds.nl>
 | **Date**: Mon, 21 Jan 2019 16:17:13 +0100
 
-|
 
 see :ref:`reconsider <reconsider>` for content.
+
+*response OTP-CR-117/19*
+
+
+.. image:: OTP1.png
+    :width: 100%
+
 
 .. raw:: html
 
     <br><br>
 
-.. image:: OTP1.png
-    :width: 100%
 
-|
+**EMAIL 2**
 
-**email 2**
-
-|
 
 | **From:** Bart Thate <bthate@dds.nl>
 | **To:** OTP InformationDesk <OTP.InformationDesk@icc-cpi.int>
@@ -40,14 +40,10 @@ see :ref:`reconsider <reconsider>` for content.
 | **Message-ID:** <33777b52-6be9-72b2-f756-d5482d32f03d@dds.nl>
 | **Date:** Wed, 26 Jun 2019 21:05:13 +0200
 
-|
 
 see :ref:`request <request>` for content.
 
-
-.. raw:: html
-
-    <br><br>
+*response OTP-CR-117/19/001*
 
 .. image:: OTP2.png
 

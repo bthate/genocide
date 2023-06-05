@@ -8,7 +8,7 @@
 
   <br>
 
-**haldol**
+**HALDOL**
 
 
 .. raw:: html
@@ -25,7 +25,7 @@
 .. _clozapine:
 
 
-**clozapine**
+**CLOZAPINE**
 
 
 .. raw:: html
@@ -44,7 +44,7 @@
 .. _zyprexa:
 
 
-**zyprexa**
+**ZYPREXA**
 
 
 .. raw:: html
@@ -61,7 +61,7 @@
 .. _abilify:
 
 
-**abilify**
+**ABILIFY**
 
 
 .. raw:: html

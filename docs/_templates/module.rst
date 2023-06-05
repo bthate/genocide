@@ -15,7 +15,6 @@
     </b>
     </h3>
     </center>
-    <br>
 
 .. automodule:: {{ fullname }}
     :members:
@@ -55,6 +54,6 @@
 
     .. raw:: html
 
-       <br><br><br><br>
+       <br><br>
 
 .. currentmodule:: {{ fullname }}

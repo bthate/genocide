@@ -12,7 +12,7 @@ import subprocess
 import sys
 
 
-os.environ["PATH"] += ":fin"
+os.environ["PATH"] += ":bin"
 
 
 try:

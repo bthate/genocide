@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 
-os.environ["PATH"] += ":fin"
+os.environ["PATH"] += ":bin"
 
 
 def popen(txt):
@@ -21,6 +21,9 @@ def popen(txt):
                            )
     proc.communicate()
     proc.wait()
+
+
+popen("clean")
 
 
 if not os.path.exists("env"):

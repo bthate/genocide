@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
+#
+# pylint: disable=C0114,C0115,C0116,W0703,R1732,C0103
 
 
 import os
+import subprocess
 import sys
 
 
-os.environ["PATH"] += ":fin"
+os.environ["PATH"] += ":bin"
 os.environ["PYTHONPATH"] = os.getcwd()
 os.environ["PYTHONUNBUFFERED"] = "1"
 
 
 SKIP = ["***", "---", "Your code"]
-SKIPDIR = ["docs", "files"]
+SKIPDIR = ["docs", "files", "env"]
 
 
 def doskip(txt):
@@ -43,13 +46,22 @@ def loop(path, txt):
         os.chdir(fpath)
         for fnm in os.listdir(fpath):
             popen(txt + " " + fnm)
-            print(f"{fpath}/{fnm}") 
+            print(f"{fpath}/{fnm}")
             sys.stdout.flush()
         os.chdir(old)
     os.chdir(old)
 
 
 def popen(txt):
+    for line in os.popen(txt).readlines():
+        if doskip(line):
+            continue
+        print(line.rstrip())
+        sys.stdout.flush()
+
+
+
+def popen2(txt):
     proc = subprocess.Popen(
                             txt.split(),
                             stdin=sys.stdin,
@@ -63,5 +75,5 @@ def popen(txt):
 
 
 if __name__ == "__main__":
-    popen("wipe")
-    loop(os.getcwd(), "pylint -Ev -d E0402")
+    popen("clean")
+    loop(os.getcwd(), "pylint")

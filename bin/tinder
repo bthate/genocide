@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
+#
+# pylint: disable=C0114,C0115,C0116,W0703,C0209,C0303,C0301,W0603,C0413,C0103
 
 
 import os
@@ -15,18 +17,18 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.clients import Client
-from genocide.command import Commands
-from genocide.default import Default
-from genocide.errored import Errors
-from genocide.logging import Logging
-from genocide.objects import Object, keys, update
-from genocide.persist import Persist
-from genocide.runtime import DATE, STARTTIME, Cfg, launch, parse_cli
-from genocide.utility import elapsed, spl
+from opr.clients import Client
+from opr.command import Commands
+from opr.errored import Errors
+from opr.logging import Logging
+from opr.objects import Object, keys
+from opr.persist import Persist
+from opr.runtime import DATE, STARTTIME, Cfg, launch, parse_cli, scanstr
+from opr.utility import elapsed
 
 
-import genocide.modules
+import opr.modules
+Commands.modules = opr.modules
 
 
 NAME = "tinder"
@@ -38,6 +40,7 @@ Cfg.silent = False
 Cfg.skip = ["debug",]
 
 
+Logging.raw = print
 Persist.workdir = ".test"
 
 
@@ -115,21 +118,6 @@ def payload(clt) -> None:
         return nmr
 
 
-def scanstr(mods, init=None, doall=False) -> None:
-    res = []
-    if doall:
-        mods = ",".join(genocide.modules.__all__)
-    for modname in spl(mods):
-        mod = getattr(genocide.modules, modname)
-        if not mod:
-            continue
-        Commands.scan(mod)
-        if init and "start" in dir(mod):
-            mod._thr = launch(mod.start)
-        res.append(mod)
-    return res
-
-
 def waiter() -> None:
     got = []
     for ex in Errors.errors:
@@ -159,8 +147,8 @@ def main() -> None:
         shutil.rmtree(Persist.workdir)
     parse_cli(" ".join(sys.argv[1:]))
     if "v" in Cfg.opts:
-        Logging.debug = cprint
-    scanstr(",".join(genocide.modules.__all__), doall=True)
+        Logging.verbose = True
+    scanstr(opr.modules, Cfg.mod, doall=True)
     nrs = Cfg.index or 1
     cli = CLI()
     cli.start()

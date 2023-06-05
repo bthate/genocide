@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
+#
+# pylint: disable=C0114,C0115,C0116,W0703,C0113
 
 
 import os
-import subprocess
+#import subprocess
 import sys
 
 
@@ -32,17 +34,9 @@ def loop(path, txt):
 
 
 def popen(txt):
-    proc = subprocess.Popen(
-                            txt,
-                            stdin=sys.stdin,
-                            stdout=sys.stdout,
-                            stderr=sys.stderr,
-                            close_fds=False,
-                            shell=True,
-                            text=True
-                           )
-    proc.communicate()
-    proc.wait()
+    for line in os.popen(txt).readlines():
+        print(line.rstrip())
+        sys.stdout.flush()
 
 
 if __name__ == "__main__":

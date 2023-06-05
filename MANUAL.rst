@@ -156,4 +156,4 @@ to start rss, add mod=irc,rss to the command given:
 
 ::
 
-    GENCOIDE is placed in the Public Domain.
+    GENOCIDE is placed in the Public Domain.

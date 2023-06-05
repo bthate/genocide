@@ -84,7 +84,7 @@
 
  to start rss, also add mod=rss when starting::
 
-     $ genocidemod=irc,rss -c
+     $ genocide mod=irc,rss -c
 
  start as daemon::
 

@@ -25,9 +25,9 @@
     genocide.default	use default values
     genocide.encoder	json encoder
     genocide.errored	error handling
+    genocide.evented	events
     genocide.handler	event handler
     genocide.logging 	logging
-    genocide.message	events
     genocide.modules	plugins
     genocide.objects	objects
     genocide.persist	storage

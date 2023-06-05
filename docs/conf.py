@@ -120,7 +120,7 @@ rst_epilog = '''.. raw:: html
     <center>
     <b>
 
-:ref:`home <home>` - :ref:`manual <manual>` - :ref:`source <source>` - `index <genindex-all.html>`_ - :ref:`about <about>` 
+:ref:`home <home>` - :ref:`writings <writings>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`about <about>` 
 
 .. raw:: html
 

@@ -40,6 +40,11 @@ setup(
     zip_safe=True,
     include_package_data=True,
     data_files=[
+                ("genocde", [
+                             "README.rst",
+                             "MANUAL.rst"
+                            ]
+                ),
                 ("share/doc/genocide", uploadlist("docs")),
                 ("share/doc/genocide/pdf", uploadlist("docs/pdf")),
                 ("share/doc/genocide/_static", uploadlist("docs/_static")),

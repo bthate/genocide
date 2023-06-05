@@ -17,9 +17,9 @@
 
  ::
 
-  python3 -m genocide <cmd> [key=val] 
-  python3 -m genocide <cmd> [key==val]
-  python3 -m genocide [-c] [-d] [-v]
+  genocide <cmd> [key=val] 
+  genocide <cmd> [key==val]
+  genocide [-c] [-d] [-v]
 
 
 **DESCRIPTION**
@@ -57,42 +57,38 @@
 **USAGE**
 
 
- use an alias for easier typing::
-
- $ alias gcd="python3 -m genocide"
-
  list of commands::
 
-    $ gcd cmd
+    $ genocide cmd
     cmd,err,flt,sts,thr,upt
 
  start a console::
 
-    $ gcd -c
+    $ genocide -c
     >
 
  start additional modules::
 
-    $ gcd mod=<mod1,mod2> -c
+    $ genocide mod=<mod1,mod2> -c
     >
 
  list of modules::
 
-    $ gcd mod
+    $ genocide mod
     cmd,err,flt,fnd,irc,log,mdl,mod,req,
     rss,slg,sts,tdo,thr,upt,ver
 
  to start irc, add mod=irc when starting::
 
-     $ gcd mod=irc -c
+     $ genocide mod=irc -c
 
  to start rss, also add mod=rss when starting::
 
-     $ gcd mod=irc,rss -c
+     $ genocidemod=irc,rss -c
 
  start as daemon::
 
-    $ gcd mod=irc,rss -d
+    $ genocide mod=irc,rss -d
     $ 
 
 
@@ -103,25 +99,25 @@
 
  ::
 
-    $ gcd cfg server=<server>
-    $ gcd cfg channel=<channel>
-    $ gcd cfg nick=<nick>
+    $ genocide cfg server=<server>
+    $ genocide cfg channel=<channel>
+    $ genocide cfg nick=<nick>
 
  *sasl*
 
  ::
 
-    $ gcd pwd <nsvnick> <nspass>
-    $ gcd cfg password=<frompwd>
+    $ genocide pwd <nsvnick> <nspass>
+    $ genocide cfg password=<frompwd>
 
  *rss*
 
  ::
 
-    $ gcd rss <url>
-    $ gcd dpl <str_in_url> <item1,item2>
-    $ gcd rem <str_in_url>
-    $ gcd nme <str_in_url< <name>
+    $ genocide rss <url>
+    $ genocide dpl <str_in_url> <item1,item2>
+    $ genocide rem <str_in_url>
+    $ genocide nme <str_in_url< <name>
 
 
 **COMMANDS**
@@ -154,6 +150,7 @@
 **FILES**
 
 
+ | ``/usr/local/genocide/*``
  | ``/usr/local/share/doc/genocide/*``
 
 

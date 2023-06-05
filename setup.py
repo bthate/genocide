@@ -1,4 +1,7 @@
 # This file is placed in the Public Domain.
+#
+# pylint: disable=W0012,C0114,C0116,W1514
+# pylama: disable=E231
 
 
 import os

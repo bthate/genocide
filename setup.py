@@ -14,14 +14,14 @@ def read():
     return open("README.rst", "r").read()
 
 
-def uploadlist(dir):
+def uploadlist(path):
     upl = []
-    for file in os.listdir(dir):
+    for file in os.listdir(path):
         if not file or file.startswith('.'):
             continue
-        d = dir + os.sep + file
-        if os.path.isdir(d):   
-            upl.extend(uploadlist(d))
+        path2 = path + os.sep + file
+        if os.path.isdir(path2):
+            upl.extend(uploadlist(path2))
         else:
             if file.endswith(".pyc") or file.startswith("__pycache"):
                 continue
@@ -34,7 +34,7 @@ setup(
     version='120',
     url='https://github.com/thatebhj/genocide',
     author='Bart Thate',
-    author_email='bthate@dds.nl', 
+    author_email='bthate@dds.nl',
     description="Reconsider OTP-CR-117/19",
     long_description=read(),
     long_description_content_type='text/x-rst',

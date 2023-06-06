@@ -1,15 +1,15 @@
 # GENOCIDE - Reconsider OTP-CR-117/19
 # -*- coding: utf-8 -*-
 #
-# pylint: disable=W0012,C0114,C0116,W1514
+# pylint: disable=W0012,C0114,C0116,W1514,C0103,W0613,C0209
 # pylama: disable=E231
 
 
 "Reconsider OTP-CR-117/19"
 
 
-__name__ = "genocide"
-__version__ = "91"
+NAME = "genocide"
+VERSION = "120"
 
 
 import doctest
@@ -30,10 +30,10 @@ sys.path.insert(0, os.path.join(curdir))
 # -- Options for GENERIC output ---------------------------------------------
 
 
-project = __name__
+project = NAME
 master_doc = 'index'
-version = '%s' % __version__
-release = '%s' % __version__
+version = '%s' % VERSION
+release = '%s' % VERSION
 language = 'en'
 today = ''
 today_fmt = '%B %d, %Y'
@@ -77,7 +77,7 @@ html_sidebars = {
 html_theme = "alabaster"
 html_theme_options = {
     'github_user': 'bthate',
-    'github_repo': __name__,
+    'github_repo': NAME,
     'github_button': False,
     'github_banner': False,
     'logo': 'skull.jpg',
@@ -99,7 +99,7 @@ html_show_sourcelink = False
 html_show_sphinx = False
 html_show_copyright = False
 html_copy_source = False
-html_use_opensearch = 'http://%s.rtfd.io/' % __name__
+html_use_opensearch = 'http://%s.rtfd.io/' % NAME
 html_file_suffix = '.html'
 htmlhelp_basename = 'testdoc'
 
@@ -147,16 +147,14 @@ nitpick_ignore=[
 
 
 def strip_signatures(app, what, name, obj, options, signature, return_annotation):
-    sig = None                                                                  
+    sig = None
     if signature is not None:                                                   
-        sig = re.sub(r'genocide\.[^.]*\.', '', signature)                           
-                                                                                
-    ret = None                                                                  
-    if return_annotation is not None:                                           
-        ret = re.sub(r'genocide\.[^.]*\.', '', signature)                           
-                                                                                
-    return sig, ret                                                             
-                                                                                
-                                                                                
+        sig = re.sub(r'genocide\.[^.]*\.', '', signature)
+    ret = None
+    if return_annotation is not None:
+        ret = re.sub(r'genocide\.[^.]*\.', '', signature)
+    return sig, ret
+
+
 def setup(app):                                                                 
     app.connect('autodoc-process-signature', strip_signatures)

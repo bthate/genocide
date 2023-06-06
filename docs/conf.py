@@ -1,7 +1,7 @@
 # GENOCIDE - Reconsider OTP-CR-117/19
 # -*- coding: utf-8 -*-
 #
-# pylint: disable=W0012,C0114,C0116,W1514,C0103,W0613,C0209,C0413,R0903
+# pylint: disable=W0012,C0114,C0116,W1514,C0103,W0613,C0209,C0413,R0903,R0913
 # pylama: disable=E231
 
 

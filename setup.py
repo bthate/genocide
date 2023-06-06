@@ -25,7 +25,7 @@ def uploadlist(path):
         else:
             if file.endswith(".pyc") or file.startswith("__pycache"):
                 continue
-            upl.append(d)
+            upl.append(path2)
     return upl
 
 

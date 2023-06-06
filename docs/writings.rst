@@ -10,6 +10,10 @@
 **EMAIL 1**
 
 
+.. raw:: html
+
+    <br>
+
 | **From**: Bart Thate <bthate@dds.nl>
 | **To**: otp.informationdesk@icc-cpi.int
 | **Subject**: Information that the king of the netherlands is aware that the medicine administered with the use of new defines laws are proven to be poison and is commiting 3 of 5 genocide crimes on parts of the population here in the netherlands
@@ -19,8 +23,12 @@
 
 see :ref:`reconsider <reconsider>` for content.
 
-*response OTP-CR-117/19*
 
+response **OTP-CR-117/19**
+
+.. raw:: html
+
+    <br>
 
 .. image:: OTP1.png
     :width: 100%
@@ -34,6 +42,10 @@ see :ref:`reconsider <reconsider>` for content.
 **EMAIL 2**
 
 
+.. raw:: html
+
+    <br>
+
 | **From:** Bart Thate <bthate@dds.nl>
 | **To:** OTP InformationDesk <OTP.InformationDesk@icc-cpi.int>
 | **Subject:** Request to reconsider OTP-CR-117/19
@@ -43,7 +55,12 @@ see :ref:`reconsider <reconsider>` for content.
 
 see :ref:`request <request>` for content.
 
-*response OTP-CR-117/19/001*
+
+response **OTP-CR-117/19/001**
+
+.. raw:: html
+
+    <br>
 
 .. image:: OTP2.png
 

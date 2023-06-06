@@ -3,7 +3,7 @@
 # pylint: disable=C0114,C0116
 
 
-"show version
+"show version"
 
 
 from ..runtime import Cfg

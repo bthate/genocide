@@ -120,10 +120,12 @@ rst_prolog = '''.. image:: genocide.png
 
 '''
 
-rst_epilog = '''
-.. raw:: html
+rst_epilog = '''.. raw:: html
 
     <br>
+    
+.. raw:: html
+
     <center>
     <b>
 

@@ -2,16 +2,21 @@
 
 .. raW:: html
 
-    <br><br>
+    <br>
 
 .. title:: home
 
+.. image:: skull3.png
+    :width: 100%
+    :target: verbatim.html
+
 .. raw:: html
 
+     <br><br>
      <center>
      <i>By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands</i>
      </center>
-     <br><br>
+     <br>
 
 In 2018 i :ref:`informed <guilty>` the king of the netherlands that what he calls medicine in his "care" laws are not medicine but poison.
 :ref:`Proof <evidence>` of these medicine being poison were shown to the king, who's (personal) kabinet wrote back that
@@ -21,9 +26,6 @@ Using poison makes the care laws used in the netherlands to provide care to elde
 
 I :ref:`wrote <writings>` the prosecutor asking for an arrest of the king (make him stop), the prosecutor decided to call it a "no basis to proceed". It requires a :ref:`basis to prosecute <reconsider>` of the prosecutor to get the king in his cell and his genocide, thereby, stopped.
 
-.. image:: skull3.png
-    :width: 100%
-    :target: verbatim.html
 
 .. toctree::
     :hidden:

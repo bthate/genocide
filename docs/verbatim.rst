@@ -9,6 +9,16 @@
 
 **VERBATIM**
 
+
+.. raw:: html
+
+    <br>
+
+
 .. image:: verbatim2.png
-    :height: 10cm
-    :width: 100%
+    :height: 15cm
+
+
+.. raw:: html
+
+    <br><br>

@@ -1,7 +1,7 @@
 # GENOCIDE - Reconsider OTP-CR-117/19
 # -*- coding: utf-8 -*-
 #
-# pylint: disable=W0012,C0114,C0116,W1514,C0103,W0613,C0209
+# pylint: disable=W0012,C0114,C0116,W1514,C0103,W0613,C0209,C0413
 # pylama: disable=E231
 
 
@@ -148,7 +148,7 @@ nitpick_ignore=[
 
 def strip_signatures(app, what, name, obj, options, signature, return_annotation):
     sig = None
-    if signature is not None:                                                   
+    if signature is not None:
         sig = re.sub(r'genocide\.[^.]*\.', '', signature)
     ret = None
     if return_annotation is not None:
@@ -156,5 +156,5 @@ def strip_signatures(app, what, name, obj, options, signature, return_annotation
     return sig, ret
 
 
-def setup(app):                                                                 
+def setup(app):
     app.connect('autodoc-process-signature', strip_signatures)

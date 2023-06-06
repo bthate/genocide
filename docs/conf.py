@@ -1,7 +1,7 @@
 # GENOCIDE - Reconsider OTP-CR-117/19
 # -*- coding: utf-8 -*-
 #
-# pylint: disable=W0012,C0114,C0116,W1514,C0103,W0613,C0209,C0413
+# pylint: disable=W0012,C0114,C0116,W1514,C0103,W0613,C0209,C0413,R0903
 # pylama: disable=E231
 
 
@@ -16,7 +16,6 @@ import doctest
 import os
 import re
 import sys
-import unittest
 
 
 curdir = os.getcwd()
@@ -65,7 +64,7 @@ html_title = "Reconsider OTP-CR-117/19"
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]
-html_short_title = "GENOCIDE %s" % __version__
+html_short_title = "GENOCIDE %s" % VERSION
 html_sidebars = {
     '**': [
         'about.html',

@@ -5,6 +5,9 @@
 # pylama: ignore=C901
 
 
+"internet relay chat"
+
+
 import base64
 import os
 import queue

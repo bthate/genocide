@@ -1,6 +1,9 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C0114,C0115,R0903
+# pylint: disable=C0115,R0903
+
+
+"default return values"
 
 
 from .objects import Object

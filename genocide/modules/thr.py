@@ -3,6 +3,9 @@
 # pylint: disable=C0114,C0116,E1101
 
 
+"show running threads"
+
+
 import threading
 import time
 

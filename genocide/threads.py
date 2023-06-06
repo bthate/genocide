@@ -3,6 +3,9 @@
 # pylint: disable=C0114,C0115
 
 
+"multiple paths of execution"
+
+
 import queue
 import threading
 import time

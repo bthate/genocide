@@ -3,6 +3,9 @@
 # pylint: disable=C0114,C0116
 
 
+"show status of listeners"
+
+
 from ..listens import Listens
 from ..objfunc import prt
 

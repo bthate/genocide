@@ -14,7 +14,7 @@ os.environ["PYTHONPATH"] = os.getcwd()
 os.environ["PYTHONUNBUFFERED"] = "1"
 
 
-SKIP = ["***", "---", "Your code"]
+SKIP = ["***", "---", "Your code", "bin/genocide"]
 SKIPDIR = ["docs", "files", "env"]
 
 

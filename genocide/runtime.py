@@ -8,8 +8,6 @@
 
 import functools
 import io
-import os
-import sys
 import time
 import traceback
 
@@ -38,7 +36,7 @@ def __dir__():
 
 
 DATE = time.ctime(time.time()).replace("  ", " ")
-NAME = __name__.split(".")[0]
+NAME = __name__.split('.', maxsplit=1)[0]
 STARTTIME = time.time()
 
 

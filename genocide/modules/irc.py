@@ -30,7 +30,7 @@ from ..logging import Logging
 from ..objects import Object, copy, keys, update
 from ..objfunc import edit, prt
 from ..persist import Persist, last, write
-from ..runtime import NAME, Cfg, launch
+from ..runtime import NAME, launch
 from ..utility import elapsed, fntime
 
 

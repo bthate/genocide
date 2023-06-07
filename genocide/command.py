@@ -33,7 +33,8 @@ class Commands(Object):
     ondemand = True
 
     @staticmethod
-    def add(cmd, func) -> None:
+    def add(func) -> None:
+        cmd = func.__name__
         setattr(Commands.cmds, cmd, func)
         setattr(Commands.modnames, cmd, func.__module__)
 
@@ -65,4 +66,4 @@ class Commands(Object):
     def scan(mod) -> None:
         for _key, cmd in inspect.getmembers(mod, inspect.isfunction):
             if 'event' in cmd.__code__.co_varnames:
-                Commands.add(cmd.__name__, cmd)
+                Commands.add(cmd)

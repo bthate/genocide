@@ -3,7 +3,7 @@
 # pylama: ignore=E402,W0611,W0401,C901
 
 
-"Reconsider OTP-CR-117/19"
+"library"
 
 
 from . import clients, clocked, command, configs, decoder, default, defines

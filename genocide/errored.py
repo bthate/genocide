@@ -11,9 +11,11 @@ from .objects import Object
 
 def __dir__():
     return (
-            'Errors'
+            'Errors',
            )
 
+
+__all__ = __dir__()
 
 class Errors(Object):
 

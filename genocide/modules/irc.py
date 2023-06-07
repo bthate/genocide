@@ -30,7 +30,7 @@ from ..logging import Logging
 from ..objects import Object, copy, keys, update
 from ..objfunc import edit, prt
 from ..persist import Persist, last, write
-from ..runtime import Cfg, launch
+from ..runtime import NAME, Cfg, launch
 from ..utility import elapsed, fntime
 
 
@@ -54,17 +54,17 @@ class NoUser(Exception):
 
 class Config(Default):
 
-    channel = '#%s' % Cfg.name
+    channel = '#%s' % NAME
     control = '!'
-    nick = Cfg.name
+    nick = NAME
     password = ''
     port = 6667
-    realname = Cfg.name
+    realname = NAME
     sasl = False
     server = 'localhost'
     servermodes = ''
     sleep = 60
-    username = Cfg.name
+    username = NAME
     users = False
     verbose = False
 
@@ -396,10 +396,10 @@ class IRC(Client, Output):
         self.direct('NICK %s' % nck)
         self.direct(
                     'USER %s %s %s :%s' % (
-                                           self.cfg.username or Cfg.name,
+                                           self.cfg.username or nck,
                                            server,
                                            server,
-                                           self.cfg.realname or Cfg.name
+                                           self.cfg.realname or nck
                                           )
                    )
 
@@ -585,7 +585,7 @@ class IRC(Client, Output):
         launch(
                self.doconnect,
                self.cfg.server or "localhost",
-               self.cfg.nick or Cfg.name,
+               self.cfg.nick,
                int(self.cfg.port or '6667')
               )
         if not self.keeprunning:

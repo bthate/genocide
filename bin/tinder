@@ -36,7 +36,6 @@ NAME = "tinder"
 
 
 Cfg.debug = True
-Cfg.name = "tinder"
 Cfg.silent = False
 Cfg.skip = ["debug",]
 

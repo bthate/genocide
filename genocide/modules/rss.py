@@ -211,7 +211,7 @@ def gettinyurl(url):
 def geturl(url):
     url = urllib.parse.urlunparse(urllib.parse.urlparse(url))
     req = urllib.request.Request(url)
-    req.add_header('User-agent', useragent(Cfg.name))
+    req.add_header('User-agent', useragent("rss fetcher"))
     with urllib.request.urlopen(req) as response:
         response.data = response.read()
         return response

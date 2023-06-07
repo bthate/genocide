@@ -3,11 +3,13 @@
 # pylint: disable=C0114,C0115,C0116,W0613,W0212
 
 
-"object programming runtime"
+"runtime"
 
 
 import functools
 import io
+import os
+import sys
 import time
 import traceback
 
@@ -36,22 +38,18 @@ def __dir__():
 
 
 DATE = time.ctime(time.time()).replace("  ", " ")
+NAME = sys.argv[0].split(os.sep)[-1]
 STARTTIME = time.time()
 
 
 Cfg.debug = False
 Cfg.mod = "cmd,err,flt,irc,mdl,mod,rss,sts,thr,upt,ver"
-Cfg.name = "genocide"
 Cfg.skip = "PING,PONG,PRIVMSG"
 Cfg.threaded = False
 Cfg.version = "101"
 
 
 # FUNCTIONS
-
-
-def banner():
-    Logging.debug(f"{Cfg.name.upper()} started at {DATE}")
 
 
 def command(cli, txt) -> Event:
@@ -69,7 +67,8 @@ def scanstr(pkg, mods, init=None, doall=False, wait=False) -> None:
         mod = getattr(pkg, modname, None)
         if not mod:
             continue
-        Commands.scan(mod)
+        if not init:
+            Commands.scan(mod)
         if init and "start" in dir(mod):
             mod._thr = launch(mod.start)
         res.append(mod)

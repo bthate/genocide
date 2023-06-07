@@ -3,11 +3,11 @@
 # pylama:ignore=W0611
 
 
-"object programming runtime modules"
+"modules"
 
 
 from . import cmd, err, flt, fnd, irc, log, mdl, mod, req, rss, sts, tdo
-from . import thr, upt, ver
+from . import thr, upt
 
 
 def __dir__():
@@ -26,7 +26,6 @@ def __dir__():
             "tdo",
             "thr",
             "upt",
-            'ver'
            )
 
 

@@ -57,6 +57,7 @@ class Config(Default):
     channel = '#%s' % NAME
     control = '!'
     nick = NAME
+    nocommands = True
     password = ''
     port = 6667
     realname = NAME
@@ -73,6 +74,7 @@ class Config(Default):
         self.control = Config.control
         self.channel = Config.channel
         self.nick = Config.nick
+        self.nocommands = Config.nocommands
         self.password = Config.password
         self.port = Config.port
         self.realname = Config.realname
@@ -502,6 +504,8 @@ class IRC(Client, Output):
         return self.event(txt)
 
     def privmsg(self, event):
+        if self.cfg.nocommands:
+            return
         if event.txt:
             if event.txt[0] in [self.cfg.control, '!']:
                 event.txt = event.txt[1:]

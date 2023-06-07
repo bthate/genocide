@@ -38,7 +38,7 @@ def __dir__():
 
 
 DATE = time.ctime(time.time()).replace("  ", " ")
-NAME = sys.argv[0].split(os.sep)[-1]
+NAME = __name__.split(".")[0]
 STARTTIME = time.time()
 
 

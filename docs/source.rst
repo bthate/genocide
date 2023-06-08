@@ -63,4 +63,3 @@
     genocide.modules.sts	status
     genocide.modules.thr	list of running threads
     genocide.modules.upt	uptime
-    genocide.modules.ver	version

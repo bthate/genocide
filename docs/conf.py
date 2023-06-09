@@ -129,7 +129,8 @@ rst_epilog = '''.. raw:: html
     <center>
     <b>
 
-`home <index.html>`_ - :ref:`manual <manual>` - :ref:`source <source>`  - `index <genindex-all.html>`_ - :ref:`about <about>`
+`home <index.html>`_ - :ref:`about <about>` - :ref:`manual <manual>` - :ref:`source <source>`  - `index <genindex-all.html>`_
+
 
 .. raw:: html
 
@@ -139,7 +140,6 @@ rst_epilog = '''.. raw:: html
 
 
 '''
-
 autosummary_generate=True
 autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
 autodoc_member_order='groupwise'

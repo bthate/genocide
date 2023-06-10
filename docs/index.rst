@@ -2,19 +2,22 @@
 
 .. raw:: html
 
-    <br>
+    <br><br>
 
 .. title:: home
 
-| *your reference:* **OTP-CR-117/19**
 
-|
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
 | **2500 CM The Hague**
 | **The Netherlands**
+
+
+.. raw:: html
+
+    <br>
 
 Hello Office of the Prosecutor,
 

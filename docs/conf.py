@@ -92,8 +92,8 @@ html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
 html_additional_pages = {}
 html_domain_indices = False
-html_use_index = True
-html_split_index = True
+html_use_index = False
+html_split_index = False
 html_show_sourcelink = False
 html_show_sphinx = False
 html_show_copyright = False
@@ -107,80 +107,9 @@ intersphinx_mapping = {
                        'sphinx': ('http://sphinx.pocoo.org/', None),
                       }
 intersphinx_cache_limit=1
-
-
 rst_prolog = '''.. image:: genocide.png
     :width: 100%
     :height: 2.0cm
     :target: index.html
 
-
-.. raw:: html
-
-    <br>
-    
-.. raw:: html
-
-    <center>
-    <b>
-
-`home <index.html>`_ - :`about <about.html>`_ - `manual <manual.html>`_ - `source <source.html>`_  - `index <genindex-all.html>`_
-
-
-.. raw:: html
-
-    </b>
-    </center>
-    <br>
-
-
 '''
-
-rst_epilog = '''
-
-.. raw:: html
-
-    <br>
-    
-.. raw:: html
-
-    <center>
-    <b>
-
-`home <index.html>`_ - :`about <about.html>`_ - `manual <manual.html>`_ - `source <source.html>`_  - `index <genindex-all.html>`_
-
-
-.. raw:: html
-
-    </b>
-    </center>
-    <br>
-
-'''
-autosummary_generate=True
-autodoc_default_flags=['members', 'undoc-members', 'private-members', "imported-members"]
-autodoc_member_order='groupwise'
-autodoc_docstring_signature=True
-autoclass_content="class"
-doctest_global_setup=""
-doctest_global_cleanup=""
-doctest_test_doctest_blocks="default"
-trim_doctest_flags=True
-doctest_flags=doctest.REPORT_UDIFF
-nitpick_ignore=[
-                ('py:class', 'builtins.BaseException'),
-               ]
-
-
-def strip_signatures(app, what, name, obj, options, signature, return_annotation):
-    sig = None
-    if signature is not None:
-        sig = re.sub(r'genocide\.[^.]*\.', '', signature)
-    ret = None
-    if return_annotation is not None:
-        ret = re.sub(r'genocide\.[^.]*\.', '', signature)
-    return sig, ret
-
-
-def setup(app):
-    app.connect('autodoc-process-signature', strip_signatures)

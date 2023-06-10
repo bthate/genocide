@@ -114,13 +114,8 @@ rst_prolog = '''.. image:: genocide.png
     :height: 2.0cm
     :target: index.html
 
+
 .. raw:: html
-
-    <br>
-
-'''
-
-rst_epilog = '''.. raw:: html
 
     <br>
     
@@ -129,7 +124,7 @@ rst_epilog = '''.. raw:: html
     <center>
     <b>
 
-`home <index.html>`_ - :ref:`about <about>` - :ref:`manual <manual>` - :ref:`source <source>`  - `index <genindex-all.html>`_
+`home <index.html>`_ - :`about <about.html>`_ - `manual <manual.html>`_ - `source <source.html>`_  - `index <genindex-all.html>`_
 
 
 .. raw:: html
@@ -138,6 +133,28 @@ rst_epilog = '''.. raw:: html
     </center>
     <br>
 
+
+'''
+
+rst_epilog = '''
+
+.. raw:: html
+
+    <br>
+    
+.. raw:: html
+
+    <center>
+    <b>
+
+`home <index.html>`_ - :`about <about.html>`_ - `manual <manual.html>`_ - `source <source.html>`_  - `index <genindex-all.html>`_
+
+
+.. raw:: html
+
+    </b>
+    </center>
+    <br>
 
 '''
 autosummary_generate=True

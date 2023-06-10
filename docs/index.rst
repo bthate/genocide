@@ -10,10 +10,8 @@
 | **2500 CM The Hague**
 | **The Netherlands**
 
+reference: **OTP-CR-117/19**
 
-.. raw:: html
-
-    <br>
 
 Hello Office of the Prosecutor,
 

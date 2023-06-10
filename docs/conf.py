@@ -9,7 +9,7 @@
 
 
 NAME = "genocide"
-VERSION = "120"
+VERSION = "121"
 
 
 import doctest

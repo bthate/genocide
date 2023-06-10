@@ -1,11 +1,7 @@
 .. _home:
 
-.. raw:: html
-
-    <br><br>
 
 .. title:: home
-
 
 
 | **Information and Evidence Unit**

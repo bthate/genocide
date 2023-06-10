@@ -107,9 +107,3 @@ intersphinx_mapping = {
                        'sphinx': ('http://sphinx.pocoo.org/', None),
                       }
 intersphinx_cache_limit=1
-rst_prolog = '''.. image:: genocide.png
-    :width: 100%
-    :height: 2.0cm
-    :target: index.html
-
-'''

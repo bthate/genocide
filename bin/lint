@@ -15,8 +15,23 @@ os.environ["PYTHONPATH"] = os.getcwd()
 os.environ["PYTHONUNBUFFERED"] = "1"
 
 
-SKIP = ["***", "---", "Your code", "bin/genocide"]
-SKIPDIR = ["docs", "files", "env"]
+SKIP = [
+        "***",
+        "---",
+        "Your code",
+        "bin/genocide"
+       ]
+
+
+SKIPDIR = [
+           "docs",
+           "files",
+           "env",
+           ".git",
+           "README.rst",
+           "MANUAL.rst",
+           'tsd'
+          ]
 
 
 def doskip(txt, skiplist):

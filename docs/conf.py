@@ -12,9 +12,7 @@ NAME = "genocide"
 VERSION = "121"
 
 
-import doctest
 import os
-import re
 import sys
 
 

@@ -34,5 +34,5 @@ if not os.path.exists("env"):
 #    popen("upenv")
 
 popen("env/bin/python3 -m pip install -r docs/requirements.txt --upgrade --force-reinstall --no-cache-dir --no-deps")
-#popen("env/bin/python3 -m pip install genocide -f dist")
+#popen("env/bin/python3 -m pip install genocide -f dist --force-reinstall --no-cache-dir")
 popen("env/bin/python3 env/bin/sphinx-build docs html")

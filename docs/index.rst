@@ -6,6 +6,16 @@
 
 .. title:: home
 
+.. raw:: html
+
+     <center>
+     <i>
+     By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands.
+     </i>
+     </center>
+     <br><br>
+
+
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
@@ -66,6 +76,7 @@ prosecute the king for making the commiting of the above mentioned crimes
 the hope that it stops the mass torture with poison the king of the 
 netherlands and his government are doing.
 
+|
 
 reference: **OTP-CR-117/19**
 

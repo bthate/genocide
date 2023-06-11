@@ -44,7 +44,7 @@ def main():
     popen("lint")
     #popen("python3 -m pylama --skip env/*")
     popen("python3 -m pytest --doctest-modules")
-    popen("python3 setup.py sdist")
+    popen("build")
     popen("python3 -mvirtualenv --system-site-packages env")
     popen("env/bin/python3 -m pip  install %s -f dist --upgrade --force-reinstall --no-cache-dir" % NAME)
     popen("env/bin/%s cmd" % NAME)

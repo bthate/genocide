@@ -1,5 +1,9 @@
-[project]
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
+
+[project]
 name = "genocide"
 description = "Reconsider OTP-CR-117/19"
 version = "121"
@@ -16,29 +20,25 @@ classifiers=[
              'Topic :: Utilities'
             ]
 
-[project.urls]
 
-"Homepage" = "https://pypi.org/project/genocide"
-"Bug Reports" = "https://github.com/bthate/genocide/issues"
-"Source" = "https://github.com/bthate/genocide"
+[project.urls]
+"home" = "https://pypi.org/project/genocide"
+"bugs" = "https://github.com/bthate/genocide/issues"
+"source" = "https://github.com/bthate/genocide"
+
 
 [project.scripts]
-
 genocide = "genocide.__main__:main"
 
-[project.optional-dependencies]
 
-dev = [
-]
+[project.optional-dependencies]
+dev = []
 
 [tool.setuptools]
+include-package-data = true
 
 [tool.setuptools.packages.find]
-where = ["."]
 
 [tool.setuptools.package-data]
-"*" = ["*"]
 
-[build-system]
-requires = ["setuptools>=43.0.0", "wheel"]
-build-backend = "setuptools.build_meta"
+[tool.setuptools.exclude-package-data]

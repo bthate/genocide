@@ -30,7 +30,9 @@ SKIPDIR = [
            ".git",
            "README.rst",
            "MANUAL.rst",
-           'tsd'
+           'MANIFEST.in',
+           'tsd',
+           'pyproject.toml'
           ]
 
 
@@ -61,7 +63,6 @@ def dump(path, result):
         fpath = os.path.abspath(os.path.join(path, fnn))
         if os.path.isdir(fpath):
             dump(fpath, result)
-            continue
         if not os.path.isdir(fpath):
             mtime = os.path.getmtime(path)
             result[fpath] = mtime
@@ -132,6 +133,7 @@ if __name__ == "__main__":
     tsd.flush()
     tsd.close()
     dif = diff(old, result)
+    print(dif)
     nr = 0
     for fn in dif.keys():
         print(fn)

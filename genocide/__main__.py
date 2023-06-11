@@ -5,15 +5,11 @@
 # flake8: noqa: E402
 # pylama: ignore=W0611,E402
 
-
 import os
 import readline
 import sys
 import termios
 import time
-
-
-sys.path.insert(0, os.getcwd())
 
 
 from genocide.clients import Client
@@ -29,7 +25,7 @@ Commands.modules = genocide.modules
 
 
 NAME = "genocide"
-VERSION = "120"
+VERSION = "121"
 
 
 Persist.workdir = os.path.expanduser(f"~/.{NAME}")

@@ -61,6 +61,7 @@ def dump(path, result):
         fpath = os.path.abspath(os.path.join(path, fnn))
         if os.path.isdir(fpath):
             dump(fpath, result)
+            continue
         if not os.path.isdir(fpath):
             mtime = os.path.getmtime(path)
             result[fpath] = mtime
@@ -136,6 +137,6 @@ if __name__ == "__main__":
         print(fn)
         popen("pylint %s " % fn)
         nr += 1
-    if nr:
+    if not nr:
         print("no changes")
     #loop(os.getcwd(), "pylint")

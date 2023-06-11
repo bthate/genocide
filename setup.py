@@ -39,15 +39,13 @@ setup(
     long_description=read(),
     long_description_content_type='text/x-rst',
     license='Public Domain',
-    packages=["genocide", "genocide.modules"],
+    packages=[
+              "genocide",
+              "genocide.modules"
+             ],
     zip_safe=True,
     include_package_data=True,
     data_files=[
-                ("genocde", [
-                             "README.rst",
-                             "MANUAL.rst"
-                            ]
-                ),
                 ("share/doc/genocide", uploadlist("docs")),
                 ("share/doc/genocide/pdf", uploadlist("docs/pdf")),
                 ("share/doc/genocide/_static", uploadlist("docs/_static")),
@@ -56,7 +54,8 @@ setup(
     scripts=[
              "bin/genocide",
             ],
-    classifiers=['Development Status :: 3 - Alpha',
+    classifiers=[
+                 'Development Status :: 3 - Alpha',
                  'License :: Public Domain',
                  'Operating System :: Unix',
                  'Programming Language :: Python',

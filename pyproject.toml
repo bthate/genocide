@@ -6,8 +6,6 @@ version = "121"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]
-dependencies = [
-]
 classifiers=[
              'Development Status :: 3 - Alpha',
              'License :: Public Domain',

@@ -6,7 +6,6 @@
 
 import json
 import os
-import subprocess
 import sys
 
 
@@ -24,6 +23,8 @@ SKIP = [
 
 
 SKIPDIR = [
+           ".",
+           "setup.py",
            "docs",
            "files",
            "env",
@@ -37,6 +38,8 @@ SKIPDIR = [
 
 
 def doskip(txt, skiplist):
+    if ".tsd" in skiplist:
+        return True
     if not txt.strip():
         return True
     for skp in skiplist:
@@ -57,41 +60,13 @@ def dump(path, result):
     old = os.getcwd()
     os.chdir(path)
     for fnn in os.listdir(path):
-        if doskip(fnn, SKIPDIR):
-            continue
-        older = os.getcwd()
         fpath = os.path.abspath(os.path.join(path, fnn))
         if os.path.isdir(fpath):
+            if doskip(fnn, SKIPDIR):
+                continue
             dump(fpath, result)
-        if not os.path.isdir(fpath):
-            mtime = os.path.getmtime(path)
-            result[fpath] = mtime
-        os.chdir(older)
-    os.chdir(old)
-
-
-def loop(path, txt):
-    old = os.getcwd()
-    os.chdir(path)
-    for fnn in os.listdir(path):
-        if fnn in SKIPDIR:
             continue
-        if fnn.startswith("."):
-            continue
-        #if not os.path.exists("%s/__init__.py" % fnn):
-        #    continue
-        old = os.getcwd()
-        fpath = os.path.abspath(os.path.join(path, fnn))
-        if os.path.isdir(fpath):
-            loop(fpath, txt)
-        if not os.path.isdir(fpath):
-            continue
-        os.chdir(fpath)
-        for fnm in os.listdir(fpath):
-            popen(txt + " " + fnm)
-            print(f"{fpath}/{fnm}")
-            sys.stdout.flush()
-        os.chdir(old)
+        result[fpath] = os.path.getmtime(fpath)
     os.chdir(old)
 
 
@@ -103,42 +78,28 @@ def popen(txt):
         sys.stdout.flush()
 
 
-
-def popen2(txt):
-    proc = subprocess.Popen(
-                            txt.split(),
-                            stdin=sys.stdin,
-                            stdout=sys.stdout,
-                            stderr=sys.stderr,
-                            close_fds=False,
-                            text=True
-                           )
-    proc.communicate()
-    proc.wait()
-
-
 if __name__ == "__main__":
     popen("clean")
     result = {}
     old = {}
-    if os.path.exists("tsd"):
+    if os.path.exists(".tsd"):
         try:
-            with open("tsd") as tsd:
+            with open(".tsd") as tsd:
                 old.update(json.load(tsd))
         except json.decoder.JSONDecodeError:
             pass
     dump(os.getcwd(), result)
-    tsd = open("tsd", "w")
+    tsd = open(".tsd", "w")
     json.dump(result, tsd)
     tsd.flush()
     tsd.close()
     dif = diff(old, result)
-    print(dif)
     nr = 0
     for fn in dif.keys():
+        if ".tsd" in fn:
+            continue
         print(fn)
         popen("pylint %s " % fn)
         nr += 1
     if not nr:
         print("no changes")
-    #loop(os.getcwd(), "pylint")

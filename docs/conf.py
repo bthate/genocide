@@ -9,11 +9,15 @@
 
 
 NAME = "genocide"
-VERSION = "121"
+VERSION = "122"
 
 
+#import doctest
 import os
 import sys
+
+
+sys.setrecursionlimit(1500)
 
 
 curdir = os.getcwd()
@@ -48,7 +52,6 @@ pygments_style = 'colorful'
 extensions=[
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.doctest',
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
     'sphinx.ext.githubpages'
@@ -105,6 +108,8 @@ intersphinx_mapping = {
                        'sphinx': ('http://sphinx.pocoo.org/', None),
                       }
 intersphinx_cache_limit=1
+
+
 rst_prolog = '''.. image:: genocide.png
     :width: 100%
     :height: 2.0cm
@@ -115,3 +120,14 @@ rst_prolog = '''.. image:: genocide.png
     <br>
 
 '''
+
+
+autosummary_generate = True
+autodoc_default_flags = ['members', 'undoc-members', 'private-members', "imported-members"]
+autodoc_member_order = 'groupwise'
+autodoc_docstring_signature = True
+autoclass_content = "class"
+nitpick_ignore=[
+                ('py:class', 'builtins.BaseException'),
+               ]
+

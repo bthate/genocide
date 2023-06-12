@@ -2,9 +2,9 @@
 
 .. raw:: html
 
-     <br><br>
+    <br>
 
-.. title:: Reconsider
+.. title:: reconsider
 
 
 | **Information and Evidence Unit**
@@ -12,7 +12,11 @@
 | **Post Office Box 19519**
 | **2500 CM The Hague**
 | **The Netherlands**
-|
+
+
+.. raw:: html
+
+    <br>
 
 Hello Office of the Prosecutor,
 
@@ -62,6 +66,6 @@ prosecute the king for making the commiting of the above mentioned crimes
 the hope that it stops the mass torture with poison the king of the 
 netherlands and his government are doing.
 
-
 |
-| *your reference:* **OTP-CR-117/19**
+
+reference: **OTP-CR-117/19**

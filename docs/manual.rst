@@ -49,14 +49,13 @@
 
 **INSTALL**
 
-
  ::
 
  $ sudo python3 -m pip install genocide
+ $ sudo pipx install genocide
 
 
 **USAGE**
-
 
  list of commands::
 
@@ -153,7 +152,7 @@
 
  | ``/usr/local/genocide/*``
  | ``/usr/local/share/doc/genocide/*``
-
+ | ``.local/pipx/venvs/genocide
 
 **AUTHOR**
 

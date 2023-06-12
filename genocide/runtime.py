@@ -44,7 +44,7 @@ Cfg.debug = False
 Cfg.mod = "cmd,err,flt,irc,mdl,mod,rss,sts,thr,upt,ver"
 Cfg.skip = "PING,PONG,PRIVMSG"
 Cfg.threaded = False
-Cfg.version = "121"
+Cfg.version = "122"
 
 
 # FUNCTIONS

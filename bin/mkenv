@@ -23,4 +23,4 @@ if not os.path.exists("dist"):
 
 
 popen("python3 -mvirtualenv --system-site-packages env")
-popen("env/bin/pip3 install %s -f dist --upgrade --force-reinstall --no-cache-dir --no-deps" % name)
+popen("env/bin/pip3 install %s -f dist --upgrade" % name)

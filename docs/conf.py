@@ -139,7 +139,6 @@ rst_prolog = '''.. image:: genocide.png
     </center>
     <br>
 
-
 '''
 
 

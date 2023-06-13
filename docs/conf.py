@@ -150,4 +150,3 @@ autoclass_content = "class"
 nitpick_ignore=[
                 ('py:class', 'builtins.BaseException'),
                ]
-

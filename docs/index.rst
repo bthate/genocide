@@ -1,181 +1,70 @@
-.. _manual:
+.. _home:
+
+.. raw:: html
+
+    <br>
+
+.. title:: home
+
+
+| **Information and Evidence Unit**
+| **Office of the Prosecutor**
+| **Post Office Box 19519**
+| **2500 CM The Hague**
+| **The Netherlands**
 
 
 .. raw:: html
 
     <br>
 
+Hello Office of the Prosecutor,
 
-.. title:: Manual
+i write you in the context of communications and claims under art.15 of 
+the Rome Statute. i want to inform the prosecutor that the king of the 
+netherlands and his government are commiting 3 of the 5 crimes defined 
+in the Rome Statute.
 
-.. raw:: html
+The dutch government has introduced three new forced care laws, the Wfz 
+(wet forensische zorg) for criminals, the WvGGZ (Wet verplichte GGZ) for 
+the disturbed and addicted and the Wzd (Wet zorg en dwang) for the 
+handicapped.
 
-    <br>
-    <center>
-    <i>
-    By law, with the use of poison, killing, torturing, castrating, destroying,
-    </i>
-    </center>
-    <center>
-    <i>
-    in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz)
-    </i>
-    </center>
-    <center>
-    <i>
-    and all psychiatric patients (WvGGZ) here in the Netherlands
-    </i>
-    </center>
-    <br>
-    
-**NAME**
+Both the chamber suggesting these laws to the king and the king himself 
+have been informed about the fact the the substances administered under 
+these laws are proven to be poison.
+ 
+There is proof the medication used in forced treatements in the 
+netherlands are poison, see copies of the ECHA <`European Chemical Agency`>
+website for:
 
- | ``GENOCIDE`` - Reconsider OTP-CR-117/19
+(1) :ref:`haldol <haldol>`
+(2) :ref:`clozapine <clozapine>`
+(3) :ref:`zyprexa <zyprexa>`
+(4) :ref:`abilify <abilify>`
 
+With the mass scale torture with poison the king of the netherlands and 
+his chamber:
 
-**SYNOPSIS**
+(1) kills
+(2) does grave bodily and mental harm
+(3) makes impotent
 
- ::
+on the following victim groups here in the Netherlands:
 
-  genocide <cmd> [key=val] 
-  genocide <cmd> [key==val]
-  genocide [-c] [-d] [-v]
+(1) verslaafden (addicts)
+(2) bejaarden (elderly)
+(3) ggz patienten (psychiatric patients)
+(4) criminelen (criminials)
+(5) gehandicapten (handicapped)
 
-
-**DESCRIPTION**
-
- ``GENOCIDE`` holds evidence that king netherlands is doing a genocide, a 
- written :ref:`response <king>` where king netherlands confirmed taking note
- of “what i have written”, namely :ref:`proof <evidence>` that medicine he
- uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
- that make impotent, is both physical (contracted muscles) and mental (let 
- people hallucinate) torture and kills members of the victim groups. 
-
- ``GENOCIDE`` contains `correspondence <writings.html>`_ with the
- International Criminal Court, asking for arrest of the king of the 
- netherlands, for the genocide he is committing with his new treatement laws.
- Current status is "no basis to proceed" judgement of the prosecutor 
- which requires a :ref:`basis to prosecute <reconsider>` to have the king actually
- arrested.
-
- ``GENOCIDE`` is a python3 IRC bot is intended to be programmable  in a
- static, only code, no popen, no user imports and no reading modules from
- a directory, way. It can show genocide and suicide stats of king netherlands
- his genocide into a IRC channel, display rss feeds and log simple text
- messages, source is `here <source.html>`_.
-
-
-**INSTALL**
-
-
- ::
-
- $ sudo python3 -m pip install genocide
-
-
-**USAGE**
-
-
- list of commands::
-
-    $ genocide cmd
-    cmd,err,flt,sts,thr,upt
-
- start a console::
-
-    $ genocide -c
-    >
-
- start additional modules::
-
-    $ genocide mod=<mod1,mod2> -c
-    >
-
- list of modules::
-
-    $ genocide mod
-    cmd,err,flt,fnd,irc,log,mdl,mod,req,
-    rss,slg,sts,tdo,thr,upt,ver
-
- to start irc, add mod=irc when starting::
-
-     $ genocide mod=irc -c
-
- to start rss, also add mod=rss when starting::
-
-     $ genocide mod=irc,rss -c
-
- start as daemon::
-
-    $ genocide mod=irc,rss -d
-    $ 
-
-
-**CONFIGURATION**
-
-
- *irc*
-
- ::
-
-    $ genocide cfg server=<server>
-    $ genocide cfg channel=<channel>
-    $ genocide cfg nick=<nick>
-
- *sasl*
-
- ::
-
-    $ genocide pwd <nsvnick> <nspass>
-    $ genocide cfg password=<frompwd>
-
- *rss*
-
- ::
-
-    $ genocide rss <url>
-    $ genocide dpl <str_in_url> <item1,item2>
-    $ genocide rem <str_in_url>
-    $ genocide nme <str_in_url< <name>
-
-
-**COMMANDS**
-
-
- ::
-
-    cmd - commands
-    cfg - irc configuration
-    dlt - remove a user
-    dpl - sets display items
-    ftc - runs a fetching batch
-    fnd - find objects 
-    flt - instances registered
-    log - log some text
-    mdl - genocide model
-    met - add a user
-    mre - displays cached output
-    nck - changes nick on irc
-    now - genocide stats
-    pwd - sasl nickserv name/pass
-    rem - removes a rss feed
-    req - reconsider
-    rss - add a feed
-    slg - slogan
-    thr - show the running threads
-    tpc - genocide stats into topic
-
-
-**AUTHOR**
-
-
- | Bart Thate <bthate@dds.nl>
-
-
-**COPYRIGHT**
-
-
- | ``GENOCIDE`` is placed in the Public Domain.
+Since the members of the :ref:`chamber <chamber>` and the :ref:`king <king>`
+were aware that these medicine are poison at the time they voted for this law
+and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to
+prosecute the king for making the commiting of the above mentioned crimes
+(killing, torture and impotent making) possible here in the netherlands in
+the hope that it stops the mass torture with poison the king of the 
+netherlands and his government are doing :ref:`\! <manual>`
 
 
 .. toctree::

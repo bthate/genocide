@@ -23,9 +23,9 @@ from genocide.runtime import scanstr, waiter
 import genocide.modules
 Commands.modules = genocide.modules
 
+__VERSION__ = "123"
 
 NAME = "genocide"
-VERSION = "121"
 
 
 Persist.workdir = os.path.expanduser(f"~/.{NAME}")
@@ -87,7 +87,7 @@ def wrap(func):
 
 
 def ver(event):
-    event.reply(f"{NAME.upper()} version {VERSION}")
+    event.reply(f"{NAME.upper()} version {__VERSION__}")
 
 
 def main():

@@ -42,7 +42,7 @@ packages = [
 zip-safe = true
 
 [tool.setuptools.data-files]
-"docs" = [
+"share/doc/genocide" = [
           "docs/about.rst",
           "docs/conf.py",
           "docs/ECHAhaldol.png",
@@ -80,11 +80,11 @@ zip-safe = true
           "docs/wallpaper.png",
          ]
 
-"docs/_static" = [
+"share/doc/genocide/_static" = [
                   "docs/_static/genocide.css",
                  ]
 
-"docs/pdf" =  [
+"share/doc/genocide/pdf" =  [
                "docs/pdf/bevestigd.pdf",
                "docs/pdf/Elements-of-Crimes.pdf",
                "docs/pdf/EM_T04_OTP-CR-117_19.pdf",
@@ -94,7 +94,7 @@ zip-safe = true
                "docs/pdf/Rules-of-Procedure-and-Evidence.pdf",
               ]
 
-"docs/_templates" = [
+"share/doc/genocide/_templates" = [
                      "docs/_templates/base.rst",
                      "docs/_templates/class.rst",
                      "docs/_templates/mine.rst",

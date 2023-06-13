@@ -147,6 +147,13 @@
     tpc - genocide stats into topic
 
 
+**FILES**
+
+    /home/bart/.local/bin/genocide
+    ~/.local/pipx/venvs/genocide/
+    /usr/local/bin/genocide
+    /usr/local/share/doc/genocide
+
 **AUTHOR**
 
 

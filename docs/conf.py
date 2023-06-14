@@ -9,7 +9,7 @@
 
 
 NAME = "genocide"
-VERSION = "122"
+VERSION = "124"
 
 
 #import doctest
@@ -150,3 +150,17 @@ autoclass_content = "class"
 nitpick_ignore=[
                 ('py:class', 'builtins.BaseException'),
                ]
+
+
+def strip_signatures(app, what, name, obj, options, signature, return_annotation):
+    sig = None
+    if signature is not None:
+        sig = re.sub(r'genocide\.[^.]*\.', '', signature)
+    ret = None
+    if return_annotation is not None:
+        ret = re.sub(r'genocide\.[^.]*\.', '', signature)
+    return sig, ret
+
+
+def setup(app):
+    app.connect('autodoc-process-signature', strip_signatures)

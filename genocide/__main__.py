@@ -23,7 +23,8 @@ from genocide.runtime import scanstr, waiter
 import genocide.modules
 Commands.modules = genocide.modules
 
-__VERSION__ = "123"
+__VERSION__ = "124"
+
 
 NAME = "genocide"
 

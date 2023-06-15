@@ -9,15 +9,13 @@
 .. raw:: html
 
     <center>
-    <b>
-    <span>
+    <h3>
 
 {{ fullname }}
 
 .. raw:: html
 
-    </span>
-    </b>
+    </h3>
     </center>
 
 .. auto{{ objtype }}:: {{ fullname }}

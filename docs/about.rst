@@ -9,7 +9,6 @@
 
 .. raw:: html
 
-    <br>
     <center>
     <i>
     By law, with the use of poison, killing, torturing, castrating, destroying,

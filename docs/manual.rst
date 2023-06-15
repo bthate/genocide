@@ -52,7 +52,8 @@
 
  ::
 
- $ sudo python3 -m pip install genocide
+  $ sudo python3 -m pip install genocide
+  $ sudo pipx install genocide
 
 
 **USAGE**
@@ -150,7 +151,9 @@
 
 **FILES**
 
-    /home/bart/.local/bin/genocide
+ ::
+
+    ~/.local/bin/genocide
     ~/.local/pipx/venvs/genocide/
     /usr/local/bin/genocide
     /usr/local/share/doc/genocide
@@ -158,11 +161,14 @@
 **AUTHOR**
 
 
- | Bart Thate <bthate@dds.nl>
+ ::
+ 
+    Bart Thate <bthate@dds.nl>
 
 
 **COPYRIGHT**
 
+ ::
 
- | ``GENOCIDE`` is placed in the Public Domain.
+    GENOCIDE is placed in the Public Domain.
 

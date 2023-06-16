@@ -4,7 +4,7 @@
 
     <br>
 
-.. title:: home
+.. title:: Home
 
 
 | **Information and Evidence Unit**

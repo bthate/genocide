@@ -4,7 +4,7 @@
 
     <br>
 
-.. title:: about
+.. title:: About
 
 
 .. raw:: html

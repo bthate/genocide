@@ -5,7 +5,7 @@
     <br>
 
 
-.. title:: guilty
+.. title:: Guilty
 
 .. _informed:
 

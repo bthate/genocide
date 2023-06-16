@@ -4,7 +4,7 @@
 
     <br>
 
-.. title:: reconsider
+.. title:: Reconsider
 
 
 | **Information and Evidence Unit**

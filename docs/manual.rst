@@ -172,3 +172,16 @@
 
     GENOCIDE is placed in the Public Domain.
 
+
+.. raw:: html
+
+     <br>
+     <center>
+     <b>
+
+:ref:`home <home>` - :ref:`manual <manual>` - :ref:`source <source>` - :ref:`about <about>`
+
+.. raw:: html
+
+    </b>
+    </center>

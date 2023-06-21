@@ -66,17 +66,3 @@
     genocide.modules.sts	status
     genocide.modules.thr	list of running threads
     genocide.modules.upt	uptime
-
-
-.. raw:: html
-
-     <br>
-     <center>
-     <b>
-
-:ref:`home <home>` - :ref:`manual <manual>` - :ref:`source <source>` - :ref:`about <about>`
-
-.. raw:: html
-
-    </b>
-    </center>

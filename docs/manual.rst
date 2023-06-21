@@ -49,12 +49,17 @@
 
 **INSTALL**
 
+ with sudo::
 
- ::
+  $ python3 -m pip install genocide
 
-  $ sudo python3 -m pip install genocide
-  $ sudo pipx install genocide
+ as user::
 
+  $ pipx install genocide
+
+ or download the tar, see::
+
+  https://pypi.org/project/genocide
 
 **USAGE**
 
@@ -77,14 +82,16 @@
  list of modules::
 
     $ genocide mod
-    cmd,err,flt,fnd,irc,log,mdl,mod,req,
-    rss,slg,sts,tdo,thr,upt,ver
+    cmd,err,flt,fnd,irc,log,mdl,mod,
+    req, rss,slg,sts,tdo,thr,upt,ver
 
- to start irc, add mod=irc when starting::
+ to start irc, add mod=irc when
+ starting::
 
      $ genocide mod=irc -c
 
- to start rss, also add mod=rss when starting::
+ to start rss, also add mod=rss
+ when starting::
 
      $ genocide mod=irc,rss -c
 
@@ -117,9 +124,9 @@
  ::
 
     $ genocide rss <url>
-    $ genocide dpl <str_in_url> <item1,item2>
-    $ genocide rem <str_in_url>
-    $ genocide nme <str_in_url< <name>
+    $ genocide dpl <url> <item1,item2>
+    $ genocide rem <url>
+    $ genocide nme <url< <name>
 
 
 **COMMANDS**
@@ -170,18 +177,4 @@
 
  ::
 
-    GENOCIDE is placed in the Public Domain.
-
-
-.. raw:: html
-
-     <br>
-     <center>
-     <b>
-
-:ref:`home <home>` - :ref:`manual <manual>` - :ref:`source <source>` - :ref:`about <about>`
-
-.. raw:: html
-
-    </b>
-    </center>
+    GENOCIDE is Public Domain.

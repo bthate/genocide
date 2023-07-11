@@ -11,8 +11,7 @@ import unittest
 sys.path.insert(0, "..")
 
 
-from genocide.encoder import dumps
-from genocide.objects import Object
+from genocide.objects import Object, dumps
 
 
 VALIDJSON = '{"test": "bla"}'

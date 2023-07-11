@@ -12,11 +12,10 @@ import unittest
 sys.path.insert(0, "..")
 
 
-from genocide.objects import Object
-from genocide.persist import Persist, write
+from genocide.objects import Object, Persist, write
 
 
-import genocide.persist
+import genocide.objects
 
 
 Persist.workdir = '.test'
@@ -42,14 +41,8 @@ class TestStorage(unittest.TestCase):
         clz = obj.__class__()
         self.assertTrue('Persist' in str(type(clz)))
 
-    def test_dirmodule(self):
-        self.assertEqual(
-                         dir(genocide.persist),
-                         list(ATTRS1)
-                        )
-
     def test_module(self):
-        self.assertTrue(Persist().__module__, 'genocide.persist')
+        self.assertTrue(Persist().__module__, 'genocide.objects')
 
     def test_save(self):
         Persist.workdir = '.test'

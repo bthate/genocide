@@ -22,8 +22,7 @@ import unittest
 sys.path.insert(0, "..")
 
 
-from genocide.objects import Object
-from genocide.persist import readrec, writerec
+from genocide.objects import Object, readrec, writerec
 
 
 class TestRecursive(unittest.TestCase):
@@ -34,6 +33,5 @@ class TestRecursive(unittest.TestCase):
         obj.obj = Object()
         obj.obj.a = "test"
         pth = writerec(obj)
-        print(pth)
         readrec(obj, pth)
         self.assertEqual(obj.obj.a, "test")

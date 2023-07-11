@@ -12,9 +12,7 @@ import unittest
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.decoder import loads
-from genocide.encoder import dumps
-from genocide.objects import Object
+from genocide.objects import Object, dumps, loads
 
 
 class TestDecoder(unittest.TestCase):

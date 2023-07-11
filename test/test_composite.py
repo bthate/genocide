@@ -11,8 +11,7 @@ import unittest
 sys.path.insert(0, "..")
 
 
-from genocide.objects import Object
-from genocide.persist import read, write
+from genocide.objects import Object, read, write
 
 
 class TestComposite(unittest.TestCase):

@@ -18,6 +18,7 @@ class A(Object):
 
     pass
 
+
 class B(Object):
 
     pass

@@ -43,10 +43,9 @@ STARTTIME = time.time()
 
 
 Persist.workdir = os.path.expanduser(f"~/.{NAME}")
-if not os.path.exists(Persist.workdir):
-    cdir(Persist.workdir)
-print(Persist.workdir)
-sys.stdout.flush()
+if not os.path.exists(Persist.storedir()):
+    cdir(Persist.storedir())
+
 
 readline.redisplay()
 

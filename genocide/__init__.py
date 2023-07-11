@@ -5,7 +5,7 @@
 
 
 __author__ = "Bart Thate <programmingobject@gmail.com>"
-__version__ = 240
+__version__ = 130
 
 
 # IMPORTS

@@ -15,9 +15,6 @@ sys.path.insert(0, "..")
 from genocide.objects import Object, Persist, write
 
 
-import genocide.objects
-
-
 Persist.workdir = '.test'
 
 

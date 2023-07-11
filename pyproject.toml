@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "genocide"
 description = "Reconsider OTP-CR-117/19"
-version = "124"
+version = "130"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]

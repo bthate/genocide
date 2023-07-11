@@ -30,7 +30,7 @@ from ..repeats import elapsed
 from ..threads import launch
 
 
-from genocide import __version__
+from .. import __version__
 
 
 # DEFINES

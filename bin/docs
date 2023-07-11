@@ -2,6 +2,9 @@
 # This file is placed in the Public Domain.
 
 
+"create docs"
+
+
 import os
 import subprocess
 import sys
@@ -11,16 +14,17 @@ os.environ["PATH"] += ":bin"
 
 
 def popen(txt):
-    proc = subprocess.Popen(
+    "run commands"
+    with subprocess.Popen(
                             txt.split(),
                             stdin=sys.stdin,
                             stdout=sys.stdout,
                             stderr=sys.stderr,
                             close_fds=False,
                             text=True
-                           )
-    proc.communicate()
-    proc.wait()
+                           ) as proc:
+        proc.communicate()
+        proc.wait()
 
 
 popen("clean")

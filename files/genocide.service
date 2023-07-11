@@ -1,0 +1,17 @@
+[Unit]
+Description=Reconsider OTP-CR-117/19
+Requires=network.target
+After=network.target
+
+[Service]
+DynamicUser=True
+Type=fork
+User=genocide
+Group=genocide
+PIDFile=genocide.pid
+WorkingDirectory=/home/genocide/.genocide
+ExecStart=/home/genocide/.local/pipx/venvs/genocide/bin/genocide mod=irc,mdl -d
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -370,7 +370,7 @@ class Persist:
     @staticmethod
     def storedir() -> str:
         """return storage directory"""
-        return os.path.join(Persist.workdir, "store")
+        return os.path.join(Persist.workdir, "store", "")
 
 
 def cdir(pth) -> None:

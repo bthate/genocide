@@ -42,7 +42,7 @@ NAME = sys.argv[0].split(os.sep)[-1]
 STARTTIME = time.time()
 
 
-Persist.workdir = os.path.expanduser(f"~/.{NAME}")
+Persist.workdir = os.path.abspath(os.path.expanduser(f"~/.{NAME}"))
 if not os.path.exists(Persist.storedir()):
     cdir(Persist.storedir())
 

@@ -99,7 +99,7 @@ class Object:
 
     def __str__(self):
         """return recursive json string"""
-        return dumps(dumprec(self))
+        return dumps(dumprec(self)).replace('"', "'")
 
 
 def copy(obj, val) -> None:
@@ -126,7 +126,7 @@ def diff(obj, obj2):
     return result
 
 
-def dumprec(obj) -> str:
+def dumprec(obj) -> Object:
     """read object recursively"""
     ooo = type(obj)()
     update(ooo, obj)

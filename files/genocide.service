@@ -6,11 +6,11 @@ After=network.target
 [Service]
 DynamicUser=True
 Type=fork
-User=genocide
-Group=genocide
+User=bart
+Group=bart
 PIDFile=genocide.pid
-WorkingDirectory=/home/genocide/.genocide
-ExecStart=/home/genocide/.local/pipx/venvs/genocide/bin/genocide mod=irc,mdl -d
+WorkingDirectory=/home/bart/.genocide
+ExecStart=/home/bart/.local/pipx/venvs/genocide/bin/genocide mod=irc,mdl -d
 RemainAfterExit=yes
 
 [Install]

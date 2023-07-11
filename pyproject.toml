@@ -27,10 +27,6 @@ classifiers=[
 "source" = "https://github.com/bthate/genocide"
 
 
-[project.scripts]
-genocide = "genocide.__main__:main"
-
-
 [project.optional-dependencies]
 dev = []
 
@@ -40,6 +36,7 @@ packages = [
             "genocide.modules"
            ]
 zip-safe = true
+script-files = ["bin/genocide"]
 
 [tool.setuptools.data-files]
 "share/doc/genocide" = [

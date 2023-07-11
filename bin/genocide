@@ -25,7 +25,7 @@ sys.path.insert(0, os.getcwd())
 
 from genocide.handler import Bus, Cfg, Commands, Errors, Handler, spl
 from genocide.handler import command, parse, scanstr, waiter
-from genocide.objects import Object, Persist, keys, prt, update
+from genocide.objects import Object, Persist, cdir, keys, prt, update
 from genocide.repeats import elapsed
 from genocide.threads import launch, name
 from genocide.loggers import Logging
@@ -38,12 +38,15 @@ import genocide.modules
 
 
 DATE = time.ctime(time.time()).replace("  ", " ")
-NAME = sys.argv[0].split(os.sep, maxsplit=1)[-1]
+NAME = sys.argv[0].split(os.sep)[-1]
 STARTTIME = time.time()
 
 
 Persist.workdir = os.path.expanduser(f"~/.{NAME}")
-
+if not os.path.exists(Persist.workdir):
+    cdir(Persist.workdir)
+print(Persist.workdir)
+sys.stdout.flush()
 
 readline.redisplay()
 

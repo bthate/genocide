@@ -52,7 +52,7 @@ NAME = __name__.split(".", maxsplit=1)[0]
 
 Cfg = Object()
 Cfg.debug = False
-Cfg.mod = ""
+Cfg.mod = "mdl"
 Cfg.verbose = False
 
 
@@ -335,7 +335,7 @@ def parse(obj, txt):
     obj.cmd = ""
     obj.args = []
     obj.gets = {}
-    obj.mod = ""
+    obj.mod = obj.mod or ""
     obj.opts = ""
     obj.otxt = txt
     obj.rest = ""

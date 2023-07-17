@@ -3,6 +3,12 @@
 # pylint: disable=C,I,R,E0402
 
 
+"repeating"
+
+
+__author__ = "Bart Thate <programmingobject@gmail.com>"
+
+
 import threading
 import time
 

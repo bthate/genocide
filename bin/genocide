@@ -28,7 +28,7 @@ from genocide import modules
 Cfg.mod = "bsc"
 Cfg.name = "genocide"
 Cfg.verbose = False
-Cfg.version = 20
+Cfg.version = 140
 
 
 Persist.workdir = os.path.expanduser("~/.{Cfg.name}")

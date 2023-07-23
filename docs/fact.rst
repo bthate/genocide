@@ -1,6 +1,13 @@
 .. _fact:
 
 
+.. raw:: html
+
+    <br><br>
+
+.. title:: (F)ACT
+
+
 1. Off-label toedienen.
 
    Off-label toedienen houd in dat er of buiten de toegestaande bloedspiegels toegedient word of dat het medicijnen voor een andere ziekte word toegedient dan waarvoor hij getest is. Dient men hogere waardes toe dan toegestaan dan is men aan het vergiftigen. Dat een arts heden ten dage uberhaupt Off-label mag toedienen is al belachelijk (want per definitie vergiftiging).
@@ -47,7 +54,7 @@
 
    De controle op de geleverde verpleging is zo slecht dat het aan een slachtoffer is om bij te houden hoe het met toename/afname van symptomen gaat. Het slachtoffer is echter helemaal niet in staat om symptomen bij te houden, het is aan de mantelzorger om te constateren dat een slachtoffer in een toestand van vergiftiging verkeerd.
 
-   Ik probeer dit programma zo te maken dat men symptomen ook kan loggen.
+   Verplichte behandelverantwoordelijke zou ook het controleren op symptomen moeten doen i.p.v. mantelzorgers
 
 9. Oordeel “geen crisis”
 

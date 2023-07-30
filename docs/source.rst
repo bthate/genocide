@@ -8,13 +8,24 @@
 .. title:: Source
 
 
+.. raw:: html
+
+    <center>
+
 source
 ######
 
 .. raw:: html
 
-     <br></center>
+     </center>
 
+
+genocide
+========
+
+.. raw:: html
+
+     <br>
 
 .. autosummary::
     :toctree: 
@@ -32,17 +43,12 @@ source
     genocide.utils	utilities
 
 
-.. raw:: html
-
-     <br>
-
-
 modules
 =======
 
 .. raw:: html
 
-     <br></center>
+     <br>
 
 
 .. autosummary::

@@ -111,8 +111,18 @@ intersphinx_cache_limit=1
 
 rst_prolog = '''.. image:: genocide.png
     :width: 100%
-    :height: 2.0cm
+    :height: 2.6cm
     :target: index.html
+
+.. raw:: html
+
+    <br><br>
+    <center>
+    <i>
+    ANTIPSYCHOTICS - AKATHISIA - CATATONIA - SEDATION - SHOCKS - LETHAL CATATONIA 
+    </i>
+    </center>
+
 
 '''
 

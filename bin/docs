@@ -5,12 +5,15 @@
 "create docs"
 
 
+__author__ = "Bart Thate <skullbonesandnumber@gmail.com>"
+
+
 import os
 import subprocess
 import sys
 
 
-os.environ["PATH"] += ":bin"
+os.environ["PATH"] = "bin:" + os.environ["PATH"]
 
 
 def popen(txt):
@@ -32,11 +35,8 @@ popen("clean")
 
 if not os.path.exists("env"):
     popen("mkenv")
+    popen("upenv")
+    #popen("env/bin/python3 -m pip install -r docs/requirements.txt --upgrade")
 
 
-#if not os.path.exists("env/bin/sphinx-build"):
-#    popen("upenv")
-
-popen("env/bin/python3 -m pip install -r docs/requirements.txt --upgrade")
-#popen("env/bin/python3 -m pip install genocide -f dist --force-reinstall")
 popen("env/bin/python3 env/bin/sphinx-build docs html")

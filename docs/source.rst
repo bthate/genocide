@@ -3,40 +3,33 @@
 
 .. raw:: html
 
-     <br><br>
+     <br>
 
 .. title:: Source
 
 
-**GENOCIDE**
+source
+######
 
 .. raw:: html
 
-     <br>
+     <br></center>
 
 
 .. autosummary::
     :toctree: 
     :template: base.rst
 
-    genocide.brokers	object broker
+    genocide.bus	bus
     genocide.command	commands
-    genocide.configs    configuration
-    genocide.decoder    object decoding
-    genocide.encoder	object encoding
-    genocide.errored    errors
-    genocide.evented	events
-    genocide.locking	locks
-    genocide.loggers	logging
-    genocide.modules	plugins
-    genocide.objects	clean namespace
-    genocide.parsers    parsing
-    genocide.persist    persistence
-    genocide.reactor    reacting
-    genocide.recurse    recusive functions
-    genocide.repeats    repeating 
-    genocide.threads    threading
-    genocide.utility    utilities
+    genocide.error	errors
+    genocide.event	events
+    genocide.object	clean namespace
+    genocide.parser	parsing
+    genocide.reactor	reacting
+    genocide.repeater	repeating 
+    genocide.thread	threading
+    genocide.utils	utilities
 
 
 .. raw:: html
@@ -44,27 +37,28 @@
      <br>
 
 
-**MODULES**
-
+modules
+=======
 
 .. raw:: html
 
-     <br>
+     <br></center>
 
 
 .. autosummary::
     :toctree: 
     :template: base.rst
 
-    genocide.modules.bsc	basic commands
+    genocide.modules.cmd	list of commands
+    genocide.modules.dbg 	debug module
+    genocide.modules.err	occured errors
+    genocide.modules.flt	list of bots
     genocide.modules.irc	internet relay chat
     genocide.modules.log	log text
-    genocide.modules.mbx        mailbox
     genocide.modules.mdl	genocide model
     genocide.modules.req	request
     genocide.modules.rss	rich site syndicate
-    genocide.modules.tdo	things todo
+    genocide.modules.sts	status of bots
+    genocide.modules.tdo   	todo list
     genocide.modules.udp	udp to irc relay
     genocide.modules.wsd 	wisdom
-    genocide.modules.wsh	wishlist
-

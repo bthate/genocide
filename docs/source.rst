@@ -35,6 +35,8 @@ genocide
     genocide.command	commands
     genocide.error	errors
     genocide.event	events
+    genocide.json	decoder/encoder
+    genocide.locks	locking
     genocide.object	clean namespace
     genocide.parser	parsing
     genocide.reactor	reacting

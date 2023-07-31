@@ -9,20 +9,6 @@
 .. title:: Manual
 
 
-.. raw:: html
-
-    <center>
-
-manual
-======
-
-
-.. raw:: html
-
-    </center>
-    <br>
-
-    
 **NAME**
 
  | ``GENOCIDE`` - Reconsider OTP-CR-117/19

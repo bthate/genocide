@@ -8,20 +8,7 @@
 .. title:: Source
 
 
-.. raw:: html
-
-    <center>
-
-source
-######
-
-.. raw:: html
-
-     </center>
-
-
-genocide
-========
+**genocide**
 
 .. raw:: html
 
@@ -45,8 +32,7 @@ genocide
     genocide.utils	utilities
 
 
-modules
-=======
+**modules**
 
 .. raw:: html
 
@@ -69,4 +55,3 @@ modules
     genocide.modules.sts	status of bots
     genocide.modules.tdo   	todo list
     genocide.modules.udp	udp to irc relay
-    genocide.modules.wsd 	wisdom

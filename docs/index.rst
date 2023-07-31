@@ -6,20 +6,6 @@
 .. title:: Home
 
 
-.. raw:: html
-
-    <center>
-
-
-reconsider
-##########
-
-
-.. raw:: html
-
-    </center>
-    <br>
-
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**

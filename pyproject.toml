@@ -30,13 +30,16 @@ classifiers=[
 [project.optional-dependencies]
 dev = []
 
+[project.scripts]
+evrm = "evrm.__main__:wrapped"
+
+
 [tool.setuptools]
 packages = [
             "genocide",
             "genocide.modules"
            ]
 zip-safe = true
-script-files = ["bin/genocide"]
 
 [tool.setuptools.data-files]
 "share/doc/genocide" = [

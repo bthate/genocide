@@ -9,7 +9,7 @@
 
 
 NAME = "genocide"
-VERSION = "140"
+VERSION = "141"
 
 
 import os

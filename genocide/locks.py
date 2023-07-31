@@ -3,9 +3,6 @@
 # pylint: disable=C,I,R
 
 
-"locking"
-
-
 import _thread
 
 
@@ -15,7 +12,5 @@ def __dir__():
            )
 
 
-__all__ = __dir__()
-
-
 disklock = _thread.allocate_lock()
+hooklock = _thread.allocate_lock()

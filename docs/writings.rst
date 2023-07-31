@@ -6,6 +6,21 @@
 
 .. title:: Writings
 
+.. raw:: html
+
+    <center>
+
+
+writings
+########
+
+
+.. raw:: html
+
+    </center>
+    <br>
+
+
 
 **EMAIL 1**
 

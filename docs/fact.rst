@@ -3,9 +3,24 @@
 
 .. raw:: html
 
-    <br><br>
+    <br>
 
 .. title:: (F)ACT
+
+
+.. raw:: html
+
+    <center>
+
+(f)act
+######
+
+
+.. raw:: html
+
+    </center>
+    <br>
+
 
 
 1. Off-label toedienen.

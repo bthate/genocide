@@ -30,9 +30,6 @@ classifiers=[
 [project.optional-dependencies]
 dev = []
 
-[project.scripts]
-genocide = "genocide.__main__:wrapped"
-
 
 [tool.setuptools]
 packages = [
@@ -40,6 +37,7 @@ packages = [
             "genocide.modules"
            ]
 zip-safe = true
+script-files = ["bin/genocide"]
 
 [tool.setuptools.data-files]
 "share/doc/genocide" = [

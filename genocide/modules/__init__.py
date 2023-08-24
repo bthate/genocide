@@ -1,30 +1,24 @@
 # This file is placed in the Public Domain.
 #
-# flake8: noqa=F401
+# pylint: disable=C,I,R
+# flake8: noqa
 
 
 "modules"
 
 
-from . import cmd, dbg, err, flt, irc, log, mod, rss, sts, tdo, thr
-from . import mdl, req, wsd
+import os
 
+
+path = os.path.dirname(__file__)
 
 def __dir__():
-    return (
-            'cmd',
-            'dbg',
-            'err',
-            'flt',
-            'irc',
-            'log',
-            'mdl',
-            'req',
-            'rss',
-            'tdo',
-            'thr',
-            'wsd'
-           )
-
+    return sorted(
+                  [x[:-3] for x in os.listdir(path)
+                          if not x.startswith("__")]
+                 ) 
 
 __all__ = __dir__()
+
+
+from . import *

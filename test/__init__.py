@@ -1,6 +1,7 @@
 # This file is placed in the Public Domain.
 #
-#
+# pylint: disable=C0410,C0321
+
 
 "mangle path"
 

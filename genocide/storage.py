@@ -84,6 +84,7 @@ def sync(obj, pth=None):
     pth2 = store(pth)
     write(obj, pth2)
     obj.__fnm__ = pth
+    return pth
 
 
 "utility"

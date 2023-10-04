@@ -13,7 +13,7 @@ sys.path.insert(0, ".")
 
 
 from genocide.objects import Object
-from genocide.storage import Storage, fetch, path, sync
+from genocide.storage import Storage, path, sync
 
 
 from genocide import storage

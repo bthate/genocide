@@ -15,7 +15,7 @@ import uuid
 import _thread
 
 
-from .objects import Object, read, search, update, write
+from .objects import Object, fqn, read, search, update, write
 
 
 def  __dir__():
@@ -140,13 +140,6 @@ def fns(mtc) -> []:
                 fls = sorted(os.listdir(ddd))
                 if fls:
                     yield strip(os.path.join(ddd, fls[-1]))
-
-
-def fqn(obj) -> str:
-    kin = str(type(obj)).split()[-1][1:-2]
-    if kin == "type":
-        kin = obj.__name__
-    return kin
 
 
 def ident(obj) -> str:

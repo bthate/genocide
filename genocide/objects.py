@@ -16,11 +16,14 @@ def __dir__():
             'construct',
             'edit',
             'fmt',
+            'fqn',
             'items',
             'keys',
+            'read',
             'search',
             'update',
             'values',
+            'write'
            )
 
 
@@ -115,6 +118,13 @@ def fmt(obj, args=[], skip=[]) -> str:
         else:
             txt += f'{key}={value} '
     return txt.strip()
+
+
+def fqn(obj) -> str:
+    kin = str(type(obj)).split()[-1][1:-2]
+    if kin == "type":
+        kin = obj.__name__
+    return kin
 
 
 def items(obj) -> []:

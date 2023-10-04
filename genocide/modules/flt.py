@@ -6,7 +6,7 @@
 "list of bots"
 
 
-from ..reactor import Broker
+from ..runtime import Broker
 
 
 def __dir__():

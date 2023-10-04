@@ -6,13 +6,11 @@
 "status of bots"
 
 
-from ..reactor import Broker
+import io
+import traceback
 
 
-def __dir__():
-    return (
-            "sts",
-           )
+from ..runtime import Broker
 
 
 def sts(event):
@@ -23,3 +21,16 @@ def sts(event):
             nmr += 1
     if not nmr:
         event.reply("no status")
+    if not Handler.errors:
+        event.reply("no errors")
+        return
+    for exc in Handler.errors:
+        stream = io.StringIO(
+                             traceback.print_exception(
+                                                       type(exc),
+                                                       exc,
+                                                       exc.__traceback__
+                                                      )
+                            )
+        for line in stream.readlines():
+            event.reply(line)

@@ -1,48 +1,45 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C0112,C0115,C0116,W0105,R0903,E0402,C0209
+# pylint: disable=C0112,C0115,C0116,W0105,R0903,E0402,C0209,R1710
 
 
-"persistence"
+"storage"
 
 
+import datetime
 import inspect
 import os
 import pathlib
-import sys
 import time
+import uuid
 import _thread
 
 
-from .objects import Object, ident, kind, load, dump
-from .methods import keys, search, update
+from .objects import Object, read, search, update, write
 
 
-def __dir__():
+def  __dir__():
     return (
-            'NoClass',
             'Storage',
-            'last',
+            'fetch',
+            'find',
+            'fns',
+            'long',
+            'path',
             'read',
+            'store',
+            'sync',
             'write'
            )
 
 
-__all__ = __dir__()
-
-
-disklock = _thread.allocate_lock()
-
-
-class NoClass(Exception):
-
-    pass
+lock = _thread.allocate_lock()
 
 
 class Storage:
 
-    classes = Object()
-    workdir = os.path.expanduser('~/.%s' % __file__.split(os.sep)[-2])
+    classes = {}
+    workdir = ""
 
     @staticmethod
     def add(clz):
@@ -50,20 +47,6 @@ class Storage:
             return
         name = str(clz).split()[1][1:-2]
         Storage.classes[name] = clz
-
-    @staticmethod
-    def long(name):
-        split = name.split(".")[-1].lower()
-        res = None
-        for named in keys(Storage.classes):
-            if split in named.split(".")[-1].lower():
-                res = named
-                break
-        return res
-
-    @staticmethod
-    def path(pth):
-        return os.path.join(Storage.store(), pth)
 
     @staticmethod
     def scan(mod) -> None:
@@ -74,9 +57,33 @@ class Storage:
                 continue
             Storage.add(clz)
 
-    @staticmethod
-    def store(pth=""):
-        return os.path.join(Storage.workdir, "store", pth)
+
+def fetch(obj, pth):
+    pth2 = store(pth)
+    read(obj, pth2)
+    obj.__fnm__ = strip(pth)
+
+
+def last(obj, selector=None) -> None:
+    if selector is None:
+        selector = {}
+    result = sorted(
+                    find(fqn(obj), selector),
+                    key=lambda x: fntime(x.__fnm__)
+                   )
+    if result:
+        inp = result[-1]
+        update(obj, inp)
+        obj.__fnm__ = inp.__fnm__
+
+
+def sync(obj, pth=None):
+    pth = pth or obj.__fnm__
+    if not pth:
+        pth = ident(obj)
+    pth2 = store(pth)
+    write(obj, pth2)
+    obj.__fnm__ = pth
 
 
 "utility"
@@ -87,48 +94,6 @@ def cdir(pth) -> None:
         pth = os.path.dirname(pth)
     pth = pathlib.Path(pth)
     os.makedirs(pth, exist_ok=True)
-
-
-def files() -> []:
-    return os.listdir(Storage.store())
-
-
-def find(mtc, selector=None) -> []:
-    if selector is None:
-        selector = {}
-    for fnm in reversed(sorted(fns(mtc), key=fntime)):
-        clzname = fnclass(fnm)
-        clz = sys.modules.get(clzname, None)
-        if not clz:
-            clz = Object
-        obj = clz()
-        read(obj, fnm)
-        if '__deleted__' in obj:
-            continue
-        if selector and not search(obj, selector):
-            continue
-        yield obj
-
-
-def fns(mtc) -> []:
-    assert Storage.workdir
-    dname = ''
-    clz = Storage.long(mtc)
-    if not clz:
-        raise NoClass(mtc)
-    path = Storage.path(clz)
-    for rootdir, dirs, _files in os.walk(path, topdown=False):
-        if dirs:
-            dname = sorted(dirs)[-1]
-            if dname.count('-') == 2:
-                ddd = os.path.join(rootdir, dname)
-                fls = sorted(os.listdir(ddd))
-                if fls:
-                    yield strip(os.path.join(ddd, fls[-1]))
-
-
-def fnclass(fnm):
-    return fnm.split(os.sep)[-4]
 
 
 def fntime(daystr) -> float:
@@ -146,45 +111,124 @@ def fntime(daystr) -> float:
     return timed
 
 
-def strip(path) -> str:
-    return os.sep.join(path.split(os.sep)[-4:])
+def files() -> []:
+    return os.listdir(store())
 
 
-"methods"
-
-
-def last(obj, selector=None) -> None:
+def find(mtc, selector=None) -> []:
     if selector is None:
         selector = {}
-    result = sorted(
-                    find(kind(obj), selector),
-                    key=lambda x: fntime(x.__oid__)
-                   )
-    if result:
-        inp = result[-1]
-        update(obj, inp)
-        obj.__oid__ = inp.__oid__
-    return obj.__oid__
+    clz = long(mtc)
+    for fnm in reversed(sorted(fns(clz), key=fntime)):
+        obj = Object()
+        fetch(obj, fnm)
+        if '__deleted__' in obj:
+            continue
+        if selector and not search(obj, selector):
+            continue
+        yield obj
 
 
-def read(obj, pth) -> str:
-    with disklock:
-        pth = os.path.join(Storage.store(), pth)
-        with open(pth, 'r', encoding='utf-8') as ofile:
-            data = load(ofile)
-            update(obj, data)
-        obj.__oid__ = strip(pth)
-        return obj.__oid__
+def fns(mtc) -> []:
+    dname = ''
+    pth = store(mtc)
+    for rootdir, dirs, _files in os.walk(pth, topdown=False):
+        if dirs:
+            dname = sorted(dirs)[-1]
+            if dname.count('-') == 2:
+                ddd = os.path.join(rootdir, dname)
+                fls = sorted(os.listdir(ddd))
+                if fls:
+                    yield strip(os.path.join(ddd, fls[-1]))
 
 
-def write(obj) -> str:
-    with disklock:
-        try:
-            pth = obj.__oid__
-        except (AttributeError, TypeError):
-            pth = ident(obj)
-        pth = os.path.join(Storage.store(), pth)
-        cdir(pth)
-        with open(pth, 'w', encoding='utf-8') as ofile:
-            dump(obj, ofile)
-        return os.sep.join(pth.split(os.sep)[-4:])
+def fqn(obj) -> str:
+    kin = str(type(obj)).split()[-1][1:-2]
+    if kin == "type":
+        kin = obj.__name__
+    return kin
+
+
+def ident(obj) -> str:
+    return os.path.join(
+                        fqn(obj),
+                        str(uuid.uuid4().hex),
+                        os.path.join(*str(datetime.datetime.now()).split())
+                       )
+
+
+def laps(seconds, short=True) -> str:
+    txt = ""
+    nsec = float(seconds)
+    if nsec < 1:
+        return f"{nsec:.2f}s"
+    year = 365*24*60*60
+    week = 7*24*60*60
+    nday = 24*60*60
+    hour = 60*60
+    minute = 60
+    years = int(nsec/year)
+    nsec -= years*year
+    weeks = int(nsec/week)
+    nsec -= weeks*week
+    nrdays = int(nsec/nday)
+    nsec -= nrdays*nday
+    hours = int(nsec/hour)
+    nsec -= hours*hour
+    minutes = int(nsec/minute)
+    nsec -= int(minute*minutes)
+    sec = int(nsec)
+    if years:
+        txt += f"{years}y"
+    if weeks:
+        nrdays += weeks * 7
+    if nrdays:
+        txt += f"{nrdays}d"
+    if nrdays and short and txt:
+        return txt.strip()
+    if hours:
+        txt += f"{hours}h"
+    if minutes:
+        txt += f"{minutes}m"
+    if sec:
+        txt += f"{sec}s"
+    txt = txt.strip()
+    return txt
+
+
+def long(name):
+    split = name.split(".")[-1].lower()
+    res = name
+    for named in Storage.classes:
+        if split in named.split(".")[-1].lower():
+            res = named
+            break
+    return res
+
+
+def path(pth):
+    if not pth:
+        pth = ""
+    assert Storage.workdir
+    pth2 =  os.path.join(Storage.workdir, pth)
+    cdir(pth2)
+    return pth2
+
+
+def spl(txt) -> []:
+    try:
+        res = txt.split(',')
+    except (TypeError, ValueError):
+        res = txt
+    return [x for x in res if x]
+
+
+def store(pth=""):
+    assert Storage.workdir
+    pth = os.path.join(Storage.workdir, "store", pth)
+    cdir(pth)
+    return pth
+
+
+def strip(pth) -> str:
+    return os.sep.join(pth.split(os.sep)[-4:])

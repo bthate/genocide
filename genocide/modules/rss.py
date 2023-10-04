@@ -1,9 +1,9 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C0115,C0116,W0105,E0402
+# pylint: disable=C0115,C0116,W0105,E0402,C0411,R0903
 
 
-"rich site syndicte"
+"rich site syndicate"
 
 
 import html.parser
@@ -19,24 +19,13 @@ from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 
 
-from ..objects import Default, Object
-from ..methods import prt, update, spl
-from ..reactor import Broker, Cfg
-from ..storage import find, fntime, last, write
-from ..threads import Repeater, laps, launch
+from ..objects import Default, Object, fmt, update
+from ..runtime import Broker
+from ..storage import Storage, find, fntime, laps, last, sync
+from ..threads import Repeater, launch
 
 
-def __dir__():
-    return (
-            "Fetcher",
-            "Parser",
-            "Rss",
-            "Seen",
-            "dpl",
-            "nme",
-            "rem",
-            "rss"
-           )
+DEBUG = False
 
 
 def init():
@@ -50,17 +39,16 @@ fetchlock = _thread.allocate_lock()
 
 class Feed(Default):
 
-    def len(self):
-        return len(self.__dict__)
+    pass
 
-    def size(self):
-        return len(self.__dict__)
+
+Storage.add(Feed)
 
 
 class Rss(Default):
 
     def __init__(self):
-        super().__init__()
+        Default.__init__(self)
         self.display_list = 'title,link,author'
         self.name = ''
         self.rss = ''
@@ -72,17 +60,17 @@ class Rss(Default):
         return len(self.__dict__)
 
 
+Storage.add(Rss)
+
+
 class Seen(Default):
 
     def __init__(self):
-        super().__init__()
+        Default.__init__(self)
         self.urls = []
 
-    def len(self):
-        return len(self.__dict__)
 
-    def size(self):
-        return len(self.__dict__)
+Storage.add(Seen)
 
 
 class Fetcher(Object):
@@ -102,7 +90,7 @@ class Fetcher(Object):
             displaylist = obj.display_list or 'title,link'
         except AttributeError:
             displaylist = 'title,link,author'
-        for key in spl(displaylist):
+        for key in displaylist.split(","):
             if not key:
                 continue
             data = getattr(obj, key, None)
@@ -118,7 +106,7 @@ class Fetcher(Object):
     def fetch(self, feed):
         with fetchlock:
             counter = 0
-            objs = []
+            res = []
             for obj in reversed(list(getfeed(feed.rss, feed.display_list))):
                 fed = Feed()
                 update(fed, obj)
@@ -134,15 +122,15 @@ class Fetcher(Object):
                     Fetcher.seen.urls.append(uurl)
                 counter += 1
                 if self.dosave:
-                    write(fed)
-                objs.append(fed)
-        if objs:
-            write(Fetcher.seen)
+                    sync(fed)
+                res.append(fed)
+        if res:
+            sync(Fetcher.seen)
         txt = ''
         feedname = getattr(feed, 'name', None)
         if feedname:
             txt = f'[{feedname}] '
-        for obj in objs:
+        for obj in res:
             txt2 = txt + self.display(obj)
             for bot in Broker.objs:
                 bot.announce(txt2.rstrip())
@@ -184,14 +172,14 @@ class Parser(Object):
         for line in txt.split('<item>'):
             line = line.strip()
             obj = Object()
-            for itm in spl(item):
+            for itm in item.split(","):
                 setattr(obj, itm, Parser.getitem(line, itm))
             res.append(obj)
         return res
 
 
 def getfeed(url, item):
-    if Cfg.debug:
+    if DEBUG:
         return [Object(), Object()]
     try:
         result = geturl(url)
@@ -243,6 +231,9 @@ def useragent(txt):
     return 'Mozilla/5.0 (X11; Linux x86_64) ' + txt
 
 
+"commands"
+
+
 def dpl(event):
     if len(event.args) < 2:
         event.reply('dpl <stringinurl> <item1,item2>')
@@ -251,7 +242,7 @@ def dpl(event):
     for feed in find('rss', {'rss': event.args[0]}):
         if feed:
             update(feed, setter)
-            write(feed)
+            sync(feed)
     event.reply('ok')
 
 
@@ -263,7 +254,7 @@ def nme(event):
     for feed in find('rss', selector):
         if feed:
             feed.name = event.args[1]
-            write(feed)
+            sync(feed)
     event.reply('ok')
 
 
@@ -275,7 +266,7 @@ def rem(event):
     for feed in find('rss', selector):
         if feed:
             feed.__deleted__ = True
-            write(feed)
+            sync(feed)
     event.reply('ok')
 
 
@@ -284,8 +275,8 @@ def rss(event):
         nrs = 0
         for feed in find('rss'):
             nrs += 1
-            elp = laps(time.time()-fntime(feed.__oid__))
-            txt = prt(feed)
+            elp = laps(time.time()-fntime(feed.__fnm__))
+            txt = fmt(feed)
             event.reply(f'{nrs} {txt} {elp}')
         if not nrs:
             event.reply('no rss feed found.')
@@ -300,5 +291,5 @@ def rss(event):
             return
     feed = Rss()
     feed.rss = event.args[0]
-    write(feed)
+    sync(feed)
     event.reply('ok')

@@ -6,7 +6,7 @@
 "debug"
 
 
-from ..reactor import Cfg
+from ..runtime import Cfg
 
 
 def __dir__():

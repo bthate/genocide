@@ -10,15 +10,7 @@ import time
 
 
 from ..objects import Object
-from ..storage import find, fntime, write
-from ..threads import laps
-
-
-def __dir__():
-    return (
-            "Log",
-            "log" 
-           )
+from ..storage import find, fntime, laps, sync
 
 
 class Log(Object):
@@ -32,7 +24,7 @@ def log(event):
     if not event.rest:
         nmr = 0
         for obj in find('log'):
-            lap = laps(time.time() - fntime(obj.__oid__))
+            lap = laps(time.time() - fntime(obj.__fnm__))
             event.reply(f'{nmr} {obj.txt} {lap}')
             nmr += 1
         if not nmr:
@@ -40,5 +32,5 @@ def log(event):
         return
     obj = Log()
     obj.txt = event.rest
-    write(obj)
+    sync(obj)
     event.reply('ok')

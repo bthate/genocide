@@ -1,6 +1,7 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C0115,C0116,R0912,R0915,W0105,E0402,R0903
+# pylint: disable=C0115,C0116,E0402,E0602,C0411,C0412,C0413,W0404,W0105,R0903
+# pylint: disable=R0915,R0912
 
 
 "internet relay chat"
@@ -9,38 +10,25 @@
 import base64
 import os
 import queue
-import random
 import socket
 import ssl
-import time
 import textwrap
 import threading
+import time
 import _thread
 
 
-from ..methods import edit, keys, prt
-from ..objects import Default, Object
-from ..reactor import Broker, Client, Event, command
-from ..storage import find, fntime, last, write
-from ..threads import laps, launch
+from ..objects import Default, Object, edit, fmt, keys
+from ..runtime import Broker, Censor, Event, Handler, command, debug
+from ..storage import find, fntime, laps, last, sync
+from ..threads import launch
 
 
-def __dir__():
-    return (
-            "Config",
-            "IRC",
-            "NoUser",
-            "cfg",
-            "del",
-            "met",
-            "mre",
-            "pwd"
-           )
+"defines"
 
 
 NAME = __file__.split(os.sep)[-3]
-
-
+Censor.words = ["PING", "PONG", "PRIVMSG"]
 saylock = _thread.allocate_lock()
 
 
@@ -57,9 +45,7 @@ def stop():
             bot.stop()
 
 
-class NoUser(Exception):
-
-    pass
+"config"
 
 
 class Config(Default):
@@ -96,6 +82,20 @@ class Config(Default):
         return len(Config)
 
 
+"output"
+
+
+class Cache(Default):
+
+    cache = {}
+
+    @staticmethod
+    def size(chan):
+        if chan in Cache.cache:
+            return len(Cache.cache.get(chan, []))
+        return 0
+
+
 class TextWrap(textwrap.TextWrapper):
 
     def __init__(self):
@@ -108,28 +108,25 @@ class TextWrap(textwrap.TextWrapper):
         self.width = 450
 
 
-class Output:
+wrapper = TextWrap()
 
+
+class Output(Cache):
 
     def __init__(self):
-        self.cache = Object()
-        self.oqueue = queue.Queue()
+        Cache.__init__(self)
         self.dostop = threading.Event()
+        self.oqueue = queue.Queue()
 
     def dosay(self, channel, txt):
         raise NotImplementedError
 
-    def extend(self, channel, txtlist):
-        if channel not in self.cache:
-            setattr(self.cache, channel, [])
-        cache = getattr(self.cache, channel, None)
-        cache.extend(txtlist)
-
     def gettxt(self, channel):
         txt = None
         try:
-            cache = getattr(self.cache, channel, None)
-            txt = cache.pop(0)
+            che = self.cache.get(channel, None)
+            if che:
+                txt = che.pop(0)
         except (KeyError, IndexError):
             pass
         return txt
@@ -138,7 +135,7 @@ class Output:
         if channel is None or txt is None:
             return
         if channel not in self.cache:
-            setattr(self.cache, channel, [])
+            self.cache[channel] = []
         self.oqueue.put_nowait((channel, txt))
 
     def out(self):
@@ -148,34 +145,31 @@ class Output:
                 break
             if self.dostop.is_set():
                 break
-            wrapper = TextWrap()
             try:
                 txtlist = wrapper.wrap(txt)
             except AttributeError:
                 continue
             if len(txtlist) > 3:
-                self.extend(channel, txtlist)
+                Output.extend(channel, txtlist)
                 length = len(txtlist)
                 self.dosay(
-                           channel,
-                           f"use !mre to show more (+{length})"
-                          )
+                             channel,
+                             f"use !mre to show more (+{length})"
+                            )
                 continue
             _nr = -1
             for txt in txtlist:
                 _nr += 1
                 self.dosay(channel, txt)
 
-    def size(self, chan):
-        if chan in self.cache:
-            return len(getattr(self.cache, chan, []))
-        return 0
+
+"IRC"
 
 
-class IRC(Client, Output):
+class IRC(Handler, Output):
 
     def __init__(self):
-        Client.__init__(self)
+        Handler.__init__(self)
         Output.__init__(self)
         self.buffer = []
         self.cfg = Config()
@@ -188,6 +182,7 @@ class IRC(Client, Output):
         self.sock = None
         self.state = Default()
         self.state.keeprunning = False
+        self.state.lastline = ""
         self.state.nrconnect = 0
         self.state.nrsend = 0
         self.zelf = ''
@@ -201,6 +196,7 @@ class IRC(Client, Output):
         self.register('PRIVMSG', cb_privmsg)
         self.register('QUIT', cb_quit)
         self.register("366", cb_ready)
+        Broker.add(self)
 
     def announce(self, txt):
         for channel in self.channels:
@@ -225,13 +221,14 @@ class IRC(Client, Output):
     def connect(self, server, port=6667):
         self.state.nrconnect += 1
         self.events.connected.clear()
-        Client.debug(f"connecting to {server}:{port}")
+        debug(f"connecting to {server}:{port}")
         if self.cfg.password:
-            Client.debug("using SASL")
+            debug("using SASL")
             self.cfg.sasl = True
             self.cfg.port = "6697"
             ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
-            ctx.check_hostname = False
+            ctx.options |= ssl.OP_NO_TLSv1 | ssl.OP_NO_TLSv1_1
+            ctx.minimum_version = ssl.TLSVersion.TLSv1_2
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock = ctx.wrap_socket(sock)
             self.sock.connect((server, port))
@@ -250,9 +247,8 @@ class IRC(Client, Output):
 
     def direct(self, txt):
         with saylock:
-            time.sleep(5.0)
-            Client.debug(txt)
-            self.sock.send(bytes(txt.rstrip()+'\r\n', 'utf-8'))
+            self.raw(txt)
+            time.sleep(2.0)
 
     def disconnect(self):
         try:
@@ -262,7 +258,7 @@ class IRC(Client, Output):
                 OSError,
                 BrokenPipeError
                ) as ex:
-            Client.errors.append(ex)
+            Errors.errors.append(ex)
 
     def doconnect(self, server, nck, port=6667):
         while 1:
@@ -275,8 +271,8 @@ class IRC(Client, Output):
                     ConnectionResetError
                    ) as ex:
                 self.state.errors = str(ex)
-                Client.debug(str(ex))
-            Client.debug(f"sleeping {self.cfg.sleep} seconds")
+                Handler.errors.append((str(ex)))
+            debug(f"sleeping {self.cfg.sleep} seconds")
             time.sleep(self.cfg.sleep)
         self.logon(server, nck)
 
@@ -325,7 +321,7 @@ class IRC(Client, Output):
             self.state.pongcheck = True
             self.command('PING', self.cfg.server)
             if self.state.pongcheck:
-                Client.debug("failed pongcheck, restarting")
+                debug("failed pongcheck, restarting")
                 self.state.pongcheck = False
                 self.state.keeprunning = False
                 self.events.connected.clear()
@@ -344,8 +340,8 @@ class IRC(Client, Output):
         rawstr = str(txt)
         rawstr = rawstr.replace('\u0001', '')
         rawstr = rawstr.replace('\001', '')
-        Client.debug(txt)
         obj = Event()
+        obj.args = []
         obj.rawstr = rawstr
         obj.command = ''
         obj.arguments = []
@@ -416,10 +412,12 @@ class IRC(Client, Output):
                     ConnectionResetError,
                     BrokenPipeError
                    ) as ex:
-                Client.errors.append(ex)
+                Errors.errors.append(ex)
                 self.stop()
-                Client.debug("handler stopped")
-                return self.event(str(ex))
+                debug("handler stopped")
+                evt = self.event(str(ex))
+                debug(str(evt))
+                return evt
         try:
             txt = self.buffer.pop(0)
         except IndexError:
@@ -428,11 +426,9 @@ class IRC(Client, Output):
 
     def raw(self, txt):
         txt = txt.rstrip()
-        Client.debug(txt)
-        if not txt.endswith('\r\n'):
-            txt += '\r\n'
-        txt = txt[:512]
-        txt += '\n'
+        debug(txt)
+        txt = txt[:500]
+        txt += '\r\n'
         txt = bytes(txt, 'utf-8')
         if self.sock:
             try:
@@ -444,14 +440,14 @@ class IRC(Client, Output):
                     ConnectionResetError,
                     BrokenPipeError
                    ) as ex:
-                Client.errors.append(ex)
+                Errors.errors.append(ex)
                 self.stop()
                 return
         self.state.last = time.time()
         self.state.nrsend += 1
 
     def reconnect(self):
-        Client.debug(f"reconnecting to {self.cfg.server}")
+        debug(f"reconnecting to {self.cfg.server}")
         try:
             self.disconnect()
         except (ssl.SSLError, OSError):
@@ -471,6 +467,7 @@ class IRC(Client, Output):
         txt = str(inbytes, 'utf-8')
         if txt == '':
             raise ConnectionResetError
+        debug(txt.strip())
         self.state.lastline += txt
         splitted = self.state.lastline.split('\r\n')
         for line in splitted[:-1]:
@@ -484,7 +481,7 @@ class IRC(Client, Output):
         self.events.connected.clear()
         self.events.joined.clear()
         launch(Output.out, self)
-        launch(Client.start, self)
+        Handler.start(self)
         launch(
                self.doconnect,
                self.cfg.server or "localhost",
@@ -496,24 +493,126 @@ class IRC(Client, Output):
 
     def stop(self):
         Broker.remove(self)
-        Client.stop(self)
+        Handler.stop(self)
         self.dostop.set()
         self.disconnect()
-
 
     def wait(self):
         self.events.ready.wait()
 
 
-class User(Object):
+"callbacks"
+
+
+byorig = Broker.byorig
+
+
+def cb_auth(evt):
+    bot = byorig(evt.orig)
+    bot.command(f'AUTHENTICATE {bot.cfg.password}')
+
+
+def cb_cap(evt):
+    bot = byorig(evt.orig)
+    if bot.cfg.password and 'ACK' in evt.arguments:
+        bot.direct('AUTHENTICATE PLAIN')
+    else:
+        bot.direct('CAP REQ :sasl')
+
+
+def cb_command(evt):
+    command(evt)
+
+
+def cb_error(evt):
+    bot = byorig(evt.orig)
+    bot.state.nrerror += 1
+    bot.state.errors.append(evt.txt)
+    debug(f"ERROR {evt.txt}")
+
+
+def cb_h903(evt):
+    bot = byorig(evt.orig)
+    bot.direct('CAP END')
+    bot.events.authed.set()
+
+
+def cb_h904(evt):
+    bot = byorig(evt.orig)
+    bot.direct('CAP END')
+    bot.events.authed.set()
+
+
+def cb_kill(evt):
+    pass
+
+
+def cb_log(evt):
+    pass
+
+
+def cb_ready(evt):
+    bot = byorig(evt.orig)
+    if bot:
+        bot.events.ready.set()
+    debug(f"ready {evt.orig[1:].split()[0]}")
+
+
+def cb_001(evt):
+    bot = byorig(evt.orig)
+    bot.logon()
+
+
+def cb_notice(evt):
+    bot = byorig(evt.orig)
+    if evt.txt.startswith('VERSION'):
+        txt = f'\001VERSION {NAME.upper()} 140 - {bot.cfg.username}\001'
+        bot.command('NOTICE', evt.channel, txt)
+
+
+def cb_privmsg(evt):
+    bot = byorig(evt.orig)
+    if bot.cfg.nocommands:
+        return
+    if evt.txt:
+        if evt.txt[0] in ['!',]:
+            evt.txt = evt.txt[1:]
+        elif evt.txt.startswith(f'{bot.cfg.nick}:'):
+            evt.txt = evt.txt[len(bot.cfg.nick)+1:]
+        else:
+            return
+        if evt.txt:
+            evt.txt = evt.txt[0].lower() + evt.txt[1:]
+        if bot.cfg.users and not Users.allowed(evt.origin, 'USER'):
+            return
+        debug(f"command from {evt.origin}: {evt.txt}")
+        command(evt)
+
+
+def cb_quit(evt):
+    bot = byorig(evt.orig)
+    debug(f"quit from {bot.cfg.server}")
+    if evt.orig and evt.orig in bot.zelf:
+        bot.stop()
+
+
+"users"
+
+
+class NoUser(Exception):
+
+    pass
+
+
+class User(Default):
 
     def __init__(self):
-        Object.__init__(self)
+        Default.__init__(self)
         self.user = ''
         self.perms = []
 
 
-class Users(Object):
+class Users:
 
     @staticmethod
     def allowed(origin, perm):
@@ -530,7 +629,7 @@ class Users(Object):
         for user in Users.get_users(origin):
             try:
                 user.perms.remove(perm)
-                write(user)
+                sync(user)
                 res = True
             except ValueError:
                 pass
@@ -545,7 +644,7 @@ class Users(Object):
     def get_user(origin):
         users = list(Users.get_users(origin))
         res = None
-        if len(users) > 0:
+        if users:
             res = users[-1]
         return res
 
@@ -556,103 +655,8 @@ class Users(Object):
             raise NoUser(origin)
         if permission.upper() not in user.perms:
             user.perms.append(permission.upper())
-            write(user)
+            sync(user)
         return user
-
-
-"callbacks"
-
-
-def cb_auth(evt):
-    bot = Broker.byorig(evt.orig)
-    assert bot.cfg.password
-    bot.command(f'AUTHENTICATE {bot.cfg.password}')
-
-
-def cb_cap(evt):
-    bot = Broker.byorig(evt.orig)
-    if bot.cfg.password and 'ACK' in evt.arguments:
-        bot.direct('AUTHENTICATE PLAIN')
-    else:
-        bot.direct('CAP REQ :sasl')
-
-
-def cb_command(evt):
-    command(evt)
-
-
-def cb_error(evt):
-    bot = Broker.byorig(evt.orig)
-    bot.state.nrerror += 1
-    bot.state.errors.append(evt.txt)
-    Client.debug(evt.txt)
-
-
-def cb_h903(evt):
-    assert evt
-    bot = Broker.byorig(evt.orig)
-    bot.direct('CAP END')
-    bot.events.authed.set()
-
-
-def cb_h904(evt):
-    assert evt
-    bot = Broker.byorig(evt.orig)
-    bot.direct('CAP END')
-    bot.events.authed.set()
-
-
-def cb_kill(evt):
-    pass
-
-
-def cb_log(evt):
-    pass
-
-
-def cb_ready(evt):
-    bot = Broker.byorig(evt.orig)
-    if bot:
-        bot.events.ready.set()
-    Client.debug(f"ready {evt.orig[1:].split()[0]}")
-
-
-def cb_001(evt):
-    bot = Broker.byorig(evt.orig)
-    bot.logon()
-
-
-def cb_notice(evt):
-    bot = Broker.byorig(evt.orig)
-    if evt.txt.startswith('VERSION'):
-        txt = f'\001VERSION {NAME.upper()} 140 - {bot.cfg.username}\001'
-        bot.command('NOTICE', evt.channel, txt)
-
-
-def cb_privmsg(evt):
-    bot = Broker.byorig(evt.orig)
-    if bot.cfg.nocommands:
-        return
-    if evt.txt:
-        if evt.txt[0] in ['!',]:
-            evt.txt = evt.txt[1:]
-        elif evt.txt.startswith(f'{bot.cfg.nick}:'):
-            evt.txt = evt.txt[len(bot.cfg.nick)+1:]
-        else:
-            return
-        if evt.txt:
-            evt.txt = evt.txt[0].lower() + evt.txt[1:]
-        if bot.cfg.users and not Users.allowed(evt.origin, 'USER'):
-            return
-        Client.debug(f"command from {evt.origin}: {evt.txt}")
-        command(evt)
-
-
-def cb_quit(evt):
-    bot = Broker.byorig(evt.orig)
-    Client.debug(f"quit from {bot.cfg.server}")
-    if evt.orig and evt.orig in bot.zelf:
-        bot.stop()
 
 
 "commands"
@@ -663,15 +667,15 @@ def cfg(event):
     last(config)
     if not event.sets:
         event.reply(
-                    prt(
+                    fmt(
                         config,
                         keys(config),
-                        skip='control,password,realname,sleep,username'
+                        skip='control,password,realname,sleep,username'.split(",")
                        )
                    )
     else:
         edit(config, event.sets)
-        write(config)
+        sync(config)
         event.reply('ok')
 
 
@@ -684,11 +688,11 @@ def dlt(event):
     for obj in find('user', selector):
         nrs += 1
         obj.__deleted__ = True
-        write(obj)
+        sync(obj)
         event.reply('ok')
         break
     if not nrs:
-        event.reply("no users")
+        event.reply( "no users")
 
 
 def met(event):
@@ -704,7 +708,7 @@ def met(event):
     user = User()
     user.user = event.rest
     user.perms = ['USER']
-    write(user)
+    sync(user)
     event.reply('ok')
 
 
@@ -712,7 +716,7 @@ def mre(event):
     if not event.channel:
         event.reply('channel is not set.')
         return
-    bot = Broker.byorig(event.orig)
+    bot = byorig(event.orig)
     if 'cache' not in dir(bot):
         event.reply('bot is missing cache')
         return

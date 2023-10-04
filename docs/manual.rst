@@ -11,7 +11,7 @@
 
 **NAME**
 
- | ``GENOCIDE`` - Reconsider OTP-CR-117/19
+ | ``GENOCIDE`` - @KarimKhanQC reconsider OTP-CR-117/19
 
 
 **SYNOPSIS**
@@ -20,7 +20,7 @@
 
   genocide <cmd> [key=val] 
   genocide <cmd> [key==val]
-  genocide [-c] [-d] [-v]
+  genocide [-c] [-d] [-i] [-v]
 
 
 **DESCRIPTION**
@@ -49,17 +49,9 @@
 
 **INSTALL**
 
- with sudo::
-
-  $ python3 -m pip install genocide
-
- as user::
 
   $ pipx install genocide
 
- or download the tar, see::
-
-  https://pypi.org/project/genocide
 
 **USAGE**
 
@@ -85,19 +77,19 @@
     cmd,err,flt,fnd,irc,log,mdl,mod,
     req, rss,slg,sts,tdo,thr,upt,ver
 
- to start irc, add mod=irc when
- starting::
+ to start irc, add the -i option and add
+ mod=irc when starting::
 
-     $ genocide mod=irc -c
+     $ genocide -ci mod=irc 
 
  to start rss, also add mod=rss
  when starting::
 
-     $ genocide mod=irc,rss -c
+     $ genocide -ci mod=irc,rss
 
  start as daemon::
 
-    $ genocide mod=irc,rss -d
+    $ genocide -d mod=irc,rss
     $ 
 
 
@@ -154,6 +146,30 @@
     slg - slogan
     thr - show the running threads
     tpc - genocide stats into topic
+
+
+**SYSTEMD**
+
+::
+
+    [Unit]
+    Description=@KarimKhanQC reconsider OTP-CR-117/19
+    Requires=network.target
+    After=network.target
+
+    [Service]
+    DynamicUser=True
+    Type=fork
+    User=<user>
+    Group=<user>
+    PIDFile=genocide.pid
+    WorkingDirectory=/home/<user?/.genocide
+    ExecStart=/home/bart/.local/pipx/venvs/genocide/bin/genocide -d mod=irc,rss,mdl
+    RemainAfterExit=yes
+
+    [Install]
+    WantedBy=multi-user.target
+
 
 
 **FILES**

@@ -13,7 +13,7 @@ sys.path.insert(0, ".")
 
 
 from genocide.objects import Object
-from genocide.storage import Storage, path, sync
+from genocide.storage import Storage, store, sync
 
 
 from genocide import storage
@@ -72,4 +72,4 @@ class TestStorage(unittest.TestCase):
         Storage.workdir = '.test'
         obj = Object()
         opath = sync(obj)
-        self.assertTrue(os.path.exists(path(opath)))
+        self.assertTrue(os.path.exists(store(opath)))

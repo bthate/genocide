@@ -24,9 +24,8 @@ WORKDIR = os.path.expanduser("~")
 
 
 from genocide.objects import Default, Object, keys
-from genocide.handler import Cfg, Broker
-from genocide.parsers import parse
-from genocide.handler import Handler, command, mods
+from genocide.runtime import Cfg, Broker, Client, Handler, command, mods, parse
+from genocide.runtime import scan
 from genocide.storage import Storage, laps, spl
 from genocide.threads import launch
 
@@ -86,7 +85,7 @@ param.tdo = ["test4", ""]
 param.thr = [""]
 
 
-class CLI(Handler):
+class CLI(Client):
 
     def dosay(self, channel, txt):
         with outlock:
@@ -125,32 +124,6 @@ def payload(clt) -> None:
                     command(evt)
                 nmr += 1
         return nmr
-
-
-def scan(pkg, modnames="", initer=False, dowait=False) -> []:
-    if not pkg:
-        return []
-    inited = []
-    scanned = []
-    threads = []
-    for modname in spl(modnames):
-        module = getattr(pkg, modname, None)
-        if not module:
-            continue
-        scanned.append(modname)
-        Handler.scan(module)
-        Storage.scan(module)
-        if initer:
-            try:
-                module.init
-            except AttributeError:
-                continue
-            inited.append(modname)
-            threads.append(launch(module.init, name=f"init {modname}"))
-    if dowait:
-        for thread in threads:
-            thread.join()
-    return inited
 
 
 def wrap(func) -> None:

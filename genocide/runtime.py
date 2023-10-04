@@ -146,7 +146,7 @@ class Event(Default):
 
     def show(self) -> None:
         for txt in self.result:
-            Broker.say(self.orig, self.channel, txt)
+            BroadCast.say(self.orig, self.channel, txt)
 
     def wait(self):
         self._ready.wait()
@@ -204,6 +204,9 @@ class Handler:
 
     def poll(self) -> Event:
         return self.queue.get()
+
+    def put(self, evt):
+        self.queue.put_nowait(evt)
 
     @staticmethod
     def scan(mod) -> None:

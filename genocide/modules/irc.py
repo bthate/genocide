@@ -19,7 +19,7 @@ import _thread
 
 
 from ..objects import Default, Object, edit, fmt, keys
-from ..runtime import Broker, Censor, Event, Handler, command, debug
+from ..runtime import Broker, BroadCast, Censor, Event, Handler, command, debug
 from ..storage import find, fntime, laps, last, sync
 from ..threads import launch
 
@@ -196,7 +196,6 @@ class IRC(Handler, Output):
         self.register('PRIVMSG', cb_privmsg)
         self.register('QUIT', cb_quit)
         self.register("366", cb_ready)
-        Broker.add(self)
 
     def announce(self, txt):
         for channel in self.channels:

@@ -7,6 +7,7 @@
 
 
 import json
+import _thread
 
 
 def __dir__():
@@ -25,6 +26,9 @@ def __dir__():
             'values',
             'write'
            )
+
+
+lock = _thread.allocate_lock()
 
 
 class Object:
@@ -197,8 +201,9 @@ def loads(string, *args, **kw) -> Object:
 
 
 def read(obj, pth) -> None:
-    with open(pth, 'r', encoding='utf-8') as ofile:
-        update(obj, load(ofile))
+    with lock:
+        with open(pth, 'r', encoding='utf-8') as ofile:
+            update(obj, load(ofile))
 
 
 class ObjectEncoder(json.JSONEncoder):
@@ -248,5 +253,6 @@ def dumps(*args, **kw) -> str:
 
 
 def write(obj, pth) -> None:
-    with open(pth, 'w', encoding='utf-8') as ofile:
-        dump(obj, ofile)
+    with lock:
+        with open(pth, 'w', encoding='utf-8') as ofile:
+            dump(obj, ofile)

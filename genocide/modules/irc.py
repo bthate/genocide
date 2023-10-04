@@ -19,7 +19,7 @@ import _thread
 
 
 from ..objects import Default, edit, fmt, keys
-from ..runtime import Broker, Censor, Event, Handler, command, debug
+from ..runtime import Broker, Censor, Errors, Event, Handler, command, debug
 from ..storage import find, fntime, laps, last, sync
 from ..threads import launch
 
@@ -270,7 +270,7 @@ class IRC(Handler, Output):
                     ConnectionResetError
                    ) as ex:
                 self.state.errors = str(ex)
-                Handler.errors.append((str(ex)))
+                Errors.errors.append(ex)
             debug(f"sleeping {self.cfg.sleep} seconds")
             time.sleep(self.cfg.sleep)
         self.logon(server, nck)

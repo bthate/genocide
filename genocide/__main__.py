@@ -1,32 +1,24 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
 # This file is placed in the Public Domain.
 #
-#
-
+# pylint: disable=C0412,C0115,C0116,W0212,R0903,C0207,C0413,W0611
+# pylint: disable=C0411,E0402
 
 "runtime"
 
 
-import os, sys ; sys.path.insert(0, os.getcwd())
-
-
 import os
-import readline
 import sys
 import termios
-import time
 import traceback
 
 
-from genocide.runtime import Broker, Cfg, Client, Event, command, mods, output
-from genocide.runtime import parse, scan
-from genocide.objects import fmt
-from genocide.storage import Storage, spl
-from genocide.threads import launch
+from .runtime import Cfg, Client, Errors, Event, command, mods
+from .runtime import output, parse, scan
+from .storage import Storage
 
 
-import genocide.runtime
-import genocide.modules as modules
+from . import  modules
 
 
 ALL = ",".join(mods(modules.__path__[0]))
@@ -48,7 +40,7 @@ def cprint(txt):
     sys.stdout.flush()
 
 
-genocide.runtime.output = cprint
+output = cprint
 
 
 class CLI(Client):
@@ -82,15 +74,6 @@ def daemon():
         os.dup2(ses.fileno(), sys.stderr.fileno())
 
 
-def show():
-    for exc in Client.errors:
-        traceback.print_exception(
-                                  type(exc),
-                                  exc,
-                                  exc.__traceback__
-                                 )
-
-
 def wrap(func) -> None:
     old = None
     try:
@@ -105,7 +88,7 @@ def wrap(func) -> None:
     finally:
         if old:
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old)
-    show()
+    Errors.show()
 
 
 def ver(event):

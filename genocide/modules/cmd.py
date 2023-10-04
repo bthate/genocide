@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C0116
+# pylint: disable=E0402,C0116
 
 
 "list of commands"

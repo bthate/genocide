@@ -8,10 +8,11 @@
 
 
 import inspect
+import io
 import os
 import queue
 import threading
-import time
+import traceback
 import _thread
 
 
@@ -38,7 +39,7 @@ output = None
 
 
 def debug(txt):
-    if output == None:
+    if output is None:
         return
     if Censor.skip(txt):
         return
@@ -108,7 +109,8 @@ class Errors(Object):
     errors = []
 
     @staticmethod
-    def handle(exc):
+    def format(exc):
+        res = ""
         stream = io.StringIO(
                              traceback.print_exception(
                                                        type(exc),
@@ -117,12 +119,17 @@ class Errors(Object):
                                                       )
                             )
         for line in stream.readlines():
-            output(line)
-        
+            res += line + "\n"
+        return res
+
+    @staticmethod
+    def handle(exc):
+        output(Errors.format(exc))
+
     @staticmethod
     def show():
         for exc in Errors.errors:
-            Errors.handle(ex)
+            Errors.handle(exc)
 
 
 class Event(Default):
@@ -157,7 +164,6 @@ class Event(Default):
 class Handler:
 
     cmds = {}
-    errors = []
 
     def __init__(self):
         self.cbs = Object()
@@ -176,12 +182,7 @@ class Handler:
         return evt
 
     def forever(self):
-        self._stopped.wait()
-        #while not self.stopped.is_set():
-        #    try:
-        #        time.sleep(0.1)
-        #    except:
-        #        _thread.interrupt_main()
+        self.stopped.wait()
 
     def dispatch(self, evt):
         func = getattr(self.cbs, evt.type, None)
@@ -192,7 +193,7 @@ class Handler:
             evt._thr = launch(func, evt)
         except Exception as ex:
             exc = ex.with_traceback(ex.__traceback__)
-            Handler.errors.append(exc)
+            Errors.errors.append(exc)
             evt.ready()
 
     def loop(self) -> None:
@@ -254,7 +255,7 @@ def command(evt):
         evt.show()
     except Exception as ex:
         exc = ex.with_traceback(ex.__traceback__)
-        Handler.errors.append(exc)
+        Errors.errors.append(exc)
     evt.ready()
 
 
@@ -269,48 +270,6 @@ def mods(path):
             continue
         res.append(fnm[:-3])
     return sorted(res)
-# This file is placed in the Public Domain.
-#
-# pylint: disable=E0402,C0116
-
-
-"scanners"
-
-
-def __dir__():
-    return (
-            'scan',
-           )
-
-
-def scan(pkg, modnames="", initer=False, dowait=False) -> []:
-    if not pkg:
-        return []
-    inited = []
-    scanned = []
-    threads = []
-    for modname in spl(modnames):
-        module = getattr(pkg, modname, None)
-        if not module:
-            continue
-        scanned.append(modname)
-        Handler.scan(module)
-        Storage.scan(module)
-        if initer:
-            try:
-                module.init
-            except AttributeError:
-                continue
-            inited.append(modname)
-            debug(f"starting {modname}")
-            threads.append(launch(module.init, name=f"init {modname}"))
-    if dowait:
-        for thread in threads:
-            thread.join()
-    return inited
-
-
-"parsers"
 
 
 def parse(obj, txt=None) -> None:
@@ -359,3 +318,30 @@ def parse(obj, txt=None) -> None:
         obj.txt = obj.cmd + " " + obj.rest
     else:
         obj.txt = obj.cmd or ""
+
+
+def scan(pkg, modnames="", initer=False, dowait=False) -> []:
+    if not pkg:
+        return []
+    inited = []
+    scanned = []
+    threads = []
+    for modname in spl(modnames):
+        module = getattr(pkg, modname, None)
+        if not module:
+            continue
+        scanned.append(modname)
+        Handler.scan(module)
+        Storage.scan(module)
+        if initer:
+            try:
+                module.init
+            except AttributeError:
+                continue
+            inited.append(modname)
+            debug(f"starting {modname}")
+            threads.append(launch(module.init, name=f"init {modname}"))
+    if dowait:
+        for thread in threads:
+            thread.join()
+    return inited

@@ -1,1 +1,0 @@
-grep -R --exclude-dir=bin* --exclude-dir=test* "print(" .

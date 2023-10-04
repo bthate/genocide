@@ -6,11 +6,7 @@
 "status of bots"
 
 
-import io
-import traceback
-
-
-from ..runtime import Broker
+from ..runtime import Broker, Errors
 
 
 def sts(event):
@@ -21,16 +17,9 @@ def sts(event):
             nmr += 1
     if not nmr:
         event.reply("no status")
-    if not Handler.errors:
+
+    if not Errors.errors:
         event.reply("no errors")
         return
-    for exc in Handler.errors:
-        stream = io.StringIO(
-                             traceback.print_exception(
-                                                       type(exc),
-                                                       exc,
-                                                       exc.__traceback__
-                                                      )
-                            )
-        for line in stream.readlines():
-            event.reply(line)
+    for exc in Errors.errors:
+        event.reply(Errors.format(exc))

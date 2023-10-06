@@ -13,12 +13,12 @@ import termios
 import traceback
 
 
-from .runtime import Cfg, Client, Errors, Event, command, mods
-from .runtime import output, parse, scan
-from .storage import Storage
+from genocide.runtime import Cfg, Client, Errors, Event, command, mods
+from genocide.runtime import output, parse, scan
+from genocide.storage import Storage
 
 
-from . import  modules
+from genocide import  modules
 
 
 ALL = ",".join(mods(modules.__path__[0]))
@@ -29,7 +29,7 @@ if ".py" in NAME:
     NAME = __file__.split(os.sep)[-2]
 
 
-VERSION = "150"
+VERSION = "151"
 
 
 Storage.workdir = os.path.expanduser(f"~/.{NAME}")

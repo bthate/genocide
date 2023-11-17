@@ -20,7 +20,7 @@
     and all psychiatric patients (WvGGZ) here in the Netherlands
     </i>
     </center>
-    <br><br>
+    <br>
 
 
 .. image:: skull3.png

@@ -3,26 +3,6 @@
 .. title:: Manual
 
 
-.. raw:: html
-
-    <center>
-    <i>
-    By law, with the use of poison, killing, torturing, castrating, destroying,
-    </i>
-    </center>
-    <center>
-    <i>
-    in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz)
-    </i>
-    </center>
-    <center>
-    <i>
-    and all psychiatric patients (WvGGZ) here in the Netherlands
-    </i>
-    </center>
-    <br><br>
-
-
 **NAME**
 
 ::
@@ -47,7 +27,7 @@
  netherlands, for the genocide he is committing with his new treatement laws.
  Current status is "no basis to proceed" judgement of the prosecutor 
  which requires a :ref:`basis to prosecute <reconsider>` to have the king actually
- arrested.
+ arrested. The prosecutor can decide at any time to initiate a prosecution.
 
  ``GENOCIDE`` holds evidence that king netherlands is doing a genocide, a 
  written :ref:`response <king>` where king netherlands confirmed taking note

@@ -30,8 +30,8 @@ DESCRIPTION
  for arrest of the king of the  netherlands, for the genocide he is committing
  with his new treatement laws.  Current status is "no basis to proceed" judgement
  of the prosecutor  which requires a "basis to prosecute" to have the king
- actually arrested. The prosecutor can decide at any time whether to
- initiate a prosecution.
+ actually arrested. The prosecutor can decide at any time to initiate a
+ prosecution.
 
  GENOCIDE holds evidence that king netherlands is doing a genocide, a 
  written response where king netherlands confirmed taking note

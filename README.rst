@@ -1,54 +1,190 @@
-| **Information and Evidence Unit**
-| **Office of the Prosecutor**
-| **Post Office Box 19519**
-| **2500 CM The Hague**
-| **The Netherlands**
-| 
+NAME
+####
 
-Hello Office of the Prosecutor,
+::
 
-i write you in the context of communications and claims under art.15 of 
-the Rome Statute. i want to inform the prosecutor that the king of the 
-netherlands and his government are commiting 3 of the 5 crimes defined 
-in the Rome Statute.
+ GENOCIDE - OTP-CR-117/19
 
-The dutch government has introduced three new forced care laws, the Wfz 
-(wet forensische zorg) for criminals, the WvGGZ (Wet verplichte GGZ) for 
-the disturbed and addicted and the Wzd (Wet zorg en dwang) for the 
-handicapped.
 
-Both the chamber suggesting these laws to the king and the king himself 
-have been informed about the fact the the substances administered under 
-these laws are proven to be poison.
- 
-There is proof the medication used in forced treatements in the 
-netherlands are poison, see copies of the ECHA <`European Chemical Agency`>
-website for:
+SYNOPSIS
+========
 
-(1) haldol <haldol>
-(2) clozapine <clozapine>
-(3) zyprexa <zyprexa>
-(4) abilify <abilify>
+::
 
-With the mass scale torture with poison the king of the netherlands and 
-his chamber:
+  genocide <cmd> [key=val] 
+  genocide <cmd> [key==val]
+  genocide [-c] [-d] [-i] [-v]
 
-(1) kills
-(2) does grave bodily and mental harm
-(3) makes impotent
 
-on the following victim groups here in the Netherlands:
+DESCRIPTION
+===========
 
-(1) verslaafden (addicts)
-(2) bejaarden (elderly)
-(3) ggz patienten (psychiatric patients)
-(4) criminelen (criminials)
-(5) gehandicapten (handicapped)
+ ``GENOCIDE`` contains `correspondence <writings.html>`_ with the
+ International Criminal Court, asking for arrest of the king of the 
+ netherlands, for the genocide he is committing with his new treatement laws.
+ Current status is "no basis to proceed" judgement of the prosecutor 
+ which requires a :ref:`basis to prosecute <reconsider>` to have the king actually
+ arrested.
 
-Since the members of the chamber <chamber> and the king <king>
-were aware that these medicine are poison at the time they voted for this law
-and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to
-prosecute the king for making the commiting of the above mentioned crimes
-(killing, torture and impotent making) possible here in the netherlands in
-the hope that it stops the mass torture with poison the king of the 
-netherlands and his government are doing.
+ ``GENOCIDE`` holds evidence that king netherlands is doing a genocide, a 
+ written :ref:`response <king>` where king netherlands confirmed taking note
+ of “what i have written”, namely :ref:`proof <evidence>` that medicine he
+ uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
+ that make impotent, is both physical (contracted muscles) and mental (let 
+ people hallucinate) torture and kills members of the victim groups. 
+
+ ``GENOCIDE`` is a python3 IRC bot is intended to be programmable  in a
+ static, only code, no popen, no user imports and no reading modules from
+ a directory, way. It can show genocide and suicide stats of king netherlands
+ his genocide into a IRC channel, display rss feeds and log simple text
+ messages, source is `here <source.html>`_.
+
+
+INSTALL
+=======
+
+::
+
+ pipx install genocide
+
+
+USAGE
+=====
+
+
+default action is doing nothing::
+
+ $ genocide
+ $
+
+first argument is a command::
+
+ $ genocide cmd
+ cfg,cmd,dlt,dne,dpl,fnd,log,met,mod,mre,
+ nme,pwd,rem,rss,sts,tdo,thr,ver
+
+starting a console requires an option::
+
+ $ genocide -c
+ >
+
+list of modules::
+
+ $ genocide mod
+ bsc,err,flt,irc,log,mod,rss,shp,sts,tdo,
+ thr,udp
+
+to start the genocide as daemon::
+
+ $ genocide -d
+ $ 
+
+add -v if you want to have verbose logging::
+
+ $ genocide -cv
+ BOT started Wed Nov 8 15:38:56 2023 CVI
+ >
+
+
+CONFIGURATION
+=============
+
+
+irc configuration is done with the cli interface
+using the ``cfg`` command::
+
+ $ genocide cfg server=<server>
+ $ genocide cfg channel=<channel>
+ $ genocide cfg nick=<nick>
+
+sasl need a nickserv nick/password pair to generate
+a password for sasl::
+
+ $ genocide pwd <nsnick> <nspass>
+ $ genocide cfg password=<frompwd>
+
+rss has several configuration commands::
+
+ $ genocide rss <url>
+ $ genocide dpl <url> <item1,item2>
+ $ genocide rem <url>
+ $ genocide nme <url> <name>
+
+
+COMMANDS
+========
+
+here is a list of the most basic commands::
+
+ cfg - irc configuration
+ cmd - commands
+ dlt - remove a user
+ dne - mark todo as done
+ dpl - sets display items
+ fnd - find objects 
+ log - log some text
+ met - add a user
+ mre - displays cached output
+ nme - display name of a feed
+ pwd - sasl nickserv name/pass
+ rem - removes a rss feed
+ rss - add a feed
+ sts - show status
+ tdo - add todo item
+ thr - show the running threads
+
+
+SYSTEMD
+=======
+
+save the following it in /etc/systems/system/genocide.service and
+replace "<user>" with the user running pipx::
+
+ [Unit]
+ Description=OTP-CR-117/19
+ Requires=network.target
+ After=network.target
+
+ [Service]
+ Type=simple
+ User=<user>
+ Group=<user>
+ WorkingDirectory=/home/<user>/.genocide
+ ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocide -d
+ RemainAfterExit=yes
+
+ [Install]
+ WantedBy=multi-user.target
+
+then run this::
+
+ sudo systemctl enable genocide --now
+
+ default channel/server is #genocide on localhost
+
+
+FILES
+=====
+
+::
+
+ ~/.genocide
+ ~/.local/bin/genocide
+ ~/.local/pipx/venvs/genocide/
+
+
+AUTHOR
+======
+
+::
+
+
+ Bart Thate <bthate@dds.nl>
+
+
+COPYRIGHT
+=========
+
+::
+
+ GENOCIDE is a contribution back to society and is Public Domain.

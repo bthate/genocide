@@ -1,25 +1,27 @@
 .. _source:
 
 
-.. raw:: html
-
-     <br>
-
 .. title:: Source
+
 
 .. raw:: html
 
     <center>
     <i>
-
-By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands
-    
-
-.. raw:: html
-
+    By law, with the use of poison, killing, torturing, castrating, destroying,
     </i>
     </center>
-    <br>
+    <center>
+    <i>
+    in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz)
+    </i>
+    </center>
+    <center>
+    <i>
+    and all psychiatric patients (WvGGZ) here in the Netherlands
+    </i>
+    </center>
+    <br><br>
 
 
 **genocide**

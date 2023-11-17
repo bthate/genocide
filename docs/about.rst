@@ -1,20 +1,10 @@
 .. _about:
 
-
-.. raw:: html
-
-    <br>
-
 .. title:: About
 
-.. image:: skull3.png
-    :width: 100%
-    :target: verbatim.html
-
 
 .. raw:: html
 
-    <br><br>
     <center>
     <i>
     By law, with the use of poison, killing, torturing, castrating, destroying,
@@ -31,6 +21,17 @@
     </i>
     </center>
     <br><br>
+
+
+.. image:: skull3.png
+    :width: 100%
+    :target: verbatim.html
+
+
+.. raw:: html
+
+    <br><br>
+
 
 In 2018 i :ref:`informed <guilty>` the king of the netherlands that what he calls medicine in his "care" laws are not medicine but poison.
 :ref:`Proof <evidence>` of these medicine being poison were shown to the king, who's (personal) kabinet wrote back that

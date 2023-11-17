@@ -17,31 +17,32 @@ SYNOPSIS
 
   genocide <cmd> [key=val] 
   genocide <cmd> [key==val]
+  genocide req
   genocide [-c] [-d] [-i] [-v]
 
 
 DESCRIPTION
 ===========
 
- ``GENOCIDE`` contains `correspondence <writings.html>`_ with the
+:: 
+
+ ``GENOCIDE`` contains correspondence  with the
  International Criminal Court, asking for arrest of the king of the 
  netherlands, for the genocide he is committing with his new treatement laws.
  Current status is "no basis to proceed" judgement of the prosecutor 
- which requires a :ref:`basis to prosecute <reconsider>` to have the king actually
- arrested.
+ which requires a "basis to prosecute" to have the king actually arrested.
 
  ``GENOCIDE`` holds evidence that king netherlands is doing a genocide, a 
- written :ref:`response <king>` where king netherlands confirmed taking note
- of “what i have written”, namely :ref:`proof <evidence>` that medicine he
+ written response where king netherlands confirmed taking note
+ of “what i have written”, namely proof that medicine he
  uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
  that make impotent, is both physical (contracted muscles) and mental (let 
  people hallucinate) torture and kills members of the victim groups. 
 
  ``GENOCIDE`` is a python3 IRC bot is intended to be programmable  in a
  static, only code, no popen, no user imports and no reading modules from
- a directory, way. It can show genocide and suicide stats of king netherlands
- his genocide into a IRC channel, display rss feeds and log simple text
- messages, source is `here <source.html>`_.
+ a directory, way. It can display rss feeds and log simple text
+ messages.
 
 
 INSTALL

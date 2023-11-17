@@ -22,7 +22,7 @@ from .. import debug, edit, find, fmt, fntime, keys, laps, last, sync
 from .. import command, launch
 
 
-NAME = "bot"
+NAME = "genocide"
 
 
 Censor.words = ["PING", "PONG", "PRIVMSG"]

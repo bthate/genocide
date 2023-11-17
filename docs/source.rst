@@ -7,6 +7,20 @@
 
 .. title:: Source
 
+.. raw:: html
+
+    <center>
+    <i>
+
+By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands
+    
+
+.. raw:: html
+
+    </i>
+    </center>
+    <br>
+
 
 **genocide**
 
@@ -14,22 +28,21 @@
 
      <br>
 
+
 .. autosummary::
     :toctree: 
     :template: base.rst
 
-    genocide.bus	bus
-    genocide.command	commands
-    genocide.error	errors
-    genocide.event	events
-    genocide.json	decoder/encoder
-    genocide.locks	locking
-    genocide.object	clean namespace
-    genocide.parser	parsing
-    genocide.reactor	reacting
-    genocide.repeater	repeating 
-    genocide.thread	threading
-    genocide.utils	utilities
+    genocide.brokers    object broker
+    genocide.command    user commands
+    genocide.excepts    exception handling
+    genocide.modules    user extensions
+    genocide.objects    core objects
+    genocide.parsers    text parsing
+    genocide.runtime    all running
+    genocide.storage    persistence
+    genocide.threads    threading,repeaters
+    genocide.utility    empty
 
 
 **modules**
@@ -44,14 +57,13 @@
     :template: base.rst
 
     genocide.modules.cmd	list of commands
-    genocide.modules.dbg 	debug module
     genocide.modules.err	occured errors
-    genocide.modules.flt	list of bots
+    genocide.modules.fnd        locate objects
     genocide.modules.irc	internet relay chat
     genocide.modules.log	log text
-    genocide.modules.mdl	genocide model
+    genocide.modules.mod        show modules
     genocide.modules.req	request
     genocide.modules.rss	rich site syndicate
-    genocide.modules.sts	status of bots
+    genocide.modules.shp        shopping list
     genocide.modules.tdo   	todo list
-    genocide.modules.udp	udp to irc relay
+    genocide.modules.thr        show running threads

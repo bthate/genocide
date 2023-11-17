@@ -1,6 +1,5 @@
 .. _manual:
 
-
 .. raw:: html
 
     <br>
@@ -9,18 +8,35 @@
 .. title:: Manual
 
 
+.. raw:: html
+
+    <center>
+    <i>
+
+By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the Netherlands
+    
+
+.. raw:: html
+
+    </i>
+    </center>
+    <br>
+
 **NAME**
 
- | ``GENOCIDE`` - @KarimKhanQC reconsider OTP-CR-117/19
+::
+
+ GENOCIDE - Reconsider OTP-CR-117/19
 
 
 **SYNOPSIS**
 
- ::
+::
 
   genocide <cmd> [key=val] 
   genocide <cmd> [key==val]
   genocide [-c] [-d] [-i] [-v]
+  genocide req # shows request to the prosecutor.
 
 
 **DESCRIPTION**
@@ -39,157 +55,147 @@
  that make impotent, is both physical (contracted muscles) and mental (let 
  people hallucinate) torture and kills members of the victim groups. 
 
- ``GENOCIDE`` is a python3 IRC bot is intended to be programmable  in a
- static, only code, no popen, no user imports and no reading modules from
- a directory, way. It can show genocide and suicide stats of king netherlands
- his genocide into a IRC channel, display rss feeds and log simple text
- messages, source is `here <source.html>`_.
+ ``GENOCIDE`` provides a demo bot, it can connect to IRC, fetch and
+ display RSS feeds, take todo notes, keep a shopping list
+ and log text. You can also copy/paste the service file and run
+ it under systemd for 24/7 presence in a IRC channel.
+
+ ``GENOCIDE`` is a contribution back to society and is Public Domain.
 
 
 **INSTALL**
 
+::
 
-  $ pipx install genocide
+ pipx install genocide
 
 
 **USAGE**
 
 
- list of commands::
+default action is doing nothing::
 
-    $ genocide cmd
-    cmd,err,flt,sts,thr,upt
+ $ genocide
+ $
 
- start a console::
+first argument is a command::
 
-    $ genocide -c
-    >
+ $ genocide cmd
+ cfg,cmd,dlt,dne,dpl,fnd,log,met,mod,mre,
+ nme,pwd,rem,req,rss,sts,tdo,thr,ver
 
- start additional modules::
+starting a console requires an option::
 
-    $ genocide mod=<mod1,mod2> -c
-    >
+ $ genocide -c
+ >
 
- list of modules::
+list of modules::
 
-    $ genocide mod
-    cmd,err,flt,fnd,irc,log,mdl,mod,
-    req, rss,slg,sts,tdo,thr,upt,ver
+ $ genocide mod
+ bsc,err,flt,irc,log,mod,req,rss,shp,sts,tdo,
+ thr,udp
 
- to start irc, add the -i option and add
- mod=irc when starting::
+to start the genocide as daemon::
 
-     $ genocide -ci mod=irc 
+ $ genocide -d
+ $ 
 
- to start rss, also add mod=rss
- when starting::
+add -v if you want to have verbose logging::
 
-     $ genocide -ci mod=irc,rss
-
- start as daemon::
-
-    $ genocide -d mod=irc,rss
-    $ 
+ $ genocide -cv
+ BOT started Wed Nov 8 15:38:56 2023 CVI
+ >
 
 
 **CONFIGURATION**
 
 
- *irc*
+irc configuration is done with the cli interface
+using the ``cfg`` command::
 
- ::
+ $ genocide cfg server=<server>
+ $ genocide cfg channel=<channel>
+ $ genocide cfg nick=<nick>
 
-    $ genocide cfg server=<server>
-    $ genocide cfg channel=<channel>
-    $ genocide cfg nick=<nick>
+sasl need a nickserv nick/password pair to generate
+a password for sasl::
 
- *sasl*
+ $ genocide pwd <nsnick> <nspass>
+ $ genocide cfg password=<frompwd>
 
- ::
+rss has several configuration commands::
 
-    $ genocide pwd <nsvnick> <nspass>
-    $ genocide cfg password=<frompwd>
-
- *rss*
-
- ::
-
-    $ genocide rss <url>
-    $ genocide dpl <url> <item1,item2>
-    $ genocide rem <url>
-    $ genocide nme <url< <name>
+ $ genocide rss <url>
+ $ genocide dpl <url> <item1,item2>
+ $ genocide rem <url>
+ $ genocide nme <url> <name>
 
 
 **COMMANDS**
 
+here is a list of the most basic commands::
 
- ::
-
-    cmd - commands
-    cfg - irc configuration
-    dlt - remove a user
-    dpl - sets display items
-    ftc - runs a fetching batch
-    fnd - find objects 
-    flt - instances registered
-    log - log some text
-    mdl - genocide model
-    met - add a user
-    mre - displays cached output
-    nck - changes nick on irc
-    now - genocide stats
-    pwd - sasl nickserv name/pass
-    rem - removes a rss feed
-    req - reconsider
-    rss - add a feed
-    slg - slogan
-    thr - show the running threads
-    tpc - genocide stats into topic
+ cfg - irc configuration
+ cmd - commands
+ dlt - remove a user
+ dne - mark todo as done
+ dpl - sets display items
+ fnd - find objects 
+ log - log some text
+ met - add a user
+ mre - displays cached output
+ nme - display name of a feed
+ pwd - sasl nickserv name/pass
+ rem - removes a rss feed
+ rss - add a feed
+ sts - show status
+ tdo - add todo item
+ thr - show the running threads
 
 
 **SYSTEMD**
 
-::
+save the following it in /etc/systems/system/genocide.service and
+replace "<user>" with the user running pipx::
 
-    [Unit]
-    Description=@KarimKhanQC reconsider OTP-CR-117/19
-    Requires=network.target
-    After=network.target
+ [Unit]
+ Description=Reconsider OTP-CR-117/19
+ Requires=network.target
+ After=network.target
 
-    [Service]
-    DynamicUser=True
-    Type=fork
-    User=<user>
-    Group=<user>
-    PIDFile=genocide.pid
-    WorkingDirectory=/home/<user?/.genocide
-    ExecStart=/home/bart/.local/pipx/venvs/genocide/bin/genocide -d mod=irc,rss,mdl
-    RemainAfterExit=yes
+ [Service]
+ Type=simple
+ User=<user>
+ Group=<user>
+ WorkingDirectory=/home/<user>/.genocide
+ ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocide -d
+ RemainAfterExit=yes
 
-    [Install]
-    WantedBy=multi-user.target
+ [Install]
+ WantedBy=multi-user.target
 
+then run this::
+
+  sudo systemctl enable genocide --now
+
+default channel/server is #genocide on localhost
 
 
 **FILES**
 
- ::
+::
 
-    ~/.local/bin/genocide
-    ~/.local/pipx/venvs/genocide/
-    /usr/local/bin/genocide
-    /usr/local/share/doc/genocide
+ ~/.genocide
+ ~/.local/bin/genocide
+ ~/.local/pipx/venvs/genocide/
+
 
 **AUTHOR**
 
-
- ::
- 
-    Bart Thate <bthate@dds.nl>
+::
 
 
-**COPYRIGHT**
+ Bart Thate <bthate@dds.nl>
 
- ::
 
-    GENOCIDE is Public Domain.
+

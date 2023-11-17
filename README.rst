@@ -1,6 +1,6 @@
 
-*By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the
-Netherlands*
+ *By law, with the use of poison, killing, torturing, castrating, destroying, in whole or in part, all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ) here in the
+ Netherlands*
 
 NAME
 ####
@@ -26,20 +26,21 @@ DESCRIPTION
 
 :: 
 
- ``GENOCIDE`` contains correspondence  with the
- International Criminal Court, asking for arrest of the king of the 
- netherlands, for the genocide he is committing with his new treatement laws.
- Current status is "no basis to proceed" judgement of the prosecutor 
- which requires a "basis to prosecute" to have the king actually arrested.
+ GENOCIDE contains correspondence  with the International Criminal Court, asking
+ for arrest of the king of the  netherlands, for the genocide he is committing
+ with his new treatement laws.  Current status is "no basis to proceed" judgement
+ of the prosecutor  which requires a "basis to prosecute" to have the king
+ actually arrested. The prosecutor can decide at any time whether to
+ initiate a prosecution.
 
- ``GENOCIDE`` holds evidence that king netherlands is doing a genocide, a 
+ GENOCIDE holds evidence that king netherlands is doing a genocide, a 
  written response where king netherlands confirmed taking note
  of “what i have written”, namely proof that medicine he
  uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
  that make impotent, is both physical (contracted muscles) and mental (let 
  people hallucinate) torture and kills members of the victim groups. 
 
- ``GENOCIDE`` is a python3 IRC bot is intended to be programmable  in a
+ GENOCIDE is a python3 IRC bot is intended to be programmable  in a
  static, only code, no popen, no user imports and no reading modules from
  a directory, way. It can display rss feeds and log simple text
  messages.

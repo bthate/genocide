@@ -147,7 +147,7 @@ save the following it in /etc/systems/system/genocide.service and
 replace "<user>" with the user running pipx::
 
  [Unit]
- Description=OTP-CR-117/19
+ Description=@KarimKhanQC reconsider OTP-CR-117/19
  Requires=network.target
  After=network.target
 

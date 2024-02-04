@@ -24,8 +24,8 @@ classifiers=[
 dev = []
 
 [project.scripts]
-sbn = "genocide.__main__:wrapped"
-sbnd = "genocide.__main__:daemoned"
+genocide = "genocide.__main__:wrapped"
+genocided = "genocide.__main__:daemoned"
 
 
 [project.urls]

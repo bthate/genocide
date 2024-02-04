@@ -138,7 +138,7 @@ SYSTEMD
 
 
     [Unit]
-    Description=Skull, Bones and Number (OTP-CR-117/19)
+    Description=@KarimKhanQC reconsider OTP-CR-117/19
     Requires=network-online.target
     After=network-online.target
 

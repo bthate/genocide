@@ -1,182 +1,221 @@
 .. _manual:
 
+
+.. raw:: html
+
+    <br>
+
 .. title:: Manual
 
 
 **NAME**
 
+    **GENOCIDE** - @KarimKhanQC reconsider OTP-CR-117/19
+
+
+**INSTALL**
+
+
 ::
 
- GENOCIDE - Reconsider OTP-CR-117/19
+    $ pipx install genocide
 
 
 **SYNOPSIS**
 
 ::
 
-  genocide <cmd> [key=val] 
-  genocide <cmd> [key==val]
-  genocide [-c] [-d] [-i] [-v]
-  genocide req # shows request to the prosecutor.
+    genocide <cmd> [key=val] [key==val]
+    genocide [-a] [-c] [-d] [-v]
 
 
 **DESCRIPTION**
 
- ``GENOCIDE`` contains `correspondence <writings.html>`_ with the
- International Criminal Court, asking for arrest of the king of the 
- netherlands, for the genocide he is committing with his new treatement laws.
- Current status is "no basis to proceed" judgement of the prosecutor 
- which requires a :ref:`basis to prosecute <reconsider>` to have the king actually
- arrested. The prosecutor can decide at any time to initiate a prosecution.
+    **GENOCIDE** holds evidence that king
+    netherlands is doing a genocide, a
+    written response where king
+    netherlands confirmed taking note
+    of “what i have written”, namely
+    :ref:`proof  <evidence>` that medicine
+    he uses in treatement laws like zyprexa,
+    haldol, abilify and clozapine are
+    poison that make impotent, is both
+    physical (contracted muscles) and
+    mental (make people hallucinate)
+    torture and kills members of the
+    victim groups :ref:`. <source>`
 
- ``GENOCIDE`` holds evidence that king netherlands is doing a genocide, a 
- written :ref:`response <king>` where king netherlands confirmed taking note
- of “what i have written”, namely :ref:`proof <evidence>` that medicine he
- uses in treatement laws like zyprexa, haldol, abilify and clozapine are poison
- that make impotent, is both physical (contracted muscles) and mental (let 
- people hallucinate) torture and kills members of the victim groups. 
+    **GENOCIDE** contains :ref:`correspondence <writings>`
+    with the International Criminal Court,
+    asking for arrest of the king of
+    the netherlands, for the genocide
+    he is committing with his new
+    treatement laws.
 
- ``GENOCIDE`` provides a demo bot, it can connect to IRC, fetch and
- display RSS feeds, take todo notes, keep a shopping list
- and log text. You can also copy/paste the service file and run
- it under systemd for 24/7 presence in a IRC channel.
-
- ``GENOCIDE`` is a contribution back to society and is Public Domain.
-
-
-**INSTALL**
-
-::
-
- pipx install genocide
+    Current status is "no basis to proceed" 
+    :ref:`judgement <guilty>` of the prosecutor
+    which requires a "basis to prosecute" to
+    have the king actually arrested.
 
 
 **USAGE**
 
+    without any argument the bot does nothing
 
-default action is doing nothing::
+    ::
 
- $ genocide
- $
+        $ genocide
+        $
 
-first argument is a command::
+    see list of commands
 
- $ genocide cmd
- cfg,cmd,dlt,dne,dpl,fnd,log,met,mod,mre,
- nme,pwd,rem,req,rss,sts,tdo,thr,ver
+    ::
 
-starting a console requires an option::
+        $ genocide cmd
+        cfg,cmd,mre,now,pwd
 
- $ genocide -c
- >
 
-list of modules::
+    start a console
 
- $ genocide mod
- bsc,err,flt,irc,log,mod,req,rss,shp,sts,tdo,
- thr,udp
+    ::
 
-to start the genocide as daemon::
+        $ genocide -c 
+        >
 
- $ genocide -d
- $ 
+    use -v for verbose
 
-add -v if you want to have verbose logging::
+    ::
 
- $ genocide -cv
- BOT started Wed Nov 8 15:38:56 2023 CVI
- >
+        $ genocide -cv
+        GENOCIDE started CV started Sat Dec 2 17:53:24 2023
+        >
 
+    start daemon
+
+    ::
+
+        $ genocide
+        $ 
+
+
+    show request to the prosecutor
+
+    ::
+
+        $ genocide req
+        Information and Evidence Unit
+        Office of the Prosecutor
+        Post Office Box 19519
+        2500 CM The Hague
+        The Netherlands
+
+    show how many died in the WvGGZ
+
+    ::
+
+        $ genocide now
+        4y18d patient #47324 died from mental illness (14/32/11682) every 44m59s
+    
 
 **CONFIGURATION**
 
+    irc
 
-irc configuration is done with the cli interface
-using the ``cfg`` command::
+    ::
 
- $ genocide cfg server=<server>
- $ genocide cfg channel=<channel>
- $ genocide cfg nick=<nick>
+        $ genocide cfg server=<server>
+        $ genocide cfg channel=<channel>
+        $ genocide cfg nick=<nick>
 
-sasl need a nickserv nick/password pair to generate
-a password for sasl::
+    sasl
 
- $ genocide pwd <nsnick> <nspass>
- $ genocide cfg password=<frompwd>
+    ::
 
-rss has several configuration commands::
+        $ genocide pwd <nsvnick> <nspass>
+        $ genocide cfg password=<frompwd>
 
- $ genocide rss <url>
- $ genocide dpl <url> <item1,item2>
- $ genocide rem <url>
- $ genocide nme <url> <name>
+    rss
+
+    ::
+
+        $ genocide rss <url>
+        $ genocide dpl <url> <item1,item2>
+        $ genocide rem <url>
+        $ genocide nme <url> <name>
 
 
 **COMMANDS**
 
-here is a list of the most basic commands::
+    ::
 
- cfg - irc configuration
- cmd - commands
- dlt - remove a user
- dne - mark todo as done
- dpl - sets display items
- fnd - find objects 
- log - log some text
- met - add a user
- mre - displays cached output
- nme - display name of a feed
- pwd - sasl nickserv name/pass
- rem - removes a rss feed
- rss - add a feed
- sts - show status
- tdo - add todo item
- thr - show the running threads
+        cfg - irc configuration
+        cmd - commands
+        mre - displays cached output
+        now - show genocide stats
+        pwd - sasl nickserv name/pass
+        req - reconsider
+        wsd - show wisdom
 
 
 **SYSTEMD**
 
-save the following it in /etc/systems/system/genocide.service and
-replace "<user>" with the user running pipx::
+    save the following it in /etc/systems/system/genocide.service
+    and replace "<user>" with the user running pipx
 
- [Unit]
- Description=Reconsider OTP-CR-117/19
- Requires=network.target
- After=network.target
+    ::
+ 
+        [Unit]
+        Description=@KarimKhanQC reconsider OTP-CR-117/19
+        Requires=network-online.target
+        After=network-online.target
 
- [Service]
- Type=simple
- User=<user>
- Group=<user>
- WorkingDirectory=/home/<user>/.genocide
- ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocide -d
- RemainAfterExit=yes
+        [Service]
+        Type=simple
+        User=<user>
+        Group=<user>
+        WorkingDirectory=/home/<user>/.genocide
+        ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocided
+        RemainAfterExit=yes
 
- [Install]
- WantedBy=multi-user.target
+        [Install]
+        WantedBy=multi-user.target
 
-then run this::
 
-  sudo systemctl enable genocide --now
+    then run this
 
-default channel/server is #genocide on localhost
+    ::
+
+        $ mkdir ~/.genocide
+        $ sudo systemctl enable genocide --now
+
+    default channel/server is #genocide on localhost
 
 
 **FILES**
 
-::
+    ::
 
- ~/.genocide
- ~/.local/bin/genocide
- ~/.local/pipx/venvs/genocide/
+        ~/.genocide
+        ~/.local/bin/genocide
+        ~/.local/bin/genocided
+        ~/.local/pipx/venvs/genocide/
+
+
+**SOURCE**
+
+
+   source code is :ref:`here <source>`
 
 
 **AUTHOR**
 
-::
+    ::
+
+        Bart Thate <bthate@dds.nl>
 
 
- Bart Thate <bthate@dds.nl>
+**COPYRIGHT**
 
+    ::
 
-
+        GENOCIDE is Public Domain.

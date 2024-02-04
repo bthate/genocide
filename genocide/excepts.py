@@ -1,9 +1,9 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C,R,W0212,E0402,W0105 W0718,W0702,E1102,W0246
+# pylint: disable=C,R,W0125,E0402
 
 
-"exceptions"
+"deferred exception handling"
 
 
 import io
@@ -13,31 +13,30 @@ import traceback
 from .objects import Object
 
 
-class Censor(Object):
-
-    output = None
-    words = []
-
-    @staticmethod
-    def skip(txt) -> bool:
-        for skp in Censor.words:
-            if skp in str(txt):
-                return True
-        return False
+def __dir__():
+    return (
+        'Error',
+        'debug'
+    )
 
 
-class Errors(Object):
+__all__ = __dir__()
+
+
+class Error(Object):
 
     errors = []
+    filter = []
+    output = print
     shown  = []
 
     @staticmethod
-    def add(exc) -> None:
+    def add(exc):
         excp = exc.with_traceback(exc.__traceback__)
-        Errors.errors.append(excp)
+        Error.errors.append(excp)
 
     @staticmethod
-    def format(exc) -> str:
+    def format(exc):
         res = ""
         stream = io.StringIO(
                              traceback.print_exception(
@@ -51,14 +50,24 @@ class Errors(Object):
         return res
 
     @staticmethod
-    def handle(exc) -> None:
-        if Censor.output:
-            txt = str(Errors.format(exc))
-            if txt not in Errors.shown:
-                Censor.output(txt)
-                Errors.shown.append(txt)
+    def handle(exc):
+        if Error.output:
+            txt = str(Error.format(exc))
+            Error.output(txt)
 
     @staticmethod
-    def show() -> None:
-        for exc in Errors.errors:
-            Errors.handle(exc)
+    def show():
+        for exc in Error.errors:
+            Error.handle(exc)
+
+    @staticmethod
+    def skip(txt):
+        for skp in Error.filter:
+            if skp in str(txt):
+                return True
+        return False
+
+
+def debug(txt):
+    if Error.output and not Error.skip(txt):
+        Error.output(txt)

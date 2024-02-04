@@ -2,23 +2,10 @@
 
 .. raw:: html
 
-     <br>
+    <br>
 
 .. title:: Request
 
-
-.. raw:: html
-
-    <center>
-
-request
-#######
-
-
-.. raw:: html
-
-    </center>
-    <br>
 
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**

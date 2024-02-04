@@ -1,35 +1,21 @@
 .. _guilty:
 
+
 .. raw:: html
 
     <br>
-
 
 .. title:: Guilty
 
+
 .. _informed:
-
-
-.. raw:: html
-
-    <center>
-
-
-guilty
-######
-
-
-.. raw:: html
-
-    </center>
-    <br>
 
 
 **INFORMED**
 
 
 .. image:: informed.jpg
-    :width: 100%
+    :height: 8cm
 
 .. raw:: html
 

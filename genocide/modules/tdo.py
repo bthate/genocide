@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C0115,C0116,R0903,W0105,E0402,W0612,E0401
+# pylint: disable=C,R,E0402
 
 
 "todo list"
@@ -9,7 +9,12 @@
 import time
 
 
-from .. import Object, find, fntime, laps, sync
+from .. import Object, fntime, find, laps, sync
+
+
+class NoDate(Exception):
+
+    pass
 
 
 class Todo(Object):

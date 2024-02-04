@@ -1,11 +1,11 @@
-# GENOCIDE - Reconsider OTP-CR-117/19
+# This file is placed in the Public Domain.
 # -*- coding: utf-8 -*-
 #
-# pylint: disable=W0012,C0114,C0116,W1514,C0103,W0613,C0209,C0413,R0903,R0913
-# pylama: disable=E231
+# pylint: disable=C,I,R
+# ruff: noqa: E402, E501
 
 
-"Reconsider OTP-CR-117/19"
+"@KarimKhanQC reconsider OTP-CR-117/19"
 
 
 NAME = "genocide"
@@ -37,34 +37,34 @@ release = '%s' % VERSION
 language = 'en'
 today = ''
 today_fmt = '%B %d, %Y'
-needs_sphinx='1.7'
+needs_sphinx = '1.7'
 exclude_patterns = ['_build', '_templates', '_source', 'Thumbs.db', '.DS_Store']
 source_suffix = '.rst'
 source_encoding = 'utf-8-sig'
 modindex_common_prefix = [""]
 keep_warnings = False
-templates_path=['_templates']
+templates_path = ['_templates']
 add_function_parentheses = False
 add_module_names = False
 show_authors = False
 pygments_style = 'colorful'
-extensions=[
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.todo',
-    'sphinx.ext.githubpages'
-]
+extensions = [
+              'sphinx.ext.autodoc',
+              'sphinx.ext.autosummary',
+              'sphinx.ext.viewcode',
+              'sphinx.ext.todo',
+              'sphinx.ext.githubpages'
+             ]
 
 
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Reconsider OTP-CR-117/19"
+html_title = "@KarimKhanQC reconsider OTP-CR-117/19"
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]
-html_short_title = "GENOCIDE %s" % VERSION
+html_short_title = "%s %s" % (NAME, VERSION)
 html_sidebars = {
     '**': [
         'about.html',
@@ -88,7 +88,7 @@ html_theme_options = {
     'sidebar_width': 10,
 }
 html_favicon = "skull.jpg"
-html_extra_path = ["robots.txt"]
+html_extra_path = []
 html_last_updated_fmt = '%Y-%b-%d'
 html_additional_pages = {}
 html_domain_indices = False
@@ -106,7 +106,7 @@ intersphinx_mapping = {
                        'python': ('https://docs.python.org/3', 'objects.inv'),
                        'sphinx': ('http://sphinx.pocoo.org/', None),
                       }
-intersphinx_cache_limit=1
+intersphinx_cache_limit = 1
 
 
 rst_prolog = '''.. image:: genocide.png
@@ -114,24 +114,40 @@ rst_prolog = '''.. image:: genocide.png
     :height: 2.6cm
     :target: index.html
 
+
 .. raw:: html
 
+    <center>
+    <i>
+    By law, with the use of poison,
+    killing, torturing, castrating, destroying,
+    in whole or in part,
+    all elderly and all handicapped (Wzd), all criminals (Wfz)
+    and all psychiatric patients (WvGGZ)
+    here in the Netherlands
+    </i>
+    </center>
     <br>
+
 
 '''
 
 rst_epilog = '''.. raw:: html
 
-     <br>
-     <center>
-     <b>
+    <br>
+    <br>
+    <br>
+    <center>
+    <b>
 
-:ref:`home <home>` - :ref:`manual <manual>` - :ref:`source <source>` - :ref:`about <about>`
+:ref:`about <about>` - :ref:`writings <writings>` - :ref:`reconsider <reconsider>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>`
+
 
 .. raw:: html
 
     </b>
     </center>
+
 '''
 
 autosummary_generate = True
@@ -139,6 +155,6 @@ autodoc_default_flags = ['members', 'undoc-members', 'private-members', "importe
 autodoc_member_order = 'groupwise'
 autodoc_docstring_signature = True
 autoclass_content = "class"
-nitpick_ignore=[
-                ('py:class', 'builtins.BaseException'),
-               ]
+nitpick_ignore = [
+                  ('py:class', 'builtins.BaseException'),
+                 ]

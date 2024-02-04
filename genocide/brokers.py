@@ -1,45 +1,49 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C,R,W0212,E0402,W0105 W0718,W0702,E1102,W0246
+# pylint: disable=C,R, E0402
 
 
-"broker"
+"list of bots"
 
 
 from .objects import Object
 
 
-class Broker(Object):
+def __dir__():
+    return (
+        "Fleet",
+        "byorig"
+    )
+
+
+__all__ = __dir__()
+
+
+class Fleet(Object):
 
     objs = []
 
     @staticmethod
-    def add(obj) -> None:
-        Broker.objs.append(obj)
+    def add(obj):
+        Fleet.objs.append(obj)
 
     @staticmethod
-    def announce(txt) -> None:
-        for obj in Broker.objs:
-            if "announce" in dir(obj):
-                obj.announce(txt)
+    def first():
+        if Fleet.objs:
+            return Fleet.objs[0]
 
     @staticmethod
-    def byorig(orig) -> Object:
-        for obj in Broker.objs:
+    def remove(obj):
+        if obj in Fleet.objs:
+            Fleet.objs.remove(obj)
+
+    @staticmethod
+    def byorig(orig):
+        for obj in Fleet.objs:
             if object.__repr__(obj) == orig:
                 return obj
         return None
 
-    @staticmethod
-    def remove(obj) -> None:
-        try:
-            Broker.objs.remove(obj)
-        except ValueError:
-            pass
 
-    @staticmethod
-    def say(orig, channel, txt) -> None:
-        bot = Broker.byorig(orig)
-        if not bot:
-            return
-        bot.say(channel, txt)
+def byorig(orig):
+    return Fleet.byorig(orig)

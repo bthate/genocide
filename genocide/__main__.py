@@ -65,6 +65,7 @@ Cfg.name    = __file__.split(os.sep)[-2]
 Cfg.wd      = os.path.expanduser(f"~/.{Cfg.name}")
 Cfg.pidfile = os.path.join(Cfg.wd, f"{Cfg.name}.pid")
 Cfg.user    = getpass.getuser()
+Cfg.version = "152"
 Storage.wd  = Cfg.wd
 
 
@@ -145,8 +146,13 @@ def wrap(func):
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old2)
 
 
+def ver(event):
+    event.reply(f"GENOCIDE {Cfg.version}")
+
+
 def main():
     Storage.skel()
+    Command.add(ver)
     parse_command(Cfg, " ".join(sys.argv[1:]))
     if "x" in Cfg.opts:
         Cfg.mod += ",cmd,flt,man,mod,mre,pwd,req,thr"

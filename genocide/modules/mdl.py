@@ -335,7 +335,7 @@ def cbnow(evt):
         nrtimes = int(delta/needed)
         txt += "%s: %s " % (getalias(name), nrtimes)
     txt += " http://genocide.rtfd.io"
-    for bot in Fleet.objs:
+    for bot in Broker.all():
         if "announce" in dir(bot):
             bot.announce(txt)
 
@@ -358,7 +358,7 @@ def cbstats(evt):
                                                                laps(needed),
                                                                nryear,
                                                               )
-        for bot in Fleet.objs:
+        for bot in Broker.all():
             bot.announce(txt)
 
 

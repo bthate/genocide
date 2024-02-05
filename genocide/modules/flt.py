@@ -6,11 +6,11 @@
 "fleet"
 
 
-from .. import Broker, name, values
+from .. import Broker, name
 
 
 def flt(event):
     try:
-        event.reply(values(Broker.objs)[int(event.args[0])])
+        event.reply(Broker.all()[int(event.args[0])])
     except (IndexError, ValueError):
-        event.reply(",".join([name(x).split(".")[-1] for x in values(Broker.objs)]))
+        event.reply(",".join([name(x).split(".")[-1] for x in Broker.all()]))

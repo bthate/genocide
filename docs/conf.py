@@ -120,11 +120,11 @@ rst_prolog = '''.. image:: genocide.png
     <center>
     <i>
     By law, with the use of poison,
-    killing, torturing, castrating, destroying,
+    killing, torturing, castrating, destroying
     in whole or in part,
     all elderly and all handicapped (Wzd), all criminals (Wfz)
     and all psychiatric patients (WvGGZ)
-    here in the Netherlands
+    here in the Netherlands.
     </i>
     </center>
     <br>

@@ -19,10 +19,12 @@
     genocide.brokers	list of bots
     genocide.clients    clients
     genocide.command	commands
+    genocide.default    default values
     genocide.excepts	exceptions
     genocide.handler    handler
     genocide.objects    clean namespace
     genocide.parsers    parse cli
+    genocide.scanner    scan for commands
     genocide.storage    directory
     genocide.threads    threads
 

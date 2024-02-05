@@ -5,18 +5,18 @@
 
 """GENCOCIDE - @KarimKhanQC reconsider OTP-CR-117/19
 
-
 genocide <cmd> [key=val] [key==val] [mod=n1,n2]
 genocide [-a] [-c] [-d] [-h] [-v] [-w]
 
-$ genocide mod
-cmd,err,fnd,irc,log,mod,rss,tdo,thr,tmr,rst,udp
+commands:
 
-$ genocide cmd
-cfg,cmd,dbg,dne,dpl,err,fnd,ftc,log,mod,mre,nme,pwd,rem,rss,tdo,thr,tmr,udp
-
-$ genocide cfg
-channel=#genocide commands=True nick=genocide port=6667 server=localhost
+    cfg - irc configuration
+    cmd - commands
+    mod - show available modules
+    now - show genocide stats
+    req - reconsider
+    ver - version
+    wsd - show wisdom
 
 options:
 
@@ -25,8 +25,7 @@ options:
 -d     start daemon
 -h     display help
 -v     use verbose
--w     wait for services
-"""
+-w     wait for services"""
 
 
 import getpass
@@ -155,7 +154,7 @@ def main():
     Command.add(ver)
     parse_command(Cfg, " ".join(sys.argv[1:]))
     if "x" in Cfg.opts:
-        Cfg.mod += ",cmd,flt,man,mod,mre,pwd,req,thr"
+        Cfg.mod += "cmd,irc,mdl,mod,req,wsd"
     else:
         Cfg.mod = ",".join(modules.__dir__())
     if "v" in Cfg.opts:

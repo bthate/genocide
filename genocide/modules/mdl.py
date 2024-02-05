@@ -277,7 +277,6 @@ construct(oorzaak, zip(oor, aantal))
 oorzaken = Object()
 
 
-
 def getalias(txt):
     for key, value in aliases.items():
         if txt.lower() in key.lower():

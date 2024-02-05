@@ -3,7 +3,30 @@
 # pylint: disable=C,R,W0212,W0611,W0613,E0401
 
 
-"runtime"
+"""GENCOCIDE - @KarimKhanQC reconsider OTP-CR-117/19
+
+
+genocide <cmd> [key=val] [key==val] [mod=n1,n2]
+genocide [-a] [-c] [-d] [-h] [-v] [-w]
+
+$ genocide mod
+cmd,err,fnd,irc,log,mod,rss,tdo,thr,tmr,rst,udp
+
+$ genocide cmd
+cfg,cmd,dbg,dne,dpl,err,fnd,ftc,log,mod,mre,nme,pwd,rem,rss,tdo,thr,tmr,udp
+
+$ genocide cfg
+channel=#genocide commands=True nick=genocide port=6667 server=localhost
+
+options:
+
+-a     load all modules
+-c     start console
+-d     start daemon
+-h     display help
+-v     use verbose
+-w     wait for services
+"""
 
 
 import getpass
@@ -137,7 +160,8 @@ def main():
     csl = Console()
     if "h" in Cfg.opts:
         scan(modules, Cfg.mod)
-        cmnd("man")
+        print(__doc__)
+        return
     if "c" in Cfg.opts:
         scan(modules, Cfg.mod, True, Cfg.sets.dis, True)
         csl.start()

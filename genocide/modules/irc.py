@@ -16,17 +16,15 @@ import time
 import _thread
 
 
-from .. import Default, Object, edit, fmt, keys
-from .. import Client, Command, Error, Event
-from .. import byorig, debug, last, launch, sync
-
-
-Error.filter = ["PING", "PONG", "PRIVMSG"]
+from .. import Broker, Client, Command, Default, Error, Event, Object
+from .. import debug, edit, fmt, keys, last, launch, sync
 
 
 NAME = __file__.split(os.sep)[-3]
 
 
+Error.filter = ["PING", "PONG", "PRIVMSG"]
+byorig = Broker.byorig
 saylock = _thread.allocate_lock()
 
 

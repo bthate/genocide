@@ -144,7 +144,7 @@ def main():
         forever()
     if Cfg.otxt:
         scan(modules, Cfg.mod)
-        return cmnd(Cfg.otxt)
+        return cmnd(Cfg.otxt, print)
 
 
 def wrapped():

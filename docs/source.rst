@@ -9,7 +9,7 @@
 .. title:: Source
 
 
-**Genocide**
+**GENOCIDE**
 
 
 .. autosummary::
@@ -29,7 +29,7 @@
     genocide.threads    threads
 
 
-**Modules**
+**MODULES**
 
 
 .. autosummary::

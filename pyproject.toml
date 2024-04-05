@@ -24,8 +24,7 @@ classifiers=[
 dev = []
 
 [project.scripts]
-genocide = "genocide.__main__:wrapped"
-genocided = "genocide.__main__:daemoned"
+"genocide" = "genocide.__main__:wrapped"
 
 
 [project.urls]
@@ -55,7 +54,6 @@ zip-safe = true
     "docs/informed.jpg",
     "docs/OTP1.png",
     "docs/skull.jpg",
-    "docs/source.rst",
     "docs/verbatim2.png",
     "docs/banner.png",
     "docs/ECHAabilify.png",

@@ -43,7 +43,7 @@
     physical (contracted muscles) and
     mental (make people hallucinate)
     torture and kills members of the
-    victim groups :ref:`. <source>`
+    victim groups.
 
     **GENOCIDE** contains :ref:`correspondence <writings>`
     with the International Criminal Court,
@@ -174,11 +174,11 @@
         User=<user>
         Group=<user>
         WorkingDirectory=/home/<user>/.genocide
-        ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocided
+        ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocide -d
         RemainAfterExit=yes
 
         [Install]
-        WantedBy=multi-user.target
+        WantedBy=default.target
 
 
     then run this
@@ -197,14 +197,7 @@
 
         ~/.genocide
         ~/.local/bin/genocide
-        ~/.local/bin/genocided
         ~/.local/pipx/venvs/genocide/
-
-
-**SOURCE**
-
-
-   source code is :ref:`here <source>`
 
 
 **AUTHOR**

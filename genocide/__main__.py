@@ -1,105 +1,79 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C,R,W0212,W0611,W0613,E0401
+# pylint: disable=C,R,W0105,W0212
+# ruff: noqa: E402
 
 
-"""GENCOCIDE - @KarimKhanQC reconsider OTP-CR-117/19
-
-genocide <cmd> [key=val] [key==val] [mod=n1,n2]
-genocide [-a] [-c] [-d] [-h] [-v] [-w]
-
-commands:
-
-    cfg - irc configuration
-    cmd - commands
-    mod - show available modules
-    now - show genocide stats
-    req - reconsider
-    ver - version
-    wsd - show wisdom
-
-options:
-
--a     load all modules
--c     start console
--d     start daemon
--h     display help
--v     use verbose
--w     wait for services"""
+"main"
 
 
 import getpass
-import inspect
 import os
 import pwd
-import readline
 import sys
 import termios
 import time
-import _thread
 
 
-from . import Client, Command, Default, Error, Event, Object, Storage
-from . import cdir, cmnd, debug, forever, launch, parse_command, spl, scan
+from .client  import Client, cmnd
+from .default import Default
+from .errors  import Errors,debug
+from .event   import Event
+from .object  import cdir
+from .parser  import parse_cmd
+from .utils   import spl
+from .workdir import Workdir
 
 
-def __dir__():
-    return (
-        'Cfg',
-        'Console',
-        'daemon',
-        'daemoned',
-        'main',
-        'privileges',
-        'wrap',
-        'wrapped'
-    )
+from . import modules
+
+Cfg          = Default()
+Cfg.mod      = "cmd,mod"
+Cfg.name     = sys.argv[0].split(os.sep)[-2]
+Cfg.dir      = os.path.expanduser(f"~/.{Cfg.name}")
+Cfg.pidfile  = os.path.join(Cfg.wd, f"{Cfg.name}.pid")
+Workdir.workdir = Cfg.dir
 
 
-__all__ = __dir__()
-
-
-Cfg         = Default()
-Cfg.name    = __file__.split(os.sep)[-2]
-Cfg.wd      = os.path.expanduser(f"~/.{Cfg.name}")
-Cfg.pidfile = os.path.join(Cfg.wd, f"{Cfg.name}.pid")
-Cfg.user    = getpass.getuser()
-Cfg.version = "152"
-Storage.wd  = Cfg.wd
-
-
-from genocide import modules
+dte = time.ctime(time.time()).replace("  ", " ")
+ext = os._exit 
 
 
 class Console(Client):
 
+    "Console"
+
     def announce(self, txt):
-        pass
+        "blind announce"
 
     def callback(self, evt):
+        "run and wait for callback to finish."
         Client.callback(self, evt)
-        evt.wait()
+        evt.wait(5.0)
 
     def poll(self):
+        "reconstruct event from input."
         evt = Event()
         evt.orig = object.__repr__(self)
         evt.txt = input("> ")
         evt.type = "command"
         return evt
 
-    def say(self, channel, txt):
+    def say(self, _channel, txt):
+        "say text in channel."
         txt = txt.encode('utf-8', 'replace').decode()
         print(txt)
 
 
 def daemon(pidfile, verbose=False):
+    "fork into the background."
     pid = os.fork()
     if pid != 0:
-        os._exit(0)
+        ext(0)
     os.setsid()
     pid2 = os.fork()
     if pid2 != 0:
-        os._exit(0)
+        ext(0)
     if not verbose:
         with open('/dev/null', 'r', encoding="utf-8") as sis:
             os.dup2(sis.fileno(), sys.stdin.fileno())
@@ -116,21 +90,30 @@ def daemon(pidfile, verbose=False):
         fds.write(str(os.getpid()))
 
 
-def daemoned():
-    Cfg.mod = ",".join(modules.__dir__())
-    daemon(Cfg.pidfile)
-    privileges(Cfg.user)
-    scan(modules, Cfg.mod, True)
-    forever()
+def init(pkg, modstr, disable=""):
+    "start inits in modules."
+    mds = []
+    for modname in spl(modstr):
+        if modname in spl(disable):
+            continue
+        module = getattr(pkg, modname, None)
+        if not module:
+            continue
+        if "init" in dir(module):
+            module.init()
+            mds.append(module)
+    return mds
 
 
 def privileges(username):
+    "lower privileges."
     pwnam = pwd.getpwnam(username)
     os.setgid(pwnam.pw_gid)
     os.setuid(pwnam.pw_uid)
 
 
 def wrap(func):
+    "restore terminal"
     old2 = None
     try:
         old2 = termios.tcgetattr(sys.stdin.fileno())
@@ -145,40 +128,45 @@ def wrap(func):
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old2)
 
 
-def ver(event):
-    event.reply(f"GENOCIDE {Cfg.version}")
+"runtime"
 
 
 def main():
-    Storage.skel()
-    Command.add(ver)
-    parse_command(Cfg, " ".join(sys.argv[1:]))
-    if "x" in Cfg.opts:
-        Cfg.mod += "cmd,irc,mdl,mod,req,wsd"
-    else:
-        Cfg.mod = ",".join(modules.__dir__())
+    "main code"
+    Workdir.skel()
+    Errors.enable(print)
+    parse_cmd(Cfg, " ".join(sys.argv[1:]))
+    result = None
+    if 'a' in Cfg.opts:
+        Cfg.mod = "," + ",".join(modules.__dir__())
     if "v" in Cfg.opts:
-        dte = time.ctime(time.time()).replace("  ", " ")
         debug(f"{Cfg.name.upper()} {Cfg.opts.upper()} started {dte}")
-    if "d" in Cfg.opts:
-        daemoned()
-    csl = Console()
     if "h" in Cfg.opts:
-        scan(modules, Cfg.mod)
         print(__doc__)
-        return
-    if "c" in Cfg.opts:
-        scan(modules, Cfg.mod, True, Cfg.sets.dis, True)
+        return result
+    if "d" in Cfg.opts:
+        Cfg.mod = ",".join(modules.__dir__())
+        Cfg.user = getpass.getuser()
+        daemon(Cfg.pidfile, "v" in Cfg.opts)
+        privileges(Cfg.user)
+        init(modules, Cfg.mod)
+        while 1:
+            time.sleep(1.0)
+    elif "c" in Cfg.opts:
+        init(modules, Cfg.mod)
+        csl = Console()
         csl.start()
-        forever()
-    if Cfg.otxt:
-        scan(modules, Cfg.mod)
-        return cmnd(Cfg.otxt, print)
+        while 1:
+            time.sleep(1.0)
+    elif Cfg.otxt:
+        cmnd(Cfg.otxt, print)
+    return result
 
 
 def wrapped():
+    "wrapped code"
     wrap(main)
-    Error.show()
+    Errors.show()
 
 
 if __name__ == "__main__":

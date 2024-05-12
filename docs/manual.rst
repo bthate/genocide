@@ -19,6 +19,7 @@
 ::
 
     $ pipx install genocide
+    $ pipx ensurepath
 
 
 **SYNOPSIS**
@@ -109,13 +110,6 @@
         2500 CM The Hague
         The Netherlands
 
-    show how many died in the WvGGZ
-
-    ::
-
-        $ genocide now
-        4y18d patient #47324 died from mental illness (14/32/11682) every 44m59s
-    
 
 **CONFIGURATION**
 
@@ -174,7 +168,7 @@
         User=<user>
         Group=<user>
         WorkingDirectory=/home/<user>/.genocide
-        ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocide -d
+        ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocided
         RemainAfterExit=yes
 
         [Install]
@@ -197,6 +191,7 @@
 
         ~/.genocide
         ~/.local/bin/genocide
+        ~/.local/bin/genocided
         ~/.local/pipx/venvs/genocide/
 
 

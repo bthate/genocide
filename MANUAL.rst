@@ -38,6 +38,7 @@ INSTALL
 ::
 
     $ pipx install genocide
+    $ pipx ensurepath
 
 
 USAGE
@@ -84,11 +85,6 @@ USAGE
     2500 CM The Hague
     The Netherlands
 
-    show how many died in the WvGGZ
-
-    $ genocide now
-    4y18d patient #47324 died from mental illness (14/32/11682) every 44m59s
-     
 
 CONFIGURATION
 

@@ -114,6 +114,25 @@ rst_prolog = '''.. image:: genocide.png
     :height: 2.6cm
     :target: index.html
 
+.. raw:: html
+
+    <center>
+    <i>
+    By law, with the use of poison,killing, torturing, castrating, destroying in whole or in part,
+    </i>
+    </center>
+    <center>
+    <i>
+    all elderly and all handicapped (Wzd), all criminals (Wfz) and all psychiatric patients (WvGGZ)
+    </i>
+    </center>
+    <center>
+    <i>
+    here in the Netherlands
+    </i>
+    </center>
+    <br>
+
 '''
 
 rst_epilog = '''.. raw:: html

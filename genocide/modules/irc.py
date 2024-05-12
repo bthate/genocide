@@ -1,7 +1,4 @@
 # This file is placed in the Public Domain.
-#
-# pylint: disable=C,R,W0105,W0718
-# ruff: noqa: F841
 
 
 "internet relay chat"
@@ -18,22 +15,21 @@ import time
 import _thread
 
 
-from ..broker  import Broker
-from ..client  import Client
-from ..default import Default
-from ..event   import Event
-from ..errors  import Errors, debug
-from ..object  import Object, edit, fmt, keys
-from ..persist import Persist, last, sync
-from ..thread  import launch
+from ..client  import Client, command
+from ..disk    import sync, whitelist
+from ..find    import last
+from ..handler import Event
+from ..log     import Logging, debug
+from ..object  import Default, Object, edit, fmt, keys, values
+from ..run     import broker
+from ..thread  import later, launch
 
 
 NAME    = __file__.split(os.sep)[-3]
-get     = Broker.get
 saylock = _thread.allocate_lock()
 
 
-Errors.filter = ["PING", "PONG", "PRIVMSG"]
+Logging.filter = ["PING", "PONG", "PRIVMSG"]
 
 
 def init():
@@ -46,8 +42,8 @@ def init():
 
 def shutdown():
     "shutdown irc bot."
-    for bot in Broker.all():
-        if "irc" not in type(bot):
+    for bot in values(broker.objs):
+        if "irc" not in str(type(bot)).lower():
             continue
         debug(f"IRC stopping {repr(bot)}")
         bot.state.pongcheck = True
@@ -56,7 +52,7 @@ def shutdown():
         bot.stop()
 
 
-class Config(Default):
+class Config(Default): # pylint: disable=R0902,R0903
 
     "Config"
 
@@ -86,7 +82,7 @@ class Config(Default):
         self.username = self.username or Config.username
 
 
-Persist.add(Config)
+whitelist(Config)
 
 
 class TextWrap(textwrap.TextWrapper):
@@ -210,7 +206,7 @@ class IRC(Client, Output):
         self.register('PRIVMSG', cb_privmsg)
         self.register('QUIT', cb_quit)
         self.register("366", cb_ready)
-        Broker.add(self)
+        broker.add(self)
 
     def announce(self, txt):
         "announce on all channels."
@@ -277,8 +273,8 @@ class IRC(Client, Output):
                 BrokenPipeError
                ) as _ex:
             pass
-        except Exception as ex:
-            Errors.add(ex)
+        except Exception as ex: # pylint: disable=W0718
+            later(ex)
 
     def doconnect(self, server, nck, port=6667):
         "loop until connected."
@@ -360,6 +356,7 @@ class IRC(Client, Output):
 
     def parsing(self, txt):
         "parse text into an event."
+        # pylint: disable=R0912,R0915
         rawstr = str(txt)
         rawstr = rawstr.replace('\u0001', '')
         rawstr = rawstr.replace('\001', '')
@@ -437,7 +434,7 @@ class IRC(Client, Output):
                     ConnectionResetError,
                     BrokenPipeError
                    ) as ex:
-                Errors.add(ex)
+                later(ex)
                 self.stop()
                 debug("handler stopped")
                 evt = self.event(str(ex))
@@ -465,7 +462,7 @@ class IRC(Client, Output):
                     ConnectionResetError,
                     BrokenPipeError
                    ) as ex:
-                Errors.add(ex)
+                later(ex)
                 self.stop()
                 return
         self.state.last = time.time()
@@ -539,27 +536,21 @@ class IRC(Client, Output):
         self.events.ready.wait()
 
 
-"callbacks"
-
-
-def cb_auth(evt):
+def cb_auth(bot, evt):
     "auth callback."
-    bot = get(evt.orig)
     bot.docommand(f'AUTHENTICATE {bot.cfg.password}')
 
 
-def cb_cap(evt):
+def cb_cap(bot, evt):
     "capabilities callback."
-    bot = get(evt.orig)
     if bot.cfg.password and 'ACK' in evt.arguments:
         bot.direct('AUTHENTICATE PLAIN')
     else:
         bot.direct('CAP REQ :sasl')
 
 
-def cb_error(evt):
+def cb_error(bot, evt):
     "error callback."
-    bot = get(evt.orig)
     if not bot.state.nrerror:
         bot.state.nrerror = 0
     bot.state.nrerror += 1
@@ -567,52 +558,45 @@ def cb_error(evt):
     debug(evt.txt)
 
 
-def cb_h903(evt):
+def cb_h903(bot, evt):
     "auth succeded callback."
-    bot = get(evt.orig)
     bot.direct('CAP END')
     bot.events.authed.set()
 
 
-def cb_h904(evt):
+def cb_h904(bot, evt):
     "auth succeded callback."
-    bot = get(evt.orig)
     bot.direct('CAP END')
     bot.events.authed.set()
 
 
-def cb_kill(evt):
+def cb_kill(bot, evt):
     "got killed callback."
 
 
-def cb_log(evt):
+def cb_log(bot, evt):
     "log callback."
 
 
-def cb_ready(evt):
+def cb_ready(bot, evt):
     "bot is ready callback."
-    bot = get(evt.orig)
-    if bot:
-        bot.events.ready.set()
+    bot.events.ready.set()
 
 
-def cb_001(evt):
+def cb_001(bot, evt):
     "first line received callback."
-    bot = get(evt.orig)
     bot.logon()
 
 
-def cb_notice(evt):
+def cb_notice(bot, evt):
     "notice callback."
-    bot = get(evt.orig)
     if evt.txt.startswith('VERSION'):
         txt = f'\001VERSION {NAME.upper()} 140 - {bot.cfg.username}\001'
         bot.docommand('NOTICE', evt.channel, txt)
 
 
-def cb_privmsg(evt):
+def cb_privmsg(bot, evt):
     "privmsg callback."
-    bot = get(evt.orig)
     if not bot.cfg.commands:
         return
     if evt.txt:
@@ -625,18 +609,14 @@ def cb_privmsg(evt):
         if evt.txt:
             evt.txt = evt.txt[0].lower() + evt.txt[1:]
         debug(f"command from {evt.origin}: {evt.txt}")
-        bot.command(evt)
+        command(bot, evt)
 
 
-def cb_quit(evt):
+def cb_quit(bot, evt):
     "quit callback."
-    bot = get(evt.orig)
     debug(f"quit from {bot.cfg.server}")
     if evt.orig and evt.orig in bot.zelf:
         bot.stop()
-
-
-"commands"
 
 
 def cfg(event):
@@ -662,7 +642,7 @@ def mre(event):
     if not event.channel:
         event.reply('channel is not set.')
         return
-    bot = Broker.get(event.orig)
+    bot = broker.get(event.orig)
     if 'cache' not in dir(bot):
         event.reply('bot is missing cache')
         return
@@ -689,11 +669,3 @@ def pwd(event):
     base = base64.b64encode(enc)
     dcd = base.decode('ascii')
     event.reply(dcd)
-
-
-"register"
-
-
-Client.add(cfg)
-Client.add(mre)
-Client.add(pwd)

@@ -1,6 +1,4 @@
 # This file is placed in the Public Domain.
-#
-# pylint: disable=C,R,W0105
 
 
 "timer"
@@ -11,14 +9,28 @@ import re
 import time as ttime
 
 
-from ..broker  import Broker
-from ..client  import Client
-from ..event   import Event
+from ..client  import laps
+from ..disk    import sync
+from ..find    import find
 from ..object  import update
-from ..persist import Persist, find, sync
-from ..thread  import launch
-from ..timer   import Timer
-from ..utils   import laps
+from ..handler import Event
+from ..run     import broker
+from ..thread  import Timer, launch
+
+
+def init():
+    "start timers."
+    for _fn, obj in find("timer"):
+        if "time" not in obj:
+            continue
+        diff = float(obj.time) - ttime.time()
+        if diff > 0:
+            bot = broker.first()
+            evt = Event()
+            update(evt, obj)
+            evt.orig = object.__repr__(bot)
+            timer = Timer(diff, evt.show)
+            launch(timer.start)
 
 
 MONTHS = [
@@ -78,7 +90,7 @@ def get_day(daystr):
             if ymre:
                 (day, month) = ymre.groups()
                 yea = ttime.strftime("%Y", ttime.localtime())
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=W0212
             raise NoDate(daystr) from ex
     if day:
         day = int(day)
@@ -169,9 +181,6 @@ def today():
     return str(datetime.datetime.today()).split()[0]
 
 
-"commands"
-
-
 def tmr(event):
     "add a timer."
     result = ""
@@ -217,28 +226,3 @@ def tmr(event):
     sync(timer)
     launch(timer.start)
     return result
-
-
-"runtime"
-
-
-def init():
-    "start timers."
-    for _fn, obj in find("timer"):
-        if "time" not in obj:
-            continue
-        diff = float(obj.time) - ttime.time()
-        if diff > 0:
-            bot = Broker.first()
-            evt = Event()
-            update(evt, obj)
-            evt.orig = object.__repr__(bot)
-            timer = Timer(diff, evt.show)
-            launch(timer.start)
-
-
-"register"
-
-
-Client.add(tmr)
-Persist.add(Timer)

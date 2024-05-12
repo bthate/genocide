@@ -1,6 +1,4 @@
 # This file is placed in the Public Domain.
-#
-# pylint: disable=C,R,W0105,W0212,W0718
 
 
 "handler"
@@ -11,9 +9,11 @@ import threading
 import _thread
 
 
-from .errors  import Errors
-from .object  import Object
-from .thread  import launch
+from .object import Default, Object
+from .thread import launch
+
+
+rpr = object.__repr__
 
 
 class Handler:
@@ -21,7 +21,7 @@ class Handler:
     "Handler"
 
     def __init__(self):
-        self.cbs = Object()
+        self.cbs      = Object()
         self.queue    = queue.Queue()
         self.stopped  = threading.Event()
         self.threaded = True
@@ -29,11 +29,10 @@ class Handler:
     def callback(self, evt):
         "call callback based on event type."
         func = getattr(self.cbs, evt.type, None)
-        if func:
-            if self.threaded:
-                evt._thr = launch(func, evt)
-            else:
-                func(evt)
+        if not func:
+            evt.ready()
+            return
+        evt._thr = launch(func, self, evt) # pylint: disable=W0212
 
     def loop(self):
         "proces events until interrupted."
@@ -43,9 +42,6 @@ class Handler:
                 self.callback(evt)
             except (KeyboardInterrupt, EOFError):
                 _thread.interrupt_main()
-            except Exception as ex:
-                Errors.add(ex)
-                evt.ready()
 
     def poll(self):
         "function to return event."
@@ -68,13 +64,38 @@ class Handler:
         self.stopped.set()
 
 
-"interface"
+class Event(Default): # pylint: disable=R0902
+
+    "Event"
+
+    def __init__(self):
+        Default.__init__(self)
+        self._thr    = None
+        self._ready  = threading.Event()
+        self.done    = False
+        self.orig    = None
+        self.result  = []
+        self.txt     = ""
+        self.type    = "event"
+
+    def ready(self):
+        "event is ready."
+        self._ready.set()
+
+    def reply(self, txt):
+        "add text to the result"
+        self.result.append(txt)
+
+    def wait(self):
+        "wait for event to be ready."
+        if self._thr:
+            self._thr.join()
+        self._ready.wait()
+        return self.result
 
 
 def __dir__():
     return (
-        'Handler',
+        'Event',
+        'Handler'
     )
-
-
-__all__ = __dir__()

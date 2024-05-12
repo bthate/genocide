@@ -1,23 +1,20 @@
 # This file is placed in the Public Domain.
-#
-# pylint: disable=C,R,W0105
 
 
 "available modules"
 
 
-from ..client import Client
-
-
-from . import __dir__
+import os
 
 
 def mod(event):
-    "list modules."
-    event.reply(",".join(sorted(__dir__())))
-
-
-"register"
-
-
-Client.add(mod)
+    "show available modules."
+    path = os.path.dirname(__file__)
+    mods = []
+    for mdd in os.listdir(path):
+        if mdd.startswith("__"):
+            continue
+        if mdd.endswith("~"):
+            continue
+        mods.append(mdd[:-3])
+    event.reply(",".join(sorted(mods)))

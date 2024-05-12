@@ -1,25 +1,6 @@
 .. _about:
 
 
-.. raw:: html
-
-    <center>
-    <i>
-    By law, with the use of poison,
-    killing, torturing, castrating, destroying,
-    in whole or in part,
-    all elderly and all handicapped (Wzd), all criminals (Wfz)
-    and all psychiatric patients (WvGGZ)
-    here in the Netherlands
-    </i>
-    </center>
-    <br>
-
-
-.. raw:: html
-
-    <br><br>
-
 .. title:: About
 
 

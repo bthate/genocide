@@ -1,12 +1,10 @@
 # This file is placed in the Public Domain.
-#
-# pylint: disable=C,R,W0105
 
 
 "broker"
 
 
-from .object import Object, keys, values
+from .object import Object, keys
 
 
 rpr = object.__repr__
@@ -16,42 +14,28 @@ class Broker:
 
     "Broker"
 
-    objs = Object()
+    def __init__(self):
+        self.objs = Object()
 
-    @staticmethod
-    def add(obj):
+    def add(self, obj):
         "add an object to the broker."
-        setattr(Broker.objs, rpr(obj), obj)
+        setattr(self.objs, rpr(obj), obj)
 
-    @staticmethod
-    def all():
-        "return all objects."
-        return values(Broker.objs)
-
-    @staticmethod
-    def first():
+    def first(self):
         "return first object."
-        for key in keys(Broker.objs):
-            return getattr(Broker.objs, key)
+        for key in keys(self.objs):
+            return getattr(self.objs, key)
 
-    @staticmethod
-    def get(orig):
+    def get(self, orig):
         "return object by origin (repr)"
-        return getattr(Broker.objs, orig, None)
+        return getattr(self.objs, orig, None)
 
-    @staticmethod
-    def remove(obj):
+    def remove(self, obj):
         "remove object from broker"
-        delattr(Broker.objs, rpr(obj))
-
-
-"interface"
+        delattr(self.objs, rpr(obj))
 
 
 def __dir__():
     return (
         'Broker',
     )
-
-
-__all__ = __dir__()

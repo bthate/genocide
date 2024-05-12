@@ -128,7 +128,7 @@ rst_prolog = '''.. image:: genocide.png
     </center>
     <center>
     <i>
-    here in the Netherlands
+    here in the Netherlands.
     </i>
     </center>
     <br>

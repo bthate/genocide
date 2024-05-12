@@ -1,6 +1,5 @@
 .. _manual:
 
-
 .. raw:: html
 
     <br>
@@ -8,9 +7,14 @@
 .. title:: Manual
 
 
+.. raw:: html
+
+    <center><b>MANUAL</b></center>
+    <br>
+
 **NAME**
 
-    **GENOCIDE** - @KarimKhanQC reconsider OTP-CR-117/19
+    ``GENOCIDE``  --  @KarimKhanQC reconsider OTP-CR-117/19
 
 
 **INSTALL**
@@ -26,13 +30,14 @@
 
 ::
 
-    genocide <cmd> [key=val] [key==val]
-    genocide [-a] [-c] [-d] [-v]
+    genocide  <cmd> [key=val] [key==val]
+    genocide  [-a] [-c] [-v]
+    genocided [-v]
 
 
 **DESCRIPTION**
 
-    **GENOCIDE** holds evidence that king
+    ``GENOCIDE`` holds evidence that king
     netherlands is doing a genocide, a
     written response where king
     netherlands confirmed taking note
@@ -46,17 +51,16 @@
     torture and kills members of the
     victim groups :ref:`. <source>`
 
-    **GENOCIDE** contains :ref:`correspondence <writings>`
-    with the International Criminal Court,
-    asking for arrest of the king of
-    the netherlands, for the genocide
-    he is committing with his new
-    treatement laws.
+    ``GENOCIDE`` contains :ref:`correspondence
+    <writings>` with the International Criminal
+    Court, asking for arrest of the king of the
+    netherlands, for the genocide he is committing
+    with his new treatement laws.
 
-    Current status is "no basis to proceed" 
-    :ref:`judgement <guilty>` of the prosecutor
-    which requires a "basis to prosecute" to
-    have the king actually arrested.
+    Current status is a :ref:`"no basis to proceed"
+    <writings>` judgement of the prosecutor which
+    requires a :ref:`"basis to prosecute" <reconsider>`
+    to have the king actually arrested.
 
 
 **USAGE**
@@ -73,7 +77,7 @@
     ::
 
         $ genocide cmd
-        cfg,cmd,mre,now,pwd
+        cmd,dne,err,log,mod,req,tdo,thr,tmr
 
 
     start a console
@@ -88,14 +92,14 @@
     ::
 
         $ genocide -cv
-        GENOCIDE started CV started Sat Dec 2 17:53:24 2023
+        May 12 05:51:49 2024 GENOCIDE CV CMD,ERR,LOG,MOD,REQ,TDO,THR,TMR
         >
 
     start daemon
 
     ::
 
-        $ genocide
+        $ genocided
         $ 
 
 
@@ -153,7 +157,7 @@
 
 **SYSTEMD**
 
-    save the following it in /etc/systems/system/genocide.service
+    save the following it in /etc/systemd/system/genocide.service
     and replace "<user>" with the user running pipx
 
     ::
@@ -183,6 +187,11 @@
         $ sudo systemctl enable genocide --now
 
     default channel/server is #genocide on localhost
+
+
+**SOURCE**
+
+    source is :ref:`here <source>`
 
 
 **FILES**

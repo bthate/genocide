@@ -5,7 +5,6 @@
 
 .. raw:: html
 
-    <br>
     <center>
 
 **{{ fullname }}**

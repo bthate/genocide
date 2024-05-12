@@ -44,7 +44,6 @@ zip-safe = true
 [tool.setuptools.data-files]
 "share/doc/genocide" = [
     "README.rst",
-    "MANUAL.rst",
     "docs/about.rst",
     "docs/arrest.png",
     "docs/conf.py",
@@ -69,8 +68,7 @@ zip-safe = true
     "docs/ECHAclozapine.png",
     "docs/wallpaper.png",
     "docs/index.rst",
-    "docs/manual.rst",
-    "docs/wallpaper.png",
+    "docs/manual.rst"
 ]
 
 "share/doc/genocide/_static" = [

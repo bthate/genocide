@@ -43,7 +43,7 @@
     physical (contracted muscles) and
     mental (make people hallucinate)
     torture and kills members of the
-    victim groups.
+    victim groups :ref:`. <source>`
 
     **GENOCIDE** contains :ref:`correspondence <writings>`
     with the International Criminal Court,

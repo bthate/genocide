@@ -27,7 +27,7 @@ from genocide import modules
 Cfg             = Default()
 Cfg.dis         = ""
 Cfg.name        = "genocide"
-Cfg.mod         = "cmd,mod"
+Cfg.mod         = "cmd,mod,req"
 Cfg.version     = "153"
 Cfg.opts        = ""
 Cfg.wdr         = os.path.expanduser(f"~/.{Cfg.name}")

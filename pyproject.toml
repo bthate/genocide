@@ -23,9 +23,6 @@ classifiers=[
 [project.optional-dependencies]
 dev = []
 
-[project.scripts]
-"genocide" = "genocide.__main__:wrapped"
-
 
 [project.urls]
 "home" = "https://pypi.org/project/genocide"
@@ -34,6 +31,10 @@ dev = []
 
 
 [tool.setuptools]
+script-files = [
+    "bin/genocide",
+    "bin/genocided"
+]
 packages = [
    "genocide",
    "genocide.modules"

@@ -1,5 +1,8 @@
 .. _about:
 
+.. raw:: html
+
+    <br>
 
 .. title:: About
 

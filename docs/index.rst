@@ -15,8 +15,6 @@
 | **The Netherlands** 
 |
 | ``OTP-CR-117/19``
-|
-|
 
 
 Hello Office of the Prosecutor, 

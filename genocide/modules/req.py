@@ -1,16 +1,13 @@
 # This file is placed in the Public Domain.
 
 
-"""| **Information and Evidence Unit**
-| **Office of the Prosecutor**
-| **Post Office Box 19519**
-| **2500 CM The Hague**
-| **The Netherlands**
-|
-| ``OTP-CR-117/19``
-|
-|
+"""Information and Evidence Unit
+Office of the Prosecutor
+Post Office Box 19519
+2500 CM The Hague
+The Netherlands
 
+OTP-CR-117/19 March 4 2019 otp.informationdesk@icc-cpi.int
 
 Hello Office of the Prosecutor, 
 
@@ -67,8 +64,7 @@ Since the members of the chamber and the king were aware that these
 medicine are poison at the time they voted for this law and the day the
 Wfz law took effect (1-1-2019), i ask the prosecutor to prosecute the
 king for making the commiting of the above mentioned crimes (killing,
-torture and impotent making) possible.
-"""
+torture and impotent making) possible."""
 
 
 def req(event):

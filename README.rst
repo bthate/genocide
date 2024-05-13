@@ -1,6 +1,9 @@
 OTP-CR-117/19
 =============
 
+By law, with the use of poison, killing, torturing, castrating, destroying in whole or in part, 
+
+
 |
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**

@@ -136,19 +136,15 @@ rst_prolog = '''.. image:: genocide.png
 rst_epilog = '''.. raw:: html
 
     <br>
-    <br>
-    <br>
     <center>
     <b>
 
-:ref:`about <about>` - :ref:`writings <writings>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`reconsider <reconsider>` - :ref:`manual <manual>`
-
+:ref:`about <about>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings <writings>` - :ref:`reconsider <reconsider>`
 
 .. raw:: html
 
     </b>
     </center>
-
 '''
 
 autosummary_generate = True

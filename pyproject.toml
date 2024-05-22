@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genocide"
-description = "Reconsider OTP-CR-117/19"
-version = "156"
+description = "Reconsider OTP-CR-117/19."
+version = "157"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]
@@ -45,6 +45,7 @@ zip-safe = true
 [tool.setuptools.data-files]
 "share/doc/genocide" = [
     "README.rst",
+    "docs/verbatim7.png",
     "docs/about.rst",
     "docs/conf.py",
     "docs/ECHAhaldol.png",

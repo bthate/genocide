@@ -14,7 +14,7 @@
 
 **NAME**
 
-    ``GENOCIDE``  --  @KarimKhanQC reconsider OTP-CR-117/19
+    ``GENOCIDE``  --  Reconsider OTP-CR-117/19.
 
 
 **INSTALL**
@@ -163,7 +163,7 @@
     ::
  
         [Unit]
-        Description=@KarimKhanQC reconsider OTP-CR-117/19
+        Description=Reconsider OTP-CR-117/19.
         Requires=network-online.target
         After=network-online.target
 

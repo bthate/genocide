@@ -8,12 +8,6 @@
 .. title:: Reconsider
 
 
-.. raw:: html
-
-    <center><b>OTP-CR-117/19</b></center>
-    <br>
-
-
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
@@ -22,7 +16,7 @@
 |
 
 
-Hello Office of the Prosecutor, 
+Hello Office of the Prosecutor, ``OTP-CR-117/19``
 
 i write you in the context of communications and claims under art.15 of 
 the Rome Statute. i want to inform the prosecutor that the king of the 

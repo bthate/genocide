@@ -7,14 +7,9 @@
 .. title:: Manual
 
 
-.. raw:: html
-
-    <center><b>MANUAL</b></center>
-    <br>
-
 **NAME**
 
-    ``GENOCIDE``  --  Reconsider OTP-CR-117/19.
+    ``GENOCIDE``  --  Reconsider ``OTP-CR-117/19``.
 
 
 **INSTALL**

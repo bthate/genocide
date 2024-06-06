@@ -9,12 +9,6 @@
 .. title:: Source
 
 
-.. raw:: html
-
-    <center><b>SOURCE</b></center>
-    <br>
-
-
 **GENOCIDE**
 
 

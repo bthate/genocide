@@ -2,10 +2,9 @@
 
 .. raw:: html
 
-    <br><br>
+    <br>
 
 .. title:: About
-
 
 
 In 2018 i informed the king of the netherlands that what he calls

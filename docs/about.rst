@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-    <br>
+    <br><br>
 
 
 .. title:: About
@@ -10,7 +10,7 @@
 
 .. raw:: html
 
-    <center><h3><b>OTP-CR-117/19</b></h3></center>
+    <center><b>OTP-CR-117/19</b></center>
     <br>
 
 In 2018 i informed the king of the netherlands that what he calls

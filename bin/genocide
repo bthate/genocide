@@ -53,7 +53,7 @@ Cfg.dis         = ""
 Cfg.mod         = "cmd,err,log,mod,req,rss,slg,tdo,thr,tmr"
 Cfg.name        = "genocide"
 Cfg.opts        = ""
-Cfg.version     = "160"
+Cfg.version     = "161"
 Cfg.wdr         = os.path.expanduser(f"~/.{Cfg.name}")
 Cfg.pidfile     = os.path.join(Cfg.wdr, f"{Cfg.name}.pid")
 

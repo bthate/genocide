@@ -1,12 +1,8 @@
-OTP-CR-117/19
-=============
-
-|
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
 | **2500 CM The Hague**
-| **The Netherlands**
+| **The Netherlands** 
 |
 
 Hello Office of the Prosecutor, 
@@ -54,3 +50,10 @@ were aware that these medicine are poison at the time they voted for this law
 and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to
 prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible.
+
+
+p.s.
+
+
+1) duly entered in the Communications Register of the Office on 4 march 2019
+2) your reference ``OTP-CR-117/19``

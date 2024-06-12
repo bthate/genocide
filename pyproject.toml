@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genocide"
-description = "By law, with the use of poison, killed, tortured, castrated, destroyed in whole or in part,"
+description = "Reconsider OTP-CR-117/19"
 version = "160"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
@@ -42,7 +42,7 @@ zip-safe = true
 
 
 [tool.setuptools.data-files]
-"share/doc/genocde/docs" = [
+"share/doc/genocide/docs" = [
     "README.rst",
     "docs/about.rst",
     "docs/ack3.png",

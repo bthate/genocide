@@ -9,7 +9,7 @@
 
 **NAME**
 
-    GENOCIDE - ``By law, with the use of poison, killed, tortured, castrated, destroyed in whole or in part,``
+    **GENOCIDE** - Reconsider OTP-CR-117/19
 
 
 **INSTALL**
@@ -87,14 +87,14 @@
     ::
 
         $ genocide -cv
-        May 12 05:51:49 2024 GENOCIDe CV CMD,ERR,LOG,MOD,REQ,TDO,THR,TMR
+        May 12 05:51:49 2024 GENOCIDE CV CMD,ERR,LOG,MOD,REQ,TDO,THR,TMR
         >
 
     start daemon
 
     ::
 
-        $ genocded
+        $ genocided
         $ 
 
 
@@ -156,7 +156,7 @@
     ::
  
         [Unit]
-        Description=Skull Bones and Number (OTP-CR-117/19).
+        Description=Reconsider OTP-CR-117/19
         Requires=network-online.target
         After=network-online.target
 

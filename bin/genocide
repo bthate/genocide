@@ -50,7 +50,7 @@ from genocide import modules
 
 Cfg             = Default()
 Cfg.dis         = ""
-Cfg.mod         = "cmd,err,log,mod,req,slg,tdo,thr,tmr"
+Cfg.mod         = "cmd,err,log,mod,req,rss,slg,tdo,thr,tmr"
 Cfg.name        = "genocide"
 Cfg.opts        = ""
 Cfg.version     = "160"

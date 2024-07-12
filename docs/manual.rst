@@ -7,10 +7,16 @@
 .. title:: Manual
 
 
+.. raw:: html
+
+    <center><h3><b>manual</b></h3></center>
+    <br>
+
+
+
 **NAME**
 
-    **GENOCIDE** - @KarimKhanQC reconsider OTP-CR-117/19.
-                   Elderly, Wicked, Criminals, Handicapped.
+    **GENOCIDE** - Elderly, Wicked, Criminals, Handicapped.
 
 
 **INSTALL**

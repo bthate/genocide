@@ -55,5 +55,5 @@ prosecute the king for making the commiting of the above mentioned crimes
 p.s.
 
 
-1) duly entered in the Communications Register of the Office on 4 march 2019
+1) entered in the Communications Register of the Office on 4 march 2019
 2) your reference ``OTP-CR-117/19``

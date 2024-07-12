@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genocide"
-description = "Reconsider OTP-CR-117/19"
-version = "160"
+description = "@KarimKhanQC reconsider OTP-CR-117/19. Elderly, Wicked, Criminals, Handicapped."
+version = "110"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]

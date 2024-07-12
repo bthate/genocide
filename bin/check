@@ -1,3 +1,4 @@
+grep -R splg genocide
 grep -R sys genocide
 grep -R "print(" genocide
 grep -R __import__ genocide

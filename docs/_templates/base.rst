@@ -11,7 +11,7 @@
 .. title:: {{ fullname }}
 
 
-**{{ name }}**
+:ref:`src <source>`/**{{ name }}**
 
 .. raw:: html
 

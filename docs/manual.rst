@@ -16,7 +16,7 @@
 
 **NAME**
 
-    ``GENOCIDE`` - Elderly, Wicked, Criminals, Handicapped.
+    ``GENOCIDE`` - Elderly, Wicked, Criminals, Handicapped `. <source.html>`_
 
 
 **INSTALL**
@@ -32,9 +32,8 @@
 
 ::
 
-    genocide  <cmd> [key=val] [key==val]
-    genocide  [-a] [-c] [-v]
-    genocided [-v]
+    genocide <cmd> [key=val] [key==val]
+    genocide [-a] [-c] [-d] [-h] [-i] [-v]
 
 
 **DESCRIPTION**
@@ -163,7 +162,7 @@
     ::
  
         [Unit]
-        Description=Reconsider OTP-CR-117/19
+        Description=Elderly, Wicked, Criminals, Handicapped.
         Requires=network-online.target
         After=network-online.target
 
@@ -195,19 +194,14 @@
 
         ~/.genocide
         ~/.local/bin/genocide
-        ~/.local/bin/genocided
         ~/.local/pipx/venvs/genocide/*
 
 
 **AUTHOR**
 
-    ::
-
-        Bart Thate <bthate@dds.nl>
+    Bart Thate <bthate@dds.nl>
 
 
 **COPYRIGHT**
 
-    ::
-
-        GENOCIDE is Public Domain.
+    ``GENOCIDE`` is Public Domain.

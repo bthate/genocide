@@ -127,7 +127,7 @@ rst_epilog = '''.. raw:: html
     <center>
     <b>
 
-:ref:`about <about>` - :ref:`reconsider <reconsider>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings  <writings>` - :ref:`manual <manual>` - :ref:`source <source>`
+:ref:`about <about>` - :ref:`reconsider <reconsider>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings  <writings>`
 
 .. raw: html
 

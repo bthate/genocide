@@ -16,7 +16,7 @@
 
 **NAME**
 
-    **GENOCIDE** - Elderly, Wicked, Criminals, Handicapped.
+    ``GENOCIDE`` - Elderly, Wicked, Criminals, Handicapped.
 
 
 **INSTALL**

@@ -7,16 +7,6 @@
 
 .. title:: {{ fullname }}
 
-.. raw:: html
-
-    <center><b>
-
-:ref:`home  <home>` - :ref:`manual <manual>` - :ref:`source <source>`
-
-.. raw: html
-    </b></center>
-    <br><br>
-    <center><b>
 
 **{{ fullname }}**
 
@@ -32,4 +22,5 @@
 .. raw:: html
 
     <br><br>
+
 '''

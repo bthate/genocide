@@ -165,7 +165,7 @@
         User=<user>
         Group=<user>
         WorkingDirectory=/home/<user>/.genocide
-        ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocided
+        ExecStart=/home/<user>/.local/pipx/venvs/genocide/bin/genocide -d
         RemainAfterExit=yes
 
         [Install]

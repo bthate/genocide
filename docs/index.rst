@@ -61,9 +61,6 @@ and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to
 prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible.
 
-..raw:: html
-
-    <br>
 
 p.s.
 

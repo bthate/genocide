@@ -4,7 +4,7 @@
 
     <br><br>
 
-.. title:: OTP-CR-117/19
+.. title:: Genocide
 
 
 | **Information and Evidence Unit**

@@ -1,10 +1,10 @@
-.. _home:
+.. _reconsider:
 
 .. raw:: html
 
-    <br><br>
+    <br>
 
-.. title:: OTP-CR-117/19
+.. title:: Reconsider
 
 
 | **Information and Evidence Unit**
@@ -61,19 +61,9 @@ and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to
 prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible.
 
-..raw:: html
-
-    <br>
 
 p.s.
 
 
 1) entered in the Communications Register of the Office on 4 march 2019
-2) your reference ``OTP-CR-117/19``
-
-
-.. toctree::
-    :hidden:
-    :glob:
-
-    *
+2) your reference ``OTP-CR-117/19`` `. <about.html>`_

@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genocide"
-description = "@KarimKhanQC reconsider OTP-CR-117/19. Elderly, Wicked, Criminals, Handicapped."
-version = "170"
+description = "Elderly, Handicapped, Criminals, Wicked"
+version = "171"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]
@@ -24,6 +24,7 @@ dev = []
 
 [project.scripts]
 "genocide" = "genocide.__main__:wrapped"
+
 [project.urls]
 "home" = "https://pypi.org/project/genocide"
 "bugs" = "https://github.com/bthate/genocide/issues"
@@ -31,13 +32,10 @@ dev = []
 
 
 [tool.setuptools]
-script-files = [
-    "bin/genocide",
-    "bin/genocided"
-]
 packages = [
    "genocide",
-   "genocide.modules"
+   "genocide.modules",
+   "genocide.user"
 ]
 zip-safe = true
 

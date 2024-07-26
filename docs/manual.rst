@@ -2,21 +2,14 @@
 
 .. raw:: html
 
-    <br>
+    <br><br>
 
 .. title:: Manual
 
 
-.. raw:: html
-
-    <center><h3><b>manual</b></h3></center>
-    <br>
-
-
-
 **NAME**
 
-    ``GENOCIDE`` - Elderly, Wicked, Criminals, Handicapped `. <source.html>`_
+    ``GENOCIDE`` - Elderly, Handicapped, Criminals, Wicked
 
 
 **INSTALL**
@@ -60,7 +53,7 @@
 
     Current status is a :ref:`"no basis to proceed"
     <writings>` judgement of the prosecutor which
-    requires a :ref:`"basis to prosecute" <reconsider>`
+    requires a :ref:`"basis to prosecute" <home>`
     to have the king actually arrested.
 
 
@@ -162,7 +155,7 @@
     ::
  
         [Unit]
-        Description=Elderly, Wicked, Criminals, Handicapped.
+        Description=Elderly, Handicapped, Criminals, Wicked
         Requires=network-online.target
         After=network-online.target
 
@@ -186,6 +179,12 @@
         $ sudo systemctl enable genocide --now
 
     default channel/server is #genocide on localhost
+
+
+**SOURCE**
+
+
+    source is :ref:`here <source>`
 
 
 **FILES**

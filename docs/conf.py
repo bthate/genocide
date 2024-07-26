@@ -5,7 +5,7 @@
 # ruff: noqa: E402, E501
 
 
-"By law, with the use of poison, killed, tortured, castrated, destroyed in whole or in part, "
+"By law, with the use of poison,"
 
 
 NAME = "genocide"
@@ -60,7 +60,7 @@ extensions = [
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "By law, with the use of poison, killed, tortured, castrated, destroyed in whole or in part,"
+html_title = "By law, with the use of poison,"
 html_style = 'genocide.css'
 html_static_path = ["_static"]
 html_css_files = ["genocide.css",]
@@ -116,7 +116,7 @@ rst_prolog = '''.. image:: genocide.png
 
     <center>
     <i>
-    By law, with the use of poison, killed, tortured, castrated, destroyed in whole or in part,
+    By law, with the use of poison,
     </i>
     </center>
 '''
@@ -127,7 +127,7 @@ rst_epilog = '''.. raw:: html
     <center>
     <b>
 
-:ref:`reconsider <reconsider>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings  <writings>`
+:ref:`reconsider <home>` - :ref:`evidence <evidence>` - :ref:`guilty <guilty>` - :ref:`writings  <writings>`
 
 .. raw: html
 

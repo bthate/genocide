@@ -62,7 +62,7 @@ extensions = [
 
 html_title = "By law, with the use of poison,"
 html_style = 'genocide.css'
-html_static_path = ["_static"]
+html_static_path = ["_static", "files/sitemap.xml"]
 html_css_files = ["genocide.css",]
 html_short_title = "%s %s" % (NAME, VERSION)
 html_sidebars = {

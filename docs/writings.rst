@@ -5,7 +5,6 @@
 
     <br><br>
 
-
 .. title:: Writings
 
 
@@ -20,7 +19,7 @@
 | **Date**: Mon, 21 Jan 2019 16:17:13 +0100
 |
 
-see :ref:`reconsider <home>` for content.
+see :ref:`reconsider <reconsider>` for content.
 
 
 .. raw:: html
@@ -34,7 +33,7 @@ see :ref:`reconsider <home>` for content.
 
     <br>
 
-.. image:: ack3.png
+.. image:: ack.png
     :width: 100%
 
 

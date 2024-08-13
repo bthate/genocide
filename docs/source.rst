@@ -5,10 +5,11 @@
 
      <br><br>
 
+
 .. title:: Source
 
 
-**GENOCIDE**
+**OTPCR**
 
 .. raw:: html
 
@@ -20,25 +21,25 @@
     :template: base.rst
 
     genocide.cache
-    genocide.cli
+    genocide.config
+    genocide.client
     genocide.cmds
-    genocide.cfg
-    genocide.decode
-    genocide.defer
-    genocide.dft
-    genocide.encode
+    genocide.console
+    genocide.decoder
+    genocide.default
+    genocide.encoder
+    genocide.errors
     genocide.event
-    genocide.face
-    genocide.handle
-    genocide.launch
-    genocide.lock
+    genocide.fleet
+    genocide.group
     genocide.log
     genocide.main
     genocide.object
     genocide.parse
-    genocide.disk
-    genocide.repeat
-    genocide.run
+    genocide.persist
+    genocide.reactor
+    genocide.repeater
+    genocide.thread
     genocide.timer
     genocide.utils
 
@@ -68,4 +69,3 @@
     genocide.modules.rss
     genocide.modules.tdo
     genocide.modules.thr
-    genocide.modules.upt

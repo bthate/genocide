@@ -10,7 +10,7 @@ import subprocess
 import sys
 
 
-NAME = "otpcr"
+NAME = "genocide"
 curdir = os.getcwd()
 
 TXT = '''

@@ -25,7 +25,7 @@ dev = []
 
 [project.scripts]
 "genocide"  = "genocide.__main__:wrapped"
-"genocidec" = "genocide.term:wrapped"
+"genocidec" = "genocide.prompt:wrapped"
 "genocided" = "genocide.daemon:wrapped"
 
 

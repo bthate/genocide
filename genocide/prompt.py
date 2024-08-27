@@ -1,8 +1,8 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0413,W0212,E0401
+# pylint: disable=C0411,C0413,W0212,E0401
 
 
-"main"
+"prompt"
 
 
 import os
@@ -11,16 +11,13 @@ import sys
 import termios
 
 
-sys.path.insert(0, os.getcwd())
-
-
-from .config  import Config
 from .console import Console
 from .errors  import errors
-from .persist import Persist, skel
+from .persist import skel
 from .main    import cmnd, enable, init, scan
 from .parse   import parse
-from .utils   import forever, modnames
+from .runtime import Cfg
+from .utils   import forever, modnames, spl
 
 
 from . import modules
@@ -32,18 +29,8 @@ else:
     MODS = None
 
 
-Cfg         = Config()
-Cfg.name    = Config.__module__.split(".")[-2]
-Cfg.mod     = "cmd,mod,thr,err"
-Cfg.wdr     = os.path.expanduser(f"~/.{Cfg.name}")
-Cfg.pidfile = os.path.join(Cfg.wdr, f"{Cfg.name}.pid")
-
-
-Persist.workdir = Cfg.wdr
-
-
 def wrap(func):
-    "reset terminal."
+    "reset console."
     old3 = None
     try:
         old3 = termios.tcgetattr(sys.stdin.fileno())
@@ -63,15 +50,17 @@ def main():
     "main"
     parse(Cfg, " ".join(sys.argv[1:]))
     Cfg.dis = Cfg.sets.dis
-    if "a" in Cfg.opts:
-        Cfg.mod += ",".join(modnames(modules, MODS))
+    mods = modnames(modules, MODS)
+    Cfg.mod = ",".join(mods)
+    if Cfg.dis:
+        Cfg.mod = ",".join(set(mods) - set(spl(Cfg.dis)))
     readline.redisplay()
     enable(print)
     skel()
     scan(Cfg.mod, modules, MODS)
     csl = Console(print, input)
     if "i" in Cfg.opts:
-        init(Cfg.mod, modules, MODS)
+        init(Cfg.mod, modules,MODS)
     csl.start()
     cmnd(Cfg.otxt, print)
     forever()

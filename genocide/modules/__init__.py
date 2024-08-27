@@ -5,7 +5,7 @@
 "modules"
 
 
-from . import cmd, err, irc, log, mod, req, rss, tdo, thr
+from . import cmd, err, irc, log, mod, req, rss, tdo, thr, upt
 
 
 def __dir__():
@@ -18,5 +18,6 @@ def __dir__():
         'req',
         'rss',
         'tdo',
-        'thr'
+        'thr',
+        'upt'
     )

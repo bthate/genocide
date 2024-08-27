@@ -2,7 +2,7 @@
 # pylint: disable=C0413,W0212,W0613,W0718,E0401
 
 
-"main"
+"cli"
 
 
 import getpass
@@ -10,30 +10,16 @@ import os
 import sys
 
 
-sys.path.insert(0, os.getcwd())
-
-
-from .config  import Config
 from .cmds    import Commands
-from .persist import Persist, skel
+from .persist import skel
 from .errors  import errors, later
 from .main    import cmnd, enable, scan
 from .parse   import parse
+from .runtime import Cfg
 from .utils   import modnames
 
 
 from . import modules
-
-
-Cfg         = Config()
-Cfg.user    = getpass.getuser()
-Cfg.name    = __file__.rsplit(os.sep, maxsplit=1)[-2]
-Cfg.mod     = "cmd,skl,req,srv"
-Cfg.wdr     = os.path.expanduser(f"~/.{Cfg.name}")
-Cfg.pidfile = os.path.join(Cfg.wdr, f"{Cfg.name}.pid")
-
-
-Persist.workdir = Cfg.wdr
 
 
 def srv(event):

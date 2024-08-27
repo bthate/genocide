@@ -2,36 +2,21 @@
 # pylint: disable=C0411,C0413,W0212,W0718,E0401
 
 
-"main"
+"daemon"
 
 
-import getpass
 import os
 import sys
 
 
-sys.path.insert(0, os.getcwd())
-
-
-from .config  import Config
-from .persist import Persist, skel
-from .errors  import errors, later
+from .persist import skel
+from .errors  import later
 from .main    import init, scan
+from .runtime import Cfg
 from .utils   import forever, pidfile, privileges
 
 
 from . import modules
-
-
-Cfg         = Config()
-Cfg.name    = Config.__module__.split(".")[-2]
-Cfg.mod     = "irc,rss"
-Cfg.wdr     = os.path.expanduser(f"~/.{Cfg.name}")
-Cfg.user    = getpass.getuser()
-Cfg.pidfile = os.path.join(Cfg.wdr, f"{Cfg.name}.pid")
-
-
-Persist.workdir = Cfg.wdr
 
 
 def daemon(verbose=False):
@@ -60,19 +45,20 @@ def wrap(func):
     try:
         func()
     except (KeyboardInterrupt, EOFError):
-        print("")
+        pass
     except Exception as ex:
         later(ex)
-    errors()
 
 
 def wrapped():
     "wrap main function"
     wrap(main)
+    os._exit(0)
 
 
 def main():
     "main"
+    Cfg.mod += ",irc,rss"
     daemon()
     privileges(Cfg.user)
     skel()

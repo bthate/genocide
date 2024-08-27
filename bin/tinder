@@ -136,7 +136,7 @@ def main():
     "main"
     enable(print)
     Cfg.dis = Cfg.sets.dis
-    Cfg.mod = ",".join(modnames(modules, mods))
+    Cfg.mod = ",".join(modnames(modules))
     if "v" in Cfg.opts:
         dte = " ".join(time.ctime(time.time()).replace("  ", " ").split()[1:])
         print(f'{dte} {Cfg.name.upper()} {Cfg.opts.upper()} {Cfg.mod.upper()}'.replace("  ", " "))

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # This file is placed in the Public Domain.
-#
-# pylint: disable=C0103,C0413,W0201,W0401,W0614,E0401
+# pylint: disable=C0103,C0413,W0201,W0401,W0614,W0622,E0401
+# ruff: noqa: F403,F405
 
 
 "tinder"
@@ -33,6 +33,7 @@ NRS = 1
 NRCOMMAND = 1
 PERCALL   = 1
 STARTTIME = time.time()
+Client.out   = print
 
 
 Cfg         = Default()
@@ -55,13 +56,14 @@ param = Object()
 param.cmd = [""]
 param.dpl = ["hnrss title,url"]
 param.fnd = ["log", "todo", "rss", "config"]
-param.imp = ["ttests/feeds.opml"]
+param.imp = ["tests/feeds.opml"]
 param.log = ["bla"]
 param.mod = [""]
 param.mre = [""]
 param.nme = ["hnrss hackernews"]
 param.pwd = ["bla mekker"]
 param.rem = ["hnrss"]
+param.req = [""]
 param.res = [""]
 param.rss = ["http://hnrss.org/newest",]
 param.tdo = ["mekker"]
@@ -82,6 +84,7 @@ def consume(evts):
     fixed = []
     res = []
     for evt in evts:
+        #print(f"waiting {evt}")
         res.append(evt.wait())
         fixed.append(evt)
     for fff in fixed:
@@ -94,13 +97,13 @@ def consume(evts):
 
 def payload(clt):
     "do payload."
-    cmdz = sorted(list(keys(Commands.cmds)))
+    cmdz = Commands.cmds
     with paylock:
         nmr = 0
         for cmdd in cmdz:
             for ex in getattr(param, cmdd, [""]):
                 evt = Event()
-                evt.channel = "#objr"
+                evt.channel = "#genocide"
                 evt.orig = repr(clt)
                 evt.txt = cmdd + " " + ex
                 evt.type = "command"
@@ -108,6 +111,9 @@ def payload(clt):
                 events.append(evt)
                 nmr += 1
         return nmr
+
+
+payload.threaded = True
 
 
 def wrap(function):
@@ -128,9 +134,9 @@ def wrap(function):
 
 def main():
     "main"
-    Logging.out = Errors.out = print
+    enable(print)
     Cfg.dis = Cfg.sets.dis
-    Cfg.mod = ",".join(modnames(modules))
+    Cfg.mod = ",".join(modnames(modules, mods))
     if "v" in Cfg.opts:
         dte = " ".join(time.ctime(time.time()).replace("  ", " ").split()[1:])
         print(f'{dte} {Cfg.name.upper()} {Cfg.opts.upper()} {Cfg.mod.upper()}'.replace("  ", " "))
@@ -145,15 +151,11 @@ def main():
         thrs.append(launch(payload, clt))
     for thr in thrs:
         thr.join()
+    #shutdown()
     consume(events)
     endtime = time.time()
     lap = laps(endtime-STARTTIME)
     percall = (endtime-STARTTIME)/(nrs*nrcommand)
-    if not Errors.errors:
-        if "v" in Cfg.opts:
-            print("no errors")
-    else:
-        errors()
     if "v" in Cfg.opts:
         print(f"{lap} {nrs} {nrcommand} {percall}")
 

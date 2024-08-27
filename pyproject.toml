@@ -23,6 +23,12 @@ classifiers=[
 dev = []
 
 
+[project.scripts]
+"sbn"  = "sbn.__main__:wrapped"
+"sbnc" = "sbn.term:wrapped"
+"sbnd" = "sbn.daemon:wrapped"
+
+
 [project.urls]
 "home" = "https://pypi.org/project/genocide"
 "bugs" = "https://github.com/bthate/genocide/issues"

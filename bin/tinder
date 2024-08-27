@@ -19,11 +19,10 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.face import *
+from genocide.interface import *
 
 
 from genocide import modules
-from genocide import user
 
 
 modules.rss.DEBUG = True
@@ -34,7 +33,6 @@ NRS = 1
 NRCOMMAND = 1
 PERCALL   = 1
 STARTTIME = time.time()
-CLI.out   = print
 
 
 Cfg         = Default()
@@ -70,7 +68,7 @@ param.tdo = ["mekker"]
 param.ver = [""]
 
 
-class CLII(CLI):
+class CLI(Client):
 
     "command line interface."
 
@@ -132,14 +130,14 @@ def main():
     "main"
     Logging.out = Errors.out = print
     Cfg.dis = Cfg.sets.dis
-    Cfg.mod = ",".join(modnames(modules, user))
+    Cfg.mod = ",".join(modnames(modules))
     if "v" in Cfg.opts:
         dte = " ".join(time.ctime(time.time()).replace("  ", " ").split()[1:])
         print(f'{dte} {Cfg.name.upper()} {Cfg.opts.upper()} {Cfg.mod.upper()}'.replace("  ", " "))
-    scan(Cfg.mod, modules, user)
+    scan(Cfg.mod, modules)
     nrs = Cfg.index or 1
     nrcommand = len(Commands.cmds) or 1
-    clt = CLII()
+    clt = CLI()
     clt.start()
     clt.threaded = "t" in Cfg.opts
     thrs = []

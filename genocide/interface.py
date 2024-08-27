@@ -6,12 +6,13 @@
 "interface"
 
 
-from . import cache, client, cmds, decoder, encoder, errors, event, reactor
+from . import cache, client, cmds, console, decoder, encoder, errors, event, reactor
 from . import log, object, parse, persist, repeater, thread, timer, utils
 
 
 from .cache    import *
 from .client   import *
+from .console  import *
 from .cmds     import *
 from .decoder  import *
 from .encoder  import *
@@ -21,7 +22,7 @@ from .log      import *
 from .main     import *
 from .object   import *
 from .parse    import *
-from .persist import *
+from .persist  import *
 from .reactor  import *
 from .repeater import *
 from .thread   import *

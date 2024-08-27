@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "genocide"
 description = "Elderly, Handicapped, Criminals, Wicked"
-version = "171"
+version = "172"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]
@@ -24,9 +24,9 @@ dev = []
 
 
 [project.scripts]
-"sbn"  = "sbn.__main__:wrapped"
-"sbnc" = "sbn.term:wrapped"
-"sbnd" = "sbn.daemon:wrapped"
+"genocide"  = "genocide.__main__:wrapped"
+"genocidec" = "genocide.term:wrapped"
+"genocided" = "genocide.daemon:wrapped"
 
 
 [project.urls]

@@ -25,8 +25,6 @@ dev = []
 
 [project.scripts]
 "genocide"  = "genocide.__main__:wrapped"
-"genocidec" = "genocide.prompt:wrapped"
-"genocided" = "genocide.daemon:wrapped"
 
 
 [project.urls]
@@ -46,6 +44,7 @@ zip-safe = true
 [tool.setuptools.data-files]
 "share/doc/genocide/docs" = [
     "README.rst",
+    "docs/ack.png",
     "docs/about.rst",
     "docs/ack3.png",
     "docs/bevestigd.jpg",
@@ -74,17 +73,17 @@ zip-safe = true
 ]
 
 
-"share/doc/sbn/docs/_static" = [
+"share/doc/genocide/docs/_static" = [
     "docs/_static/genocide.css",
 ]
 
 
-"share/doc/sbn/docs/files" = [
+"share/doc/genocide/docs/files" = [
     "docs/files/sitemap.xml",
 ]
 
 
-"share/doc/sbn/docs/pdf" =  [
+"share/doc/genocide/pdf" =  [
     "docs/pdf/bevestigd.pdf",
     "docs/pdf/EM_Ack_OTP-CR-117_19.pdf",
     "docs/pdf/EM_T04_OTP-CR-117_19.pdf",
@@ -93,12 +92,14 @@ zip-safe = true
     "docs/pdf/Rome-Statute.pdf"
 ]
 
-"share/doc/sbn/docs/_templates" = [
+
+"share/doc/genocide/docs/_templates" = [
     "docs/_templates/base.rst",
     "docs/_templates/class.rst",
     "docs/_templates/mine.rst",
     "docs/_templates/module.rst"
 ]
+
 
 [tool.setuptools.exclude-package-data]
 "*" = [

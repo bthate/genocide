@@ -9,16 +9,14 @@
 
 **NAME**
 
-    **GENOCIDE** - Elderly, Handicapped, Criminals, Wicked `! <source.html>`_
+    ``GENOCIDE`` - Elderly, Handicapped, Criminals, Wicked
 
 
 **SYNOPSIS**
 
     ::
 
-        genocide  <cmd> [key=val] [key==val]
-        genocidec [-i] [-v]
-        genocided 
+        python3 -m genocide req
 
 
 **DESCRIPTION**
@@ -56,50 +54,12 @@
         $ pipx install genocide
         $ pipx ensurepath
 
-        $ genocide srv > genocide.service
-        # mv *.service /etc/systemd/system/
-        # systemctl enable genocide --now
-
-        joins #genocide on localhost
-
 
 **USAGE**
 
-    without any argument the bot does nothing
-
     ::
 
-        $ genocide
-        $
-
-    see list of commands
-
-    ::
-
-        $ genocide cmd
-        cmd,req,skl,srv
-
-
-    start a console
-
-    ::
-
-        $ genocidec
-        >
-
-    start daemon
-
-    ::
-
-        $ genocided
-        $ 
-
-
-    show request to the prosecutor
-
-    ::
-
-        $ genocide req
+        $ python3 -m genocide req
         Information and Evidence Unit
         Office of the Prosecutor
         Post Office Box 19519
@@ -107,58 +67,11 @@
         The Netherlands
 
 
-**CONFIGURATION**
-
-    irc
-
-    ::
-
-        $ genocide cfg server=<server>
-        $ genocide cfg channel=<channel>
-        $ genocide cfg nick=<nick>
-
-    sasl
-
-    ::
-
-        $  genocide pwd <nsvnick> <nspass>
-        $  genocide cfg password=<frompwd>
-
-    rss
-
-    ::
-
-        $  genocide rss <url>
-        $  genocide dpl <url> <item1,item2>
-        $  genocide rem <url>
-        $  genocide nme <url> <name>
-
-
-**COMMANDS**
-
-    ::
-
-        cfg - irc configuration
-        cmd - commands
-        mre - displays cached output
-        pwd - sasl nickserv name/pass
-        req - reconsider
-
-
-**SOURCE**
-
-
-    source is :ref:`here <source>`
-
-
 **FILES**
 
     ::
 
         ~/.genocide 
-        ~/.local/bin/genocide
-        ~/.local/bin/genocidec
-        ~/.local/bin/genocided
         ~/.local/pipx/venvs/genocide/*
 
 

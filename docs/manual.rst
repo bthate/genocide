@@ -47,8 +47,7 @@
     requires a :ref:`"basis to prosecute" <home>`
     to have the king actually arrested.
 
-    |
-    | ``OTP-CR-117/19`` entered Communications Register on ``4 march 2019``
+    ``OTP-CR-117/19`` entered Communications Register on ``4 march 2019``
 
 **INSTALL**
 
@@ -95,6 +94,7 @@
     start service
 
     | ``$ genocides``
+    |
     | ``<runs until ctrl-c>``
 
     show request to the prosecutor

@@ -1,10 +1,6 @@
 GENOCIDE
 ========
 
-|
-| OTP-CR-117/19 entered Communications Register on 4 march 2019
-|
-|
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**

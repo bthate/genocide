@@ -5,11 +5,11 @@
 # ruff: noqa: E402, E501
 
 
-"Office of the Prosecutor's Communication Record 117 of the year 2019."
+"Office of the Prosecutor's Communication 117 of the year 2019"
 
 
 NAME = "genocide"
-VERSION = "175"
+VERSION = "180"
 
 
 import os
@@ -60,7 +60,7 @@ extensions = [
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Office of the Prosecutor's Communication Record 117 of the year 2019."
+html_title = "Elderly, Handicapped, Criminals, Wicked"
 html_style = 'genocide.css'
 html_static_path = ["_static", "_static/genocide.css", "files/sitemap.xml"]
 html_css_files = ["genocide.css",]
@@ -128,7 +128,7 @@ rst_epilog = '''.. raw:: html
 
 '''
 
-autosummary_generate = True
+autosummary_generate = False
 autodoc_default_flags = ['members', 'undoc-members', 'private-members', "imported-members"]
 autodoc_member_order = 'groupwise'
 autodoc_docstring_signature = False
@@ -136,8 +136,3 @@ autoclass_content = "class"
 nitpick_ignore = [
                   ('py:class', 'builtins.BaseException'),
                  ]
-
-
-def setup(app):
-    app.add_css_file("custom.css")
-    app.add_css_file("otpcr.css")

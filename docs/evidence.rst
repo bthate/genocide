@@ -1,10 +1,12 @@
 .. _evidence:
 
+.. title:: Evidence
+
+
 .. raw:: html
 
     <br><br>
-
-.. title:: Evidence
+    <center><b>EVIDENCE</b></center><br>
 
 
 .. _haldol:
@@ -12,10 +14,10 @@
 
 **HALDOL**
 
-
 .. raw:: html
 
   <br>
+
 
 .. image:: ECHAhaldol.png
     :width: 100%

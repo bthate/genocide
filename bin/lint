@@ -13,7 +13,6 @@ NAME = "genocide"
 
 
 def popen(txt):
-    "run text in popen."
     for line in os.popen(txt).readlines():
         print(line.rstrip())
         sys.stdout.flush()
@@ -22,4 +21,5 @@ def popen(txt):
 if os.path.exists("bin/clean"):
     popen("bin/clean")
 
-popen(f"pylint otpcr bin tests")
+
+popen(f"pylint genocide bin tests")

@@ -138,7 +138,7 @@ class Reactor:
 
     def wait(self):
         while True:
-            time.sleep(1.0)
+            time.sleep(0.1)
             if not self.queue.qsize():
                 break
 

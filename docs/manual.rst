@@ -22,7 +22,7 @@
 **DESCRIPTION**
 
 
-    ``GENODIE`` holds evidence that king
+    ``GENOCIDE`` holds evidence that king
     netherlands is doing a genocide, a
     written response where king
     netherlands confirmed taking note

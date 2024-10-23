@@ -3,7 +3,6 @@ GENOCIDE
 
 |
 | OTP-CR-117/19 entered Communications Register on 4 march 2019
-| 5y235d mental #65948 (14/32/11682) every 44m59s
 |
 |
 | **Information and Evidence Unit**

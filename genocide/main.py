@@ -109,11 +109,11 @@ class Client(Reactor):
 class Event:
 
     def __init__(self):
-        self._ready  = threading.Event()
-        self._thr    = None
-        self.result  = []
-        self.type    = "event"
-        self.txt     = ""
+        self._ready = threading.Event()
+        self._thr   = None
+        self.result = []
+        self.type   = "event"
+        self.txt    = ""
 
     def __getattr__(self, key):
         return self.__dict__.get(key, "")

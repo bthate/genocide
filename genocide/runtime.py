@@ -136,6 +136,12 @@ class Reactor:
     def stop(self):
         self.stopped.set()
 
+    def wait(self):
+        while True:
+            time.sleep(1.0)
+            if not self.queue.qsize():
+                break
+
 
 "timers"
 

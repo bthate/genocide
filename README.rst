@@ -25,7 +25,7 @@ Both the chamber suggesting these laws to the king and the king himself
 have been informed about the fact the the substances administered under 
 these laws are proven to be poison.
  
-There is proof the medication used in forced treatements in the 
+There is proof the medication used in forced treatments in the 
 netherlands are poison, see copies of the ECHA <`European Chemical Agency`>
 website for:
 

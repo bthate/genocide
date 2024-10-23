@@ -28,7 +28,7 @@
     netherlands confirmed taking note
     of “what i have written”, namely
     :ref:`proof  <evidence>` that medicine
-    he uses in treatement laws like zyprexa,
+    he uses in treatment laws like zyprexa,
     haldol, abilify and clozapine are
     poison that make impotent, is both
     physical (contracted muscles) and
@@ -40,7 +40,7 @@
     <writings>` with the International Criminal
     Court, asking for arrest of the king of the
     netherlands, for the genocide he is committing
-    with his new treatement laws.
+    with his new treatment laws.
 
     Current status is a :ref:`"no basis to proceed"
     <writings>` judgement of the prosecutor which

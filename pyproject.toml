@@ -43,7 +43,6 @@ zip-safe = true
 
 [tool.setuptools.data-files]
 "share/doc/genocide/docs" = [
-    "README.rst",
     "docs/ack.png",
     "docs/about.rst",
     "docs/ack3.png",

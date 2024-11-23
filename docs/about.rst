@@ -10,7 +10,7 @@
 
 .. raw:: html
 
-    <center><b>OTP-CR-117/19</b></center><br>
+    <center><b>ABOUT</b></center><br>
 
 In 2018 i informed the king of the netherlands that what he calls
 medicine in his "care" laws are not medicine but poison. Proof of
@@ -26,6 +26,9 @@ the "care" they are forced to undergo.
 I wrote the prosecutor asking for an arrest of the king (make him
 stop), the prosecutor decided to call it a "no basis to proceed".
 
+``OTP-CR-117/19`` entered Communications Register on ``4 march 2019``
+
+
 .. raw:: html
 
     <br>
@@ -34,6 +37,8 @@ stop), the prosecutor decided to call it a "no basis to proceed".
 
 It requires a :ref:`basis to prosecute <home>` of the prosecutor
 to get the king in his cell and his genocide, thereby, stopped.
+
+
 
 .. raw:: html
 

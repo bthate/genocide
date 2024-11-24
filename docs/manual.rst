@@ -10,14 +10,18 @@
 
 **NAME**
 
+
     ``GENOCIDE`` - Elderly, Handicapped, Criminals, Wicked
 
+
 **SYNOPSIS**
+
 
     | ``genocide  <cmd> [key=val] [key==val]``
     | ``genoicdec [-i] [-v]``
     | ``genocided`` 
     | ``genocides``
+
 
 **DESCRIPTION**
 
@@ -47,7 +51,6 @@
     requires a :ref:`"basis to prosecute" <home>`
     to have the king actually arrested.
 
-    ``OTP-CR-117/19`` entered Communications Register on ``4 march 2019``
 
 **INSTALL**
 
@@ -61,6 +64,7 @@
     | ``$ sudo systemctl enable genocide --now``
     |
     | joins ``#genocide`` on localhost
+    |
 
 **USAGE**
 
@@ -68,34 +72,39 @@
 
     | ``$ genocide``
     | ``$``
+    |
 
     see list of commands
 
     | ``$ genocide cmd``
     | ``cfg,cmd,dne,dpl,err,exp,imp,log,mod,mre,nme,``
     | ``pwd,rem,req,res,rss,srv,syn,tdo,thr,upt``
-
+    |
 
     start a console
 
     | ``$ genocidec``
     | ``>``
+    |
 
     use -i to init modules
 
     | ``$ genocidec -i``
     | ``>``
+    |
 
     start daemon
 
     | ``$ genocided``
     | ``$``
+    |
 
     start service
 
     | ``$ genocides``
     |
     | ``<runs until ctrl-c>``
+    |
 
     show request to the prosecutor
 
@@ -105,6 +114,7 @@
     | Post Office Box 19519
     | 2500 CM The Hague
     | The Netherlands
+    |
 
 **COMMANDS**
 
@@ -127,7 +137,7 @@
     | ``tdo`` - add todo item
     | ``thr`` - show running threads
     | ``upt`` - show uptime
-
+    |
 
 **CONFIGURATION**
 
@@ -136,11 +146,13 @@
     | ``$ genocide cfg server=<server>``
     | ``$ genocide cfg channel=<channel>``
     | ``$ genocide cfg nick=<nick>``
+    |
 
     sasl
 
     | ``$ genocide pwd <nsvnick> <nspass>``
     | ``$ genocide cfg password=<frompwd>``
+    |
 
     rss
 
@@ -148,32 +160,34 @@
     | ``$ genocide dpl <url> <item1,item2>``
     | ``$ genocide rem <url>``
     | ``$ genocide nme <url> <name>``
+    |
 
     opml
 
     | ``$ genocide exp``
     | ``$ genocide imp <filename>``
+    |
 
 
 **SOURCE**
 
-    source is `here <https://github.com/bthate/genocide>`_
+    source is at `https://github.com/bthate/genocide <https://github.com/bthate/genocide>`_
 
 **FILES**
 
     | ``~/.genocide``
     | ``~/.local/bin/genocide``
-    | ``~/.local/bin/genocidec``
     | ``~/.local/bin/genocided``
     | ``~/.local/bin/genocides``
     | ``~/.local/pipx/venvs/genocide/*``
-
+    |
 
 **AUTHOR**
 
     | Bart Thate <bthate@dds.nl>
-
+    |
 
 **COPYRIGHT**
 
     | ``GENOCIDE`` is Public Domain.
+    |

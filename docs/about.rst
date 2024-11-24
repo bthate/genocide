@@ -26,7 +26,6 @@ the "care" they are forced to undergo.
 I wrote the prosecutor asking for an arrest of the king (make him
 stop), the prosecutor decided to call it a "no basis to proceed".
 
-``OTP-CR-117/19`` entered Communications Register on ``4 march 2019``
 
 
 .. raw:: html
@@ -39,7 +38,6 @@ It requires a :ref:`basis to prosecute <home>` of the prosecutor
 to get the king in his cell and his genocide, thereby, stopped.
 
 
-
 .. raw:: html
 
     </center>
@@ -50,10 +48,20 @@ to get the king in his cell and his genocide, thereby, stopped.
 
     <center>
 
+``OTP-CR-117/19`` entered Communications Register on ``4 march 2019``
+
+.. raw:: html
+
+    <cbr><br>
+
+
 .. image:: skull3.png
     :width: 90%
     :target: manual.html
 
+
+
 .. raw:: html
 
     </center>
+

@@ -18,7 +18,6 @@
 
 
     | ``genocide  <cmd> [key=val] [key==val]``
-    | ``genoicdec [-i] [-v]``
     | ``genocided`` 
     | ``genocides``
 
@@ -64,7 +63,6 @@
     | ``$ sudo systemctl enable genocide --now``
     |
     | joins ``#genocide`` on localhost
-    |
 
 **USAGE**
 
@@ -72,39 +70,33 @@
 
     | ``$ genocide``
     | ``$``
-    |
 
     see list of commands
 
     | ``$ genocide cmd``
     | ``cfg,cmd,dne,dpl,err,exp,imp,log,mod,mre,nme,``
     | ``pwd,rem,req,res,rss,srv,syn,tdo,thr,upt``
-    |
 
     start a console
 
     | ``$ genocidec``
     | ``>``
-    |
 
     use -i to init modules
 
     | ``$ genocidec -i``
     | ``>``
-    |
 
     start daemon
 
     | ``$ genocided``
     | ``$``
-    |
 
     start service
 
     | ``$ genocides``
     |
     | ``<runs until ctrl-c>``
-    |
 
     show request to the prosecutor
 
@@ -114,7 +106,6 @@
     | Post Office Box 19519
     | 2500 CM The Hague
     | The Netherlands
-    |
 
 **COMMANDS**
 
@@ -137,7 +128,6 @@
     | ``tdo`` - add todo item
     | ``thr`` - show running threads
     | ``upt`` - show uptime
-    |
 
 **CONFIGURATION**
 
@@ -146,13 +136,11 @@
     | ``$ genocide cfg server=<server>``
     | ``$ genocide cfg channel=<channel>``
     | ``$ genocide cfg nick=<nick>``
-    |
 
     sasl
 
     | ``$ genocide pwd <nsvnick> <nspass>``
     | ``$ genocide cfg password=<frompwd>``
-    |
 
     rss
 
@@ -160,13 +148,11 @@
     | ``$ genocide dpl <url> <item1,item2>``
     | ``$ genocide rem <url>``
     | ``$ genocide nme <url> <name>``
-    |
 
     opml
 
     | ``$ genocide exp``
     | ``$ genocide imp <filename>``
-    |
 
 
 **SOURCE**
@@ -180,14 +166,11 @@
     | ``~/.local/bin/genocided``
     | ``~/.local/bin/genocides``
     | ``~/.local/pipx/venvs/genocide/*``
-    |
 
 **AUTHOR**
 
     | Bart Thate <bthate@dds.nl>
-    |
 
 **COPYRIGHT**
 
     | ``GENOCIDE`` is Public Domain.
-    |

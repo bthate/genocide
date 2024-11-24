@@ -48,8 +48,6 @@ to get the king in his cell and his genocide, thereby, stopped.
 
     <center>
 
-``OTP-CR-117/19`` entered Communications Register on ``4 march 2019``
-
 .. raw:: html
 
     <cbr><br>

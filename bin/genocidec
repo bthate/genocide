@@ -16,11 +16,11 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from obx.object   import Config, parse
-from obx.persist  import NAME, Workdir
-from obx.__main__ import command, scan
-from obx.modules  import face
-from obx.runtime  import Client, Errors, Event, errors, forever, later
+from genocide.object   import Config, parse
+from genocide.persist  import NAME, Workdir
+from genocide.__main__ import command, scan
+from genocide.modules  import face
+from genocide.runtime  import Client, Errors, Event, errors, forever, later
 
 
 cfg  = Config()

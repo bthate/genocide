@@ -9,10 +9,9 @@ import datetime
 import time
 
 
-from ..main    import Event
 from ..object  import Object, construct, keys
 from ..persist import Cache, laps
-from ..runtime import Repeater
+from ..runtime import Event, Repeater
 
 
 DAY = 24*60*60

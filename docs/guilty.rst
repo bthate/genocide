@@ -10,7 +10,7 @@
 
 .. raw:: html
 
-    <center><b>GUILTY</b></center>
+    <center><b>GUILTY</b></center><br>
 
 
 .. _informed:

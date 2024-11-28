@@ -9,7 +9,7 @@
 
 .. raw:: html
 
-    <center><b>EVIDENCE</b></center>
+    <center><b>EVIDENCE</b></center><br>
 
 
 .. _haldol:

@@ -12,7 +12,7 @@
 
 .. raw:: html
 
-    <center><b>WRITINGS</b></center>
+    <center><b>WRITINGS</b></center><br>
 
 
 **ACK**

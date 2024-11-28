@@ -6,7 +6,6 @@
 .. raw:: html
 
     <br><br>
-    <center><b>EVIDENCE</b></center><br>
 
 
 .. _haldol:

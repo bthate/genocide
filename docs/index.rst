@@ -9,18 +9,6 @@
 .. title:: Home
 
 
-.. raw:: html
-
-    <center>
-    <b>
-    RECONSIDER
-
-.. raw:: html
-
-    </b>
-    </center>
-    <br><br>
-
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**

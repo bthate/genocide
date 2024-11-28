@@ -9,6 +9,11 @@
 .. title:: Manual
 
 
+.. raw:: html
+
+    <center><b>MANUAL</b></center><br>
+
+
 **NAME**
 
 

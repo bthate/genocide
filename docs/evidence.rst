@@ -1,11 +1,15 @@
 .. _evidence:
 
+.. raw:: html
+
+  <br><br>
+
 .. title:: Evidence
 
 
 .. raw:: html
 
-    <br><br>
+    <center><b>EVIDENCE</b></center>
 
 
 .. _haldol:

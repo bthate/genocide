@@ -3,12 +3,17 @@
 
 .. raw:: html
 
-    <br><br><br>
+    <br><br>
 
 
-.. title:: Home
+.. title:: Reconsider
 
 
+.. raw:: html
+
+    <center><b>RECONSIDER</b></center>
+
+|
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
@@ -67,7 +72,8 @@ prosecute the king for making the commiting of the above mentioned crimes
 
 p.s.
 
-#. ``OTP-CR-117/19`` entered Communications Register on ``4 march 2019``
+
+1) ``OTP-CR-117/19`` entered the Communications Register on ``4 march 2019``
 
 
 .. toctree::

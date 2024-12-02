@@ -16,11 +16,11 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.object   import Config, parse
-from genocide.persist  import NAME, Workdir
-from genocide.__main__ import command, scan
-from genocide.modules  import face
-from genocide.runtime  import Client, Errors, Event, errors, forever, later
+from obz.control import command, scan
+from obz.object  import Config, parse
+from obz.persist import NAME, Workdir
+from obz.modules import face
+from obz.runtime import Client, Errors, Event, errors, forever, later
 
 
 cfg  = Config()

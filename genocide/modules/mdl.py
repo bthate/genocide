@@ -1,5 +1,5 @@
 # This file is placed in the Public Domain.
-# pylint: disable=C0209
+# pylint: disable=C0209,E0402
 
 
 "Genocide model of the Netherlands since 4 March 2019"

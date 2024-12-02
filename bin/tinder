@@ -17,12 +17,12 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.__main__ import NAME, Config, command, parse, scan
+from genocide.control import NAME, Config, command
 from genocide.modules import face
-from genocide.object  import Object
+from genocide.object  import Object, parse
 from genocide.persist import Workdir, laps, skel
 from genocide.runtime import BufferedClient, Commands, Errors, Event
-from genocide.runtime import  errors, later, launch
+from genocide.runtime import errors, later, launch, scan
 
 
 cfg = Config()

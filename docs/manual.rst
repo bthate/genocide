@@ -11,13 +11,14 @@
 
 .. raw:: html
 
+
     <center><b>MANUAL</b></center><br>
 
 
 **NAME**
 
 
-    ``GENOCIDE`` - Elderly, Handicapped, Criminals, Wicked
+    ``GENOCIDE`` - Since 4 march 2019
 
 
 **SYNOPSIS**
@@ -53,7 +54,7 @@
 
     Current status is a :ref:`"no basis to proceed"
     <writings>` judgement of the prosecutor which
-    requires a :ref:`"basis to prosecute" <home>`
+    requires a :ref:`"basis to prosecute" <reconsider>`
     to have the king actually arrested.
 
 
@@ -180,3 +181,4 @@
 **COPYRIGHT**
 
     | ``GENOCIDE`` is Public Domain.
+    |

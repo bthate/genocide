@@ -5,10 +5,12 @@
 
     <br><br>
 
+
 .. title:: About
 
 
 .. raw:: html
+
 
     <center><b>ABOUT</b></center><br>
 
@@ -28,7 +30,7 @@ I wrote the prosecutor asking for an arrest of the king (make him stop), the pro
     <center>
     <b>
 
-It requires a :ref:`basis to prosecute <reconsider>` of the prosecutor
+It requires a :ref:`basis to prosecute <writings>` of the prosecutor
 to get the king in his cell and his genocide, thereby, stopped.
 
 .. raw:: html

@@ -2,6 +2,7 @@
 requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+
 [project]
 name = "genocide"
 description = "Elderly, Handicapped, Criminals, Wicked"
@@ -19,15 +20,12 @@ classifiers=[
     'Topic :: Utilities'
 ]
 
-[project.optional-dependencies]
-dev = []
-
 
 [project.scripts]
 "genocide"  = "genocide.control:wrapped"
+"genocidec" = "genocide.console:wrapped"
 "genocided" = "genocide.daemon:main"
 "genocides" = "genocide.service:wrapped"
-
 
 
 [project.urls]
@@ -41,7 +39,6 @@ packages = [
    "genocide",
    "genocide.modules",
 ]
-zip-safe = true
 
 
 [tool.setuptools.data-files]
@@ -99,12 +96,4 @@ zip-safe = true
     "docs/_templates/class.rst",
     "docs/_templates/mine.rst",
     "docs/_templates/module.rst"
-]
-
-
-[tool.setuptools.exclude-package-data]
-"*" = [
-    "env*",
-    "html*",
-    "test*"
 ]

@@ -35,7 +35,6 @@ to get the king in his cell and his genocide, thereby, stopped.
 
     </center>
     </b>
-    <br>
 
 .. raw:: html
 

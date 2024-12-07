@@ -10,12 +10,6 @@
 .. title:: Writings
 
 
-.. raw:: html
-
-
-    <center><b>WRITINGS</b></center><br>
-
-
 **ACK**
 
 .. raw:: html

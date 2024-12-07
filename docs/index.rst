@@ -9,12 +9,6 @@
 .. title:: Reconsider
 
 
-.. raw:: html
-
-
-    <center><b>RECONSIDER</b></center><br>
-
-
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
@@ -70,18 +64,17 @@ and the day the Wfz law took effect (1-1-2019), i ask the prosecutor to
 prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible.
 
-|
-
-p.s.
-
-    ``OTP-CR-117/19`` entered the Communications Register on ``4 march 2019``.
 
 |
+
+**p.s.**
+
+#. ``OTP-CR-117/19`` entered the Communications Register on ``4 march 2019``.
+
 
 .. toctree::
     :hidden:
 
-    about
     reconsider
     writings
     evidence

@@ -34,7 +34,7 @@ class Config(Obj):
 
     fqns = []
     name = "genocide"
-    wdr  = os.path.expanduser("~/.{Config.name}")
+    wdr  = os.path.expanduser(f"~/.{Config.name}")
 
 
 def long(name):

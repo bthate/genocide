@@ -99,7 +99,7 @@ intersphinx_cache_limit = 1
 
 rst_prolog = '''.. image:: genocide.png
     :width: 100%
-    :height: 2.5cm
+    :height: 2.4cm
     :target: manual.html
 
 .. raw:: html

@@ -23,8 +23,7 @@ def __dir__():
         'req',
         'rss',
         'tdo',
-        'thr',
-        'upt'
+        'thr'
     )
 
 

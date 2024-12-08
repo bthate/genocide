@@ -16,13 +16,13 @@ import time
 import _thread
 
 
-from ..object   import Object, edit, format, keys, parse
-from ..persist  import Cache, ident, last, write
-from ..runtime  import Commands, Event, Reactor, later, launch
+from ..object import Object, edit, format, keys
+from ..persist import Cache, ident, last, write
+from ..persist import Config as Main
+from ..runtime import Commands, Event, Reactor, later, launch, parse
 
 
 IGNORE = ["PING", "PONG", "PRIVMSG"]
-NAME = Object.__module__.rsplit(".", maxsplit=2)[-2]
 
 
 output = None
@@ -47,19 +47,18 @@ def init():
 
 class Config(Object):
 
-    channel = f'#{NAME}'
+    channel = f'#{Main.name}'
     commands = True
     control = '!'
-    edited = time.time()
-    nick = NAME
+    nick = Main.name
     password = ""
     port = 6667
-    realname = NAME
+    realname = Main.name
     sasl = False
     server = 'localhost'
     servermodes = ''
     sleep = 60
-    username = NAME
+    username = Main.name
     users = False
 
     def __init__(self):
@@ -101,7 +100,7 @@ class Output:
 
     @staticmethod
     def extend(channel, txtlist):
-        if channel not in Output.cache:
+        if channel not in dir(Output.cache):
             Output.cache[channel] = []
         chanlist = getattr(Output.cache, channel)
         chanlist.extend(txtlist)
@@ -118,7 +117,7 @@ class Output:
         return txt
 
     def oput(self, channel, txt):
-        if channel and channel not in Output.cache:
+        if channel and channel not in dir(Output.cache):
             setattr(Output.cache, channel, [])
         self.oqueue.put_nowait((channel, txt))
 
@@ -145,7 +144,7 @@ class Output:
 
     @staticmethod
     def size(chan):
-        if chan in Output.cache:
+        if chan in dir(Output.cache):
             return len(getattr(Output.cache, chan, []))
         return 0
 
@@ -557,7 +556,7 @@ def cb_001(bot, evt):
 
 def cb_notice(bot, evt):
     if evt.txt.startswith('VERSION'):
-        txt = f'\001VERSION {NAME.upper()} 140 - {bot.cfg.username}\001'
+        txt = f'\001VERSION {Main.name.upper()} 140 - {bot.cfg.username}\001'
         bot.docommand('NOTICE', evt.channel, txt)
 
 
@@ -616,8 +615,7 @@ def mre(event):
         return
     for _x in range(3):
         txt = Output.gettxt(event.channel)
-        if txt:
-            event.reply(txt)
+        event.reply(txt)
     size = IRC.size(event.channel)
     event.reply(f'{size} more in cache')
 

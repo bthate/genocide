@@ -8,36 +8,18 @@
 import sys
 
 
-from .object  import Config, parse
-from .persist import NAME
-from .runtime import Client, Commands, Event, errors, later, scan, wrap
+from .persist import Config
+from .runtime import Client, Commands, Event
+from .runtime import command, errors, parse, scan, wrap
 
 
-Cfg  = Config()
+Cfg = Config()
 
 
 class CLI(Client):
 
-    def __init__(self):
-        Client.__init__(self)
-        self.register("command", command)
-
     def raw(self, txt):
         print(txt)
-
-
-def command(bot, evt):
-    parse(evt, evt.txt)
-    if "ident" in dir(bot):
-        evt.orig = bot.ident
-    func = Commands.cmds.get(evt.cmd, None)
-    if func:
-        try:
-            func(evt)
-            bot.display(evt)
-        except Exception as ex:
-            later(ex)
-    evt.ready()
 
 
 def wrapped():
@@ -49,7 +31,7 @@ def wrapped():
 def srv(event):
     import getpass
     name = getpass.getuser()
-    event.reply(TXT % (NAME.upper(), name, name, name, NAME))
+    event.reply(TXT % (Cfg.name.upper(), name, name, name, Cfg.name))
 
 
 def main():

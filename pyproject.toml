@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "genocide"
 description = "Elderly, Handicapped, Criminals, Wicked"
-version = "183"
+version = "184"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]

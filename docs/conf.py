@@ -104,7 +104,7 @@ rst_prolog = '''.. image:: genocide.png
 
 .. raw:: html
 
-    <center><i>Elderly, Handicapped, Criminals, Wicked</i></center>
+    <center><i>Elderly, Handicapped, Criminals, Wicked</i></center><br>
 
 '''
 
@@ -120,7 +120,6 @@ rst_epilog = """.. raw:: html
 
     </b>
     </center>
-    <br>
 
 """
 autosummary_generate = False

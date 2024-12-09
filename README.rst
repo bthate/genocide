@@ -1,7 +1,3 @@
-GENOCIDE
-========
-
-|
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
@@ -30,10 +26,10 @@ There is proof the medication used in forced treatments in the
 netherlands are poison, see copies of the ECHA <`European Chemical Agency`>
 website for:
 
-(1) haldol
-(2) clozapine
-(3) zyprexa
-(4) abilify
+(1) ``haldol``
+(2) ``clozapine``
+(3) ``zyprexa``
+(4) ``abilify``
 
 With the mass scale torture with poison the king of the netherlands and 
 his chamber:

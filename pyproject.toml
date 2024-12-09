@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genocide"
-description = "Elderly, Handicapped, Criminals, Wicked"
-version = "185"
+description = "Elderly, Handicapped (Wzd), Criminals (Wfz), Wicked (WvGGZ)"
+version = "186"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]

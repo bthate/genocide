@@ -9,6 +9,10 @@
 .. title:: Manual
 
 
+.. raw:: html
+
+    <center><b>MANUAL</b></center><br>
+
 
 **NAME**
 
@@ -20,6 +24,7 @@
 
 
     | ``genocide  <cmd> [key=val] [key==val]``
+    | ``genocidec``
     | ``genocided`` 
     | ``genocides``
 
@@ -29,17 +34,20 @@
 
     ``GENOCIDE`` holds evidence that king
     netherlands is doing a genocide, a
-    written response where king
+    :ref:`written response <king>` where king
     netherlands confirmed taking note
     of “what i have written”, namely
     :ref:`proof  <evidence>` that medicine
     he uses in treatment laws like zyprexa,
     haldol, abilify and clozapine are
-    poison that make impotent, is both
+    poison.
+
+    Poison that makes impotent, is both
     physical (contracted muscles) and
     mental (make people hallucinate)
     torture and kills members of the
-    victim groups.
+    victim groups: Elderly, Handicapped, Criminals
+    and Psychiatric patients.
 
     ``GENOCIDE`` contains :ref:`correspondence
     <writings>` with the International Criminal
@@ -165,6 +173,7 @@
 
     | ``~/.genocide``
     | ``~/.local/bin/genocide``
+    | ``~/.local/bin/genocidec``
     | ``~/.local/bin/genocided``
     | ``~/.local/bin/genocides``
     | ``~/.local/pipx/venvs/genocide/*``

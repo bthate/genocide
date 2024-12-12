@@ -12,7 +12,7 @@
 **NAME**
 
 
-    ``GENOCIDE`` - Since 4 march 2019
+    ``GENOCIDE`` - since 4 march 2019
 
 
 **SYNOPSIS**

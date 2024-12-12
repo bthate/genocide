@@ -9,7 +9,7 @@
 
 
 NAME = "genocide"
-VERSION = "181"
+VERSION = "187"
 
 
 import os
@@ -60,7 +60,7 @@ extensions = [
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Elderly, Handicapped, Criminals, Wicked"
+html_title = "Elderly and Handicapped (Wzd), Criminals (Wfz), Wicked (WvGGZ)"
 html_style = 'genocide.css'
 html_static_path = ["_static", "_static/genocide.css", "files/sitemap.xml"]
 html_css_files = ["genocide.css",]

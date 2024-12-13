@@ -73,7 +73,8 @@ packages = [
     "docs/verbatim4.png",
     "docs/verbatim7.png",
     "docs/verzoek.jpg".
-    "docs/writings.rst"
+    "docs/writings.rst",
+    "docs/zyprexa.png"
 ]
 
 

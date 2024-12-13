@@ -62,11 +62,13 @@ packages = [
     "docs/informed.jpg",
     "docs/kamer2.png",
     "docs/manual.rst",
+    "docs/opdehoogte.jpg",
     "docs/OTP111.png",
     "docs/OTP222.png",
     "docs/reconsider.rst",
     "docs/request.rst",
     "docs/robots.txt",
+    "docs/since.png".
     "docs/skull3.png",
     "docs/verbatim4.png",
     "docs/verbatim7.png",

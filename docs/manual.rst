@@ -18,8 +18,8 @@
 **SYNOPSIS**
 
 
-    | ``genocide  <cmd> [key=val] [key==val]``
-    | ``genocidec``
+    | ``genocide <cmd> [key=val] [key==val]``
+    | ``genocidec [-ivw]``
     | ``genocided`` 
     | ``genocides``
 

@@ -5,6 +5,7 @@
 "main"
 
 
+import os
 import sys
 import termios
 import time
@@ -14,7 +15,11 @@ from .runtime import Client, Event
 from .runtime import errors, forever, later, parse, scan
 
 
-cfg = Config()
+Config.name = "genocide"
+Config.wdr  = os.path.expanduser(f"~/.{Config.name}")
+
+
+cfg      = Config()
 
 
 class Console(Client):

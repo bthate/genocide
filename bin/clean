@@ -49,7 +49,7 @@ def main():
     popen("rm -fR DEAD* build dist MANIFEST *.egg-info *.whl")
     popen("rm -fR .pytest_cache .test __pycache__ .ruff_cache")
     popen("rm -fR .*~ *~")
-    if "-f" in sys.argv:
+    if "-f" not in sys.argv:
         popen("rm -fR store .venv uv.lock")
         popen("rm -fR env html")
         popen("rm -fR .python-version")

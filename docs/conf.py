@@ -60,7 +60,7 @@ extensions = [
 # -- Options for HTML output -------------------------------------------------
 
 
-html_title = "Elderly and Handicapped (Wzd), Criminals (Wfz), Wicked (WvGGZ)"
+html_title = "Since 4 March 2019"
 html_style = 'genocide.css'
 html_static_path = ["_static", "_static/genocide.css", "files/sitemap.xml"]
 html_css_files = ["genocide.css",]
@@ -100,7 +100,7 @@ intersphinx_cache_limit = 1
 rst_prolog = '''.. image:: genocide.png
     :width: 100%
     :height: 2.4cm
-    :target: manual.html
+    :target: index.html
 
 .. raw:: html
 

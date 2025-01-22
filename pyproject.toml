@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genocide"
-description = "Since 4 march 2019"
-version = "189"
+description = "Since 4 march 2019."
+version = "191"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]
@@ -19,13 +19,6 @@ classifiers=[
     'Programming Language :: Python',
     'Topic :: Utilities'
 ]
-
-
-[project.scripts]
-"genocide"  = "genocide.control:wrapped"
-"genocidec" = "genocide.console:wrapped"
-"genocided" = "genocide.daemon:main"
-"genocides" = "genocide.service:wrapped"
 
 
 [project.urls]

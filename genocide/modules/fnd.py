@@ -8,7 +8,8 @@
 import time
 
 
-from genocide.persist import elapsed, find, fntime, fmt, long, skel, types
+from genocide.objects import fmt
+from genocide.persist import elapsed, find, fntime, long, skel, types
 
 
 def fnd(event):

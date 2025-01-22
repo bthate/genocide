@@ -10,8 +10,8 @@ import os
 import time
 
 
-from genocide.objects import Object, update
-from genocide.persist import elapsed, find, fntime, fmt, store, ident, write
+from genocide.objects import Object, fmt, update
+from genocide.persist import elapsed, find, fntime, store, ident, write
 
 
 "email"

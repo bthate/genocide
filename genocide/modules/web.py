@@ -138,7 +138,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
                 self.end_headers()
             return
         try:
-            with open(self.path, "r", encoding="utf-8") as file:
+            with open(self.path, "r", encoding="utf-8", errors="ignore") as file:
                 txt = file.read()
                 file.close()
             self.write_header("text/html")

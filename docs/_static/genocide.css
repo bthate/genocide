@@ -1,16 +1,6 @@
 @import 'alabaster.css';
 
 
-div.document {
-    width: 650px;
-    margin: 10px auto 0 auto;
-}
-
-div.documentwrapper {
-    width: 90%;
-}
-
-
 div.body a:link, div.body h, div.body p, div.body dd, div.body li, div.body blockquote {
     -moz-hyphens: false;
     -ms-hyphens: false;

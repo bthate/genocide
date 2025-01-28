@@ -9,7 +9,7 @@ import sys
 import unittest
 
 
-import nixt
+import genocide
 
 
 import genocide.clients
@@ -82,7 +82,6 @@ class TestInterface(unittest.TestCase):
         okd = True
         obj = Object()
         dirr = dir(obj)
-        print(dirr)
         for meth in METHODS:
             if meth not in dirr:
                 okd = False

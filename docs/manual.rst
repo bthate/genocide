@@ -173,9 +173,6 @@
 
     | ``~/.genocide``
     | ``~/.local/bin/genocide``
-    | ``~/.local/bin/genocidec``
-    | ``~/.local/bin/genocided``
-    | ``~/.local/bin/genocides``
     | ``~/.local/pipx/venvs/genocide/*``
 
 **AUTHOR**

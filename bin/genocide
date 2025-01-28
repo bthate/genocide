@@ -163,7 +163,7 @@ def console():
     if "v" in cfg.opts:
         banner()
         genocide.clients.output = print
-    if "i" in cfg.opts:
+    if "i" in cfg.opts or Config.init:
         for mod, thr in Table.inits(Config.init, pname):
             if "w" in cfg.opts:
                 thr.join()

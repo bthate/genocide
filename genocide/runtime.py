@@ -67,6 +67,7 @@ class Reactor:
         launch(self.loop)
 
     def stop(self):
+        #self.queue.join()
         self.stopped.set()
         self.queue.put(None)
 

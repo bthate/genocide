@@ -10,6 +10,7 @@ import threading
 import time
 
 
+from .objects import Default
 from .runtime import Reactor, launch
 
 
@@ -18,33 +19,12 @@ from .runtime import Reactor, launch
 
 def debug(txt):
     if "v" in Config.opts:
-        output("# " + txt)
+        output(txt)
 
 
 def output(txt):
     # output here
-    print(txt)
-
-
-"default"
-
-
-class Default:
-
-    def __contains__(self, key):
-        return key in dir(self)
-
-    def __getattr__(self, key):
-        return self.__dict__.get(key, "")
-
-    def __iter__(self):
-        return iter(self.__dict__)
-
-    def __len__(self):
-        return len(self.__dict__)
-
-    def __str__(self):
-        return str(self.__dict__)
+    pass
 
 
 "config"
@@ -52,7 +32,7 @@ class Default:
 
 class Config(Default):
 
-    init = "irc,mdl,rss"
+    init = "irc,rss"
     name = Default.__module__.rsplit(".", maxsplit=2)[-2]
     opts = Default()
 
@@ -82,6 +62,10 @@ class Buffered(Client):
     def raw(self, txt):
         raise NotImplementedError("raw")
 
+    def stop(self):
+        Client.stop(self)
+        Output.stop()
+
 
 "event"
 
@@ -93,12 +77,13 @@ class Event(Default):
         self._ready = threading.Event()
         self._thr   = None
         self.ctime  = time.time()
-        self.result = []
+        self.result = {}
         self.type   = "event"
         self.txt    = ""
 
     def display(self):
-        for txt in self.result:
+        for tme in sorted(self.result):
+            txt = self.result[tme]
             Fleet.say(self.orig, self.channel, txt)
 
     def done(self):
@@ -108,12 +93,12 @@ class Event(Default):
         self._ready.set()
 
     def reply(self, txt):
-        self.result.append(txt)
+        self.result[time.time()] = txt
 
     def wait(self):
-        self._ready.wait()
         if self._thr:
             self._thr.join()
+        self._ready.wait()
 
 
 "fleet"
@@ -134,7 +119,8 @@ class Fleet:
 
     @staticmethod
     def display(evt):
-        for text in evt.result:
+        for tme in sorted(evt.result):
+            text = evt.result[tme]
             Fleet.say(evt.orig, evt.channel, text)
 
     @staticmethod
@@ -161,23 +147,25 @@ class Fleet:
 
 class Output:
 
-    queue   = queue.Queue()
+    oqueue   = queue.Queue()
     running = threading.Event()
 
     @staticmethod
     def loop():
         Output.running.set()
         while Output.running.is_set():
-            evt = Output.queue.get()
+            evt = Output.oqueue.get()
             if evt is None:
+                #Output.oqueue.task_done()
                 break
             Fleet.display(evt)
+            Output.oqueue.task_done()
 
     @staticmethod
     def put(evt):
         if not Output.running.is_set():
             Fleet.display(evt)
-        Output.queue.put_nowait(evt)
+        Output.oqueue.put(evt)
 
     @staticmethod
     def start():
@@ -187,8 +175,9 @@ class Output:
 
     @staticmethod
     def stop():
+        Output.oqueue.join()
         Output.running.clear()
-        Output.queue.put(None)
+        #Output.oqueue.put(None)
 
 
 "interface"

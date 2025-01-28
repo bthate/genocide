@@ -16,7 +16,7 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.clients import Client, Config, Event, Fleet
+from genocide.clients import Client, Config, Event, Fleet, output
 from genocide.command import NAMES, Commands, Table, command, parse, spl
 from genocide.modules import face
 from genocide.objects import dumps
@@ -24,11 +24,15 @@ from genocide.persist import Workdir, pidname
 from genocide.runtime import errors, later, launch
 
 
+import genocide.clients
+
+
 "defines"
 
 
-cfg = Config()
-p   = os.path.join
+cfg   = Config()
+p     = os.path.join
+pname = f"{Config.name}.modules"
 
 
 Workdir.wdr = os.path.expanduser(f"~/.{Config.name}")
@@ -158,8 +162,11 @@ def console():
     Config.opts = cfg.opts
     if "v" in cfg.opts:
         banner()
+        genocide.clients.output = print
     if "i" in cfg.opts:
-        Table.inits(Config.init, "w" in cfg.opts)
+        for mod, thr in Table.inits(Config.init, pname):
+            if "w" in cfg.opts:
+                thr.join()
     csl = Console()
     csl.start()
     forever()

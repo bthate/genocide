@@ -47,6 +47,7 @@ paylock = _thread.allocate_lock()
 
 
 param = Object()
+param.log = ["bla", ""]
 param.cfg = ["cfg nick=mekker", ""]
 param.cmd = [""]
 param.dne = ["mekker", ""]
@@ -54,7 +55,6 @@ param.dpl = ["hnrss title,url", ""]
 param.exp = ['']
 param.fnd = ["log", ""]
 param.imp = ["tests/feeds.opml", ""]
-param.log = ["bla", ""]
 param.mod = [""]
 param.mre = [""]
 param.nme = ["hnrss hackernews", ""]
@@ -103,7 +103,7 @@ def consume(evts):
 
 def payload(clt):
     nmr = 0
-    for cmdd in sorted(Commands.cmds):
+    for cmdd in keys(param):
         for ex in getattr(param, cmdd, [""]):
             evt = Event()
             evt.txt = cmdd + " " + ex
@@ -138,13 +138,9 @@ def main():
     global nrs
     global nrcommand
     parse(cfg, " ".join(sys.argv[1:]))
-    Table.scan(face)
-    Table.load("genocide.modules.rss")
-    Table.mods["genocide.modules.rss"].DEBUG = True
-    Table.load("genocide.modules.udp")
-    Table.mods["genocide.modules.udp"].DEBUG = True
-    Table.load("genocide.modules.rst")
-    Table.mods["genocide.modules.rst"].DEBUG = True
+    for mod in Table.scan(face):
+        mod.DEBUG = True
+        mod.output = print
     nrcommand = len(Commands.cmds) or 1
     if "v" in cfg.opts:
         banner()
@@ -163,7 +159,6 @@ def main():
         thr.join()
     consume(events)
     clt.stop()
-    #clt.wait()
 
 
 if __name__ == "__main__":

@@ -34,6 +34,5 @@ NAMES = {
     "thr": "genocide.modules.thr",
     "tmr": "genocide.modules.tmr",
     "udp": "genocide.modules.udp",
-    "upt": "genocide.modules.upt",
-    "wsd": "genocide.modules.wsd"
+    "upt": "genocide.modules.upt"
 }

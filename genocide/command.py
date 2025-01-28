@@ -10,7 +10,8 @@ import inspect
 
 
 from .clients import Default, Output
-from .runtime import Errors, later, launch
+from .persist import locked
+from .runtime import later, launch
 
 
 try:
@@ -40,7 +41,7 @@ class Commands:
 
     @staticmethod
     def getname(cmd):
-        return Commands.names.get(cmd, None)
+        return Commands.names.get(cmd)
 
     @staticmethod
     def scan(mod):
@@ -67,24 +68,20 @@ class Table:
         return Table.mods.get(name, None)
 
     @staticmethod
-    def inits(names, wait=False):
-        name = Errors.__module__.split(".", maxsplit=1)[0]
-        pname = f"{name}.modules"
+    def inits(names, pname):
         mods = []
         for name in spl(names):
-            mname = f"{pname}.{name}"
+            mname = pname + "." + name
+            if not mname:
+                continue
             mod = Table.load(mname)
             thr = launch(mod.init)
             mods.append((mod, thr))
-        if wait:
-            for _, thr in mods:
-                thr.join()
         return mods
 
     @staticmethod
-    def load(name, pname=None):
-        if pname is None:
-            pname = ".".join(name.split("."))[:-1]
+    def load(name):
+        pname = ".".join(name.split(".")[:-1])
         mod = Table.mods.get(name)
         if not mod:
             Table.mods[name] = mod = importlib.import_module(name, pname)
@@ -92,19 +89,25 @@ class Table:
 
     @staticmethod
     def scan(pkg, mods=""):
-        pname = "genocide.modules"
+        res = []
         for nme in dir(pkg):
             if "__" in nme:
                 continue
             if mods and nme not in spl(mods):
                 continue
-            mod = Table.load(f'{pname}.{nme}', pname)
+            name = Commands.names.get(nme)
+            if not name:
+                name = f"genocide.modules.{nme}"
+            mod = Table.load(name)
             Commands.scan(mod)
+            res.append(mod)
+        return res
 
 
 "callbacks"
 
 
+@locked
 def command(evt):
     parse(evt)
     func = Commands.get(evt.cmd)
@@ -136,7 +139,7 @@ def parse(obj, txt=None):
     obj.index   = None
     obj.mod     = ""
     obj.opts    = ""
-    obj.result  = []
+    obj.result  = {}
     obj.sets    = Default()
     obj.txt     = txt or ""
     obj.otxt    = obj.txt

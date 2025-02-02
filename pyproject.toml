@@ -21,6 +21,10 @@ classifiers=[
 ]
 
 
+[project.scripts]
+"genocide" = "genocide.runtime:wrapped"
+
+
 [project.urls]
 "home" = "https://pypi.org/project/genocide"
 "bugs" = "https://github.com/bthate/genocide/issues"

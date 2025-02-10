@@ -6,7 +6,6 @@
 
 NAMES = {
     "cfg": "genocide.modules.irc",
-    "dis": "genocide.modules.mdl",
     "dpl": "genocide.modules.rss",
     "err": "genocide.modules.err",
     "exp": "genocide.modules.rss",
@@ -15,7 +14,6 @@ NAMES = {
     "mod": "genocide.modules.mod",
     "mre": "genocide.modules.irc",
     "nme": "genocide.modules.rss",
-    "now": "genocide.modules.mdl",
     "pwd": "genocide.modules.irc",
     "rem": "genocide.modules.rss",
     "req": "genocide.modules.req",

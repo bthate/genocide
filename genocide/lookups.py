@@ -19,6 +19,7 @@ NAMES = {
     "req": "genocide.modules.req",
     "res": "genocide.modules.rss",
     "rss": "genocide.modules.rss",
+    "slg": "genocide.modules.slg",
     "syn": "genocide.modules.rss",
     "thr": "genocide.modules.thr",
     "upt": "genocide.modules.upt"

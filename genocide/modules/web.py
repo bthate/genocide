@@ -12,9 +12,8 @@ import time
 from http.server  import HTTPServer, BaseHTTPRequestHandler
 
 
-from ..default import Default
 from ..excepts import later
-from ..objects import Object
+from ..objects import Default, Object
 from ..threads import launch
 
 

@@ -17,10 +17,9 @@ import _thread
 
 from ..clients import Config as Main
 from ..command import command
-from ..default import Default
 from ..locater import last
 from ..message import Message
-from ..objects import Object, edit, fmt, keys
+from ..objects import Default, Object, edit, fmt, keys
 from ..persist import ident, write
 from ..reactor import Fleet, Reactor
 from ..runtime import output

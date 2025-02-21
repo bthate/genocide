@@ -8,7 +8,7 @@ import inspect
 import typing
 
 
-from .default import Default
+from .objects import Default
 from .package import Table, gettable
 from .reactor import Fleet
 

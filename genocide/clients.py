@@ -16,7 +16,7 @@ from .threads import launch
 
 class Config(Default):
 
-    init    = ""
+    init    = "irc,mdl,rss"
     name    = __file__.rsplit(os.sep, maxsplit=2)[-2]
     opts    = Default()
     version = 180

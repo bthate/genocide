@@ -6,7 +6,6 @@
 
 import os
 import pathlib
-import signal
 import sys
 import time
 import _thread
@@ -27,9 +26,12 @@ from . import modules as MODS
 "defines"
 
 
-cfg   = Config()
-p     = os.path.join
-pname = f"{cfg.name}.modules"
+cfg      = Config()
+cfg.name = "genocide"
+p        = os.path.join
+pname    = f"{cfg.name}.modules"
+
+Workdir.wdr = os.path.expanduser(f"~/.{cfg.name}")
 
 
 def nil(txt):
@@ -51,10 +53,10 @@ def disable():
 
 
 def handler(signum, frame):
-    sys.exit(0)
+     sys.exit(0)
 
 
-signal.signal(signal.SIGHUP, handler)
+# signal.signal(signal.SIGHUP, handler)
 
 
 "clients"
@@ -138,6 +140,7 @@ def forever():
 
 
 def pidfile(filename):
+    print(filename)
     if os.path.exists(filename):
         os.unlink(filename)
     path2 = pathlib.Path(filename)
@@ -150,6 +153,7 @@ def privileges():
     import getpass
     import pwd
     pwnam2 = pwd.getpwnam(getpass.getuser())
+    print(pwnam2)
     os.setgid(pwnam2.pw_gid)
     os.setuid(pwnam2.pw_uid)
 
@@ -203,7 +207,6 @@ def control():
 
 
 def service():
-    signal.signal(signal.SIGHUP, handler)
     enable()
     privileges()
     pidfile(pidname(cfg.name))
@@ -281,6 +284,7 @@ def main():
     if check("c"):
         wrap(console)
     elif check("d"):
+        signal.signal(signal.SIGHUP, handler)
         background()
     elif check("s"):
         wrap(service)
@@ -289,6 +293,5 @@ def main():
 
 
 if __name__ == "__main__":
-    Workdir.wdr = os.path.expanduser(f"~/.{cfg.name}")
     main()
     sys.exit(0)

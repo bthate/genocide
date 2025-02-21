@@ -6,6 +6,7 @@
 
 import os
 import pathlib
+import signal
 import sys
 import time
 import _thread
@@ -30,8 +31,6 @@ cfg      = Config()
 cfg.name = "genocide"
 p        = os.path.join
 pname    = f"{cfg.name}.modules"
-
-Workdir.wdr = os.path.expanduser(f"~/.{cfg.name}")
 
 
 def nil(txt):
@@ -138,9 +137,7 @@ def forever():
             _thread.interrupt_main()
 
 
-
 def pidfile(filename):
-    print(filename)
     if os.path.exists(filename):
         os.unlink(filename)
     path2 = pathlib.Path(filename)
@@ -153,7 +150,6 @@ def privileges():
     import getpass
     import pwd
     pwnam2 = pwd.getpwnam(getpass.getuser())
-    print(pwnam2)
     os.setgid(pwnam2.pw_gid)
     os.setuid(pwnam2.pw_uid)
 
@@ -163,6 +159,7 @@ def privileges():
 
 def background():
     daemon("-v" in sys.argv)
+    Workdir.wdr = os.path.expanduser(f"~/.{cfg.name}")
     privileges()
     disable()
     pidfile(pidname(cfg.name))
@@ -173,6 +170,7 @@ def background():
 
 def console():
     import readline # noqa: F401
+    Workdir.wdr = os.path.expanduser(f"~/.{cfg.name}")
     enable()
     Commands.add(cmd)
     parse(cfg, " ".join(sys.argv[1:]))
@@ -192,6 +190,7 @@ def console():
 def control():
     if len(sys.argv) == 1:
         return
+    Workdir.wdr = os.path.expanduser(f"~/.{cfg.name}")
     enable()
     Commands.add(cmd)
     Commands.add(srv)
@@ -207,6 +206,7 @@ def control():
 
 
 def service():
+    Workdir.wdr = os.path.expanduser(f"~/.{cfg.name}")
     enable()
     privileges()
     pidfile(pidname(cfg.name))

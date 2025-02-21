@@ -16,7 +16,6 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-
 from genocide.clients import Buffered, Config
 from genocide.command import Commands, command, parse
 from genocide.excepts import errors, later
@@ -26,6 +25,7 @@ from genocide.package import STARTTIME, Table
 from genocide.threads import Thread, launch
 from genocide.utility import elapsed
 from genocide.workdir import Workdir, skel
+
 
 Workdir.wdr  = ".test"
 

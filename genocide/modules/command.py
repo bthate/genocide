@@ -22,7 +22,7 @@ STARTTIME = time.time()
 class Config(Default):
 
     init    = ""
-    name    = sys.argv[0].split(os.sep)[-1]
+    name    = __name__.split(".")[-2]
     opts    = Default()
 
 
@@ -65,7 +65,8 @@ def command(evt) -> None:
 
 def inits(pkg, names, pname) -> [types.ModuleType]:
     mods = []
-    for name in modules(pkg.__path__[0]):
+    path = os.path.dirname(__file__)
+    for name in modules(path):
         if names and name not in spl(names):
             continue
         mname = pname + "." + name
@@ -184,7 +185,7 @@ def parse(obj, txt=None) -> None:
 
 def scan(pkg, mods=""):
     res = []
-    path = pkg.__path__[0]
+    path = os.path.dirname(pkg.__file__)
     pname = pkg.__name__
     for nme in modules(path):
         if "__" in nme:

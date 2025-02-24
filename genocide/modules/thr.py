@@ -11,10 +11,7 @@ import time
 from ..object import Object, update
 
 
-from .command import elapsed
-
-
-from . import STARTTIME
+from .command import STARTTIME, elapsed
 
 
 def thr(event):

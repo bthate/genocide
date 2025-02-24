@@ -19,13 +19,15 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 
 
-from ..objects import Object, fmt, update
-from ..locater import find, fntime, last
-from ..persist import ident, write
-from ..reactor import Fleet
-from ..threads import Repeater, launch
-from ..workdir import store
-from ..utility import elapsed, spl
+from ..disk     import ident,write
+from ..find     import find, fntime, last, store
+from ..fleet    import Fleet
+from ..object   import Object, fmt, update
+from ..thread   import launch
+from ..repeater import Repeater
+
+
+from .command import elapsed, spl
 
 
 DEBUG = False
@@ -92,7 +94,6 @@ class Fetcher(Object):
         return result[:-2].rstrip()
 
     def fetch(self, feed, silent=False):
-        """ fetch feed. """
         with fetchlock:
             result = []
             seen = getattr(self.seen, feed.rss, [])
@@ -112,22 +113,23 @@ class Fetcher(Object):
                 if uurl in seen:
                     continue
                 if self.dosave:
-                    write(fed)
+                    write(fed, store(ident(fed)))
                 result.append(fed)
             setattr(self.seen, feed.rss, urls)
             if not self.seenfn:
                 self.seenfn = store(ident(self.seen))
             write(self.seen, self.seenfn)
-            if silent:
-                return counter
-            txt = ''
-            feedname = getattr(feed, 'name', None)
-            if feedname:
-                txt = f'[{feedname}] '
-            for obj in result:
-                txt2 = txt + self.display(obj)
-                Fleet.announce(txt2)
+        if silent:
             return counter
+        txt = ''
+        feedname = getattr(feed, 'name', None)
+        if feedname:
+            txt = f'[{feedname}] '
+        for obj in result:
+            txt2 = txt + self.display(obj)
+            for bot in Fleet.bots.values():
+                bot.announce(txt2)
+        return counter
 
     def run(self, silent=False):
         thrs = []
@@ -191,6 +193,9 @@ class Parser:
                     setattr(obj, itm, val)
             result.append(obj)
         return result
+
+
+"utilities"
 
 
 def cdata(line):
@@ -334,7 +339,7 @@ def rss(event):
             return
     feed = Rss()
     feed.rss = event.args[0]
-    write(feed)
+    write(feed, store(ident(feed)))
     event.done()
 
 
@@ -351,7 +356,7 @@ def syn(event):
     event.reply(f"{nrs} feeds synced")
 
 
-"OPML"
+"opml"
 
 
 class OPML:
@@ -376,6 +381,7 @@ class OPML:
         if 'CDATA' in lne:
             lne = lne.replace('![CDATA[', '')
             lne = lne.replace(']]', '')
+            #lne = lne[1:-1]
         return lne
 
     @staticmethod
@@ -415,6 +421,9 @@ class OPML:
                 setattr(obj, itm, val.strip())
             result.append(obj)
         return result
+
+
+"utilities"
 
 
 def attrs(obj, txt):
@@ -473,7 +482,7 @@ def imp(event):
             update(feed, obj)
             feed.rss = obj.xmlUrl
             feed.insertid = insertid
-            write(feed)
+            write(feed, store(ident(feed)))
             nrs += 1
     if nrskip:
         event.reply(f"skipped {nrskip} urls.")
@@ -490,18 +499,3 @@ TEMPLATE = """<opml version="1.0">
     </head>
     <body>
         <outline title="opml" text="rss feeds">"""
-
-
-def __dir__():
-    return (
-        'Fetcher',
-        'dpl',
-        'exp',
-        'imp',
-        'init',
-        'nme',
-        'res',
-        'rss',
-        'syn'
-    )
-        

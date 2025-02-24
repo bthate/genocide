@@ -9,25 +9,29 @@ import os
 import queue
 import socket
 import ssl
+import sys
 import textwrap
 import threading
 import time
 import _thread
 
 
-from ..clients import Config as Main
-from ..command import command
-from ..locater import last
-from ..message import Message
-from ..objects import Default, Object, edit, fmt, keys
-from ..persist import ident, write
-from ..reactor import Fleet, Reactor
-from ..runtime import output
-from ..threads import later, launch
+from ..disk    import ident, write
+from ..errors  import later
+from ..event   import Event
+from ..find    import last, store
+from ..fleet   import Fleet
+from ..object  import Default, Object, edit, fmt, keys
+from ..reactor import Reactor
+from ..thread  import launch
 
 
-IGNORE = ["PING", "PONG", "PRIVMSG"]
-NAME   = Main.name
+from .command import Config as Main
+from .command import command
+
+
+IGNORE  = ["PING", "PONG", "PRIVMSG"]
+NAME    = sys.argv[0].split(os.sep)[-1]
 
 
 saylock = _thread.allocate_lock()
@@ -40,33 +44,37 @@ def debug(txt):
     output(txt)
 
 
+def output(txt):
+    if "v" in Main.opts:
+        print(txt)
+
+
 def init():
     irc = IRC()
     irc.start()
     irc.events.ready.wait()
-    debug(f'{fmt(irc.cfg, skip="edited,password")}')
+    debug(f'{fmt(Config, skip="edited,password")}')
     return irc
 
 
 class Config(Default):
 
-    channel = f'#{NAME}'
+    channel = f'#{Main.name}'
     commands = True
     control = '!'
-    nick = NAME
+    nick = Main.name
     password = ""
     port = 6667
-    realname = NAME
+    realname = Main.name
     sasl = False
     server = 'localhost'
     servermodes = ''
     sleep = 60
-    username = NAME
+    username = Main.name
     users = False
 
     def __init__(self):
         Default.__init__(self)
-        self.control = Config.control
         self.channel = Config.channel
         self.commands = Config.commands
         self.nick = Config.nick
@@ -342,7 +350,7 @@ class IRC(Reactor, Output):
         rawstr = rawstr.replace('\u0001', '')
         rawstr = rawstr.replace('\001', '')
         debug(txt)
-        obj = Message()
+        obj = Event()
         obj.args = []
         obj.rawstr = rawstr
         obj.command = ''
@@ -503,9 +511,6 @@ class IRC(Reactor, Output):
         self.events.ready.wait()
 
 
-"callbacks"
-
-
 def cb_auth(bot, evt):
     bot = Fleet.get(evt.orig)
     bot.docommand(f'AUTHENTICATE {bot.cfg.password}')
@@ -543,10 +548,8 @@ def cb_h904(evt):
 def cb_kill(bot, evt):
     pass
 
-
 def cb_log(evt):
     pass
-
 
 def cb_ready(evt):
     bot = Fleet.get(evt.orig)
@@ -561,7 +564,7 @@ def cb_001(evt):
 def cb_notice(evt):
     bot = Fleet.get(evt.orig)
     if evt.txt.startswith('VERSION'):
-        txt = f'\001VERSION {NAME.upper()} 140 - {bot.cfg.username}\001'
+        txt = f'\001VERSION {Main.name.upper()} 140 - {bot.cfg.username}\001'
         bot.docommand('NOTICE', evt.channel, txt)
 
 
@@ -570,15 +573,15 @@ def cb_privmsg(evt):
     if not bot.cfg.commands:
         return
     if evt.txt:
-        cmnd = False
-        if evt.txt.startswith(f'{bot.cfg.nick}:'):
-            evt.txt = evt.txt[len(bot.cfg.nick)+1:]
-            cmnd = True
-        elif evt.txt[0] == bot.cfg.control:
+        if evt.txt[0] in ['!',]:
             evt.txt = evt.txt[1:]
+        elif evt.txt.startswith(f'{bot.cfg.nick}:'):
+            evt.txt = evt.txt[len(bot.cfg.nick)+1:]
+        else:
+            return
+        if evt.txt:
             evt.txt = evt.txt[0].lower() + evt.txt[1:]
-            cmnd = True
-        if cmnd:
+        if evt.txt:
             command(evt)
 
 
@@ -605,7 +608,7 @@ def cfg(event):
                    )
     else:
         edit(config, event.sets)
-        write(config, fnm)
+        write(config, fnm or store(ident(config)))
         event.done()
 
 
@@ -638,15 +641,3 @@ def pwd(event):
     base = base64.b64encode(enc)
     dcd = base.decode('ascii')
     event.reply(dcd)
-
-
-def __dir__():
-    return (
-        'Config',
-        'IRC',
-        'cfg',
-        'debug',
-        'init',
-        'mre',
-        'pwd'
-    )

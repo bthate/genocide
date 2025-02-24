@@ -16,21 +16,22 @@ import _thread
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.clients import Buffered, Config
-from genocide.command import Commands, command, parse
-from genocide.excepts import errors, later
-from genocide.message import Message
-from genocide.objects import Object, items, keys, values
-from genocide.package import STARTTIME, Table
-from genocide.threads import Thread, launch
-from genocide.utility import elapsed
-from genocide.workdir import Workdir, skel
+from genocide.errors  import Errors, later
+from genocide.event   import Event
+from genocide.find    import Workdir, skel
+from genocide.object  import Object, items, keys
+from genocide.reactor import Client
+from genocide.thread  import Thread, launch
 
 
 Workdir.wdr  = ".test"
 
 
 import genocide.modules as MODS
+
+
+from genocide.modules.command import Commands, Config, command, elapsed, parse, scan
+from genocide.modules         import STARTTIME
 
 
 cfg = Config()
@@ -49,21 +50,18 @@ paylock = _thread.allocate_lock()
 
 param = Object()
 param.dpl = ["hnrss title,url", ""]
-param.imp = ["tests/feeds.opml", ""]
+param.flt = [""]
 param.nme = ["hnrss hackernews", ""]
 param.pwd = ["bla mekker", ""]
-param.rem = ["hnrss", ""]
-param.res = ["hnrss"]
-param.req = [""]
+param.res = ["hnrss", ""]
 param.srv = [""]
 param.thr = [""]
-param.ver = [""]
 param.cmd = [""]
 param.mod = [""]
 param.mre = [""]
-param.exp = ['']
-param.fnd = ["log", "rss", "config"]
-param.dne = ["mekker", ""]
+param.upt = [""]
+param.ver = [""]
+param.fnd = ["log", "rss", "config", "todo", ""]
 
 
 pre = Object()
@@ -71,12 +69,19 @@ pre.log = ["bla", ""]
 pre.cfg = ["cfg nick=mekker", ""]
 pre.rss = ["http://hnrss.org/newest", ""]
 pre.tdo = ["mekker", ""]
+pre.imp = ["tests/feeds.opml", ""]
 
 
-class CLI(Buffered):
+post = Object()
+post.exp = ['']
+post.dne = ["hnrss", ""]
+post.rem = ["hnrss", ""]
+
+
+class CLI(Client):
 
     def __init__(self):
-        Buffered.__init__(self)
+        Client.__init__(self)
         self.register("command", command)
 
     def raw(self, txt):
@@ -104,7 +109,7 @@ def payload(clt, cmds):
     nmr = 0
     for cmd, examples in items(cmds):
         for example in examples:
-            event = Message()
+            event = Event()
             event.txt = cmd + " " + example
             event.type = "command"
             events.append(event)
@@ -134,9 +139,8 @@ def main():
     global nrs
     global nrcommand
     parse(cfg, " ".join(sys.argv[1:]))
-    for mod in Table.all(MODS):
-        Commands.scan(mod)
-        mod.DEBUG = True
+    for mod in scan(MODS):
+        mod.debug = True
     nrcommand = len(Commands.cmds) or 1
     if "v" in cfg.opts:
         banner()
@@ -152,15 +156,16 @@ def main():
     for _nr in range(nrs):
         thrs.append(launch(payload, clt, pre))
     for thr in thrs:
-        thr.join()
+       thr.join()
     for _nr in range(nrs):
         thrs.append(launch(payload, clt, param))
     for thr in thrs:
-        thr.join()
+       thr.join()
+    for _nr in range(nrs):
+        thrs.append(launch(payload, clt, post))
+    for thr in thrs:
+       thr.join()
     consume(events)
-    clt.stop()
-    if "w" in cfg.opts:
-        clt.wait()
 
 
 if __name__ == "__main__":
@@ -171,14 +176,10 @@ if __name__ == "__main__":
     if "b" in cfg.opts:
         Thread.bork = True
     if "v" in cfg.opts:
-        if not list(errors()):
+        if not list(Errors.errors):
             print("no errors")
-        for line in errors():
+        for line in Errors.errors:
             print(line)
-        if events:
-            for evt in events:
-                print(evt)
-            print(f"{len(events)} events")
         print(f"{lap} {nrs} {nrcommand} {percall}")
     sys.stdout.flush()
     sys.exit(0)

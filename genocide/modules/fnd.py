@@ -1,16 +1,17 @@
 # This file is placed in the Public Domain.
 
 
-"locate objects"
+"find"
 
 
 import time
 
 
-from ..locater import find, fntime
-from ..objects import fmt
-from ..workdir import long, skel, types
-from ..utility import elapsed
+from ..find   import find, fntime, long, skel, types
+from ..object import fmt
+
+
+from .command  import elapsed
 
 
 def fnd(event):
@@ -28,9 +29,3 @@ def fnd(event):
         nmr += 1
     if not nmr:
         event.reply("no result")
-
-
-def __dir__():
-    return (
-        'fnd',
-    )

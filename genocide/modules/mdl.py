@@ -1,21 +1,20 @@
 # This file is placed in the Public Domain.
 
 
-"Genocide model of the netherlands since 4 March 2019"
+"Genocide model of the Netherlands since 4 March 2019"
 
 
 import datetime
 import time
 
 
-from ..message import Message
-from ..objects import Object, construct, keys
-from ..reactor import Fleet
-from ..threads import Repeater
-from ..utility import elapsed
+from ..event    import Event
+from ..fleet    import Fleet
+from ..object   import Object, construct, keys
+from ..repeater import Repeater
 
 
-"defines"
+from .command import elapsed
 
 
 DAY = 24*60*60
@@ -25,24 +24,18 @@ STARTDATE = "2019-03-04 00:00:00"
 STARTTIME = time.mktime(time.strptime(STARTDATE, "%Y-%m-%d %H:%M:%S"))
 
 
-"init"
-
-
 def init():
     for key in keys(oorzaken):
         if "Psych" not in key:
             continue
         val = getattr(oorzaken, key, None)
         if val and int(val) > 10000:
-            evt = Message()
+            evt = Event()
             evt.txt = ""
             evt.rest = key
             sec = seconds(val)
             repeater = Repeater(sec, cbstats, evt, thrname=aliases.get(key))
             repeater.start()
-
-
-"model"
 
 
 oor = """"Totaal onderliggende doodsoorzaken (aantal)";
@@ -321,14 +314,14 @@ def iswanted(k, line):
 def daily():
     while 1:
         time.sleep(24*60*60)
-        evt = Message()
+        evt = Event()
         cbnow(evt)
 
 
 def hourly():
     while 1:
         time.sleep(60*60)
-        evt = Message()
+        evt = Event()
         cbnow(evt)
 
 

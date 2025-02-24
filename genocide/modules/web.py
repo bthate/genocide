@@ -12,12 +12,21 @@ import time
 from http.server  import HTTPServer, BaseHTTPRequestHandler
 
 
-from ..errors import later
-from ..object import Default, Object
-from ..thread import launch
+from ..errors  import later
+from ..object  import Default, Object
+from ..thread  import launch
 
 
+a = os.path.abspath
+d = os.path.dirname
+p = os.path.join
+
+
+BASE = p(d(d(__file__)), "html", "")
 DEBUG = False
+
+
+"init"
 
 
 def init():
@@ -31,15 +40,32 @@ def init():
     return rest
 
 
+def html2(txt):
+    return """<!doctype html>
+<html>
+   %s
+</html>
+""" % txt
+
+
+"exceptions"
+
+
 class WebError(Exception):
 
     pass
+
+
+"config"
 
 
 class Config(Default):
 
     hostname = "localhost"
     port     = 8000
+
+
+"rest"
 
 
 class HTTP(HTTPServer, Object):
@@ -89,7 +115,10 @@ class HTTPHandler(BaseHTTPRequestHandler):
 
     def write_header(self, htype='text/plain', size=None):
         self.send_response(200)
-        #self.send_header('Content-type', '%s; charset=%s ' % (htype, "utf-8"))
+        #self.send_header(
+        #                  'Content-type',
+        #                  '%s; charset=%s ' % (htype, "utf-8")
+        #                 )
         self.send_header('Content-type', '%s;')
         if size is not None:
             self.send_header('Content-length', size)
@@ -106,27 +135,37 @@ class HTTPHandler(BaseHTTPRequestHandler):
             return
         if self.path == "/":
             self.path = "/index.html"
-        self.path = "html" + os.sep + self.path
-        if not os.path.exists(self.path):
+        path = a(BASE + self.path)
+        print(path)
+        if not os.path.exists(path):
             self.write_header("text/html")
             self.send_response(404)
             self.end_headers()
             return
         if "_images" in self.path:
             try:
-                with open(self.path, "rb") as file:
+                with open(path, "rb") as file:
                     img = file.read()
                     file.close()
                 ext = self.path[-3]
                 self.write_header(f"image/{ext}", len(img))
                 self.raw(img)
-            except (TypeError, FileNotFoundError, IsADirectoryError) as ex:
+            except (
+                    TypeError,
+                    FileNotFoundError,
+                    IsADirectoryError
+                   ) as ex:
                 self.send_response(404)
                 later(ex)
                 self.end_headers()
             return
         try:
-            with open(self.path, "r", encoding="utf-8", errors="ignore") as file:
+            with open(
+                      path,
+                      "r",
+                      encoding="utf-8",
+                      errors="ignore"
+                     ) as file:
                 txt = file.read()
                 file.close()
             self.write_header("text/html")
@@ -135,11 +174,3 @@ class HTTPHandler(BaseHTTPRequestHandler):
             self.send_response(404)
             later(ex)
             self.end_headers()
-
-
-def html2(txt):
-    return """<!doctype html>
-<html>
-   %s
-</html>
-""" % txt

@@ -6,11 +6,10 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 
-
 [project]
 name = "genocide"
-description = "Since 4 march 2019"
-version = "220"
+description = "Since 4 march 2019."
+version = "203"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]

@@ -1,1 +1,1 @@
-python3 -m genocide.run $* ;
+python3 -m genocide $* ;

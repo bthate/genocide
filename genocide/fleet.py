@@ -1,7 +1,13 @@
 # This file is placed in the Public Domain.
 
 
-"list of bots"
+"list of clients"
+
+
+import threading
+
+
+outlock = threading.RLock()
 
 
 class Fleet:
@@ -19,9 +25,10 @@ class Fleet:
 
     @staticmethod
     def display(evt) -> None:
-        for tme in sorted(evt.result):
-            text = evt.result[tme]
-            Fleet.say(evt.orig, evt.channel, text)
+        with outlock:
+            for tme in sorted(evt.result):
+                Fleet.say(evt.orig, evt.channel, evt.result[tme])
+            evt.ready()
 
     @staticmethod
     def first() -> None:

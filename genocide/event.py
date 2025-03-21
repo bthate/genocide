@@ -24,10 +24,7 @@ class Event(Default):
         self.txt    = ""
 
     def display(self):
-        for tme in sorted(self.result):
-            text = self.result[tme]
-            Fleet.say(self.orig, self.channel, text)
-        self.ready()
+        Fleet.display(self)
 
     def done(self) -> None:
         self.reply("ok")

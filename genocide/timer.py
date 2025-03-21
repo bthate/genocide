@@ -1,19 +1,21 @@
 # This file is placed in the Public Domain.
 
 
-"timer"
+"time related functions"
 
 
 import threading
 import time
 
 
+from .object import Object
 from .thread import launch, name
 
 
-class Timer:
+class Timer(Object):
 
     def __init__(self, sleep, func, *args, thrname=None, **kwargs):
+        Object.__init__(self)
         self.args   = args
         self.func   = func
         self.kwargs = kwargs
@@ -24,7 +26,7 @@ class Timer:
 
     def run(self) -> None:
         self.state["latest"] = time.time()
-        launch(self.func, *self.args)
+        self.func(*self.args)
 
     def start(self) -> None:
         timer = threading.Timer(self.sleep, self.run)
@@ -42,7 +44,15 @@ class Timer:
             self.timer.cancel()
 
 
+class Repeater(Timer):
+
+    def run(self) -> None:
+        launch(self.start)
+        super().run()
+
+
 def __dir__():
     return (
-        'Timer',
+        'Repeater',
+        'Timer'
     )

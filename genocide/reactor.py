@@ -9,12 +9,11 @@ import threading
 import _thread
 
 
-from .errors import later
-from .fleet  import Fleet
+from .error  import later
 from .thread import launch
 
 
-cblock = threading.RLock()
+lock = threading.RLock()
 
 
 class Reactor:
@@ -26,29 +25,27 @@ class Reactor:
         self.stopped = threading.Event()
 
     def callback(self, evt) -> None:
-        with cblock:
+        with lock:
             func = self.cbs.get(evt.type, None)
             if not func:
                 evt.ready()
                 return
             try:
-                evt._thr = launch(func, evt, name=evt.cmd or evt.txt)
+                evt._thr = launch(func, evt, name=evt.cmd)
             except Exception as ex:
                 later(ex)
                 evt.ready()
 
     def loop(self) -> None:
-        evt = None
         while not self.stopped.is_set():
+            evt = self.poll()
+            if evt is None:
+                break
+            evt.orig = repr(self)
             try:
-                evt = self.poll()
-                if evt is None:
-                    break
-                evt.orig = repr(self)
                 self.callback(evt)
-            except (KeyboardInterrupt, EOFError):
-                if evt:
-                    evt.ready()
+            except Exception as ex:
+                later(ex)
                 _thread.interrupt_main()
         self.ready.set()
 
@@ -74,24 +71,7 @@ class Reactor:
         self.ready.wait()
 
 
-class Client(Reactor):
-
-    def __init__(self):
-        Reactor.__init__(self)
-        Fleet.add(self)
-
-    def announce(self, txt):
-        pass
-
-    def raw(self, txt) -> None:
-        raise NotImplementedError("raw")
-
-    def say(self, channel, txt) -> None:
-        self.raw(txt)
-
-
 def __dir__():
     return (
-        'Client',
-        'Reactor'
+        'Reactor',
     )

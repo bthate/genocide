@@ -1,21 +1,17 @@
 # This file is placed in the Public Domain.
 
 
-"disk"
+"read/write"
 
 
-import datetime
-import os
 import json
 import pathlib
 import threading
 
 
-from .cache  import Cache
-from .object import dumps, fqn, loads, update
+from .object import loads, dumps, update
 
 
-p    = os.path.join
 lock = threading.RLock()
 
 
@@ -27,10 +23,6 @@ class DecodeError(Exception):
 def cdir(pth) -> None:
     path = pathlib.Path(pth)
     path.parent.mkdir(parents=True, exist_ok=True)
-
-
-def ident(obj) -> str:
-    return p(fqn(obj),*str(datetime.datetime.now()).split())
 
 
 def read(obj, pth):
@@ -48,7 +40,6 @@ def write(obj, pth):
     with lock:
         cdir(pth)
         txt = dumps(obj, indent=4)
-        Cache.objs[pth] = obj
         with open(pth, 'w', encoding='utf-8') as ofile:
             ofile.write(txt)
     return pth

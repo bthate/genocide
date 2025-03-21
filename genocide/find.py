@@ -1,65 +1,24 @@
 # This file is placed in the Public Domain.
 
 
-"find objects"
+"locate objects"
 
 
+import datetime
 import os
-import pathlib
 import time
 
 
-from .disk   import read
-from .cache  import Cache
-from .object import Object, fqn, items, update
+from .cache   import Cache
+from .disk    import read
+from .object  import Object, fqn, items, update
+from .workdir import long, skel, store
 
 
 p = os.path.join
 
 
-class Workdir:
-
-    name = __file__.rsplit(os.sep, maxsplit=2)[-2]
-    wdr  = ""
-
-
-def long(name) -> str:
-    split = name.split(".")[-1].lower()
-    res = name
-    for names in types():
-        if split == names.split(".")[-1].lower():
-            res = names
-            break
-    return res
-
-
-def pidname(name) -> str:
-    return p(Workdir.wdr, f"{name}.pid")
-
-
-def skel() -> str:
-    path = pathlib.Path(store())
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
-def store(pth="") -> str:
-    return p(Workdir.wdr, "store", pth)
-
-
-def strip(pth, nmr=2) -> str:
-    return os.sep.join(pth.split(os.sep)[-nmr:])
-
-
-def types() -> [str]:
-    return os.listdir(store())
-
-
-"find"
-
-
 def fns(clz) -> [str]:
-    dname = ''
     pth = store(clz)
     for rootdir, dirs, _files in os.walk(pth, topdown=False):
         if dirs:
@@ -72,6 +31,7 @@ def fns(clz) -> [str]:
 
 def fntime(daystr) -> int:
     datestr = ' '.join(daystr.split(os.sep)[-2:])
+    datestr = datestr.replace("_", " ")
     if '.' in datestr:
         datestr, rest = datestr.rsplit('.', 1)
     else:
@@ -86,21 +46,25 @@ def find(clz, selector=None, deleted=False, matching=False) -> [Object]:
     skel()
     res = []
     clz = long(clz)
-    for fnm in fns(clz):
-        obj = Cache.get(fnm)
+    for pth in fns(clz):
+        obj = Cache.get(pth)
         if not obj:
             obj = Object()
-            read(obj, fnm)
-            Cache.add(fnm, obj)
+            read(obj, pth)
+            Cache.add(pth, obj)
         if not deleted and '__deleted__' in dir(obj) and obj.__deleted__:
             continue
         if selector and not search(obj, selector, matching):
             continue
-        res.append((fnm, obj))
+        res.append((pth, obj))
     return sorted(res, key=lambda x: fntime(x[0]))
 
 
 "methods"
+
+
+def ident(obj) -> str:
+    return p(fqn(obj),*str(datetime.datetime.now()).split())
 
 
 def last(obj, selector=None) -> Object:
@@ -138,13 +102,10 @@ def search(obj, selector, matching=None) -> bool:
 
 def __dir__():
     return (
-        'Workdir',
         'fns',
         'fntime',
         'find',
         'last',
-        'pidname',
-        'search',
-        'skel',
-        'types'
+        'ident',
+        'search'
     )

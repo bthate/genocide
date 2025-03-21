@@ -8,14 +8,13 @@ import queue
 import threading
 import time
 import typing
+import _thread
 
 
-from .errors import later
+from .error import later
 
 
 class Thread(threading.Thread):
-
-    bork = False
 
     def __init__(self, func, thrname, *args, daemon=True, **kwargs):
         super().__init__(None, self.run, name, (), {}, daemon=daemon)
@@ -27,15 +26,12 @@ class Thread(threading.Thread):
         self.queue.put((func, args))
 
     def run(self) -> None:
-        func, args = self.queue.get()
         try:
+            func, args = self.queue.get()
             self.result = func(*args)
         except Exception as ex:
-            if Thread.bork:
-                raise ex
-            later(ex)
-            if args and "ready" in dir(args[0]):
-                args[0].ready()
+           later(ex)
+           _thread.interrupt_main()
 
     def join(self, timeout=None) -> typing.Any:
         super().join(timeout)
@@ -66,7 +62,7 @@ def name(obj) -> str:
 
 def __dir__():
     return (
-        'Repeater',
-        'Timer',
-        'launch'
+        'Thread',
+        'launch',
+        'name'
     )

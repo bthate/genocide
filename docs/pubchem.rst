@@ -78,3 +78,7 @@
 .. image:: abilifypubchem.png
      :width: 100%
 
+
+.. raw:: html
+
+    <br><br>

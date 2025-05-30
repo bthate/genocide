@@ -77,6 +77,3 @@
 
 .. image:: ECHAabilify.png
      :width: 100%
-
-
-the same skull and bones can be found on :ref:`PUBCHEM <pubchem>`

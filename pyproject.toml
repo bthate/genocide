@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "genocide"
 description = "Since 4 march 2019."
-version = "204"
+version = "206"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]
@@ -37,8 +37,8 @@ classifiers = [
 [tool.setuptools]
 packages = [
     'genocide',
-    'genocide.pdf',
     'genocide.html',
+    'genocide.html.pdf',
     'genocide.html._static',
     'genocide.html._images',
     'genocide.modules'
@@ -47,7 +47,7 @@ include-package-data = true
 
 
 [tool.setuptools.package-data]
-"genocide.pdf"          = ["*"]
 "genocide.html"         = ["*"]
+"genocide.html.pdf"     = ["*"]
 "genocide.html._images" = ["*"]
 "genocide.html._static" = ["*"]

@@ -20,7 +20,7 @@ class Client(Handler):
         Handler.__init__(self)
         self.olock = threading.RLock()
         self.oqueue = queue.Queue()
-        self.silent = False
+        self.silent = True
         Fleet.add(self)
 
     def announce(self, txt):

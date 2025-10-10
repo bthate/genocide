@@ -43,7 +43,7 @@ class Config:
     otxt = ""
     sets = {}
     verbose = False
-    version = 210
+    version = 211
     wdr = ""
 
 

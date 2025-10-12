@@ -42,6 +42,9 @@ def init():
 
 
 DEBUG = False
+URLS = [
+    "https://www.icc-cpi.int/rss/records/all",
+]
 
 
 fetchlock = _thread.allocate_lock()
@@ -139,8 +142,14 @@ class Fetcher(Object):
 
     def run(self, silent=False):
         thrs = []
-        for _fn, feed in find("rss"):
-            thrs.append(launch(self.fetch, feed, silent))
+        fed = Feed()
+        for url in URLS:
+            rss = Rss()
+            rss.name = "ICC"
+            rss.rss = url
+            thrs.append(launch(self.fetch, rss, silent))
+        for _fn, rss in find("rss"):
+            thrs.append(launch(self.fetch, rss, silent))
         return thrs
 
     def start(self, repeat=True):

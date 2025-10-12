@@ -155,6 +155,7 @@ def __dir__():
         'deleted',
         'edit',
         'fmt',
+        'name',
         'parse',
         'search'
     )

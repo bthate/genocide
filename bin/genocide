@@ -25,7 +25,7 @@ from genocide.workdir import Workdir, moddir, pidfile, pidname, setwd
 
 
 CHECKSUM = ""
-
+URL = "https://www.icc-cpi.int/rss/records/all"
 
 "config"
 
@@ -43,7 +43,7 @@ class Config:
     otxt = ""
     sets = {}
     verbose = False
-    version = 211
+    version = 212
     wdr = ""
 
 

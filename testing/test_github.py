@@ -7,7 +7,7 @@
 import unittest
 
 
-from mods.rss import Parser
+from genocide.modules.rss import Parser
 
 
 class TestAtom(unittest.TestCase):

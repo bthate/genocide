@@ -1,9 +1,10 @@
 # This file is placed in the Public Domain.
 
 
-from ..clients import Fleet
-from ..methods import fmt
-from ..threads import name
+from genocide.clients import Fleet
+
+
+from genocide.methods import fmt, name
 
 
 def flt(event):

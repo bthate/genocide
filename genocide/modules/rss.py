@@ -22,13 +22,15 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 
 
-from genocide.caching import find, last, write
 from genocide.clients import Fleet
-from genocide.methods import fmt
 from genocide.objects import Object, update
-from genocide.threads import Repeater, launch
-from genocide.utility import elapsed, fntime, spl
-from genocide.workdir import getpath
+from genocide.repeats import Repeater
+from genocide.threads import launch
+
+
+from genocide.methods import fmt
+from genocide.persist import find, fntime, getpath, last, write
+from genocide.utility import elapsed, spl
 
 
 def init():
@@ -42,9 +44,6 @@ def init():
 
 
 DEBUG = False
-URLS = [
-    "https://www.icc-cpi.int/rss/records/all",
-]
 
 
 fetchlock = _thread.allocate_lock()
@@ -142,14 +141,8 @@ class Fetcher(Object):
 
     def run(self, silent=False):
         thrs = []
-        fed = Feed()
-        for url in URLS:
-            rss = Rss()
-            rss.name = "ICC"
-            rss.rss = url
-            thrs.append(launch(self.fetch, rss, silent))
-        for _fn, rss in find("rss"):
-            thrs.append(launch(self.fetch, rss, silent))
+        for _fn, feed in find("rss.Rss"):
+            thrs.append(launch(self.fetch, feed, silent))
         return thrs
 
     def start(self, repeat=True):
@@ -367,7 +360,7 @@ def dpl(event):
         event.reply("dpl <stringinurl> <item1,item2>")
         return
     setter = {"display_list": event.args[1]}
-    for fnm, feed in find("rss", {"rss": event.args[0]}):
+    for fnm, feed in find("rss.Rss", {"rss": event.args[0]}):
         if feed:
             update(feed, setter)
             write(feed, fnm)
@@ -378,7 +371,7 @@ def exp(event):
     with importlock:
         event.reply(TEMPLATE)
         nrs = 0
-        for _fn, ooo in find("rss"):
+        for _fn, ooo in find("rss.Rss"):
             nrs += 1
             obj = Rss()
             update(obj, ooo)
@@ -411,7 +404,7 @@ def imp(event):
                 continue
             if not url.startswith("http"):
                 continue
-            has = list(find("rss", {"rss": url}, matching=True))
+            has = list(find("rss.Rss", {"rss": url}, matching=True))
             if has:
                 skipped.append(url)
                 nrskip += 1
@@ -433,7 +426,7 @@ def nme(event):
         event.reply("nme <stringinurl> <name>")
         return
     selector = {"rss": event.args[0]}
-    for fnm, fed in find("rss", selector):
+    for fnm, fed in find("rss.Rss", selector):
         feed = Rss()
         update(feed, fed)
         if feed:
@@ -446,7 +439,7 @@ def rem(event):
     if len(event.args) != 1:
         event.reply("rem <stringinurl>")
         return
-    for fnm, fed in find("rss"):
+    for fnm, fed in find("rss.Rss"):
         feed = Rss()
         update(feed, fed)
         if event.args[0] not in feed.rss:
@@ -462,7 +455,7 @@ def res(event):
     if len(event.args) != 1:
         event.reply("res <stringinurl>")
         return
-    for fnm, fed in find("rss", removed=True):
+    for fnm, fed in find("rss.Rss", removed=True):
         feed = Rss()
         update(feed, fed)
         if event.args[0] not in feed.rss:
@@ -476,7 +469,7 @@ def res(event):
 def rss(event):
     if not event.rest:
         nrs = 0
-        for fnm, fed in find("rss"):
+        for fnm, fed in find("rss.Rss"):
             nrs += 1
             elp = elapsed(time.time() - fntime(fnm))
             txt = fmt(fed)
@@ -488,7 +481,7 @@ def rss(event):
     if "http://" not in url and "https://" not in url:
         event.reply("i need an url")
         return
-    for fnm, result in find("rss", {"rss": url}):
+    for fnm, result in find("rss.Rss", {"rss": url}):
         if result:
             event.reply(f"{url} is known")
             return

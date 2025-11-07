@@ -8,10 +8,8 @@ import threading
 import time
 
 
-from ..utility import elapsed
-
-
-STARTTIME = time.time()
+from genocide.runtime import STARTTIME
+from genocide.utility import elapsed
 
 
 def thr(event):

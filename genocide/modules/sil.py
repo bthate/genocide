@@ -4,8 +4,8 @@
 "enable silence mode"
 
 
-from ..brokers import Fleet
- 
+from genocide.clients import Fleet
+
 
 def sil(event):
     bot = Fleet.get(event.orig)

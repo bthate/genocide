@@ -14,66 +14,58 @@ import threading
 import time
 
 
-from genocide.brokers import Fleet
-from genocide.caching import last, write
-from genocide.clients import Output
-from genocide.command import command
-from genocide.handler import Event as IEvent
-from genocide.methods import edit, fmt
+from genocide.clients import Fleet, Output
+from genocide.handler import Event
 from genocide.objects import Object, keys
 from genocide.threads import launch
-from genocide.utility import LEVELS
-from genocide.workdir import Workdir, getpath
 
 
-IGNORE = ["PING", "PONG", "PRIVMSG"]
-NAME   = Workdir.name
+from genocide.command import command
+from genocide.logging import LEVELS
+from genocide.methods import edit, fmt
+from genocide.persist import getpath, last, write
+from genocide.runtime import Config
+from genocide.utility import spl
 
 
-initlock = threading.RLock()
-saylock  = threading.RLock()
+IGNORE = ["PING", "PONG", "PRIVMSG"] 
+
+
+lock = threading.RLock()
 
 
 def init():
-    with initlock:
-        irc = IRC()
-        irc.start()
-        irc.events.joined.wait(30.0)
-        if irc.events.joined.is_set():
-            logging.warning(fmt(irc.cfg, skip=["password", "realname", "username"]))
-        else:
-            irc.stop()
-        return irc
-
-
-def rlog(loglevel, txt, ignore=None):
-    if ignore is None:
-        ignore = []
-    for ign in ignore:
-        if ign in str(txt):
-            return
-    logging.log(LEVELS.get(loglevel), txt)
+    irc = IRC()
+    irc.start()
+    irc.events.joined.wait(30.0)
+    if irc.events.joined.is_set():
+        logging.warning(fmt(irc.cfg, skip=["name", "password", "realname", "username"]))
+    else:
+        irc.stop()
+    return irc
 
 
 class Config:
 
-    channel = f"#{NAME}"
+    channel = f"#{Config.name}"
     commands = True
     control = "!"
-    nick = NAME
+    name = Config.name
+    nick = Config.name
     password = ""
     port = 6667
-    realname = NAME
+    realname = Config.name
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = NAME
+    username = Config.name
     users = False
 
     def __init__(self):
         self.channel = Config.channel
         self.commands = Config.commands
+        self.name = Config.name
         self.nick = Config.nick
         self.port = Config.port
         self.realname = Config.realname
@@ -81,7 +73,7 @@ class Config:
         self.username = Config.username
 
 
-class Event(IEvent):
+class Event(Event):
 
     def __init__(self):
         super().__init__()
@@ -89,11 +81,17 @@ class Event(IEvent):
         self.arguments = []
         self.command = ""
         self.channel = ""
+        self.gets = {}
         self.nick = ""
         self.origin = ""
         self.rawstr = ""
         self.rest = ""
+        self.sets = {}
         self.txt = ""
+
+    def dosay(self, txt):
+        bot = Fleet.get(self.orig)
+        bot.dosay(self.channel, txt)
 
 
 class TextWrap(textwrap.TextWrapper):
@@ -184,7 +182,7 @@ class IRC(Output):
         return False
 
     def direct(self, txt):
-        with saylock:
+        with lock:
             time.sleep(2.0)
             self.raw(txt)
 
@@ -215,7 +213,7 @@ class IRC(Output):
                 self.say(event.channel, f"use !mre to show more (+{length})")
 
     def docommand(self, cmd, *args):
-        with saylock:
+        with lock:
             if not args:
                 self.raw(cmd)
             elif len(args) == 1:
@@ -328,7 +326,7 @@ class IRC(Output):
         rawstr = str(txt)
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
-        logging.debug(txt)
+        rlog("debug", txt, IGNORE)
         obj = Event()
         obj.args = []
         obj.rawstr = rawstr
@@ -415,7 +413,7 @@ class IRC(Output):
 
     def raw(self, txt):
         txt = txt.rstrip()
-        rlog("info", txt, IGNORE)
+        rlog("debug", txt, IGNORE)
         txt = txt[:500]
         txt += "\r\n"
         txt = bytes(txt, "utf-8")
@@ -481,7 +479,6 @@ class IRC(Output):
         self.state.lastline = splitted[-1]
 
     def start(self):
-        last(self.cfg)
         if self.cfg.channel not in self.channels:
             self.channels.append(self.cfg.channel)
         self.events.ready.clear()
@@ -561,7 +558,7 @@ def cb_001(evt):
 def cb_notice(evt):
     bot = Fleet.get(evt.orig)
     if evt.txt.startswith("VERSION"):
-        txt = f"\001VERSION {NAME.upper()} 140 - {bot.cfg.username}\001"
+        txt = f"\001VERSION {Config.name.upper()} {Config.version} - {bot.cfg.username}\001"
         bot.docommand("NOTICE", evt.channel, txt)
 
 
@@ -610,6 +607,7 @@ def cfg(event):
     else:
         edit(config, event.sets)
         write(config, fnm or getpath(config))
+        event.reply("ok")
 
 
 def mre(event):
@@ -642,3 +640,15 @@ def pwd(event):
     base = base64.b64encode(enc)
     dcd = base.decode("ascii")
     event.reply(dcd)
+
+
+"utility"
+
+
+def rlog(loglevel, txt, ignore=None):
+    if ignore is None:
+        ignore = []
+    for ign in ignore:
+        if ign in str(txt):
+            return
+    logging.log(LEVELS.get(loglevel), txt)

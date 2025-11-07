@@ -7,9 +7,11 @@
 import time
 
 
-from genocide.caching import find, write
 from genocide.objects import Object
-from genocide.utility import elapsed, fntime
+
+
+from genocide.persist import find, fntime, write
+from genocide.utility import elapsed
 
 
 class Log(Object):

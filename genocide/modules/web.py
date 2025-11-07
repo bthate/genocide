@@ -14,15 +14,22 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
 from genocide.objects import Object
-from genocide.package import PATH
 from genocide.threads import launch
 
 
+d = os.path.dirname
+j = os.path.join
+
+
 DEBUG = False
-PATH = os.path.join(PATH, "network")
+PATH = d(d(__file__))
+PATH = j(PATH, "network", "html")
 
 
 def init():
+    if not os.path.exists(j(PATH, 'index.html')):
+        logging.warning("no index.html")
+        return
     try:
         server = HTTP((Cfg.hostname, int(Cfg.port)), HTTPHandler)
         server.start()

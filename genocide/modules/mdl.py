@@ -1,3 +1,4 @@
+
 # This file is placed in the Public Domain.
 
 
@@ -12,7 +13,9 @@ import time
 from genocide.clients import Fleet
 from genocide.handler import Event
 from genocide.objects import Object, construct, keys
-from genocide.threads import Repeater
+from genocide.repeats import Repeater
+
+
 from genocide.utility import elapsed
 
 

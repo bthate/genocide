@@ -4,8 +4,8 @@
 "show modules"
 
 
-from ..package import modules
 
 
 def mod(event):
+    from . import modules
     event.reply(",".join(modules()))

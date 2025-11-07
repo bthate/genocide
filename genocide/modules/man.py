@@ -49,7 +49,7 @@ I N S T A L L
 
     <new terminal>
 
-    $ genocide srv > tob.service
+    $ genocide srv > genocide.service
     $ sudo mv genocide.service /etc/systemd/system/
     $ sudo systemctl enable genocide --now
 
@@ -151,7 +151,7 @@ C O N F I G U R A T I O N
 P R O G R A M M I N G
 
 
-    genocide has it's modules in the ~/.tob/mods directory so for a hello world
+    genocide has it's modules in the ~/.genocide/mods directory so for a hello world
     command you would  edit a file in ~/.genocide/mods/hello.py and add the
     following
 

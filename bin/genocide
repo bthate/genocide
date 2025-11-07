@@ -16,24 +16,27 @@ sys.path.insert(0, os.getcwd())
 
 
 from genocide.clients import Client
-from genocide.command import Commands, Mods, command, inits, modules, scan, scanner
 from genocide.handler import Event
+from genocide.threads import launch
+
+
+from genocide.command import Commands, Mods, command, inits, modules
+from genocide.command import scan, scanner
+from genocide.command import parse
 from genocide.logging import level
-from genocide.methods import parse
 from genocide.persist import Workdir, moddir, pidname, skel
 from genocide.runtime import Config, check, daemon, forever, pidfile
 from genocide.runtime import privileges, wrap, wrapped
-from genocide.threads import launch
 
 
 import genocide.modules as MODS
 
 
-Config.name = "genocide"
-Config.version = 213
 Workdir.wdr = os.path.expanduser(f"~/.{Config.name}")
 
 
+Mods.add("local", "mods")
+Mods.add("mods", moddir())
 Mods.add("modules", MODS.__path__[0])
 
 

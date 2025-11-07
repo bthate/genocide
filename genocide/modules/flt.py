@@ -2,9 +2,10 @@
 
 
 from genocide.clients import Fleet
+from genocide.threads import name
 
 
-from genocide.methods import fmt, name
+from genocide.methods import fmt
 
 
 def flt(event):

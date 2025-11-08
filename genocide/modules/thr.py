@@ -8,8 +8,7 @@ import threading
 import time
 
 
-from genocide.daemons import STARTTIME
-from genocide.utility import elapsed
+from genocide.utility import STARTTIME, elapsed
 
 
 def thr(event):

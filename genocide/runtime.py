@@ -10,20 +10,15 @@ import time
 from genocide.clients import Client
 from genocide.command import Commands, Mods, command, inits, modules, scanner
 from genocide.command import parse
-from genocide.daemons import Config, check, daemon, forever, pidfile
-from genocide.daemons import privileges, wrap, wrapped
+from genocide.configs import Default
+from genocide.configs import Config
 from genocide.handler import Event
-from genocide.methods import Default
 from genocide.persist import Workdir, moddir, pidname
 from genocide.threads import level
+from genocide.utility import daemon, forever, pidfile, privileges
+
 
 import genocide.modules as MODS
-
-
-Config.name = "genocide"
-Config.opts = ""
-Config.sets = Default()
-Config.version = 220
 
 
 Mods.add("local", "mods")
@@ -153,6 +148,38 @@ WantedBy=multi-user.target"""
 
 def ver(event):
     event.reply(f"{Config.name.upper()} {Config.version}")
+
+
+def wrapped(func):
+    try:
+        func()
+    except (KeyboardInterrupt, EOFError):
+        pass
+
+
+def wrap(func):
+    import termios
+    old = None
+    try:
+        old = termios.tcgetattr(sys.stdin.fileno())
+    except termios.error:
+        pass
+    try:
+        wrapped(func)
+    finally:
+        if old:
+            termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old)
+
+
+def check(txt):
+    args = sys.argv[1:]
+    for arg in args:
+        if not arg.startswith("-"):
+            continue
+        for char in txt:
+            if char in arg:
+                return True
+    return False
 
 
 def main():

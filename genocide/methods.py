@@ -4,15 +4,9 @@
 "methods"
 
 
+from genocide.configs import Default
 from genocide.objects import Object, items
 from genocide.threads import name
-
-
-class Default(Object):
-
-    def __getattr__(self, key):
-        return self.__dict__.get(key, "")
-
 
 
 def edit(obj, setter, skip=True):

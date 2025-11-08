@@ -12,6 +12,7 @@ import sys
 
 
 from genocide.clients import Fleet
+from genocide.configs import Default
 from genocide.objects import Object
 from genocide.threads import launch
 
@@ -46,12 +47,6 @@ class Commands:
     @staticmethod
     def get(cmd):
         return Commands.cmds.get(cmd, None)
-
-
-class Default(Object):
-
-    def __getattr__(self, key):
-        return self.__dict__.get(key, "")
 
 
 def command(evt):

@@ -62,6 +62,7 @@ def values(obj) -> ValuesView:
 
 def __dir__():
     return (
+        'Default',
         'Object',
         'construct',
         'items',

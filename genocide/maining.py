@@ -15,6 +15,7 @@ from genocide.clients import Client
 from genocide.command import Commands, Mods, command, inits, modules, scan, scanner
 from genocide.command import parse
 from genocide.handler import Event
+from genocide.methods import Default
 from genocide.persist import Workdir, moddir, pidname, skel
 from genocide.runtime import Config, check, daemon, forever, level, pidfile
 from genocide.runtime import privileges, wrap, wrapped
@@ -25,6 +26,8 @@ import genocide.modules as MODS
 
 
 Config.name = "genocide"
+Config.opts = Default()
+Config.sets = Default()
 Config.version = 220
 
 

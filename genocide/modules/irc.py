@@ -15,7 +15,7 @@ import time
 
 
 from genocide.clients import Fleet, Output
-from genocide.handler import Event
+from genocide.handler import Event as IEvent
 from genocide.objects import Object, keys
 from genocide.threads import launch
 
@@ -23,7 +23,8 @@ from genocide.threads import launch
 from genocide.command import command
 from genocide.methods import edit, fmt
 from genocide.persist import getpath, last, write
-from genocide.runtime import LEVELS, Config
+from genocide.runtime import LEVELS
+from genocide.runtime import Config as MConfig
 from genocide.utility import spl
 
 
@@ -46,20 +47,21 @@ def init():
 
 class Config:
 
-    channel = f"#{Config.name}"
+    channel = f"#{MConfig.name}"
     commands = True
     control = "!"
-    name = Config.name
-    nick = Config.name
+    name = MConfig.name
+    nick = MConfig.name
     password = ""
     port = 6667
-    realname = Config.name
+    realname = MConfig.name
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = Config.name
+    username = MConfig.name
     users = False
+    version = MConfig.version
 
     def __init__(self):
         self.channel = Config.channel
@@ -72,7 +74,7 @@ class Config:
         self.username = Config.username
 
 
-class Event(Event):
+class Event(IEvent):
 
     def __init__(self):
         super().__init__()

@@ -7,7 +7,6 @@
 import unittest
 
 
-from genocide.marshal import dumps, loads
 from genocide.objects import Object, items, keys, update, values
 
 

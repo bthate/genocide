@@ -25,7 +25,6 @@ from genocide.methods import edit, fmt
 from genocide.persist import getpath, last, write
 from genocide.runtime import LEVELS
 from genocide.runtime import Config as MConfig
-from genocide.utility import spl
 
 
 IGNORE = ["PING", "PONG", "PRIVMSG"] 

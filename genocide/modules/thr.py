@@ -8,7 +8,7 @@ import threading
 import time
 
 
-from genocide.runtime import STARTTIME
+from genocide.daemons import STARTTIME
 from genocide.utility import elapsed
 
 

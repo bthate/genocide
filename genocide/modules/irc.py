@@ -17,13 +17,12 @@ import time
 from genocide.clients import Fleet, Output
 from genocide.handler import Event as IEvent
 from genocide.objects import Object, keys
-from genocide.threads import launch
+from genocide.threads import LEVELS, launch
 
 
 from genocide.command import command
 from genocide.methods import edit, fmt
 from genocide.persist import getpath, last, write
-from genocide.runtime import LEVELS
 from genocide.runtime import Config as MConfig
 
 

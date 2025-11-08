@@ -14,6 +14,29 @@ import _thread
 from typing import Any
 
 
+LEVELS = {
+    'debug': logging.DEBUG,
+    'info': logging.INFO,
+    'warning':logging. WARNING,
+    'warn': logging.WARNING,
+    'error': logging.ERROR,
+    'critical': logging.CRITICAL
+}
+
+
+class Logging:
+
+    datefmt = "%H:%M:%S"
+    format = "%(module).3s %(message)s"
+
+
+class Format(logging.Formatter):
+
+    def format(self, record):
+        record.module = record.module.upper()
+        return logging.Formatter.format(self, record)
+
+
 class Thread(threading.Thread):
 
     def __init__(self, func, *args, daemon=True, **kwargs):
@@ -46,6 +69,21 @@ def launch(func, *args, **kwargs) -> Thread:
     return thread
 
 
+def level(loglevel="debug"):
+    if loglevel != "none":
+        lvl = LEVELS.get(loglevel)
+        if not lvl:
+            return
+        logger = logging.getLogger()
+        for handler in logger.handlers:
+            logger.removeHandler(handler)
+        logger.setLevel(lvl)
+        formatter = Format(Logging.format, datefmt=Logging.datefmt)
+        ch = logging.StreamHandler()
+        ch.setFormatter(formatter)
+        logger.addHandler(ch)
+
+
 def name(obj, short=False) -> str:
     typ = type(obj)
     res = ""
@@ -74,8 +112,10 @@ def threadhook(args) -> None:
 
 def __dir__():
     return (
+        'LEVELS',
         'Thread',
         'excepthook',
         'launch',
+        'level',
         'name'
    )

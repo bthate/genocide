@@ -1,152 +1,166 @@
 # This file is placed in the Public Domain.
 
 
-"runtime"
-
-
-import logging 
+import logging
 import os
-import pathlib
 import sys
 import time
 
 
+from genocide.clients import Client
+from genocide.command import Commands, Mods, command, inits, modules, scanner
+from genocide.command import parse
+from genocide.daemons import Config, check, daemon, forever, pidfile
+from genocide.daemons import privileges, wrap, wrapped
+from genocide.handler import Event
+from genocide.methods import Default
+from genocide.persist import Workdir, moddir, pidname
+from genocide.threads import level
+
+import genocide.modules as MODS
 
 
-STARTTIME = time.time()
+Config.name = "genocide"
+Config.opts = ""
+Config.sets = Default()
+Config.version = 220
 
 
-class Config:
-
-    level = "warn"
-    name = os.path.dirname(__file__).split(os.sep)[-1]
-    version = 6
-
-
-def check(txt):
-    args = sys.argv[1:]
-    for arg in args:
-        if not arg.startswith("-"):
-            continue
-        for char in txt:
-            if char in arg:
-                return True
-    return False
+Mods.add("local", "mods")
+Mods.add("mods", moddir())
+Mods.add("modules", MODS.__path__[0])
+Mods.ignore = ["udp", "web", "rst"]
 
 
-def daemon(verbose=False):
-    pid = os.fork()
-    if pid != 0:
-        os._exit(0)
-    os.setsid()
-    pid2 = os.fork()
-    if pid2 != 0:
-        os._exit(0)
-    if not verbose:
-        with open('/dev/null', 'r', encoding="utf-8") as sis:
-            os.dup2(sis.fileno(), sys.stdin.fileno())
-        with open('/dev/null', 'a+', encoding="utf-8") as sos:
-            os.dup2(sos.fileno(), sys.stdout.fileno())
-        with open('/dev/null', 'a+', encoding="utf-8") as ses:
-            os.dup2(ses.fileno(), sys.stderr.fileno())
-    os.umask(0)
-    os.chdir("/")
-    os.nice(10)
+Workdir.wdr = os.path.expanduser(f"~/.{Config.name}")
 
 
-def forever():
-    while True:
-        try:
-            time.sleep(0.1)
-        except (KeyboardInterrupt, EOFError):
-            break
+class CLI(Client):
+
+    def __init__(self):
+        Client.__init__(self)
+        self.register("command", command)
+
+    def raw(self, txt):
+        print(txt.encode('utf-8', 'replace').decode("utf-8"))
 
 
-def pidfile(filename):
-    if os.path.exists(filename):
-        os.unlink(filename)
-    path2 = pathlib.Path(filename)
-    path2.parent.mkdir(parents=True, exist_ok=True)
-    with open(filename, "w", encoding="utf-8") as fds:
-        fds.write(str(os.getpid()))
+class Console(CLI):
 
-
-def privileges():
-    import getpass
-    import pwd
-    pwnam2 = pwd.getpwnam(getpass.getuser())
-    os.setgid(pwnam2.pw_gid)
-    os.setuid(pwnam2.pw_uid)
-
-
-def wrapped(func):
-    try:
-        func()
-    except (KeyboardInterrupt, EOFError):
-        pass
-
-
-def wrap(func):
-    import termios
-    old = None
-    try:
-        old = termios.tcgetattr(sys.stdin.fileno())
-    except termios.error:
-        pass
-    try:
-        wrapped(func)
-    finally:
-        if old:
-            termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old)
-
-
-LEVELS = {
-    'debug': logging.DEBUG,
-    'info': logging.INFO,
-    'warning':logging. WARNING,
-    'warn': logging.WARNING,
-    'error': logging.ERROR,
-    'critical': logging.CRITICAL
-}
-
-
-class Logging:
-
-    datefmt = "%H:%M:%S"
-    format = "%(module).3s %(message)s"
-
-
-class Format(logging.Formatter):
-
-    def format(self, record):
-        record.module = record.module.upper()
-        return logging.Formatter.format(self, record)
-
-
-def level(loglevel="debug"):
-    if loglevel != "none":
-        lvl = LEVELS.get(loglevel)
-        if not lvl:
+    def callback(self, event):
+        if not event.txt:
             return
-        logger = logging.getLogger()
-        for handler in logger.handlers:
-            logger.removeHandler(handler)
-        logger.setLevel(lvl)
-        formatter = Format(Logging.format, datefmt=Logging.datefmt)
-        ch = logging.StreamHandler()
-        ch.setFormatter(formatter)
-        logger.addHandler(ch)
+        super().callback(event)
+        event.wait()
+
+    def poll(self):
+        evt = Event()
+        evt.txt = input("> ")
+        evt.type = "command"
+        return evt
 
 
-def __dir__():
-    return (
-        'STARTTIME',
-        'check',
-        'daemon',
-        'forever',
-        'level',
-        'pidfile',
-        'privileges',
-        'wrap',
-        'wrapped'
-    )
+def banner(name, version):
+    tme = time.ctime(time.time()).replace("  ", " ")
+    logger = logging.getLogger()
+    print("%s %s since %s (%s)" % (
+                                   name.upper(),
+                                   version,
+                                   tme,
+                                   logging.getLevelName(logger.getEffectiveLevel())
+                                  ))
+    sys.stdout.flush()
+
+
+def background():
+    daemon(check("v"))
+    privileges()
+    level("debug")
+    scanner()
+    Commands.add(cmd, ver)
+    pidfile(pidname(Config.name))
+    inits(modules())
+    forever()
+
+
+def console():
+    import readline # noqa: F401
+    parse(Config, " ".join(sys.argv[1:]))
+    level(Config.sets.level or "warn")    
+    if "v" in Config.opts:
+        banner(Config.name, Config.version)
+    mods = []
+    if "a" in Config.opts:
+        mods = modules()
+    scanner(mods)
+    Commands.add(cmd, ver)
+    csl = Console()
+    for _mod, thr in inits(Config.sets.init or mods):
+        thr.join(30.0)
+    csl.start()
+    forever()
+
+
+def control():
+    if len(sys.argv) == 1:
+        return
+    scanner()
+    Commands.add(cmd, srv, ver)
+    csl = CLI()
+    csl.silent = False
+    evt = Event()
+    evt.orig = repr(csl)
+    evt.txt = " ".join(sys.argv[1:])
+    evt.type = "command"
+    command(evt)
+    evt.wait()
+
+
+def service():
+    privileges()
+    level("warn")
+    banner(Config.name, Config.version)
+    scanner()
+    Commands.add(cmd, ver)
+    pidfile(pidname(Config.name))
+    inits(modules())
+    forever()
+
+
+def cmd(event):
+    event.reply(",".join(sorted(Commands.names or Commands.cmds)))
+
+
+def srv(event):
+    import getpass
+    name = getpass.getuser()
+    event.reply(TXT % (Config.name.upper(), name, name, name, Config.name))
+
+
+TXT = """[Unit]
+Description=%s
+After=network-online.target
+
+[Service]
+Type=simple
+User=%s
+Group=%s
+ExecStart=/home/%s/.local/bin/%s -s
+
+[Install]
+WantedBy=multi-user.target"""
+
+
+def ver(event):
+    event.reply(f"{Config.name.upper()} {Config.version}")
+
+
+def main():
+    if check("c"):
+        wrap(console)
+    elif check("d"):
+        background()
+    elif check("s"):
+        wrapped(service)
+    else:
+        wrapped(control)

@@ -26,7 +26,7 @@ import genocide.modules as MODS
 
 
 Config.name = "genocide"
-Config.opts = Default()
+Config.opts = ""
 Config.sets = Default()
 Config.version = 220
 
@@ -82,7 +82,7 @@ def background():
     privileges()
     level("debug")
     scanner()
-    Commands.add(cmd)
+    Commands.add(cmd, ver)
     pidfile(pidname(Config.name))
     inits(modules())
     forever()
@@ -98,7 +98,7 @@ def console():
     if "a" in Config.opts:
         mods = modules()
     scanner(mods)
-    Commands.add(cmd)
+    Commands.add(cmd, ver)
     csl = Console()
     for _mod, thr in inits(Config.sets.init or mods):
         thr.join(30.0)
@@ -110,7 +110,7 @@ def control():
     if len(sys.argv) == 1:
         return
     scanner()
-    Commands.add(cmd, srv)
+    Commands.add(cmd, srv, ver)
     csl = CLI()
     evt = Event()
     evt.orig = repr(csl)
@@ -125,7 +125,7 @@ def service():
     level("warn")
     banner(Config.name, Config.version)
     scanner()
-    Commands.add(cmd)
+    Commands.add(cmd, ver)
     pidfile(pidname(Config.name))
     inits(modules())
     forever()
@@ -153,6 +153,10 @@ ExecStart=/home/%s/.local/bin/%s -s
 
 [Install]
 WantedBy=multi-user.target"""
+
+
+def ver(event):
+    event.reply(f"{Config.name.upper()} {Config.version}")
 
 
 def main():

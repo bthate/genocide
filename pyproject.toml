@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "genocide"
 description = "Since 4 march 2019"
-version = "213"
+version = "220"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]

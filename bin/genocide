@@ -20,8 +20,7 @@ from genocide.handler import Event
 from genocide.threads import launch
 
 
-from genocide.command import Commands, Mods, command, inits, modules
-from genocide.command import scan, scanner
+from genocide.command import Commands, Mods, command, inits, modules, scan, scanner
 from genocide.command import parse
 from genocide.logging import level
 from genocide.persist import Workdir, moddir, pidname, skel
@@ -38,6 +37,7 @@ Workdir.wdr = os.path.expanduser(f"~/.{Config.name}")
 Mods.add("local", "mods")
 Mods.add("mods", moddir())
 Mods.add("modules", MODS.__path__[0])
+Mods.ignore = ["udp", "web", "rst"]
 
 
 class CLI(Client):

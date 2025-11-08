@@ -10,7 +10,6 @@ import time
 from genocide.clients import Client
 from genocide.command import Commands, Mods, command, inits, modules, scanner
 from genocide.command import parse
-from genocide.configs import Default
 from genocide.configs import Config
 from genocide.handler import Event
 from genocide.persist import Workdir, moddir, pidname

@@ -5,7 +5,7 @@
 
 
 from genocide.configs import Default
-from genocide.objects import Object, items
+from genocide.objects import items
 from genocide.threads import name
 
 

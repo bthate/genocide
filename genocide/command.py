@@ -12,8 +12,6 @@ import sys
 
 
 from genocide.clients import Fleet
-from genocide.configs import Default
-from genocide.objects import Object
 from genocide.threads import launch
 
 

@@ -12,15 +12,13 @@ import _thread
 
 
 from genocide.clients import Client
-from genocide.handler import Event
-from genocide.threads import launch
-
-
 from genocide.command import Commands, Mods, command, inits, modules, scan, scanner
 from genocide.command import parse
+from genocide.handler import Event
 from genocide.persist import Workdir, moddir, pidname, skel
 from genocide.runtime import Config, check, daemon, forever, level, pidfile
 from genocide.runtime import privileges, wrap, wrapped
+from genocide.threads import launch
 
 
 import genocide.modules as MODS

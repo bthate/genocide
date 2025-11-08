@@ -18,7 +18,7 @@ import genocide
 import genocide.clients
 import genocide.command
 import genocide.handler
-import genocide.logging
+import genocide.maining
 import genocide.marshal
 import genocide.methods
 import genocide.objects
@@ -36,7 +36,7 @@ PACKAGE = [
     'clients',
     'command',
     'handler',
-    'logging',
+    'maining',
     'marshal',
     'methods',
     'objects',

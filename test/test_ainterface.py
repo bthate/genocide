@@ -17,14 +17,13 @@ sys.path.insert(0, os.getcwd())
 import genocide
 import genocide.clients
 import genocide.command
-import genocide.configs
 import genocide.handler
+import genocide.loggers
 import genocide.marshal
 import genocide.methods
 import genocide.objects
 import genocide.persist
 import genocide.repeats
-import genocide.runtime
 import genocide.threads
 import genocide.utility
 
@@ -35,14 +34,13 @@ from genocide.objects import *
 PACKAGE = [
     'clients',
     'command',
-    'configs',
     'handler',
+    'loggers',
     'marshal',
     'methods',
     'objects',
     'persist',
     'repeats',
-    'runtime',
     'threads',
     'utility'
 ]

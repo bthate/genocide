@@ -12,22 +12,17 @@ import sys
 
 
 from genocide.clients import Fleet
+from genocide.objects import Default
+from genocide.parsers import parse
 from genocide.threads import launch
 
 
-from genocide.methods import parse
+class Config(Default):
 
-
-class Mods:
-
-    dirs = {}
-    ignore = []
-
-    @staticmethod
-    def add(name, path=None):
-        if path is None:
-            path = name
-        Mods.dirs[name] = path
+    name = "genocide"
+    opts = ""
+    sets = Default()
+    version = 220
 
 
 class Commands:
@@ -45,6 +40,18 @@ class Commands:
     @staticmethod
     def get(cmd):
         return Commands.cmds.get(cmd, None)
+
+
+class Mods:
+
+    dirs = {}
+    ignore = []
+
+    @staticmethod
+    def add(name, path=None):
+        if path is None:
+            path = name
+        Mods.dirs[name] = path
 
 
 def command(evt):
@@ -113,6 +120,7 @@ def scan(module):
 def scanner(names=[]):
     if not names:
         names = modules()
+    mods = []
     for name in names:
         if name in Mods.ignore:
             continue
@@ -124,12 +132,16 @@ def scanner(names=[]):
             mname = ".".join((pkgname, name))
             mod = importer(mname, modpath)
             if mod:
+                mods.append(mod)
                 scan(mod)
+    return mods
 
 
 def __dir__():
     return (
         'Comamnds',
+        'Config',
+        'Mods',
         'command',
         'importer',
         'modules',

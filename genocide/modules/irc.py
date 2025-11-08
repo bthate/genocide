@@ -15,15 +15,14 @@ import time
 
 
 from genocide.clients import Fleet, Output
-from genocide.handler import Event as IEvent
-from genocide.objects import Object, keys
-from genocide.threads import LEVELS, launch
-
-
+from genocide.command import Config as MConfig
 from genocide.command import command
+from genocide.handler import Event as IEvent
+from genocide.loggers import LEVELS
 from genocide.methods import edit, fmt
+from genocide.objects import Object, keys
 from genocide.persist import getpath, last, write
-from genocide.runtime import Config as MConfig
+from genocide.threads import launch
 
 
 IGNORE = ["PING", "PONG", "PRIVMSG"] 

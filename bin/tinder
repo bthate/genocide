@@ -19,14 +19,11 @@ sys.path.insert(0, os.getcwd())
 
 
 from genocide.clients import Client, Output, Pool
-from genocide.handler import Event
-from genocide.threads import launch, threadhook
-
-
 from genocide.command import Mods, command, parse, scan, scanner
-from genocide.logging import level
+from genocide.handler import Event
 from genocide.persist import Workdir, moddir, skel
-from genocide.runtime import Config, check
+from genocide.runtime import Config, check, level
+from genocide.threads import launch, threadhook
 from genocide.utility import elapsed
 
 
@@ -154,7 +151,7 @@ examples = {
 
 pre = {
     "cfg": ["", "nick=mekker"],
-    "imp": ["", "tests/feeds.opml"],
+    "imp": ["", "test/feeds.opml"],
     "log": ["", "bla"],
     "rss": ["","http://hnrss.org/newest"],
     "tdo": ["", "mekker"]

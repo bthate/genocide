@@ -31,13 +31,17 @@ from genocide.runtime import privileges, wrap, wrapped
 import genocide.modules as MODS
 
 
-Workdir.wdr = os.path.expanduser(f"~/.{Config.name}")
+Config.name = "genocide"
+Config.version = 220
 
 
 Mods.add("local", "mods")
 Mods.add("mods", moddir())
 Mods.add("modules", MODS.__path__[0])
 Mods.ignore = ["udp", "web", "rst"]
+
+
+Workdir.wdr = os.path.expanduser(f"~/.{Config.name}")
 
 
 class CLI(Client):

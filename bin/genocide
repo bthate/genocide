@@ -1,172 +1,18 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 
 # This file is placed in the Public Domain.
 
 
-import inspect
-import json
-import logging
+"call into maining"
+
+
 import os
 import sys
-import threading
-import time
-import _thread
 
 
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.clients import Client
-from genocide.handler import Event
-from genocide.threads import launch
-
-
-from genocide.command import Commands, Mods, command, inits, modules, scan, scanner
-from genocide.command import parse
-from genocide.persist import Workdir, moddir, pidname, skel
-from genocide.runtime import Config, check, daemon, forever, level, pidfile
-from genocide.runtime import privileges, wrap, wrapped
-
-
-import genocide.modules as MODS
-
-
-Config.name = "genocide"
-Config.version = 220
-
-
-Mods.add("local", "mods")
-Mods.add("mods", moddir())
-Mods.add("modules", MODS.__path__[0])
-Mods.ignore = ["udp", "web", "rst"]
-
-
-Workdir.wdr = os.path.expanduser(f"~/.{Config.name}")
-
-
-class CLI(Client):
-
-    def __init__(self):
-        Client.__init__(self)
-        self.register("command", command)
-
-    def raw(self, txt):
-        print(txt.encode('utf-8', 'replace').decode("utf-8"))
-
-
-class Console(CLI):
-
-    def callback(self, event):
-        if not event.txt:
-            return
-        super().callback(event)
-        event.wait()
-
-    def poll(self):
-        evt = Event()
-        evt.txt = input("> ")
-        evt.type = "command"
-        return evt
-
-
-def banner(name, version):
-    tme = time.ctime(time.time()).replace("  ", " ")
-    logger = logging.getLogger()
-    print("%s %s since %s (%s)" % (
-                                   name.upper(),
-                                   version,
-                                   tme,
-                                   logging.getLevelName(logger.getEffectiveLevel())
-                                  ))
-    sys.stdout.flush()
-
-
-def background():
-    daemon(check("v"))
-    privileges()
-    level("debug")
-    scanner()
-    Commands.add(cmd)
-    pidfile(pidname(Config.name))
-    inits(modules())
-    forever()
-
-
-def console():
-    import readline # noqa: F401
-    parse(Config, " ".join(sys.argv[1:]))
-    level(Config.sets.level or "warn")    
-    if "v" in Config.opts:
-        banner(Config.name, Config.version)
-    mods = []
-    if "a" in Config.opts:
-        mods = modules()
-    scanner(mods)
-    Commands.add(cmd)
-    csl = Console()
-    for _mod, thr in inits(Config.sets.init or mods):
-        thr.join(30.0)
-    csl.start()
-    forever()
-
-
-def control():
-    if len(sys.argv) == 1:
-        return
-    scanner()
-    Commands.add(cmd, srv)
-    csl = CLI()
-    evt = Event()
-    evt.orig = repr(csl)
-    evt.txt = " ".join(sys.argv[1:])
-    evt.type = "command"
-    command(evt)
-    evt.wait()
-
-
-def service():
-    privileges()
-    level("warn")
-    banner(Config.name, Config.version)
-    scanner()
-    Commands.add(cmd)
-    pidfile(pidname(Config.name))
-    inits(modules())
-    forever()
-
-
-def cmd(event):
-    event.reply(",".join(sorted(Commands.names or Commands.cmds)))
-
-
-def srv(event):
-    import getpass
-    name = getpass.getuser()
-    event.reply(TXT % (Config.name.upper(), name, name, name, Config.name))
-
-
-TXT = """[Unit]
-Description=%s
-After=network-online.target
-
-[Service]
-Type=simple
-User=%s
-Group=%s
-ExecStart=/home/%s/.local/bin/%s -s
-
-[Install]
-WantedBy=multi-user.target"""
-
-
-def main():
-    if check("c"):
-        wrap(console)
-    elif check("d"):
-        background()
-    elif check("s"):
-        wrapped(service)
-    else:
-        wrapped(control)
+from genocide.maining import main
 
 
 if __name__ == "__main__":

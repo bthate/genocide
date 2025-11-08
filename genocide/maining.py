@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # This file is placed in the Public Domain.
 
 
@@ -10,9 +9,6 @@ import sys
 import threading
 import time
 import _thread
-
-
-sys.path.insert(0, os.getcwd())
 
 
 from genocide.clients import Client
@@ -167,7 +163,3 @@ def main():
         wrapped(service)
     else:
         wrapped(control)
-
-
-if __name__ == "__main__":
-    main()

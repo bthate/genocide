@@ -21,10 +21,9 @@ from genocide.threads import launch
 
 
 from genocide.command import command
-from genocide.logging import LEVELS
 from genocide.methods import edit, fmt
 from genocide.persist import getpath, last, write
-from genocide.runtime import Config
+from genocide.runtime import LEVELS, Config
 from genocide.utility import spl
 
 

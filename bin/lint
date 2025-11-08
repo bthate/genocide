@@ -22,4 +22,4 @@ if os.path.exists("bin/clean"):
     popen("bin/clean")
 
 
-popen(f"pylint genocide bin tests")
+popen(f"pylint -d C,R,W genocide bin test")

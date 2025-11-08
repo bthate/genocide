@@ -5,6 +5,7 @@
 
 
 from genocide.objects import Object, items
+from genocide.threads import name
 
 
 class Default(Object):

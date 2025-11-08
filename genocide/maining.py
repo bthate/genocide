@@ -112,6 +112,7 @@ def control():
     scanner()
     Commands.add(cmd, srv, ver)
     csl = CLI()
+    csl.silent = False
     evt = Event()
     evt.orig = repr(csl)
     evt.txt = " ".join(sys.argv[1:])

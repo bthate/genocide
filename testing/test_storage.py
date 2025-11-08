@@ -10,22 +10,26 @@ sys.path.insert(0, ".")
 
 
 from genocide.objects import Object
-from genocide.caching import Cache, write
-from genocide.workdir import Workdir, store
+from genocide.persist import Cache, Workdir, store, write
 
 
-import genocide.caching
+import genocide.persist
 
 
 Workdir.wdr = '.test'
 
 
 ATTRS1 = (
-          'Cache',
-          'find',
-          'last',
-          'read',
-          'write'
+         'Cache',
+         'Workdir',
+         'cdir',
+         'find',
+         'fntime',
+         'fqn',
+         'read',
+         'skel',
+         'types',
+         'write'
          )
 
 
@@ -42,7 +46,7 @@ class TestStorage(unittest.TestCase):
 
     def test_dirmodule(self):
         self.assertEqual(
-                         dir(genocide.caching),
+                         dir(genocide.persist),
                          list(ATTRS1)
                         )
 

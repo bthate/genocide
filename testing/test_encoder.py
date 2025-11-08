@@ -4,8 +4,8 @@
 import unittest
 
 
+from genocide.marshal import dumps
 from genocide.objects import Object
-from genocide.serials import dumps
 
 
 VALIDJSON = '{"test": "bla"}'

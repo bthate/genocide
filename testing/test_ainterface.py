@@ -15,36 +15,36 @@ sys.path.insert(0, os.getcwd())
 
 
 import genocide
-import genocide.brokers
-import genocide.caching
 import genocide.clients
 import genocide.command
 import genocide.handler
+import genocide.logging
+import genocide.marshal
 import genocide.methods
 import genocide.objects
-import genocide.package
-import genocide.serials
+import genocide.persist
+import genocide.repeats
+import genocide.runtime
 import genocide.threads
 import genocide.utility
-import genocide.workdir
 
 
 from genocide.objects import *
 
 
 PACKAGE = [
-    'brokers',
-    'caching',
     'clients',
     'command',
     'handler',
+    'logging',
+    'marshal',
     'methods',
     'objects',
-    'package',
-    'serials',
+    'persist',
+    'repeats',
+    'runtime',
     'threads',
-    'utility',
-    'workdir'
+    'utility'
 ]
 
 

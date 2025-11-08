@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.caching import Cache
+from genocide.persist import Cache
 
 
 class TestPersist(unittest.TestCase):

@@ -5,7 +5,7 @@ import unittest
 
 
 from genocide.objects import Object
-from genocide.caching import Cache, read, write
+from genocide.persist import Cache, read, write
 
 
 class TestComposite(unittest.TestCase):

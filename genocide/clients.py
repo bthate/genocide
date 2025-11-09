@@ -8,9 +8,17 @@ import queue
 import threading
 
 
-from genocide.handler import Handler
-from genocide.objects import Object, values
-from genocide.threads import launch
+from .handler import Handler
+from .objects import Default, Object, values
+from .threads import launch
+
+
+class Config(Default):
+
+    name = "genocide"
+    opts = ""
+    sets = Default()
+    version = 220
 
 
 class Client(Handler):

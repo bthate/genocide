@@ -144,8 +144,8 @@ def __dir__():
         'extract_date',
         'daemon',
         'forever',
+        'md5sum',
         'pidfile',
         'privileges',
-        'md5sum',
         'spl'
    )

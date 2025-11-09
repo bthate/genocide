@@ -9,8 +9,8 @@ import threading
 import time
 
 
-from genocide.objects import Object
-from genocide.threads import launch
+from .objects import Object
+from .threads import launch
 
 
 class Event:

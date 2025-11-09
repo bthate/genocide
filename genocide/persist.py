@@ -12,8 +12,8 @@ import threading
 import time
 
 
-from genocide.marshal import dump, load
-from genocide.objects import Object, items, update
+from .marshal import dump, load
+from .objects import Object, items, update
 
 
 lock = threading.RLock()

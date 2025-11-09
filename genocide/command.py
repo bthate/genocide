@@ -11,18 +11,22 @@ import os
 import sys
 
 
-from genocide.clients import Fleet
-from genocide.objects import Default
-from genocide.parsers import parse
-from genocide.threads import launch
+from .clients import Fleet
+from .methods import parse
+from .objects import Default
+from .threads import launch
 
 
-class Config(Default):
+class Mods:
 
-    name = "genocide"
-    opts = ""
-    sets = Default()
-    version = 220
+    dirs = {}
+    ignore = []
+
+    @staticmethod
+    def add(name, path=None):
+        if path is None:
+            path = name
+        Mods.dirs[name] = path
 
 
 class Commands:
@@ -40,18 +44,6 @@ class Commands:
     @staticmethod
     def get(cmd):
         return Commands.cmds.get(cmd, None)
-
-
-class Mods:
-
-    dirs = {}
-    ignore = []
-
-    @staticmethod
-    def add(name, path=None):
-        if path is None:
-            path = name
-        Mods.dirs[name] = path
 
 
 def command(evt):
@@ -140,7 +132,6 @@ def scanner(names=[]):
 def __dir__():
     return (
         'Comamnds',
-        'Config',
         'Mods',
         'command',
         'importer',

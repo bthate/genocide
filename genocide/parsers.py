@@ -4,8 +4,8 @@
 "cli parsing"
 
 
-from genocide.objects import Default, items
-from genocide.threads import name
+from .objects import Default, items
+from .threads import name
 
 
 def parse(obj, txt) -> None:

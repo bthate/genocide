@@ -15,7 +15,7 @@ import time
 
 
 from genocide.clients import Fleet, Output
-from genocide.command import Config as MConfig
+from genocide.clients import Config as MConfig
 from genocide.command import command
 from genocide.handler import Event as IEvent
 from genocide.loggers import LEVELS

@@ -11,11 +11,11 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.clients import Client
+from genocide.clients import Client, Config
 from genocide.command import Commands, Mods, command, inits, modules, scanner
-from genocide.command import Config, parse
 from genocide.handler import Event
 from genocide.loggers import level
+from genocide.methods import parse
 from genocide.persist import Workdir, moddir, pidname
 from genocide.utility import daemon, forever, pidfile, privileges
 

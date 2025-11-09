@@ -18,11 +18,11 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.clients import Client, Output, Pool
+from genocide.clients import Client, Config, Output, Pool
 from genocide.command import Mods, command, parse, scan, scanner
 from genocide.handler import Event
+from genocide.loggers import level
 from genocide.persist import Workdir, moddir, skel
-from genocide.runtime import Config, check, level
 from genocide.threads import launch, threadhook
 from genocide.utility import elapsed
 

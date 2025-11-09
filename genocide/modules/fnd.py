@@ -9,8 +9,8 @@ import time
 
 from genocide.methods import fmt
 from genocide.persist import find, fntime
+from genocide.storage import types
 from genocide.utility import elapsed
-from genocide.workdir import types
 
 
 def fn(event):

@@ -13,7 +13,7 @@ import time
 from .marshal import dump, load
 from .methods import deleted, fqn, getpath
 from .objects import Object, items, update
-from .workdir import cdir, store
+from .storage import cdir, store
 
 
 lock = threading.RLock()

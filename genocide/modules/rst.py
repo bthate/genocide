@@ -14,8 +14,8 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
 from genocide.objects import Object
+from genocide.storage import store, types
 from genocide.threads import launch
-from genocide.workdir import store, types
 
 
 DEBUG = False

@@ -17,9 +17,9 @@ from genocide.command import Commands, Mods, command, inits, modules, scanner
 from genocide.handler import Event
 from genocide.loggers import level
 from genocide.methods import parse
+from genocide.storage import Workdir, moddir, pidname
 from genocide.threads import threadhook
 from genocide.utility import daemon, forever, pidfile, privileges
-from genocide.workdir import Workdir, moddir, pidname
 
 
 import genocide.modules as MODS

@@ -11,7 +11,7 @@ sys.path.insert(0, ".")
 
 from genocide.objects import Object
 from genocide.persist import Cache,  write
-from genocide.workdir import Workdir
+from genocide.storage import Workdir
 
 
 import genocide.persist

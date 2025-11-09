@@ -9,7 +9,7 @@ import os
 
 
 from .objects import Default, items
-from .workdir import store
+from .storage import store
 
 
 def deleted(obj):

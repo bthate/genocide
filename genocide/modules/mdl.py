@@ -65,11 +65,11 @@ aliases["Zwangerschap"] = "pregnancy"
 aliases["Suicide"] = "suicide"
 
 
-demo = Object()
-demo.gehandicapten = 2000000
-demo.ggz = 800000
-demo.population = 17440000
-demo.part = 7000000000 / demo.population
+demo = {}
+demo["gehandicapten"] = 2000000
+demo["ggz"] = 800000
+demo["population"] = 17440000
+demo["part"] = int(7000000000 / demo["population"])
 
 
 jaar = {}

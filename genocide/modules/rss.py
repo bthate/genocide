@@ -46,7 +46,7 @@ DEBUG = False
 
 fetchlock = _thread.allocate_lock()
 importlock = _thread.allocate_lock()
-errors = {}
+errors: dict[str, float] = {}
 skipped = []
 
 

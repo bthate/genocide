@@ -11,6 +11,9 @@ import os
 import sys
 
 
+from typing import Callable
+
+
 from .clients import Fleet
 from .methods import parse
 from .threads import launch
@@ -18,8 +21,8 @@ from .threads import launch
 
 class Mods:
 
-    dirs = {}
-    ignore = []
+    dirs: dict[str, str] = {}
+    ignore: list[str] = []
 
     @staticmethod
     def add(name, path=None):
@@ -30,8 +33,8 @@ class Mods:
 
 class Commands:
 
-    cmds = {}
-    names = {}
+    cmds: dict[str, Callable] = {}
+    names: dict[str, str] = {}
 
     @staticmethod
     def add(*args):

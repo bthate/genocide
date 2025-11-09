@@ -123,7 +123,7 @@ class Fleet:
 
 class Pool:
 
-    clients = []
+    clients: list[Client] = []
     lock = threading.RLock()
     nrcpu = 1
     nrlast = 0
@@ -154,5 +154,6 @@ def __dir__():
     return (
         'Client',
         'Fleet',
-        'Output'
+        'Output',
+        'Pool'
    )

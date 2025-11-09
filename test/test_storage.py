@@ -10,7 +10,8 @@ sys.path.insert(0, ".")
 
 
 from genocide.objects import Object
-from genocide.persist import Cache, Workdir, write
+from genocide.persist import Cache,  write
+from genocide.workdir import Workdir
 
 
 import genocide.persist
@@ -21,14 +22,9 @@ Workdir.wdr = '.test'
 
 ATTRS1 = (
          'Cache',
-         'Workdir',
-         'cdir',
          'find',
          'fntime',
-         'fqn',
          'read',
-         'skel',
-         'types',
          'write'
          )
 

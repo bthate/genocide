@@ -9,7 +9,7 @@ import threading
 import time
 
 
-from .objects import Default, Object
+from .objects import Default
 from .threads import launch
 
 

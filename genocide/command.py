@@ -80,12 +80,12 @@ def inits(names):
             modpath = os.path.join(path, name + ".py")
             if not os.path.exists(modpath):
                 continue
-        pkgname = path.split(os.sep)[-1]
-        mname = ".".join((pkgname, name))
-        mod = importer(mname, modpath)
-        if mod and "init" in dir(mod):
-            thr = launch(mod.init)
-            modz.append((mod, thr))
+            pkgname = path.split(os.sep)[-1]
+            mname = ".".join((pkgname, name))
+            mod = importer(mname, modpath)
+            if mod and "init" in dir(mod):
+                thr = launch(mod.init)
+                modz.append((mod, thr))
     return modz
 
 

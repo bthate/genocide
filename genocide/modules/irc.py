@@ -146,9 +146,9 @@ class IRC(Output):
         self.register("QUIT", cb_quit)
         self.register("366", cb_ready)
 
-    def announce(self, txt):
+    def announce(self, text):
         for channel in self.channels:
-            self.say(channel, txt)
+            self.say(channel, text)
 
     def connect(self, server, port=6667):
         self.state.nrconnect += 1
@@ -203,9 +203,9 @@ class IRC(Output):
             else:
                 textlist = txtlist
             _nr = -1
-            for txt in textlist:
+            for text in textlist:
                 _nr += 1
-                self.dosay(event.channel, txt)
+                self.dosay(event.channel, text)
             if len(txtlist) > 3:
                 length = len(txtlist) - 3
                 self.say(event.channel, f"use !mre to show more (+{length})")
@@ -243,9 +243,9 @@ class IRC(Output):
                 logging.debug("%s", str(type(ex)) + " " + str(ex))
             time.sleep(self.cfg.sleep)
 
-    def dosay(self, channel, txt):
+    def dosay(self, channel, text):
         self.events.joined.wait()
-        txt = str(txt).replace("\n", "")
+        txt = str(text).replace("\n", "")
         txt = txt.replace("  ", " ")
         self.docommand("PRIVMSG", channel, txt)
 
@@ -409,15 +409,15 @@ class IRC(Output):
             txt = ""
         return self.event(txt)
 
-    def raw(self, txt):
-        txt = txt.rstrip()
-        rlog("debug", txt, IGNORE)
-        txt = txt[:500]
-        txt += "\r\n"
-        txt = bytes(txt, "utf-8")
+    def raw(self, text):
+        text = text.rstrip()
+        rlog("debug", text, IGNORE)
+        text = text[:500]
+        text += "\r\n"
+        text = bytes(text, "utf-8")
         if self.sock:
             try:
-                self.sock.send(txt)
+                self.sock.send(text)
             except (
                 OSError,
                 ssl.SSLError,
@@ -456,21 +456,21 @@ class IRC(Output):
             return len(self.cache.get(chan, []))
         return 0
 
-    def say(self, channel, txt):
-        evt = Event()
-        evt.channel = channel
-        evt.reply(txt)
-        self.oput(evt)
+    def say(self, channel, text):
+        event = Event()
+        event.channel = channel
+        event.reply(text)
+        self.oput(event)
 
     def some(self):
         self.events.connected.wait()
         if not self.sock:
             return
         inbytes = self.sock.recv(512)
-        txt = str(inbytes, "utf-8")
-        if txt == "":
+        text = str(inbytes, "utf-8")
+        if text == "":
             raise ConnectionResetError
-        self.state.lastline += txt
+        self.state.lastline += text
         splitted = self.state.lastline.split("\r\n")
         for line in splitted[:-1]:
             self.buffer.append(line)

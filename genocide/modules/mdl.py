@@ -26,7 +26,7 @@ def init():
         val = getattr(oorzaken, key, None)
         if val and int(val) > 10000:
             evt = Event()
-            evt.txt = ""
+            evt.text = ""
             evt.rest = key
             sec = seconds(val)
             name = aliases.get(key)

@@ -9,20 +9,18 @@ import threading
 import time
 
 
-from .objects import Object
+from .objects import Default, Object
 from .threads import launch
 
 
-class Event:
+class Event(Default):
 
     def __init__(self):
+        super().__init__()
         self._ready = threading.Event()
         self._thr = None
-        self.channel = ""
         self.ctime = time.time()
-        self.orig = ""
         self.result = {}
-        self.text = ""
         self.type = "event"
 
     def ready(self) -> None:
@@ -47,6 +45,7 @@ class Handler:
         func = getattr(self.cbs, event.type, None)
         if func:
             name = event.text and event.text.split()[0]
+            print(name)
             event._thr = launch(func, event, name=name)
         else:
             event.ready()

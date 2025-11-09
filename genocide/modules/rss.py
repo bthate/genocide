@@ -23,13 +23,11 @@ from urllib.parse import quote_plus, urlencode
 
 
 from genocide.clients import Fleet
+from genocide.methods import fmt, getpath
 from genocide.objects import Object, update
+from genocide.persist import find, fntime, last, write
 from genocide.repeats import Repeater
 from genocide.threads import launch
-
-
-from genocide.methods import fmt
-from genocide.persist import find, fntime, getpath, last, write
 from genocide.utility import elapsed, spl
 
 

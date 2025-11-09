@@ -4,7 +4,6 @@
 "non-blocking"
 
 
-import queue
 import threading
 import time
 

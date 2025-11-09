@@ -19,9 +19,9 @@ from genocide.clients import Config as MConfig
 from genocide.command import command
 from genocide.handler import Event as IEvent
 from genocide.loggers import LEVELS
-from genocide.methods import edit, fmt
+from genocide.methods import edit, fmt, getpath
 from genocide.objects import Object, keys
-from genocide.persist import getpath, last, write
+from genocide.persist import last, write
 from genocide.threads import launch
 
 

@@ -8,11 +8,12 @@ import time
 
 
 from genocide.methods import fmt
-from genocide.persist import find, fntime, types
+from genocide.persist import find, fntime
 from genocide.utility import elapsed
+from genocide.workdir import types
 
 
-def fnd(event):
+def fn(event):
     if not event.rest:
         res = sorted([x.split('.')[-1].lower() for x in types()])
         if res:

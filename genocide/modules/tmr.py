@@ -12,11 +12,10 @@ import time
 
 
 from genocide.clients import Fleet
+from genocide.methods import getpath
 from genocide.objects import Object, items
+from genocide.persist import last, write
 from genocide.repeats import Timed
-
-
-from genocide.persist import getpath, last, write
 from genocide.utility import elapsed, extract_date
 
 

@@ -4,7 +4,7 @@
 "available types"
 
 
-from genocide.persist import types
+from genocide.workdir import types
 
 
 def lst(event):

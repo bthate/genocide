@@ -5,6 +5,7 @@
 import logging
 import os
 import sys
+import threading
 import time
 
 
@@ -16,11 +17,15 @@ from genocide.command import Commands, Mods, command, inits, modules, scanner
 from genocide.handler import Event
 from genocide.loggers import level
 from genocide.methods import parse
-from genocide.persist import Workdir, moddir, pidname
+from genocide.threads import threadhook
 from genocide.utility import daemon, forever, pidfile, privileges
+from genocide.workdir import Workdir, moddir, pidname
 
 
 import genocide.modules as MODS
+
+
+threading.excepthook = threadhook
 
 
 Mods.add("local", "mods")
@@ -45,14 +50,14 @@ class CLI(Client):
 class Console(CLI):
 
     def callback(self, event):
-        if not event.txt:
+        if not event.text:
             return
         super().callback(event)
         event.wait()
 
     def poll(self):
         evt = Event()
-        evt.txt = input("> ")
+        evt.text = input("> ")
         evt.type = "command"
         return evt
 

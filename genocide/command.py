@@ -13,7 +13,6 @@ import sys
 
 from .clients import Fleet
 from .methods import parse
-from .objects import Default
 from .threads import launch
 
 
@@ -47,7 +46,7 @@ class Commands:
 
 
 def command(evt):
-    parse(evt, evt.txt)
+    parse(evt, evt.text)
     func = Commands.get(evt.cmd)
     if func:
         func(evt)

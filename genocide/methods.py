@@ -146,7 +146,6 @@ def parse(obj, text) -> None:
         obj.text  = obj.cmd + " " + obj.rest
     else:
         obj.text = obj.cmd or ""
-    print(obj)
 
 
 def __dir__():

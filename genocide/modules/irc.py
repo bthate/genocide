@@ -85,7 +85,7 @@ class Event(IEvent):
         self.rawstr = ""
         self.rest = ""
         self.sets = {}
-        self.txt = ""
+        self.text = ""
 
     def dosay(self, txt):
         bot = Fleet.get(self.orig)
@@ -254,7 +254,7 @@ class IRC(Output):
         cmd = evt.command
         if cmd == "PING":
             self.state.pongcheck = True
-            self.docommand("PONG", evt.txt or "")
+            self.docommand("PONG", evt.text or "")
         elif cmd == "PONG":
             self.state.pongcheck = False
         if cmd == "001":
@@ -352,7 +352,7 @@ class IRC(Output):
                         txtlist.append(arg)
                     else:
                         obj.arguments.append(arg)
-                obj.txt = " ".join(txtlist)
+                obj.text = " ".join(txtlist)
         else:
             obj.command = obj.origin
             obj.origin = self.cfg.server
@@ -367,17 +367,17 @@ class IRC(Output):
             obj.channel = target
         else:
             obj.channel = obj.nick
-        if not obj.txt:
-            obj.txt = rawstr.split(":", 2)[-1]
-        if not obj.txt and len(arguments) == 1:
-            obj.txt = arguments[1]
-        splitted = obj.txt.split()
+        if not obj.text:
+            obj.text = rawstr.split(":", 2)[-1]
+        if not obj.text and len(arguments) == 1:
+            obj.text = arguments[1]
+        splitted = obj.text.split()
         if len(splitted) > 1:
             obj.args = splitted[1:]
         if obj.args:
             obj.rest = " ".join(obj.args)
         obj.orig = object.__repr__(self)
-        obj.txt = obj.txt.strip()
+        obj.text = obj.text.strip()
         obj.type = obj.command
         return obj
 
@@ -519,7 +519,7 @@ def cb_cap(evt):
 def cb_error(evt):
     bot = Fleet.get(evt.orig)
     bot.state.nrerror += 1
-    bot.state.error = evt.txt
+    bot.state.error = evt.text
     logging.debug(fmt(evt))
 
 
@@ -555,7 +555,7 @@ def cb_001(evt):
 
 def cb_notice(evt):
     bot = Fleet.get(evt.orig)
-    if evt.txt.startswith("VERSION"):
+    if evt.text.startswith("VERSION"):
         txt = f"\001VERSION {Config.name.upper()} {Config.version} - {bot.cfg.username}\001"
         bot.docommand("NOTICE", evt.channel, txt)
 
@@ -564,18 +564,18 @@ def cb_privmsg(evt):
     bot = Fleet.get(evt.orig)
     if not bot.cfg.commands:
         return
-    if evt.txt:
-        if evt.txt[0] in [
+    if evt.text:
+        if evt.text[0] in [
             "!",
         ]:
-            evt.txt = evt.txt[1:]
-        elif evt.txt.startswith(f"{bot.cfg.nick}:"):
-            evt.txt = evt.txt[len(bot.cfg.nick) + 1 :]
+            evt.text = evt.text[1:]
+        elif evt.text.startswith(f"{bot.cfg.nick}:"):
+            evt.text = evt.text[len(bot.cfg.nick) + 1 :]
         else:
             return
-        if evt.txt:
-            evt.txt = evt.txt[0].lower() + evt.txt[1:]
-        if evt.txt:
+        if evt.text:
+            evt.text = evt.text[0].lower() + evt.text[1:]
+        if evt.text:
             launch(command, evt)
 
 
@@ -583,7 +583,7 @@ def cb_quit(evt):
     bot = Fleet.get(evt.orig)
     logging.debug("quit from %s", bot.cfg.server)
     bot.state.nrerror += 1
-    bot.state.error = evt.txt
+    bot.state.error = evt.text
     if evt.orig and evt.orig in bot.zelf:
         bot.stop()
 
@@ -599,7 +599,7 @@ def cfg(event):
             fmt(
                 config,
                 keys(config),
-                skip="control,password,realname,sleep,username".split(","),
+                skip="control,name,password,realname,sleep,username".split(","),
             )
         )
     else:

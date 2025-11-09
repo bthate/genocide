@@ -43,8 +43,8 @@ class CLI(Client):
         Client.__init__(self)
         self.register("command", command)
 
-    def raw(self, txt):
-        print(txt.encode('utf-8', 'replace').decode("utf-8"))
+    def raw(self, text):
+        print(text.encode('utf-8', 'replace').decode("utf-8"))
 
 
 class Console(CLI):
@@ -112,7 +112,7 @@ def control():
     csl.silent = False
     evt = Event()
     evt.orig = repr(csl)
-    evt.txt = " ".join(sys.argv[1:])
+    evt.text = " ".join(sys.argv[1:])
     evt.type = "command"
     command(evt)
     evt.wait()
@@ -178,12 +178,12 @@ def wrap(func):
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old)
 
 
-def check(txt):
+def check(text):
     args = sys.argv[1:]
     for arg in args:
         if not arg.startswith("-"):
             continue
-        for char in txt:
+        for char in text:
             if char in arg:
                 return True
     return False

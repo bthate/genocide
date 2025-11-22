@@ -29,7 +29,7 @@ from genocide.workdir import pidname
 IGNORE = ""
 LOCAL = True
 NAME = "genocide" 
-VERSION = 9
+VERSION = 221
 
 
 class CLI(Client):

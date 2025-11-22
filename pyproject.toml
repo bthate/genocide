@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "genocide"
 description = "Since 4 march 2019"
-version = "220"
+version = "221"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]
@@ -34,15 +34,16 @@ packages = [
     'genocide',
     'genocide.modules',
     'genocide.network',
-    'genocide.network.pdf',
-    'genocide.network._static',
-    'genocide.network._images'
+    'genocide.nucleus',
+    'genocide.nucleus.pdf',
+    'genocide.nucleus._static',
+    'genocide.nucleus._images'
 ]
 include-package-data = true
 
 
 [tool.setuptools.package-data]
-"genocide.network"         = ["*"]
-"genocide.network.pdf"     = ["*"]
-"genocide.network._images" = ["*"]
-"genocide.network._static" = ["*"]
+"genocide.nucleus"         = ["*"]
+"genocide.nucleus.pdf"     = ["*"]
+"genocide.nucleus._images" = ["*"]
+"genocide.nucleus._static" = ["*"]

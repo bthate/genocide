@@ -1,8 +1,4 @@
-
 # This file is placed in the Public Domain.
-
-
-"Genocide model of the Netherlands since 4 March 2019."
 
 
 import datetime
@@ -10,22 +6,20 @@ import logging
 import time
 
 
-from genocide.clients import Fleet
-from genocide.handler import Event
+from genocide.brokers import all
+from genocide.message import Message, reply
 from genocide.objects import Object, construct, keys
 from genocide.repeats import Repeater
-
-
 from genocide.utility import elapsed
 
 
-def init():
+def init(cfg):
     for key in keys(oorzaken):
         if "Psych" not in key:
             continue
         val = getattr(oorzaken, key, None)
         if val and int(val) > 10000:
-            evt = Event()
+            evt = Message()
             evt.text = ""
             evt.rest = key
             sec = seconds(val)
@@ -40,7 +34,7 @@ def init():
 
 DAY = 24*60*60
 YEAR = 365*DAY
-SOURCE = "https://github.com/bthate/genocide"
+SOURCE = "https://github.com/bthate/."
 STARTDATE = "2019-03-04 00:00:00"
 STARTTIME = time.mktime(time.strptime(STARTDATE, "%Y-%m-%d %H:%M:%S"))
 
@@ -120,14 +114,14 @@ def iswanted(k, line):
 def daily():
     while 1:
         time.sleep(24*60*60)
-        evt = Event()
+        evt = Message()
         cbnow(evt)
 
 
 def hourly():
     while 1:
         time.sleep(60*60)
-        evt = Event()
+        evt = Message()
         cbnow(evt)
 
 
@@ -143,8 +137,9 @@ def cbnow(_evt):
             continue
         nrtimes = int(delta/needed)
         txt += f"{getalias(nme)} {nrtimes} | "
-    txt += "https://pypi.org/project/genocide"
-    Fleet.announce(txt)
+    txt += "https://pypi.org/project/."
+    for bot in all("announce"):
+        bot.announce(txt)
 
 
 def cbstats(evt):
@@ -166,7 +161,8 @@ def cbstats(evt):
             nryear,
             elapsed(needed)
         )
-        Fleet.announce(txt)
+        for bot in all("announce"):
+            bot.announce(txt)
 
 
 "commands"
@@ -181,8 +177,8 @@ def dis(event):
             continue
         nrtimes = int(delta/needed)
         txt += f"{getalias(nme)} {nrtimes} | "
-    txt += "https://pypi.org/project/genocide"
-    event.reply(txt)
+    txt += "https://pypi.org/project/."
+    reply(event, txt)
 
 
 def now(event):
@@ -203,7 +199,7 @@ def now(event):
             nryear,
             elapsed(needed)
         )
-        event.reply(txt)
+        reply(event, txt)
 
 
 "data"
@@ -211,7 +207,7 @@ def now(event):
 
 oor = """"Totaal onderliggende doodsoorzaken (aantal)";
          "1 Infectieuze en parasitaire ziekten/Totaal infectieuze en parasitaire zktn (aantal)";
-         "1 Infectieuze en parasitaire ziekten/1.1 Tuberculose (aantal)";
+         "1 Infectieuze en parasitaire ziekten/1.1 Tubercugenocidee (aantal)";
          "1 Infectieuze en parasitaire ziekten/1.2 Meningokokkeninfecties (aantal)";
          "1 Infectieuze en parasitaire ziekten/1.3 Virale hepatitis (aantal)";
          "1 Infectieuze en parasitaire ziekten/1.4 AIDS (aantal)";

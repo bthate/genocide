@@ -1,9 +1,6 @@
 # This file is placed in the Public Domain.
 
 
-"internet relay chat"
-
-
 import base64
 import logging
 import os
@@ -14,15 +11,17 @@ import threading
 import time
 
 
-from genocide.clients import Fleet, Output
-from genocide.clients import Config as MConfig
+from genocide.brokers import get
 from genocide.command import command
-from genocide.handler import Event as IEvent
-from genocide.loggers import LEVELS
-from genocide.methods import edit, fmt, getpath
+from genocide.configs import Config as Main
+from genocide.defines import LEVELS
+from genocide.message import Message, reply
+from genocide.methods import edit, fmt
 from genocide.objects import Object, keys
+from genocide.outputs import Output
 from genocide.persist import last, write
 from genocide.threads import launch
+from genocide.workdir import getpath
 
 
 IGNORE = ["PING", "PONG", "PRIVMSG"] 
@@ -31,36 +30,37 @@ IGNORE = ["PING", "PONG", "PRIVMSG"]
 lock = threading.RLock()
 
 
-def init():
+def init(cfg):
     irc = IRC()
     irc.start()
     irc.events.joined.wait(30.0)
     if irc.events.joined.is_set():
-        logging.warning(fmt(irc.cfg, skip=["name", "password", "realname", "username"]))
+        logging.warning(fmt(irc.cfg, skip=["name", "word", "realname", "username"]))
     else:
         irc.stop()
     return irc
 
 
-class Config:
+class Config(Object):
 
-    channel = f"#{MConfig.name}"
+    channel = f"#{Main.name}"
     commands = True
     control = "!"
-    name = MConfig.name
-    nick = MConfig.name
-    password = ""
+    name = Main.name
+    nick = Main.name
+    word = ""
     port = 6667
-    realname = MConfig.name
+    realname = Main.name
     sasl = False
     server = "localhost"
     servermodes = ""
     sleep = 60
-    username = MConfig.name
+    username = Main.name
     users = False
-    version = MConfig.version
+    version = 1
 
     def __init__(self):
+        super().__init__()
         self.channel = Config.channel
         self.commands = Config.commands
         self.name = Config.name
@@ -70,8 +70,14 @@ class Config:
         self.server = Config.server
         self.username = Config.username
 
+    def __getattr__(self, name):
+        if name not in self:
+            return ""
+        return self.__getattribute__(name)
+            
 
-class Event(IEvent):
+
+class Event(Message):
 
     def __init__(self):
         super().__init__()
@@ -88,7 +94,7 @@ class Event(IEvent):
         self.text = ""
 
     def dosay(self, txt):
-        bot = Fleet.get(self.orig)
+        bot = get(self.orig)
         bot.dosay(self.channel, txt)
 
 
@@ -154,7 +160,7 @@ class IRC(Output):
         self.state.nrconnect += 1
         self.events.connected.clear()
         self.events.joined.clear()
-        if self.cfg.password:
+        if self.cfg.word or self.cfg.password:
             logging.debug("using SASL")
             self.cfg.sasl = True
             self.cfg.port = "6697"
@@ -192,7 +198,7 @@ class IRC(Output):
 
     def display(self, event):
         for key in sorted(event.result, key=lambda x: x):
-            txt = event.result.get(key)
+            txt = getattr(event.result, key)
             if not txt:
                 continue
             textlist = []
@@ -339,7 +345,7 @@ class IRC(Output):
             obj.origin = obj.origin[1:]
             if len(arguments) > 1:
                 obj.command = arguments[1]
-                obj.type = obj.command
+                obj.kind = obj.command
             if len(arguments) > 2:
                 txtlist = []
                 adding = False
@@ -378,7 +384,7 @@ class IRC(Output):
             obj.rest = " ".join(obj.args)
         obj.orig = object.__repr__(self)
         obj.text = obj.text.strip()
-        obj.type = obj.command
+        obj.kind = obj.command
         return obj
 
     def poll(self):
@@ -459,7 +465,7 @@ class IRC(Output):
     def say(self, channel, text):
         event = Event()
         event.channel = channel
-        event.reply(text)
+        reply(event, text)
         self.oput(event)
 
     def some(self):
@@ -504,33 +510,33 @@ class IRC(Output):
 
 
 def cb_auth(evt):
-    bot = Fleet.get(evt.orig)
-    bot.docommand(f"AUTHENTICATE {bot.cfg.password}")
+    bot = get(evt.orig)
+    bot.docommand(f"AUTHENTICATE {bot.cfg.word or bot.cfg.password}")
 
 
 def cb_cap(evt):
-    bot = Fleet.get(evt.orig)
-    if bot.cfg.password and "ACK" in evt.arguments:
+    bot = get(evt.orig)
+    if (bot.cfg.word or bot.cfg.password) and "ACK" in evt.arguments:
         bot.direct("AUTHENTICATE PLAIN")
     else:
         bot.direct("CAP REQ :sasl")
 
 
 def cb_error(evt):
-    bot = Fleet.get(evt.orig)
+    bot = get(evt.orig)
     bot.state.nrerror += 1
     bot.state.error = evt.text
     logging.debug(fmt(evt))
 
 
 def cb_h903(evt):
-    bot = Fleet.get(evt.orig)
+    bot = get(evt.orig)
     bot.direct("CAP END")
     bot.events.authed.set()
 
 
 def cb_h904(evt):
-    bot = Fleet.get(evt.orig)
+    bot = get(evt.orig)
     bot.direct("CAP END")
     bot.events.authed.set()
 
@@ -544,24 +550,24 @@ def cb_log(evt):
 
 
 def cb_ready(evt):
-    bot = Fleet.get(evt.orig)
+    bot = get(evt.orig)
     bot.events.ready.set()
 
 
 def cb_001(evt):
-    bot = Fleet.get(evt.orig)
+    bot = get(evt.orig)
     bot.events.logon.set()
 
 
 def cb_notice(evt):
-    bot = Fleet.get(evt.orig)
+    bot = get(evt.orig)
     if evt.text.startswith("VERSION"):
         txt = f"\001VERSION {Config.name.upper()} {Config.version} - {bot.cfg.username}\001"
         bot.docommand("NOTICE", evt.channel, txt)
 
 
 def cb_privmsg(evt):
-    bot = Fleet.get(evt.orig)
+    bot = get(evt.orig)
     if not bot.cfg.commands:
         return
     if evt.text:
@@ -580,7 +586,7 @@ def cb_privmsg(evt):
 
 
 def cb_quit(evt):
-    bot = Fleet.get(evt.orig)
+    bot = get(evt.orig)
     logging.debug("quit from %s", bot.cfg.server)
     bot.state.nrerror += 1
     bot.state.error = evt.text
@@ -595,41 +601,40 @@ def cfg(event):
     config = Config()
     fnm = last(config)
     if not event.sets:
-        event.reply(
-            fmt(
-                config,
-                keys(config),
-                skip="control,name,password,realname,sleep,username".split(","),
-            )
-        )
+        reply(event,
+              fmt(
+                  config,
+                  keys(config),
+                  skip="control,name,word,realname,sleep,username".split(","),
+              ))
     else:
         edit(config, event.sets)
         write(config, fnm or getpath(config))
-        event.reply("ok")
+        reply(event, "ok")
 
 
 def mre(event):
     if not event.channel:
-        event.reply("channel is not set.")
+        reply(event, "channel is not set.")
         return
-    bot = Fleet.get(event.orig)
+    bot = get(event.orig)
     if "cache" not in dir(bot):
-        event.reply("bot is missing cache")
+        reply(event, "bot is missing cache")
         return
     if event.channel not in bot.cache:
-        event.reply(f"no output in {event.channel} cache.")
+        reply(event, f"no output in {event.channel} cache.")
         return
     for _x in range(3):
         txt = bot.gettxt(event.channel)
-        event.reply(txt)
+        reply(event, txt)
     size = bot.size(event.channel)
     if size != 0:
-        event.reply(f"{size} more in cache")
+        reply(event, f"{size} more in cache")
 
 
 def pwd(event):
     if len(event.args) != 2:
-        event.reply("pwd <nick> <password>")
+        reply(event, "pwd <nick> <password>")
         return
     arg1 = event.args[0]
     arg2 = event.args[1]
@@ -637,7 +642,7 @@ def pwd(event):
     enc = txt.encode("ascii")
     base = base64.b64encode(enc)
     dcd = base.decode("ascii")
-    event.reply(dcd)
+    reply(event, dcd)
 
 
 "utility"

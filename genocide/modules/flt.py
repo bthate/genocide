@@ -1,20 +1,19 @@
 # This file is placed in the Public Domain.
 
 
-from genocide.clients import Fleet
-from genocide.threads import name
-
-
+from genocide.brokers import all
+from genocide.message import reply
 from genocide.methods import fmt
+from genocide.threads import name
 
 
 def flt(event):
     if event.args:
-        clts = Fleet.all()
+        clts = all("announce")
         index = int(event.args[0])
         if index < len(clts):
-            event.reply(fmt(list(Fleet.all())[index], empty=True))
+            reply(event, fmt(list(all())[index], empty=True))
         else:
-            event.reply(f"only {len(clts)} clients in fleet.")
+            reply(event, f"only {len(clts)} clients in fleet.")
         return
-    event.reply(' | '.join([name(o) for o in Fleet.all()]))
+    reply(event, ' | '.join([name(o) for o in all()]))

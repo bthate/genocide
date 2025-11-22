@@ -15,13 +15,13 @@ sys.path.insert(0, os.getcwd())
 
 
 import genocide
-import genocide.clients
+import genocide.brokers
 import genocide.command
 import genocide.handler
-import genocide.loggers
-import genocide.marshal
+import genocide.message
 import genocide.methods
 import genocide.objects
+import genocide.package
 import genocide.persist
 import genocide.repeats
 import genocide.threads
@@ -32,13 +32,13 @@ from genocide.objects import *
 
 
 PACKAGE = [
-    'clients',
+    'brokers',
     'command',
     'handler',
-    'loggers',
-    'marshal',
+    'message',
     'methods',
     'objects',
+    'package',
     'persist',
     'repeats',
     'threads',

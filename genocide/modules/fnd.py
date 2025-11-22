@@ -1,30 +1,28 @@
 # This file is placed in the Public Domain.
 
 
-"find"
-
-
 import time
 
 
+from genocide.message import reply
 from genocide.methods import fmt
 from genocide.persist import find, fntime
-from genocide.storage import types
 from genocide.utility import elapsed
+from genocide.workdir import types
 
 
-def fn(event):
+def fnd(event):
     if not event.rest:
         res = sorted([x.split('.')[-1].lower() for x in types()])
         if res:
-            event.reply(",".join(res))
+            reply(event, ",".join(res))
         else:
-            event.reply("no data yet.")
+            reply(event, "no data yet.")
         return
     otype = event.args[0]
     nmr = 0
     for fnm, obj in list(find(otype, event.gets)):
-        event.reply(f"{nmr} {fmt(obj)} {elapsed(time.time()-fntime(fnm))}")
+        reply(event, f"{nmr} {fmt(obj)} {elapsed(time.time()-fntime(fnm))}")
         nmr += 1
     if not nmr:
-        event.reply("no result")
+        reply(event, "no result")

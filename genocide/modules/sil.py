@@ -1,19 +1,17 @@
 # This file is placed in the Public Domain.
 
 
-"enable silence mode"
-
-
-from genocide.clients import Fleet
+from genocide.brokers import get as bget
+from genocide.message import reply
 
 
 def sil(event):
-    bot = Fleet.get(event.orig)
+    bot = bget(event.orig)
     bot.silent = True
-    event.reply("ok")
+    reply(event, "ok")
 
 
 def lou(event):
-    bot = Fleet.get(event.orig)
+    bot = bget(event.orig)
     bot.silent = False
-    event.reply("ok")
+    reply(event, "ok")

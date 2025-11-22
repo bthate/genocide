@@ -8,12 +8,12 @@ import unittest
 
 
 from genocide.clients import Client
-from genocide.handler import Event
+from genocide.message import Message, ready, reply, wait
 
 
 def hello(event):
-    event.reply("hello")
-    event.ready()
+    reply(event, "hello")
+    ready(event)
 
 
 clt = Client()
@@ -24,8 +24,8 @@ clt.start()
 class TestHandler(unittest.TestCase):
 
     def test_loop(self):
-        e = Event()
-        e.type = "hello"
+        e = Message()
+        e.kind = "hello"
         clt.put(e)
-        e.wait()
+        wait(e)
         self.assertTrue(True)

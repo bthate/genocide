@@ -1,10 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"manual"
-
-
-TXT = """
+"""
 N A M E
 
 
@@ -14,10 +11,10 @@ N A M E
 S Y N O P S I S
 
 
-    genocide <cmd> [key=val] [key==val]
-    genocide -cvaw [init=mod1,mod2]
-    genocide -d
-    genocide -s
+    . <cmd> [key=val] [key==val]
+    . -cvaw [init=mod1,mod2]
+    . -d
+    . -s
 
 
 D E S C R I P T I O N
@@ -44,57 +41,57 @@ I N S T A L L
 
     installation is done with pipx
 
-    $ pipx install genocide
+    $ pipx install .
     $ pipx ensurepath
 
     <new terminal>
 
-    $ genocide srv > genocide.service
-    $ sudo mv genocide.service /etc/systemd/system/
-    $ sudo systemctl enable genocide --now
+    $ . srv > genocide.service
+    $ sudo mv ..service /etc/systemd/system/
+    $ sudo systemctl enable . --now
 
-    joins #genocide on localhost
+    joins #. on localhost
 
 
 U S A G E 
 
 
-    use genocide to control the program, default it does nothing
+    use . to control the program, default it does nothing
 
-    $ genocide
+    $ .
     $
 
     see list of commands
 
 
-    $ genocide cmd
+    $ . cmd
     cfg,cmd,dne,dpl,err,exp,imp,log,mod,mre,nme,
     pwd,rem,req,res,rss,srv,syn,tdo,thr,upt
 
 
     start console
 
-    $ genocide -c
+    $ . -c
 
 
     start console and run irc and rss 
 
-    $ genocide -c init=irc,rss
+    $ . -c init=irc,rss
 
     list available modules
 
-    $ genocide mod
+    $ . mod
     err,flt,fnd,irc,llm,log,mbx,mdl,mod,req,rss,
     rst,slg,tdo,thr,tmr,udp,upt``
 
     start daemon
 
-    $ genocide -d
+    $ . -d
     $
 
     start service
 
-    $ genocide -s
+    $ . -s
 
     <runs until ctrl-c>
 
@@ -126,33 +123,33 @@ C O N F I G U R A T I O N
 
     irc
 
-    $ genocide cfg server=<server>
-    $ genocide cfg channel=<channel>
-    $ genocide cfg nick=<nick>
+    $ . cfg server=<server>
+    $ . cfg channel=<channel>
+    $ . cfg nick=<nick>
 
     sasl
 
-    $ genocide pwd <nsnick> <nspass>
-    $ genocide cfg password=<frompwd>
+    $ . pwd <nsnick> <nspass>
+    $ . cfg password=<frompwd>
 
     rss
 
-    $ genocide rss <url>
-    $ genocide dpl <url> <item1,item2>
-    $ genocide rem <url>
-    $ genocide nme <url> <name>
+    $ . rss <url>
+    $ . dpl <url> <item1,item2>
+    $ . rem <url>
+    $ . nme <url> <name>
 
     opml
 
-    $ genocide exp
-    $ genocide imp <filename>
+    $ . exp
+    $ . imp <filename>
 
 
 P R O G R A M M I N G
 
 
-    genocide has it's modules in the ~/.genocide/mods directory so for a hello world
-    command you would  edit a file in ~/.genocide/mods/hello.py and add the
+    . has it's modules in the ~/.genocide/mods directory so for a hello world
+    command you would  edit a file in ~/../mods/hello.py and add the
     following
 
 
@@ -163,7 +160,7 @@ P R O G R A M M I N G
     typing the hello command would result into a nice hello world !!
 
 
-    $ genocide hello
+    $ . hello
     hello world !!
 
 
@@ -175,9 +172,9 @@ P R O G R A M M I N G
 F I L E S
 
 
-    ~/.genocide
-    ~/.local/bin/genocide
-    ~/.local/pipx/venvs/genocide/*
+    ~/..
+    ~/.local/bin/.
+    ~/.local/pipx/venvs/./*
 
 
 A U T H O R
@@ -193,5 +190,8 @@ C O P Y R I G H T
 """
 
 
+from genocide.message import reply
+
+
 def man(event):
-    event.reply(TXT)
+    reply(event, __doc__)

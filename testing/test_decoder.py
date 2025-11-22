@@ -4,8 +4,8 @@
 import unittest
 
 
-from genocide.marshal import loads, dumps
 from genocide.objects import Object
+from genocide.serials import dumps, loads
 
 
 class TestDecoder(unittest.TestCase):

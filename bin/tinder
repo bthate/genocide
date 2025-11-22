@@ -2,10 +2,6 @@
 # This file is placed in the Public Domain.
 
 
-"objects"
-
-
-import inspect
 import logging
 import os
 import queue
@@ -18,19 +14,22 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.clients import Client, Config, Output, Pool
-from genocide.command import Commands,  Mods, command, parse, scan, scanner
-from genocide.handler import Event
-from genocide.loggers import level
-from genocide.storage import Workdir, moddir, skel
+from genocide.clients import Client
+from genocide.command import command, parse, scan
+from genocide.configs import Config, configure
+from genocide.message import Message, wait
+from genocide.outputs import Output
+from genocide.package import Mods, get, modules
 from genocide.threads import launch, threadhook
 from genocide.utility import elapsed
+from genocide.workdir import Workdir
 
 
-import genocide.modules as MODS
+NAME = "genocide"
+VERSION = 10
 
 
-Mods.add("modules", MODS.__path__[0])
+configure(NAME, VERSION, "", True)
 Workdir.wdr = ".test"
 
 
@@ -49,6 +48,35 @@ class CLI(Output):
             print(txt)
 
 
+class Pool:
+
+    clients: list[Client] = []
+    lock = threading.RLock()
+    nrcpu = 1
+    nrlast = 0
+
+    @staticmethod
+    def add(client):
+        Pool.clients.append(client)
+
+    @staticmethod
+    def init(clz, nr):
+        Pool.nrcpu = nr
+        for _x in range(Pool.nrcpu):
+            clt = clz()
+            clt.start()
+            Pool.add(clt)
+
+    @staticmethod
+    def put(event):
+        with Pool.lock:
+            if Pool.nrlast >= Pool.nrcpu-1:
+                Pool.nrlast = 0
+            clt = Pool.clients[Pool.nrlast]
+            clt.put(event)
+            Pool.nrlast += 1
+
+
 def banner(name, version):
     tme = time.ctime(time.time()).replace("  ", " ")
     logger = logging.getLogger()
@@ -65,7 +93,7 @@ def consume():
     while True:
         try:
             event = events.get()
-            event.wait()
+            wait(event)
             events.task_done()
         except (KeyboardInterrupt, EOFError):
             os._exit(0)
@@ -74,21 +102,36 @@ def consume():
 def payload(todo):
     for cmd, example in todo.items():
         for ex in example:
-            evt = Event()
+            evt = Message()
             evt.text = f"{cmd} {ex}"
-            evt.type = "command"
+            evt.kind = "command"
             Pool.put(evt)
             events.put(evt)
+
+
+def scanner(names=None):
+    if names is None:
+        names = modules()
+    mods = []
+    for name in names:
+        if name in Mods.ignore:
+            continue
+        mod = get(name)
+        if mod:
+            mods.append(mod)
+            scan(mod)
+    return mods
 
 
 def main():
     if os.path.exists(Workdir.wdr):
         shutil.rmtree(Workdir.wdr)
     parse(Config, " ".join(sys.argv[1:]))
+    if "b" in Config.opts:
+        threading.excepthook = threadhook
     if "v" in Config.opts:
         banner(Config.name, Config.version)
     scanner()
-    args = sys.argv[1:]
     if "z" in Config.opts:
         Pool.init(CLI, os.cpu_count())
     else:
@@ -146,7 +189,7 @@ examples = {
 
 pre = {
     "cfg": ["", "nick=mekker"],
-    "imp": ["", "test/feeds.opml"],
+    "imp": ["", "testing/feeds.opml"],
     "log": ["", "bla"],
     "rss": ["","http://hnrss.org/newest"],
     "tdo": ["", "mekker"]
@@ -158,7 +201,6 @@ post = {
     "exp": [""],
     "rem": ["", "hnrss"]
 }
-
 
 
 if __name__ == "__main__":

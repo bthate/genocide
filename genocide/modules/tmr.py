@@ -1,9 +1,6 @@
 # This file is placed in the Public Domain.
 
 
-"timers"
-
-
 import datetime
 import logging
 import random
@@ -11,31 +8,39 @@ import re
 import time
 
 
-from genocide.clients import Fleet
-from genocide.methods import getpath
+from genocide.brokers import get as bget
+from genocide.brokers import like
+from genocide.defines import MONTH
+from genocide.message import reply
 from genocide.objects import Object, items
 from genocide.persist import last, write
 from genocide.repeats import Timed
 from genocide.utility import elapsed, extract_date
+from genocide.workdir import getpath
 
 
-def init():
+rand = random.SystemRandom()
+
+
+def init(cfg):
     Timers.path = last(Timers.timers) or getpath(Timers.timers)
-    delete = []
+    remove = []
     for tme, args in items(Timers.timers):
         orig, channel, txt = args
-        for origin in Fleet.like(orig):
+        for origin in like(orig):
             if not origin:
                 continue
             diff = float(tme) - time.time()
             if diff > 0:
-                timer = Timed(diff, Fleet.say, origin, channel, txt)
+                bot = bget(origin)
+                timer = Timed(diff, bot.say, channel, txt)
                 timer.start()
             else:
-                delete.append(tme)
-    for tme in delete:
-        Timers.delete(tme)
-    write(Timers.timers, Timers.path)
+                remove.append(tme)
+    for tme in remove:
+        delete(tme)
+    if Timers.timers:
+        write(Timers.timers, Timers.path)
     logging.warning("%s timers", len(Timers.timers))
 
 
@@ -44,18 +49,24 @@ class NoDate(Exception):
     pass
 
 
-class Timers:
+class Timer(Object):
+
+    pass
+
+
+class Timers(Object):
 
     path = ""
-    timers = Object()
+    timers = Timer()
 
-    @staticmethod
-    def add(tme, orig, channel,  txt):
-        setattr(Timers.timers, tme, (orig, channel, txt))
 
-    @staticmethod
-    def delete(tme):
-        delattr(Timers.timers, tme)
+
+def add(tme, orig, channel,  txt):
+    setattr(Timers.timers, str(tme), (orig, channel, txt))
+
+
+def delete(tme):
+     delattr(Timers.timers, str(tme))
 
 
 def get_day(daystr):
@@ -78,7 +89,7 @@ def get_day(daystr):
         day = int(day)
         month = int(month)
         yea = int(yea)
-        date = f"{day} {MONTHS[month]} {yea}"
+        date = f"{day} {MONTH[month]} {yea}"
         return time.mktime(time.strptime(date, r"%d %b %Y"))
     raise NoDate(daystr)
 
@@ -165,10 +176,10 @@ def tmr(event):
         for tme, txt in items(Timers.timers):
             lap = float(tme) - time.time()
             if lap > 0:
-                event.reply(f'{nmr} {" ".join(txt)} {elapsed(lap)}')
+                reply(event, f'{nmr} {" ".join(txt)} {elapsed(lap)}')
                 nmr += 1
         if not nmr:
-            event.reply("no timers.")
+            reply(event, "no timers.")
         return result
     seconds = 0
     line = ""
@@ -177,7 +188,7 @@ def tmr(event):
             try:
                 seconds = int(word[1:])
             except (ValueError, IndexError):
-                event.reply(f"{seconds} is not an integer")
+                reply(event, f"{seconds} is not an integer")
                 return result
         else:
             line += word + " "
@@ -191,34 +202,15 @@ def tmr(event):
         hour =  get_hour(event.rest)
         if hour:
             target += hour
-    target += random.random() 
+    target += rand.random() 
     if not target or time.time() > target:
-        event.reply("already passed given time.")
+        reply(event, "already passed given time.")
         return result
     diff = target - time.time()
     txt = " ".join(event.args[1:])
-    Timers.add(target, event.orig, event.channel, txt)
-    write(Timers.timers, Timers.path)
-    timer = Timed(diff, Fleet.say, event.orig, event.channel, txt)
+    add(target, event.orig, event.channel, txt)
+    write(Timers.timers, Timers.path or getpath(Timers.timers))
+    bot = bget(event.orig)
+    timer = Timed(diff, bot.say, event.orig, event.channel, txt)
     timer.start()
-    event.reply("ok " +  elapsed(diff))
-
-
-"data"
-
-
-MONTHS = [
-    'Bo',
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-]
+    reply(event, "ok " +  elapsed(diff))

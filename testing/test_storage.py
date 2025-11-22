@@ -10,8 +10,8 @@ sys.path.insert(0, ".")
 
 
 from genocide.objects import Object
-from genocide.persist import Cache,  write
-from genocide.storage import Workdir
+from genocide.persist import Cache, write
+from genocide.workdir import Workdir
 
 
 import genocide.persist
@@ -21,12 +21,20 @@ Workdir.wdr = '.test'
 
 
 ATTRS1 = (
-         'Cache',
-         'find',
-         'fntime',
-         'read',
-         'write'
-         )
+    'Cache',
+    'add',
+    'attrs',
+    'deleted',
+    'find',
+    'fns',
+    'fntime',
+    'get',
+    'last',
+    'read',
+    'search',
+    'sync',
+    'write'
+)
 
 
 class TestStorage(unittest.TestCase):

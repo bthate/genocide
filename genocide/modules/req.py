@@ -67,5 +67,8 @@ king for making the commiting of the above mentioned crimes (killing,
 torture and impotent making) possible."""
 
 
+from genocide.message import reply
+
+
 def req(event):
-    event.reply(__doc__)
+    reply(event, __doc__)

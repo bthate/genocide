@@ -1,11 +1,9 @@
 # This file is placed in the Public Domain.
 
 
-"show modules"
-
-
-from genocide.command import modules
+from genocide.message import reply
+from genocide.package import modules
 
 
 def mod(event):
-    event.reply(",".join(modules()))
+    reply(event, ",".join(modules()))

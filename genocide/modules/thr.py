@@ -1,14 +1,15 @@
 # This file is placed in the Public Domain.
 
 
-"show running threads"
-
-
 import threading
 import time
 
 
-from genocide.utility import STARTTIME, elapsed
+from genocide.message import reply
+from genocide.utility import elapsed
+
+
+STARTTIME = time.time()
 
 
 def thr(event):
@@ -28,6 +29,6 @@ def thr(event):
         lap = elapsed(uptime)
         res.append(f"{txt}/{lap}")
     if res:
-        event.reply(" ".join(res))
+        reply(event, " ".join(res))
     else:
-        event.reply("no threads")
+        reply(event, "no threads")

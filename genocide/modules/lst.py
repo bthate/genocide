@@ -1,15 +1,13 @@
 # This file is been placed in the Public Domain.
 
 
-"available types"
-
-
-from genocide.storage import types
+from genocide.message import reply
+from genocide.workdir import types
 
 
 def lst(event):
     tps = types()
     if tps:
-        event.reply(",".join([x.split(".")[-1].lower() for x in tps]))
+        reply(event, ",".join({x.split(".")[-1].lower() for x in tps}))
     else:
-        event.reply("no data yet.")
+        reply(event, "no data yet.")

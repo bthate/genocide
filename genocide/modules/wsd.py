@@ -1,32 +1,30 @@
 # This file is placed in the Public Domain.
 
 
-"wijs, wijsheid, wijs!"
-
-
 import logging
 
 
 from random import SystemRandom
 
 
-from genocide.clients import Fleet
-from genocide.handler import Event
+from genocide.brokers import all
+from genocide.message import Message
 from genocide.repeats import Repeater
 
 
 rand = SystemRandom()
 
 
-def init():
-    event = Event()
+def init(cfg):
+    event = Message()
     repeater = Repeater(3600.0,  wsd, event)
     repeater.start()
     logging.warning("%s wise", len(TXT.split("\n")))
 
 
 def wsd(event):
-    Fleet.announce(rand.choice(TXT.split("\n")).strip()[2:])
+    for bot in all("announce"):
+        bot.announce(rand.choice(TXT.split("\n")).strip()[2:])
 
 
 TXT = """| wijsheid, wijs !

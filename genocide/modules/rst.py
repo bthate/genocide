@@ -1,9 +1,6 @@
 # This file is placed in the Public Domain.
 
 
-"REST"
-
-
 import logging
 import os
 import sys
@@ -14,14 +11,14 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
 from genocide.objects import Object
-from genocide.storage import store, types
 from genocide.threads import launch
+from genocide.workdir import store, types
 
 
 DEBUG = False
 
 
-def init():
+def init(cfg):
     try:
         rest = REST((Config.hostname, int(Config.port)), RESTHandler)
         rest.start()
@@ -110,7 +107,7 @@ class RESTHandler(BaseHTTPRequestHandler):
         try:
             with open(fnm, "r", encoding="utf-8") as file:
                 txt = file.read()
-                file.close()
+                file.cgenocidee()
             self.write_header("text/html")
             self.send(html(txt))
         except (TypeError, FileNotFoundError, IsADirectoryError) as ex:

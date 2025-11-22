@@ -1,9 +1,6 @@
 # This file is placed in the Public Domain.
 
 
-"web"
-
-
 import logging
 import os
 import sys
@@ -14,20 +11,22 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
 from genocide.objects import Object
+from genocide.package import get
 from genocide.threads import launch
-
-
-d = os.path.dirname
-j = os.path.join
+from genocide.utility import importer
 
 
 DEBUG = False
-PATH = d(d(__file__))
-PATH = j(PATH, "network", "html")
+PATH = ""
 
 
-def init():
-    if not os.path.exists(j(PATH, 'index.html')):
+def init(cfg):
+    mod = importer(f"{cfg.name}.nucleus")
+    if not mod:
+        logging.warning("can't find web directory")
+        return
+    Cfg.path = mod.__path__[0]
+    if not os.path.exists(os.path.join(Cfg.path, 'index.html')):
         logging.warning("no index.html")
         return
     try:
@@ -42,7 +41,8 @@ def init():
 class Cfg:
 
     hostname = "localhost"
-    port     = 8000
+    path = ""
+    port = 8000
 
 
 class HTTP(HTTPServer, Object):
@@ -109,7 +109,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
             return
         if self.path == "/":
             self.path = "index.html"
-        self.path = PATH + os.sep + self.path
+        self.path = Cfg.path + os.sep + self.path
         if not os.path.exists(self.path):
             self.write_header("text/html")
             self.send_response(404)

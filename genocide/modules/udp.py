@@ -1,9 +1,6 @@
 # This file is placed in the Public Domain.
 
 
-"UDP to IRC relay"
-
-
 import logging
 import select
 import socket
@@ -12,7 +9,8 @@ import threading
 import time
 
 
-from genocide.clients import Fleet
+from genocide.brokers import all
+from genocide.message import reply
 from genocide.objects import Object
 from genocide.threads import launch
 
@@ -20,7 +18,7 @@ from genocide.threads import launch
 DEBUG = False
 
 
-def init():
+def init(cfg):
     udp = UDP()
     udp.start()
     logging.warning("http://%s:%s", Cfg.host, Cfg.port)
@@ -49,7 +47,8 @@ class UDP(Object):
     def output(self, txt, addr=None):
         if addr:
             Cfg.addr = addr
-        Fleet.announce(txt.replace("\00", ""))
+        for bot in all("announce"):
+            bot.announce(txt.replace("\00", ""))
 
     def loop(self):
         try:
@@ -95,7 +94,7 @@ def udp(event):
                          [],
                          0.0
                         )[0]:
-        event.reply("udp <text>")
+        reply(event, "udp <text>")
         return
     size = 0
     while 1:

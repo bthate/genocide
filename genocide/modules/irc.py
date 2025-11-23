@@ -11,11 +11,11 @@ import threading
 import time
 
 
-from genocide.brokers import get
+from genocide.brokers import Broker
 from genocide.command import command
 from genocide.configs import Config as Main
 from genocide.defines import LEVELS
-from genocide.message import Message, reply
+from genocide.message import Message
 from genocide.methods import edit, fmt
 from genocide.objects import Object, keys
 from genocide.outputs import Output
@@ -94,7 +94,7 @@ class Event(Message):
         self.text = ""
 
     def dosay(self, txt):
-        bot = get(self.orig)
+        bot = Broker.get(self.orig)
         bot.dosay(self.channel, txt)
 
 
@@ -465,7 +465,7 @@ class IRC(Output):
     def say(self, channel, text):
         event = Event()
         event.channel = channel
-        reply(event, text)
+        event.reply(text)
         self.oput(event)
 
     def some(self):
@@ -510,12 +510,12 @@ class IRC(Output):
 
 
 def cb_auth(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     bot.docommand(f"AUTHENTICATE {bot.cfg.word or bot.cfg.password}")
 
 
 def cb_cap(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     if (bot.cfg.word or bot.cfg.password) and "ACK" in evt.arguments:
         bot.direct("AUTHENTICATE PLAIN")
     else:
@@ -523,20 +523,20 @@ def cb_cap(evt):
 
 
 def cb_error(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     bot.state.nrerror += 1
     bot.state.error = evt.text
     logging.debug(fmt(evt))
 
 
 def cb_h903(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     bot.direct("CAP END")
     bot.events.authed.set()
 
 
 def cb_h904(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     bot.direct("CAP END")
     bot.events.authed.set()
 
@@ -550,24 +550,24 @@ def cb_log(evt):
 
 
 def cb_ready(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     bot.events.ready.set()
 
 
 def cb_001(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     bot.events.logon.set()
 
 
 def cb_notice(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     if evt.text.startswith("VERSION"):
         txt = f"\001VERSION {Config.name.upper()} {Config.version} - {bot.cfg.username}\001"
         bot.docommand("NOTICE", evt.channel, txt)
 
 
 def cb_privmsg(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     if not bot.cfg.commands:
         return
     if evt.text:
@@ -586,7 +586,7 @@ def cb_privmsg(evt):
 
 
 def cb_quit(evt):
-    bot = get(evt.orig)
+    bot = Broker.get(evt.orig)
     logging.debug("quit from %s", bot.cfg.server)
     bot.state.nrerror += 1
     bot.state.error = evt.text
@@ -601,40 +601,41 @@ def cfg(event):
     config = Config()
     fnm = last(config)
     if not event.sets:
-        reply(event,
-              fmt(
-                  config,
-                  keys(config),
-                  skip="control,name,word,realname,sleep,username".split(","),
-              ))
+        event.reply(
+            fmt(
+                config,
+                keys(config),
+                skip="control,name,word,realname,sleep,username".split(","),
+            )
+        )
     else:
         edit(config, event.sets)
         write(config, fnm or getpath(config))
-        reply(event, "ok")
+        event.reply("ok")
 
 
 def mre(event):
     if not event.channel:
-        reply(event, "channel is not set.")
+        event.reply("channel is not set.")
         return
-    bot = get(event.orig)
+    bot = Broker.get(event.orig)
     if "cache" not in dir(bot):
-        reply(event, "bot is missing cache")
+        event.reply("bot is missing cache")
         return
     if event.channel not in bot.cache:
-        reply(event, f"no output in {event.channel} cache.")
+        event.reply(f"no output in {event.channel} cache.")
         return
     for _x in range(3):
         txt = bot.gettxt(event.channel)
-        reply(event, txt)
+        event.reply(txt)
     size = bot.size(event.channel)
     if size != 0:
-        reply(event, f"{size} more in cache")
+        event.reply(f"{size} more in cache")
 
 
 def pwd(event):
     if len(event.args) != 2:
-        reply(event, "pwd <nick> <password>")
+        event.reply("pwd <nick> <password>")
         return
     arg1 = event.args[0]
     arg2 = event.args[1]
@@ -642,7 +643,7 @@ def pwd(event):
     enc = txt.encode("ascii")
     base = base64.b64encode(enc)
     dcd = base.decode("ascii")
-    reply(event, dcd)
+    event.reply(dcd)
 
 
 "utility"

@@ -7,7 +7,7 @@ import logging
 from random import SystemRandom
 
 
-from genocide.brokers import all
+from genocide.brokers import Broker
 from genocide.message import Message
 from genocide.repeats import Repeater
 
@@ -23,7 +23,7 @@ def init(cfg):
 
 
 def wsd(event):
-    for bot in all("announce"):
+    for bot in Broker.all("announce"):
         bot.announce(rand.choice(TXT.split("\n")).strip()[2:])
 
 

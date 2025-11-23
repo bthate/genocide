@@ -17,25 +17,19 @@ class Message(Default):
         self.result = Object()
         self.kind = "event"
 
+    def ready(self):
+        self._ready.set()
 
-def ready(obj):
-    obj._ready.set()
+    def reply(self, text):
+        setattr(self.result, str(time.time()), text)
 
-
-def reply(obj, text):
-    setattr(obj.result, str(time.time()), text)
-
-
-def wait(obj, timeout=None):
-    obj._ready.wait()
-    if obj._thr:
-        obj._thr.join(timeout)
+    def wait(self, timeout=None):
+        self._ready.wait()
+        if self._thr:
+            self._thr.join(timeout)
 
 
 def __dir__():
     return (
         'Message',
-        'ready',
-        'reply',
-        'wait'
    )

@@ -5,7 +5,7 @@ import queue
 import threading
 
 
-from .brokers import add
+from .brokers import Broker
 from .handler import Handler
 from .objects import keys
 
@@ -17,7 +17,7 @@ class Client(Handler):
         self.olock = threading.RLock()
         self.oqueue = queue.Queue()
         self.silent = True
-        add(self)
+        Broker.add(self)
 
     def announce(self, text):
         if not self.silent:

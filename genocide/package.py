@@ -6,41 +6,43 @@ import sys
 
 
 from .utility import importer, spl
-
+from .workdir import moddir
 
 class Mods:
 
     dirs = {}
     ignore = []
 
+    @staticmethod
+    def add(name, path):
+        Mods.dirs[name] = path
 
-def add(name, path):
-    Mods.dirs[name] = path
+    @staticmethod
+    def configure(name=None, ignore="", local=False, mods=True):
+        if name:
+            pkg = importer(name)
+            if pkg:
+               Mods.add(name, pkg.__path__[0])
+        if ignore:
+            Mods.ignore = spl(ignore)
+        if local:
+            Mods.add("mods", "mods")
+        if mods:
+            Mods.add("modules", moddir())
 
-
-def get(name):
-    mname = ""
-    pth = ""
-    if name in Mods.ignore:
-        return
-    for packname, path in Mods.dirs.items():
-        modpath = os.path.join(path, name + ".py")
-        if os.path.exists(modpath):
-            pth = modpath
-            mname = f"{packname}.{name}"
-            break
-    return sys.modules.get(mname, None) or importer(mname, pth)
-
-
-def configure(name=None, ignore="", local=False):
-    if name:
-        pkg = importer(name)
-        if pkg:
-            add(name, pkg.__path__[0])
-    if ignore:
-        Mods.ignore = spl(ignore)
-    if local:
-        add("mods", "mods")
+    @staticmethod
+    def get(name):
+        mname = ""
+        pth = ""
+        if name in Mods.ignore:
+            return
+        for packname, path in Mods.dirs.items():
+            modpath = os.path.join(path, name + ".py")
+            if os.path.exists(modpath):
+                pth = modpath
+                mname = f"{packname}.{name}"
+                break
+        return sys.modules.get(mname, None) or importer(mname, pth)
 
 
 def modules():
@@ -60,8 +62,5 @@ def modules():
 def __dir__():
     return (
         'Mods',
-        'add',
-        'get',
-        'configure',
         'modules'
     )

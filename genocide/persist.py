@@ -20,17 +20,17 @@ class Cache:
 
     objs = Object()
 
+    @staticmethod
+    def add(path, obj):
+        setattr(Cache.objs, path, obj)
 
-def add(path, obj):
-    setattr(Cache.objs, path, obj)
+    @staticmethod
+    def get(path):
+        return getattr(Cache.objs, path, None)
 
-
-def get(path):
-    return getattr(Cache.objs, path, None)
-
-
-def sync(path, obj):
-    setattr(Cache.objs, path, obj)
+    @staticmethod
+    def sync(path, obj):
+        setattr(Cache.objs, path, obj)
 
 
 def attrs(kind):
@@ -49,11 +49,11 @@ def find(kind=None, selector=None, removed=False, matching=False):
         selector = {}
     fullname = long(kind)
     for pth in fns(fullname):
-        obj = get(pth)
+        obj = Cache.get(pth)
         if not obj:
             obj = Object()
             read(obj, pth)
-            add(pth, obj)
+            Cache.add(pth, obj)
         if not removed and deleted(obj):
             continue
         if selector and not search(obj, selector, matching):
@@ -137,22 +137,13 @@ def write(obj, path=None):
         cdir(path)
         with open(path, "w", encoding="utf-8") as fpt:
             dump(obj, fpt, indent=4)
-        sync(path, obj)
+        Cache.sync(path, obj)
         return path
 
 
 def __dir__():
     return (
-    )
-
-
-
-def __dir__():
-    return (
         'Cache',
-        'add',
-        'get',
-        'sync',
         'attrs',
         'deleted',
         'find',

@@ -4,7 +4,6 @@
 "fields"
 
 
-from genocide.message import reply
 from genocide.persist import attrs
 from genocide.workdir import types
 
@@ -13,12 +12,12 @@ def atr(event):
     if not event.rest:
         res = sorted([x.split('.')[-1].lower() for x in types()])
         if res:
-            reply(event, ",".join(res))
+            event.reply(",".join(res))
         else:
-            reply(event, "no types")
+            event.reply("no types")
         return
     items = attrs(event.args[0])
     if not items:
-        reply(event, "no fields")
+        event.reply("no fields")
     else:
-        reply(event, ",".join(items))
+        event.reply(",".join(items))

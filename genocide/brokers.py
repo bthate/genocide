@@ -8,33 +8,29 @@ class Broker:
 
     objects = Object()
 
+    @staticmethod
+    def add(obj):
+        setattr(Broker.objects, repr(obj), obj)
 
-def add(obj):
-    setattr(Broker.objects, repr(obj), obj)
+    @staticmethod
+    def get(origin):
+        return getattr(Broker.objects, origin, None)
 
+    @staticmethod
+    def all(attr=None):
+        for obj in values(Broker.objects):
+            if attr and attr not in dir(obj):
+                continue
+            yield obj
 
-def get(origin):
-    return getattr(Broker.objects, origin, None)
-
-
-def all(attr=None):
-    for obj in values(Broker.objects):
-        if attr and attr not in dir(obj):
-            continue
-        yield obj
-
-
-def like(origin):
-    for orig in Broker.objects:
-        if origin.split()[0] in orig.split()[0]:
-            yield orig
+    @staticmethod
+    def like(origin):
+        for orig in Broker.objects:
+            if origin.split()[0] in orig.split()[0]:
+                yield orig
 
 
 def __dir__():
     return (
         'Broker',
-        'add',
-        'get',
-        'all',
-        'like'
     )

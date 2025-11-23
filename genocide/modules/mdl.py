@@ -6,8 +6,8 @@ import logging
 import time
 
 
-from genocide.brokers import all
-from genocide.message import Message, reply
+from genocide.brokers import Broker
+from genocide.message import Message
 from genocide.objects import Object, construct, keys
 from genocide.repeats import Repeater
 from genocide.utility import elapsed
@@ -138,7 +138,7 @@ def cbnow(_evt):
         nrtimes = int(delta/needed)
         txt += f"{getalias(nme)} {nrtimes} | "
     txt += "https://pypi.org/project/."
-    for bot in all("announce"):
+    for bot in Broker.all("announce"):
         bot.announce(txt)
 
 
@@ -161,7 +161,7 @@ def cbstats(evt):
             nryear,
             elapsed(needed)
         )
-        for bot in all("announce"):
+        for bot in Broker.all("announce"):
             bot.announce(txt)
 
 
@@ -178,7 +178,7 @@ def dis(event):
         nrtimes = int(delta/needed)
         txt += f"{getalias(nme)} {nrtimes} | "
     txt += "https://pypi.org/project/."
-    reply(event, txt)
+    event.reply(txt)
 
 
 def now(event):
@@ -199,7 +199,7 @@ def now(event):
             nryear,
             elapsed(needed)
         )
-        reply(event, txt)
+        event.reply(txt)
 
 
 "data"

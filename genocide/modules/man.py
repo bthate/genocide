@@ -1,39 +1,38 @@
 # This file is placed in the Public Domain.
 
 
-"""
-N A M E
+"""N A M E
 
 
-    TOB - bot in reverse !
+    %s - %s
 
 
 S Y N O P S I S
 
 
-    . <cmd> [key=val] [key==val]
-    . -cvaw [init=mod1,mod2]
-    . -d
-    . -s
+    %s <cmd> [key=val] [key==val]
+    %s -cvaw [init=mod1,mod2]
+    %s -d
+    %s -s
 
 
 D E S C R I P T I O N
 
 
-    TOB has all you need to program a unix cli program, such as disk
+    %s has all you need to program a unix cli program, such as disk
     perisistence for configuration files, event handler to handle the
     client/server connection, easy programming of your own commands, etc.
 
-    TOB contains python3 code to program objects in a functional way.
+    %s contains python3 code to program objects in a functional way.
     it provides an "clean namespace" Object class that only has dunder
     methods, so the namespace is not cluttered with method names. This
     makes storing and reading to/from json possible.
 
-    TOB is a python3 IRC bot, it can connect to IRC, fetch and
+    %s is a python3 IRC bot, it can connect to IRC, fetch and
     display RSS feeds, take todo notes, keep a shopping list and log
     text. You can run it under systemd for 24/7 presence in a IRC channel.
 
-    TOB is Public Domain.
+    %s is Public Domain.
 
 
 I N S T A L L
@@ -41,57 +40,57 @@ I N S T A L L
 
     installation is done with pipx
 
-    $ pipx install .
+    $ pipx install %s
     $ pipx ensurepath
 
     <new terminal>
 
-    $ . srv > genocide.service
-    $ sudo mv ..service /etc/systemd/system/
-    $ sudo systemctl enable . --now
+    $ %s srv > genocide.service
+    $ sudo mv %s.service /etc/systemd/system/
+    $ sudo systemctl enable %s --now
 
-    joins #. on localhost
+    joins #%s on localhost
 
 
 U S A G E 
 
 
-    use . to control the program, default it does nothing
+    use %s to control the program, default it does nothing
 
-    $ .
+    $ %s
     $
 
     see list of commands
 
 
-    $ . cmd
+    $ %s cmd
     cfg,cmd,dne,dpl,err,exp,imp,log,mod,mre,nme,
     pwd,rem,req,res,rss,srv,syn,tdo,thr,upt
 
 
     start console
 
-    $ . -c
+    $ %s -c
 
 
     start console and run irc and rss 
 
-    $ . -c init=irc,rss
+    $ %s -c init=irc,rss
 
     list available modules
 
-    $ . mod
+    $ %s mod
     err,flt,fnd,irc,llm,log,mbx,mdl,mod,req,rss,
     rst,slg,tdo,thr,tmr,udp,upt``
 
     start daemon
 
-    $ . -d
+    $ %s -d
     $
 
     start service
 
-    $ . -s
+    $ %s -s
 
     <runs until ctrl-c>
 
@@ -123,33 +122,33 @@ C O N F I G U R A T I O N
 
     irc
 
-    $ . cfg server=<server>
-    $ . cfg channel=<channel>
-    $ . cfg nick=<nick>
+    $ %s cfg server=<server>
+    $ %s cfg channel=<channel>
+    $ %s cfg nick=<nick>
 
     sasl
 
-    $ . pwd <nsnick> <nspass>
-    $ . cfg password=<frompwd>
+    $ %s pwd <nsnick> <nspass>
+    $ %s cfg password=<frompwd>
 
     rss
 
-    $ . rss <url>
-    $ . dpl <url> <item1,item2>
-    $ . rem <url>
-    $ . nme <url> <name>
+    $ %s rss <url>
+    $ %s dpl <url> <item1,item2>
+    $ %s rem <url>
+    $ %s nme <url> <name>
 
     opml
 
-    $ . exp
-    $ . imp <filename>
+    $ %s exp
+    $ %s imp <filename>
 
 
 P R O G R A M M I N G
 
 
-    . has it's modules in the ~/.genocide/mods directory so for a hello world
-    command you would  edit a file in ~/../mods/hello.py and add the
+    %s has it's modules in the ~/.%s/mods directory so for a hello world
+    command you would  edit a file in ~/.%s/mods/hello.py and add the
     following
 
 
@@ -160,7 +159,7 @@ P R O G R A M M I N G
     typing the hello command would result into a nice hello world !!
 
 
-    $ . hello
+    $ %s hello
     hello world !!
 
 
@@ -172,9 +171,9 @@ P R O G R A M M I N G
 F I L E S
 
 
-    ~/..
-    ~/.local/bin/.
-    ~/.local/pipx/venvs/./*
+    ~/.%s
+    ~/.local/bin/%s
+    ~/.local/pipx/venvs/%s/*
 
 
 A U T H O R
@@ -186,12 +185,24 @@ A U T H O R
 C O P Y R I G H T
 
 
-    TOB is Public Domain
+    %s is Public Domain
 """
 
 
-from genocide.message import reply
+from genocide.configs import Config
 
 
 def man(event):
-    reply(event, __doc__)
+    if not event.rest:
+        event.reply("man <description>")
+        return
+    descr = event.rest
+    name = Config.name
+    event.reply(__doc__ % (
+        name.upper(),
+        descr,
+        *(name,) * 4,
+        *(name.upper(),) * 4,
+        *(name,) * 31,
+        name.upper()
+        ))

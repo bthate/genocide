@@ -11,7 +11,6 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
 from genocide.objects import Object
-from genocide.package import get
 from genocide.threads import launch
 from genocide.utility import importer
 

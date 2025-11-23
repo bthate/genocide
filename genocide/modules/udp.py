@@ -9,8 +9,7 @@ import threading
 import time
 
 
-from genocide.brokers import all
-from genocide.message import reply
+from genocide.brokers import Broker
 from genocide.objects import Object
 from genocide.threads import launch
 
@@ -47,7 +46,7 @@ class UDP(Object):
     def output(self, txt, addr=None):
         if addr:
             Cfg.addr = addr
-        for bot in all("announce"):
+        for bot in Broker.all("announce"):
             bot.announce(txt.replace("\00", ""))
 
     def loop(self):
@@ -94,7 +93,7 @@ def udp(event):
                          [],
                          0.0
                         )[0]:
-        reply(event, "udp <text>")
+        event.reply("udp <text>")
         return
     size = 0
     while 1:

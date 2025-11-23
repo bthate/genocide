@@ -16,20 +16,20 @@ sys.path.insert(0, os.getcwd())
 
 from genocide.clients import Client
 from genocide.command import command, parse, scan
-from genocide.configs import Config, configure
-from genocide.message import Message, wait
+from genocide.configs import Config
+from genocide.message import Message
 from genocide.outputs import Output
-from genocide.package import Mods, get, modules
+from genocide.package import Mods, modules
 from genocide.threads import launch, threadhook
 from genocide.utility import elapsed
 from genocide.workdir import Workdir
 
 
 NAME = "genocide"
-VERSION = 10
+VERSION = 221
 
 
-configure(NAME, VERSION, "", True)
+Config.configure(NAME, VERSION, "", True)
 Workdir.wdr = ".test"
 
 
@@ -93,7 +93,7 @@ def consume():
     while True:
         try:
             event = events.get()
-            wait(event)
+            event.wait()
             events.task_done()
         except (KeyboardInterrupt, EOFError):
             os._exit(0)
@@ -116,7 +116,7 @@ def scanner(names=None):
     for name in names:
         if name in Mods.ignore:
             continue
-        mod = get(name)
+        mod = Mods.get(name)
         if mod:
             mods.append(mod)
             scan(mod)

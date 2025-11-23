@@ -12,7 +12,7 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.command import Commands, command, scan
+from genocide.command import Commands, command
 from genocide.clients import Client
 from genocide.configs import Config
 from genocide.defines import SYSTEMD
@@ -83,7 +83,7 @@ def scanner(names, init=False):
     for name in names:
         mod = Mods.get(name)
         if mod:
-            scan(mod)
+            Commands.scan(mod)
         if init and "init" in dir(mod):
             thr = launch(mod.init, Config())
             mods.append((mod, thr))

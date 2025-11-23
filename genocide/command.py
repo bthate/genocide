@@ -25,6 +25,14 @@ class Commands:
     def get(cmd):
         return getattr(Commands.cmds, cmd, None)
 
+    @staticmethod
+    def scan(module):
+        for key, cmdz in inspect.getmembers(module, inspect.isfunction):
+            if key.startswith("cb"):
+                continue
+            if 'event' in inspect.signature(cmdz).parameters:
+                Commands.add(cmdz)
+
 
 def command(evt):
     parse(evt, evt.text)
@@ -36,17 +44,8 @@ def command(evt):
     evt.ready()
 
 
-def scan(module):
-    for key, cmdz in inspect.getmembers(module, inspect.isfunction):
-        if key.startswith("cb"):
-            continue
-        if 'event' in inspect.signature(cmdz).parameters:
-            Commands.add(cmdz)
-
-
 def __dir__():
     return (
         'Comamnds',
-        'command',
-        'scan'
+        'command'
     )

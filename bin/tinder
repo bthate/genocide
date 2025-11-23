@@ -15,9 +15,10 @@ sys.path.insert(0, os.getcwd())
 
 
 from genocide.clients import Client
-from genocide.command import command, parse, scan
+from genocide.command import Commands, command
 from genocide.configs import Config
 from genocide.message import Message
+from genocide.methods import parse
 from genocide.outputs import Output
 from genocide.package import Mods, modules
 from genocide.threads import launch, threadhook
@@ -119,7 +120,7 @@ def scanner(names=None):
         mod = Mods.get(name)
         if mod:
             mods.append(mod)
-            scan(mod)
+            Commands.scan(mod)
     return mods
 
 

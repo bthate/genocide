@@ -12,8 +12,7 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.command import add
-from genocide.command import Commands, command, parse, scan
+from genocide.command import Commands, add, command, parse, scan
 from genocide.clients import Client
 from genocide.configs import Config, configure
 from genocide.defines import SYSTEMD
@@ -26,10 +25,16 @@ from genocide.utility import check, level, spl, wrapped
 from genocide.workdir import pidname
 
 
+"defines"
+
+
 IGNORE = ""
 LOCAL = True
 NAME = "genocide" 
 VERSION = 221
+
+
+"clients"
 
 
 class CLI(Client):

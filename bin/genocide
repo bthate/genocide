@@ -16,6 +16,7 @@ from genocide.command import Commands, command
 from genocide.clients import Client
 from genocide.configs import Config
 from genocide.defines import SYSTEMD
+from genocide.kernels import Kernel
 from genocide.message import Message
 from genocide.methods import parse
 from genocide.package import Mods
@@ -78,18 +79,6 @@ def banner(name, version):
     sys.stdout.flush()
 
 
-def scanner(names, init=False):
-    mods = []
-    for name in names:
-        mod = Mods.get(name)
-        if mod:
-            Commands.scan(mod)
-        if init and "init" in dir(mod):
-            thr = launch(mod.init, Config())
-            mods.append((mod, thr))
-    return mods
-
-
 "scripts"
 
 
@@ -97,7 +86,7 @@ def background():
     daemon(check("v"))
     privileges()
     level("info")
-    scanner(modules(), True)
+    Kernel.scanner(modules(), True)
     Commands.add(cmd, ver)
     pidfile(pidname(Config.name))
     forever()
@@ -116,7 +105,7 @@ def console():
         mods = spl(Config.sets.get("init", ""))
     Commands.add(cmd, ver)
     csl = Console()
-    for _mod, thr in scanner(mods, True):
+    for _mod, thr in Kernel.scanner(mods, True):
         thr.join(30.0)
     csl.start()
     forever()
@@ -125,7 +114,7 @@ def console():
 def control():
     if len(sys.argv) == 1:
         return
-    scanner(modules(), False)
+    Kernel.scanner(modules(), False)
     Commands.add(cmd, srv, ver)
     csl = CLI()
     csl.silent = False
@@ -141,7 +130,7 @@ def service():
     privileges()
     level("info")
     banner(Config.name, Config.version)
-    scanner(modules(), True)
+    Kernel.scanner(modules(), True)
     Commands.add(cmd, ver)
     pidfile(pidname(Config.name))
     forever()
@@ -168,7 +157,7 @@ def ver(event):
 
 
 def main():
-    Config.configure(NAME, VERSION, IGNORE, LOCAL)
+    Kernel.configure(NAME, VERSION, IGNORE, LOCAL)
     if not check("b"):
         threading.excepthook = threadhook
     if check("c"):

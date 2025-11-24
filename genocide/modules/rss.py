@@ -475,7 +475,7 @@ def rss(event):
         return
     url = event.args[0]
     if "http://" not in url and "https://" not in url:
-        reply(event, "i need an url")
+        event.reply("i need an url")
         return
     for fnm, result in find("rss.Rss", {"rss": url}):
         if result:

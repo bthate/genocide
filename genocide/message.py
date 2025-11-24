@@ -5,8 +5,7 @@ import threading
 import time
 
 
-from .default import Default
-from .objects import Object
+from .objects import Default, Object
 
 
 class Message(Default):

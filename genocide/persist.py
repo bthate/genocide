@@ -7,7 +7,7 @@ import threading
 import time
 
 
-from .objects import Object, fqn, items, update
+from .objects import Object, fqn, items, keys, update
 from .serials import dump, load
 from .utility import cdir
 from .workdir import getpath, long, store

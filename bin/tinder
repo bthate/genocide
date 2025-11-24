@@ -17,6 +17,7 @@ sys.path.insert(0, os.getcwd())
 from genocide.clients import Client
 from genocide.command import Commands, command
 from genocide.configs import Config
+from genocide.kernels import Kernel
 from genocide.message import Message
 from genocide.methods import parse
 from genocide.outputs import Output
@@ -30,7 +31,7 @@ NAME = "genocide"
 VERSION = 221
 
 
-Config.configure(NAME, VERSION, "", True)
+Kernel.configure(NAME, VERSION, "", True)
 Workdir.wdr = ".test"
 
 

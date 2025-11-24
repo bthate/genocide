@@ -8,14 +8,12 @@ import unittest
 
 
 from genocide.clients import Client
-from genocide.message import Message, ready, reply, wait
+from genocide.message import Message
 
 
 def hello(event):
-    reply(event, "hello")
-    ready(event)
-
-
+    event.reply("hello")
+    event.ready()
 clt = Client()
 clt.register("hello", hello)
 clt.start()
@@ -27,5 +25,5 @@ class TestHandler(unittest.TestCase):
         e = Message()
         e.kind = "hello"
         clt.put(e)
-        wait(e)
+        e.wait()
         self.assertTrue(True)

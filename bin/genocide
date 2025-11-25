@@ -20,7 +20,6 @@ from genocide.kernels import Kernel
 from genocide.message import Message
 from genocide.methods import parse
 from genocide.package import Mods
-from genocide.package import modules
 from genocide.threads import launch, threadhook
 from genocide.utility import daemon, forever, pidfile, privileges, wrap
 from genocide.utility import check, level, spl, wrapped
@@ -86,7 +85,7 @@ def background():
     daemon(check("v"))
     privileges()
     level("info")
-    Kernel.scanner(modules(), True)
+    Kernel.scanner(Mods.modules(), True)
     Commands.add(cmd, ver)
     pidfile(pidname(Config.name))
     forever()
@@ -100,7 +99,7 @@ def console():
         banner(Config.name, Config.version)
     mods = []
     if "a" in Config.opts:
-        mods = modules()
+        mods = Mods.modules()
     else:
         mods = spl(Config.sets.get("init", ""))
     Commands.add(cmd, ver)
@@ -114,7 +113,7 @@ def console():
 def control():
     if len(sys.argv) == 1:
         return
-    Kernel.scanner(modules(), False)
+    Kernel.scanner(Mods.modules(), False)
     Commands.add(cmd, srv, ver)
     csl = CLI()
     csl.silent = False
@@ -130,7 +129,7 @@ def service():
     privileges()
     level("info")
     banner(Config.name, Config.version)
-    Kernel.scanner(modules(), True)
+    Kernel.scanner(Mods.modules(), True)
     Commands.add(cmd, ver)
     pidfile(pidname(Config.name))
     forever()

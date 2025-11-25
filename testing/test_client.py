@@ -12,7 +12,7 @@ from genocide.message import Message
 
 
 def hello(event):
-    event.reply("hello")
+    event.reply(event, "hello")
     event.ready()
 
 

@@ -3,6 +3,7 @@
 
 import threading
 import time
+import _thread
 
 
 from .objects import Default, Object
@@ -26,7 +27,7 @@ class Message(Default):
         self._ready.wait(timeout)
         if self._thr:
             self._thr.join(timeout)
-            
+
 
 def __dir__():
     return (

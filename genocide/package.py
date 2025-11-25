@@ -44,19 +44,19 @@ class Mods:
                 break
         return sys.modules.get(mname, None) or importer(mname, pth)
 
-
-def modules():
-    mods = []
-    for name, path in Mods.dirs.items():
-        if name in Mods.ignore:
-            continue
-        if not os.path.exists(path):
-            continue
-        mods.extend([
-            x[:-3] for x in os.listdir(path)
-            if x.endswith(".py") and not x.startswith("__") and x not in Mods.ignore
-        ])
-    return sorted(mods)
+    @staticmethod
+    def modules():
+        mods = []
+        for name, path in Mods.dirs.items():
+            if name in Mods.ignore:
+                continue
+            if not os.path.exists(path):
+                continue
+            mods.extend([
+                x[:-3] for x in os.listdir(path)
+                if x.endswith(".py") and not x.startswith("__") and x not in Mods.ignore
+            ])
+        return sorted(mods)
 
 
 def __dir__():

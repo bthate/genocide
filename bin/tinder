@@ -21,7 +21,7 @@ from genocide.kernels import Kernel
 from genocide.message import Message
 from genocide.methods import parse
 from genocide.outputs import Output
-from genocide.package import Mods, modules
+from genocide.package import Mods
 from genocide.threads import launch, threadhook
 from genocide.utility import elapsed
 from genocide.workdir import Workdir
@@ -36,7 +36,7 @@ Workdir.wdr = ".test"
 
 
 events = queue.Queue()
-threading.excepthook = threadhook
+#threading.excepthook = threadhook
 
 
 class CLI(Output):
@@ -111,20 +111,6 @@ def payload(todo):
             events.put(evt)
 
 
-def scanner(names=None):
-    if names is None:
-        names = modules()
-    mods = []
-    for name in names:
-        if name in Mods.ignore:
-            continue
-        mod = Mods.get(name)
-        if mod:
-            mods.append(mod)
-            Commands.scan(mod)
-    return mods
-
-
 def main():
     if os.path.exists(Workdir.wdr):
         shutil.rmtree(Workdir.wdr)
@@ -133,7 +119,7 @@ def main():
         threading.excepthook = threadhook
     if "v" in Config.opts:
         banner(Config.name, Config.version)
-    scanner()
+    Kernel.scanner(Mods.modules())
     if "z" in Config.opts:
         Pool.init(CLI, os.cpu_count())
     else:
@@ -155,7 +141,10 @@ def main():
         thr.join()
     launch(consume)
     nrevents = events.qsize()
-    events.join()
+    try:
+        events.join()
+    except (KeyboardInterrupt, EOFError):
+        os._exit(0)
     endtime = time.time()
     lap = elapsed(endtime-starttime)
     percall = (endtime-starttime)/nrevents
@@ -163,7 +152,7 @@ def main():
     if "v" in Config.opts:
         print(f"{nrs} events left.")
         print(f"total: {lap} nrs: {nrevents} call: %.6fs" % percall)
-    sys.exit()
+    os._exit(0)
 
 
 examples = {

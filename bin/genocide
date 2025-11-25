@@ -58,8 +58,6 @@ class Console(CLI):
         event.wait()
 
     def poll(self):
-        if self.shutdown:
-            return
         evt = Message()
         evt.text = input("> ")
         evt.kind = "command"

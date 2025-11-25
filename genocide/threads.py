@@ -2,17 +2,20 @@
 
 
 import logging
+import os
 import queue
 import threading
 import time
 import _thread
 
 
+from .methods import name
+
+
 class Thread(threading.Thread):
 
     def __init__(self, func, *args, daemon=True, **kwargs):
         super().__init__(None, self.run, None, (), daemon=daemon)
-        self.event = None
         self.name = kwargs.get("name", name(func))
         self.queue = queue.Queue()
         self.result = None
@@ -28,32 +31,20 @@ class Thread(threading.Thread):
 
     def join(self, timeout=None):
         super().join(timeout)
-        return  self.result
+        return self.result
 
     def run(self):
         func, args = self.queue.get()
-        if args:
-            self.event = args[0]
-        try:
-            self.result = func(*args)
-        except Exception as ex:
-            if self.event and "ready" in dir(self.event):
-                self.event.ready()
-            raise ex
+        self.result = func(*args)
 
 
 def launch(func, *args, **kwargs):
-    thread = Thread(func, *args, **kwargs)
-    thread.start()
-    return thread
-
-
-def name(func):
-    if "__self__" in dir(func):
-        val = f"{func.__self__.__class__.__name__}.{func.__name__}"
-    elif "__name__" in dir(func):
-        val = f"{func.__class__.__name__}.{func.__name__}"
-    return val
+    try:
+        thread = Thread(func, *args, **kwargs)
+        thread.start()
+        return thread
+    except (KeyboardInterrupt, EOFError):
+        os._exit(0)
 
 
 def threadhook(args):
@@ -61,6 +52,8 @@ def threadhook(args):
     exc = value.with_traceback(trace)
     if kind not in (KeyboardInterrupt, EOFError):
         logging.exception(exc)
+    if _thr and _thr.event and "ready" in dir(_thr.event):
+        _thr.event.ready()
     _thread.interrupt_main()
 
 

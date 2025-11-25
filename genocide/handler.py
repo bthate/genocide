@@ -12,7 +12,6 @@ class Handler:
     def __init__(self):
         self.cbs = {}
         self.queue = queue.Queue()
-        self.shutdown = False
 
     def callback(self, event):
         func = self.cbs.get(event.kind, None)

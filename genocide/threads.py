@@ -8,9 +8,6 @@ import time
 import _thread
 
 
-from .methods import name
-
-
 class Thread(threading.Thread):
 
     def __init__(self, func, *args, daemon=True, **kwargs):
@@ -49,6 +46,14 @@ def launch(func, *args, **kwargs):
     thread = Thread(func, *args, **kwargs)
     thread.start()
     return thread
+
+
+def name(func):
+    if "__self__" in dir(func):
+        val = f"{func.__self__.__class__.__name__}.{func.__name__}"
+    elif "__name__" in dir(func):
+        val = f"{func.__class__.__name__}.{func.__name__}"
+    return val
 
 
 def threadhook(args):

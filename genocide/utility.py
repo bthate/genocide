@@ -140,7 +140,6 @@ def importer(name, pth=None):
     return mod
 
 
-
 def md5sum(path):
     import hashlib
     with open(path, "r", encoding="utf-8") as file:

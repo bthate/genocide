@@ -14,14 +14,14 @@ class Message(Default):
     def __init__(self):
         super().__init__()
         self._ready = threading.Event()
-        self.result = Object()
+        self.result = {}
         self.kind = "event"
 
     def ready(self):
         self._ready.set()
 
     def reply(self, text):
-        setattr(self.result, str(time.time()), text)
+        self.result[time.time()] = text
 
     def wait(self, timeout=None):
         self._ready.wait(timeout)

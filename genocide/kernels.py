@@ -33,5 +33,5 @@ class Kernel:
 
 def __dir__():
     return (
-        'Default',
+        'Kernel',
     )

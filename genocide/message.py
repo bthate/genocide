@@ -1,10 +1,8 @@
 # This file is placed in the Public Domain.
 
 
-import logging
 import threading
 import time
-import _thread
 
 
 from .objects import Default, Object

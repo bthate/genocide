@@ -15,6 +15,7 @@ class Thread(threading.Thread):
 
     def __init__(self, func, *args, daemon=True, **kwargs):
         super().__init__(None, self.run, None, (), daemon=daemon)
+        self.event = None
         self.name = kwargs.get("name", name(func))
         self.queue = queue.Queue()
         self.result = None
@@ -34,7 +35,14 @@ class Thread(threading.Thread):
 
     def run(self):
         func, args = self.queue.get()
-        self.result = func(*args)
+        if args:
+            self.event = args[0]
+        try:
+            self.result = func(*args)
+        except Exception as ex:
+            if self.event and "ready" in dir(self.event):
+                self.event.ready()
+            raise ex
 
 
 def launch(func, *args, **kwargs):
@@ -54,6 +62,5 @@ def threadhook(args):
 def __dir__():
     return (
         'Thread',
-        'launch',
-        'threadhook'
+        'launch'
    )

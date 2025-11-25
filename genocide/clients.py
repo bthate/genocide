@@ -1,8 +1,10 @@
 # This file is placed in the Public Domain.
 
 
+import logging
 import queue
 import threading
+import _thread
 
 
 from .brokers import Broker
@@ -41,7 +43,11 @@ class Client(Handler):
         self.raw(text)
 
     def wait(self):
-        self.oqueue.join()
+        try:
+            self.oqueue.join()
+        except Exception as ex:
+            logging.exception(ex)
+            _thread.interrupt_main()
 
 
 def __dir__():

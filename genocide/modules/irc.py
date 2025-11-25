@@ -198,7 +198,7 @@ class IRC(Output):
 
     def display(self, event):
         for key in sorted(event.result, key=lambda x: x):
-            txt = getattr(event.result, key)
+            txt = event.result.get(key)
             if not txt:
                 continue
             textlist = []

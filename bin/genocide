@@ -129,7 +129,7 @@ def service():
     privileges()
     level("info")
     banner(Config.name, Config.version)
-    Kernel.scanner(Mods.modules(), True)
+    Kernel.scanner(spl("irc,mdl,rss"), True)
     Commands.add(cmd, ver)
     pidfile(pidname(Config.name))
     forever()

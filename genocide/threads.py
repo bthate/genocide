@@ -16,6 +16,7 @@ class Thread(threading.Thread):
 
     def __init__(self, func, *args, daemon=True, **kwargs):
         super().__init__(None, self.run, None, (), daemon=daemon)
+        self.event = None
         self.name = kwargs.get("name", name(func))
         self.queue = queue.Queue()
         self.result = None
@@ -30,12 +31,24 @@ class Thread(threading.Thread):
         yield from dir(self)
 
     def join(self, timeout=None):
-        super().join(timeout)
-        return self.result
+        try:
+            super().join(timeout)
+            return self.result
+        except (KeyboardInterrupt, EOFError):
+            if self.event:
+                self.event.ready()
+            raise ex
 
     def run(self):
         func, args = self.queue.get()
-        self.result = func(*args)
+        if args and "ready" in dir(args[0]):
+            self.event = args[0]
+        try:
+            self.result = func(*args)
+        except Exception as ex:
+            if self.event:
+                self.event.ready()
+            raise ex
 
 
 def launch(func, *args, **kwargs):

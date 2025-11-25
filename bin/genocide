@@ -157,7 +157,7 @@ def ver(event):
 
 def main():
     Kernel.configure(NAME, VERSION, IGNORE, LOCAL)
-    if not check("b"):
+    if check("b"):
         threading.excepthook = threadhook
     if check("c"):
         wrap(console)

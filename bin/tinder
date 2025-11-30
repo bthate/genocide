@@ -14,29 +14,31 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.clients import Client
+from genocide.clients import Client, Output
 from genocide.command import Commands, command
 from genocide.configs import Config
-from genocide.kernels import Kernel
+from genocide.kernels import Kernel, scanner
 from genocide.message import Message
-from genocide.methods import parse
-from genocide.outputs import Output
-from genocide.package import Mods
+from genocide.methods import fmt, parse
+from genocide.package import modules
 from genocide.threads import launch, threadhook
 from genocide.utility import elapsed
 from genocide.workdir import Workdir
 
 
-NAME = "genocide"
-VERSION = 221
+Config.debug = True
+Config.name = "objz"
+Config.opts = "m"
+Config.version = 110
 
 
-Kernel.configure(NAME, VERSION, "", True)
+Kernel.configure(" ".join(sys.argv[1:]))
+
+
 Workdir.wdr = ".test"
 
 
 events = queue.Queue()
-#threading.excepthook = threadhook
 
 
 class CLI(Output):
@@ -119,7 +121,7 @@ def main():
         threading.excepthook = threadhook
     if "v" in Config.opts:
         banner(Config.name, Config.version)
-    Kernel.scanner(Mods.modules())
+    scanner(modules())
     if "z" in Config.opts:
         Pool.init(CLI, os.cpu_count())
     else:
@@ -150,6 +152,7 @@ def main():
     percall = (endtime-starttime)/nrevents
     nrs = events.qsize()
     if "v" in Config.opts:
+        print(fmt(Config))
         print(f"{nrs} events left.")
         print(f"total: {lap} nrs: {nrevents} call: %.6fs" % percall)
     os._exit(0)

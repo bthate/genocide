@@ -4,13 +4,9 @@
 import os
 
 
-from genocide.configs import Config
-from genocide.utility import importer
+from genocide.package import Mods
+
 
 def pth(event):
-    mod = importer(f"{Config.name}.nucleus")
-    if not mod:
-        event.reply("can't find web directory.")
-        return
-    path = os.path.join(mod.__path__[0], "index.html")
+    path = os.path.join(Mods.path, "nucleus")
     event.reply(f"file://{path}")

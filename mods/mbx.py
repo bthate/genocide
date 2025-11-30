@@ -6,10 +6,10 @@ import os
 import time
 
 
-from genocide.defines import MONTH
 from genocide.methods import fmt
 from genocide.objects import Object, keys, update
 from genocide.persist import find, write
+from genocide.statics import MONTH
 from genocide.utility import elapsed, extract_date
 
 

@@ -10,21 +10,15 @@ import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
+from genocide.configs import Config
 from genocide.objects import Object
+from genocide.package import Mods
 from genocide.threads import launch
 from genocide.utility import importer
 
 
-DEBUG = False
-PATH = ""
-
-
-def init(cfg):
-    mod = importer(f"{cfg.name}.nucleus")
-    if not mod:
-        logging.warning("can't find web directory")
-        return
-    Cfg.path = mod.__path__[0]
+def init():
+    Cfg.path = os.path.join(Mods.path, "nucleus")
     if not os.path.exists(os.path.join(Cfg.path, 'index.html')):
         logging.warning("no index.html")
         return
@@ -104,7 +98,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if "favicon" in self.path:
             return
-        if DEBUG:
+        if Config.debug:
             return
         if self.path == "/":
             self.path = "index.html"

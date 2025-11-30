@@ -10,14 +10,12 @@ import time
 
 
 from genocide.brokers import Broker
+from genocide.configs import Config
 from genocide.objects import Object
 from genocide.threads import launch
 
 
-DEBUG = False
-
-
-def init(cfg):
+def init():
     udp = UDP()
     udp.start()
     logging.warning("http://%s:%s", Cfg.host, Cfg.port)
@@ -77,7 +75,7 @@ class UDP(Object):
 
 
 def toudp(host, port, txt):
-    if DEBUG:
+    if Config.debug:
         return
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(bytes(txt.strip(), "utf-8"), (host, port))

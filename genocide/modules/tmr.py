@@ -9,10 +9,10 @@ import time
 
 
 from genocide.brokers import Broker
-from genocide.defines import MONTH
 from genocide.objects import Object, items
 from genocide.persist import last, write
 from genocide.repeats import Timed
+from genocide.statics import MONTH
 from genocide.utility import elapsed, extract_date
 from genocide.workdir import getpath
 
@@ -20,10 +20,12 @@ from genocide.workdir import getpath
 rand = random.SystemRandom()
 
 
-def init(cfg):
+def init():
     Timers.path = last(Timers.timers) or getpath(Timers.timers)
     remove = []
     for tme, args in items(Timers.timers):
+        if not args:
+            continue
         orig, channel, txt = args
         for origin in Broker.like(orig):
             if not origin:

@@ -20,6 +20,7 @@ from urllib.parse import quote_plus, urlencode
 
 
 from genocide.brokers import Broker
+from genocide.configs import Config
 from genocide.methods import fmt
 from genocide.objects import Object, update
 from genocide.persist import find, fntime, last, write
@@ -29,10 +30,7 @@ from genocide.utility import elapsed, spl
 from genocide.workdir import getpath
 
 
-DEBUG = False
-
-
-def init(cfg):
+def init():
     fetcher = Fetcher()
     fetcher.start()
     if fetcher.seenfn:
@@ -44,7 +42,9 @@ def init(cfg):
 
 fetchlock = _thread.allocate_lock()
 importlock = _thread.allocate_lock()
-errors: dict[str, float] = {}
+
+
+errors = {}
 skipped = []
 
 
@@ -284,7 +284,7 @@ def cdata(line):
 
 def getfeed(url, items):
     result = [Object(), Object()]
-    if DEBUG or url in errors and (time.time() - errors[url]) < 600:
+    if Config.debug or url in errors and (time.time() - errors[url]) < 600:
         return result
     try:
         rest = geturl(url)
@@ -488,7 +488,7 @@ def rss(event):
 
 
 def syn(event):
-    if DEBUG:
+    if Config.debug:
         return
     fetcher = Fetcher()
     fetcher.start(False)

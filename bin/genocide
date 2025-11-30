@@ -15,27 +15,19 @@ sys.path.insert(0, os.getcwd())
 from genocide.command import Commands, command
 from genocide.clients import Client
 from genocide.configs import Config
-from genocide.defines import SYSTEMD
-from genocide.kernels import Kernel
+from genocide.kernels import Kernel, scanner
 from genocide.message import Message
-from genocide.methods import parse
-from genocide.package import Mods
-from genocide.threads import launch, threadhook
+from genocide.package import modules
+from genocide.statics import SYSTEMD
+from genocide.threads import threadhook
 from genocide.utility import daemon, forever, pidfile, privileges, wrap
-from genocide.utility import check, level, spl, wrapped
+from genocide.utility import check, spl, wrapped
 from genocide.workdir import pidname
 
 
-"defines"
-
-
-IGNORE = ""
-LOCAL = True
-NAME = "genocide" 
-VERSION = 221
-
-
-"clients"
+Config.ignore = ""
+Config.name = "genocide" 
+Config.version = 201
 
 
 class CLI(Client):
@@ -66,12 +58,12 @@ class Console(CLI):
 "in the beginning"
 
 
-def banner(name, version):
+def banner():
     tme = time.ctime(time.time()).replace("  ", " ")
     logger = logging.getLogger()
     print("%s %s since %s (%s)" % (
-                                   name.upper(),
-                                   version,
+                                   Config.name.upper(),
+                                   Config.version,
                                    tme,
                                    logging.getLevelName(logger.getEffectiveLevel())
                                   ))
@@ -84,8 +76,7 @@ def banner(name, version):
 def background():
     daemon(check("v"))
     privileges()
-    level("info")
-    Kernel.scanner(Mods.modules(), True)
+    scanner(modules(), True)
     Commands.add(cmd, ver)
     pidfile(pidname(Config.name))
     forever()
@@ -93,18 +84,16 @@ def background():
 
 def console():
     import readline # noqa: F401
-    parse(Config, " ".join(sys.argv[1:]))
-    level(Config.sets.get("level", "info"))
     if "v" in Config.opts:
-        banner(Config.name, Config.version)
+        banner()
     mods = []
     if "a" in Config.opts:
-        mods = Mods.modules()
+        mods = modules()
     else:
         mods = spl(Config.sets.get("init", ""))
     Commands.add(cmd, ver)
     csl = Console()
-    for _mod, thr in Kernel.scanner(mods, True):
+    for _mod, thr in scanner(mods, True):
         thr.join(30.0)
     csl.start()
     forever()
@@ -113,7 +102,7 @@ def console():
 def control():
     if len(sys.argv) == 1:
         return
-    Kernel.scanner(Mods.modules(), False)
+    scanner(modules(), False)
     Commands.add(cmd, srv, ver)
     csl = CLI()
     csl.silent = False
@@ -127,9 +116,8 @@ def control():
 
 def service():
     privileges()
-    level("info")
-    banner(Config.name, Config.version)
-    Kernel.scanner(spl("irc,mdl,rss"), True)
+    banner()
+    scanner(modules(), True)
     Commands.add(cmd, ver)
     pidfile(pidname(Config.name))
     forever()
@@ -156,9 +144,11 @@ def ver(event):
 
 
 def main():
-    Kernel.configure(NAME, VERSION, IGNORE, LOCAL)
+    Kernel.configure(" ".join(sys.argv[1:]))
     if check("b"):
         threading.excepthook = threadhook
+    if check('z'):
+        Config.debug = True
     if check("c"):
         wrap(console)
     elif check("d"):

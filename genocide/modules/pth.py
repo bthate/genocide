@@ -8,5 +8,5 @@ from genocide.package import Mods
 
 
 def pth(event):
-    path = os.path.join(Mods.path, "nucleus")
+    path = os.path.join(Mods.path, "nucleus", "index.html")
     event.reply(f"file://{path}")

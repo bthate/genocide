@@ -2,7 +2,6 @@
 # This file is placed in the Public Domain.
 
 
-import logging
 import os
 import queue
 import shutil
@@ -14,27 +13,16 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.clients import Client, Output
-from genocide.command import Commands, command
-from genocide.configs import Config
-from genocide.kernels import Kernel, scanner
-from genocide.message import Message
-from genocide.methods import fmt, parse
-from genocide.package import modules
-from genocide.threads import launch, threadhook
-from genocide.utility import elapsed
-from genocide.workdir import Workdir
+from genocide.defines import Config, Message, Output, Workdir
+from genocide.defines import command, elapsed, fmt, launch, parse, scanner, skel
+
+
+import genocide.modules as MODS
 
 
 Config.debug = True
-Config.name = "objz"
-Config.opts = "m"
-Config.version = 110
-
-
-Kernel.configure(" ".join(sys.argv[1:]))
-
-
+Config.name = "genocide"
+Config.version = 230
 Workdir.wdr = ".test"
 
 
@@ -54,7 +42,7 @@ class CLI(Output):
 
 class Pool:
 
-    clients: list[Client] = []
+    clients = []
     lock = threading.RLock()
     nrcpu = 1
     nrlast = 0
@@ -83,14 +71,19 @@ class Pool:
 
 def banner(name, version):
     tme = time.ctime(time.time()).replace("  ", " ")
-    logger = logging.getLogger()
-    print("%s %s since %s (%s)" % (
-                                   name.upper(),
-                                   version,
-                                   tme,
-                                   logging.getLevelName(logger.getEffectiveLevel())
-                                  ))
+    print(f"{name.upper()} {version} since {tme} ({Config.level})")
     sys.stdout.flush()
+
+
+def check(text):
+    args = sys.argv[1:]
+    for arg in args:
+        if not arg.startswith("-"):
+            continue
+        for char in text:
+            if char in arg:
+                return True
+    return False
 
 
 def consume():
@@ -113,31 +106,67 @@ def payload(todo):
             events.put(evt)
 
 
+examples = {
+    "cmd": [""],
+    "dis": [""],
+    "dne": ["", "bla"],
+    "dpl": ["hnrss title,url", ""],
+    "flt": [""],
+    "fnd": ["", "log", "rss", "config", "todo"],
+    "man": [""],
+    "mod": [""],
+    "mre": [""],
+    "nme": ["", "hnrss hackernews"],
+    "now": [""],
+    "pwd": ["", "bla mekker"],
+    "req": [""],
+    "res": ["", "hnrss"],
+    "srv": [""],
+    "thr": [""],
+    "upt": [""]
+}
+
+pre = {
+    "cfg": ["", "nick=mekker"],
+    "imp": ["", "testing/feeds.opml"],
+    "log": ["", "log add"],
+    "rss": ["", "http://hnrss.org/newest"],
+    "tdo": ["", "todo add"]
+}
+
+post = {
+    "dbg": [""],
+    "dne": ["", "mekker"],
+    "exp": [""],
+    "rem": ["", "hnrss"]
+}
+
+
+
 def main():
     if os.path.exists(Workdir.wdr):
         shutil.rmtree(Workdir.wdr)
+    skel()
     parse(Config, " ".join(sys.argv[1:]))
-    if "b" in Config.opts:
-        threading.excepthook = threadhook
+    scanner(MODS)
     if "v" in Config.opts:
         banner(Config.name, Config.version)
-    scanner(modules())
     if "z" in Config.opts:
         Pool.init(CLI, os.cpu_count())
     else:
         Pool.init(CLI, 1)
     starttime = time.time()
     thrs = []
-    NRS = Config.index or 1
-    for _x in range(NRS):
+    nrs = Config.index or 1
+    for _x in range(nrs):
         thrs.append(launch(payload, pre))
     for thr in thrs:
         thr.join()
-    for _x in range(NRS):
+    for _x in range(nrs):
         thrs.append(launch(payload, examples))
     for thr in thrs:
         thr.join()
-    for _x in range(NRS):
+    for _x in range(nrs):
         thrs.append(launch(payload, post))
     for thr in thrs:
         thr.join()
@@ -152,49 +181,10 @@ def main():
     percall = (endtime-starttime)/nrevents
     nrs = events.qsize()
     if "v" in Config.opts:
-        print(fmt(Config))
+        print(f"{fmt(Config)}")
         print(f"{nrs} events left.")
         print(f"total: {lap} nrs: {nrevents} call: %.6fs" % percall)
     os._exit(0)
-
-
-examples = {
-    "cmd": [""],
-    "dis": [""],
-    "dne": ["", "test2"],
-    "dpl": ["hnrss title,url", ""],
-    "flt": [""],
-    "fnd": ["", "log", "rss", "config", "todo"],
-    "log": ["", "test"],
-    "man": [""],
-    "mod": [""],
-    "mre": [""],
-    "nme": ["", "hnrss hackernews"],
-    "now": [""],
-    "pwd": ["", "bla mekker"],
-    "req": [""],
-    "res": ["", "hnrss"],
-    "srv": [""],
-    "tdo": ["", "test2", "test3"],
-    "thr": [""],
-    "upt": [""]
-}
-
-
-pre = {
-    "cfg": ["", "nick=mekker"],
-    "imp": ["", "testing/feeds.opml"],
-    "log": ["", "bla"],
-    "rss": ["","http://hnrss.org/newest"],
-    "tdo": ["", "mekker"]
-}
-
-
-post = {
-    "dne": ["", "hnrss"],
-    "exp": [""],
-    "rem": ["", "hnrss"]
-}
 
 
 if __name__ == "__main__":

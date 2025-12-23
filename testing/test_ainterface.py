@@ -16,16 +16,18 @@ sys.path.insert(0, os.getcwd())
 
 import genocide
 import genocide.brokers
+import genocide.clients
 import genocide.command
 import genocide.handler
 import genocide.message
 import genocide.methods
 import genocide.objects
-import genocide.package
 import genocide.persist
 import genocide.repeats
+import genocide.timings
 import genocide.threads
 import genocide.utility
+import genocide.workdir
 
 
 from genocide.objects import *
@@ -33,16 +35,18 @@ from genocide.objects import *
 
 PACKAGE = [
     'brokers',
+    'clients',
     'command',
     'handler',
     'message',
     'methods',
     'objects',
-    'package',
     'persist',
     'repeats',
     'threads',
-    'utility'
+    'timings',
+    'utility',
+    'workdir'
 ]
 
 

@@ -23,15 +23,16 @@ Workdir.wdr = '.test'
 ATTRS1 = (
     'Cache',
     'attrs',
-    'deleted',
+    'cache',
     'find',
-    'fns', 
-    'fntime',
+    'fns',
     'last',
+    'put',
     'read',
-    'search',
+    'sync',
     'write'
 )
+
 
 class TestStorage(unittest.TestCase):
 

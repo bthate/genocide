@@ -224,7 +224,7 @@ opml
 """
 
 
-from genocide.defines import Config
+NAME = "genocide"
 
 
 def man(event):
@@ -233,10 +233,10 @@ def man(event):
         return
     descr = event.rest
     event.reply(__doc__ % (
-        Config.name.upper(),
+        NAME.upper(),
         descr,
-        *(Config.name,) * 4,
-        *(Config.name.upper(),) * 4,
-        *(Config.name,) * 32,
-        Config.name.upper()
+        *(NAME,) * 4,
+        *(NAME.upper(),) * 4,
+        *(NAME,) * 32,
+        NAME.upper()
         ))

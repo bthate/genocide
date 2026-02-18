@@ -4,11 +4,11 @@
 import time
 
 
-from genocide.defines import elapsed
+from genocide.utility import Time
 
 
 STARTTIME = time.time()
 
 
 def upt(event):
-    event.reply(elapsed(time.time()-STARTTIME))
+    event.reply(Time.elapsed(time.time()-STARTTIME))

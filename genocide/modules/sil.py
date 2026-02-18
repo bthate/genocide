@@ -1,16 +1,16 @@
 # This file is placed in the Public Domain.
 
 
-from genocide.defines import broker
+from genocide.brokers import Broker
 
 
 def sil(event):
-    bot = broker(event.orig)
+    bot = Broker.get(event.orig)
     bot.silent = True
     event.reply("ok")
 
 
 def lou(event):
-    bot = broker(event.orig)
+    bot = Broker.get(event.orig)
     bot.silent = False
     event.reply("ok")

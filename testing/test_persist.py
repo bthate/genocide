@@ -1,17 +1,24 @@
 # This file is placed in the Public Domain.
 
 
-"engine"
-
-
+import os
+import sys
 import unittest
 
 
-from genocide.persist import Cache
+sys.path.insert(0, ".")
+
+
+from genocide.persist import Disk, Workdir
+from genocide.objects import Object
+
+
+Workdir.wdr = '.test'
 
 
 class TestPersist(unittest.TestCase):
 
-    def testcache(self):
-        cache = Cache()
-        self.assertEqual(type(cache), Cache)
+    def test_save(self):
+        obj = Object()
+        opath = Disk.write(obj)
+        self.assertTrue(os.path.exists(os.path.join(Workdir.wdr, "store", opath)))

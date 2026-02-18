@@ -1,1 +1,1 @@
-pylint -d C,R,W,E0401,E0402 nixbot bin/nixbot bin/tinder
+pylint -d C,R,W,E0401,E0402 genocide bin/nixbot bin/tinder

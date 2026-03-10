@@ -1,1 +1,1 @@
-ruff check genocide bin/genocide bin/tinder
+ruff check genocide genocide/modules bin/tinder testing $* ;

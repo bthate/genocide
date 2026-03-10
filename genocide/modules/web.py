@@ -1,6 +1,9 @@
 # This file is placed in the Public Domain.
 
 
+"web server"
+
+
 import logging
 import os
 import sys
@@ -10,8 +13,9 @@ import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
-from genocide.command import Cfg
+from genocide.defines import Configuration
 from genocide.objects import Object
+from genocide.persist import Main
 from genocide.threads import Thread
 from genocide.utility import Utils
 
@@ -30,9 +34,8 @@ def init():
         logging.warning("%s", str(ex))
 
 
-class Config:
+class Config(Configuration):
 
-    debug = False
     hostname = "localhost"
     path = ""
     port = 8000
@@ -85,8 +88,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
 
     def write_header(self, htype='text/plain', size=None):
         self.send_response(200)
-        #self.send_header('Content-type', '%s; charset=%s ' % (htype, "utf-8"))
-        self.send_header('Content-type', '%s;')
+        self.send_header('Content-type', '%s; charset=%s ' % (htype, "utf-8"))
         if size is not None:
             self.send_header('Content-length', size)
         self.send_header('Server', "1")
@@ -98,7 +100,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if "favicon" in self.path:
             return
-        if Cfg.debug:
+        if Main.debug:
             return
         if self.path == "/":
             self.path = "index.html"

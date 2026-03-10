@@ -1,6 +1,9 @@
 # This file is placed in the Public Domain.
 
 
+"mailbox"
+
+
 import mailbox
 import os
 import time
@@ -8,10 +11,7 @@ import time
 
 from genocide.objects import Dict, Methods, Object
 from genocide.persist import Disk, Locate
-from genocide.utility import MONTH, Time
-
-
-"email"
+from genocide.utility import Time
 
 
 class Email(Object):
@@ -19,9 +19,6 @@ class Email(Object):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.text = ""
-
-
-"utility"
 
 
 def todate(date):
@@ -60,14 +57,10 @@ def todate(date):
     return ddd
 
 
-"commands"
-
-
 def eml(event):
     nrs = -1
     args = ["From", "Subject"]
-    if len(event.args) > 1:
-        args.extend(event.args[1:])
+    args.extend(event.args)
     if event.gets:
         args.extend(Dict.keys(event.gets))
     for key in event.silent:
@@ -122,3 +115,19 @@ def mbx(event):
         nrs += 1
     if nrs:
         event.reply("ok %s" % nrs)
+
+
+MONTH = {
+    'Jan': 1,
+    'Feb': 2,
+    'Mar': 3,
+    'Apr': 4,
+    'May': 5,
+    'Jun': 6,
+    'Jul': 7,
+    'Aug': 8,
+    'Sep': 9,
+    'Oct': 10,
+    'Nov': 11,
+    'Dec': 12
+}

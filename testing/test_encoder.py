@@ -1,11 +1,14 @@
 # This file is placed in the Public Domain.
 
 
+"encoder/decoder tests"
+
+
 import unittest
 
 
-from genocide.encoder import *
-from genocide.objects import *
+from genocide.encoder import Json
+from genocide.objects import Dict, Object
 
 
 VALIDJSON = '{"test": "bla"}'

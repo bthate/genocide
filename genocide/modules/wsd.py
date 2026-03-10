@@ -1,6 +1,9 @@
 # This file is placed in the Public Domain.
 
 
+"wisdom"
+
+
 import logging
 
 
@@ -8,40 +11,39 @@ from random import SystemRandom
 
 
 from genocide.brokers import Broker
-from genocide.message import Message
-from genocide.persist import StateFul
-from genocide.utility import Repeater
-
-
-'defines'
+from genocide.handler import Event
+from genocide.objects import Methods
+from genocide.persist import Disk, Locate
+from genocide.threads import Repeater
 
 
 rand = SystemRandom()
 
 
-"init"
-
-
 def init():
     state.load()
-    event = Message()
-    repeater = Repeater(3600.0,  wsd, event)
+    event = Event()
+    repeater = Repeater(3600,  wsd, event)
     repeater.start()
     logging.warning("%s wise", len(TXTLIST))
 
 
-"state"
+class State:
 
+    def __init__(self):
+        super().__init__()
+        self.fnm = ""
 
-class State(StateFul):
+    def dump(self):
+        if not self.fnm:
+            self.fnm = Locate.first(self) or Methods.ident(self)
+        Disk.write(self, self.fnm)
 
-    pass
+    def load(self):
+        Locate.first(self)
 
 
 state = State()
-
-
-"commands"
 
 
 def wsd(event):
@@ -58,9 +60,7 @@ def wsd(event):
         state.seen = []
         txt = "* reset"
     state.dump()
-    for bot in Broker.objs("announce"):
-        bot.announce(txt.strip()[2:])
-
+    Broker.announce(txt.strip()[2:])
 
 
 TXT = """| wijsheid, wijs !

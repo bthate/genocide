@@ -1,12 +1,14 @@
 # This file is placed in the Public Domain.
 
 
+"broker tests"
+
+
 import unittest
 
 
-from genocide.brokers import Broker
-from genocide.clients import Client
 from genocide.encoder import Json
+from genocide.handler import Broker, Client
 from genocide.objects import Dict, Object
 
 
@@ -20,7 +22,7 @@ class TestBroker(unittest.TestCase):
         obj = Object()
         Broker.add(obj)
         self.assertTrue(Broker.has(obj))
-    
+
     def test_getobj(self):
         obj = Object()
         Broker.add(obj)
@@ -47,7 +49,7 @@ class TestBroker(unittest.TestCase):
         s = Json.dumps(Broker)
         o = Json.loads(s)
         self.assertEqual(o["a"], "b")
-        
+
     def test_update(self):
         o = {}
         o["a"] = "b"

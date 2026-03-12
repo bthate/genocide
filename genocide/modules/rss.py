@@ -32,8 +32,13 @@ from genocide.threads import Repeater, Thread
 from genocide.utility import Time, Utils
 
 
+class Config(Configuration):
+
+    polltime = 300
+
+
 def init():
-    RunnerPool.init(1, Runner)
+    Runners.init(1, Runner)
     Run.fetcher.start()
     logging.warning("%s feeds", Locate.count("rss"))
 
@@ -42,9 +47,39 @@ def shutdown():
     Run.fetcher.stop()
 
 
-class Config(Configuration):
+class Feed(Data):
 
-    polltime = 300
+    pass
+
+
+class Modified(Data):
+
+    pass
+
+
+class Urls(Data):
+
+    pass
+
+
+class Rss(Data):
+
+    def __init__(self):
+        super().__init__()
+        self.display_list = "title,link,author"
+        self.insertid = None
+        self.name = ""
+        self.rss = ""
+
+
+class State:
+
+    configfn = ""
+    modified = Modified()
+    modifiedfn = ""
+    seenfn = ""
+    seen = Urls()
+    skipped = []
 
 
 class Fetcher:
@@ -60,7 +95,7 @@ class Fetcher:
         for fnm, feed in Locate.find(Methods.fqn(Rss)):
             if feed.skip:
                 continue
-            RunnerPool.put((fnm, feed, silent))
+            Runners.put((fnm, feed, silent))
             nrs += 1
         return nrs
 
@@ -73,7 +108,8 @@ class Fetcher:
 
     def stop(self):
         logging.debug("stopped fetcher")
-        Disk.write(State.modified, State.modifiedfn)
+        if State.modified:
+            Disk.write(State.modified, State.modifiedfn)
         self.stopped.set()
 
 
@@ -157,7 +193,7 @@ class Runner:
         self.stopped.set()
 
 
-class RunnerPool:
+class Runners:
 
     runners = []
     lock = threading.RLock()
@@ -166,26 +202,26 @@ class RunnerPool:
 
     @staticmethod
     def add(client):
-        RunnerPool.runners.append(client)
+        Runners.runners.append(client)
 
     @staticmethod
     def init(nrcpu, cls):
-        RunnerPool.nrcpu = nrcpu
-        for _x in range(RunnerPool.nrcpu):
+        Runners.nrcpu = nrcpu
+        for _x in range(Runners.nrcpu):
             clt = cls()
             clt.start()
-            RunnerPool.add(clt)
+            Runners.add(clt)
 
     @staticmethod
     def put(*args):
-        if not RunnerPool.runners:
-            RunnerPool.init(RunnerPool.nrcpu, Runner)
-        with RunnerPool.lock:
-            if RunnerPool.nrlast >= RunnerPool.nrcpu-1:
-                RunnerPool.nrlast = 0
-            clt = RunnerPool.runners[RunnerPool.nrlast]
+        if not Runners.runners:
+            Runners.init(Runners.nrcpu, Runner)
+        with Runners.lock:
+            if Runners.nrlast >= Runners.nrcpu-1:
+                Runners.nrlast = 0
+            clt = Runners.runners[Runners.nrlast]
             clt.put(*args)
-            RunnerPool.nrlast += 1
+            Runners.nrlast += 1
 
 
 class Parser:
@@ -420,46 +456,11 @@ class Helpers:
         return "Mozilla/5.0 (X11; Linux x86_64) " + txt
 
 
-class Feed(Data):
-
-    pass
-
-
-class Modified:
-
-    pass
-
-
-class Rss(Data):
-
-    def __init__(self):
-        super().__init__()
-        self.display_list = "title,link,author"
-        self.insertid = None
-        self.name = ""
-        self.rss = ""
-
-
-class Urls:
-
-    pass
-
-
 class Run:
 
     fetcher = Fetcher()
     fetchlock = _thread.allocate_lock()
     importlock = _thread.allocate_lock()
-
-
-class State:
-
-    configfn = ""
-    modified = Modified()
-    modifiedfn = ""
-    seenfn = ""
-    seen = Urls()
-    skipped = []
 
 
 def atr(event):
@@ -645,9 +646,6 @@ def rss(event):
     feed.rss = event.args[0]
     fnm = Disk.write(feed)
     event.reply("ok")
-
-
-rss.flood = True
 
 
 def syn(event):

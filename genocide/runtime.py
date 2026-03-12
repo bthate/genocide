@@ -26,8 +26,8 @@ from genocide.utility import SYSTEMD
 from genocide import modules as MODS
 
 
-Main.default = "mdl,irc,rss,thr,wsd"
-Main.ignore = "man,rst,web,udp"
+Main.default = "irc,rss,thr"
+Main.ignore = "udp"
 Main.level = "info"
 Main.version = 455
 Main.wdr = os.path.expanduser(f"~/.{Main.name}")
@@ -63,6 +63,8 @@ class CSL(Line):
 
 
 class Runtime:
+
+    inits = []
 
     @staticmethod
     def banner():
@@ -172,6 +174,7 @@ class Runtime:
         for name, mod in Mods.iter(cfg.mods or defs, cfg.ignore):
             if "init" in dir(mod):
                 thrs.append((name, Thread.launch(mod.init)))
+                Runtime.inits.append(name)
         if cfg.wait:
             for name, thr in thrs:
                 thr.join()
@@ -207,7 +210,8 @@ class Runtime:
     @staticmethod
     def shutdown():
         "call shutdown on modules."
-        for mod in Dict.values(Mods.modules):
+        for name in Runtime.inits:
+            mod = Mods.get(name)
             if "shutdown" in dir(mod):
                 try:
                     mod.shutdown()

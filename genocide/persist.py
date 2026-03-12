@@ -47,6 +47,8 @@ class Disk:
     @staticmethod
     def cdir(path):
         "create directory."
+        if os.path.exists(path):
+            return
         pth = pathlib.Path(path)
         if not os.path.exists(pth.parent):
             pth.parent.mkdir(parents=True, exist_ok=True)
@@ -99,7 +101,7 @@ class Locate:
         nrs = 0
         for pth in Locate.fns(Workdir.long(kind)):
             obj = Cache.get(pth)
-            if not obj:
+            if obj is None:
                 obj = Data()
                 Disk.read(obj, pth)
                 Cache.add(pth, obj)
@@ -167,7 +169,7 @@ class Workdir:
     def setwd(path):
         "enable writing to disk."
         if not path:
-            return
+            Workdir.cdir(path)
         Workdir.wdr = path
         Workdir.skel()
 

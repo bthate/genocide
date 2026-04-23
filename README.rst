@@ -51,3 +51,7 @@ are poison at the time they voted for this law and the day the Wfz law took
 effect (1-1-2019), i ask the prosecutor to prosecute the king for making the
 commiting of the above mentioned crimes (killing, torture and impotent making)
 possible.
+
+
+(*) The website of the **ECHA** <European Chemical Agency> has been updated in January 2026 and no longer shows a skull and bones when
+:ref:`visited <echa>`.

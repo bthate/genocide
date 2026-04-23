@@ -17,48 +17,31 @@ sys.path.insert(0, os.getcwd())
 
 
 from genocide.command import Commands
-from genocide.defines import Main
-from genocide.handler import Client, Event
-from genocide.loggers import Log
-from genocide.objects import Data, Methods
-from genocide.package import Mods
-from genocide.persist import Workdir
+from genocide.configs import Main
+from genocide.handler import Event, Output
+from genocide.objects import Methods
 from genocide.runtime import Runtime
 from genocide.threads import Thread
-from genocide.utility import Time, Utils
+from genocide.utility import Time
 
 
-from genocide import modules as MODS
-
-
-try:
-    import mods as MODS2
-except ModuleNotFoundError:
-    MODS2 = None
+Main.debug = True
+Main.wdr = ".test"
+Main.user = True
 
 
 events = queue.Queue()
 
 
-Main.debug = True
-Main.ignore = ""
-Main.level = "info"
-Main.mods = ""
-Main.name = Utils.pkgname(Commands)
-Main.opts = Data()
-Main.version = 8
-Main.wdr = ".test"
-
-
-class CLI(Client):
+class CLI(Output):
 
     def __init__(self):
-        Client.__init__(self)
+        super().__init__()
         self.register("command", Commands.command)
 
     def raw(self, text):
-        if "v" in Main.opts:
-            print(text)
+        if Main.verbose:
+            print(text.encode('utf-8', 'replace').decode("utf-8"))
 
 
 class Clients:
@@ -68,104 +51,107 @@ class Clients:
     nrcpu = 1
     last = 0
 
-    @staticmethod
-    def add(client):
-        Clients.clients.append(client)
+    @classmethod
+    def add(cls, client):
+        cls.clients.append(client)
 
-    @staticmethod
-    def init(nrcpu, cls):
-        Clients.nrcpu = nrcpu
-        for _x in range(Clients.nrcpu):
-            clt = cls()
-            clt.start()
-            Clients.add(clt)
+    @classmethod
+    def init(cls, nrcpu, client):
+        with cls.lock:
+            cls.nrcpu = nrcpu
+            for _x in range(Clients.nrcpu):
+                clt = client()
+                clt.start(False)
+                cls.add(clt)
 
-    @staticmethod
-    def put(*args):
-        with Clients.lock:
-            if Clients.last >= Clients.nrcpu-1:
-                Clients.last = 0
-            clt = Clients.clients[Clients.last]
-            clt.put(*args)
-            Clients.last += 1
+    @classmethod
+    def put(cls, *args):
+        with cls.lock:
+            if cls.last >= cls.nrcpu-1:
+                cls.last = 0
+            cls.clients[cls.last].put(*args)
+            cls.last += 1
+
+    @classmethod
+    def shutdown(cls):
+        for client in cls.clients:
+            client.stop()
 
 
 def consume():
     while True:
-        try:
-            event = events.get()
-            event.wait()
-            events.task_done()
-        except (KeyboardInterrupt, EOFError):
-            os._exit(0)
+        event = events.get()
+        event.wait()
+        events.task_done()
 
 
 def payload(todo):
     for cmd, example in todo.items():
-        if Main.cmd:
-            if cmd not in Utils.spl(Main.cmd):
-                continue
         for ex in example:
             evt = Event()
-            evt.text = f"{cmd} {ex}"
             evt.kind = "command"
+            evt.text = f"{cmd} {ex}"
             Clients.put(evt)
             events.put(evt)
 
 
 def main():
-    if "p" not in Main.opts and os.path.exists(Main.wdr):
+    if not Runtime.check('p') and os.path.exists(Main.wdr):
         shutil.rmtree(Main.wdr)
+    if Runtime.check("v"):
+        Main.verbose = True
+    if Runtime.check("t"):
+        Main.threaded = True
+    Main.all = True
     Methods.parse(Main, " ".join(sys.argv[1:]))
-    Workdir.setwd(Main.wdr)
-    Log.level(Main.level)
-    Mods.add("modules", MODS.__path__[0])
-    if MODS2:
-        Mods.add("mods", MODS2.__path__[0])
-    Main.mods = Main.mods or Mods.list()
-    Runtime.scanner(Main)
-    if "v" in Main.opts:
-        Runtime.banner()
-    if "z" in Main.opts:
+    Runtime.configure(Main)
+    Runtime.scan(Main)
+    if Main.threaded:
         Clients.init(os.cpu_count(), CLI)
     else:
         Clients.init(1, CLI)
     starttime = time.time()
     nrs = Main.index or 1
+    thrs = []
     for _x in range(nrs):
-        payload(pre)
+        thrs.append(Thread.launch(payload, pre))
+    for thr in thrs:
+        thr.join()
+    thrs = []
     for _x in range(nrs):
-        payload(examples)
+        thrs.append(Thread.launch(payload, examples))
+    thrs = []
+    for thr in thrs:
+        thr.join()
     for _x in range(nrs):
-        payload(post)
-    Thread.launch(consume)
+        thrs.append(Thread.launch(payload, post))
+    for thr in thrs:
+        thr.join()
     nrevents = events.qsize()
-    try:
-        events.join()
-    except (KeyboardInterrupt, EOFError):
-        pass
+    Thread.launch(consume)
+    events.join()
+    Clients.shutdown()
     endtime = time.time()
     lap = Time.elapsed(endtime-starttime)
     percall = (endtime-starttime)/nrevents
     nrs = events.qsize()
-    Runtime.shutdown()
-    if "v" in Main.opts:
+    if Main.verbose:
         print(f"{Methods.fmt(Main, skip='otxt,txt')}")
-        print(f"{nrs} events left.")
+        print(f"cores: {Clients.nrcpu} events: {nrs}")
         print(f"total: {lap} nrs: {nrevents} call: %.6fs" % percall)
 
 
 examples = {
-    "atr": [""],
     "cmd": [""],
     "dis": [""],
     "dne": ["", "bla"],
     "dpl": ["hnrss title,url", ""],
     "eml": ["", "root@localhost"],
+    "fie": ["", "log", "todo"],
     "flt": ["", "0"],
-    "fnd": ["", "log", "rss", "config", "todo"],
+    "fnd": ["", "log", "rss", "config", "todo", 'timers'],
     "lou": [""],
-    "man": ["", "genocide genocideniet@gmail.com Nixt Niet"],
+    "man": ["", "genocide nixtniet@gmail.com Nixt Niet"],
     "mbx": [""],
     "mod": [""],
     "mre": [""],
@@ -178,22 +164,36 @@ examples = {
     "sil": [""],
     "slg": [""],
     "srv": [""],
-    "syn": [""],
     "thr": [""],
-    "tmr": ["", "22:00 test"],
     "upt": [""],
     "wsd": [""]
 }
 
+
 pre = {
-    "cfg": ["", "nick=mekker"],
+    "cfg": [
+        '',
+        'main',
+        'irc',
+        'rss',
+        'rst',
+        'udp',
+        'web',
+        'main nick=mekker',
+        'irc nick=mekker',
+        'rss nick=mekker',
+        'rst nick=mekker',
+        'udp nick=mekker',
+        'web nick=mekker'
+    ],
     "imp": [
         "",
         "testing/opml/feeds.opml",
     ],
-    "log": ["", "log add"],
+    "log": ["", "test"],
     "rss": ["", "http://hnrss.org/newest"],
-    "tdo": ["", "test"]
+    "tdo": ["", "test"],
+    "tmr": ["", "22:00 test"],
 }
 
 post = {
@@ -205,4 +205,4 @@ post = {
 
 
 if __name__ == "__main__":
-    Runtime.wrap(main)
+    main()

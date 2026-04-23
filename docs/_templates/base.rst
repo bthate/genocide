@@ -1,29 +1,64 @@
 .. _{{ fullname }}:
 
 
+.. title:: {{ fullname }}
+
+
 .. raw:: html
 
     <br>
     <center>
-    <h3>
     <b>
-
-.. title:: {{ fullname }}
-
 
 :ref:`src <source>`/**{{ name }}**
 
 .. raw:: html
 
-    </b><h3></center>
+    </b>
+    </center>
+
 
 .. auto{{ objtype }}:: {{ fullname }}
     :members:
     :private-members:
     :undoc-members:
 
-.. raw:: html
+    {% block exceptions %}
+    {% if exceptions %}
+    .. rubric:: exceptions
 
-    <br><br>
+    .. autosummary::
+    {% for item in exceptions %}
+        {{ item }}
+    {%- endfor %}
+    {% endif %}
+    {% endblock %}
 
-'''
+    {% block classes %}
+    {% if classes %}
+    .. rubric:: classes
+
+    .. autosummary:: 
+    {% for item in classes %}
+        {{ item }}
+    {%- endfor %}
+    {% endif %}
+    {% endblock %}
+
+    {% block functions %}
+    {% if functions %}
+    .. rubric:: functions
+
+    .. autosummary::
+    {% for item in functions %}
+        {{ item }}
+    {%- endfor %}
+    {% endif %}
+    {% endblock %}
+
+    .. raw:: html
+
+        <br><br>
+
+
+.. currentmodule:: {{ fullname }}

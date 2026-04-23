@@ -4,14 +4,14 @@
 
     <br><br>
 
+
+.. title:: Reconsider
+
 .. raw:: html
 
     <center><b>RECONSIDER</b></center><br>
 
 
-.. title:: Reconsider
-
-|
 | **Information and Evidence Unit**
 | **Office of the Prosecutor**
 | **Post Office Box 19519**
@@ -68,14 +68,21 @@ prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible.
 
 
+|
+
+(*) The website of the **ECHA** <European Chemical Agency> has been updated in January 2026 and no longer shows a skull and bones when
+:ref:`visited <echa>`.
+
+
 .. toctree::
     :hidden:
 
     about
-    reconsider
-    writings
+    echa
     evidence
+    writings
+    manual
     pubchem
     guilty
+    reconsider
     request
-    manual

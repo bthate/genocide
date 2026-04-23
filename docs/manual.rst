@@ -1,36 +1,19 @@
-.. _manual:
-
-
-.. raw:: html
-
-   <br><br>
-
-
-.. title:: Manual
-
-
-.. raw:: html
-
-    <center><b>MANUAL</b></center><br>
-
+|
 
 **NAME**
 
-
-    ``GENOCIDE`` - since 4 march 2019
+    ``GENOCIDE`` - Since 3 March 2019.
 
 
 **SYNOPSIS**
 
-
+    ``genocide`` [-h] [-a] [-c] [-d] [-l LEVEL] [-m MODS] [-n] [-s] [-v] [-w] [-u] [--wdr WDR]
+    
     | ``genocide <cmd> [key=val] [key==val]``
-    | ``genocidec [-ivw]``
-    | ``genocided`` 
-    | ``genocides``
-
+    | ``genocide -cvaw [mods=mod1,mod2]``
+    |
 
 **DESCRIPTION**
-
 
     ``GENOCIDE`` holds evidence that king
     netherlands is doing a genocide, a
@@ -63,94 +46,174 @@
 
 **INSTALL**
 
-    | ``pipx install genocide``
-    | ``pipx ensurepath``
 
-    <new terminal>
+    installation is done with pipx
 
+    | ``$ pipx install genocide``
+    | ``$ pipx ensurepath``
+    |
+    | <new terminal>
+    |
     | ``$ genocide srv > genocide.service``
     | ``$ sudo mv genocide.service /etc/systemd/system/``
     | ``$ sudo systemctl enable genocide --now``
     |
     | joins ``#genocide`` on localhost
+    |
+
 
 **USAGE**
 
-    without any argument the bot does nothing
+
+    use ``genocide`` to control the program, default it does nothing
 
     | ``$ genocide``
     | ``$``
+    |
 
-    see list of commands
+    the -h option will show you possible options
 
+    |
+    | ``$ genocide -h``
+    |
+
+    .. list-table::
+      :align: left
+
+      * - Options
+        - Description
+
+      * - -h, --help
+        - show this help message and exit
+      * - -a, --all
+        - load all modules.
+      * - -c, --console
+        - start console.
+      * - -d, --daemon
+        - start background daemon.
+      * - -i, --ignore IGNORE
+        -  modules to ignore.
+      * - -l, --level LEVEL
+        -  set loglevel.
+      * - -m, --mods MODS
+        - modules to load.
+      * - -n, --index INDEX
+        - set index to use.
+      * - -r, --read
+        - read modules on start.
+      * - -s, --service
+        - start service.
+      * - -v, --verbose
+        - enable verbose.
+      * - -w, --wait
+        - wait for services to start.
+      * - -u, --user
+        - use local mods directory.
+      * - -x, --admin
+        - enable admin mode.
+      * - --wdr WDR
+        - set working directory.
+      * - --nochdir
+        - set working directory.
+
+
+    | see list of commands
+    |
     | ``$ genocide cmd``
-    | ``cfg,cmd,dne,dpl,err,exp,imp,log,mod,mre,nme,``
-    | ``pwd,rem,req,res,rss,srv,syn,tdo,thr,upt``
+    | ``atr,cfg,cmd,dis,dne,dpl,err,exp,fie,flt,fnd,imp,``
+    | ``log,lou,man,mod,nme,now,pth,pwd,rem,req,res,rss,``
+    | ``sil,slg,srv,syn,tbl,tdo,thr,tmr,upt,ver,wdr``
+    |
 
-    start a console
+    start console
 
-    | ``$ genocidec``
-    | ``>``
+    | ``$ genocide -c``
+    |
 
-    use -i to init modules
+    start console and run irc and rss clients
 
-    | ``$ genocidec -i``
-    | ``>``
+    | ``$ genocide -c mods=irc,rss``
+    |
+
+    list available modules
+
+    | ``$ genocide mod``
+    | ``adm,bsc,cfg,fie,flt,fnd,irc,log,man,mbx,mdl,pth,pwd``
+    | ``req,rss,rst,sil,slg,tbl,tdo,thr,tmr,udp,wdr,web,wsd``
+    |
 
     start daemon
 
-    | ``$ genocided``
+    | ``$ genocide -d``
     | ``$``
+    |
 
     start service
 
-    | ``$ genocides``
-    |
+    | ``$ genocide -s``
     | ``<runs until ctrl-c>``
+    |
 
-    show request to the prosecutor
-
-    | $ ``genocide req``
-    | Information and Evidence Unit
-    | Office of the Prosecutor
-    | Post Office Box 19519
-    | 2500 CM The Hague
-    | The Netherlands
 
 **COMMANDS**
 
     here is a list of available commands
 
+    | ``atr`` - show attributes
     | ``cfg`` - irc configuration
     | ``cmd`` - commands
+    | ``dis`` - show deaths by disease
+    | ``dne`` - flag a todo as done
     | ``dpl`` - sets display items
+    | ``eml`` - show emails
     | ``err`` - show errors
     | ``exp`` - export opml (stdout)
+    | ``fie`` - show fields of an object
+    | ``flt`` - show bots in fleet
+    | ``fnd`` - locate objects
     | ``imp`` - import opml
     | ``log`` - log text
-    | ``mre`` - display cached output
+    | ``lou`` - enable loud mode
+    | ``man`` - create manual page
+    | ``mbx`` - import mailbox
+    | ``mod`` - show available modules
+    | ``nme`` - set name of a feed
+    | ``now`` - show genocide stats of today
+    | ``pth`` - show path to website on disk
     | ``pwd`` - sasl nickserv name/pass
     | ``rem`` - removes a rss feed
     | ``res`` - restore deleted feeds
-    | ``req`` - reconsider
+    | ``req`` - request to the prosecutor
+    | ``res`` - restore objects
     | ``rss`` - add a feed
+    | ``sil`` - enable silent mode
     | ``syn`` - sync rss feeds
+    | ``tbl`` - create table module
     | ``tdo`` - add todo item
     | ``thr`` - show running threads
+    | ``tmr`` - timers
+    | ``udp`` - send udp packet to udp/irc relay
     | ``upt`` - show uptime
+    | ``ver`` - version
+    | ``wdr`` - show working directory
+    | ``wsd`` - show wisdom
+    |
 
 **CONFIGURATION**
 
+
     irc
 
-    | ``$ genocide cfg server=<server>``
-    | ``$ genocide cfg channel=<channel>``
-    | ``$ genocide cfg nick=<nick>``
+    | ``$ genocide cfg irc server=<server>``
+    | ``$ genocide cfg irc hannel=<channel>``
+    | ``$ genocide cfg irc nick=<nick>``
+    |
 
     sasl
 
-    | ``$ genocide pwd <nsvnick> <nspass>``
-    | ``$ genocide cfg password=<frompwd>``
+    | ``$ genocide pwd <nsnick> <nspass>``
+    | ``$ genocide cfg irc password=<frompwd>``
+    |
 
     rss
 
@@ -158,28 +221,59 @@
     | ``$ genocide dpl <url> <item1,item2>``
     | ``$ genocide rem <url>``
     | ``$ genocide nme <url> <name>``
+    |
 
     opml
 
     | ``$ genocide exp``
     | ``$ genocide imp <filename>``
+    |
 
+
+**PROGRAMMING**
+
+    genocide has it's user modules in the ~/.genocide/mods directory so for a
+    hello world command you would  edit a file in ~/.genocide/mods/hello.py
+    and add the following
+    
+    ::
+
+        def hello(event):
+            event.reply("hello world !!")
+
+
+    typing the hello command would result into a nice hello world !!
+    
+
+    ::
+
+        $ genocide hello
+        hello world !!
+
+
+    commands run in their own thread and the program borks on exit to enable a
+    short debug cycle, output gets flushed on print so exceptions appear in the
+    systemd logs. modules can contain your own written python3 code.
+    
 
 **SOURCE**
 
     source is at `https://github.com/bthate/genocide <https://github.com/bthate/genocide>`_
+    
 
 **FILES**
 
+    |
     | ``~/.genocide``
     | ``~/.local/bin/genocide``
-    | ``~/.local/pipx/venvs/genocide/*``
+    | ``~/.local/share/pipx/venvs/genocide/*``
+    |
 
 **AUTHOR**
 
-    | Bart Thate <bthate@dds.nl>
+    ``Bart Thate`` <``bthate@dds.nl``>
+    
 
 **COPYRIGHT**
 
-    | ``GENOCIDE`` is Public Domain.
-    |
+    ``GENOCIDE`` is Public Domain.

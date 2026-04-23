@@ -1,1 +1,1 @@
-python3 -m genocide.runtime $* ;
+python3 -c "from genocide.booting import main ; main()" $* ;

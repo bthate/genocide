@@ -2,7 +2,7 @@
 
 **NAME**
 
-    ``GENOCIDE`` - Since 3 March 2019.
+    ``GENOCIDE`` - Since 4 March 2019.
 
 
 **SYNOPSIS**
@@ -47,7 +47,7 @@
 **INSTALL**
 
 
-    installation is done with pipx
+    * installation is done with pipx
 
     | ``$ pipx install genocide``
     | ``$ pipx ensurepath``
@@ -65,13 +65,13 @@
 **USAGE**
 
 
-    use ``genocide`` to control the program, default it does nothing
+    * use ``genocide`` to control the program, default it does nothing
 
     | ``$ genocide``
     | ``$``
     |
 
-    the -h option will show you possible options
+    * the -h option will show you possible options
 
     |
     | ``$ genocide -h``
@@ -117,38 +117,38 @@
         - set working directory.
 
 
-    | see list of commands
-    |
+    * see list of commands
+    
     | ``$ genocide cmd``
     | ``atr,cfg,cmd,dis,dne,dpl,err,exp,fie,flt,fnd,imp,``
     | ``log,lou,man,mod,nme,now,pth,pwd,rem,req,res,rss,``
     | ``sil,slg,srv,syn,tbl,tdo,thr,tmr,upt,ver,wdr``
     |
 
-    start console
+    * start console
 
     | ``$ genocide -c``
     |
 
-    start console and run irc and rss clients
+    * start console and run irc and rss clients
 
     | ``$ genocide -c mods=irc,rss``
     |
 
-    list available modules
+    * list available modules
 
     | ``$ genocide mod``
     | ``adm,bsc,cfg,fie,flt,fnd,irc,log,man,mbx,mdl,pth,pwd``
     | ``req,rss,rst,sil,slg,tbl,tdo,thr,tmr,udp,wdr,web,wsd``
     |
 
-    start daemon
+    * start daemon
 
     | ``$ genocide -d``
     | ``$``
     |
 
-    start service
+    * start service
 
     | ``$ genocide -s``
     | ``<runs until ctrl-c>``
@@ -157,7 +157,7 @@
 
 **COMMANDS**
 
-    here is a list of available commands
+    * here is a list of available commands
 
     | ``atr`` - show attributes
     | ``cfg`` - irc configuration
@@ -182,7 +182,6 @@
     | ``pth`` - show path to website on disk
     | ``pwd`` - sasl nickserv name/pass
     | ``rem`` - removes a rss feed
-    | ``res`` - restore deleted feeds
     | ``req`` - request to the prosecutor
     | ``res`` - restore objects
     | ``rss`` - add a feed
@@ -202,20 +201,20 @@
 **CONFIGURATION**
 
 
-    irc
+    * irc
 
     | ``$ genocide cfg irc server=<server>``
     | ``$ genocide cfg irc hannel=<channel>``
     | ``$ genocide cfg irc nick=<nick>``
     |
 
-    sasl
+    * sasl
 
     | ``$ genocide pwd <nsnick> <nspass>``
     | ``$ genocide cfg irc password=<frompwd>``
     |
 
-    rss
+    * rss
 
     | ``$ genocide rss <url>``
     | ``$ genocide dpl <url> <item1,item2>``
@@ -223,7 +222,7 @@
     | ``$ genocide nme <url> <name>``
     |
 
-    opml
+    * opml
 
     | ``$ genocide exp``
     | ``$ genocide imp <filename>``
@@ -263,7 +262,6 @@
 
 **FILES**
 
-    |
     | ``~/.genocide``
     | ``~/.local/bin/genocide``
     | ``~/.local/share/pipx/venvs/genocide/*``

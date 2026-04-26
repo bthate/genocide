@@ -4,12 +4,12 @@
 "administrator"
 
 
+from genocide.booting import Boot
 from genocide.command import Commands
 from genocide.configs import Main
 from genocide.encoder import Json
 from genocide.package import Mods
 from genocide.persist import Workdir
-from genocide.runtime import Runtime
 
 
 def srv(event):
@@ -21,18 +21,18 @@ def srv(event):
 
 def tbl(event):
     "create table."
-    Runtime.md5s = {}
+    Boot.md5 = {}
     Commands.names = {}
-    Mods.md5s = {}
+    Mods.md5 = {}
     for name, module in Mods.all():
         Commands.scan(module)
-    Runtime.setmd5s()
-    Mods.setmd5s()
+    Boot.md5s()
+    Mods.md5s()
     event.reply("# This file is placed in the Pubic Domain.\n\n")
     event.reply('"tables"\n\n')
-    event.reply(f"CORE = {Json.dumps(Runtime.md5s, indent=4, sort_keys=True)}\n\n")
+    event.reply(f"CORE = {Json.dumps(Boot.md5, indent=4, sort_keys=True)}\n\n")
     event.reply(f"NAMES = {Json.dumps(Commands.names, indent=4, sort_keys=True)}\n\n")
-    event.reply(f"MD5 = {Json.dumps(Mods.md5s, indent=4, sort_keys=True)}")
+    event.reply(f"MD5 = {Json.dumps(Mods.md5, indent=4, sort_keys=True)}")
 
 
 def wdr(event):

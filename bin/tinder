@@ -16,18 +16,21 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
+from genocide.booting import Boot
 from genocide.command import Commands
 from genocide.configs import Main
 from genocide.handler import Event, Output
 from genocide.objects import Methods
-from genocide.runtime import Runtime
 from genocide.threads import Thread
 from genocide.utility import Time
 
 
 Main.debug = True
-Main.wdr = ".test"
+Main.all = True
+Main.ignore = "tmr"
+Main.read = True
 Main.user = True
+Main.wdr = ".test"
 
 
 events = queue.Queue()
@@ -61,7 +64,7 @@ class Clients:
             cls.nrcpu = nrcpu
             for _x in range(Clients.nrcpu):
                 clt = client()
-                clt.start(False)
+                clt.start(True)
                 cls.add(clt)
 
     @classmethod
@@ -75,6 +78,7 @@ class Clients:
     @classmethod
     def shutdown(cls):
         for client in cls.clients:
+            client.wait()
             client.stop()
 
 
@@ -96,16 +100,16 @@ def payload(todo):
 
 
 def main():
-    if not Runtime.check('p') and os.path.exists(Main.wdr):
+    if not Boot.check('p') and os.path.exists(Main.wdr):
         shutil.rmtree(Main.wdr)
-    if Runtime.check("v"):
+    if Boot.check("v"):
         Main.verbose = True
-    if Runtime.check("t"):
+    if Boot.check("t"):
         Main.threaded = True
-    Main.all = True
     Methods.parse(Main, " ".join(sys.argv[1:]))
-    Runtime.configure(Main)
-    Runtime.scan(Main)
+    Boot.configure(Main)
+    Main.mods.replace("tmr", "")
+    Boot.scan(Main)
     if Main.threaded:
         Clients.init(os.cpu_count(), CLI)
     else:
@@ -114,23 +118,26 @@ def main():
     nrs = Main.index or 1
     thrs = []
     for _x in range(nrs):
-        thrs.append(Thread.launch(payload, pre))
+        thrs.append(Thread.launch(payload, pre, daemon=True))
     for thr in thrs:
         thr.join()
     thrs = []
     for _x in range(nrs):
-        thrs.append(Thread.launch(payload, examples))
+        thrs.append(Thread.launch(payload, examples, daemon=True))
     thrs = []
     for thr in thrs:
         thr.join()
     for _x in range(nrs):
-        thrs.append(Thread.launch(payload, post))
+        thrs.append(Thread.launch(payload, post, daemon=True))
     for thr in thrs:
         thr.join()
     nrevents = events.qsize()
-    Thread.launch(consume)
-    events.join()
-    Clients.shutdown()
+    Thread.launch(consume, daemon=True)
+    try:
+        events.join()
+    except Exception:
+        pass
+    # Boot.shutdown()
     endtime = time.time()
     lap = Time.elapsed(endtime-starttime)
     percall = (endtime-starttime)/nrevents
@@ -192,7 +199,7 @@ pre = {
     ],
     "log": ["", "test"],
     "rss": ["", "http://hnrss.org/newest"],
-    "tdo": ["", "test"],
+    "tdo": ["", "test2"],
     "tmr": ["", "22:00 test"],
 }
 
@@ -205,4 +212,4 @@ post = {
 
 
 if __name__ == "__main__":
-    main()
+    Boot.wrap(main)

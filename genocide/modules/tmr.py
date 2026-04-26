@@ -13,7 +13,7 @@ import time
 from genocide.brokers import Broker
 from genocide.objects import Base, Object, Methods
 from genocide.persist import Disk, Locate
-from genocide.threads import Thread, Timed
+from genocide.threads import Timed
 from genocide.utility import Time
 
 
@@ -41,6 +41,12 @@ def init():
     if Timers.timers:
         Disk.write(Timers.timers, Timers.path)
     logging.warning("%s timers", len(Timers.timers))
+
+
+def shutdown():
+    for timer in Timers.timers:
+        print(timer)
+        timer.stop()
 
 
 class Timer(Base):
@@ -87,5 +93,5 @@ def tmr(event):
         event.reply("no bot")
         return
     timer = Timed(diff, bot.say, event.channel, txt)
-    Thread.launch(timer.start).join()
+    timer.start()
     event.reply("ok " + Time.elapsed(diff))

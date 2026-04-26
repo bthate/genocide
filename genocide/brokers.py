@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"brokers"
+"an object for a string"
 
 
 class Broker:
@@ -42,14 +42,6 @@ class Broker:
         for obj in cls.objects.values():
             if attr in dir(obj):
                 yield obj
-
-    @classmethod
-    def stop(cls):
-        "announce text on all objects with an announce method."
-        for obj in cls.objs("stop"):
-            if "wait" in dir(obj):
-                obj.wait()
-            obj.stop()
 
 
 def __dir__():

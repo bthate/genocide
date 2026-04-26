@@ -24,7 +24,7 @@ classifiers = [
 
 
 [project.scripts]
-"genocide" = "genocide.booting:main"
+"genocide" = "genocide.runtime:main"
 
 
 [project.urls]

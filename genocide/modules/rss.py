@@ -128,6 +128,7 @@ class Runner:
         self.fetchlock = threading.RLock()
         self.queue = queue.Queue()
         self.running = threading.Event()
+        self.running.set()
         self.todo = queue.Queue()
 
     def display(self, obj):

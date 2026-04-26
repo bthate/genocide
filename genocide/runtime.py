@@ -72,6 +72,7 @@ class Scripts:
         "background script."
         Boot.daemon(Main.verbose, Main.nochdir)
         Boot.privileges()
+        Main.all = True
         Boot.configure(Main)
         Boot.pidfile(Main.name)
         Boot.scan(Main)
@@ -117,6 +118,7 @@ class Scripts:
     def service():
         "service script."
         Boot.privileges()
+        Main.all = True
         Boot.configure(Main)
         Boot.scan(Main)
         Boot.banner()

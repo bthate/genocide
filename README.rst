@@ -53,4 +53,5 @@ commiting of the above mentioned crimes (killing, torture and impotent making)
 possible.
 
 
-(*) The website of the **ECHA** <European Chemical Agency> has been updated in January 2026 and no longer shows a skull and bones when visited.
+
+**(*)** Since January 2026 the **ECHA** <European Chemical Agency> no longer shows a skull and bones when visited.

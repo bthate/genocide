@@ -1,4 +1,17 @@
-|
+.. _manual:
+
+
+.. raw:: html
+
+    <br><br>
+
+.. title:: Manual
+
+
+.. raw:: html
+
+    <center><b>MANUAL</b></center><br>
+
 
 **NAME**
 
@@ -33,13 +46,13 @@
     and Psychiatric patients.
 
     ``GENOCIDE`` contains :ref:`correspondence
-    <writing>` with the International Criminal
+    <writings>` with the International Criminal
     Court, asking for arrest of the king of the
     netherlands, for the genocide he is committing
     with his new treatment laws.
 
     Current status is a :ref:`"no basis to proceed"
-    <writing>` judgement of the prosecutor which
+    <writings>` judgement of the prosecutor which
     requires a :ref:`"basis to prosecute" <reconsider>`
     to have the king actually arrested.
 
@@ -54,7 +67,7 @@
     |
     | <new terminal>
     |
-    | ``$ genocide srv > genocide.service``
+    | ``$ genocide -x srv > genocide.service``
     | ``$ sudo mv genocide.service /etc/systemd/system/``
     | ``$ sudo systemctl enable genocide --now``
     |
@@ -122,7 +135,7 @@
     | ``$ genocide cmd``
     | ``atr,cfg,cmd,dis,dne,dpl,err,exp,fie,flt,fnd,imp,``
     | ``log,lou,man,mod,nme,now,pth,pwd,rem,req,res,rss,``
-    | ``sil,slg,srv,syn,tbl,tdo,thr,tmr,upt,ver,wdr``
+    | ``sil,slg,syn,tdo,thr,tmr,upt,ver,wdr``
     |
 
     * start console
@@ -186,6 +199,7 @@
     | ``res`` - restore objects
     | ``rss`` - add a feed
     | ``sil`` - enable silent mode
+    | ``srv`` - create service file
     | ``syn`` - sync rss feeds
     | ``tbl`` - create table module
     | ``tdo`` - add todo item

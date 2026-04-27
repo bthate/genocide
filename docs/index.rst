@@ -69,13 +69,6 @@ prosecute the king for making the commiting of the above mentioned crimes
 (killing, torture and impotent making) possible.
 
 
-
-|
-
-* Since January 2026 the **ECHA** <European Chemical Agency> no longer shows a skull and bones when :ref:`visited <echa>`. 2019 versions are :ref:`here
-  <evidence>`.
-
-
 .. toctree::
     :hidden:
 

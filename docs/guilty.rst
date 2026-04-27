@@ -15,7 +15,6 @@
 
 .. _informed:
 
-
 **INFORMED**
 
 .. raw:: html
@@ -24,14 +23,6 @@
 
 .. image:: informed.jpg
     :width: 100%
-
-.. raw:: html
-
-    <br>
-
-
-* Since January 2026 the **ECHA** <European Chemical Agency> no longer shows a skull and bones when :ref:`visited <echa>`. 2019 versions are :ref:`here
-  <evidence>`.
 
 .. raw:: html
 
@@ -54,9 +45,7 @@
 
 .. _king:
 
-
 **KING**
-
 
 .. raw:: html
 
@@ -67,4 +56,4 @@
 
 .. raw:: html
 
-  <br>
+    <br>

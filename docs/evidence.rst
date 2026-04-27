@@ -14,14 +14,11 @@
 
 .. _haldol:
 
-
 **HALDOL**
-
 
 .. raw:: html
 
   <br>
-
 
 .. image:: ECHAhaldol.png
     :width: 100%
@@ -36,11 +33,9 @@
 
 **CLOZAPINE**
 
-
 .. raw:: html
 
   <br>
-
 
 .. image:: ECHAclozapine.png
     :width: 100%
@@ -50,12 +45,10 @@
 
   <br><br>
 
-
 .. _zyprexa:
 
 
 **ZYPREXA**
-
 
 .. raw:: html
 
@@ -68,12 +61,9 @@
 
   <br><br>
 
-
 .. _abilify:
 
-
 **ABILIFY**
-
 
 .. raw:: html
 
@@ -82,4 +72,6 @@
 .. image:: ECHAabilify.png
      :width: 100%
 
+.. raw:: html
 
+  <br>

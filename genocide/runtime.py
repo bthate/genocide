@@ -47,7 +47,7 @@ class Arguments:
         optparser = theparser.add_argument_group()
         optparser.add_argument("--check", action="store_false", help=argparse.SUPPRESS)
         optparser.add_argument("--read", action="store_true", help="read table on start.")
-        optparser.add_argument("--default", default="irc,rss", help=argparse.SUPPRESS)
+        optparser.add_argument("--default", default="irc,mdl,rss,wsd", help=argparse.SUPPRESS)
         optparser.add_argument("--nochdir", action="store_true", help=argparse.SUPPRESS)
         optparser.add_argument("--wdr", default="", help='set working directory.', metavar="path")
         args, arguments = theparser.parse_known_args()
@@ -211,6 +211,7 @@ class Scripts:
         Boot.privileges()
         Runs.boot(Main)
         Boot.writepid(Main.name)
+        Runs.banner(Main)
         Boot.init(Main.mods or Main.default)
         Boot.forever()
 

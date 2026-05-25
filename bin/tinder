@@ -5,8 +5,8 @@
 "stress test"
 
 
+import logging
 import os
-import queue
 import shutil
 import sys
 import threading
@@ -16,136 +16,175 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.booting import Boot
-from genocide.command import Commands
-from genocide.configs import Main
-from genocide.handler import Event, Output
-from genocide.objects import Methods
-from genocide.threads import Thread
-from genocide.utility import Time
+from genocide.defines import Boot, Buffer, Commands, Engine, Event, Log, Main
+from genocide.defines import Mods, Object, Parse, Thread, Time, Utils, Workdir, e
 
 
 Main.debug = True
-Main.all = True
-Main.ignore = "tmr"
-Main.read = True
-Main.user = True
 Main.wdr = ".test"
+Main.user = True
 
 
-events = queue.Queue()
+Mods.add("modules", Utils.moddir())
+Mods.add("mods", "mods")
+Mods.add("other", "other")
 
 
-class CLI(Output):
+Workdir.wdr = Main.wdr
+
+
+Log.level("debug")
+
+
+class CLI(Engine, Buffer):
 
     def __init__(self):
-        super().__init__()
+        Engine.__init__(self)
+        Buffer.__init__(self)
         self.register("command", Commands.command)
 
     def raw(self, text):
         if Main.verbose:
             print(text.encode('utf-8', 'replace').decode("utf-8"))
+            sys.stdout.flush()
 
 
 class Clients:
 
     clients = []
     lock = threading.RLock()
-    nrcpu = 1
     last = 0
+    nrevents = 0
+    nrcpu = 1
 
     @classmethod
     def add(cls, client):
         cls.clients.append(client)
 
     @classmethod
-    def init(cls, nrcpu, client):
+    def init(cls, nr, client):
         with cls.lock:
-            cls.nrcpu = nrcpu
+            cls.nrcpu = nr
             for _x in range(Clients.nrcpu):
                 clt = client()
-                clt.start(True)
+                clt.start()
                 cls.add(clt)
 
     @classmethod
     def put(cls, *args):
         with cls.lock:
-            if cls.last >= cls.nrcpu-1:
+            if cls.last >= cls.nrcpu:
                 cls.last = 0
             cls.clients[cls.last].put(*args)
             cls.last += 1
+            cls.nrevents += 1
 
     @classmethod
     def shutdown(cls):
         for client in cls.clients:
             client.wait()
+        time.sleep(0.01)
+        for client in cls.clients:
             client.stop()
+        time.sleep(0.01)
 
 
-def consume():
-    while True:
-        event = events.get()
-        event.wait()
-        events.task_done()
+class Runs:
+
+    nrs = 0
+
+    @staticmethod
+    def check(opts):
+        "check for command line options."
+        for arg in sys.argv:
+            if not arg.startswith("-"):
+                continue
+            for opt in opts:
+                if opt in arg:
+                    return True
+        return False
+
+    @staticmethod
+    def payload(todo):
+        for cmd, example in todo.items():
+            for ex in example:
+                evt = Event()
+                evt.kind = "command"
+                evt.text = f"{cmd} {ex}"
+                Clients.put(evt)
+
+    @classmethod
+    def wrap(cls, function, *args, dofinal=None):
+        "restore console."
+        import termios
+        oldie = None
+        try:
+            oldie = termios.tcgetattr(sys.stdin.fileno())
+        except termios.error:
+            pass
+        try:
+            function(*args)
+        except (KeyboardInterrupt, EOFError):
+            pass
+        except Exception as exc:
+            logging.exception(exc)
+        if oldie:
+            termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, oldie)
+        if dofinal:
+            final()
 
 
-def payload(todo):
-    for cmd, example in todo.items():
-        for ex in example:
-            evt = Event()
-            evt.kind = "command"
-            evt.text = f"{cmd} {ex}"
-            Clients.put(evt)
-            events.put(evt)
+def final():
+    if not Main.verbose:
+        return
+    total = Clients.nrevents
+    endtime = time.time()
+    lap = Time.elapsed(endtime-Time.starttime)
+    percall = (endtime-Time.starttime)/total
+    print(f"{Object.fmt(Main, skip='otxt,txt')}")
+    print(f"cores: {Clients.nrcpu} events: {total}")
+    print(f"total: {lap} nrs: {Clients.nrevents - total} call: %.6fs" % percall)
+    res = ""
+    for client in Clients.clients:
+        res += str(client.queue.qsize()) + " "
+    print(res.strip())
+    print(threading.enumerate())
 
 
 def main():
-    if not Boot.check('p') and os.path.exists(Main.wdr):
+    if e(Main.wdr):
         shutil.rmtree(Main.wdr)
-    if Boot.check("v"):
+    if Runs.check("v"):
         Main.verbose = True
-    if Boot.check("t"):
+    if Runs.check("t"):
         Main.threaded = True
-    Methods.parse(Main, " ".join(sys.argv[1:]))
-    Boot.configure(Main)
-    Main.mods.replace("tmr", "")
-    Boot.scan(Main)
+    Parse.parse(Main, " ".join(sys.argv[1:]))
+    Boot.scanner()
     if Main.threaded:
         Clients.init(os.cpu_count(), CLI)
     else:
         Clients.init(1, CLI)
-    starttime = time.time()
-    nrs = Main.index or 1
+    Runs.nrs = Main.index or 1
     thrs = []
-    for _x in range(nrs):
-        thrs.append(Thread.launch(payload, pre, daemon=True))
+    for _x in range(Runs.nrs):
+        thrs.append(Thread.launch(Runs.payload, pre))
     for thr in thrs:
         thr.join()
     thrs = []
-    for _x in range(nrs):
-        thrs.append(Thread.launch(payload, examples, daemon=True))
+    for _x in range(Runs.nrs):
+        thrs.append(Thread.launch(Runs.payload, examples))
+    for thr in thrs:
+        thr.join()
     thrs = []
+    for _x in range(Runs.nrs):
+        thrs.append(Thread.launch(Runs.payload, post))
     for thr in thrs:
         thr.join()
-    for _x in range(nrs):
-        thrs.append(Thread.launch(payload, post, daemon=True))
-    for thr in thrs:
-        thr.join()
-    nrevents = events.qsize()
-    Thread.launch(consume, daemon=True)
-    try:
-        events.join()
-    except Exception:
-        pass
-    # Boot.shutdown()
-    endtime = time.time()
-    lap = Time.elapsed(endtime-starttime)
-    percall = (endtime-starttime)/nrevents
-    nrs = events.qsize()
-    if Main.verbose:
-        print(f"{Methods.fmt(Main, skip='otxt,txt')}")
-        print(f"cores: {Clients.nrcpu} events: {nrs}")
-        print(f"total: {lap} nrs: {nrevents} call: %.6fs" % percall)
+    Clients.shutdown()
+    while 1:
+        if len(threading.enumerate()) == 1:
+            break
+        time.sleep(0.01)
 
 
 examples = {
@@ -158,7 +197,7 @@ examples = {
     "flt": ["", "0"],
     "fnd": ["", "log", "rss", "config", "todo", 'timers'],
     "lou": [""],
-    "man": ["", "genocide nixtniet@gmail.com Nixt Niet"],
+    "man": ["", "genocide genocideniet@gmail.com Nixt Niet"],
     "mbx": [""],
     "mod": [""],
     "mre": [""],
@@ -212,4 +251,4 @@ post = {
 
 
 if __name__ == "__main__":
-    Boot.wrap(main)
+    Runs.wrap(main, dofinal=final)

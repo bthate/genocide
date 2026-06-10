@@ -7,7 +7,7 @@
 import unittest
 
 
-from nixbot.defines import Client, Message
+from genocide.defines import Client, Message
 
 
 buffer = []

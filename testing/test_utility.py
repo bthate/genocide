@@ -8,13 +8,13 @@ import time
 import unittest
 
 
-from nixbot.utility import Utils
+from genocide.utility import Utils
 
 
 class TestUtils(unittest.TestCase):
 
     def test_pkgname(self):
-        self.assertEqual(Utils.pkgname(Utils), "nixbot")
+        self.assertEqual(Utils.pkgname(Utils), "genocide")
 
     def test_strptime(self):
         date = time.strptime("2019-3-4 22:22", "%Y-%m-%d %H:%M")

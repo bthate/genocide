@@ -7,7 +7,7 @@
 import unittest
 
 
-from nixbot.defines import Workdir
+from genocide.defines import Workdir
 
 
 class TestWorkdir(unittest.TestCase):

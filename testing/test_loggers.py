@@ -7,7 +7,7 @@
 import unittest
 
 
-from nixbot.defines import Logging
+from genocide.defines import Logging
 
 
 class TestLoggers(unittest.TestCase):

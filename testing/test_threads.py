@@ -7,7 +7,7 @@
 import unittest
 
 
-from nixbot.defines import Task
+from genocide.defines import Task
 
 
 def func():

@@ -7,7 +7,7 @@
 import unittest
 
 
-from nixbot.defines import Repeater
+from genocide.defines import Repeater
 
 
 def hello(event):

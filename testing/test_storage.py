@@ -7,7 +7,7 @@
 import unittest
 
 
-from nixbot.defines import Disk
+from genocide.defines import Disk
 
 
 class TestStorage(unittest.TestCase):

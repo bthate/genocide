@@ -7,8 +7,8 @@
 import unittest
 
 
-from nixbot.message import Message
-from nixbot.engines import Engine
+from genocide.message import Message
+from genocide.engines import Engine
 
 
 buffer = []

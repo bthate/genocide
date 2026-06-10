@@ -7,7 +7,7 @@
 import unittest
 
 
-import nixbot.defines as dev
+import genocide.defines as dev
 
 
 class TestDefines(unittest.TestCase):

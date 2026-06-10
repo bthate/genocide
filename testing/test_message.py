@@ -7,7 +7,7 @@
 import unittest
 
 
-from nixbot.message import Message
+from genocide.message import Message
 
 
 class TestMessage(unittest.TestCase):

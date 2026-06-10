@@ -1,3 +1,6 @@
+# This file is placed in the Public Domain.
+
+
 [build-system]
 requires = [
     "setuptools>=43.0.0",
@@ -8,7 +11,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genocide"
-description = "Since 4 March 2019."
+description = "Since 4 March 2019"
 version = "236"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },

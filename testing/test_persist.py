@@ -11,7 +11,7 @@ import unittest
 sys.path.insert(0, ".")
 
 
-from genocide.defines import Disk, Main, Object, Workdir, e, j
+from nixbot.defines import Disk, Main, Object, Workdir, e, j
 
 
 Workdir.wdr = '.test'

@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.defines import Locate
+from nixbot.defines import Locate
 
 
 class TestLocater(unittest.TestCase):

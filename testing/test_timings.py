@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.utility import TIMES
+from nixbot.utility import TIMES
 
 
 class TestTime(unittest.TestCase):

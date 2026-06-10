@@ -7,6 +7,9 @@
 from genocide.defines import Base, Disk
 
 
+whitelist = ['log']
+
+
 class Log(Base):
 
     def __init__(self):
@@ -16,8 +19,8 @@ class Log(Base):
 
 def log(event):
     "log text."
-    if not event.rest:
-        event.reply("log <txt>")
+    if len(event.args) == 0:
+        event.iface("add <txt>")
         return
     obj = Log()
     obj.txt = event.rest

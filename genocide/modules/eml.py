@@ -12,21 +12,14 @@ import time
 from genocide.defines import Base, Disk, Locate, Object, Time, e
 
 
+whitelist = ['eml', 'mbx']
+
+
 class Email(Base):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.text = ""
-
-
-def timed(datestr):
-    "return time from string."
-    if not datestr:
-        return time.time()
-    tme = Time.date(datestr)
-    if not tme:
-        tme = time.time()
-    return tme
 
 
 def eml(event):
@@ -42,21 +35,21 @@ def eml(event):
     args = set(args)
     result = sorted(
                     Locate.find("email", event.gets),
-                    key=lambda x: timed(x[1].Date)
+                    key=lambda x: Time.timed(x[1].Date)
                    )
     if event.index:
         obj = result[event.index]
         if obj:
             obj = obj[-1]
             tme = getattr(obj, "Date", "")
-            diff = time.time = timed(tme)
+            diff = time.time = Time.timed(tme)
             txt = Object.fmt(obj, args, plain=True)
             event.reply(f'{event.index} {txt} {Time.elapsed(diff)}')
     else:
         for _fn, obj in result:
             nrs += 1
             tme = getattr(obj, "Date", "")
-            diff = time.time - timed(tme)
+            diff = time.time - Time.timed(tme)
             txt = Object.fmt(obj, args, plain=True)
             event.reply(f'{nrs} {txt} {Time.elapsed(diff)}')
     if not result:
@@ -66,7 +59,7 @@ def eml(event):
 def mbx(event):
     "import emails from mailbox."
     if not event.args:
-        event.reply("mbx <path>")
+        event.iface("read <path>")
         return
     fnm = os.path.expanduser(event.args[0])
     if not e(fnm):

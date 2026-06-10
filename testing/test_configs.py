@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.defines import Main
+from nixbot.defines import Main
 
 
 class TestConfig(unittest.TestCase):

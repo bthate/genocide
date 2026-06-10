@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.objects import Base, Object
+from nixbot.objects import Base, Object
 
 
 class TestObject(unittest.TestCase):

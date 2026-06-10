@@ -8,7 +8,11 @@ import inspect
 import os
 
 
-from genocide.defines import Commands, Json, Main, Mods, Utils, Workdir, d, j
+from genocide.defines import Commands, Json, Main, Md5, Mods
+from genocide.defines import d, j
+
+
+whitelist = ['srv', 'tbl']
 
 
 def srv(event):
@@ -24,40 +28,31 @@ def srv(event):
                           ))
 
 
-def skl(event):
-    "create directories."
-    Workdir.skel()
-    event.ok()
-
-
 def tbl(event):
     "create table."
+    completions = []
     core = {}
     md5s = {}
-    for name, module in Mods.all():
-        md5s[name] = Utils.md5(module.__file__)
-        Commands.scan(module)
-    corepath = d(inspect.getsourcefile(Commands))
+    for name in Mods.list():
+        module = Mods.get(name)
+        md5s[name] = Md5.md5(module.__file__)
+        for cmd in Commands.getcmds(name):
+            completions.append(f"{name}.{cmd}")
+    corepath = d(inspect.getsourcefile(Mods))
     for path in os.listdir(corepath):
         if path.startswith("__") or not path.endswith(".py") or "statics" in path:
             continue
         name = path[:-3]
-        core[name] = Utils.md5(j(corepath, path))
+        core[name] = Md5.md5(j(corepath, path))
     event.reply("# This file is placed in the Public Domain.")
     event.reply("\n")
     event.reply('"static tables"')
     event.reply("\n")
+    event.reply(f"COMPLETIONS = {Json.dumps(completions, indent=4, sort_keys=True)}")
+    event.reply("\n")
     event.reply(f"CORE = {Json.dumps(core, indent=4, sort_keys=True)}")
-    if Main.admin:
-        event.reply("\n")
-        event.reply(f"MODULES = {Json.dumps(md5s, indent=4, sort_keys=True)}")
-        event.reply("\n")
-        event.reply(f"NAMES = {Json.dumps(Commands.names, indent=4, sort_keys=True)}")
-
-
-def wdr(event):
-    "show working directory."
-    event.reply(Workdir.workdir())
+    event.reply("\n")
+    event.reply(f"MODULES = {Json.dumps(md5s, indent=4, sort_keys=True)}")
 
 
 SYSTEMD = """[Unit]

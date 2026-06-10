@@ -7,6 +7,9 @@
 from genocide.defines import Base, Disk, Locate
 
 
+whitelist = ['dne', 'tdo']
+
+
 class Todo(Base):
 
     def __init__(self):
@@ -17,7 +20,7 @@ class Todo(Base):
 def dne(event):
     "mark todo as done."
     if not event.args:
-        event.reply("dne <txt>")
+        event.iface("<txt>")
         return
     selector = {'txt': event.args[0]}
     nmr = 0
@@ -34,7 +37,7 @@ def dne(event):
 def tdo(event):
     "add a todo."
     if not event.rest:
-        event.reply("tdo <txt>")
+        event.iface("<txt>")
         return
     obj = Todo()
     obj.txt = event.rest

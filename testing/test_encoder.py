@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.defines import Base, Json, Object
+from nixbot.defines import Base, Json, Object
 
 
 VALIDJSON = '{"test": "bla"}'

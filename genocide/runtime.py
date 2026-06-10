@@ -1,21 +1,21 @@
 # This file is placed in the Public Domain.
 
 
-"main program"
+"main"
 
 
 import argparse
 import logging
 import os
+import readline
+import rlcompleter
 import sys
 import time
+import _thread
 
 
-sys.path.insert(0, os.getcwd())
-
-
-from .defines import Boot, Client, Commands, Disk, Event, Log
-from .defines import Main, Mods, Object, Parse, Utils, Workdir
+from .defines import Client, Commands, Logging, Main, Message
+from .defines import Mods, Md5, Object, Utils, Workdir
 
 
 class Arguments:
@@ -25,12 +25,12 @@ class Arguments:
         "parse commandline arguments."
         Main.name = Main.name or Utils.pkgname(Main)
         theparser = argparse.ArgumentParser(
-                                         prog=Main.name,
-                                         description=f'{Main.name.upper()}',
-                                         epilog='use "%(prog)s cmd" for a list of commands.',
-                                         formatter_class=argparse.RawDescriptionHelpFormatter,
-                                         usage='''%(prog)s [-c|d|h|s] [-a] [-v] [-u] [-w] [-l level] [-m m1,m2] [--wdr path]\n       %(prog)s [cmd] [arg=val] [arg==val]'''
-                                        )
+            prog=Main.name,
+            description=f'{Main.name.upper()}',
+            epilog='use "%(prog)s cmd" for a list of commands.',
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            usage='''%(prog)s [-c|-d|-h|-s] [-a] [-v] [-w] [-l level] [-m m1,m2] [-p path]\n       %(prog)s [cmd] [key=val] [key==val]'''
+        )
         group = theparser.add_mutually_exclusive_group()
         group.add_argument("-c", "--console", action="store_true", help="run as console.")
         group.add_argument("-d", "--daemon", action="store_true", help="run as background daemon.")
@@ -39,39 +39,58 @@ class Arguments:
         parser.add_argument("-a", "--all", action="store_true", help="load all modules.")
         parser.add_argument("-v", "--verbose", action='store_true', help='enable verbose.')
         parser.add_argument("-w", "--wait", action='store_true', help='wait for services to start.')
-        parser.add_argument("-u", "--user", action="store_true", help="use local mods directory.")
         optionparser = theparser.add_argument_group()
         optionparser.add_argument("-l", "--level", default=Main.level, help='set loglevel.', metavar="level")
         optionparser.add_argument("-m", "--mods", default="", help='modules to load.', metavar="m1,m2")
-        optionparser.add_argument("-x", "--admin", action="store_true", help="enable admin mode.")
+        optionparser.add_argument("-p", "--path", default="", help='path to working directory.', metavar="path")
         optparser = theparser.add_argument_group()
+        optparser.add_argument("--admin", action="store_true", help="enable admin mode.")
         optparser.add_argument("--check", action="store_false", help=argparse.SUPPRESS)
-        optparser.add_argument("--read", action="store_true", help="read table on start.")
-        optparser.add_argument("--default", default="irc,mdl,rss,wsd", help=argparse.SUPPRESS)
+        optparser.add_argument("--default", default="irc,rss", help=argparse.SUPPRESS)
         optparser.add_argument("--nochdir", action="store_true", help=argparse.SUPPRESS)
-        optparser.add_argument("--wdr", default="", help='set working directory.', metavar="path")
+        optparser.add_argument("--read", action="store_true", help=argparse.SUPPRESS)
+        optparser.add_argument("--user", action="store_true", help="use local mods directory.")
         args, arguments = theparser.parse_known_args()
-        Main.otxt = txt = " ".join(arguments)
+        Main.otxt = " ".join(arguments)
         Object.update(Main, args)
-        Parse.parse(Main, txt)
 
 
-class Console(Client):
+class Completer(rlcompleter.Completer):
 
-    def __init__(self):
-        Client.__init__(self)
-        self.silent = True
+    def __init__(self, options):
+        super().__init__()
+        self.matches = []
+        self.mod = ""
+        self.options = options
 
-    def handle(self, event):
-        "handle event."
-        Commands.command(event)
+    def complete(self, text, state):
+        if state == 0:
+            if text:
+                self.matches = [s for s in Commands.completions if s.startswith(text)]
+            else:
+                self.matches = Commands.completions[:]
+        try:
+            return self.matches[state]
+        except IndexError:
+            return None
 
-    def poll(self):
-        "return event."
-        evt = Event()
-        evt.orig = repr(self)
-        evt.text = input("> ")
+    @staticmethod
+    def enable(modlist=""):
+        completer = Completer(modlist)
+        readline.set_completer(completer.complete)
+        readline.parse_and_bind("tab: complete")
+
+
+class CLI(Client):
+
+    def cmd(self, text):
+        "do command."
+        evt = Message()
         evt.kind = "command"
+        evt.orig = repr(self)
+        evt.text = text
+        Commands.command(evt)
+        evt.wait()
         return evt
 
     def raw(self, text):
@@ -80,56 +99,55 @@ class Console(Client):
         sys.stdout.flush()
 
 
-class Runs:
+class Console(CLI):
+
+    def __init__(self):
+        CLI.__init__(self)
+        self.silent = True
+
+    def handle(self, event):
+        "handle event."
+        Commands.command(event)
+
+    def poll(self):
+        "return event."
+        evt = Message()
+        evt.orig = repr(self)
+        evt.text = input("> ")
+        evt.kind = "command"
+        return evt
+
+
+class Boot:
 
     @classmethod
-    def banner(cls, cfg):
+    def banner(cls):
         "hello"
         tme = time.ctime(time.time()).replace("  ", " ")
         txt = "%s %s since %s %s (%s)" % (
-            cfg.name.upper(),
-            cfg.version,
+            Main.name.upper(),
+            Main.version,
             tme,
-            cfg.level.upper() or "INFO",
-            Boot.core()
+            Main.level.upper() or "INFO",
+            Md5.core()
         )
         print(txt.replace("  ", " "))
         sys.stdout.flush()
 
     @classmethod
-    def boot(cls, cfg):
-        Workdir.wdr = os.path.expanduser(f"~/.{Main.name}")
+    def configure(cls):
+        "configure program."
+        Workdir.wdr = Main.path or os.path.expanduser(f"~/.{Main.name}")
         Mods.add(f"{Main.name}.modules", Utils.moddir())
         Mods.add("modules", Workdir.moddir())
-        if cfg.user:
+        if Main.user:
             Mods.add("mods", "mods")
             Mods.add("other", "other")
-        Log.size(len(Main.name))
-        Log.level(cfg.level or "info")
-        if cfg.read:
-            Disk.read(Main, 'main', "config")
-        if cfg.all:
-            cfg.mods = Mods.list()
-        if cfg.verbose:
-            Runs.banner(cfg)
-        if not Commands.table():
-            Boot.scanner()
-        Boot.table()
-        Mods.table()
-        if cfg.check and cfg.verbose:
-            Boot.check()
-
-    @staticmethod
-    def cmd(text):
-        "do a command."
-        cli = Console()
-        for txt in text.split(" ! "):
-            evt = Event()
-            evt.kind = "command"
-            evt.orig = repr(cli)
-            evt.text = txt
-            Commands.command(evt)
-            evt.wait()
+        Logging.size(len(Main.name))
+        Logging.level(Main.level)
+        Mods.sums()
+        Commands.table()
+        Commands.bork = Main.bork
 
     @classmethod
     def daemon(cls, verbose=False, nochdir=False):
@@ -154,24 +172,45 @@ class Runs:
         os.nice(10)
 
     @classmethod
+    def forever(cls):
+        "run forever until ctrl-c."
+        while True:
+            try:
+                time.sleep(0.01)
+            except (KeyboardInterrupt, EOFError):
+                _thread.interrupt_main()
+
+    @classmethod
+    def privileges(cls):
+        "drop privileges."
+        import getpass
+        import pwd
+        pwnam2 = pwd.getpwnam(getpass.getuser())
+        os.setgid(pwnam2.pw_gid)
+        os.setuid(pwnam2.pw_uid)
+
+    @classmethod
     def wrap(cls, func, *args, final=None):
         "restore console."
         import termios
-        old = None
         try:
             old = termios.tcgetattr(sys.stdin.fileno())
         except termios.error:
-            pass
+            old = False
         try:
             func(*args)
         except (KeyboardInterrupt, EOFError):
-            pass
+            print("")
         except Exception as ex:
             logging.exception(ex)
         if old:
             termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old)
         if final:
             final()
+        readline.set_completer(None)
+
+    init = Mods.init
+    pid = Workdir.pid
 
 
 class Scripts:
@@ -179,21 +218,23 @@ class Scripts:
     @staticmethod
     def background():
         "background script."
-        Runs.daemon(Main.verbose, Main.nochdir)
+        Boot.daemon(Main.verbose, Main.nochdir)
         Boot.privileges()
-        Runs.boot(Main)
-        Boot.writepid(Main.name)
+        Boot.pid(Main.name)
         Boot.init(Main.mods or Main.default)
         Boot.forever()
 
     @staticmethod
     def console():
         "console script."
-        import readline
         readline.redisplay()
-        Runs.boot(Main)
+        if Main.verbose:
+            Boot.banner()
+        if Main.all:
+            Main.mods = ",".join(Mods.list())
         if not Boot.init(Main.mods, Main.wait):
             return
+        Completer.enable(Commands.completions)
         csl = Console()
         csl.start()
         Boot.forever()
@@ -201,17 +242,15 @@ class Scripts:
     @staticmethod
     def control():
         "cli script."
-        Runs.boot(Main)
-        Main.check = False
-        Runs.cmd(Main.otxt)
+        cli = CLI()
+        cli.silent = False
+        cli.cmd(Main.otxt)
 
     @staticmethod
     def service():
         "service script."
         Boot.privileges()
-        Runs.boot(Main)
-        Boot.writepid(Main.name)
-        Runs.banner(Main)
+        Boot.pid(Main.name)
         Boot.init(Main.mods or Main.default)
         Boot.forever()
 
@@ -219,11 +258,16 @@ class Scripts:
 def main():
     "main"
     Arguments.getargs()
+    Boot.configure()
     if Main.daemon:
-        Runs.wrap(Scripts.background)
+        Boot.wrap(Scripts.background)
     elif Main.console:
-        Runs.wrap(Scripts.console)
+        Boot.wrap(Scripts.console)
     elif Main.service:
-        Runs.wrap(Scripts.service)
+        Boot.wrap(Scripts.service)
     else:
-        Runs.wrap(Scripts.control)
+        Boot.wrap(Scripts.control)
+
+
+if __name__ == "__main__":
+    main()

@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.defines import Broker
+from nixbot.defines import Broker
 
 
 class TestBroker(unittest.TestCase):

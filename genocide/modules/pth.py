@@ -1,14 +1,19 @@
 # This file is placed in the Public Domain.
 
 
-"path to website"
+"show path to website"
 
 
-from genocide.defines import d, j
+from genocide.defines import d, e, j
+
+
+whitelist = ['pth']
 
 
 def pth(event):
-    "show path to website."
     path = d(d(__file__))
     path = j(path, "network", "index.html")
-    event.reply(f"file://{path}")
+    if e(path):
+        event.reply(f"file://{path}")
+    else:
+        event.reply("no index.html")

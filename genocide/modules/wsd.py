@@ -10,16 +10,18 @@ import logging
 from random import SystemRandom
 
 
-from genocide.defines import Disk, Event, Locate, Repeater
+from genocide.defines import Clients, Disk, Locate, Message, Repeater
+
+
+whitelist = ['wsd']
 
 
 rand = SystemRandom()
 
 
 def init():
-    "intialize wisdom module."
     state.load()
-    event = Event()
+    event = Message()
     repeater = Repeater(3600,  wsd, event)
     repeater.start()
     logging.warning("%s wise", len(TXTLIST))
@@ -32,13 +34,11 @@ class State:
         self.fnm = ""
 
     def dump(self):
-        "dump state to disk."
         if not self.fnm:
             self.fnm = Locate.first(self) or Disk.ident(self)
         Disk.write(self, self.fnm)
 
     def load(self):
-        "load to disk."
         Locate.first(self)
 
 
@@ -46,7 +46,6 @@ state = State()
 
 
 def wsd(event):
-    "give wisdom quote."
     txt = ""
     if 'seen' not in dir(state):
         state.seen = []
@@ -60,7 +59,7 @@ def wsd(event):
         state.seen = []
         txt = "* reset"
     state.dump()
-    event.reply(txt.strip()[2:])
+    Clients.announce(txt.strip()[2:])
 
 
 TXT = """| wijsheid, wijs !

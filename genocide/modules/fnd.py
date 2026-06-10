@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"locate objects"
+"find objects."
 
 
 import time
@@ -10,20 +10,7 @@ import time
 from genocide.defines import Locate, Object, Time, Workdir
 
 
-def fie(event):
-    "show fields of a type."
-    if not event.rest:
-        res = sorted({x.split('.')[-1].lower() for x in Workdir.kinds()})
-        if res:
-            event.reply(",".join(res))
-        else:
-            event.reply("no types")
-        return
-    itms = Locate.attrs(event.args[0])
-    if not itms:
-        event.reply("no attributes")
-    else:
-        event.reply(",".join(itms))
+whitelist = ["fnd"]
 
 
 def fnd(event):

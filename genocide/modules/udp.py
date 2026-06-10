@@ -15,6 +15,9 @@ import time
 from genocide.defines import Base, Clients, Disk, Main, Thread
 
 
+whitelist = ['udp']
+
+
 def init():
     "initialize udp to irc relay."
     relay = UDP()
@@ -97,7 +100,7 @@ def udp(event):
                          [],
                          0.0
                         )[0]:
-        event.reply("udp <text>")
+        event.iface("<text>")
         return
     size = 0
     while 1:

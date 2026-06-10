@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.statics import CORE
+from nixbot.statics import CORE
 
 
 class TestStatic(unittest.TestCase):

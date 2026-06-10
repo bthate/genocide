@@ -7,10 +7,10 @@
 import unittest
 
 
-from genocide.defines import Log
+from nixbot.defines import Logging
 
 
 class TestLoggers(unittest.TestCase):
 
     def test_dateformat(self):
-        self.assertTrue(Log.datefmt)
+        self.assertTrue(Logging.datefmt)

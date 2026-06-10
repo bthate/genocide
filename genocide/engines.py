@@ -6,7 +6,6 @@
 
 import queue
 import threading
-import time
 
 
 from .threads import Thread
@@ -39,7 +38,6 @@ class Engine:
             event.orig = repr(self)
             self.callback(event)
             self.queue.task_done()
-            time.sleep(0.002)
         self.done.set()
 
     def put(self, event):

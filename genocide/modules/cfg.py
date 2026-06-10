@@ -4,16 +4,19 @@
 "configuration"
 
 
-from genocide.defines import Base, Disk, Mods, Object
+from genocide.defines import Base, Disk, Object, Mods
+
+
+whitelist = ['cfg']
 
 
 def cfg(event):
-    "configure."
+    "configure modules."
     if not event.args:
         mods = f"{'main,' + Mods.has('Config')}"
         if mods.endswith(","):
             mods = mods[:-1]
-        event.reply(f"cfg <{mods}>")
+        event.iface(f"<{mods}>")
         return
     name = event.args[0]
     config = Base()
@@ -25,7 +28,7 @@ def cfg(event):
             return
         config = getattr(mod, "Config", None)
         if not config:
-            event.reply("no configuration found.")
+            event.reply(f"no {name} config found.")
             return
     if not event.sets:
         event.reply(

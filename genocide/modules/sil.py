@@ -7,7 +7,10 @@
 from genocide.defines import Broker
 
 
-def sil(event):
+whitelist = ['lou', 'sil']
+
+
+def lou(event):
     "enable silent mode."
     bot = Broker.get(event.orig)
     if not bot:
@@ -17,7 +20,7 @@ def sil(event):
     event.reply("ok")
 
 
-def lou(event):
+def sil(event):
     "disable silent mode."
     bot = Broker.get(event.orig)
     if not bot:

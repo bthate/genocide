@@ -13,6 +13,9 @@ import time
 from genocide.defines import Base, Broker, Disk, Locate, Object, Thread, Time
 
 
+whitelist = ['tmr']
+
+
 rand = random.SystemRandom()
 
 
@@ -94,7 +97,7 @@ class TimerLoop:
 def tmr(event):
     "add a timer."
     if not event.rest:
-        event.reply("tmr <date> <txt>")
+        event.iface("<date> <txt>")
         return
     todo = Time.extract(event.rest)
     if not todo:

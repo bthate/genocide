@@ -7,13 +7,13 @@
 import unittest
 
 
-from genocide.defines import Base, Disk, Object
+from nixbot.defines import Base, Disk, Object
 
 
-import genocide.objects
+import nixbot.objects
 
 
-TARGET = genocide.objects
+TARGET = nixbot.objects
 
 
 class TestObject(unittest.TestCase):

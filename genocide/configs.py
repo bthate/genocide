@@ -21,6 +21,7 @@ class MainConfig(type):
 
 class Main(metaclass=MainConfig):
 
+    level = "info"
     name = Utils.pkgname(Object)
 
 

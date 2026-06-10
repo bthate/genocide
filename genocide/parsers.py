@@ -1,7 +1,7 @@
 # This file is placed in the Public Domain.
 
 
-"options parsing"
+"option parsing"
 
 
 from .objects import Base, Object
@@ -10,14 +10,15 @@ from .objects import Base, Object
 class Parse:
 
     @staticmethod
-    def parse(obj, text):
-        "parse text for command."
+    def parse(obj, text, clean=False):
+        "parse text for command and arguments."
         data = {
             "args": [],
             "cmd": "",
             "gets": Base(),
             "index": None,
             "init": "",
+            "mod": "",
             "opts": "",
             "otxt": text,
             "rest": "",
@@ -26,7 +27,10 @@ class Parse:
             "text": text
         }
         for k, v in data.items():
-            setattr(obj, k, getattr(obj, k, v) or v)
+            if not clean:
+                setattr(obj, k, getattr(obj, k, v) or v)
+            else:
+                setattr(obj, k, v)
         args = []
         nr = -1
         for spli in text.split():
@@ -51,16 +55,19 @@ class Parse:
                 continue
             nr += 1
             if nr == 0:
-                obj.cmd = spli
+                try:
+                    obj.mod, obj.cmd = spli.split(".")
+                except ValueError:
+                    obj.cmd = spli
                 continue
             args.append(spli)
         if args:
             obj.args = args
-            obj.text = obj.cmd or ""
+            obj.text = obj.mod + " " + obj.cmd
             obj.rest = " ".join(obj.args)
-            obj.text = obj.cmd + " " + obj.rest
+            obj.text = obj.text + " " + obj.rest
         else:
-            obj.text = obj.cmd or ""
+            obj.text = obj.mod + " " + obj.cmd
         Object.notset(obj, obj.sets)
 
 

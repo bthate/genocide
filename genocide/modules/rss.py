@@ -26,6 +26,9 @@ from genocide.defines import Base, Clients, Disk, Locate, Main, Object
 from genocide.defines import Repeater, Thread, Utils, i
 
 
+whitelist = ['atr', 'dpl', 'err', 'exp', 'imp', 'nme', 'rem', 'res', 'rss', 'syn']
+
+
 def init():
     "initialize rss module."
     Runners.init(1, Runner)
@@ -379,10 +382,10 @@ class Helpers:
         return line
 
     @staticmethod
-    def doskip(errors):
+    def doskip(errs):
         "check whether to log."
         for error in Helpers.skip:
-            if error in errors:
+            if error in errs:
                 return True
         return False
 
@@ -516,7 +519,7 @@ class Run:
 def atr(event):
     "show attributes of a feed."
     if not event.rest:
-        event.reply("atr <stringinurl>")
+        event.iface("<stringinurl>")
         return
     for _fnm, obj in Locate.find(Object.fqn(Rss), {'rss': event.rest}):
         request = None
@@ -556,7 +559,7 @@ def atr(event):
 def dpl(event):
     "set feed items to display."
     if len(event.args) < 2:
-        event.reply("dpl <stringinurl> <item1,item2>")
+        event.iface("<stringinurl> <item1,item2>")
         return
     setter = {"display_list": event.args[1]}
     for fnm, feed in Locate.find(Object.fqn(Rss), {"rss": event.args[0]}):
@@ -614,7 +617,7 @@ def exp(event):
 def imp(event):
     "import opml."
     if not event.args:
-        event.reply("imp <filename>")
+        event.iface("<filename>")
         return
     fnm = event.args[0]
     if not i(fnm):
@@ -667,7 +670,7 @@ def nme(event):
     elif len(event.args) == 2:
         name = event.args[1]
     else:
-        event.reply("nme <stringinurl> <name>")
+        event.iface("<stringinurl> <name>")
         return
     selector = {"rss": event.args[0]}
     for fnm, fed in Locate.find(
@@ -685,7 +688,7 @@ def nme(event):
 def rem(event):
     "remove a feed."
     if len(event.args) != 1:
-        event.reply("rem <stringinurl>")
+        event.iface("<stringinurl>")
         return
     for fnm, fed in Locate.find(Object.fqn(Rss)):
         feed = Rss()
@@ -702,7 +705,7 @@ def rem(event):
 def res(event):
     "restore a feed."
     if len(event.args) != 1:
-        event.reply("res <stringinurl>")
+        event.iface("<stringinurl>")
         return
     nrs = 0
     for fnm, fed in Locate.find(
@@ -722,7 +725,7 @@ def res(event):
 def rss(event):
     "add a feed."
     if not event.rest:
-        event.reply("rss <url>")
+        event.iface("<url>")
         return
     url = event.args[0]
     if "http://" not in url and "https://" not in url:

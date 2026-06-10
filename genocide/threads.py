@@ -6,6 +6,7 @@
 
 import inspect
 import logging
+import os
 import queue
 import threading
 import time
@@ -13,6 +14,8 @@ import _thread
 
 
 class Task(threading.Thread):
+
+    bork = False
 
     def __init__(self, func, *args, daemon=True, **kwargs):
         super().__init__(None, self.run, None, (), daemon=daemon)
@@ -51,9 +54,13 @@ class Task(threading.Thread):
             _thread.interrupt_main()
         except Exception as ex:
             logging.exception(ex)
+            logging.debug("%s %s", str(func), self.event)
         if self.event:
             self.event.ready()
-        _thread.interrupt_main()
+        if self.bork:
+            os._exit(1)
+        else:
+            _thread.interrupt_main()
 
 
 class Thread:

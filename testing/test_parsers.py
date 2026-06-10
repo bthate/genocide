@@ -7,7 +7,7 @@
 import unittest
 
 
-from genocide.defines import Base, Parse
+from nixbot.defines import Base, Parse
 
 
 class TestParse(unittest.TestCase):

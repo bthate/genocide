@@ -16,8 +16,8 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.defines import Boot, Buffer, Commands, Engine, Event, Log, Main
-from genocide.defines import Mods, Object, Parse, Thread, Time, Utils, Workdir, e
+from genocide.defines import Buffer, Commands, Engine, Logging, Main, Message, Mods
+from genocide.defines import Object, Parse, Task, Thread, Time, Utils, Workdir, e
 
 
 Main.debug = True
@@ -25,22 +25,23 @@ Main.wdr = ".test"
 Main.user = True
 
 
+Task.bork = True
+Workdir.wdr = Main.wdr
+
+
 Mods.add("modules", Utils.moddir())
 Mods.add("mods", "mods")
 Mods.add("other", "other")
 
 
-Workdir.wdr = Main.wdr
-
-
-Log.level("debug")
+Logging.level("debug")
 
 
 class CLI(Engine, Buffer):
 
     def __init__(self):
-        Engine.__init__(self)
         Buffer.__init__(self)
+        Engine.__init__(self)
         self.register("command", Commands.command)
 
     def raw(self, text):
@@ -108,9 +109,9 @@ class Runs:
     def payload(todo):
         for cmd, example in todo.items():
             for ex in example:
-                evt = Event()
+                evt = Message()
                 evt.kind = "command"
-                evt.text = f"{cmd} {ex}"
+                evt.text = f"{cmd}.{ex}"
                 Clients.put(evt)
 
     @classmethod
@@ -159,7 +160,6 @@ def main():
     if Runs.check("t"):
         Main.threaded = True
     Parse.parse(Main, " ".join(sys.argv[1:]))
-    Boot.scanner()
     if Main.threaded:
         Clients.init(os.cpu_count(), CLI)
     else:
@@ -188,65 +188,62 @@ def main():
 
 
 examples = {
-    "cmd": [""],
-    "dis": [""],
-    "dne": ["", "bla"],
-    "dpl": ["hnrss title,url", ""],
-    "eml": ["", "root@localhost"],
-    "fie": ["", "log", "todo"],
-    "flt": ["", "0"],
-    "fnd": ["", "log", "rss", "config", "todo", 'timers'],
-    "lou": [""],
-    "man": ["", "genocide genocideniet@gmail.com Nixt Niet"],
-    "mbx": [""],
-    "mod": [""],
-    "mre": [""],
-    "nme": ["", "hnrss hackernews"],
-    "now": [""],
-    "pth": [""],
-    "pwd": ["", "bla mekker"],
-    "req": [""],
-    "res": ["", "hnrss"],
-    "sil": [""],
-    "slg": [""],
-    "srv": [""],
-    "thr": [""],
-    "upt": [""],
-    "wsd": [""]
+    "show": [
+        "",
+        "cmd",
+        "flt",
+        "flt 0",
+        "fie",
+        "fie log",
+        "fie todo",
+        'thr',
+        'upt',
+        'ver'
+    ],
+    "eml": ["", "mbx", "mbx ~/25-1-2013", "eml", "eml root@localhost"],
+    "fnd": ["", "fnd log", "fnd todo"],
+    "man": ["", "man genocide nixtniet@gmail.com Nixt Niet"],
+    "mdl": ["", "dis", "now"],
+    "pth": ["", "pth"],
+    "irc": ["", "pwd", "pwd bla mekker"],
+    "req": ["", "req"],
+    "rss": ["", "dpl tittle.link", "nme hnrss hn", "res hnrss", ],
+    "sil": ["", "lou", "sil"],
+    "slg": ["", "slg"],
+    "adm": ["", "srv", "tbl"],
 }
 
 
 pre = {
     "cfg": [
         '',
-        'main',
-        'irc',
-        'rss',
-        'rst',
-        'udp',
-        'web',
-        'main nick=mekker',
-        'irc nick=mekker',
-        'rss nick=mekker',
-        'rst nick=mekker',
-        'udp nick=mekker',
-        'web nick=mekker'
+        'cig main',
+        'cfg irc',
+        'cfg rss',
+        'cfg rst',
+        'cfg udp',
+        'cfg web',
+        'cfg main nick=mekker',
+        'cfg irc nick=mekker',
+        'cfg rss nick=mekker',
+        'cfg rst nick=mekker',
+        'cfg udp nick=mekker',
+        'cfg web nick=mekker'
     ],
     "imp": [
         "",
         "testing/opml/feeds.opml",
     ],
-    "log": ["", "test"],
-    "rss": ["", "http://hnrss.org/newest"],
-    "tdo": ["", "test2"],
-    "tmr": ["", "22:00 test"],
+    "log": ["", "log test"],
+    "rss": ["", "rss http://hnrss.org/newest"],
+    "tdo": ["", "tdo test2"],
+    "tmr": ["", "tmr 22:00 test"],
 }
 
 post = {
     "dbg": [""],
-    "dne": ["", "mekker"],
-    "exp": [""],
-    "rem": ["", "hnrss"]
+    "tdo": ["done mekker"],
+    "rss": ["exp", "rem hnrss"],
 }
 
 

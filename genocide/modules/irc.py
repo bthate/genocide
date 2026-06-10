@@ -15,7 +15,10 @@ import _thread
 
 
 from genocide.defines import Base, Broker, Buffered, Commands, Disk, Engine
-from genocide.defines import Event, Main, Object, Thread, Utils
+from genocide.defines import Main, Message, Mods, Object, Thread, Utils
+
+
+whitelist = ['pwd']
 
 
 def init():
@@ -41,7 +44,7 @@ def shutdown():
 
 class Config(Base):
 
-    name = Main.name or Utils.pkgname(Commands)
+    name = Main.name or Utils.pkgname(Mods)
     channel = f"#{name}"
     commands = True
     control = "!"
@@ -59,7 +62,7 @@ class Config(Base):
     version = 1
 
 
-class IEvent(Event):
+class Event(Message):
 
     def __init__(self):
         super().__init__()
@@ -319,7 +322,7 @@ class IRC(Engine, Buffered):
         rawstr = rawstr.replace("\u0001", "")
         rawstr = rawstr.replace("\001", "")
         self.rlog(txt)
-        obj = IEvent()
+        obj = Event()
         obj.args = []
         obj.rawstr = rawstr
         obj.command = ""
@@ -459,7 +462,7 @@ class IRC(Engine, Buffered):
 
     def say(self, channel, text):
         "say text in the channel."
-        event = IEvent()
+        event = Event()
         event.channel = channel
         event.reply(text)
         self.oput(event)
@@ -608,3 +611,18 @@ def cb_quit(evt):
     bot.state.error = evt.text
     if evt.orig and evt.orig in bot.zelf:
         bot.stop()
+
+
+def pwd(event):
+    "generate sasl password."
+    if len(event.args) != 2:
+        event.iface("pwd <nick> <password>")
+        return
+    import base64
+    arg1 = event.args[0]
+    arg2 = event.args[1]
+    txt = f"\x00{arg1}\x00{arg2}"
+    enc = txt.encode("ascii")
+    base = base64.b64encode(enc)
+    dcd = base.decode("ascii")
+    event.reply(dcd)

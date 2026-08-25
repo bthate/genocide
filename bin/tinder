@@ -5,7 +5,6 @@
 "stress test"
 
 
-import logging
 import os
 import shutil
 import sys
@@ -16,236 +15,192 @@ import time
 sys.path.insert(0, os.getcwd())
 
 
-from genocide.defines import Buffer, Commands, Engine, Logging, Main, Message, Mods
-from genocide.defines import Object, Parse, Task, Thread, Time, Utils, Workdir, e
+from genocide.defines import Boot, Client, Commands, Main, Message
+from genocide.defines import Method, Mods, Parse, Time, Workdir
 
 
-Main.debug = True
-Main.wdr = ".test"
-Main.user = True
+Workdir.wdr = ".test"
 
 
-Task.bork = True
-Workdir.wdr = Main.wdr
+class Kernel(Boot):
+
+    nrevents = 0
+    starttime = 0
+
+    @classmethod
+    def boot(cls):
+        Parse.parse(Main, " ".join(sys.argv[1:]))
+        cls.configure(Main)
+        Mods.dir("examples")
+        Mods.dir(Mods.moddir())
+        Commands.scanner()
+        if os.path.exists(Workdir.wdr):
+            shutil.rmtree(Workdir.wdr)
+
+    @classmethod
+    def wrap(cls, func, *args, dofinal=None):
+        "restore console."
+        import termios
+        try:
+            old = termios.tcgetattr(sys.stdin.fileno())
+        except termios.error:
+            old = False
+        cls.wrapped(func, *args)
+        if old:
+            termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, old)
+        if dofinal:
+            dofinal()
 
 
-Mods.add("modules", Utils.moddir())
-Mods.add("mods", "mods")
-Mods.add("other", "other")
-
-
-Logging.level("debug")
-
-
-class CLI(Engine, Buffer):
+class CLI(Client):
 
     def __init__(self):
-        Buffer.__init__(self)
-        Engine.__init__(self)
+        Client.__init__(self)
         self.register("command", Commands.command)
 
     def raw(self, text):
-        if Main.verbose:
+        "write to console."
+        if "v" in Main.opts:
             print(text.encode('utf-8', 'replace').decode("utf-8"))
             sys.stdout.flush()
 
 
-class Clients:
+class Runners:
 
-    clients = []
+    runners = []
     lock = threading.RLock()
-    last = 0
-    nrevents = 0
     nrcpu = 1
-
-    @classmethod
-    def add(cls, client):
-        cls.clients.append(client)
-
-    @classmethod
-    def init(cls, nr, client):
-        with cls.lock:
-            cls.nrcpu = nr
-            for _x in range(Clients.nrcpu):
-                clt = client()
-                clt.start()
-                cls.add(clt)
-
-    @classmethod
-    def put(cls, *args):
-        with cls.lock:
-            if cls.last >= cls.nrcpu:
-                cls.last = 0
-            cls.clients[cls.last].put(*args)
-            cls.last += 1
-            cls.nrevents += 1
-
-    @classmethod
-    def shutdown(cls):
-        for client in cls.clients:
-            client.wait()
-        time.sleep(0.01)
-        for client in cls.clients:
-            client.stop()
-        time.sleep(0.01)
-
-
-class Runs:
-
-    nrs = 0
+    nrlast = 0
 
     @staticmethod
-    def check(opts):
-        "check for command line options."
-        for arg in sys.argv:
-            if not arg.startswith("-"):
-                continue
-            for opt in opts:
-                if opt in arg:
-                    return True
-        return False
+    def add(client):
+        "add a runner."
+        Runners.runners.append(client)
 
     @staticmethod
-    def payload(todo):
-        for cmd, example in todo.items():
-            for ex in example:
-                evt = Message()
-                evt.kind = "command"
-                evt.text = f"{cmd}.{ex}"
-                Clients.put(evt)
+    def init(nrcpu, cls):
+        "initialize a runner."
+        Runners.nrcpu = nrcpu
+        for _x in range(Runners.nrcpu):
+            clt = cls()
+            clt.start()
+            Runners.add(clt)
 
-    @classmethod
-    def wrap(cls, function, *args, dofinal=None):
-        "restore console."
-        import termios
-        oldie = None
-        try:
-            oldie = termios.tcgetattr(sys.stdin.fileno())
-        except termios.error:
-            pass
-        try:
-            function(*args)
-        except (KeyboardInterrupt, EOFError):
-            pass
-        except Exception as exc:
-            logging.exception(exc)
-        if oldie:
-            termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, oldie)
-        if dofinal:
-            final()
+    @staticmethod
+    def put(*args):
+        "push job to a runner."
+        if not Runners.runners:
+            Runners.init(Runners.nrcpu, CLI)
+        with Runners.lock:
+            if Runners.nrlast >= Runners.nrcpu-1:
+                Runners.nrlast = 0
+            clt = Runners.runners[Runners.nrlast]
+            clt.put(*args)
+            Runners.nrlast += 1
+
+
+def payload(todo):
+    for cmd, example in todo.items():
+        for ex in example:
+            Kernel.nrevents += 1
+            evt = Message()
+            evt.kind = "command"
+            evt.text = f"{cmd} {ex}"
+            Runners.put(evt)
 
 
 def final():
-    if not Main.verbose:
+    if "v" not in Main.opts:
         return
-    total = Clients.nrevents
+    total = Kernel.nrevents
     endtime = time.time()
-    lap = Time.elapsed(endtime-Time.starttime)
-    percall = (endtime-Time.starttime)/total
-    print(f"{Object.fmt(Main, skip='otxt,txt')}")
-    print(f"cores: {Clients.nrcpu} events: {total}")
-    print(f"total: {lap} nrs: {Clients.nrevents - total} call: %.6fs" % percall)
-    res = ""
-    for client in Clients.clients:
-        res += str(client.queue.qsize()) + " "
-    print(res.strip())
+    lap = Time.elapsed(endtime-Kernel.starttime)
+    percall = (endtime-Kernel.starttime)/total
+    print(f"{Method.fmt(Main, skip='otxt,txt')}")
+    print(f"events: {total}")
+    print(f"total: {lap} nrs: {Kernel.nrevents} call: %.6fs" % percall)
     print(threading.enumerate())
 
 
 def main():
-    if e(Main.wdr):
-        shutil.rmtree(Main.wdr)
-    if Runs.check("v"):
-        Main.verbose = True
-    if Runs.check("t"):
-        Main.threaded = True
-    Parse.parse(Main, " ".join(sys.argv[1:]))
-    if Main.threaded:
-        Clients.init(os.cpu_count(), CLI)
+    Kernel.boot()
+    if "t" in Main.opts:
+        nrcpu = os.cpu_count()
     else:
-        Clients.init(1, CLI)
-    Runs.nrs = Main.index or 1
-    thrs = []
-    for _x in range(Runs.nrs):
-        thrs.append(Thread.launch(Runs.payload, pre))
-    for thr in thrs:
-        thr.join()
-    thrs = []
-    for _x in range(Runs.nrs):
-        thrs.append(Thread.launch(Runs.payload, examples))
-    for thr in thrs:
-        thr.join()
-    thrs = []
-    for _x in range(Runs.nrs):
-        thrs.append(Thread.launch(Runs.payload, post))
-    for thr in thrs:
-        thr.join()
-    Clients.shutdown()
-    while 1:
-        if len(threading.enumerate()) == 1:
-            break
-        time.sleep(0.01)
+        nrcpu = 1
+    Runners.init(nrcpu, CLI)
+    Kernel.starttime = time.time()
+    nrs = Main.index or 1
+    for _x in range(nrs):
+        payload(pre)
+    for _x in range(nrs):
+        payload(examples)
+    for _x in range(nrs):
+        payload(post)
+    Kernel.shutdown()
 
 
 examples = {
-    "show": [
-        "",
-        "cmd",
-        "flt",
-        "flt 0",
-        "fie",
-        "fie log",
-        "fie todo",
-        'thr',
-        'upt',
-        'ver'
-    ],
-    "eml": ["", "mbx", "mbx ~/25-1-2013", "eml", "eml root@localhost"],
-    "fnd": ["", "fnd log", "fnd todo"],
-    "man": ["", "man genocide nixtniet@gmail.com Nixt Niet"],
-    "mdl": ["", "dis", "now"],
-    "pth": ["", "pth"],
-    "irc": ["", "pwd", "pwd bla mekker"],
-    "req": ["", "req"],
-    "rss": ["", "dpl tittle.link", "nme hnrss hn", "res hnrss", ],
-    "sil": ["", "lou", "sil"],
-    "slg": ["", "slg"],
-    "adm": ["", "srv", "tbl"],
+    "cmd": [""],
+    "dis": [""],
+    "dpl": ["", "tittle.link"],
+    "eml": ["", "root@localhost"],
+    "flt": ["", "0"],
+    "fnd": ["", "log", "todo"],
+    "fie": ["", "log", "todo"],
+    "lou": [""],
+    "mbx": ["", "~/25-1-2013"],
+    "man": ["", "nixbot nixtniet@gmail.com Nixt Niet"],
+    "nme": ["", "hnrss hn"],
+    "now": [""],
+    "pth": [""],
+    "pwd": ["", "bla mekker"],
+    "req": [""],
+    "res": ["", "hnrss"],
+    "sil": [""],
+    "slg": [""],
+    "srv": [""],
+    "tbl": [""],
+    'thr': [""],
+    'upt': [""],
+    'ver': [""],
 }
 
 
 pre = {
     "cfg": [
         '',
-        'cig main',
-        'cfg irc',
-        'cfg rss',
-        'cfg rst',
-        'cfg udp',
-        'cfg web',
-        'cfg main nick=mekker',
-        'cfg irc nick=mekker',
-        'cfg rss nick=mekker',
-        'cfg rst nick=mekker',
-        'cfg udp nick=mekker',
-        'cfg web nick=mekker'
+        'main',
+        'irc',
+        'rss',
+        'rst',
+        'udp',
+        'web',
+        'main nick=mekker',
+        'irc nick=mekker',
+        'rss nick=mekker',
+        'rst nick=mekker',
+        'udp nick=mekker',
+        'web nick=mekker'
     ],
     "imp": [
         "",
         "testing/opml/feeds.opml",
     ],
-    "log": ["", "log test"],
-    "rss": ["", "rss http://hnrss.org/newest"],
-    "tdo": ["", "tdo test2"],
-    "tmr": ["", "tmr 22:00 test"],
+    "log": ["", "test"],
+    "rss": ["", "http://hnrss.org/newest", "https://www.icc-cpi.int/rss/records/all"],
+    "tdo": ["", "test2"],
+    "tmr": ["", "22:00 test"]
 }
+
 
 post = {
     "dbg": [""],
-    "tdo": ["done mekker"],
-    "rss": ["exp", "rem hnrss"],
+    "dne": ["", "mekker"],
+    "exp": [""],
+    "rem": ["", "rem hnrss"]
 }
 
 
 if __name__ == "__main__":
-    Runs.wrap(main, dofinal=final)
+    Kernel.wrap(main, dofinal=final)

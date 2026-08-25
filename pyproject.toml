@@ -36,6 +36,14 @@ classifiers = [
 "source" = "https://github.com/bthate/genocide"
 
 
+[tool.pylint."messages control"]
+disable = ["C,R,W,E0401,E0402"]
+
+
+[tool.ruff.lint]
+ignore = ["E402", "E501", "E701", "E702"]
+
+
 [tool.setuptools]
 packages = [
     'genocide',
@@ -55,3 +63,5 @@ include-package-data = true
 "genocide.network.pdf"     = ["*"]
 "genocide.network._images" = ["*"]
 "genocide.network._static" = ["*"]
+
+

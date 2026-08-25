@@ -5,11 +5,12 @@
 
 
 import argparse
+import os
 import sys
 
 
 from .defines import Boot, Client, Cmd, Commands, Data, Main, Message
-from .defines import Method, Mods, Workdir
+from .defines import Method, Mods, Utils, Workdir
 
 
 class Arguments:
@@ -29,6 +30,7 @@ class Arguments:
         optionparser.add_argument("-m", "--mods", default="", help='modules to load.', metavar="m1,m2")
         optionparser.add_argument("-n", "--name", default="genocide", help="name of the program.")
         optionparser.add_argument("-p", "--path", default="", help='path to modules directory.', metavar="path")
+        optionparser.add_argument("-u", "--user", action='store_true', help='enable user mode.')
         optionparser.add_argument("-v", "--verbose", action='store_true', help='enable verbose.')
         optparser = theparser.add_argument_group()
         optparser.add_argument("--admin", action='store_true', help="enable admin mode.")
@@ -47,8 +49,10 @@ class Kernel(Boot):
     def boot(cls):
         Arguments.getargs()
         cls.configure(Main)
-        Mods.dir(Mods.moddir())
         Mods.dir(Workdir.moddir())
+        Mods.dir(os.path.join(Utils.where(Kernel), "minimal"))
+        if Main.sets.user:
+            Mods.dir(Mods.moddir())
         Commands.add(Cmd.cmd)
         if Main.sets.all:
             Main.sets.mods = ",".join(Mods.list())

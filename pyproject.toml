@@ -47,21 +47,20 @@ ignore = ["E402", "E501", "E701", "E702"]
 [tool.setuptools]
 packages = [
     'genocide',
+    'genocide.minimal',
     'genocide.mirrors',
     'genocide.modules',
-    'genocide.network',
-    'genocide.network',
-    'genocide.network.pdf',
-    'genocide.network._static',
-    'genocide.network._images'
+    'genocide.numbers',
+    'genocide.numbers',
+    'genocide.numbers.pdf',
+    'genocide.numbers._static',
+    'genocide.numbers._images'
 ]
 include-package-data = true
 
 
 [tool.setuptools.package-data]
-"genocide.network"         = ["*"]
-"genocide.network.pdf"     = ["*"]
-"genocide.network._images" = ["*"]
-"genocide.network._static" = ["*"]
-
-
+"genocide.numbers"         = ["*"]
+"genocide.numbers.pdf"     = ["*"]
+"genocide.numbers._images" = ["*"]
+"genocide.numbers._static" = ["*"]

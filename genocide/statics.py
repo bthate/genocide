@@ -6,12 +6,12 @@
 
 CORE = {
     "booting": "2edf1cefde5ab25d23687d22459016cd",
-    "brokers": "bf614fd92d3268216c853bbb08a57b03",
+    "brokers": "fb969d03c23dacd925eb4acad8d2a5d3",
     "clients": "9bd824df44ceeeaf73134e38f8177669",
-    "command": "f32195caf74094d583d25393c09a8954",
+    "command": "937de1c33d195330eb1d312775fee576",
     "configs": "55373ef42c73f1df77f0a29755fe6027",
-    "daemons": "0242599fa838682206c2d07878854a18",
-    "defines": "01e3c2c92e91f3c02428ef5a03d87fcd",
+    "daemons": "fb64a3b6ae47623ed0fe70f8b8496fd7",
+    "defines": "26bb19465bc1c9cdd82ad192696238a0",
     "encoder": "7c7f68bbcdc0bd9955c0acf70a9b4d7c",
     "engines": "767e741a9e84f56cdb1b68c979a6b584",
     "hashing": "1b7cb34eaff614661f28ad870299ba98",
@@ -19,22 +19,35 @@ CORE = {
     "methods": "dc4c2e41f7a6cf82584e8119ee6725fa",
     "objects": "529a55e137b6f5bd5908fdcdd1049d86",
     "outputs": "b7edddf1249f1be8b9e568379479948f",
-    "package": "9f9cdb835d0f58a50daca0dd750df137",
+    "package": "735391ebcc69cf62335eb8a4fbc75eda",
     "parsers": "cc9923d5e2e0aab885247a530ac0970c",
     "persist": "49e11f383821f99816f40c5bf2e304d6",
-    "repeats": "eaec4feccb68aea97288b5729d710454",
+    "repeats": "82c2d2a922b8e7d6c8a0fa5d48bf5ce7",
     "require": "53ae8d308fceff8dab77fc89f86f7eef",
-    "runtime": "cfe014f5afec5639b80283be5661a41c",
-    "threads": "2fcb5ceb0fa336dd7208297fc23e17b0",
+    "runtime": "59557cee238410600f3f06658d54ed6f",
+    "threads": "89d6c338a08271a7ce8f21e624ce9fe6",
     "timings": "3779158dd2a2f280d403717c7ea75886",
     "utility": "370494b1ecafd52182d8ad2a1192f866"
 }
 
 
-MODULES = {}
+MODULES = {
+    "mdl": "6e3368b0f7cf605e9addbb67fee4c8d0",
+    "pth": "3067097a3f2fe46facc9920fac04bd00",
+    "req": "bc1984d2e9de0310dc1b468f25c7ab8c",
+    "slg": "e68f11973ddc2e3edeb0de0e16e9fe7a",
+    "ver": "232df33c5aab9214146ac3cf2ce6df63"
+}
 
 
-NAMES = {}
+NAMES = {
+    "dis": "mdl",
+    "now": "mdl",
+    "pth": "pth",
+    "req": "req",
+    "slg": "slg",
+    "ver": "ver"
+}
 
 
 def __dir__():

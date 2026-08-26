@@ -13,9 +13,9 @@
 >>> o = Object()
 >>> repr(o) # doctest: +ELLIPSIS
 '<genocide.objects.Object object at ...'
->>> id = b.add(o)
->>> print(id) # doctest: +ELLIPSIS
+>>> oid = b.add(o)
+>>> print(oid) # doctest: +ELLIPSIS
 <genocide.objects.Object object at ...>
->>> obj = b.get(id)
->>> repr(obj) == id
+>>> obj = b.get(oid)
+>>> repr(obj) == oid
 True

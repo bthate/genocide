@@ -5,12 +5,11 @@
 
 
 import argparse
-import os
 import sys
 
 
 from .defines import Boot, Client, Cmd, Commands, Data, Main, Message
-from .defines import Method, Mods, Utils, Workdir
+from .defines import Method, Mods, Workdir
 
 
 class Arguments:
@@ -50,7 +49,7 @@ class Kernel(Boot):
         Arguments.getargs()
         cls.configure(Main)
         Mods.dir(Workdir.moddir())
-        Mods.dir(os.path.join(Utils.where(Kernel), "minimal"))
+        Mods.dir(Mods.minimal())
         if Main.sets.user:
             Mods.dir(Mods.moddir())
         Commands.add(Cmd.cmd)
@@ -58,7 +57,7 @@ class Kernel(Boot):
             Main.sets.mods = ",".join(Mods.list())
         if Main.sets.admin:
             Commands.add(Cmd.tbl)
-        if Main.sets.scanner or Main.sets.all:
+        if Main.sets.scanner or Main.sets.user or Main.sets.all:
             Commands.scanner()
         else:
             Commands.table()

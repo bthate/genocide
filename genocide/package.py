@@ -87,7 +87,6 @@ class Mods:
         "return package minimal path."
         return os.path.join(Utils.where(Mods), "minimal")
 
-
     @classmethod
     def moddir(cls):
         "return package modules path."

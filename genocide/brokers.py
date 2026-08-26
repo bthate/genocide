@@ -16,7 +16,7 @@ class Broker:
         "add object to the broker, key is repr(obj)."
         oid = repr(obj)
         cls.objects[oid] = obj
-        return id
+        return oid
 
     @classmethod
     def get(cls, origin):

@@ -10,7 +10,7 @@ CORE = {
     "clients": "9bd824df44ceeeaf73134e38f8177669",
     "command": "937de1c33d195330eb1d312775fee576",
     "configs": "55373ef42c73f1df77f0a29755fe6027",
-    "daemons": "fb64a3b6ae47623ed0fe70f8b8496fd7",
+    "daemons": "499c578e38cadc0a6fb4f005e858944d",
     "defines": "26bb19465bc1c9cdd82ad192696238a0",
     "encoder": "7c7f68bbcdc0bd9955c0acf70a9b4d7c",
     "engines": "767e741a9e84f56cdb1b68c979a6b584",
@@ -24,7 +24,7 @@ CORE = {
     "persist": "49e11f383821f99816f40c5bf2e304d6",
     "repeats": "82c2d2a922b8e7d6c8a0fa5d48bf5ce7",
     "require": "53ae8d308fceff8dab77fc89f86f7eef",
-    "runtime": "05c18a35eb0136185a6af251beb275db",
+    "runtime": "fd61caa2c505c1d381eda8b97cae7262",
     "threads": "89d6c338a08271a7ce8f21e624ce9fe6",
     "timings": "3779158dd2a2f280d403717c7ea75886",
     "utility": "370494b1ecafd52182d8ad2a1192f866"

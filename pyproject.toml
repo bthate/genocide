@@ -28,6 +28,7 @@ classifiers = [
 
 [project.scripts]
 "genocide" = "genocide.runtime:main"
+"genocided" = "genocide.daemons:main"
 
 
 [project.urls]

@@ -12,7 +12,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "genocide"
 description = "Since 4 March 2019"
-version = "236"
+version = "237"
 authors = [
     {name = "Bart Thate", email = "bthate@dds.nl" },
 ]
@@ -28,7 +28,6 @@ classifiers = [
 
 [project.scripts]
 "genocide" = "genocide.runtime:main"
-"genocided" = "genocide.daemons:main"
 
 
 [project.urls]

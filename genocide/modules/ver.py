@@ -4,9 +4,10 @@
 "show version"
 
 
-from genocide.defines import Main, Md5
+from genocide.defines import MD5
+from genocide.defines import Main
 
 
-def ver(event):
+def ver(msg):
     "show verson."
-    event.reply(f"{Main.name.upper()} {Md5.core()}")
+    msg.reply(f"{Main.name.upper()} {MD5.core()}")

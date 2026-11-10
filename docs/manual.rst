@@ -56,9 +56,6 @@
 
 **INSTALL**
 
-
-    installation is done with pipx
-
     | ``$ pipx install genocide``
     | ``$ pipx ensurepath``
     |
@@ -76,8 +73,6 @@
 
 **COMMANDS**
 
-    here is a list of available commands
-
     | ``cmd`` - commands
     | ``dis`` - show deaths by disease
     | ``now`` - show genocide stats of today
@@ -88,7 +83,7 @@
 
 **SOURCE**
 
-    source is at `https://github.com/bthate/genocide <https://github.com/bthate/genocide>`_
+    | source is at `https://github.com/bthate/genocide <https://github.com/bthate/genocide>`_
     
 
 **FILES**

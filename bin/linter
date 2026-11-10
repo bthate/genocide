@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# This file is placed in the Public Domain.
+# This file is placed in the Public DOmain.
 
 
 "run linters"
@@ -12,7 +12,7 @@ import sys
 NAME = "genocide"
 
 
-SKIP = ["--", "Your", "All"]
+SKIP = ["---", "Your", "All", "Success"]
 
 
 def doskip(line):
@@ -31,6 +31,8 @@ def popen(txt):
         sys.stdout.flush()
 
 
-popen(f"ruff check {NAME} bin/tinder testing")
-popen(f"pylint {NAME} bin/tinder testing")
-popen(f"flake8 {NAME} bin/tinder testing")
+popen(f"ruff check {NAME} bin/tinder")
+popen(f"pylint {NAME} bin/tinder")
+popen(f"mypy -p {NAME}")
+popen(f"ty check {NAME}")
+popen("bin/tinder")

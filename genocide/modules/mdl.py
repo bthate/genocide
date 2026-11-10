@@ -94,7 +94,7 @@ def getnr(nme):
     "return number of cases."
     for key in oorzaken:
         if nme.lower() in key.lower():
-            return int(oorzaken.get(key))
+            return oorzaken.get(key)
     return 0
 
 

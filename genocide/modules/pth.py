@@ -7,7 +7,7 @@
 import os
 
 
-from genocide.defines import Main, Mods
+from genocide.defines import Mods
 
 
 def pth(msg):

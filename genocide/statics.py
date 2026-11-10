@@ -32,8 +32,8 @@ CORE = {
 
 
 MODULES = {
-    "mdl": "f73a607e6e111df6a62138bdb4b92284",
-    "pth": "0bedd513c1c4ad06c01a52c3ab91d330",
+    "mdl": "1e58c95a55b868864c4431e9a9a41c0d",
+    "pth": "8ba03161c944b79cdda35b2da6f42416",
     "req": "619556083bb7657227ee0f9a96b62588",
     "slg": "a3fa59a370d28f5cca787e2fba6032f3",
     "ver": "582dd6bdf1cb9114c8cefd85b2b45d45"
